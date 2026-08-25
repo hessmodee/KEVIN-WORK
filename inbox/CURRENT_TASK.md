@@ -1,11 +1,9 @@
-# Current task · 2026-08-25T21:00Z
+# Current task · 2026-08-25T21:05Z
 
 **One action. Then stop.**
 
-Write-proof layer (no isolate report yet).
+Write-proof complete (OK-WRITE on disk).
 
-If `reports/tool-write-test.txt` does not contain exactly `OK-WRITE`:
+Next layer: wait for isolate report, or if present advance to exec helper_append_daily_note.py.
 
-- Write that file now. Contents: `OK-WRITE` and nothing else.
-
-Then stop. Do not start a second task. Do not pull models. Do not send email.
+Do not start a second task. Do not pull models. Do not send email.
