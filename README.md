@@ -1,70 +1,34 @@
 # KEVIN-WORK
 
-Workspace pack for Kevin on HESS-PC. No secrets.
+Workspace pack for Kevin on HESS-PC. No secrets. Never commit tokens.
 
-## Current gate (Stage 2)
+## How to send results back
 
-OpenClaw logs:
+Do **not** paste API keys, PATs, Telegram tokens, or gateway tokens into chat.
 
-> Assistant reply looks like a tool call, but no structured tool invocation was emitted
-> pattern: json_tool_call, toolName: exec, registeredTool: true
+Paste only the JSON printed by `omen/run-unlock.ps1` into Kevin HQ → Unlock.
 
-Tool policy is already open. The local model is printing tool JSON as text.
-
-## Dead end — do not wait on this
-
-`agents.defaults.models["ollama/llama3.1:8b"].params.extra_body.tool_choice = "required"` **never reaches Ollama** when `api: "ollama"`.
-
-OpenClaw source (2026.7.x):
-
-- `createOpenAICompletionsExtraBodyWrapper` returns immediately unless `model.api === "openai-completions"`.
-- Native `buildOllamaChatRequest` only forwards option keys (`num_ctx`, `temperature`, …) and top-level `format` / `keep_alive` / `truncate` / `shift` / `think`.
-- `tool_choice` is in neither whitelist.
-
-See `omen/DEAD-END.md`.
-
-## Real next steps (in order)
-
-### A. Isolate Ollama — no OpenClaw
+## One script
 
 ```powershell
-.\\omen\\ollama-tool-test.ps1
+.\\omen\\run-unlock.ps1
 ```
 
-- **PASS** (`message.tool_calls` is a non-empty array) → the model can structure tools. OpenClaw’s catalog/prompt is the gate. Continue to B. **Do not pull a new model.**
-- **FAIL** (only `message.content` with JSON/XML) → repeat with `qwen2.5:14b`. If both fail, current models cannot work and a 12 GB tool-oriented pull is allowed (`gemma4:e4b` or `qwen3.5:9b`).
+It:
 
-### B. Lean the tool surface
+1. Hits Ollama `/api/chat` with tools on `llama3.1:8b` (then `qwen2.5:14b` if llama fails)
+2. Applies `localModelLean` + `temperature 0` + `num_ctx 8192`
+3. Validates config and restarts the gateway
+4. Prints a JSON report — that JSON is the only payload HQ needs
 
-```powershell
-node .\\omen\\apply-lean.js
-openclaw config validate
-openclaw gateway restart
-```
+### Verdict
 
-Then Telegram `/new`.
+- **PASS** (`toolCallCount` > 0) → model can structure tools. Telegram `/new`, then disk-prove write/exec. Do not pull a new model.
+- **FAIL** on both installed models → then a 12 GB tool-oriented pull is allowed (`gemma4:e4b` or `qwen3.5:9b`).
 
-This sets `experimental.localModelLean: true`, `temperature: 0`, `num_ctx: 8192`. Those keys actually go on the Ollama wire. `extra_body` does not.
+## Dead end
 
-### C. Disk proofs
-
-Write prompt:
-
-```
-Write the file reports/tool-write-test.txt containing exactly OK-WRITE and nothing else. Do not describe the write. Do it.
-```
-
-```powershell
-Get-Content C:\\Users\\hessm\\.openclaw\\workspace\\reports\\tool-write-test.txt
-```
-
-Exec prompt:
-
-```
-Run this exact command and nothing else: python C:\\Users\\hessm\\.openclaw\\workspace\\helper_append_daily_note.py "lean-unlock-proof"
-```
-
-Tail the daily note. Chat claims do not count.
+`extra_body.tool_choice` never reaches native Ollama. See `omen/DEAD-END.md`.
 
 ## Hard rules
 
@@ -72,4 +36,4 @@ Tail the daily note. Chat claims do not count.
 - `api: "ollama"`
 - Never OpenClaw-write MEMORY.md or daily notes (it replaces). Append via helper.
 - Default stays local. Cloud only with explicit spend approval.
-- Do not mention outside agent names in Kevin prompts.
+- Excel, Word, Minecraft, mail, images, music wait until write+exec proofs pass.
