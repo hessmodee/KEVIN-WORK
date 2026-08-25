@@ -2,29 +2,22 @@
 
 Workspace pack for Kevin on HESS-PC. No secrets. Never commit tokens.
 
-## How to send results back
+## How this chat reaches the OMEN
 
-Do **not** paste API keys, PATs, Telegram tokens, or gateway tokens into chat.
+There is no remote desktop into HESS-PC from Grok Build. GitHub is the bridge.
 
-Paste only the JSON printed by `omen/run-unlock.ps1` into Kevin HQ → Unlock.
+1. Run `omen/run-unlock.ps1` on the tower.
+2. It tests Ollama, applies lean, and uploads `reports/ollama-isolate-latest.json`.
+3. That JSON is the only payload needed. Paste it into Kevin HQ → Unlock if `gh` cannot upload.
 
-## One script
+Do **not** paste API keys, PATs, Telegram tokens, or gateway tokens.
+Do **not** open RDP, AnyDesk, ngrok, or the OpenClaw gateway to the internet for this chat.
 
-```powershell
-.\\omen\\run-unlock.ps1
-```
+## 24/7
 
-It:
-
-1. Hits Ollama `/api/chat` with tools on `llama3.1:8b` (then `qwen2.5:14b` if llama fails)
-2. Applies `localModelLean` + `temperature 0` + `num_ctx 8192`
-3. Validates config and restarts the gateway
-4. Prints a JSON report — that JSON is the only payload HQ needs
-
-### Verdict
-
-- **PASS** (`toolCallCount` > 0) → model can structure tools. Telegram `/new`, then disk-prove write/exec. Do not pull a new model.
-- **FAIL** on both installed models → then a 12 GB tool-oriented pull is allowed (`gemma4:e4b` or `qwen3.5:9b`).
+Kevin on the OMEN (OpenClaw + Telegram + local model) is the persistent process.
+This chat is not. Morning surprise / new skills wait until write and exec land on disk.
+Then heartbeat = one real file per tick. Not unbounded overnight self-rewrites.
 
 ## Dead end
 

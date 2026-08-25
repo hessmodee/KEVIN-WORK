@@ -1,6 +1,6 @@
 # Kevin unlock — one script. No secrets.
-# Tests llama3.1:8b (qwen2.5:14b if llama fails), applies localModelLean, restarts gateway.
-# Copy the JSON it prints into Kevin HQ Unlock.
+# Tests llama3.1:8b (qwen2.5:14b if llama fails), applies localModelLean,
+# restarts gateway, uploads JSON to hessmodee/KEVIN-WORK if gh is logged in.
 $ErrorActionPreference = 'Stop'
 
 function Test-OllamaTools([string]$model) {
@@ -101,3 +101,21 @@ New-Item -ItemType Directory -Force -Path $outDir | Out-Null
 Set-Content -Encoding utf8 -Path (Join-Path $outDir "ollama-isolate-latest.json") -Value $json
 Write-Host "==== COPY THIS JSON INTO KEVIN HQ UNLOCK ===="
 Write-Host $json
+
+function Push-KevinReport([string]$payload) {
+  if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
+    Write-Host "gh not on PATH — paste the JSON into Unlock. Do not paste tokens."
+    return
+  }
+  $b64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($payload))
+  $api = "repos/hessmodee/KEVIN-WORK/contents/reports/ollama-isolate-latest.json"
+  $sha = $null
+  try { $sha = gh api $api --jq .sha 2>$null } catch {}
+  if ($sha) {
+    gh api --method PUT $api -f message="omen isolate report" -f content=$b64 -f sha=$sha | Out-Null
+  } else {
+    gh api --method PUT $api -f message="omen isolate report" -f content=$b64 | Out-Null
+  }
+  Write-Host "Uploaded reports/ollama-isolate-latest.json — that is the bridge."
+}
+Push-KevinReport $json
