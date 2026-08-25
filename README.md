@@ -9,55 +9,67 @@ OpenClaw logs:
 > Assistant reply looks like a tool call, but no structured tool invocation was emitted
 > pattern: json_tool_call, toolName: exec, registeredTool: true
 
-Tool policy is already open. The local model is printing tool JSON as text. Official OpenClaw guidance: force `tool_choice: required` on the existing model, then prove write and exec **on disk**.
+Tool policy is already open. The local model is printing tool JSON as text.
 
-Do **not** pull a new model until that fails.
+## Dead end — do not wait on this
 
-## Apply on HESS-PC
+`agents.defaults.models["ollama/llama3.1:8b"].params.extra_body.tool_choice = "required"` **never reaches Ollama** when `api: "ollama"`.
 
-In PowerShell:
+OpenClaw source (2026.7.x):
+
+- `createOpenAICompletionsExtraBodyWrapper` returns immediately unless `model.api === "openai-completions"`.
+- Native `buildOllamaChatRequest` only forwards option keys (`num_ctx`, `temperature`, …) and top-level `format` / `keep_alive` / `truncate` / `shift` / `think`.
+- `tool_choice` is in neither whitelist.
+
+See `omen/DEAD-END.md`.
+
+## Real next steps (in order)
+
+### A. Isolate Ollama — no OpenClaw
 
 ```powershell
-# Uses Node so slash keys and arrays stay intact.
-# Do not use: openclaw config set tools.allow '[...]' --strict-json
+.\\omen\\ollama-tool-test.ps1
+```
 
-node .\omen\apply-tool-choice.js
+- **PASS** (`message.tool_calls` is a non-empty array) → the model can structure tools. OpenClaw’s catalog/prompt is the gate. Continue to B. **Do not pull a new model.**
+- **FAIL** (only `message.content` with JSON/XML) → repeat with `qwen2.5:14b`. If both fail, current models cannot work and a 12 GB tool-oriented pull is allowed (`gemma4:e4b` or `qwen3.5:9b`).
+
+### B. Lean the tool surface
+
+```powershell
+node .\\omen\\apply-lean.js
 openclaw config validate
 openclaw gateway restart
 ```
 
 Then Telegram `/new`.
 
-### Write proof
+This sets `experimental.localModelLean: true`, `temperature: 0`, `num_ctx: 8192`. Those keys actually go on the Ollama wire. `extra_body` does not.
 
-Send Kevin:
+### C. Disk proofs
+
+Write prompt:
 
 ```
 Write the file reports/tool-write-test.txt containing exactly OK-WRITE and nothing else. Do not describe the write. Do it.
 ```
 
-Verify:
-
 ```powershell
-Get-Content C:\Users\hessm\.openclaw\workspace\reports\tool-write-test.txt
+Get-Content C:\\Users\\hessm\\.openclaw\\workspace\\reports\\tool-write-test.txt
 ```
 
-### Exec proof
-
-Send Kevin:
+Exec prompt:
 
 ```
-Run this exact command and nothing else: python C:\Users\hessm\.openclaw\workspace\helper_append_daily_note.py "tool-choice-required-proof"
+Run this exact command and nothing else: python C:\\Users\\hessm\\.openclaw\\workspace\\helper_append_daily_note.py "lean-unlock-proof"
 ```
 
 Tail the daily note. Chat claims do not count.
-
-If both fail, run the Ollama-native `/api/chat` tools test in `omen/ollama-tool-test.ps1` **before** installing another model.
 
 ## Hard rules
 
 - Ollama `baseUrl` is `http://127.0.0.1:11434` — no `/v1`
 - `api: "ollama"`
 - Never OpenClaw-write MEMORY.md or daily notes (it replaces). Append via helper.
-- After proofs pass, relax `tool_choice` or every Telegram "thanks" will force a tool.
 - Default stays local. Cloud only with explicit spend approval.
+- Do not mention outside agent names in Kevin prompts.

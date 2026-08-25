@@ -5,11 +5,10 @@
       "sandbox": { "mode": "off" },
       "memorySearch": { "enabled": false },
       "heartbeat": { "every": "15m" },
+      "experimental": { "localModelLean": true },
       "models": {
         "ollama/llama3.1:8b": {
-          "params": {
-            "extra_body": { "tool_choice": "required" }
-          }
+          "params": { "temperature": 0, "num_ctx": 8192 }
         }
       }
     }
