@@ -1,0 +1,31 @@
+{
+  "agents": {
+    "defaults": {
+      "model": { "primary": "ollama/llama3.1:8b" },
+      "sandbox": { "mode": "off" },
+      "memorySearch": { "enabled": false },
+      "heartbeat": { "every": "15m" },
+      "models": {
+        "ollama/llama3.1:8b": {
+          "params": {
+            "extra_body": { "tool_choice": "required" }
+          }
+        }
+      }
+    }
+  },
+  "models": {
+    "providers": {
+      "ollama": {
+        "baseUrl": "http://127.0.0.1:11434",
+        "api": "ollama",
+        "apiKey": "ollama-local"
+      }
+    }
+  },
+  "tools": {
+    "profile": "coding",
+    "allow": ["group:fs", "group:runtime", "group:sessions"],
+    "exec": { "security": "full", "ask": "off" }
+  }
+}
