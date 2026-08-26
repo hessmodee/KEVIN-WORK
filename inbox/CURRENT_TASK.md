@@ -1,5 +1,5 @@
-# Current task 2026-08-26 16:30 America/Boise
+# Current task 2026-08-26 17:02 America/Boise
 
-Both proofs present (OK-WRITE + exec via board). No isolate (normal).
-Daily note / Preston 83263 brief already on board. Layer complete: stop.
+Both proofs (OK-WRITE + exec). Daily/Preston 83263 brief on board.
+Layer complete: stop.
 Cannot SSH HESS-PC.
