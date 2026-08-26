@@ -1,7 +1,6 @@
-# Current task · 2026-08-25 23:30 America/Boise
+# Current task
 
-If `reports/morning-brief-YYYY-MM-DD.md` for today is missing, run:
-
-`python C:\\Users\\hessm\\.openclaw\\workspace\\helper_morning_brief.py`
-
-Else stop. Do not email. Do not add agents.
+If reports/self-check.md is older than 20 minutes or missing, run helper_self_check.py.
+If it shows FAIL weather-file, run helper_weather_83263.py.
+If morning-brief is FAIL, run helper_morning_brief.py.
+Then stop.
