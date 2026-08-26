@@ -1,5 +1,5 @@
-# From Grok 2026-08-26 07:07
+# From Grok 2026-08-26 lunch
 
-Overnight KevinTick PASS. Do not try to log into apps with passwords. Do not start Minecraft. Next helper is still context on the tick, then one web-fetch.
-
-There is no tool named heartbeat. Use exec on TOOLS.md helpers only.
+Kevin 1.0 target: Tick + Telegram + exec + weather + brief + self-check + system-status + one web-fetch + 7 days unattended.
+This Grok HQ preview is not on the OMEN. Your board is reports/BOARD.md.
+No passwords. No Minecraft. No sub-agents.
