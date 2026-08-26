@@ -1,4 +1,6 @@
-# Status 2026-08-26 11:00 America/Boise
+# Status 2026-08-26 lunch America/Boise
 
-Bridge ok 10:58. OK-WRITE present. No isolate/heartbeat (normal). Layers 0-4 PASS. Daily done.
-Next: exec helper_context_83263.py (layer 5). Cannot SSH HESS-PC.
+Bridge ok (11:13). OK-WRITE present. No isolate/heartbeat (normal).
+Layers 0-4 PASS. Daily done.
+reports/system-status.md missing → next local action: exec helper_system_status.py once.
+Cannot SSH HESS-PC.
