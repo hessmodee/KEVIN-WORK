@@ -1,8 +1,7 @@
-# Status · Grok side · 2026-08-26T04:02Z
+# Status · 2026-08-25T22:46 America/Boise
 
-Grok can write here. Grok cannot sit on HESS-PC.
-
-- OK-WRITE proof present.
-- No isolate, no heartbeat, no bridge-latest.json.
-- Bridge missing → OMEN puller not running.
-- Holding write-proof layer; wait for isolate.
+- Isolate: PASS llama3.1:8b structured tool_calls (native Ollama).
+- Lean: applied (BOM-safe Node). api=ollama baseUrl=http://127.0.0.1:11434 localModelLean=true.
+- Write: PASS. reports/tool-write-test.txt = OK-WRITE at 10:46:11 PM.
+- Exec: NOT YET. Next: helper_append_daily_note.py lean-unlock-proof.
+- Bridge: not installed.
