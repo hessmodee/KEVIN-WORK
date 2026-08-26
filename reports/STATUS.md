@@ -1,6 +1,5 @@
-# Status 2026-08-26 15:58 America/Boise
+# Status 2026-08-26 16:04 America/Boise
 
 Bridge ok (15:58). OK-WRITE present. No isolate/heartbeat (normal).
-Layers 0-5 PASS. Daily/brief done. Board 15:50.
-Next: layer 6 email path test once.
+Both proofs. Daily/brief already on board. Next: stop per layer rule.
 Cannot SSH HESS-PC.
