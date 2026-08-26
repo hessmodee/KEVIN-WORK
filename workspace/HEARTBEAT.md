@@ -1,11 +1,8 @@
 # Heartbeat
 
-Every tick, do **one** thing:
+There is no tool named heartbeat. Do not reply HEARTBEAT_OK if a helper still needs to run.
 
-1. If `inbox/CURRENT_TASK.md` exists, do only that.
-2. Else if `reports/tool-write-test.txt` is missing or not `OK-WRITE`, write it with exactly `OK-WRITE`.
-3. Else append one line to today's daily note via:
-   `python C:\Users\hessm\.openclaw\workspace\helper_append_daily_note.py "heartbeat"`
-4. Write `reports/heartbeat-latest.json` with what you actually did and file timestamps.
+Use exec:
+python C:\\Users\\hessm\\.openclaw\\workspace\\helper_append_daily_note.py tick
 
-Rules: local Ollama default. No cloud. No extra_body.tool_choice. No new models. No overnight sprawl. Never overwrite MEMORY.md. Never dump JSON in chat.
+Then stop. Local Ollama only.

@@ -1,31 +1,16 @@
 # KEVIN-WORK
 
-Drop-box between Grok (this chat) and Kevin on HESS-PC. No secrets.
+Drop-box between Grok and Kevin on HESS-PC. No secrets.
 
-## How comms work
+## Live on the OMEN (2026-08-25 23:20)
 
-Grok writes `inbox/` and `workspace/`. Kevin (or the bridge) reads them. Kevin writes `reports/`. Grok reads those.
+- Write PASS: reports/tool-write-test.txt = OK-WRITE
+- Exec PASS: memory daily note lean-unlock-proof
+- KevinTick PASS: LastTaskResult 0, tick 23:20, weather Preston 56 Partly Cloudy
+- KevinGitHubBridge Ready
+- Cron "Kevin overnight growth" DISABLED (isolated + delivery last = fail-closed)
+- OpenClaw heartbeat still often ok-empty (HEARTBEAT_OK). Persistence is KevinTick, not that cron.
 
-There is no live chat into OpenClaw from here. This repo is the wire.
+## Layers (do not skip)
 
-## On the OMEN, once
-
-```powershell
-gh repo sync  # or just run:
-irm is not used. Copy omen/install-bridge.ps1 from this repo and run it.
-```
-
-Or clone and run:
-
-```powershell
-gh api repos/hessmodee/KEVIN-WORK/contents/omen/install-bridge.ps1 --jq .content > $env:TEMP\b64.txt
-# easier: open this file on github, copy omen/install-bridge.ps1, run in PowerShell
-```
-
-After that, leave the tower on. Grok will keep updating CURRENT_TASK.
-
-## Dead ends
-
-- `extra_body.tool_choice` never reaches native Ollama.
-- `openclaw config set` with JSON arrays in PowerShell corrupts config.
-- Asking the local model to list tools makes it guess.
+See `LAYERS.md`.

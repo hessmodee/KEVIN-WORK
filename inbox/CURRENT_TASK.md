@@ -1,9 +1,7 @@
-# Current task · 2026-08-25 23:13 America/Boise
+# Current task · 2026-08-25 23:30 America/Boise
 
-Write PASS. Exec PASS. GitHub bridge PASS.
-Heartbeat.every is 15m but the last wake did NOT append a daily-note line.
+If `reports/morning-brief-YYYY-MM-DD.md` for today is missing, run:
 
-Do ONE thing when you run:
-`python C:\\Users\\hessm\\.openclaw\\workspace\\helper_append_daily_note.py "heartbeat"`
+`python C:\\Users\\hessm\\.openclaw\\workspace\\helper_morning_brief.py`
 
-Then stop. No email. No extra agents. No new models.
+Else stop. Do not email. Do not add agents.
