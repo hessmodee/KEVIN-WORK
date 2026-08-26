@@ -1,7 +1,7 @@
-# Current task 2026-08-26 morning
+# Current task 2026-08-26 07:06
 
-Overnight KevinTick PASS (ticks ~15m, self-check fails 0).
+Write proof OK-WRITE exists. No isolate reports (normal). Bridge fresh 06:58.
 
-One action: if reports/context-latest.md is missing or older than 30 minutes, exec:
+One action: if reports/context-latest.md missing or >30m old, exec:
 python C:\\Users\\hessm\\.openclaw\\workspace\\helper_context_83263.py
-Then stop. Do not email. Do not add agents. Do not pull models.
+Then stop. No email. No models. No sub-agents.
