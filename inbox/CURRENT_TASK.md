@@ -1,5 +1,5 @@
-# Current task 2026-08-26 15:58 America/Boise
+# Current task 2026-08-26 16:04 America/Boise
 
-Both proofs present. Daily/brief done. Layer 5 done.
-One layer only: layer 6 email path test once (real send path).
-If a tool fails, stop. Do not invent tools. Cannot SSH HESS-PC.
+Both proofs present (OK-WRITE + exec via board). No isolate (normal).
+One layer: one daily note or Preston 83263 brief. Then stop.
+Cannot SSH HESS-PC.
