@@ -1,4 +1,4 @@
-import json, os, urllib.request
+import os, socket, urllib.request
 from datetime import datetime
 try:
     from zoneinfo import ZoneInfo
@@ -12,34 +12,39 @@ os.makedirs(reports, exist_ok=True)
 lines = ["# Self-check %s" % now.strftime("%Y-%m-%d %H:%M")]
 fails = 0
 
+def read_text(path):
+    raw = open(path, "rb").read()
+    if raw.startswith(b"\xff\xfe") or raw.startswith(b"\xfe\xff"):
+        return raw.decode("utf-16")
+    if raw.startswith(b"\xef\xbb\xbf"):
+        return raw.decode("utf-8-sig")
+    return raw.decode("utf-8", errors="replace")
+
 def check(name, ok, detail):
     global fails
     if not ok:
         fails += 1
-    lines.append("- %s: %s — %s" % ("PASS" if ok else "FAIL", name, detail))
+    lines.append("- %s: %s - %s" % ("PASS" if ok else "FAIL", name, detail))
 
-# Ollama
+def age_min(path):
+    if not os.path.exists(path):
+        return None
+    return (datetime.now() - datetime.fromtimestamp(os.path.getmtime(path))).total_seconds() / 60.0
+
 try:
     urllib.request.urlopen("http://127.0.0.1:11434/api/tags", timeout=3).read()
     check("ollama", True, "11434 answering")
 except Exception as e:
     check("ollama", False, str(e))
 
-# Gateway port
-import socket
-s = socket.socket()
-s.settimeout(2)
+sock = socket.socket()
+sock.settimeout(2)
 try:
-    s.connect(("127.0.0.1", 18789))
-    s.close()
+    sock.connect(("127.0.0.1", 18789))
+    sock.close()
     check("gateway", True, "18789 open")
 except Exception as e:
     check("gateway", False, str(e))
-
-def age_min(path):
-    if not os.path.exists(path):
-        return None
-    return (datetime.now() - datetime.fromtimestamp(os.path.getmtime(path))).total_seconds() / 60.0
 
 wx = os.path.join(reports, "weather-83263.md")
 a = age_min(wx)
@@ -50,9 +55,15 @@ check("daily-note", os.path.exists(note), note)
 
 write = os.path.join(reports, "tool-write-test.txt")
 okw = False
-if os.path.exists(write):
-    okw = open(write, encoding="utf-8").read().strip() == "OK-WRITE"
-check("write-proof", okw, write)
+detail = write
+try:
+    if os.path.exists(write):
+        text = read_text(write).strip()
+        okw = "OK-WRITE" in text
+        detail = repr(text[:40])
+except Exception as e:
+    detail = str(e)
+check("write-proof", okw, detail)
 
 brief = os.path.join(reports, "morning-brief-%s.md" % now.strftime("%Y-%m-%d"))
 check("morning-brief", os.path.exists(brief), brief)
