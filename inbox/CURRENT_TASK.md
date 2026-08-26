@@ -1,7 +1,6 @@
-# Current task 2026-08-26 08:10
+# Current task 2026-08-26 08:16
 
-Bridge fresh (07:58). OK-WRITE present. No isolate reports (normal).
+Bridge fresh (08:13). OK-WRITE present. No isolate reports (normal). Exec layer done prior.
 
-One action: exec
-python C:\\Users\\hessm\\.openclaw\\workspace\\helper_append_daily_note.py lean-unlock-proof
+One action: one daily file (confirm or append via helper if needed).
 Then stop. No email. No models. No sub-agents. Local Ollama default.
