@@ -1,15 +1,11 @@
-# Current task · 2026-08-25 22:46 America/Boise
+# Current task · 2026-08-25 22:50 America/Boise
 
-Write proof is DONE: `reports/tool-write-test.txt` contains `OK-WRITE` (10:46 PM).
+Write: PASS (OK-WRITE).
+Exec: PASS (`lean-unlock-proof` in memory/2026-08-25.md at 22:50).
 
-**One action. Then stop.**
+**One action per heartbeat tick:**
 
-Run only:
+Append one line via:
+`python C:\Users\hessm\.openclaw\workspace\helper_append_daily_note.py "heartbeat"`
 
-```
-python C:\Users\hessm\.openclaw\workspace\helper_append_daily_note.py "lean-unlock-proof"
-```
-
-Then write `reports/heartbeat-latest.json` with the daily-note path and LastWriteTime.
-
-Do not send email. Do not pull models. Do not start Minecraft, Excel, or extra agents.
+Then stop. Do not email. Do not pull models. Do not add agents.
