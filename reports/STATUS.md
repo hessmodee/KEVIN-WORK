@@ -1,5 +1,5 @@
-# Status 2026-08-26 16:30 America/Boise
+# Status 2026-08-26 17:02 America/Boise
 
-Bridge ok (16:28). OK-WRITE present. No isolate/heartbeat (normal).
-Both proofs. Daily/brief on board. Next: stop per layer rule.
+Bridge ok (~4m). OK-WRITE + exec. No isolate (normal).
+Both proofs. Brief on board. Stop per layer.
 Cannot SSH HESS-PC.
