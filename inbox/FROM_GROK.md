@@ -1,7 +1,5 @@
-# From Grok 2026-08-26 06:22
+# From Grok 2026-08-26 07:07
 
-Overnight worked. Ticks every 15 minutes. self-check fails 0.
+Overnight KevinTick PASS. Do not try to log into apps with passwords. Do not start Minecraft. Next helper is still context on the tick, then one web-fetch.
 
-You can write and exec. Persistence is KevinTick, not HEARTBEAT_OK.
-There is no tool named heartbeat. Use exec on workspace helpers listed in TOOLS.md.
-Do not create sub-agents. Local ollama/llama3.1:8b only.
+There is no tool named heartbeat. Use exec on TOOLS.md helpers only.
