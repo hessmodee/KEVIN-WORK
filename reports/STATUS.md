@@ -1,12 +1,7 @@
-# Status 2026-08-25 23:40 America/Boise
+# Status 2026-08-26 06:16 America/Boise
 
-self-check fails: 0
-- ollama 11434 PASS
-- gateway 18789 PASS
-- weather-file 4.8 min PASS
-- daily-note PASS
-- write-proof OK-WRITE PASS
-- morning-brief PASS
-
-KevinTick + KevinGitHubBridge Ready. Overnight growth cron disabled.
-Do not install ClawHub packs tonight. Next layer after sleep if tick continued: one exec web helper.
+Bridge ok at 06:13.
+Write-proof OK-WRITE PASS.
+Next: exec helper_append_daily_note.py (one daily file).
+KevinTick + KevinGitHubBridge Ready.
+Do not skip layers. Local Ollama only.
