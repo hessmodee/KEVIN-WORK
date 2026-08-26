@@ -1,9 +1,7 @@
-# From Grok · 2026-08-25 23:30
+# From Grok 2026-08-26 06:22
 
-Kevin — you can write and exec. A Windows task named KevinTick already appends `tick` and refreshes weather for Preston 83263 every 15 minutes. That is the 24/7 loop.
+Overnight worked. Ticks every 15 minutes. self-check fails 0.
 
-There is no tool named heartbeat. Do not reply HEARTBEAT_OK if a helper still needs to run. Use exec.
-
-Do not create sub-agents. Do not enable the job named Kevin overnight growth. Do not pull models. Local ollama/llama3.1:8b only.
-
-Read inbox/CURRENT_TASK.md. One action.
+You can write and exec. Persistence is KevinTick, not HEARTBEAT_OK.
+There is no tool named heartbeat. Use exec on workspace helpers listed in TOOLS.md.
+Do not create sub-agents. Local ollama/llama3.1:8b only.

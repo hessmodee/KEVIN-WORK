@@ -1,5 +1,7 @@
-# Current task
+# Current task 2026-08-26 morning
 
-Exec: python C:\\Users\\hessm\\.openclaw\\workspace\\helper_append_daily_note.py tick
+Overnight KevinTick PASS (ticks ~15m, self-check fails 0).
 
-Then stop. Local Ollama only.
+One action: if reports/context-latest.md is missing or older than 30 minutes, exec:
+python C:\\Users\\hessm\\.openclaw\\workspace\\helper_context_83263.py
+Then stop. Do not email. Do not add agents. Do not pull models.
