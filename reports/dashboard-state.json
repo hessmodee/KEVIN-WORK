@@ -1,10 +1,10 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T14:11:50-06:00",
-  "status": "idle",
+  "generated_at": "2026-08-27T14:20:14-06:00",
+  "status": "degraded",
   "health": {
-    "overall": "healthy",
-    "failed_checks": 0
+    "overall": "degraded",
+    "failed_checks": 1
   },
   "brain": {
     "name": "Qwen 2.5 14B",
@@ -15,27 +15,20 @@
   "current_task": null,
   "services": {
     "tick": "healthy",
-    "bridge": "healthy",
+    "bridge": "degraded",
     "ollama": "healthy",
     "gateway": "healthy"
   },
   "system": {
     "memory_pct": 53,
-    "cpu_pct": 23,
+    "cpu_pct": 22,
     "gpu": "RTX 3060",
-    "gpu_pct": 6
+    "gpu_pct": 0
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-26T14:41:50-06:00",
-        "estimated": true,
-        "ram": 65,
-        "cpu": 32,
-        "gpu": 3
-      },
       {
         "at": "2026-08-26T14:56:50-06:00",
         "estimated": true,
@@ -700,10 +693,16 @@
         "ram": 53,
         "cpu": 23,
         "gpu": 6
+      },
+      {
+        "at": "2026-08-27T14:20:14-06:00",
+        "estimated": false,
+        "ram": 53,
+        "cpu": 22,
+        "gpu": 0
       }
     ],
     "ram": [
-      65,
       65,
       65,
       65,
@@ -798,10 +797,10 @@
       57,
       55,
       53,
+      53,
       53
     ],
     "cpu": [
-      32,
       34,
       34,
       31,
@@ -896,10 +895,10 @@
       47,
       38,
       23,
-      23
+      23,
+      22
     ],
     "gpu": [
-      3,
       0,
       0,
       19,
@@ -994,7 +993,8 @@
       1,
       1,
       6,
-      6
+      6,
+      0
     ]
   },
   "weather": {
@@ -1094,7 +1094,7 @@
       "id": "health_24h",
       "label": "System health 24h",
       "done": 69,
-      "total": 69
+      "total": 70
     }
   ],
   "roadmap": {
@@ -1148,11 +1148,11 @@
   ],
   "activity": [
     {
-      "at": "2026-08-27T14:05:14-06:00",
+      "at": "2026-08-27T14:20:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
-      "result": "pass"
+      "result": "fail"
     },
     {
       "at": "2026-08-27T13:39:04-06:00",
@@ -1376,15 +1376,15 @@
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "warning"
   },
   "sync": {
-    "last": "2026-08-27T14:11:50-06:00",
+    "last": "2026-08-27T14:20:14-06:00",
     "source": "local runtime"
   },
   "self_check": {
-    "fails": 0,
-    "summary": "All checks passed"
+    "fails": 1,
+    "summary": "1 check(s) failed"
   },
   "diagnostics": {
     "agent": "kevin-lab-qwen",
