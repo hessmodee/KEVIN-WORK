@@ -1,7 +1,7 @@
 {
   "schema": 2,
-  "generated_at": "2026-08-27T02:35:14-06:00",
-  "status": "idle",
+  "generated_at": "2026-08-27T02:57:54-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,16 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "night-forge",
+    "title": "Night Forge cycle",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-27T02:57:54-06:00",
+    "source": "forge"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -21,7 +30,7 @@
   },
   "system": {
     "memory_pct": 58,
-    "cpu_pct": 22,
+    "cpu_pct": 20,
     "gpu": "RTX 3060",
     "gpu_pct": 1
   },
@@ -69,6 +78,8 @@
       58,
       59,
       59,
+      58,
+      58,
       58
     ],
     "cpu": [
@@ -114,7 +125,9 @@
       21,
       29,
       13,
-      22
+      22,
+      20,
+      20
     ],
     "gpu": [
       11,
@@ -158,6 +171,8 @@
       8,
       2,
       7,
+      1,
+      1,
       1,
       1
     ]
@@ -258,8 +273,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 23,
-      "total": 23
+      "done": 24,
+      "total": 24
     }
   ],
   "roadmap": {
@@ -301,11 +316,20 @@
   ],
   "activity": [
     {
-      "at": "2026-08-27T02:35:14-06:00",
+      "at": "2026-08-27T02:50:13-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
       "result": "pass"
+    },
+    {
+      "at": "2026-08-27T02:57:54-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
     },
     {
       "at": "2026-08-27T01:59:45-06:00",
@@ -458,24 +482,14 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-26T22:52:45-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "TIMEOUT 90s C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-      "result": "fail",
-      "task_id": "night-forge",
-      "duration_ms": 108000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-27T02:35:14-06:00",
+    "last": "2026-08-27T02:57:54-06:00",
     "source": "HESS-PC"
   },
   "self_check": {
