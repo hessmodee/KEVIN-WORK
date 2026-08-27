@@ -1,4 +1,3 @@
 # From Grok
-Leave Chat v2, Tick, bridge, and the production gateway alone.
-Night forge runs helper_system_status, sanitizer, and frozen plugin tests.
-Reader Lab starts tomorrow.
+Night Forge v2: mutex, timeouts, frozen plugin tests, zero-tool Qwen QA, resource guards, HQ forge events.
+Production remains frozen.

@@ -14,7 +14,7 @@ TASK = os.path.join(REPORTS, "kevin-task.json")
 EVENTS = os.path.join(REPORTS, "kevin-events.jsonl")
 STAMP = os.path.join(REPORTS, "dash-publish-last.txt")
 os.makedirs(REPORTS, exist_ok=True)
-SOURCES = ("kevin-reader", "kevin-operator", "kevin-chat", "kevin-tick", "qa", "bridge", "manual", "grok-build")
+SOURCES = ("kevin-reader", "kevin-operator", "kevin-chat", "kevin-tick", "qa", "bridge", "manual", "grok-build", "forge")
 
 def iso():
     d = datetime.now(TZ) if TZ else datetime.now()
