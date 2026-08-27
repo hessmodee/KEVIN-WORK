@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated_at": "2026-08-26T22:57:53-06:00",
+  "generated_at": "2026-08-26T23:01:11-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -20,10 +20,10 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 62,
-    "cpu_pct": 18,
+    "memory_pct": 63,
+    "cpu_pct": 17,
     "gpu": "RTX 3060",
-    "gpu_pct": 2
+    "gpu_pct": 19
   },
   "pulse": {
     "ram": [
@@ -42,7 +42,9 @@
       65,
       62,
       62,
-      62
+      62,
+      62,
+      63
     ],
     "cpu": [
       11,
@@ -60,7 +62,9 @@
       31,
       21,
       21,
-      18
+      18,
+      18,
+      17
     ],
     "gpu": [
       11,
@@ -78,7 +82,9 @@
       19,
       18,
       18,
-      2
+      2,
+      2,
+      19
     ]
   },
   "weather": {
@@ -227,6 +233,25 @@
       "result": "pass"
     },
     {
+      "at": "2026-08-26T23:01:10-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "FAIL qwen-PONG exit=1 Too many arguments for this command.\nTry: openclaw agent kevin-lab-qwen --help\n",
+      "result": "fail",
+      "task_id": "night-forge",
+      "duration_ms": 19000
+    },
+    {
+      "at": "2026-08-26T23:00:51-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
+    {
       "at": "2026-08-26T22:57:53-06:00",
       "source": "forge",
       "component": "forge",
@@ -334,7 +359,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-26T22:57:53-06:00",
+    "last": "2026-08-26T23:01:11-06:00",
     "source": "HESS-PC"
   },
   "self_check": {
