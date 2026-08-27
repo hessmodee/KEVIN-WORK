@@ -14,21 +14,14 @@ TASK = os.path.join(REPORTS, "kevin-task.json")
 EVENTS = os.path.join(REPORTS, "kevin-events.jsonl")
 STAMP = os.path.join(REPORTS, "dash-publish-last.txt")
 os.makedirs(REPORTS, exist_ok=True)
-
-SOURCES = (
-    "kevin-reader", "kevin-operator", "kevin-chat", "kevin-tick",
-    "qa", "bridge", "manual", "grok-build",
-)
-
+SOURCES = ("kevin-reader", "kevin-operator", "kevin-chat", "kevin-tick", "qa", "bridge", "manual", "grok-build")
 
 def iso():
     d = datetime.now(TZ) if TZ else datetime.now()
     return d.strftime("%Y-%m-%dT%H:%M:%S-06:00")
 
-
 def write_json(path, obj):
     open(path, "w", encoding="utf-8").write(json.dumps(obj, indent=2) + "\n")
-
 
 def src(explicit=None):
     s = explicit or os.environ.get("KEVIN_SOURCE") or "manual"
@@ -36,28 +29,20 @@ def src(explicit=None):
         s = "manual"
     return s
 
-
 def event(source, component, event, detail, result="", task_id="", duration_ms=None):
-    rec = {
-        "at": iso(),
-        "source": src(source),
-        "component": component,
-        "event": event,
-        "detail": detail,
-        "result": result,
-        "task_id": task_id or "",
-    }
+    rec = {"at": iso(), "source": src(source), "component": component, "event": event, "detail": detail, "result": result, "task_id": task_id or ""}
     if duration_ms is not None:
         rec["duration_ms"] = int(duration_ms)
     with open(EVENTS, "a", encoding="utf-8") as f:
         f.write(json.dumps(rec, ensure_ascii=True) + "\n")
     return rec
 
-
 def rebuild_and_publish(force=False):
     dash = os.path.join(ROOT, "helper_dashboard_state.py")
+    env = os.environ.copy()
+    env["KEVIN_SKIP_TICK"] = "1"
     if os.path.isfile(dash):
-        subprocess.run([sys.executable, dash], cwd=ROOT, check=False)
+        subprocess.run([sys.executable, dash], cwd=ROOT, check=False, env=env)
     now = time.time()
     last = 0.0
     if os.path.isfile(STAMP):
@@ -70,31 +55,17 @@ def rebuild_and_publish(force=False):
         return
     pub = os.path.join(ROOT, "kevin-publish-dash.ps1")
     if os.path.isfile(pub):
-        subprocess.run(
-            ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", pub],
-            check=False,
-        )
+        subprocess.run(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", pub], check=False)
         open(STAMP, "w", encoding="utf-8").write(str(now))
         print("dashboard publish queued")
 
-
 def cmd_start(tid, title, category="reader", source=None):
-    obj = {
-        "id": tid,
-        "title": title,
-        "category": category,
-        "phase": "started",
-        "completed": 0,
-        "total": None,
-        "started_at": iso(),
-        "source": src(source),
-    }
+    obj = {"id": tid, "title": title, "category": category, "phase": "started", "completed": 0, "total": None, "started_at": iso(), "source": src(source)}
     write_json(TASK, obj)
     event(source, category, "task_start", title, "", tid)
     rebuild_and_publish(True)
     print("started", tid)
     return 0
-
 
 def cmd_progress(tid, phase, completed, total, source=None):
     obj = {}
@@ -103,26 +74,17 @@ def cmd_progress(tid, phase, completed, total, source=None):
             obj = json.loads(open(TASK, encoding="utf-8").read())
         except Exception:
             obj = {}
-    obj.update({
-        "id": tid,
-        "phase": phase,
-        "completed": int(completed),
-        "total": int(total),
-        "updated_at": iso(),
-    })
+    obj.update({"id": tid, "phase": phase, "completed": int(completed), "total": int(total), "updated_at": iso()})
     if "title" not in obj:
         obj["title"] = tid
     write_json(TASK, obj)
-    event(source, obj.get("category", "reader"), "task_progress",
-          "%s %s/%s" % (obj.get("title", tid), completed, total), "", tid)
+    event(source, obj.get("category", "reader"), "task_progress", "%s %s/%s" % (obj.get("title", tid), completed, total), "", tid)
     rebuild_and_publish(False)
     print("progress", completed, "/", total)
     return 0
 
-
 def cmd_finish(tid, result, summary="", source=None, duration_ms=None):
-    title, category = tid, "reader"
-    started = None
+    title, category, started = tid, "reader", None
     if os.path.isfile(TASK):
         try:
             t = json.loads(open(TASK, encoding="utf-8").read())
@@ -145,20 +107,17 @@ def cmd_finish(tid, result, summary="", source=None, duration_ms=None):
     print("finished", result)
     return 0
 
-
 def cmd_event(kind, message, source=None, component="kevin"):
     event(source, component, kind, message, "")
     rebuild_and_publish(False)
     print("event", kind)
     return 0
 
-
 def cmd_capability(cap, test, result, source="qa"):
     event(source, cap, "capability", "%s / %s" % (cap, test), result.lower())
     rebuild_and_publish(True)
     print("capability", cap, result)
     return 0
-
 
 def main(argv):
     if len(argv) < 2:
@@ -170,8 +129,7 @@ def main(argv):
         i = args.index("--source")
         source = args[i + 1] if i + 1 < len(args) else source
         del args[i:i + 2]
-    op = args[0]
-    a = args[1:]
+    op, a = args[0], args[1:]
     if op == "start":
         return cmd_start(a[0], a[1] if len(a) > 1 else a[0], a[2] if len(a) > 2 else "reader", source)
     if op == "progress":
@@ -184,7 +142,6 @@ def main(argv):
         return cmd_capability(a[0], a[1], a[2], source or "qa")
     print("unknown", op)
     return 1
-
 
 if __name__ == "__main__":
     raise SystemExit(main(sys.argv))
