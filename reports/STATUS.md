@@ -1,6 +1,5 @@
-# Status 2026-08-26 20:35 America/Boise
+# Status 2026-08-27 02:43 UTC
 
-Bridge ok (fresh). OK-WRITE + exec. No isolate (normal).
-Both proofs. Brief on board. Stop per layer.
-Cannot SSH HESS-PC.
-CURRENT_TASK: helper_board + publish board.json. One layer only.
+Bridge ok (fresh at 20:43). OK-WRITE present. No isolate (normal). No heartbeat-latest / ollama-isolate-latest.
+Advanced one layer only: CURRENT_TASK now exec helper_append_daily_note.py tick.
+Cannot SSH HESS-PC. Local Ollama default. Stop per layer.
