@@ -1,6 +1,6 @@
-"""Public dashboard-state.json. Sanitized. Preserves Kevin task + pulse history."""
+"""Public dashboard-state.json. Sanitized, ordered, and timestamped for Kevin HQ."""
 import json, os, re
-from datetime import datetime
+from datetime import datetime, timedelta
 
 try:
     from zoneinfo import ZoneInfo
@@ -10,6 +10,8 @@ except Exception:
 
 ROOT = os.path.join(os.path.expanduser("~"), ".openclaw", "workspace")
 REPORTS = os.path.join(ROOT, "reports")
+READER_ROOT = os.path.join(os.path.expanduser("~"), ".openclaw-reader")
+FORGE_ROOT = os.path.join(ROOT, "forge-candidates")
 os.makedirs(REPORTS, exist_ok=True)
 
 FORBIDDEN = [
@@ -23,8 +25,8 @@ FORBIDDEN = [
 
 
 def now():
-    d = datetime.now(TZ) if TZ else datetime.now()
-    return d, d.strftime("%Y-%m-%dT%H:%M:%S-06:00")
+    d = datetime.now(TZ) if TZ else datetime.now().astimezone()
+    return d, d.isoformat(timespec="seconds")
 
 
 def read(name):
@@ -43,6 +45,16 @@ def read_json(name, default):
         return default
     try:
         return json.loads(raw)
+    except Exception:
+        return default
+
+
+def read_json_path(path, default):
+    if not os.path.isfile(path):
+        return default
+    try:
+        with open(path, encoding="utf-8", errors="replace") as f:
+            return json.load(f)
     except Exception:
         return default
 
@@ -77,6 +89,15 @@ def weather_summary(text):
     return " | ".join(keep[:3]) if keep else ""
 
 
+def parse_time(value):
+    if not value:
+        return datetime.min.replace(tzinfo=TZ) if TZ else datetime.min
+    try:
+        return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except Exception:
+        return datetime.min.replace(tzinfo=TZ) if TZ else datetime.min
+
+
 def load_events():
     path = os.path.join(REPORTS, "kevin-events.jsonl")
     if not os.path.isfile(path):
@@ -102,37 +123,98 @@ def append_event(at, component, event, detail, result):
 
 
 def meaningful(events):
+    """Newest first, stable across callers; collapse repetitive tick cycles to the latest one."""
     keep = []
-    last_tick = None
+    latest_tick = None
     for e in events:
         if e.get("event") == "cycle" and e.get("component") == "tick":
-            last_tick = e
+            if latest_tick is None or parse_time(e.get("at")) > parse_time(latest_tick.get("at")):
+                latest_tick = e
             continue
         keep.append(e)
-    if last_tick:
-        keep.append(last_tick)
-    return list(reversed(keep[-18:]))
+    if latest_tick:
+        keep.append(latest_tick)
+    keep.sort(key=lambda e: parse_time(e.get("at")), reverse=True)
+    return keep[:24]
 
 
 def health_24h(events):
-    ticks = [e for e in events if e.get("component") == "tick" and e.get("event") == "cycle"]
+    cutoff = (datetime.now(TZ) if TZ else datetime.now().astimezone()) - timedelta(hours=24)
+    ticks = [
+        e for e in events
+        if e.get("component") == "tick"
+        and e.get("event") == "cycle"
+        and parse_time(e.get("at")) >= cutoff
+    ]
     if not ticks:
         return {"done": 1, "total": 1}
     done = sum(1 for e in ticks if str(e.get("result", "")).lower() in ("pass", "ok", ""))
     return {"done": done, "total": max(len(ticks), 1)}
 
 
-def pulse_append(sample):
-    hist = read_json("system-history.json", {"ram": [], "cpu": [], "gpu": []})
+def _legacy_samples(hist, current_dt):
+    arrays = {k: list(hist.get(k) or []) for k in ("ram", "cpu", "gpu")}
+    n = max((len(v) for v in arrays.values()), default=0)
+    if not n:
+        return []
+    start = current_dt - timedelta(minutes=15 * (n - 1))
+    samples = []
+    for i in range(n):
+        rec = {
+            "at": (start + timedelta(minutes=15 * i)).isoformat(timespec="seconds"),
+            "estimated": True,
+        }
+        for k in ("ram", "cpu", "gpu"):
+            arr = arrays[k]
+            offset = n - len(arr)
+            if i >= offset:
+                rec[k] = arr[i - offset]
+        samples.append(rec)
+    return samples
+
+
+def pulse_append(sample, at, current_dt):
+    path = os.path.join(REPORTS, "system-history.json")
+    hist = read_json("system-history.json", {})
+    samples = list(hist.get("samples") or []) if isinstance(hist, dict) else []
+    if not samples and isinstance(hist, dict):
+        samples = _legacy_samples(hist, current_dt)
+
+    rec = {"at": at, "estimated": False}
     for k in ("ram", "cpu", "gpu"):
-        arr = list(hist.get(k) or [])
         val = sample.get(k)
-        if val is None:
-            continue
-        arr.append(val)
-        hist[k] = arr[-96:]
-    open(os.path.join(REPORTS, "system-history.json"), "w", encoding="utf-8").write(json.dumps(hist) + "\n")
-    return hist
+        if val is not None:
+            rec[k] = val
+    samples.append(rec)
+    samples = samples[-96:]
+
+    new_hist = {"schema": 2, "interval_minutes": 15, "samples": samples}
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(new_hist, f, ensure_ascii=True)
+        f.write("\n")
+    return new_hist
+
+
+def reader_green():
+    g = read_json_path(os.path.join(READER_ROOT, "READER-GREEN.json"), {})
+    if str(g.get("status", "")).upper() != "GREEN":
+        return None
+    return g
+
+
+def candidate_status():
+    s = read_json_path(os.path.join(FORGE_ROOT, "candidate-forge-state.json"), {})
+    if s:
+        return {
+            "result": str(s.get("last_result") or "unknown").lower(),
+            "last_mission": s.get("last_mission"),
+            "iteration": s.get("last_iteration"),
+            "updated_at": s.get("updated_at"),
+        }
+    err = os.path.join(FORGE_ROOT, "candidate-forge-last-error.txt")
+    if os.path.isfile(err):
+        return {"result": "fail", "last_mission": None, "iteration": None, "updated_at": None}
+    return {"result": "not_started", "last_mission": None, "iteration": None, "updated_at": None}
 
 
 def scrub(obj):
@@ -158,10 +240,12 @@ def main():
     m = re.search(r"fails:\s*(\d+)", check)
     if m:
         fails = int(m.group(1))
+
     b = read_json("bridge-latest.json", {})
     bridge = "healthy" if str(b.get("bridge", "")).upper() in ("PASS", "OK") else "unknown"
     if str(b.get("pull", "")).upper() == "FAIL" or str(b.get("publish", "")).upper() == "FAIL":
         bridge = "degraded"
+
     if js:
         ollama = healthy(js.get("ollama_status"))
         gateway = healthy(js.get("gateway_status"))
@@ -176,30 +260,42 @@ def main():
         cpu = pct(sysd.get("CPU load"))
         gpu_util = pct(sysd.get("GPU utilization"))
         gpu_name = re.sub(r"NVIDIA GeForce ", "", sysd.get("GPU", "RTX 3060"))
+
     overall = "healthy"
     if fails or ollama != "healthy" or gateway != "healthy" or bridge == "degraded":
         overall = "degraded"
+
     task = read_json("kevin-task.json", None)
     if task == {}:
         task = None
     status = "working" if task else "idle"
     if overall == "degraded":
         status = "degraded"
+
     ev = None
     if os.environ.get("KEVIN_SKIP_TICK") != "1":
         ev = append_event(iso, "tick", "cycle", "Health cycle", "pass" if fails == 0 else "fail")
+
     events = load_events()
     h24 = health_24h(events)
-    hist = pulse_append({"ram": mem, "cpu": cpu, "gpu": gpu_util})
+    hist = pulse_append({"ram": mem, "cpu": cpu, "gpu": gpu_util}, iso, ts)
+    samples = hist.get("samples") or []
+
+    rg = reader_green()
+    reader_version = "Reader v0.1 · boundary GREEN" if rg else "Reader v0"
+    reader_verified = (rg or {}).get("frozen_at") if rg else None
+    auto = candidate_status()
+
     caps = [
         {"id": "chat", "label": "Local conversation", "state": "proven", "qa_pass": 18, "qa_total": 18, "version": "Chat v2", "last_verified": "2026-08-26"},
-        {"id": "system_reader", "label": "System awareness", "state": "testing", "qa_pass": 0, "qa_total": 20, "version": "Reader v0", "last_verified": None},
-        {"id": "weather_reader", "label": "Local weather", "state": "testing", "qa_pass": 0, "qa_total": 10, "version": None, "last_verified": None},
+        {"id": "system_reader", "label": "System awareness", "state": "testing", "qa_pass": 0, "qa_total": 20, "version": reader_version, "last_verified": reader_verified},
+        {"id": "weather_reader", "label": "Local weather", "state": "planned", "qa_pass": 0, "qa_total": 10, "version": None, "last_verified": None},
         {"id": "retrieval", "label": "Knowledge and memory", "state": "planned", "qa_pass": 0, "qa_total": 5, "version": None, "last_verified": None},
         {"id": "file_actions", "label": "Controlled actions", "state": "locked", "qa_pass": 0, "qa_total": 6, "version": None, "last_verified": None},
         {"id": "email", "label": "Communications", "state": "locked", "qa_pass": 0, "qa_total": 4, "version": None, "last_verified": None},
         {"id": "windows_ui", "label": "Windows interaction", "state": "locked", "qa_pass": 0, "qa_total": 4, "version": None, "last_verified": None},
     ]
+
     owl_level = 1
     if caps[1]["state"] == "proven":
         owl_level = 2
@@ -210,15 +306,32 @@ def main():
     if caps[5]["state"] == "proven" and owl_level >= 4:
         owl_level = 5
     owl_state = "working" if status == "working" else ("warning" if status == "degraded" else "idle")
+
     progress = [
         {"id": "chat_qa", "label": "Chat reliability", "done": 18, "total": 18},
-        {"id": "reader", "label": "System Reader", "done": 0, "total": 4},
+        {"id": "reader", "label": "Reader senses", "done": 0, "total": 4},
         {"id": "knowledge", "label": "Knowledge", "done": 0, "total": 5},
         {"id": "operator", "label": "Operator", "done": 0, "total": 6},
         {"id": "health_24h", "label": "System health 24h", "done": h24["done"], "total": h24["total"]},
     ]
+
+    build = [
+        {"order": 1, "id": "reader_e2e", "label": "Prove System Reader E2E", "state": "next", "detail": "Real status question → exactly one typed tool → correct interpretation"},
+        {"order": 2, "id": "reader_expand", "label": "Expand Reader senses", "state": "queued", "detail": "Weather → board → self-check, one proven tool at a time"},
+        {"order": 3, "id": "knowledge", "label": "Knowledge retrieval", "state": "queued", "detail": "Curated local retrieval with evidence; read-only first"},
+        {"order": 4, "id": "operator", "label": "Controlled Operator", "state": "queued", "detail": "Typed allowlisted actions with validation, evidence, and rollback"},
+        {"order": 5, "id": "skills", "label": "High-value workflows", "state": "queued", "detail": "Skills built only on proven Reader, Knowledge, and Operator faculties"},
+        {"order": 6, "id": "autonomy", "label": "Autonomous promotion science", "state": "queued", "detail": "Candidate vs control benchmarks; self-improving, never self-authorizing"},
+    ]
+
+    legacy = {
+        "ram": [s.get("ram") for s in samples if s.get("ram") is not None],
+        "cpu": [s.get("cpu") for s in samples if s.get("cpu") is not None],
+        "gpu": [s.get("gpu") for s in samples if s.get("gpu") is not None],
+    }
+
     state = {
-        "schema": 2,
+        "schema": 3,
         "generated_at": iso,
         "status": status,
         "health": {"overall": overall, "failed_checks": fails},
@@ -226,27 +339,39 @@ def main():
         "current_task": task,
         "services": {"tick": "healthy", "bridge": bridge, "ollama": ollama, "gateway": gateway},
         "system": {"memory_pct": mem, "cpu_pct": cpu, "gpu": gpu_name, "gpu_pct": gpu_util},
-        "pulse": {"ram": hist.get("ram") or [], "cpu": hist.get("cpu") or [], "gpu": hist.get("gpu") or []},
+        "pulse": {
+            "window": "24h",
+            "sample_interval_minutes": 15,
+            "samples": samples,
+            **legacy,
+        },
         "weather": {"summary": wx},
         "capabilities": caps,
         "progress": progress,
         "roadmap": {"done": sum(1 for c in caps if c["state"] == "proven"), "total": len(caps), "label": "Roadmap completion"},
-        "build": [
-            {"id": "senses", "label": "System Awareness", "state": "next", "detail": "Reader v1 tool: kevin_system_status"},
-            {"id": "memory", "label": "Knowledge and Memory", "state": "queued", "detail": ""},
-            {"id": "hands", "label": "Controlled Actions", "state": "queued", "detail": ""},
-            {"id": "comms", "label": "Communications", "state": "queued", "detail": ""},
-            {"id": "windows", "label": "Windows Interaction", "state": "queued", "detail": ""},
-        ],
+        "build": sorted(build, key=lambda x: x.get("order", 999)),
         "activity": meaningful(events) or ([ev] if ev else []),
         "owl": {"level": owl_level, "state": owl_state},
-        "sync": {"last": iso, "source": "HESS-PC"},
+        "sync": {"last": iso, "source": "local runtime"},
         "self_check": {"fails": fails, "summary": "All checks passed" if fails == 0 else ("%s check(s) failed" % fails)},
-        "diagnostics": {"agent": "kevin-lab-qwen", "model": "qwen2.5:14b", "context": "8K", "tools": 0, "chat_qa": "18/18", "noreply": 0},
+        "diagnostics": {
+            "agent": "kevin-lab-qwen",
+            "model": "qwen2.5:14b",
+            "context": "8K",
+            "tools": 0,
+            "chat_qa": "18/18",
+            "noreply": 0,
+            "reader_boundary": "green" if rg else "not_proven",
+            "reader_visible_tools": 1 if rg else None,
+            "candidate_forge": auto,
+        },
     }
+
     state = scrub(state)
     path = os.path.join(REPORTS, "dashboard-state.json")
-    open(path, "w", encoding="utf-8").write(json.dumps(state, indent=2) + "\n")
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(state, f, indent=2)
+        f.write("\n")
     print(path)
     return 0
 
