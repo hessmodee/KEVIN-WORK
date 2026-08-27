@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T15:37:03-06:00",
+  "generated_at": "2026-08-27T15:40:40-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,13 +13,13 @@
     "tools": false
   },
   "current_task": {
-    "id": "night-forge",
-    "title": "Night Forge cycle",
+    "id": "design-forge",
+    "title": "Design Forge: knowledge",
     "category": "forge",
     "phase": "started",
     "completed": 0,
     "total": null,
-    "started_at": "2026-08-27T15:37:02-06:00",
+    "started_at": "2026-08-27T15:40:40-06:00",
     "source": "forge"
   },
   "services": {
@@ -29,8 +29,8 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 59,
-    "cpu_pct": 27,
+    "memory_pct": 54,
+    "cpu_pct": 31,
     "gpu": "RTX 3060",
     "gpu_pct": 1
   },
@@ -38,13 +38,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-26T19:56:50-06:00",
-        "estimated": true,
-        "ram": 58,
-        "cpu": 27,
-        "gpu": 1
-      },
       {
         "at": "2026-08-26T20:11:50-06:00",
         "estimated": true,
@@ -709,10 +702,16 @@
         "ram": 59,
         "cpu": 27,
         "gpu": 1
+      },
+      {
+        "at": "2026-08-27T15:40:40-06:00",
+        "estimated": false,
+        "ram": 54,
+        "cpu": 31,
+        "gpu": 1
       }
     ],
     "ram": [
-      58,
       59,
       58,
       58,
@@ -807,10 +806,10 @@
       48,
       48,
       59,
-      59
+      59,
+      54
     ],
     "cpu": [
-      27,
       19,
       17,
       17,
@@ -905,10 +904,10 @@
       15,
       15,
       27,
-      27
+      27,
+      31
     ],
     "gpu": [
-      1,
       0,
       0,
       0,
@@ -1002,6 +1001,7 @@
       0,
       0,
       0,
+      1,
       1,
       1
     ]
@@ -1156,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-27T15:40:40-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: knowledge",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-27T15:37:02-06:00",
       "source": "forge",
@@ -1369,15 +1378,6 @@
       "result": "pass",
       "task_id": "night-forge",
       "duration_ms": 111000
-    },
-    {
-      "at": "2026-08-27T04:57:54-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Night Forge cycle",
-      "result": "",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
@@ -1385,7 +1385,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-08-27T15:37:03-06:00",
+    "last": "2026-08-27T15:40:40-06:00",
     "source": "local runtime"
   },
   "self_check": {
