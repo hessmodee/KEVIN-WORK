@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T15:29:08-06:00",
+  "generated_at": "2026-08-27T15:31:06-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,13 +13,13 @@
     "tools": false
   },
   "current_task": {
-    "id": "night-forge",
-    "title": "Night Forge cycle",
+    "id": "design-forge",
+    "title": "Design Forge: reader-self-check",
     "category": "forge",
     "phase": "started",
     "completed": 0,
     "total": null,
-    "started_at": "2026-08-27T15:29:08-06:00",
+    "started_at": "2026-08-27T15:31:06-06:00",
     "source": "forge"
   },
   "services": {
@@ -30,21 +30,14 @@
   },
   "system": {
     "memory_pct": 48,
-    "cpu_pct": 21,
+    "cpu_pct": 15,
     "gpu": "RTX 3060",
-    "gpu_pct": 6
+    "gpu_pct": 0
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-26T18:41:50-06:00",
-        "estimated": true,
-        "ram": 59,
-        "cpu": 34,
-        "gpu": 6
-      },
       {
         "at": "2026-08-26T18:56:50-06:00",
         "estimated": true,
@@ -709,10 +702,16 @@
         "ram": 48,
         "cpu": 21,
         "gpu": 6
+      },
+      {
+        "at": "2026-08-27T15:31:06-06:00",
+        "estimated": false,
+        "ram": 48,
+        "cpu": 15,
+        "gpu": 0
       }
     ],
     "ram": [
-      59,
       59,
       59,
       58,
@@ -807,10 +806,10 @@
       50,
       50,
       48,
+      48,
       48
     ],
     "cpu": [
-      34,
       37,
       37,
       30,
@@ -905,10 +904,10 @@
       19,
       19,
       21,
-      21
+      21,
+      15
     ],
     "gpu": [
-      6,
       1,
       1,
       1,
@@ -1003,7 +1002,8 @@
       15,
       15,
       6,
-      6
+      6,
+      0
     ]
   },
   "weather": {
@@ -1156,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-27T15:31:06-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: reader-self-check",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-27T15:29:08-06:00",
       "source": "forge",
@@ -1370,15 +1379,6 @@
       "result": "fail",
       "task_id": "night-forge",
       "duration_ms": 72000
-    },
-    {
-      "at": "2026-08-27T02:57:54-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Night Forge cycle",
-      "result": "",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
@@ -1386,7 +1386,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-08-27T15:29:08-06:00",
+    "last": "2026-08-27T15:31:06-06:00",
     "source": "local runtime"
   },
   "self_check": {
