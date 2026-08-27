@@ -158,7 +158,7 @@ try {
   )
   foreach ($t in $tests) {
     Write-Host "PHASE 4 qwen-$($t.id) START"
-    [void](Invoke-TimeoutProc -FileName $node -ArgList @($openclawJs, "agent", "--agent", "kevin-lab-qwen", "--message", "/new") -Seconds 60 -Cwd $ws -Label "qwen-$($t.id)-new")
+    [void](Invoke-TimeoutProc -FileName $node -ArgList @($openclawJs, "agent", "--agent", "kevin-lab-qwen", "--message", "/new") -Seconds 90 -Cwd $ws -Label "qwen-$($t.id)-new")
     $raw = Invoke-TimeoutProc -FileName $node -ArgList @($openclawJs, "agent", "--agent", "kevin-lab-qwen", "--json", "--message", $t.q) -Seconds 180 -Cwd $ws -Label "qwen-$($t.id)"
     $i = $raw.IndexOf("{")
     if ($i -lt 0) { $qFail++; $qNr++; Rec @{ step = "qwen"; id = $t.id; result = "FAIL"; error = "no-json" }; Write-Latest @{ overall = "FAIL"; qwen_pass = $qPass; qwen_fail = $qFail; last = $t.id }; throw "FAIL qwen-$($t.id) JSON missing" }
@@ -214,10 +214,14 @@ try {
   Write-Host "NIGHT FORGE PASS"
   exit 0
 } catch {
-  Rec @{ step = "cycle"; result = "FAIL"; error = "$_" }
+  $msg = "$_"
+  $kind = "FAIL"
+  if ($msg -match "TIMEOUT") { $kind = "infra_timeout" }
+  Rec @{ step = "cycle"; result = "FAIL"; fail_kind = $kind; error = $msg }
   Write-Latest @{
     overall = "FAIL"
-    error = "$_"
+    fail_kind = $kind
+    error = $msg
     system_status = $status
     sanitize = $san
     plugin_test = $plug
@@ -225,9 +229,9 @@ try {
     qwen_fail = $qFail
     qwen_noreply = $qNr
   }
-  python $statePy finish night-forge FAIL "$_" --source forge | Out-Host
+  python $statePy finish night-forge FAIL $msg --source forge | Out-Host
   Write-Summary
-  Write-Host "NIGHT FORGE STOP: $_"
+  Write-Host "NIGHT FORGE STOP: $kind $msg"
   exit 1
 } finally {
   if ($owned) { try { $mutex.ReleaseMutex() } catch {} }

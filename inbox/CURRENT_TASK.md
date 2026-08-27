@@ -1,2 +1,2 @@
 # Current task
-Overnight Forge latest is PASS. Confirm overnight-only cycles, then inspect-only Reader prep. Do not install kevin-core until inspect is reviewed.
+Overnight 9 PASS / 1 infra timeout. Reschedule Forge to :37 and raise /new timeout to 90s. Do not install Reader into production. Isolated reader gateway is next. Leave Telegram/main alone.
