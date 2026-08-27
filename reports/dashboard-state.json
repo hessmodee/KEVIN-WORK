@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated_at": "2026-08-26T22:47:50-06:00",
+  "generated_at": "2026-08-26T22:52:45-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -21,9 +21,9 @@
   },
   "system": {
     "memory_pct": 65,
-    "cpu_pct": 32,
+    "cpu_pct": 31,
     "gpu": "RTX 3060",
-    "gpu_pct": 3
+    "gpu_pct": 19
   },
   "pulse": {
     "ram": [
@@ -35,6 +35,9 @@
       61,
       64,
       64,
+      65,
+      65,
+      65,
       65
     ],
     "cpu": [
@@ -46,7 +49,10 @@
       32,
       27,
       33,
-      32
+      32,
+      34,
+      34,
+      31
     ],
     "gpu": [
       11,
@@ -57,7 +63,10 @@
       9,
       6,
       23,
-      3
+      3,
+      0,
+      0,
+      19
     ]
   },
   "weather": {
@@ -156,8 +165,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 7,
-      "total": 7
+      "done": 8,
+      "total": 8
     }
   ],
   "roadmap": {
@@ -199,11 +208,30 @@
   ],
   "activity": [
     {
-      "at": "2026-08-26T22:35:14-06:00",
+      "at": "2026-08-26T22:50:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
       "result": "pass"
+    },
+    {
+      "at": "2026-08-26T22:52:45-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "TIMEOUT 90s C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "result": "fail",
+      "task_id": "night-forge",
+      "duration_ms": 108000
+    },
+    {
+      "at": "2026-08-26T22:50:57-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
     },
     {
       "at": "2026-08-26T22:47:50-06:00",
@@ -256,7 +284,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-26T22:47:50-06:00",
+    "last": "2026-08-26T22:52:45-06:00",
     "source": "HESS-PC"
   },
   "self_check": {
