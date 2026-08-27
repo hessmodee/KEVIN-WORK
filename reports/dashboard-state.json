@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T14:47:47-06:00",
+  "generated_at": "2026-08-27T14:53:53-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -20,29 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 54,
-    "cpu_pct": 29,
+    "memory_pct": 49,
+    "cpu_pct": 24,
     "gpu": "RTX 3060",
-    "gpu_pct": 10
+    "gpu_pct": 6
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-26T16:26:50-06:00",
-        "estimated": true,
-        "ram": 62,
-        "cpu": 18,
-        "gpu": 2
-      },
-      {
-        "at": "2026-08-26T16:41:50-06:00",
-        "estimated": true,
-        "ram": 62,
-        "cpu": 18,
-        "gpu": 2
-      },
       {
         "at": "2026-08-26T16:56:50-06:00",
         "estimated": true,
@@ -700,11 +686,23 @@
         "ram": 54,
         "cpu": 29,
         "gpu": 10
+      },
+      {
+        "at": "2026-08-27T14:50:14-06:00",
+        "estimated": false,
+        "ram": 49,
+        "cpu": 24,
+        "gpu": 6
+      },
+      {
+        "at": "2026-08-27T14:53:53-06:00",
+        "estimated": false,
+        "ram": 49,
+        "cpu": 24,
+        "gpu": 6
       }
     ],
     "ram": [
-      62,
-      62,
       63,
       63,
       69,
@@ -798,11 +796,11 @@
       54,
       54,
       54,
-      54
+      54,
+      49,
+      49
     ],
     "cpu": [
-      18,
-      18,
       17,
       17,
       34,
@@ -896,11 +894,11 @@
       40,
       40,
       40,
-      29
+      29,
+      24,
+      24
     ],
     "gpu": [
-      2,
-      2,
       19,
       19,
       13,
@@ -994,7 +992,9 @@
       13,
       13,
       13,
-      10
+      10,
+      6,
+      6
     ]
   },
   "weather": {
@@ -1093,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 71,
-      "total": 72
+      "done": 72,
+      "total": 73
     }
   ],
   "roadmap": {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-08-27T14:47:47-06:00",
+      "at": "2026-08-27T14:50:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1379,12 +1379,20 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T14:47:47-06:00",
+    "last": "2026-08-27T14:53:53-06:00",
     "source": "local runtime"
   },
   "self_check": {
     "fails": 0,
     "summary": "All checks passed"
+  },
+  "autonomy": {
+    "mode": "hourly_design",
+    "state": "pass",
+    "last_mission": "reader-weather",
+    "iteration": 1,
+    "updated_at": "2026-08-27T14:43:08.4998986-06:00",
+    "promotion": "blocked"
   },
   "diagnostics": {
     "agent": "kevin-lab-qwen",
@@ -1396,10 +1404,14 @@
     "reader_boundary": "green",
     "reader_visible_tools": 1,
     "candidate_forge": {
-      "result": "fail",
-      "last_mission": null,
-      "iteration": null,
-      "updated_at": null
+      "result": "pass",
+      "mode": "design-forge-v3",
+      "last_mission": "reader-weather",
+      "iteration": 1,
+      "updated_at": "2026-08-27T14:43:08.4998986-06:00",
+      "next_index": 1,
+      "scheduled": true,
+      "promotion": "blocked"
     }
   }
 }
