@@ -1,5 +1,5 @@
-# Status 2026-08-27 02:43 UTC
+# Status 2026-08-27 03:03 UTC
 
-Bridge ok (fresh at 20:43). OK-WRITE present. No isolate (normal). No heartbeat-latest / ollama-isolate-latest.
-Advanced one layer only: CURRENT_TASK now exec helper_append_daily_note.py tick.
-Cannot SSH HESS-PC. Local Ollama default. Stop per layer.
+Bridge ok (fresh ~20:58). OK-WRITE present. No isolate (normal). No heartbeat/ollama-isolate.
+Advanced one layer: CURRENT_TASK now one daily note or Preston 83263 brief.
+Cannot SSH. Local Ollama default. Stop per layer.
