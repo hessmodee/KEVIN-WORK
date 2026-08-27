@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T15:12:01-06:00",
+  "generated_at": "2026-08-27T15:20:14-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 50,
-    "cpu_pct": 19,
+    "memory_pct": 48,
+    "cpu_pct": 21,
     "gpu": "RTX 3060",
-    "gpu_pct": 15
+    "gpu_pct": 6
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-26T18:11:50-06:00",
-        "estimated": true,
-        "ram": 66,
-        "cpu": 23,
-        "gpu": 2
-      },
       {
         "at": "2026-08-26T18:26:50-06:00",
         "estimated": true,
@@ -700,10 +693,16 @@
         "ram": 50,
         "cpu": 19,
         "gpu": 15
+      },
+      {
+        "at": "2026-08-27T15:20:14-06:00",
+        "estimated": false,
+        "ram": 48,
+        "cpu": 21,
+        "gpu": 6
       }
     ],
     "ram": [
-      66,
       61,
       59,
       59,
@@ -798,10 +797,10 @@
       47,
       50,
       50,
-      50
+      50,
+      48
     ],
     "cpu": [
-      23,
       17,
       34,
       37,
@@ -896,10 +895,10 @@
       36,
       19,
       19,
-      19
+      19,
+      21
     ],
     "gpu": [
-      2,
       1,
       6,
       1,
@@ -994,11 +993,12 @@
       6,
       15,
       15,
-      15
+      15,
+      6
     ]
   },
   "weather": {
-    "summary": "This Afternoon 91 | Wind 5 to 10 mph | Slight Chance Showers And Thunderstorms"
+    "summary": "This Afternoon 91 | Wind 7 to 10 mph | Slight Chance Showers And Thunderstorms"
   },
   "capabilities": [
     {
@@ -1093,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 73,
-      "total": 74
+      "done": 74,
+      "total": 75
     }
   ],
   "roadmap": {
@@ -1148,6 +1148,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-27T15:20:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-27T15:12:01-06:00",
       "source": "forge",
       "component": "reader",
@@ -1183,13 +1190,6 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-27T15:05:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-27T14:43:08-06:00",
@@ -1378,7 +1378,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T15:12:01-06:00",
+    "last": "2026-08-27T15:20:14-06:00",
     "source": "local runtime"
   },
   "self_check": {
