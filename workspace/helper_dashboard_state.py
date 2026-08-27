@@ -11,7 +11,8 @@ except Exception:
 ROOT = os.path.join(os.path.expanduser("~"), ".openclaw", "workspace")
 REPORTS = os.path.join(ROOT, "reports")
 READER_ROOT = os.path.join(os.path.expanduser("~"), ".openclaw-reader")
-FORGE_ROOT = os.path.join(ROOT, "forge-candidates")
+DESIGN_ROOT = os.path.join(ROOT, "forge-designs")
+LEGACY_FORGE_ROOT = os.path.join(ROOT, "forge-candidates")
 os.makedirs(REPORTS, exist_ok=True)
 
 FORBIDDEN = [
@@ -90,12 +91,7 @@ def weather_summary(text):
 
 
 def parse_time(value):
-    """Return an aware UTC datetime for safe ordering/comparison.
-
-    Historical Kevin events may contain both offset-aware ISO strings and
-    legacy local ISO strings without an offset. Treat legacy naive values as
-    Kevin-local time, then normalize everything to UTC.
-    """
+    """Return an aware UTC datetime for safe ordering/comparison."""
     if not value:
         return datetime(1970, 1, 1, tzinfo=timezone.utc)
     try:
@@ -133,7 +129,7 @@ def append_event(at, component, event, detail, result):
 
 
 def meaningful(events):
-    """Newest first, stable across callers; collapse repetitive tick cycles to the latest one."""
+    """Newest first; collapse repetitive tick cycles to the latest one."""
     keep = []
     latest_tick = None
     for e in events:
@@ -214,18 +210,54 @@ def reader_green():
 
 
 def candidate_status():
-    s = read_json_path(os.path.join(FORGE_ROOT, "candidate-forge-state.json"), {})
+    """Prefer the proven Design Forge v3 state; retain legacy Candidate Forge fallback."""
+    s = read_json_path(os.path.join(DESIGN_ROOT, "design-forge-state.json"), {})
     if s:
+        result = str(s.get("status") or s.get("last_result") or "unknown").lower()
         return {
-            "result": str(s.get("last_result") or "unknown").lower(),
+            "result": result,
+            "mode": "design-forge-v3",
             "last_mission": s.get("last_mission"),
-            "iteration": s.get("last_iteration"),
+            "iteration": s.get("last_iteration") or s.get("iteration"),
             "updated_at": s.get("updated_at"),
+            "next_index": s.get("next_index"),
+            "scheduled": True,
+            "promotion": "blocked",
         }
-    err = os.path.join(FORGE_ROOT, "candidate-forge-last-error.txt")
+
+    legacy = read_json_path(os.path.join(LEGACY_FORGE_ROOT, "candidate-forge-state.json"), {})
+    if legacy:
+        return {
+            "result": str(legacy.get("last_result") or "unknown").lower(),
+            "mode": "legacy-candidate-forge",
+            "last_mission": legacy.get("last_mission"),
+            "iteration": legacy.get("last_iteration"),
+            "updated_at": legacy.get("updated_at"),
+            "scheduled": False,
+            "promotion": "blocked",
+        }
+
+    err = os.path.join(LEGACY_FORGE_ROOT, "candidate-forge-last-error.txt")
     if os.path.isfile(err):
-        return {"result": "fail", "last_mission": None, "iteration": None, "updated_at": None}
-    return {"result": "not_started", "last_mission": None, "iteration": None, "updated_at": None}
+        return {
+            "result": "legacy_fail",
+            "mode": "legacy-candidate-forge",
+            "last_mission": None,
+            "iteration": None,
+            "updated_at": None,
+            "scheduled": False,
+            "promotion": "blocked",
+        }
+
+    return {
+        "result": "not_started",
+        "mode": "design-forge-v3",
+        "last_mission": None,
+        "iteration": None,
+        "updated_at": None,
+        "scheduled": True,
+        "promotion": "blocked",
+    }
 
 
 def scrub(obj):
@@ -365,6 +397,14 @@ def main():
         "owl": {"level": owl_level, "state": owl_state},
         "sync": {"last": iso, "source": "local runtime"},
         "self_check": {"fails": fails, "summary": "All checks passed" if fails == 0 else ("%s check(s) failed" % fails)},
+        "autonomy": {
+            "mode": "hourly_design" if auto.get("scheduled") else "manual",
+            "state": auto.get("result"),
+            "last_mission": auto.get("last_mission"),
+            "iteration": auto.get("iteration"),
+            "updated_at": auto.get("updated_at"),
+            "promotion": auto.get("promotion", "blocked"),
+        },
         "diagnostics": {
             "agent": "kevin-lab-qwen",
             "model": "qwen2.5:14b",
