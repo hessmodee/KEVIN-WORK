@@ -8,259 +8,120 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
   <style>
-    :root { --bg:#111210; --fg:#eceae4; --muted:#9a9b93; --card:#181916; --line:rgba(236,234,228,.1); --sage:#7d9270; --warn:#c4a574; --bad:#c45c48; }
-    * { box-sizing:border-box; }
-    html,body { margin:0; min-height:100%; background:var(--bg); color:var(--fg); font-family:Figtree,ui-sans-serif,system-ui,sans-serif; }
-    body { padding:20px 18px 56px; }
-    .wrap { max-width:1080px; margin:0 auto; }
-    header { display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
-    .owl-box { width:84px; height:84px; flex:0 0 84px; }
-    .owl { width:84px; height:84px; display:block; }
-    .owl .ln { fill:none; stroke:var(--fg); stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
-    .owl .fl { fill:transparent; transition:fill .8s ease, opacity .8s ease; }
-    .l1 .eye { fill:var(--fg); }
-    .l2 .body { fill:rgba(125,146,112,.28); } .l2 .beak { fill:#c4a574; }
-    .l3 .body { fill:rgba(125,146,112,.48); } .l3 .face { fill:rgba(236,234,228,.12); }
-    .l4 .body { fill:#6f8464; } .l4 .face { fill:#cfc9b8; } .l4 .beak { fill:#e0b56a; } .l4 .eye { fill:#1a1b18; }
-    .l5 .body { fill:#7d9270; } .l5 .face { fill:#ddd6c6; } .l5 .hi { fill:#fff; opacity:.9; }
-    .st-working .owl-box { animation:bob 2.1s ease-in-out infinite, glow 2.1s ease-in-out infinite; }
-    .st-working .lids { transform-origin:16px 15px; animation:blink 3.2s ease-in-out infinite; }
-    .st-idle .lids { transform-origin:16px 15px; animation:blink 6.2s ease-in-out infinite; }
-    .st-warning { filter:saturate(.75) hue-rotate(-8deg); }
-    .st-offline { filter:grayscale(1) brightness(.55); }
-    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
-    @keyframes blink { 0%,92%,100%{transform:scaleY(1)} 96%{transform:scaleY(.08)} }
-    @keyframes glow { 0%,100%{filter:none} 50%{filter:drop-shadow(0 0 10px rgba(125,146,112,.45))} }
-    h1 { font-family:Newsreader,Georgia,serif; font-size:34px; font-weight:500; margin:0; letter-spacing:-.02em; }
-    .sub { color:var(--muted); font-size:13px; margin-top:4px; }
-    .pill { font-size:11px; letter-spacing:.14em; text-transform:uppercase; padding:4px 10px; border-radius:99px; border:1px solid var(--line); color:var(--muted); }
-    .pill.ok { color:var(--sage); border-color:rgba(125,146,112,.4); }
-    .pill.warn { color:var(--warn); } .pill.bad { color:var(--bad); }
-    nav { display:flex; gap:6px; flex-wrap:wrap; margin:20px 0 16px; }
-    nav button { background:transparent; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:7px 12px; font:inherit; font-size:12px; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }
-    nav button.on { color:var(--fg); background:var(--card); border-color:rgba(236,234,228,.22); }
-    .grid { display:grid; gap:12px; }
-    @media (min-width:860px){ .g2{grid-template-columns:1.2fr .8fr} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} }
-    .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
-    .k { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
-    .v { font-size:22px; margin-top:6px; }
-    .h { color:var(--muted); font-size:13px; margin-top:4px; }
-    .bar { height:8px; background:#22231f; border-radius:99px; overflow:hidden; margin-top:8px; }
-    .bar i { display:block; height:100%; background:var(--sage); }
-    .row { display:flex; justify-content:space-between; gap:12px; font-size:14px; margin-top:12px; }
-    .cap { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--line); }
-    .cap:last-child { border-bottom:0; } .cap .name { flex:1; }
-    .st { font-size:10px; letter-spacing:.12em; text-transform:uppercase; padding:3px 8px; border-radius:99px; }
-    .proven { color:#d7e4cf; background:rgba(125,146,112,.22); }
-    .testing { color:#ead9b8; background:rgba(196,165,116,.18); }
-    .planned,.queued { color:var(--muted); background:#22231f; }
-    .locked { color:#8a8680; background:#1c1d1a; }
-    .next { color:#d7e4cf; background:rgba(125,146,112,.18); }
-    .ev { display:flex; gap:12px; padding:8px 0; border-bottom:1px solid var(--line); font-size:14px; }
-    .ev:last-child { border-bottom:0; }
-    .ev time { color:var(--muted); font-size:12px; width:72px; flex:0 0 72px; }
-    .pass { color:var(--sage); } .fail { color:var(--bad); }
-    .wx { color:var(--muted); margin:8px 0 0; }
-    footer { margin-top:22px; color:var(--muted); font-size:12px; }
+    :root{
+      --bg:#111210; --fg:#eceae4; --muted:#9a9b93; --card:#181916; --card2:#1d1e1a;
+      --line:rgba(236,234,228,.10); --line2:rgba(236,234,228,.18); --sage:#7d9270;
+      --warn:#c4a574; --bad:#c45c48; --cpu:#c4a574; --gpu:#a8a4b4; --ram:#7d9270;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:var(--bg);color:var(--fg);font-family:Figtree,ui-sans-serif,system-ui,sans-serif}
+    body{padding:18px 16px 56px}
+    .wrap{max-width:1180px;margin:0 auto}
+    header{display:flex;align-items:center;gap:15px;flex-wrap:wrap}
+    .owl-box{width:76px;height:76px;flex:0 0 76px}.owl{width:76px;height:76px;display:block}
+    .owl .ln{fill:none;stroke:var(--fg);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .owl .fl{fill:transparent;transition:fill .8s ease,opacity .8s ease}.l1 .eye{fill:var(--fg)}
+    .l2 .body{fill:rgba(125,146,112,.28)}.l2 .beak{fill:#c4a574}.l3 .body{fill:rgba(125,146,112,.48)}.l3 .face{fill:rgba(236,234,228,.12)}
+    .l4 .body{fill:#6f8464}.l4 .face{fill:#cfc9b8}.l4 .beak{fill:#e0b56a}.l4 .eye{fill:#1a1b18}.l5 .body{fill:#7d9270}.l5 .face{fill:#ddd6c6}.l5 .hi{fill:#fff;opacity:.9}
+    .st-working .owl-box{animation:bob 2.1s ease-in-out infinite,glow 2.1s ease-in-out infinite}.st-working .lids{transform-origin:16px 15px;animation:blink 3.2s ease-in-out infinite}.st-idle .lids{transform-origin:16px 15px;animation:blink 6.2s ease-in-out infinite}
+    .st-warning{filter:saturate(.75) hue-rotate(-8deg)}.st-offline{filter:grayscale(1) brightness(.55)}
+    @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@keyframes blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}@keyframes glow{0%,100%{filter:none}50%{filter:drop-shadow(0 0 10px rgba(125,146,112,.45))}}
+    h1{font-family:Newsreader,Georgia,serif;font-size:34px;font-weight:500;margin:0;letter-spacing:-.02em}.sub{color:var(--muted);font-size:13px;margin-top:3px}.wx{color:var(--muted);font-size:13px;margin:8px 0 0}
+    .pill{font-size:10px;letter-spacing:.13em;text-transform:uppercase;padding:5px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}.pill.ok{color:var(--sage);border-color:rgba(125,146,112,.4)}.pill.warn{color:var(--warn)}.pill.bad{color:var(--bad)}
+    nav{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 14px;position:sticky;top:0;z-index:8;background:linear-gradient(var(--bg) 70%,transparent);padding:8px 0 12px}
+    nav button{background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:7px 11px;font:inherit;font-size:11px;letter-spacing:.07em;text-transform:uppercase;cursor:pointer}nav button:hover{border-color:var(--line2);color:var(--fg)}nav button.on{color:var(--fg);background:var(--card);border-color:var(--line2)}
+    .grid{display:grid;gap:12px}.g2{grid-template-columns:1fr}.g3{grid-template-columns:1fr}.g4{grid-template-columns:repeat(2,1fr)}
+    @media(min-width:820px){.g2{grid-template-columns:1.25fr .75fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:15px 17px;min-width:0}.card.tight{padding:13px 15px}
+    .k{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}.v{font-size:22px;margin-top:5px;letter-spacing:-.01em}.h{color:var(--muted);font-size:12px;margin-top:4px;line-height:1.45}.mono{font-variant-numeric:tabular-nums}
+    .bar{height:7px;background:#23241f;border-radius:99px;overflow:hidden;margin-top:7px}.bar i{display:block;height:100%;background:var(--sage)}
+    .row{display:flex;justify-content:space-between;gap:12px;align-items:center;font-size:13px;margin-top:11px}.row>div:first-child{min-width:0}
+    .cap{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.cap:last-child{border-bottom:0}.cap .name{flex:1;min-width:0}
+    .st{font-size:9px;letter-spacing:.11em;text-transform:uppercase;padding:3px 7px;border-radius:99px;white-space:nowrap}.proven{color:#d7e4cf;background:rgba(125,146,112,.22)}.testing{color:#ead9b8;background:rgba(196,165,116,.18)}.planned,.queued{color:var(--muted);background:#23241f}.locked{color:#8a8680;background:#1c1d1a}.next{color:#d7e4cf;background:rgba(125,146,112,.18)}
+    .ev{display:grid;grid-template-columns:116px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}.ev:last-child{border-bottom:0}.ev time{color:var(--muted);font-size:11px;line-height:1.35}.pass{color:var(--sage)}.fail{color:var(--bad)}
+    .queue{counter-reset:q}.qitem{counter-increment:q;display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}.qitem:last-child{border-bottom:0}.qnum{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#23241f;color:var(--muted);font-size:11px}.qitem .name{font-size:13px}.qitem .detail{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.4}
+    .legend{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 4px;color:var(--muted);font-size:11px}.legend span{display:flex;align-items:center;gap:6px}.dot{width:8px;height:8px;border-radius:50%;display:inline-block}.ram{background:var(--ram)}.cpu{background:var(--cpu)}.gpu{background:var(--gpu)}
+    .chart-wrap{position:relative;margin-top:8px;min-height:300px}.chart{width:100%;height:auto;display:block;overflow:visible}.chart .gridline{stroke:rgba(236,234,228,.08);stroke-width:1}.chart .axis{fill:var(--muted);font-size:11px;font-family:Figtree,system-ui,sans-serif}.chart .ramline{stroke:var(--ram)}.chart .cpuline{stroke:var(--cpu)}.chart .gpuline{stroke:var(--gpu)}.chart .series{fill:none;stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}.chart .hoverline{stroke:rgba(236,234,228,.36);stroke-width:1;stroke-dasharray:4 4}.chart .hoverdot{stroke:var(--bg);stroke-width:2}.chart-overlay{fill:transparent;cursor:crosshair}
+    .chart-tip{position:absolute;display:none;pointer-events:none;background:#0d0e0c;border:1px solid var(--line2);border-radius:10px;padding:9px 10px;font-size:11px;line-height:1.55;box-shadow:0 8px 24px rgba(0,0,0,.3);min-width:170px;z-index:4}.chart-tip b{color:var(--fg);font-weight:600}.chart-tip .muted{color:var(--muted)}
+    .section-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:9px}.section-head .right{color:var(--muted);font-size:11px;white-space:nowrap}
+    .empty{color:var(--muted);font-size:12px;padding:12px 0}.note{border-left:2px solid var(--line2);padding-left:10px;color:var(--muted);font-size:12px;line-height:1.45}
+    footer{margin-top:20px;color:var(--muted);font-size:11px}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="owl-box" id="owlBox">
-        <svg class="owl" viewBox="0 0 32 32" aria-hidden="true">
-          <ellipse class="fl body" cx="16" cy="17.2" rx="10.2" ry="10.6"/>
-          <circle class="fl face" cx="16" cy="15.6" r="8.4"/>
-          <path class="ln" d="M8 6.2 11.2 11M24 6.2 20.8 11"/>
-          <circle class="ln" cx="12.2" cy="15.1" r="2.7"/>
-          <circle class="ln" cx="19.8" cy="15.1" r="2.7"/>
-          <g class="lids">
-            <circle class="fl eye" cx="12.2" cy="15.1" r=".95"/>
-            <circle class="fl eye" cx="19.8" cy="15.1" r=".95"/>
-            <circle class="fl hi" cx="11.7" cy="14.6" r=".28"/>
-            <circle class="fl hi" cx="19.3" cy="14.6" r=".28"/>
-          </g>
-          <path class="fl beak" d="M16 17.1 14.35 19.4h3.3L16 17.1Z"/>
-          <path class="ln" d="M11 22.6c1.4 1.5 3.2 2.2 5 2.2s3.6-.7 5-2.2"/>
-          <circle class="ln" cx="16" cy="15.8" r="9.4"/>
-        </svg>
-      </div>
-      <div style="flex:1;min-width:220px">
-        <h1>Kevin HQ</h1>
-        <div class="sub" id="owlLabel">Level 1 · Brain</div>
-      </div>
-      <span class="pill" id="statusPill">...</span>
-    </header>
-    <p class="wx" id="wx"></p>
-    <nav id="nav"></nav>
-    <main id="main"></main>
-    <footer id="foot">Kevin HQ</footer>
-  </div>
+<div class="wrap">
+  <header>
+    <div class="owl-box" id="owlBox">
+      <svg class="owl" viewBox="0 0 32 32" aria-hidden="true">
+        <ellipse class="fl body" cx="16" cy="17.2" rx="10.2" ry="10.6"/><circle class="fl face" cx="16" cy="15.6" r="8.4"/><path class="ln" d="M8 6.2 11.2 11M24 6.2 20.8 11"/><circle class="ln" cx="12.2" cy="15.1" r="2.7"/><circle class="ln" cx="19.8" cy="15.1" r="2.7"/>
+        <g class="lids"><circle class="fl eye" cx="12.2" cy="15.1" r=".95"/><circle class="fl eye" cx="19.8" cy="15.1" r=".95"/><circle class="fl hi" cx="11.7" cy="14.6" r=".28"/><circle class="fl hi" cx="19.3" cy="14.6" r=".28"/></g>
+        <path class="fl beak" d="M16 17.1 14.35 19.4h3.3L16 17.1Z"/><path class="ln" d="M11 22.6c1.4 1.5 3.2 2.2 5 2.2s3.6-.7 5-2.2"/><circle class="ln" cx="16" cy="15.8" r="9.4"/>
+      </svg>
+    </div>
+    <div style="flex:1;min-width:220px"><h1>Kevin HQ</h1><div class="sub" id="owlLabel">Level 1 · Brain</div><div class="wx" id="wx"></div></div>
+    <span class="pill" id="statusPill">...</span>
+  </header>
+  <nav id="nav"></nav>
+  <main id="main"></main>
+  <footer id="foot">Kevin HQ</footer>
+</div>
 <script>
-const TABS = ["overview","activity","capabilities","system","build","diagnostics"];
-const OWL = ["","Brain","Senses","Memory","Hands","Teammate"];
-let S = null, tab = "overview";
-const $ = id => document.getElementById(id);
-function pillClass(st){
-  if (["idle","healthy","working","live"].includes(st)) return "ok";
-  if (["degraded","warning","stale"].includes(st)) return "warn";
-  return "bad";
+const TABS=[{id:"overview",label:"Overview"},{id:"activity",label:"Activity"},{id:"capabilities",label:"Capabilities"},{id:"system",label:"System"},{id:"build",label:"Roadmap"},{id:"diagnostics",label:"Diagnostics"}];
+const OWL=["","Brain","Senses","Memory","Hands","Teammate"];
+let S=null,tab="overview";
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function pillClass(st){if(["idle","healthy","working","live","pass","green"].includes(String(st).toLowerCase()))return"ok";if(["degraded","warning","stale","testing"].includes(String(st).toLowerCase()))return"warn";return"bad"}
+function parseAt(iso){if(!iso)return null;const d=new Date(iso);return isNaN(d)?null:d}
+function fullWhen(iso){const d=parseAt(iso);if(!d)return"";return d.toLocaleString([],{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}
+function shortWhen(iso){const d=parseAt(iso);if(!d)return"";return d.toLocaleTimeString([],{hour:"numeric",minute:"2-digit"})}
+function ageSec(){const d=parseAt(S?.sync?.last||S?.generated_at);return !d?99999:Math.max(0,(Date.now()-d.getTime())/1000)}
+function freshness(){const s=ageSec();if(s<180)return{label:"LIVE",text:Math.round(s)+" sec ago"};if(s<2700)return{label:"OK",text:Math.round(s/60)+" min ago"};return{label:"STALE",text:Math.round(s/60)+" min ago"}}
+function pct(d,t){return!t?0:Math.round(100*d/t)}
+function bar(d,t){return`<div class="bar"><i style="width:${Math.max(0,Math.min(100,pct(d,t)))}%"></i></div>`}
+function card(k,v,h=""){return`<div class="card tight"><div class="k">${esc(k)}</div><div class="v mono">${esc(v)}</div>${h?`<div class="h">${esc(h)}</div>`:""}</div>`}
+function sortedActivity(){return[...(S?.activity||[])].sort((a,b)=>(parseAt(b.at)?.getTime()||0)-(parseAt(a.at)?.getTime()||0))}
+function sortedBuild(){return[...(S?.build||[])].map((x,i)=>({...x,_i:i})).sort((a,b)=>(Number(a.order??a._i+1)-Number(b.order??b._i+1)))}
+function pulseSamples(){
+  const p=S?.pulse||{};
+  if(Array.isArray(p.samples)&&p.samples.length){return p.samples.map(x=>({...x,_d:parseAt(x.at)})).filter(x=>x._d).sort((a,b)=>a._d-b._d)}
+  const ram=Array.isArray(p.ram)?p.ram:[],cpu=Array.isArray(p.cpu)?p.cpu:[],gpu=Array.isArray(p.gpu)?p.gpu:[];const n=Math.max(ram.length,cpu.length,gpu.length);if(!n)return[];
+  const end=parseAt(S?.generated_at)||new Date();const mins=Number(p.sample_interval_minutes||15);const value=(arr,i)=>{const off=n-arr.length;return i>=off?arr[i-off]:null};
+  return Array.from({length:n},(_,i)=>{const d=new Date(end.getTime()-(n-1-i)*mins*60000);return{at:d.toISOString(),_d:d,estimated:true,ram:value(ram,i),cpu:value(cpu,i),gpu:value(gpu,i)}})
 }
-function parseAt(iso){
-  if (!iso) return null;
-  const d = new Date(iso);
-  return isNaN(d) ? new Date(iso + "-06:00") : d;
-}
-function when(iso){
-  const d = parseAt(iso);
-  if (!d || isNaN(d)) return "";
-  return d.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"});
-}
-function ageSec(){
-  const d = parseAt(S && S.sync && S.sync.last || S && S.generated_at);
-  if (!d || isNaN(d)) return 99999;
-  return Math.max(0, (Date.now() - d.getTime()) / 1000);
-}
-function freshness(){
-  const s = ageSec();
-  if (s < 180) return { label: "LIVE", cls:"ok", text: Math.round(s) + " sec ago" };
-  if (s < 2700) return { label: "OK", cls:"ok", text: Math.round(s/60) + " min ago" };
-  return { label: "STALE", cls:"warn", text: Math.round(s/60) + " min ago" };
-}
-function pct(d,t){ return !t ? 0 : Math.round(100 * d / t); }
-function bar(d,t){ return `<div class="bar"><i style="width:${pct(d,t)}%"></i></div>`; }
-function spark(arr, color){
-  const a = (arr||[]).filter(n => typeof n === "number");
-  if (a.length < 2) return `<svg width="120" height="28"></svg>`;
-  const min = Math.min(...a), max = Math.max(...a);
-  const span = Math.max(1, max-min);
-  const w=120, h=28;
-  const pts = a.map((v,i) => {
-    const x = (i/(a.length-1))*w;
-    const y = h - 2 - ((v-min)/span)*(h-4);
-    return x.toFixed(1)+","+y.toFixed(1);
-  }).join(" ");
-  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><polyline fill="none" stroke="${color}" stroke-width="1.6" points="${pts}"/></svg>`;
-}
-function renderNav(){
-  $("nav").innerHTML = TABS.map(t => `<button data-t="${t}" class="${t===tab?"on":""}">${t}</button>`).join("");
-  $("nav").onclick = e => { const b=e.target.closest("button"); if(!b) return; tab=b.dataset.t; renderNav(); draw(); };
-}
-function applyChrome(){
-  const o = (S && S.owl) || {level:1, state:"idle"};
-  const fr = freshness();
-  const st = (ageSec() > 2700) ? "offline" : (o.state||"idle");
-  document.body.className = "st-" + st;
-  $("owlBox").className = "owl-box l" + (o.level||1);
-  $("owlLabel").textContent = "Level " + (o.level||1) + " \u00b7 " + (OWL[o.level]||"Brain");
-  $("statusPill").textContent = (S.status||"unknown") + " \u00b7 " + fr.label;
-  $("statusPill").className = "pill " + pillClass(S.status);
-  $("wx").textContent = (S.weather && S.weather.summary) || "";
-  $("foot").textContent = "Kevin HQ \u00b7 synchronized from HESS-PC \u00b7 " + fr.text;
-}
-function card(k,v,h){ return `<div class="card"><div class="k">${k}</div><div class="v">${v}</div>${h?`<div class="h">${h}</div>`:""}</div>`; }
-function progRow(p){
-  return `<div class="row"><div>${p.label}</div><div class="h">${p.done} / ${p.total} \u00b7 ${pct(p.done,p.total)}%</div></div>${bar(p.done,p.total)}`;
-}
-function evRow(e){
-  return `<div class="ev"><time>${when(e.at)}</time><div><span class="${e.result||""}">${e.detail||e.event}</span>
-    <div class="h">${e.component||""}${(e.result? " \u00b7 "+e.result.toUpperCase():"")}</div></div></div>`;
-}
+function renderNav(){$("nav").innerHTML=TABS.map(t=>`<button data-t="${t.id}" class="${t.id===tab?"on":""}">${esc(t.label)}</button>`).join("");$("nav").onclick=e=>{const b=e.target.closest("button");if(!b)return;tab=b.dataset.t;renderNav();draw()}}
+function applyChrome(){const o=S?.owl||{level:1,state:"idle"},fr=freshness(),st=ageSec()>2700?"offline":(o.state||"idle");document.body.className="st-"+st;$("owlBox").className="owl-box l"+(o.level||1);$("owlLabel").textContent="Level "+(o.level||1)+" · "+(OWL[o.level]||"Brain");$("statusPill").textContent=(S?.status||"unknown")+" · "+fr.label;$("statusPill").className="pill "+pillClass(S?.status);$("wx").textContent=S?.weather?.summary||"";$("foot").textContent="Kevin HQ · local runtime · "+fr.text}
+function progRow(p){return`<div class="row"><div>${esc(p.label)}</div><div class="h mono">${esc(p.done)} / ${esc(p.total)} · ${pct(p.done,p.total)}%</div></div>${bar(p.done,p.total)}`}
+function evRow(e){const res=String(e.result||"").toLowerCase();return`<div class="ev"><time class="mono">${esc(fullWhen(e.at))}</time><div><span class="${esc(res)}">${esc(e.detail||e.event||"Event")}</span><div class="h">${esc(e.component||"")}${res?" · "+esc(res.toUpperCase()):""}${e.duration_ms?" · "+esc(Math.round(e.duration_ms/1000))+"s":""}</div></div></div>`}
+function queueHtml(limit){const items=sortedBuild().slice(0,limit||99);return items.map((b,i)=>`<div class="qitem"><div class="qnum">${esc(b.order??i+1)}</div><div><div class="name">${esc(b.label)}</div><div class="detail">${esc(b.detail||"")}</div></div><span class="st ${esc(b.state||"queued")}">${esc(b.state||"queued")}</span></div>`).join("")}
 function overview(){
-  const t = S.current_task;
-  const fr = freshness();
-  const taskH = t ? ((t.total) ? `${t.phase||"in progress"} ${t.completed}/${t.total}` : (t.phase||"in progress")) : "No active task";
-  const rd = S.roadmap || {done:1,total:6};
-  return `<div class="grid g4">
-    ${card("Status", (S.status||"-").toUpperCase(), t ? t.title : "Idle")}
-    ${card("Brain", S.brain.name, (S.brain.mode||"Chat") + " \u00b7 " + S.brain.context)}
-    ${card("Health", (S.health.overall||"-").toUpperCase(), S.self_check.summary)}
-    ${card("Sync", fr.label, fr.text)}
-  </div>
-  <div class="grid g2" style="margin-top:12px">
-    <div class="card"><div class="k">Capability progress</div>
-      ${(S.progress||[]).map(progRow).join("")}
-      <div class="row"><div>Roadmap completion</div><div class="h">${rd.done} / ${rd.total} \u00b7 ${pct(rd.done,rd.total)}%</div></div>${bar(rd.done,rd.total)}
-    </div>
-    <div class="card"><div class="k">Current task</div>
-      <div class="v">${t ? t.title : "None"}</div>
-      <div class="h">${taskH}</div>
-      ${t && t.total ? bar(t.completed||0, t.total) : ""}
-      <div class="k" style="margin-top:16px">Recent</div>
-      ${(S.activity||[]).slice(0,7).map(evRow).join("") || "<div class='h'>Waiting for the next cycle.</div>"}
-    </div>
-  </div>
-  <div class="grid g3" style="margin-top:12px">
-    <div class="card"><div class="k">RAM</div><div class="v">${S.system.memory_pct??"-"}%</div>${spark((S.pulse||{}).ram, "#7d9270")}</div>
-    <div class="card"><div class="k">CPU</div><div class="v">${S.system.cpu_pct??"-"}%</div>${spark((S.pulse||{}).cpu, "#c4a574")}</div>
-    <div class="card"><div class="k">GPU</div><div class="v">${S.system.gpu_pct??"-"}%</div><div class="h">${S.system.gpu||""}</div>${spark((S.pulse||{}).gpu, "#9a9b93")}</div>
-  </div>`;
+  const t=S.current_task,fr=freshness(),rd=S.roadmap||{done:0,total:0},events=sortedActivity();const taskH=t?((t.total)?`${t.phase||"in progress"} ${t.completed||0}/${t.total}`:(t.phase||"in progress")):"No active task";
+  return`<div class="grid g4">${card("Status",String(S.status||"-").toUpperCase(),t?t.title:"No active task")}${card("Brain",S.brain?.name||"-",(S.brain?.mode||"Chat")+" · "+(S.brain?.context||""))}${card("Health",String(S.health?.overall||"-").toUpperCase(),S.self_check?.summary||"")}${card("Sync",fr.label,fr.text)}</div>
+  <div class="grid g2" style="margin-top:12px"><div class="card"><div class="section-head"><div><div class="k">Execution queue</div><div class="h">Always shown in planned order</div></div><div class="right">Now → next → later</div></div><div class="queue">${queueHtml(6)}</div></div>
+  <div class="card"><div class="k">Current task</div><div class="v">${esc(t?t.title:"None")}</div><div class="h">${esc(taskH)}</div>${t&&t.total?bar(t.completed||0,t.total):""}<div class="k" style="margin-top:16px">Latest activity</div>${events.slice(0,5).map(evRow).join("")||`<div class="empty">Waiting for the next cycle.</div>`}</div></div>
+  <div class="card" style="margin-top:12px"><div class="section-head"><div><div class="k">System load timeline</div><div class="h">RAM · CPU · GPU · hover for exact sample details</div></div><div class="right">${esc(S.pulse?.window||"24h")}</div></div><div class="legend"><span><i class="dot ram"></i>RAM</span><span><i class="dot cpu"></i>CPU</span><span><i class="dot gpu"></i>GPU</span></div><div id="overviewChart"></div></div>
+  <div class="card" style="margin-top:12px"><div class="k">Capability progress</div>${(S.progress||[]).map(progRow).join("")}<div class="row"><div>Roadmap completion</div><div class="h mono">${rd.done}/${rd.total} · ${pct(rd.done,rd.total)}%</div></div>${bar(rd.done,rd.total)}</div>`
 }
-function activity(){ return `<div class="card"><div class="k">Activity</div>${(S.activity||[]).map(evRow).join("")||"<div class='h'>No events yet.</div>"}</div>`; }
-function capabilities(){
-  return `<div class="card"><div class="k">Capabilities</div>
-    <p class="h">PROVEN \u00b7 available &nbsp; TESTING \u00b7 under validation &nbsp; PLANNED \u00b7 queued &nbsp; LOCKED \u00b7 intentionally unavailable</p>
-    ${S.capabilities.map(c => {
-      const show = c.qa_total ? bar(c.qa_pass||0, c.qa_total) : "";
-      return `<div class="cap"><div class="name">${c.label}<div class="h">${[c.version, (c.qa_total? (c.qa_pass||0)+"/"+c.qa_total+" QA":"")].filter(Boolean).join(" \u00b7 ")}</div>${show}</div><span class="st ${c.state}">${c.state}</span></div>`;
-    }).join("")}
-  </div>`;
+function activity(){const a=sortedActivity();return`<div class="card"><div class="section-head"><div><div class="k">Activity</div><div class="h">Newest first · timestamped</div></div><div class="right">${a.length} shown</div></div>${a.map(evRow).join("")||`<div class="empty">No events yet.</div>`}</div>`}
+function capabilities(){return`<div class="card"><div class="section-head"><div><div class="k">Capabilities</div><div class="h">Evidence-backed status only</div></div></div><div class="note">PROVEN = validated and available · TESTING = being validated · PLANNED = queued · LOCKED = intentionally unavailable</div>${(S.capabilities||[]).map(c=>{const show=c.qa_total?bar(c.qa_pass||0,c.qa_total):"";return`<div class="cap"><div class="name">${esc(c.label)}<div class="h">${esc([c.version,c.qa_total?`${c.qa_pass||0}/${c.qa_total} QA`:"",c.last_verified?`verified ${String(c.last_verified).slice(0,10)}`:""].filter(Boolean).join(" · "))}</div>${show}</div><span class="st ${esc(c.state)}">${esc(c.state)}</span></div>`}).join("")}</div>`}
+function system(){const s=S.system||{},svc=S.services||{};return`<div class="grid g4">${card("RAM",(s.memory_pct??"-")+"%","current load")}${card("CPU",(s.cpu_pct??"-")+"%","current load")}${card("GPU",(s.gpu_pct??"-")+"%",s.gpu||"")}${card("Health",String(S.health?.overall||"-").toUpperCase(),S.self_check?.summary||"")}</div>
+  <div class="card" style="margin-top:12px"><div class="section-head"><div><div class="k">System load · ${esc(S.pulse?.window||"24h")}</div><div class="h">Y-axis = utilization % · X-axis = sample time · hover anywhere on the plot</div></div><div class="right">${pulseSamples().length} samples</div></div><div class="legend"><span><i class="dot ram"></i>RAM</span><span><i class="dot cpu"></i>CPU</span><span><i class="dot gpu"></i>GPU</span></div><div id="systemChart"></div></div>
+  <div class="grid g4" style="margin-top:12px">${card("Tick",String(svc.tick||"-").toUpperCase())}${card("Bridge",String(svc.bridge||"-").toUpperCase())}${card("Ollama",String(svc.ollama||"-").toUpperCase())}${card("Gateway",String(svc.gateway||"-").toUpperCase())}</div>`}
+function build(){const rd=S.roadmap||{};return`<div class="card"><div class="section-head"><div><div class="k">Roadmap</div><div class="h">Chronological execution order</div></div><div class="right">${esc(rd.done??0)}/${esc(rd.total??0)} capabilities proven</div></div><div class="queue">${queueHtml()}</div>${rd.total?`<div class="row"><div>Roadmap completion</div><div class="h mono">${rd.done}/${rd.total} · ${pct(rd.done,rd.total)}%</div></div>${bar(rd.done,rd.total)}`:""}</div>`}
+function diagnostics(){const d=S.diagnostics||{},a=d.candidate_forge||{};return`<div class="grid g2"><div class="card"><div class="k">Runtime diagnostics</div><div class="h">Agent ${esc(d.agent||"-")} · ${esc(d.model||"")} · ${esc(d.context||"")}</div><div class="h">Chat QA ${esc(d.chat_qa||"-")} · tools ${esc(d.tools??0)} · NO_REPLY ${esc(d.noreply??0)}</div><div class="h">Reader boundary ${esc(d.reader_boundary||"-")} · visible tools ${esc(d.reader_visible_tools??"-")}</div><div class="h">Self-check ${esc(S.self_check?.summary||"-")}</div><div class="h">Schema ${esc(S.schema||"-")}</div></div><div class="card"><div class="k">Candidate Forge</div><div class="v">${esc(String(a.result||"not started").toUpperCase())}</div><div class="h">${a.last_mission?`Last mission ${esc(a.last_mission)}`:"No completed candidate recorded yet."}</div>${a.iteration?`<div class="h">Iteration ${esc(a.iteration)}</div>`:""}${a.updated_at?`<div class="h">Updated ${esc(fullWhen(a.updated_at))}</div>`:""}</div></div>`}
+function chartMarkup(samples,id){
+  if(samples.length<2)return`<div class="empty">Not enough samples yet.</div>`;
+  const W=960,H=300,L=48,R=18,T=14,B=36,pw=W-L-R,ph=H-T-B,n=samples.length;const x=i=>L+(n===1?0:(i/(n-1))*pw),y=v=>T+(1-Math.max(0,Math.min(100,Number(v??0)))/100)*ph;
+  const line=k=>samples.map((s,i)=>`${x(i).toFixed(1)},${y(s[k]).toFixed(1)}`).join(" ");const yTicks=[0,25,50,75,100];const labels=[0,Math.floor((n-1)/2),n-1];
+  return`<div class="chart-wrap" data-chart="${id}"><svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="RAM CPU GPU utilization over time">${yTicks.map(v=>`<line class="gridline" x1="${L}" y1="${y(v)}" x2="${W-R}" y2="${y(v)}"/><text class="axis" x="${L-8}" y="${y(v)+4}" text-anchor="end">${v}%</text>`).join("")}${labels.map((i,j)=>`<text class="axis" x="${x(i)}" y="${H-10}" text-anchor="${j===0?"start":j===labels.length-1?"end":"middle"}">${esc(shortWhen(samples[i].at))}</text>`).join("")}<polyline class="series ramline" points="${line("ram")}"/><polyline class="series cpuline" points="${line("cpu")}"/><polyline class="series gpuline" points="${line("gpu")}"/><line class="hoverline" data-hoverline x1="0" y1="${T}" x2="0" y2="${H-B}" visibility="hidden"/><circle class="hoverdot" data-dot="ram" r="4" fill="var(--ram)" visibility="hidden"/><circle class="hoverdot" data-dot="cpu" r="4" fill="var(--cpu)" visibility="hidden"/><circle class="hoverdot" data-dot="gpu" r="4" fill="var(--gpu)" visibility="hidden"/><rect class="chart-overlay" data-overlay x="${L}" y="${T}" width="${pw}" height="${ph}"/></svg><div class="chart-tip" data-tip></div></div>`
 }
-function system(){
-  const s = S.system||{}, svc = S.services||{};
-  return `<div class="grid g4">
-    ${card("Memory", (s.memory_pct??"-")+"%")}
-    ${card("CPU", (s.cpu_pct??"-")+"%")}
-    ${card("GPU", s.gpu||"-", (s.gpu_pct!=null? s.gpu_pct+"%":""))}
-    ${card("Health", (S.health.overall||"-").toUpperCase())}
-  </div>
-  <div class="grid g3" style="margin-top:12px">
-    <div class="card"><div class="k">RAM 24h</div>${spark((S.pulse||{}).ram, "#7d9270")}</div>
-    <div class="card"><div class="k">CPU 24h</div>${spark((S.pulse||{}).cpu, "#c4a574")}</div>
-    <div class="card"><div class="k">GPU 24h</div>${spark((S.pulse||{}).gpu, "#9a9b93")}</div>
-  </div>
-  <div class="grid g4" style="margin-top:12px">
-    ${card("Tick", (svc.tick||"-").toUpperCase())}
-    ${card("Bridge", (svc.bridge||"-").toUpperCase())}
-    ${card("Ollama", (svc.ollama||"-").toUpperCase())}
-    ${card("Gateway", (svc.gateway||"-").toUpperCase())}
-  </div>`;
+function wireChart(containerId){const host=$(containerId);if(!host)return;const samples=pulseSamples();host.innerHTML=chartMarkup(samples,containerId);if(samples.length<2)return;const wrap=host.querySelector(".chart-wrap"),svg=host.querySelector("svg"),overlay=host.querySelector("[data-overlay]"),tip=host.querySelector("[data-tip]"),hover=host.querySelector("[data-hoverline]");const dots={ram:host.querySelector('[data-dot="ram"]'),cpu:host.querySelector('[data-dot="cpu"]'),gpu:host.querySelector('[data-dot="gpu"]')};const W=960,H=300,L=48,R=18,T=14,B=36,pw=W-L-R,ph=H-T-B,n=samples.length,x=i=>L+(i/(n-1))*pw,y=v=>T+(1-Math.max(0,Math.min(100,Number(v??0)))/100)*ph;
+  const move=e=>{const rect=svg.getBoundingClientRect(),sx=(e.clientX-rect.left)*(W/rect.width),idx=Math.max(0,Math.min(n-1,Math.round(((sx-L)/pw)*(n-1)))),s=samples[idx],xx=x(idx);hover.setAttribute("x1",xx);hover.setAttribute("x2",xx);hover.setAttribute("visibility","visible");["ram","cpu","gpu"].forEach(k=>{const d=dots[k];if(s[k]==null){d.setAttribute("visibility","hidden");return}d.setAttribute("cx",xx);d.setAttribute("cy",y(s[k]));d.setAttribute("visibility","visible")});tip.innerHTML=`<b>${esc(fullWhen(s.at))}</b>${s.estimated?` <span class="muted">· approx.</span>`:""}<br><span style="color:var(--ram)">RAM</span> ${esc(s.ram??"-")}% &nbsp; <span style="color:var(--cpu)">CPU</span> ${esc(s.cpu??"-")}%<br><span style="color:var(--gpu)">GPU</span> ${esc(s.gpu??"-")}%`;tip.style.display="block";const px=e.clientX-wrap.getBoundingClientRect().left,py=e.clientY-wrap.getBoundingClientRect().top;tip.style.left=Math.min(Math.max(8,px+12),Math.max(8,wrap.clientWidth-190))+"px";tip.style.top=Math.max(6,py-78)+"px"};
+  overlay.addEventListener("pointermove",move);overlay.addEventListener("pointerdown",move);overlay.addEventListener("pointerleave",()=>{hover.setAttribute("visibility","hidden");Object.values(dots).forEach(d=>d.setAttribute("visibility","hidden"));tip.style.display="none"})
 }
-function build(){
-  return `<div class="card"><div class="k">Build</div>${(S.build||[]).map(b =>
-    `<div class="cap"><div class="name">${b.label}<div class="h">${b.detail||""}</div></div><span class="st ${b.state}">${b.state}</span></div>`).join("")}
-  ${(S.roadmap)? `<div class="row"><div>Roadmap completion</div><div class="h">${S.roadmap.done}/${S.roadmap.total}</div></div>${bar(S.roadmap.done,S.roadmap.total)}`:""}
-  </div>`;
-}
-function diagnostics(){
-  const d = S.diagnostics||{};
-  return `<div class="card"><div class="k">Diagnostics</div>
-    <div class="h">Agent ${d.agent||"-"} \u00b7 ${d.model||""} \u00b7 ${d.context||""}</div>
-    <div class="h">Chat QA ${d.chat_qa||"-"} \u00b7 tools ${d.tools??0} \u00b7 NO_REPLY ${d.noreply??0}</div>
-    <div class="h">Self-check: ${S.self_check.summary}</div>
-    <div class="h">Last sync ${S.sync.last}</div>
-    <div class="h">Owl level ${S.owl.level} ${S.owl.state} \u00b7 schema ${S.schema}</div>
-  </div>`;
-}
-function draw(){
-  if (!S) { $("main").innerHTML = `<div class="card">Waiting for dashboard state.</div>`; return; }
-  applyChrome();
-  $("main").innerHTML = ({overview,activity,capabilities,system,build,diagnostics}[tab])();
-}
-async function load(){
-  for (const u of [
-    "https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/dashboard-state.json",
-    "../reports/dashboard-state.json"
-  ]) {
-    try {
-      const r = await fetch(u+"?t="+Date.now(), {cache:"no-store"});
-      if (r.ok) { S = await r.json(); break; }
-    } catch(e){}
-  }
-  renderNav(); draw();
-}
-load();
-setInterval(load, 30000);
+function draw(){if(!S){$("main").innerHTML=`<div class="card">Waiting for dashboard state.</div>`;return}applyChrome();$("main").innerHTML=({overview,activity,capabilities,system,build,diagnostics}[tab])();if(tab==="overview")wireChart("overviewChart");if(tab==="system")wireChart("systemChart")}
+async function load(){for(const u of["https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/dashboard-state.json","../reports/dashboard-state.json"]){try{const r=await fetch(u+"?t="+Date.now(),{cache:"no-store"});if(r.ok){S=await r.json();break}}catch(e){}}renderNav();draw()}
+load();setInterval(load,30000);
 </script>
 </body>
 </html>
