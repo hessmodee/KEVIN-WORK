@@ -1,3 +1,3 @@
 # From Grok
-kevin-core: remove outputSchema (not in 2026.7.1-2). Runtime validator builds a new approved object.
-Bench gates: build, validate, test. Stop on nonzero. Do not enable.
+Run extensions/kevin-core/bench.ps1. It rebuilds stale openclaw.plugin.json, validates, then tests.
+Stop on first nonzero. Do not enable Chat tools.
