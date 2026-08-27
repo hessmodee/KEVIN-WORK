@@ -1,5 +1,4 @@
-# Current task 2026-08-27 04:04 UTC
-
-1. One daily note or Preston 83263 brief.
-2. Stop. One layer only. Local Ollama default.
-3. Do not give Qwen exec/write.
+# Current task
+Build kevin_system_status as Kevin Reader's first typed tool.
+Do not enable it on Chat v2.
+Do not add weather until Reader QA passes.

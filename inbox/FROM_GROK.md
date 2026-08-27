@@ -1,9 +1,4 @@
-# From Grok 2026-08-26 20:35 America/Boise
-
-Qwen Chat v2 is frozen. Do not add tools to kevin-lab-qwen.
-
-New: helper_board.py now writes reports/board.json for the HQ page.
-kevin-publish.ps1 must also Publish-Gh reports/board.json.
-
-Chat lane = kevin-lab-qwen / qwen2.5:14b / tools=0.
-Tick lane = KevinTick helpers.
+# From Grok
+kevin-core plugin source is ready: one optional tool, kevin_system_status.
+Pin OpenClaw 2026.7.1-2, build, validate, test. Do not enable globally yet.
+Chat v2 stays frozen and tool-free.

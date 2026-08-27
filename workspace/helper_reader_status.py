@@ -1,5 +1,10 @@
-"""Reader v1 sense: system status + Kevin state events. No OpenClaw exec required."""
-import os, sys, time, subprocess
+"""Reader v1 sense: sanitized system status + Kevin state events."""
+from __future__ import annotations
+
+import os
+import subprocess
+import sys
+import time
 
 ROOT = os.path.join(os.path.expanduser("~"), ".openclaw", "workspace")
 STATE = os.path.join(ROOT, "helper_kevin_state.py")
@@ -12,20 +17,25 @@ def run_state(*args):
     subprocess.run(cmd, check=False)
 
 
-def main():
+def main() -> int:
     t0 = time.time()
     run_state("start", "system-status", "Checking system status", "system_reader")
     code = 1
     if os.path.isfile(STATUS):
-        code = subprocess.call([sys.executable, STATUS])
+        code = subprocess.call([sys.executable, STATUS, "--json"])
     else:
         print("FAIL: helper_system_status.py missing")
     ms = int((time.time() - t0) * 1000)
     result = "PASS" if code == 0 else "FAIL"
-    run_state("finish", "system-status", result, "kevin_system_status %s %sms" % (result, ms))
-    path = os.path.join(REPORTS, "system-status.md")
-    if os.path.isfile(path):
-        print(open(path, encoding="utf-8", errors="replace").read())
+    run_state(
+        "finish",
+        "system-status",
+        result,
+        "kevin_system_status %s %sms" % (result, ms),
+    )
+    jpath = os.path.join(REPORTS, "system-status.json")
+    if os.path.isfile(jpath):
+        print(open(jpath, encoding="utf-8", errors="replace").read())
     print("READER", result, ms, "ms")
     return 0 if code == 0 else 1
 

@@ -37,12 +37,15 @@ def event(source, component, event, detail, result="", task_id="", duration_ms=N
         f.write(json.dumps(rec, ensure_ascii=True) + "\n")
     return rec
 
-def rebuild_and_publish(force=False):
+def rebuild_local():
     dash = os.path.join(ROOT, "helper_dashboard_state.py")
     env = os.environ.copy()
     env["KEVIN_SKIP_TICK"] = "1"
     if os.path.isfile(dash):
         subprocess.run([sys.executable, dash], cwd=ROOT, check=False, env=env)
+
+def rebuild_and_publish(force=False):
+    rebuild_local()
     now = time.time()
     last = 0.0
     if os.path.isfile(STAMP):
@@ -63,7 +66,7 @@ def cmd_start(tid, title, category="reader", source=None):
     obj = {"id": tid, "title": title, "category": category, "phase": "started", "completed": 0, "total": None, "started_at": iso(), "source": src(source)}
     write_json(TASK, obj)
     event(source, category, "task_start", title, "", tid)
-    rebuild_and_publish(True)
+    rebuild_local()
     print("started", tid)
     return 0
 

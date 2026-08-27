@@ -1,6 +1,6 @@
 """Public dashboard-state.json. Sanitized. Preserves Kevin task + pulse history."""
 import json, os, re
-from datetime import datetime, timedelta
+from datetime import datetime
 
 try:
     from zoneinfo import ZoneInfo
@@ -11,6 +11,15 @@ except Exception:
 ROOT = os.path.join(os.path.expanduser("~"), ".openclaw", "workspace")
 REPORTS = os.path.join(ROOT, "reports")
 os.makedirs(REPORTS, exist_ok=True)
+
+FORBIDDEN = [
+    (re.compile(r"C:\\Users", re.I), "[path]"),
+    (re.compile(r"hessm", re.I), "[user]"),
+    (re.compile(r":18789\b"), ""),
+    (re.compile(r"127\.0\.0\.1"), "[local]"),
+    (re.compile(r"xai-[A-Za-z0-9]{8,}"), "[redacted]"),
+    (re.compile(r"ghp_[A-Za-z0-9]{8,}"), "[redacted]"),
+]
 
 
 def now():
@@ -126,8 +135,22 @@ def pulse_append(sample):
     return hist
 
 
+def scrub(obj):
+    if isinstance(obj, dict):
+        return {k: scrub(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [scrub(v) for v in obj]
+    if isinstance(obj, str):
+        s = obj
+        for pat, repl in FORBIDDEN:
+            s = pat.sub(repl, s)
+        return s
+    return obj
+
+
 def main():
     ts, iso = now()
+    js = read_json("system-status.json", {})
     sysd = kv_lines(read("system-status.md"))
     check = read("self-check.md")
     wx = weather_summary(read("weather-83263.md"))
@@ -139,12 +162,20 @@ def main():
     bridge = "healthy" if str(b.get("bridge", "")).upper() in ("PASS", "OK") else "unknown"
     if str(b.get("pull", "")).upper() == "FAIL" or str(b.get("publish", "")).upper() == "FAIL":
         bridge = "degraded"
-    ollama = healthy(sysd.get("Ollama"))
-    gateway = healthy(next((sysd[k] for k in sysd if "gateway" in k.lower()), ""))
-    mem = pct(sysd.get("RAM load"))
-    cpu = pct(sysd.get("CPU load"))
-    gpu_util = pct(sysd.get("GPU utilization"))
-    gpu_name = re.sub(r"NVIDIA GeForce ", "", sysd.get("GPU", "RTX 3060"))
+    if js:
+        ollama = healthy(js.get("ollama_status"))
+        gateway = healthy(js.get("gateway_status"))
+        mem = js.get("ram_load_percent")
+        cpu = js.get("cpu_percent")
+        gpu_util = js.get("gpu_percent")
+        gpu_name = re.sub(r"NVIDIA GeForce ", "", str(js.get("gpu_name") or "RTX 3060"))
+    else:
+        ollama = healthy(sysd.get("Ollama"))
+        gateway = healthy(next((sysd[k] for k in sysd if "gateway" in k.lower()), ""))
+        mem = pct(sysd.get("RAM load"))
+        cpu = pct(sysd.get("CPU load"))
+        gpu_util = pct(sysd.get("GPU utilization"))
+        gpu_name = re.sub(r"NVIDIA GeForce ", "", sysd.get("GPU", "RTX 3060"))
     overall = "healthy"
     if fails or ollama != "healthy" or gateway != "healthy" or bridge == "degraded":
         overall = "degraded"
@@ -154,7 +185,9 @@ def main():
     status = "working" if task else "idle"
     if overall == "degraded":
         status = "degraded"
-    ev = append_event(iso, "tick", "cycle", "Health cycle", "pass" if fails == 0 else "fail")
+    ev = None
+    if os.environ.get("KEVIN_SKIP_TICK") != "1":
+        ev = append_event(iso, "tick", "cycle", "Health cycle", "pass" if fails == 0 else "fail")
     events = load_events()
     h24 = health_24h(events)
     hist = pulse_append({"ram": mem, "cpu": cpu, "gpu": gpu_util})
@@ -199,18 +232,19 @@ def main():
         "progress": progress,
         "roadmap": {"done": sum(1 for c in caps if c["state"] == "proven"), "total": len(caps), "label": "Roadmap completion"},
         "build": [
-            {"id": "senses", "label": "System Awareness", "state": "next", "detail": "Reader v1, 0 of 4 sensors"},
+            {"id": "senses", "label": "System Awareness", "state": "next", "detail": "Reader v1 tool: kevin_system_status"},
             {"id": "memory", "label": "Knowledge and Memory", "state": "queued", "detail": ""},
             {"id": "hands", "label": "Controlled Actions", "state": "queued", "detail": ""},
             {"id": "comms", "label": "Communications", "state": "queued", "detail": ""},
             {"id": "windows", "label": "Windows Interaction", "state": "queued", "detail": ""},
         ],
-        "activity": meaningful(events) or [ev],
+        "activity": meaningful(events) or ([ev] if ev else []),
         "owl": {"level": owl_level, "state": owl_state},
         "sync": {"last": iso, "source": "HESS-PC"},
         "self_check": {"fails": fails, "summary": "All checks passed" if fails == 0 else ("%s check(s) failed" % fails)},
         "diagnostics": {"agent": "kevin-lab-qwen", "model": "qwen2.5:14b", "context": "8K", "tools": 0, "chat_qa": "18/18", "noreply": 0},
     }
+    state = scrub(state)
     path = os.path.join(REPORTS, "dashboard-state.json")
     open(path, "w", encoding="utf-8").write(json.dumps(state, indent=2) + "\n")
     print(path)
