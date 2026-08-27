@@ -1,6 +1,5 @@
-# Current task 2026-08-27 02:43 UTC
+# Current task 2026-08-27 03:03 UTC
 
-1. Exec: python helper_append_daily_note.py tick
-2. Confirm one daily file updated (memory/YYYY-MM-DD.md)
-3. Stop. One layer only. Local Ollama default.
-4. Do not give Qwen exec/write.
+1. One daily note or Preston 83263 brief.
+2. Stop. One layer only. Local Ollama default.
+3. Do not give Qwen exec/write.
