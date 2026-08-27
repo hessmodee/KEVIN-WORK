@@ -1,7 +1,7 @@
 {
   "schema": 2,
-  "generated_at": "2026-08-27T04:57:54-06:00",
-  "status": "working",
+  "generated_at": "2026-08-27T05:05:14-06:00",
+  "status": "idle",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,16 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "night-forge",
-    "title": "Night Forge cycle",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-27T04:57:54-06:00",
-    "source": "forge"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -29,10 +20,10 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 55,
-    "cpu_pct": 17,
+    "memory_pct": 56,
+    "cpu_pct": 32,
     "gpu": "RTX 3060",
-    "gpu_pct": 8
+    "gpu_pct": 13
   },
   "pulse": {
     "ram": [
@@ -92,7 +83,9 @@
       56,
       56,
       55,
-      55
+      55,
+      56,
+      56
     ],
     "cpu": [
       11,
@@ -151,7 +144,9 @@
       17,
       21,
       17,
-      17
+      17,
+      24,
+      32
     ],
     "gpu": [
       11,
@@ -210,7 +205,9 @@
       0,
       3,
       8,
-      8
+      8,
+      13,
+      13
     ]
   },
   "weather": {
@@ -309,8 +306,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 32,
-      "total": 32
+      "done": 33,
+      "total": 33
     }
   ],
   "roadmap": {
@@ -352,11 +349,21 @@
   ],
   "activity": [
     {
-      "at": "2026-08-27T04:50:14-06:00",
+      "at": "2026-08-27T05:05:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
       "result": "pass"
+    },
+    {
+      "at": "2026-08-27T04:59:45-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 111526ms",
+      "result": "pass",
+      "task_id": "night-forge",
+      "duration_ms": 111000
     },
     {
       "at": "2026-08-27T04:57:54-06:00",
@@ -509,23 +516,14 @@
       "result": "fail",
       "task_id": "night-forge",
       "duration_ms": 19000
-    },
-    {
-      "at": "2026-08-26T23:00:51-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Night Forge cycle",
-      "result": "",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T04:57:54-06:00",
+    "last": "2026-08-27T05:05:14-06:00",
     "source": "HESS-PC"
   },
   "self_check": {
