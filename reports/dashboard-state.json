@@ -1,7 +1,7 @@
 {
   "schema": 2,
-  "generated_at": "2026-08-27T00:35:13-06:00",
-  "status": "idle",
+  "generated_at": "2026-08-27T00:57:54-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,16 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "night-forge",
+    "title": "Night Forge cycle",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-27T00:57:54-06:00",
+    "source": "forge"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -20,8 +29,8 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 59,
-    "cpu_pct": 19,
+    "memory_pct": 58,
+    "cpu_pct": 17,
     "gpu": "RTX 3060",
     "gpu_pct": 0
   },
@@ -57,7 +66,9 @@
       58,
       59,
       58,
-      59
+      59,
+      58,
+      58
     ],
     "cpu": [
       11,
@@ -90,7 +101,9 @@
       30,
       19,
       27,
-      19
+      19,
+      17,
+      17
     ],
     "gpu": [
       11,
@@ -123,6 +136,8 @@
       1,
       2,
       1,
+      0,
+      0,
       0
     ]
   },
@@ -222,8 +237,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 15,
-      "total": 15
+      "done": 16,
+      "total": 16
     }
   ],
   "roadmap": {
@@ -265,11 +280,20 @@
   ],
   "activity": [
     {
-      "at": "2026-08-27T00:35:13-06:00",
+      "at": "2026-08-27T00:50:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
       "result": "pass"
+    },
+    {
+      "at": "2026-08-27T00:57:54-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
     },
     {
       "at": "2026-08-26T23:59:47-06:00",
@@ -422,24 +446,14 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-26T21:57:32-06:00",
-      "source": "kevin-reader",
-      "component": "system_reader",
-      "event": "task_finish",
-      "detail": "kevin_system_status PASS 3763ms",
-      "result": "pass",
-      "task_id": "system-status",
-      "duration_ms": 4000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-27T00:35:13-06:00",
+    "last": "2026-08-27T00:57:54-06:00",
     "source": "HESS-PC"
   },
   "self_check": {
