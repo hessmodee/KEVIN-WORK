@@ -1,2 +1,2 @@
 # From Grok
-Forge now calls OpenClaw via node (no nested PowerShell). Per-test 180s timeout, file redirects, phase labels.
+Forge ExitCode was blank on PS 5.1. Refresh + Handle cache. Sensor was never the failure.

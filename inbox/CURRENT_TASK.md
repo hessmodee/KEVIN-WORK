@@ -1,2 +1,2 @@
 # Current task
-Disable KevinNightForge. Pull timeout fix. Manual proof must show qwen_pass > 0 before re-enable.
+Disable KevinNightForge. Pull Start-Process ExitCode fix. Do not enable until one full PASS with qwen_pass > 0.

@@ -43,19 +43,29 @@ function Invoke-TimeoutProc {
   $errFile = Join-Path $env:TEMP "forge-$safe-$id.err.txt"
   $sw = [Diagnostics.Stopwatch]::StartNew()
   $p = Start-Process -FilePath $FileName -ArgumentList $ArgList -WorkingDirectory $Cwd -NoNewWindow -PassThru -RedirectStandardOutput $outFile -RedirectStandardError $errFile
+  $null = $p.Handle
   if (-not $p.WaitForExit($Seconds * 1000)) {
     try { Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue } catch {}
     $sw.Stop()
     throw "TIMEOUT $Label ${Seconds}s"
   }
+  $p.Refresh()
+  $deadline = (Get-Date).AddSeconds(2)
+  while (-not $p.HasExited -and (Get-Date) -lt $deadline) { Start-Sleep -Milliseconds 50; $p.Refresh() }
+  $exitCode = $p.ExitCode
+  if ($null -eq $exitCode) {
+    $p.Refresh()
+    $exitCode = $p.ExitCode
+  }
   $sw.Stop()
-  $script:LastProcExit = $p.ExitCode
+  if ($null -eq $exitCode) { throw "FAIL $Label missing-exit-code" }
+  $script:LastProcExit = [int]$exitCode
   $out = ""
   $err = ""
   if (Test-Path $outFile) { $out = [IO.File]::ReadAllText($outFile) }
   if (Test-Path $errFile) { $err = [IO.File]::ReadAllText($errFile) }
-  Write-Host "END $Label exit=$($p.ExitCode) $($sw.ElapsedMilliseconds)ms"
-  if ($p.ExitCode -ne 0) { throw "FAIL $Label exit $($p.ExitCode) $err" }
+  Write-Host "END $Label exit=$($script:LastProcExit) ms=$($sw.ElapsedMilliseconds)"
+  if ($script:LastProcExit -ne 0) { throw "FAIL $Label exit=$($script:LastProcExit) $err" }
   return $out
 }
 
