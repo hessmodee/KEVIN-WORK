@@ -1,7 +1,7 @@
 {
   "schema": 2,
-  "generated_at": "2026-08-26T21:57:28-06:00",
-  "status": "working",
+  "generated_at": "2026-08-26T21:57:32-06:00",
+  "status": "idle",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,16 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "system-status",
-    "title": "Checking system status",
-    "category": "system_reader",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-26T21:57:28-06:00",
-    "source": "kevin-reader"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -29,26 +20,29 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 60,
-    "cpu_pct": 24,
+    "memory_pct": 56,
+    "cpu_pct": 10,
     "gpu": "RTX 3060",
-    "gpu_pct": 16
+    "gpu_pct": 21
   },
   "pulse": {
     "ram": [
       60,
       60,
-      60
+      60,
+      56
     ],
     "cpu": [
       11,
       24,
-      24
+      24,
+      10
     ],
     "gpu": [
       11,
       16,
-      16
+      16,
+      21
     ]
   },
   "weather": {
@@ -197,6 +191,16 @@
       "result": "pass"
     },
     {
+      "at": "2026-08-26T21:57:32-06:00",
+      "source": "kevin-reader",
+      "component": "system_reader",
+      "event": "task_finish",
+      "detail": "kevin_system_status PASS 3763ms",
+      "result": "pass",
+      "task_id": "system-status",
+      "duration_ms": 4000
+    },
+    {
       "at": "2026-08-26T21:57:28-06:00",
       "source": "kevin-reader",
       "component": "system_reader",
@@ -215,10 +219,10 @@
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-26T21:57:28-06:00",
+    "last": "2026-08-26T21:57:32-06:00",
     "source": "HESS-PC"
   },
   "self_check": {
