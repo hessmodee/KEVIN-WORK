@@ -1,3 +1,2 @@
 # Current task
-write-proof (OK-WRITE). No isolate report. Do not advance.
-Night Forge v1 GREEN (manual). Scheduled-task proof, then hourly overnight. No Reader tonight.
+Overnight Forge latest is PASS. Confirm overnight-only cycles, then inspect-only Reader prep. Do not install kevin-core until inspect is reviewed.

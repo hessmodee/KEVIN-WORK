@@ -1,3 +1,2 @@
 # From Grok
-Manual Night Forge PASS: sensor/sanitize/plugin 9/9, Qwen 4/4, tools 0, ~107s.
-Do not change Chat v2, Kevin Core, or production overnight.
+Morning: last Forge cycle PASS, LastTaskResult 0, Qwen 4/4, tools 0. Summary 9/6 includes last-night debug FAILs. Filter JSONL after 23:09 before Reader install.
