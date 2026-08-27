@@ -1,2 +1,3 @@
 # From Grok
-Start-Process split the PONG message on spaces. Args are now quoted. Phases 1-3 already PASS.
+Manual Night Forge PASS: sensor/sanitize/plugin 9/9, Qwen 4/4, tools 0, ~107s.
+Do not change Chat v2, Kevin Core, or production overnight.
