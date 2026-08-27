@@ -1,6 +1,6 @@
 {
-  "schema": 1,
-  "generated_at": "2026-08-26T21:35:16",
+  "schema": 2,
+  "generated_at": "2026-08-26T21:43:21-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -8,7 +8,7 @@
   },
   "brain": {
     "name": "Qwen 2.5 14B",
-    "mode": "Chat",
+    "mode": "Chat Fast",
     "context": "8K",
     "tools": false
   },
@@ -25,89 +25,168 @@
     "gpu": "RTX 3060",
     "gpu_pct": 11
   },
+  "pulse": {
+    "ram": [
+      60
+    ],
+    "cpu": [
+      11
+    ],
+    "gpu": [
+      11
+    ]
+  },
   "weather": {
-    "summary": "Tonight 57 \u00b7 Wind 6 mph \u00b7 Isolated Showers And Thunderstorms then Partly Cloudy"
+    "summary": "Tonight 57 | Wind 6 mph | Isolated Showers And Thunderstorms then Partly Cloudy"
   },
   "capabilities": [
     {
       "id": "chat",
       "label": "Local conversation",
       "state": "proven",
-      "note": "Qwen 14B Chat, no tools"
+      "qa_pass": 18,
+      "qa_total": 18,
+      "version": "Chat v2",
+      "last_verified": "2026-08-26"
     },
     {
       "id": "system_reader",
       "label": "System awareness",
       "state": "testing",
-      "note": "Helpers exist; Chat cannot call them"
+      "qa_pass": 0,
+      "qa_total": 20,
+      "version": "Reader v0",
+      "last_verified": null
     },
     {
       "id": "weather_reader",
       "label": "Local weather",
       "state": "testing",
-      "note": "Tick writes forecast"
+      "qa_pass": 0,
+      "qa_total": 10,
+      "version": null,
+      "last_verified": null
     },
     {
       "id": "retrieval",
-      "label": "Knowledge retrieval",
+      "label": "Knowledge and memory",
       "state": "planned",
-      "note": ""
+      "qa_pass": 0,
+      "qa_total": 5,
+      "version": null,
+      "last_verified": null
     },
     {
       "id": "file_actions",
-      "label": "Controlled file actions",
+      "label": "Controlled actions",
       "state": "locked",
-      "note": ""
+      "qa_pass": 0,
+      "qa_total": 6,
+      "version": null,
+      "last_verified": null
     },
     {
       "id": "email",
-      "label": "Email",
+      "label": "Communications",
       "state": "locked",
-      "note": ""
+      "qa_pass": 0,
+      "qa_total": 4,
+      "version": null,
+      "last_verified": null
     },
     {
       "id": "windows_ui",
-      "label": "Windows control",
+      "label": "Windows interaction",
       "state": "locked",
-      "note": ""
+      "qa_pass": 0,
+      "qa_total": 4,
+      "version": null,
+      "last_verified": null
     }
   ],
-  "build": [
+  "progress": [
     {
-      "id": "reader",
-      "label": "Reader - one typed status tool",
-      "state": "next"
+      "id": "chat_qa",
+      "label": "Chat reliability",
+      "done": 18,
+      "total": 18
     },
     {
-      "id": "memory",
-      "label": "Memory / retrieval",
-      "state": "queued"
+      "id": "reader",
+      "label": "System Reader",
+      "done": 0,
+      "total": 4
+    },
+    {
+      "id": "knowledge",
+      "label": "Knowledge",
+      "done": 0,
+      "total": 5
     },
     {
       "id": "operator",
-      "label": "Operator - allowlisted hands",
-      "state": "queued"
+      "label": "Operator",
+      "done": 0,
+      "total": 6
     },
     {
-      "id": "integrations",
-      "label": "Email / Office",
-      "state": "queued"
+      "id": "health_24h",
+      "label": "System health 24h",
+      "done": 3,
+      "total": 3
+    }
+  ],
+  "roadmap": {
+    "done": 1,
+    "total": 7,
+    "label": "Roadmap completion"
+  },
+  "build": [
+    {
+      "id": "senses",
+      "label": "System Awareness",
+      "state": "next",
+      "detail": "Reader v1, 0 of 4 sensors"
+    },
+    {
+      "id": "memory",
+      "label": "Knowledge and Memory",
+      "state": "queued",
+      "detail": ""
+    },
+    {
+      "id": "hands",
+      "label": "Controlled Actions",
+      "state": "queued",
+      "detail": ""
+    },
+    {
+      "id": "comms",
+      "label": "Communications",
+      "state": "queued",
+      "detail": ""
+    },
+    {
+      "id": "windows",
+      "label": "Windows Interaction",
+      "state": "queued",
+      "detail": ""
     }
   ],
   "activity": [
     {
-      "at": "2026-08-26T21:35:16",
+      "at": "2026-08-26T21:43:21-06:00",
       "component": "tick",
       "event": "cycle",
-      "detail": "Scheduled health cycle",
+      "detail": "Health cycle",
       "result": "pass"
     },
     {
-      "at": "2026-08-26T21:24:10",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Scheduled health cycle",
-      "result": "pass"
+      "at": "2026-08-26T21:43:21-06:00",
+      "component": "kevin",
+      "event": "hq",
+      "detail": "HQ phase 2 live",
+      "result": ""
     }
   ],
   "owl": {
@@ -115,11 +194,19 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-26T21:35:16",
-    "source": "KevinTick"
+    "last": "2026-08-26T21:43:21-06:00",
+    "source": "HESS-PC"
   },
   "self_check": {
     "fails": 0,
     "summary": "All checks passed"
+  },
+  "diagnostics": {
+    "agent": "kevin-lab-qwen",
+    "model": "qwen2.5:14b",
+    "context": "8K",
+    "tools": 0,
+    "chat_qa": "18/18",
+    "noreply": 0
   }
 }
