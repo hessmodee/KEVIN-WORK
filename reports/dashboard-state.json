@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated_at": "2026-08-26T23:01:11-06:00",
+  "generated_at": "2026-08-26T23:06:04-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -20,10 +20,10 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 63,
-    "cpu_pct": 17,
+    "memory_pct": 69,
+    "cpu_pct": 34,
     "gpu": "RTX 3060",
-    "gpu_pct": 19
+    "gpu_pct": 13
   },
   "pulse": {
     "ram": [
@@ -44,7 +44,10 @@
       62,
       62,
       62,
-      63
+      63,
+      63,
+      69,
+      69
     ],
     "cpu": [
       11,
@@ -64,7 +67,10 @@
       21,
       18,
       18,
-      17
+      17,
+      17,
+      34,
+      34
     ],
     "gpu": [
       11,
@@ -84,7 +90,10 @@
       18,
       2,
       2,
-      19
+      19,
+      19,
+      13,
+      13
     ]
   },
   "weather": {
@@ -183,8 +192,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 8,
-      "total": 8
+      "done": 9,
+      "total": 9
     }
   ],
   "roadmap": {
@@ -226,11 +235,30 @@
   ],
   "activity": [
     {
-      "at": "2026-08-26T22:50:14-06:00",
+      "at": "2026-08-26T23:05:35-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
       "result": "pass"
+    },
+    {
+      "at": "2026-08-26T23:06:04-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 107456ms",
+      "result": "pass",
+      "task_id": "night-forge",
+      "duration_ms": 107000
+    },
+    {
+      "at": "2026-08-26T23:04:17-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
     },
     {
       "at": "2026-08-26T23:01:10-06:00",
@@ -359,7 +387,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-26T23:01:11-06:00",
+    "last": "2026-08-26T23:06:04-06:00",
     "source": "HESS-PC"
   },
   "self_check": {
