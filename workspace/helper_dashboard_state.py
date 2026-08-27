@@ -1,6 +1,6 @@
 """Public dashboard-state.json. Sanitized, ordered, and timestamped for Kevin HQ."""
 import json, os, re
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 try:
     from zoneinfo import ZoneInfo
@@ -90,12 +90,22 @@ def weather_summary(text):
 
 
 def parse_time(value):
+    """Return an aware UTC datetime for safe ordering/comparison.
+
+    Historical Kevin events may contain both offset-aware ISO strings and
+    legacy local ISO strings without an offset. Treat legacy naive values as
+    Kevin-local time, then normalize everything to UTC.
+    """
     if not value:
-        return datetime.min.replace(tzinfo=TZ) if TZ else datetime.min
+        return datetime(1970, 1, 1, tzinfo=timezone.utc)
     try:
-        return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+        d = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+        if d.tzinfo is None or d.utcoffset() is None:
+            local_tz = TZ or datetime.now().astimezone().tzinfo or timezone.utc
+            d = d.replace(tzinfo=local_tz)
+        return d.astimezone(timezone.utc)
     except Exception:
-        return datetime.min.replace(tzinfo=TZ) if TZ else datetime.min
+        return datetime(1970, 1, 1, tzinfo=timezone.utc)
 
 
 def load_events():
@@ -139,7 +149,8 @@ def meaningful(events):
 
 
 def health_24h(events):
-    cutoff = (datetime.now(TZ) if TZ else datetime.now().astimezone()) - timedelta(hours=24)
+    current = datetime.now(TZ) if TZ else datetime.now().astimezone()
+    cutoff = (current - timedelta(hours=24)).astimezone(timezone.utc)
     ticks = [
         e for e in events
         if e.get("component") == "tick"
