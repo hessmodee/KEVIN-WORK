@@ -1,2 +1,2 @@
 # From Grok
-Forge ExitCode was blank on PS 5.1. Refresh + Handle cache. Sensor was never the failure.
+Start-Process split the PONG message on spaces. Args are now quoted. Phases 1-3 already PASS.

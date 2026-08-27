@@ -28,6 +28,13 @@ function Write-Latest([hashtable]$h) {
   [IO.File]::WriteAllText($latest, (($h | ConvertTo-Json -Depth 6) + "`n"), $utf8)
 }
 
+function Format-WinArgs([string[]]$ArgList) {
+  ($ArgList | ForEach-Object {
+    $a = [string]$_
+    if ($a -match '[\s"]') { '"' + ($a -replace '"','\"') + '"' } else { $a }
+  }) -join ' '
+}
+
 function Invoke-TimeoutProc {
   param(
     [string]$FileName,
@@ -42,7 +49,8 @@ function Invoke-TimeoutProc {
   $outFile = Join-Path $env:TEMP "forge-$safe-$id.out.txt"
   $errFile = Join-Path $env:TEMP "forge-$safe-$id.err.txt"
   $sw = [Diagnostics.Stopwatch]::StartNew()
-  $p = Start-Process -FilePath $FileName -ArgumentList $ArgList -WorkingDirectory $Cwd -NoNewWindow -PassThru -RedirectStandardOutput $outFile -RedirectStandardError $errFile
+  $cmdline = Format-WinArgs $ArgList
+  $p = Start-Process -FilePath $FileName -ArgumentList $cmdline -WorkingDirectory $Cwd -NoNewWindow -PassThru -RedirectStandardOutput $outFile -RedirectStandardError $errFile
   $null = $p.Handle
   if (-not $p.WaitForExit($Seconds * 1000)) {
     try { Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue } catch {}
