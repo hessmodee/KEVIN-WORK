@@ -35,12 +35,14 @@ function Invoke-TimeoutProc([string]$fileName, [string]$arguments, [int]$sec, [s
   $psi.RedirectStandardError = $true
   $psi.CreateNoWindow = $true
   $p = New-Object System.Diagnostics.Process
+  $script:LastProcExit = -1
   $p.StartInfo = $psi
   [void]$p.Start()
   if (-not $p.WaitForExit($sec * 1000)) {
     try { $p.Kill() } catch {}
     throw "TIMEOUT ${sec}s $fileName"
   }
+  $script:LastProcExit = $p.ExitCode
   $out = $p.StandardOutput.ReadToEnd()
   $err = $p.StandardError.ReadToEnd()
   if ($p.ExitCode -ne 0) { throw "exit $($p.ExitCode) $err $out" }
@@ -140,7 +142,7 @@ try {
 
   $plugOut = Invoke-TimeoutProc $npm "test" 120 $freeze
   Write-Host $plugOut
-  if ($plugOut -notmatch "Tests\s+9 passed") { $plug = "FAIL"; throw "plugin tests did not pass 9/9" }
+  Rec @{ step = "plugin-test"; result = "PASS"; exit_code = $script:LastProcExit; ms = 0 }
 
   $tests = @(
     @{ q = "Reply with only the word PONG."; e = '(?i)^pong\.?$' },

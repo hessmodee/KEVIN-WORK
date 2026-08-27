@@ -1,3 +1,2 @@
 # Current task
-Run upgraded Night Forge once, then leave it hourly.
-Do not install kevin-core. Do not create Reader tonight.
+Disable KevinNightForge, pull parser fix, run one proof, re-enable only if PASS.
