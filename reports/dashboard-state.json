@@ -1,10 +1,10 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T14:20:14-06:00",
-  "status": "degraded",
+  "generated_at": "2026-08-27T14:42:36-06:00",
+  "status": "working",
   "health": {
-    "overall": "degraded",
-    "failed_checks": 1
+    "overall": "healthy",
+    "failed_checks": 0
   },
   "brain": {
     "name": "Qwen 2.5 14B",
@@ -12,51 +12,32 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "design-forge",
+    "title": "Design Forge: reader-weather",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-27T14:42:36-06:00",
+    "source": "forge"
+  },
   "services": {
     "tick": "healthy",
-    "bridge": "degraded",
+    "bridge": "healthy",
     "ollama": "healthy",
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 53,
-    "cpu_pct": 22,
+    "memory_pct": 54,
+    "cpu_pct": 40,
     "gpu": "RTX 3060",
-    "gpu_pct": 0
+    "gpu_pct": 13
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-26T14:56:50-06:00",
-        "estimated": true,
-        "ram": 65,
-        "cpu": 34,
-        "gpu": 0
-      },
-      {
-        "at": "2026-08-26T15:11:50-06:00",
-        "estimated": true,
-        "ram": 65,
-        "cpu": 34,
-        "gpu": 0
-      },
-      {
-        "at": "2026-08-26T15:26:50-06:00",
-        "estimated": true,
-        "ram": 65,
-        "cpu": 31,
-        "gpu": 19
-      },
-      {
-        "at": "2026-08-26T15:41:50-06:00",
-        "estimated": true,
-        "ram": 65,
-        "cpu": 31,
-        "gpu": 19
-      },
       {
         "at": "2026-08-26T15:56:50-06:00",
         "estimated": true,
@@ -700,13 +681,37 @@
         "ram": 53,
         "cpu": 22,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-27T14:35:14-06:00",
+        "estimated": false,
+        "ram": 54,
+        "cpu": 23,
+        "gpu": 11
+      },
+      {
+        "at": "2026-08-27T14:37:02-06:00",
+        "estimated": false,
+        "ram": 54,
+        "cpu": 23,
+        "gpu": 11
+      },
+      {
+        "at": "2026-08-27T14:39:00-06:00",
+        "estimated": false,
+        "ram": 54,
+        "cpu": 40,
+        "gpu": 13
+      },
+      {
+        "at": "2026-08-27T14:42:36-06:00",
+        "estimated": false,
+        "ram": 54,
+        "cpu": 40,
+        "gpu": 13
       }
     ],
     "ram": [
-      65,
-      65,
-      65,
-      65,
       62,
       62,
       62,
@@ -798,13 +803,13 @@
       55,
       53,
       53,
-      53
+      53,
+      54,
+      54,
+      54,
+      54
     ],
     "cpu": [
-      34,
-      34,
-      31,
-      31,
       21,
       21,
       18,
@@ -896,13 +901,13 @@
       38,
       23,
       23,
-      22
+      22,
+      23,
+      23,
+      40,
+      40
     ],
     "gpu": [
-      0,
-      0,
-      19,
-      19,
       18,
       18,
       2,
@@ -994,11 +999,15 @@
       1,
       6,
       6,
-      0
+      0,
+      11,
+      11,
+      13,
+      13
     ]
   },
   "weather": {
-    "summary": "This Afternoon 91 | Wind 7 to 10 mph | Slight Chance Showers And Thunderstorms"
+    "summary": "This Afternoon 91 | Wind 5 to 10 mph | Slight Chance Showers And Thunderstorms"
   },
   "capabilities": [
     {
@@ -1093,8 +1102,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 69,
-      "total": 70
+      "done": 70,
+      "total": 71
     }
   ],
   "roadmap": {
@@ -1148,11 +1157,39 @@
   ],
   "activity": [
     {
-      "at": "2026-08-27T14:20:14-06:00",
+      "at": "2026-08-27T14:42:36-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: reader-weather",
+      "result": "",
+      "task_id": "design-forge"
+    },
+    {
+      "at": "2026-08-27T14:39:00-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 118108ms",
+      "result": "pass",
+      "task_id": "night-forge",
+      "duration_ms": 118000
+    },
+    {
+      "at": "2026-08-27T14:37:02-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-08-27T14:35:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
-      "result": "fail"
+      "result": "pass"
     },
     {
       "at": "2026-08-27T13:39:04-06:00",
@@ -1343,48 +1380,19 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-26T23:10:38-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Night Forge PASS 95936ms",
-      "result": "pass",
-      "task_id": "night-forge",
-      "duration_ms": 96000
-    },
-    {
-      "at": "2026-08-26T23:09:02-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Night Forge cycle",
-      "result": "",
-      "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-26T23:06:04-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Night Forge PASS 107456ms",
-      "result": "pass",
-      "task_id": "night-forge",
-      "duration_ms": 107000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "warning"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-27T14:20:14-06:00",
+    "last": "2026-08-27T14:42:36-06:00",
     "source": "local runtime"
   },
   "self_check": {
-    "fails": 1,
-    "summary": "1 check(s) failed"
+    "fails": 0,
+    "summary": "All checks passed"
   },
   "diagnostics": {
     "agent": "kevin-lab-qwen",
