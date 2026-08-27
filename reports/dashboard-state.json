@@ -1,7 +1,7 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T14:42:36-06:00",
-  "status": "working",
+  "generated_at": "2026-08-27T14:43:08-06:00",
+  "status": "idle",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,16 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: reader-weather",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-27T14:42:36-06:00",
-    "source": "forge"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -38,13 +29,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-26T15:56:50-06:00",
-        "estimated": true,
-        "ram": 62,
-        "cpu": 21,
-        "gpu": 18
-      },
       {
         "at": "2026-08-26T16:11:50-06:00",
         "estimated": true,
@@ -709,10 +693,16 @@
         "ram": 54,
         "cpu": 40,
         "gpu": 13
+      },
+      {
+        "at": "2026-08-27T14:43:08-06:00",
+        "estimated": false,
+        "ram": 54,
+        "cpu": 40,
+        "gpu": 13
       }
     ],
     "ram": [
-      62,
       62,
       62,
       62,
@@ -807,10 +797,10 @@
       54,
       54,
       54,
+      54,
       54
     ],
     "cpu": [
-      21,
       21,
       18,
       18,
@@ -905,10 +895,10 @@
       23,
       23,
       40,
+      40,
       40
     ],
     "gpu": [
-      18,
       18,
       2,
       2,
@@ -1002,6 +992,7 @@
       0,
       11,
       11,
+      13,
       13,
       13
     ]
@@ -1156,6 +1147,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-27T14:43:08-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: reader-weather",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 32000
+    },
     {
       "at": "2026-08-27T14:42:36-06:00",
       "source": "forge",
@@ -1371,23 +1372,14 @@
       "result": "pass",
       "task_id": "night-forge",
       "duration_ms": 113000
-    },
-    {
-      "at": "2026-08-26T23:57:54-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Night Forge cycle",
-      "result": "",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T14:42:36-06:00",
+    "last": "2026-08-27T14:43:08-06:00",
     "source": "local runtime"
   },
   "self_check": {
