@@ -1,7 +1,7 @@
 {
   "schema": 2,
-  "generated_at": "2026-08-27T07:57:54-06:00",
-  "status": "working",
+  "generated_at": "2026-08-27T07:59:48-06:00",
+  "status": "idle",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,16 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "night-forge",
-    "title": "Night Forge cycle",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-27T07:57:54-06:00",
-    "source": "forge"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -30,9 +21,9 @@
   },
   "system": {
     "memory_pct": 56,
-    "cpu_pct": 36,
+    "cpu_pct": 23,
     "gpu": "RTX 3060",
-    "gpu_pct": 2
+    "gpu_pct": 13
   },
   "pulse": {
     "ram": [
@@ -108,6 +99,7 @@
       56,
       57,
       58,
+      56,
       56,
       56,
       56
@@ -187,7 +179,8 @@
       19,
       26,
       36,
-      36
+      36,
+      23
     ],
     "gpu": [
       11,
@@ -264,7 +257,8 @@
       1,
       1,
       2,
-      2
+      2,
+      13
     ]
   },
   "weather": {
@@ -411,6 +405,16 @@
       "event": "cycle",
       "detail": "Health cycle",
       "result": "pass"
+    },
+    {
+      "at": "2026-08-27T07:59:48-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 114052ms",
+      "result": "pass",
+      "task_id": "night-forge",
+      "duration_ms": 114000
     },
     {
       "at": "2026-08-27T07:57:54-06:00",
@@ -563,23 +567,14 @@
       "result": "pass",
       "task_id": "night-forge",
       "duration_ms": 113000
-    },
-    {
-      "at": "2026-08-26T23:57:54-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Night Forge cycle",
-      "result": "",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T07:57:54-06:00",
+    "last": "2026-08-27T07:59:48-06:00",
     "source": "HESS-PC"
   },
   "self_check": {
