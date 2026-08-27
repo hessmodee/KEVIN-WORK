@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kevin HQ · HESS-PC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:wght@500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #111210;
+      --fg: #eceae4;
+      --muted: #9a9b93;
+      --card: #1a1b18;
+      --line: rgba(236,234,228,.12);
+      --sage: #7d9270;
+      --warn: #c4a574;
+      --bad: #c45c48;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; min-height: 100%;
+      background: var(--bg); color: var(--fg);
+      font-family: Figtree, ui-sans-serif, system-ui, sans-serif;
+    }
+    body { padding: 28px 20px 80px; }
+    .wrap { max-width: 920px; margin: 0 auto; }
+    .eyebrow {
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+      font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
+    }
+    .dot {
+      width: 7px; height: 7px; border-radius: 99px; background: var(--sage);
+      box-shadow: 0 0 0 4px rgba(125,146,112,.18);
+    }
+    .dot.stale { background: var(--warn); box-shadow: 0 0 0 4px rgba(196,165,116,.18); }
+    h1 {
+      font-family: Newsreader, Georgia, serif;
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 500; margin: 14px 0 8px; letter-spacing: -.02em;
+    }
+    .lede { color: var(--muted); max-width: 40rem; line-height: 1.5; }
+    .bar { height: 10px; background: #22231f; border-radius: 99px; overflow: hidden; margin: 18px 0 8px; max-width: 28rem; }
+    .bar > i { display: block; height: 100%; background: var(--sage); width: 55%; }
+    .wx { color: var(--muted); font-size: 14px; margin-top: 8px; }
+    .grid { display: grid; gap: 12px; margin-top: 28px; }
+    @media (min-width: 720px) { .grid.stats { grid-template-columns: repeat(4, 1fr); } .grid.two { grid-template-columns: 1.4fr .8fr; } }
+    .card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: 16px; padding: 18px 18px 16px;
+    }
+    .k { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .v { font-size: 20px; margin-top: 6px; }
+    .h { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .skill { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+    .skill:last-child { border-bottom: 0; }
+    .skill .name { flex: 1; }
+    .skill .pct { width: 42px; text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); font-size: 13px; }
+    .mini { flex: 1; height: 6px; background: #22231f; border-radius: 99px; overflow: hidden; }
+    .mini > i { display: block; height: 100%; background: var(--sage); }
+    .mini.later > i { background: #3a3b36; }
+    pre {
+      white-space: pre-wrap; font-size: 12px; color: #c9c7bf;
+      font-family: ui-monospace, Menlo, Consolas, monospace; line-height: 1.45; margin: 10px 0 0;
+    }
+    a { color: var(--sage); }
+    footer { margin-top: 28px; color: var(--muted); font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">
+      <span class="dot" id="liveDot"></span>
+      <span id="liveLabel">HESS-PC · HP OMEN 25L</span>
+    </div>
+    <h1>Kevin HQ</h1>
+    <p class="lede" id="lede">
+      Chat brain is Qwen 2.5 14B, tool-free. KevinTick is the 15-minute body.
+      This page reads live files from the OMEN — not the Grok preview.
+    </p>
+    <div class="bar"><i id="avgBar"></i></div>
+    <p class="wx" id="wx">Loading Preston weather…</p>
+
+    <div class="grid stats">
+      <div class="card"><div class="k">Chat</div><div class="v" id="model">—</div><div class="h" id="lane">lane</div></div>
+      <div class="card"><div class="k">Self-check</div><div class="v" id="fails">—</div><div class="h">fails</div></div>
+      <div class="card"><div class="k">RAM</div><div class="v" id="ram">—</div><div class="h" id="gpu">GPU</div></div>
+      <div class="card"><div class="k">Bridge</div><div class="v" id="bridge">—</div><div class="h" id="stamp">updated</div></div>
+    </div>
+
+    <div class="grid two" style="margin-top:12px">
+      <div class="card">
+        <div class="k">Long map</div>
+        <div id="skills"></div>
+      </div>
+      <div class="card">
+        <div class="k">System</div>
+        <pre id="sys">…</pre>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <div class="k">Self-check</div>
+      <pre id="check">…</pre>
+    </div>
+    <footer>
+      Source: <a href="https://github.com/hessmodee/KEVIN-WORK/blob/main/reports/board.json">reports/board.json</a>
+      · raw markdown still at <a href="https://github.com/hessmodee/KEVIN-WORK/blob/main/reports/BOARD.md">BOARD.md</a>
+    </footer>
+  </div>
+<script>
+const SKILLS = [
+  ["Local chat (Qwen v2)", 100, true],
+  ["Write files (proven)", 100, true],
+  ["KevinTick 15m", 100, true],
+  ["Preston weather", 100, true],
+  ["Morning brief", 100, true],
+  ["Self-check", 100, true],
+  ["GitHub bridge", 90, true],
+  ["System telemetry helper", 80, true],
+  ["Typed Reader tools", 10, false],
+  ["Send email", 0, false],
+  ["Excel / Word", 0, false],
+  ["Windows UI / Minecraft", 0, false]
+];
+function el(id){ return document.getElementById(id); }
+function renderSkills(){
+  const avg = Math.round(SKILLS.reduce((s,x)=>s+x[1],0)/SKILLS.length);
+  el("avgBar").style.width = avg + "%";
+  el("skills").innerHTML = SKILLS.map(([n,p,live]) =>
+    `<div class="skill"><div class="name">${n}</div>
+     <div class="mini ${live?"":"later"}"><i style="width:${p}%"></i></div>
+     <div class="pct">${p}%</div></div>`
+  ).join("");
+}
+renderSkills();
+async function load(){
+  const urls = [
+    "https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/board.json",
+    "../reports/board.json"
+  ];
+  let data = null;
+  for (const u of urls) {
+    try {
+      const r = await fetch(u + "?t=" + Date.now(), { cache: "no-store" });
+      if (r.ok) { data = await r.json(); break; }
+    } catch (e) {}
+  }
+  if (!data) { el("lede").textContent = "Could not load board.json yet. Run helper_board.py on the OMEN, then refresh."; return; }
+  const ageMin = (() => {
+    const t = Date.parse(String(data.at).replace(" ", "T"));
+    if (!t) return 999;
+    return (Date.now() - t) / 60000;
+  })();
+  const stale = ageMin > 45;
+  el("liveDot").classList.toggle("stale", stale);
+  el("liveLabel").textContent = (stale ? "STALE · " : "LIVE · ") + (data.host || "HESS-PC") + " · " + (data.at || "");
+  el("model").textContent = (data.chat && data.chat.model) || "qwen2.5:14b";
+  el("lane").textContent = (data.chat && data.chat.lane) || "Chat v2";
+  el("fails").textContent = String(data.fails ?? "—");
+  const sys = data.system || {};
+  el("ram").textContent = sys["RAM used"] ? sys["RAM used"] : (sys["RAM load"] || "—");
+  el("gpu").textContent = sys["GPU"] || sys["VRAM used"] || "";
+  el("bridge").textContent = (data.bridge && (data.bridge.bridge || data.bridge.publish)) || "—";
+  el("stamp").textContent = data.at || "";
+  el("wx").textContent = data.weather_line || (data.weather || "").split("\n").filter(Boolean).slice(1,4).join(" · ");
+  el("sys").textContent = Object.keys(sys).map(k => k + ": " + sys[k]).join("\n") || "no system-status yet";
+  el("check").textContent = data.self_check || "";
+}
+load();
+setInterval(load, 60000);
+</script>
+</body>
+</html>
