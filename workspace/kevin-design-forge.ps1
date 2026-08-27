@@ -28,7 +28,7 @@ function Finish-State([string]$result, [string]$summary) {
 
 try {
   Write-Host "----------------------------------------------"
-  Write-Host " KEVIN DESIGN FORGE V3"
+  Write-Host " KEVIN DESIGN FORGE V3.1"
   Write-Host "----------------------------------------------"
 
   Remove-Item Env:OPENCLAW_PROFILE -ErrorAction SilentlyContinue
@@ -156,15 +156,11 @@ Return ONLY valid JSON with this exact top-level shape:
   if (-not $visible -or $visible -eq "NO_REPLY") { throw "model returned NO_REPLY" }
 
   $visible = $visible.Trim()
-  if ($visible.StartsWith("```")) {
-    $visible = $visible -replace '^```json\s*','' -replace '^```\s*','' -replace '\s*```$',''
-    $visible = $visible.Trim()
-  }
-
-  $first = $visible.IndexOf("{")
-  $last = $visible.LastIndexOf("}")
+  $first = $visible.IndexOf('{')
+  $last = $visible.LastIndexOf('}')
   if ($first -lt 0 -or $last -le $first) { throw "candidate response contained no JSON object" }
-  $candidate = $visible.Substring($first, $last - $first + 1) | ConvertFrom-Json
+  $candidateJson = $visible.Substring($first, $last - $first + 1)
+  $candidate = $candidateJson | ConvertFrom-Json
 
   if ($candidate.mission_id -ne $mission.id) { throw "mission mismatch" }
   if ([int]$candidate.iteration -ne $iteration) { throw "iteration mismatch" }
