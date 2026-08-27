@@ -55,12 +55,18 @@ def rebuild_and_publish(force=False):
             last = 0.0
     if (not force) and (now - last < 45):
         print("publish skipped (rate limit)")
-        return
+        return True
     pub = os.path.join(ROOT, "kevin-publish-dash.ps1")
-    if os.path.isfile(pub):
-        subprocess.run(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", pub], check=False)
-        open(STAMP, "w", encoding="utf-8").write(str(now))
-        print("dashboard publish queued")
+    if not os.path.isfile(pub):
+        print("dashboard publisher missing")
+        return False
+    proc = subprocess.run(["powershell", "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", pub], check=False)
+    if proc.returncode != 0:
+        print("dashboard publish failed", proc.returncode)
+        return False
+    open(STAMP, "w", encoding="utf-8").write(str(now))
+    print("dashboard published")
+    return True
 
 def cmd_start(tid, title, category="reader", source=None):
     obj = {"id": tid, "title": title, "category": category, "phase": "started", "completed": 0, "total": None, "started_at": iso(), "source": src(source)}
@@ -87,7 +93,7 @@ def cmd_progress(tid, phase, completed, total, source=None):
     return 0
 
 def cmd_finish(tid, result, summary="", source=None, duration_ms=None):
-    title, category, started = tid, "reader", None
+    title, category, started = tid, ("forge" if "forge" in tid else "reader"), None
     if os.path.isfile(TASK):
         try:
             t = json.loads(open(TASK, encoding="utf-8").read())
