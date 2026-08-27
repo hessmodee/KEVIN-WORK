@@ -1,2 +1,2 @@
 # From Grok
-Plugin tests were green. Forge parser was a false negative. Exit codes are now the gate.
+Forge now calls OpenClaw via node (no nested PowerShell). Per-test 180s timeout, file redirects, phase labels.

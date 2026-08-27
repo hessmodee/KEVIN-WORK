@@ -1,2 +1,2 @@
 # Current task
-Disable KevinNightForge, pull parser fix, run one proof, re-enable only if PASS.
+Disable KevinNightForge. Pull timeout fix. Manual proof must show qwen_pass > 0 before re-enable.
