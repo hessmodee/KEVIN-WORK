@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T17:43:22-06:00",
+  "generated_at": "2026-08-27T17:50:14-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 45,
-    "cpu_pct": 27,
+    "memory_pct": 48,
+    "cpu_pct": 12,
     "gpu": "RTX 3060",
-    "gpu_pct": 29
+    "gpu_pct": 7
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-26T21:26:50-06:00",
-        "estimated": true,
-        "ram": 58,
-        "cpu": 28,
-        "gpu": 0
-      },
       {
         "at": "2026-08-26T21:41:50-06:00",
         "estimated": true,
@@ -700,10 +693,16 @@
         "ram": 45,
         "cpu": 27,
         "gpu": 29
+      },
+      {
+        "at": "2026-08-27T17:50:14-06:00",
+        "estimated": false,
+        "ram": 48,
+        "cpu": 12,
+        "gpu": 7
       }
     ],
     "ram": [
-      58,
       58,
       59,
       59,
@@ -798,10 +797,10 @@
       54,
       54,
       53,
-      45
+      45,
+      48
     ],
     "cpu": [
-      28,
       20,
       31,
       31,
@@ -896,10 +895,10 @@
       31,
       23,
       20,
-      27
+      27,
+      12
     ],
     "gpu": [
-      0,
       0,
       8,
       8,
@@ -994,7 +993,8 @@
       1,
       32,
       0,
-      29
+      29,
+      7
     ]
   },
   "weather": {
@@ -1093,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 78,
-      "total": 79
+      "done": 79,
+      "total": 80
     }
   ],
   "roadmap": {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-08-27T17:43:22-06:00",
+      "at": "2026-08-27T17:50:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1376,7 +1376,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T17:43:22-06:00",
+    "last": "2026-08-27T17:50:14-06:00",
     "source": "local runtime"
   },
   "self_check": {
