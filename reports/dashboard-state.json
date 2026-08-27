@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "generated_at": "2026-08-26T21:01:00-06:00",
+  "status": "idle",
+  "health": { "overall": "healthy", "failed_checks": 0 },
+  "brain": { "name": "Qwen 2.5 14B", "mode": "Chat", "context": "8K", "tools": false },
+  "current_task": null,
+  "services": { "tick": "healthy", "bridge": "healthy", "ollama": "healthy", "gateway": "healthy" },
+  "system": { "memory_pct": 63, "cpu_pct": 11, "gpu": "RTX 3060", "gpu_pct": 4 },
+  "weather": { "summary": "Tonight 57 \u00b7 Wind 5 mph \u00b7 Isolated showers then partly cloudy" },
+  "capabilities": [
+    { "id": "chat", "label": "Local conversation", "state": "proven", "note": "Qwen 14B Chat, no tools" },
+    { "id": "system_reader", "label": "System awareness", "state": "testing", "note": "Helpers exist; Chat cannot call them" },
+    { "id": "weather_reader", "label": "Local weather", "state": "testing", "note": "Tick writes forecast" },
+    { "id": "retrieval", "label": "Knowledge retrieval", "state": "planned", "note": "" },
+    { "id": "file_actions", "label": "Controlled file actions", "state": "locked", "note": "" },
+    { "id": "email", "label": "Email", "state": "locked", "note": "" },
+    { "id": "windows_ui", "label": "Windows control", "state": "locked", "note": "" }
+  ],
+  "build": [
+    { "id": "reader", "label": "Reader - one typed status tool", "state": "next" },
+    { "id": "memory", "label": "Memory / retrieval", "state": "queued" },
+    { "id": "operator", "label": "Operator - allowlisted hands", "state": "queued" },
+    { "id": "integrations", "label": "Email / Office", "state": "queued" }
+  ],
+  "activity": [
+    { "at": "2026-08-26T21:01:00-06:00", "component": "chat-long", "event": "qa", "detail": "16K context PONG", "result": "pass" },
+    { "at": "2026-08-26T20:35:00-06:00", "component": "tick", "event": "cycle", "detail": "Scheduled health cycle", "result": "pass" }
+  ],
+  "owl": { "level": 1, "state": "idle" },
+  "sync": { "last": "2026-08-26T21:01:00-06:00", "source": "KevinTick" },
+  "self_check": { "fails": 0, "summary": "All checks passed" }
+}
