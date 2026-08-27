@@ -1,2 +1,2 @@
 # Current task
-Overnight 9 PASS / 1 infra timeout. Reschedule Forge to :37 and raise /new timeout to 90s. Do not install Reader into production. Isolated reader gateway is next. Leave Telegram/main alone.
+Forge moved to :37. Install isolated Reader gateway (profile reader). Do not touch production openclaw.json or Telegram.
