@@ -1,2 +1,2 @@
 # Current task
-Leave KevinNightForge DISABLED. Pull quoted-arg fix. Manual proof must show qwen_pass > 0.
+Write reports/tool-write-test.txt with OK-WRITE.
