@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated_at": "2026-08-26T22:35:14-06:00",
+  "generated_at": "2026-08-26T22:47:50-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -20,10 +20,10 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 64,
-    "cpu_pct": 27,
+    "memory_pct": 65,
+    "cpu_pct": 32,
     "gpu": "RTX 3060",
-    "gpu_pct": 6
+    "gpu_pct": 3
   },
   "pulse": {
     "ram": [
@@ -33,7 +33,9 @@
       56,
       58,
       61,
-      64
+      64,
+      64,
+      65
     ],
     "cpu": [
       11,
@@ -42,7 +44,9 @@
       10,
       14,
       32,
-      27
+      27,
+      33,
+      32
     ],
     "gpu": [
       11,
@@ -51,7 +55,9 @@
       21,
       4,
       9,
-      6
+      6,
+      23,
+      3
     ]
   },
   "weather": {
@@ -200,6 +206,25 @@
       "result": "pass"
     },
     {
+      "at": "2026-08-26T22:47:50-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "plugin tests did not pass 9/9",
+      "result": "fail",
+      "task_id": "night-forge",
+      "duration_ms": 4000
+    },
+    {
+      "at": "2026-08-26T22:47:46-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
+    {
       "at": "2026-08-26T21:57:32-06:00",
       "source": "kevin-reader",
       "component": "system_reader",
@@ -231,7 +256,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-26T22:35:14-06:00",
+    "last": "2026-08-26T22:47:50-06:00",
     "source": "HESS-PC"
   },
   "self_check": {
