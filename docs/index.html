@@ -3,177 +3,212 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kevin HQ · HESS-PC</title>
+  <title>Kevin HQ</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:wght@500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #111210; --fg: #eceae4; --muted: #9a9b93; --card: #1a1b18;
-      --line: rgba(236,234,228,.12); --sage: #7d9270; --warn: #c4a574; --gold: #c4a574;
+      --bg:#111210; --fg:#eceae4; --muted:#9a9b93; --card:#181916;
+      --line:rgba(236,234,228,.1); --sage:#7d9270; --warn:#c4a574; --bad:#c45c48;
+      --chip:#22231f;
     }
     * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--fg); font-family: Figtree, ui-sans-serif, system-ui, sans-serif; }
-    body { padding: 28px 20px 80px; }
-    .wrap { max-width: 920px; margin: 0 auto; }
-    .hero { display: flex; gap: 22px; align-items: flex-start; flex-wrap: wrap; }
-    .owl-wrap { position: relative; width: 92px; height: 92px; flex: 0 0 92px; }
-    .owl { width: 92px; height: 92px; display: block; }
-    .owl .line { fill: none; stroke: var(--fg); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-    .owl .fill { fill: transparent; transition: fill .8s ease, opacity .8s ease; }
-    .stage-1 .eye-fill { fill: var(--fg); }
-    .stage-2 .beak { fill: var(--gold); }
-    .stage-2 .body-hint { fill: rgba(125,146,112,.18); }
-    .stage-3 .body-hint { fill: rgba(125,146,112,.38); }
-    .stage-3 .face { fill: rgba(236,234,228,.08); }
-    .stage-3 .tuft { stroke: var(--sage); }
-    .stage-4 .body-hint { fill: rgba(125,146,112,.55); }
-    .stage-4 .face { fill: rgba(125,146,112,.22); }
-    .stage-4 .beak { fill: #d4b07a; }
-    .stage-4 .eye-ring { stroke: var(--sage); }
-    .stage-5 .body-hint { fill: #6f8464; }
-    .stage-5 .face { fill: #cfc9b8; }
-    .stage-5 .beak { fill: #e0b56a; }
-    .stage-5 .eye-fill { fill: #1a1b18; }
-    .stage-5 .highlight { fill: #eceae4; opacity: .9; }
-    .stage-5 .tuft { stroke: #8aa37a; }
-    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-    @keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.08); } }
-    @keyframes glow { 0%, 100% { filter: drop-shadow(0 0 0 transparent); } 50% { filter: drop-shadow(0 0 10px rgba(125,146,112,.45)); } }
-    .working .owl-wrap { animation: bob 2.4s ease-in-out infinite, glow 2.4s ease-in-out infinite; }
-    .working .lids { transform-origin: 16px 15.2px; animation: blink 3.6s ease-in-out infinite; }
-    .owl-cap { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 8px; text-align: center; width: 92px; }
-    .eyebrow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
-    .dot { width: 7px; height: 7px; border-radius: 99px; background: var(--sage); box-shadow: 0 0 0 4px rgba(125,146,112,.18); }
-    .dot.stale { background: var(--warn); box-shadow: 0 0 0 4px rgba(196,165,116,.18); }
-    h1 { font-family: Newsreader, Georgia, serif; font-size: clamp(36px, 6vw, 56px); font-weight: 500; margin: 10px 0 8px; letter-spacing: -.02em; }
-    .lede { color: var(--muted); max-width: 40rem; line-height: 1.5; }
-    .bar { height: 10px; background: #22231f; border-radius: 99px; overflow: hidden; margin: 18px 0 8px; max-width: 28rem; }
-    .bar > i { display: block; height: 100%; background: var(--sage); }
-    .wx { color: var(--muted); font-size: 14px; margin-top: 8px; }
-    .grid { display: grid; gap: 12px; margin-top: 28px; }
-    @media (min-width: 720px) { .grid.stats { grid-template-columns: repeat(4, 1fr); } .grid.two { grid-template-columns: 1.4fr .8fr; } }
-    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px 18px 16px; }
-    .k { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-    .v { font-size: 20px; margin-top: 6px; }
-    .h { font-size: 12px; color: var(--muted); margin-top: 4px; }
-    .skill { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); }
-    .skill:last-child { border-bottom: 0; }
-    .skill .name { flex: 1; }
-    .skill .pct { width: 42px; text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); font-size: 13px; }
-    .mini { flex: 1; height: 6px; background: #22231f; border-radius: 99px; overflow: hidden; }
-    .mini > i { display: block; height: 100%; background: var(--sage); }
-    .mini.later > i { background: #3a3b36; }
-    pre { white-space: pre-wrap; font-size: 12px; color: #c9c7bf; font-family: ui-monospace, Menlo, Consolas, monospace; line-height: 1.45; margin: 10px 0 0; }
-    a { color: var(--sage); }
-    footer { margin-top: 28px; color: var(--muted); font-size: 12px; }
+    html, body { margin:0; min-height:100%; background:var(--bg); color:var(--fg);
+      font-family: Figtree, ui-sans-serif, system-ui, sans-serif; }
+    body { padding: 20px 18px 72px; }
+    .wrap { max-width: 1040px; margin: 0 auto; }
+    header { display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+    .owl-box { width:72px; height:72px; flex:0 0 72px; }
+    .owl { width:72px; height:72px; display:block; }
+    .owl .ln { fill:none; stroke:var(--fg); stroke-width:1.55; stroke-linecap:round; stroke-linejoin:round; }
+    .owl .fl { fill:transparent; transition: fill .7s ease; }
+    .l1 .eye { fill: var(--fg); }
+    .l2 .body { fill: rgba(125,146,112,.22); } .l2 .beak { fill:#c4a574; }
+    .l3 .body { fill: rgba(125,146,112,.42); } .l3 .face { fill: rgba(236,234,228,.1); }
+    .l4 .body { fill:#6f8464; } .l4 .face { fill:#cfc9b8; } .l4 .beak { fill:#e0b56a; } .l4 .eye { fill:#1a1b18; }
+    .l5 .body { fill:#7d9270; } .l5 .face { fill:#ddd6c6; } .l5 .hi { fill:#fff; opacity:.85; }
+    .st-working .owl-box { animation: bob 2.2s ease-in-out infinite, glow 2.2s ease-in-out infinite; }
+    .st-working .lids { transform-origin:16px 15px; animation: blink 3.4s ease-in-out infinite; }
+    .st-idle .lids { transform-origin:16px 15px; animation: blink 6s ease-in-out infinite; }
+    .st-warning { filter: saturate(.7); }
+    .st-offline { filter: grayscale(1) brightness(.55); }
+    @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+    @keyframes blink { 0%,92%,100%{transform:scaleY(1)} 96%{transform:scaleY(.1)} }
+    @keyframes glow { 0%,100%{filter:none} 50%{filter:drop-shadow(0 0 8px rgba(125,146,112,.4))} }
+    h1 { font-family: Newsreader, Georgia, serif; font-size: 34px; font-weight:500; margin:0; letter-spacing:-.02em; }
+    .sub { color:var(--muted); font-size:13px; margin-top:4px; }
+    .pill { font-size:11px; letter-spacing:.14em; text-transform:uppercase; padding:4px 10px; border-radius:99px; border:1px solid var(--line); color:var(--muted); }
+    .pill.ok { color:var(--sage); border-color:rgba(125,146,112,.4); }
+    .pill.warn { color:var(--warn); }
+    .pill.bad { color:var(--bad); }
+    nav { display:flex; gap:6px; flex-wrap:wrap; margin:22px 0 18px; }
+    nav button { background:transparent; color:var(--muted); border:1px solid var(--line); border-radius:999px; padding:7px 12px; font:inherit; font-size:12px; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }
+    nav button.on { color:var(--fg); background:var(--card); border-color:rgba(236,234,228,.22); }
+    .grid { display:grid; gap:12px; }
+    @media (min-width:800px){ .g2{grid-template-columns:1.3fr .9fr} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px 18px; }
+    .k { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+    .v { font-size:22px; margin-top:6px; }
+    .h { color:var(--muted); font-size:13px; margin-top:4px; }
+    .cap { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--line); }
+    .cap:last-child { border-bottom:0; }
+    .cap .name { flex:1; }
+    .st { font-size:10px; letter-spacing:.12em; text-transform:uppercase; padding:3px 8px; border-radius:99px; }
+    .proven { color:#d7e4cf; background:rgba(125,146,112,.22); }
+    .testing { color:#ead9b8; background:rgba(196,165,116,.18); }
+    .planned { color:var(--muted); background:var(--chip); }
+    .locked { color:#8a8680; background:#1c1d1a; }
+    .next { color:#d7e4cf; background:rgba(125,146,112,.18); }
+    .queued { color:var(--muted); background:var(--chip); }
+    .ev { display:flex; gap:12px; padding:8px 0; border-bottom:1px solid var(--line); font-size:14px; }
+    .ev:last-child { border-bottom:0; }
+    .ev time { color:var(--muted); font-size:12px; width:64px; flex:0 0 64px; }
+    .pass { color:var(--sage); } .fail { color:var(--bad); }
+    .wx { color:var(--muted); margin: 8px 0 0; }
+    footer { margin-top:24px; color:var(--muted); font-size:12px; }
+    a { color:var(--sage); }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="eyebrow">
-      <span class="dot" id="liveDot"></span>
-      <span id="liveLabel">HESS-PC · HP OMEN 25L</span>
-    </div>
-    <div class="hero">
-      <div>
-        <div class="owl-wrap" id="owlWrap" title="Kevin">
-          <svg class="owl" viewBox="0 0 32 32" aria-hidden="true">
-            <ellipse class="fill body-hint" cx="16" cy="17" rx="10" ry="10.4" />
-            <circle class="fill face" cx="16" cy="16" r="9.2" />
-            <path class="line tuft" d="M8 6.5 11 11M24 6.5 21 11" />
-            <circle class="line eye-ring" cx="12.2" cy="15.2" r="2.6" />
-            <circle class="line eye-ring" cx="19.8" cy="15.2" r="2.6" />
-            <g class="lids">
-              <circle class="fill eye-fill" cx="12.2" cy="15.2" r="0.95" />
-              <circle class="fill eye-fill" cx="19.8" cy="15.2" r="0.95" />
-              <circle class="fill highlight" cx="11.7" cy="14.7" r="0.28" />
-              <circle class="fill highlight" cx="19.3" cy="14.7" r="0.28" />
-            </g>
-            <path class="fill beak" d="M16 17.2 14.4 19.4h3.2L16 17.2Z" />
-            <path class="line" d="M11 22.8c1.4 1.4 3.1 2.1 5 2.1s3.6-.7 5-2.1" />
-            <circle class="line" cx="16" cy="16" r="9.2" />
-          </svg>
-        </div>
-        <div class="owl-cap" id="owlCap">outline</div>
+    <header>
+      <div class="owl-box" id="owlBox">
+        <svg class="owl" viewBox="0 0 32 32" aria-hidden="true">
+          <ellipse class="fl body" cx="16" cy="17" rx="10" ry="10.4"/>
+          <circle class="fl face" cx="16" cy="16" r="9.2"/>
+          <path class="ln" d="M8 6.5 11 11M24 6.5 21 11"/>
+          <circle class="ln" cx="12.2" cy="15.2" r="2.6"/>
+          <circle class="ln" cx="19.8" cy="15.2" r="2.6"/>
+          <g class="lids">
+            <circle class="fl eye" cx="12.2" cy="15.2" r=".95"/>
+            <circle class="fl eye" cx="19.8" cy="15.2" r=".95"/>
+            <circle class="fl hi" cx="11.7" cy="14.7" r=".28"/>
+            <circle class="fl hi" cx="19.3" cy="14.7" r=".28"/>
+          </g>
+          <path class="fl beak" d="M16 17.2 14.4 19.4h3.2L16 17.2Z"/>
+          <path class="ln" d="M11 22.8c1.4 1.4 3.1 2.1 5 2.1s3.6-.7 5-2.1"/>
+          <circle class="ln" cx="16" cy="16" r="9.2"/>
+        </svg>
       </div>
-      <div style="flex:1; min-width:240px">
+      <div style="flex:1;min-width:220px">
         <h1>Kevin HQ</h1>
-        <p class="lede" id="lede">Chat brain is Qwen 2.5 14B, tool-free. KevinTick is the 15-minute body. The owl fills in as proven skills land — it bobs while the OMEN is live.</p>
+        <div class="sub" id="owlLabel">Brain</div>
       </div>
-    </div>
-    <div class="bar"><i id="avgBar"></i></div>
-    <p class="wx" id="wx">Loading Preston weather…</p>
-    <div class="grid stats">
-      <div class="card"><div class="k">Chat</div><div class="v" id="model">—</div><div class="h" id="lane">lane</div></div>
-      <div class="card"><div class="k">Self-check</div><div class="v" id="fails">—</div><div class="h">fails</div></div>
-      <div class="card"><div class="k">RAM</div><div class="v" id="ram">—</div><div class="h" id="gpu">GPU</div></div>
-      <div class="card"><div class="k">Bridge</div><div class="v" id="bridge">—</div><div class="h" id="stamp">updated</div></div>
-    </div>
-    <div class="grid two" style="margin-top:12px">
-      <div class="card"><div class="k">Long map</div><div id="skills"></div></div>
-      <div class="card"><div class="k">System</div><pre id="sys">…</pre></div>
-    </div>
-    <div class="card" style="margin-top:12px"><div class="k">Self-check</div><pre id="check">…</pre></div>
-    <footer>Source: <a href="https://github.com/hessmodee/KEVIN-WORK/blob/main/reports/board.json">board.json</a></footer>
+      <span class="pill" id="statusPill">...</span>
+    </header>
+    <p class="wx" id="wx"></p>
+    <nav id="nav"></nav>
+    <main id="main"></main>
+    <footer>Kevin owns this state. Presentation only. No secrets, no local paths.</footer>
   </div>
 <script>
-const SKILLS = [
-  ["Local chat (Qwen v2)", 100, true],
-  ["Write files (proven)", 100, true],
-  ["KevinTick 15m", 100, true],
-  ["Preston weather", 100, true],
-  ["Morning brief", 100, true],
-  ["Self-check", 100, true],
-  ["GitHub bridge", 90, true],
-  ["System telemetry helper", 80, true],
-  ["Typed Reader tools", 10, false],
-  ["Send email", 0, false],
-  ["Excel / Word", 0, false],
-  ["Windows UI / Minecraft", 0, false]
-];
-const STAGE_LABEL = ["outline", "eyes open", "beak", "sage wash", "almost real", "full color"];
-function el(id){ return document.getElementById(id); }
-function avgPct(){ return Math.round(SKILLS.reduce((s,x)=>s+x[1],0)/SKILLS.length); }
-function stageFrom(avg){
-  if (avg >= 85) return 5; if (avg >= 70) return 4; if (avg >= 55) return 3;
-  if (avg >= 40) return 2; if (avg >= 20) return 1; return 0;
+const TABS = ["overview","activity","capabilities","system","build","diagnostics"];
+const OWL = ["","Brain","Senses","Memory","Hands","Teammate"];
+let S = null, tab = "overview";
+const $ = id => document.getElementById(id);
+function pillClass(st){
+  if (st==="idle"||st==="healthy"||st==="working") return "ok";
+  if (st==="degraded"||st==="warning") return "warn";
+  return "bad";
 }
-function renderSkills(){
-  const avg = avgPct();
-  el("avgBar").style.width = avg + "%";
-  el("skills").innerHTML = SKILLS.map(([n,p,live]) =>
-    `<div class="skill"><div class="name">${n}</div><div class="mini ${live?"":"later"}"><i style="width:${p}%"></i></div><div class="pct">${p}%</div></div>`
-  ).join("");
-  const st = stageFrom(avg);
-  el("owlWrap").className = "owl-wrap stage-" + st;
-  el("owlCap").textContent = "stage " + st + " · " + STAGE_LABEL[st];
+function when(iso){
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (isNaN(d)) return iso.slice(11,16) || iso;
+  return d.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"});
 }
-renderSkills();
+function renderNav(){
+  $("nav").innerHTML = TABS.map(t =>
+    `<button data-t="${t}" class="${t===tab?"on":""}">${t}</button>`).join("");
+  $("nav").onclick = e => {
+    const b = e.target.closest("button"); if (!b) return;
+    tab = b.dataset.t; renderNav(); draw();
+  };
+}
+function applyOwl(){
+  const o = (S && S.owl) || {level:1, state:"idle"};
+  document.body.className = "st-" + (o.state||"idle");
+  $("owlBox").className = "owl-box l" + (o.level||1);
+  $("owlLabel").textContent = "Level " + (o.level||1) + " · " + (OWL[o.level]||"Brain");
+  const st = (S && S.status) || "unknown";
+  $("statusPill").textContent = st;
+  $("statusPill").className = "pill " + pillClass(st);
+  $("wx").textContent = (S.weather && S.weather.summary) || "";
+}
+function card(k,v,h){ return `<div class="card"><div class="k">${k}</div><div class="v">${v}</div>${h?`<div class="h">${h}</div>`:""}</div>`; }
+function capRow(c){
+  return `<div class="cap"><div class="name">${c.label}</div><span class="st ${c.state}">${c.state}</span></div>`;
+}
+function evRow(e){
+  return `<div class="ev"><time>${when(e.at)}</time><div><span class="${e.result||""}">${e.detail||e.event}</span>
+    <div class="h">${e.component||""} · ${(e.result||"").toUpperCase()}</div></div></div>`;
+}
+function overview(){
+  const t = S.current_task;
+  const svc = S.services||{};
+  return `<div class="grid g4">
+    ${card("Status", (S.status||"-").toUpperCase(), t ? t.name : "No active task")}
+    ${card("Brain", S.brain.name, S.brain.mode + " · " + S.brain.context)}
+    ${card("Health", (S.health.overall||"-").toUpperCase(), S.self_check.summary)}
+    ${card("Sync", when(S.sync.last), S.sync.source)}
+  </div>
+  <div class="grid g2" style="margin-top:12px">
+    <div class="card"><div class="k">Capabilities</div>${S.capabilities.map(capRow).join("")}</div>
+    <div class="card"><div class="k">Recent</div>${(S.activity||[]).slice(0,6).map(evRow).join("")||"<div class='h'>No events yet</div>"}</div>
+  </div>
+  <div class="grid g4" style="margin-top:12px">
+    ${card("Tick", (svc.tick||"-").toUpperCase())}
+    ${card("Bridge", (svc.bridge||"-").toUpperCase())}
+    ${card("Ollama", (svc.ollama||"-").toUpperCase())}
+    ${card("Gateway", (svc.gateway||"-").toUpperCase())}
+  </div>`;
+}
+function activity(){ return `<div class="card"><div class="k">Activity</div>${(S.activity||[]).map(evRow).join("")||"<div class='h'>Waiting for the next cycle.</div>"}</div>`; }
+function capabilities(){ return `<div class="card"><div class="k">What Kevin can do now</div>
+  <p class="h">PROVEN is in production. TESTING is built but Chat cannot call it. PLANNED is designed. LOCKED is withheld.</p>
+  ${S.capabilities.map(c => `<div class="cap"><div class="name">${c.label}<div class="h">${c.note||""}</div></div><span class="st ${c.state}">${c.state}</span></div>`).join("")}
+</div>`; }
+function system(){
+  const s = S.system||{};
+  return `<div class="grid g4">
+    ${card("Memory", (s.memory_pct!=null?s.memory_pct:"-") + "%")}
+    ${card("CPU", (s.cpu_pct!=null?s.cpu_pct:"-") + "%")}
+    ${card("GPU", s.gpu||"-", (s.gpu_pct!=null? s.gpu_pct+"%":""))}
+    ${card("Health", (S.health.overall||"-").toUpperCase())}
+  </div>
+  <p class="h" style="margin-top:14px">Public view only. Full diagnostics stay on the workstation.</p>`;
+}
+function build(){ return `<div class="card"><div class="k">Build</div>${S.build.map(b =>
+  `<div class="cap"><div class="name">${b.label}</div><span class="st ${b.state}">${b.state}</span></div>`).join("")}
+  <p class="h" style="margin-top:12px">Next: Reader with one typed tool. Chat stays frozen and tool-free.</p></div>`; }
+function diagnostics(){
+  return `<div class="card"><div class="k">Diagnostics</div>
+    <div class="h">Self-check: ${S.self_check.summary}</div>
+    <div class="h">Failed checks: ${S.health.failed_checks}</div>
+    <div class="h">Last sync: ${S.sync.last}</div>
+    <div class="h">Owl: level ${S.owl.level} ${S.owl.state}</div>
+    <div class="h">Schema ${S.schema}</div>
+  </div>`;
+}
+function draw(){
+  if (!S) { $("main").innerHTML = `<div class="card">Waiting for dashboard-state.json</div>`; return; }
+  applyOwl();
+  const fn = {overview, activity, capabilities, system, build, diagnostics}[tab];
+  $("main").innerHTML = fn();
+}
 async function load(){
-  let data = null;
-  for (const u of ["https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/board.json","../reports/board.json"]) {
-    try { const r = await fetch(u + "?t=" + Date.now(), { cache: "no-store" }); if (r.ok) { data = await r.json(); break; } } catch (e) {}
+  const urls = [
+    "https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/dashboard-state.json",
+    "../reports/dashboard-state.json"
+  ];
+  for (const u of urls){
+    try {
+      const r = await fetch(u + "?t=" + Date.now(), {cache:"no-store"});
+      if (r.ok) { S = await r.json(); break; }
+    } catch(e){}
   }
-  if (!data) return;
-  const t = Date.parse(String(data.at).replace(" ", "T") + "-06:00") || Date.parse(String(data.at));
-  const ageMin = t ? (Date.now() - t) / 60000 : 999;
-  const stale = ageMin > 45;
-  const working = !stale && ageMin < 20;
-  el("liveDot").classList.toggle("stale", stale);
-  document.body.classList.toggle("working", working);
-  el("liveLabel").textContent = (stale ? "STALE · " : (working ? "WORKING · " : "LIVE · ")) + (data.host || "HESS-PC") + " · " + (data.at || "");
-  el("model").textContent = (data.chat && data.chat.model) || "qwen2.5:14b";
-  el("lane").textContent = (data.chat && data.chat.lane) || "Chat v2";
-  el("fails").textContent = String(data.fails ?? "—");
-  const sys = data.system || {};
-  el("ram").textContent = sys["RAM used"] || "—";
-  el("gpu").textContent = sys["GPU"] || "";
-  el("bridge").textContent = (data.bridge && (data.bridge.bridge || data.bridge.publish)) || "—";
-  el("stamp").textContent = data.at || "";
-  el("wx").textContent = data.weather_line || "";
-  el("sys").textContent = Object.keys(sys).map(k => k + ": " + sys[k]).join("\n");
-  el("check").textContent = data.self_check || "";
+  renderNav(); draw();
 }
 load();
 setInterval(load, 60000);
