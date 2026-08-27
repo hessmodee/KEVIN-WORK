@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated_at": "2026-08-27T03:35:13-06:00",
+  "generated_at": "2026-08-27T03:59:59-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -20,8 +20,8 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 59,
-    "cpu_pct": 21,
+    "memory_pct": 60,
+    "cpu_pct": 30,
     "gpu": "RTX 3060",
     "gpu_pct": 0
   },
@@ -75,7 +75,10 @@
       59,
       58,
       58,
-      59
+      59,
+      58,
+      58,
+      60
     ],
     "cpu": [
       11,
@@ -126,7 +129,10 @@
       29,
       23,
       23,
-      21
+      21,
+      33,
+      33,
+      30
     ],
     "gpu": [
       11,
@@ -177,6 +183,9 @@
       1,
       2,
       2,
+      0,
+      0,
+      0,
       0
     ]
   },
@@ -276,8 +285,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 27,
-      "total": 27
+      "done": 28,
+      "total": 28
     }
   ],
   "roadmap": {
@@ -319,11 +328,30 @@
   ],
   "activity": [
     {
-      "at": "2026-08-27T03:35:13-06:00",
+      "at": "2026-08-27T03:50:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
       "result": "pass"
+    },
+    {
+      "at": "2026-08-27T03:59:59-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 125033ms",
+      "result": "pass",
+      "task_id": "night-forge",
+      "duration_ms": 125000
+    },
+    {
+      "at": "2026-08-27T03:57:54-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
     },
     {
       "at": "2026-08-27T02:59:06-06:00",
@@ -467,25 +495,6 @@
       "result": "fail",
       "task_id": "night-forge",
       "duration_ms": 1000
-    },
-    {
-      "at": "2026-08-26T22:57:52-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Night Forge cycle",
-      "result": "",
-      "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-26T22:57:17-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "FAIL sensor exit  ",
-      "result": "fail",
-      "task_id": "night-forge",
-      "duration_ms": 0
     }
   ],
   "owl": {
@@ -493,7 +502,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T03:35:13-06:00",
+    "last": "2026-08-27T03:59:59-06:00",
     "source": "HESS-PC"
   },
   "self_check": {
