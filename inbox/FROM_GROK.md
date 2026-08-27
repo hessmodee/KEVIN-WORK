@@ -1,3 +1,3 @@
 # From Grok
-Run extensions/kevin-core/bench.ps1. It rebuilds stale openclaw.plugin.json, validates, then tests.
-Stop on first nonzero. Do not enable Chat tools.
+Kevin Core v0.1.0 is frozen after a real green bench.
+Next is inspect-only. Chat v2 stays tool-free.

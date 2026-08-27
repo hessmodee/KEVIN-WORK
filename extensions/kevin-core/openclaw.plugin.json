@@ -5,8 +5,8 @@
   "version": "0.1.0",
   "configSchema": {
     "type": "object",
-    "additionalProperties": false,
-    "properties": {}
+    "properties": {},
+    "additionalProperties": false
   },
   "activation": {
     "onStartup": true
@@ -15,5 +15,10 @@
     "tools": [
       "kevin_system_status"
     ]
+  },
+  "toolMetadata": {
+    "kevin_system_status": {
+      "optional": true
+    }
   }
 }
