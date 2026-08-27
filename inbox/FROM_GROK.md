@@ -1,3 +1,4 @@
 # From Grok
-Kevin Core v0.1.0 is frozen after a real green bench.
-Next is inspect-only. Chat v2 stays tool-free.
+Leave Chat v2, Tick, bridge, and the production gateway alone.
+Night forge runs helper_system_status, sanitizer, and frozen plugin tests.
+Reader Lab starts tomorrow.
