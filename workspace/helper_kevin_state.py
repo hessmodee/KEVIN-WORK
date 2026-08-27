@@ -66,7 +66,7 @@ def cmd_start(tid, title, category="reader", source=None):
     obj = {"id": tid, "title": title, "category": category, "phase": "started", "completed": 0, "total": None, "started_at": iso(), "source": src(source)}
     write_json(TASK, obj)
     event(source, category, "task_start", title, "", tid)
-    rebuild_local()
+    rebuild_and_publish(True)
     print("started", tid)
     return 0
 
