@@ -1,7 +1,7 @@
 {
-  "schema": 3,
-  "generated_at": "2026-08-28T08:05:14-06:00",
-  "status": "idle",
+  "schema": 4,
+  "generated_at": "2026-08-28T08:27:28-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,26 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "system-status",
+    "title": "Checking system status",
+    "category": "system_reader",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-28T08:27:28-06:00",
+    "source": "kevin-reader"
+  },
+  "campaign": {
+    "active": true,
+    "id": "system-status",
+    "title": "Checking system status"
+  },
+  "execution": {
+    "running": true,
+    "phase": "started",
+    "worker": null
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -20,8 +39,8 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 57,
-    "cpu_pct": 32,
+    "memory_pct": 58,
+    "cpu_pct": 24,
     "gpu": "RTX 3060",
     "gpu_pct": 25
   },
@@ -29,20 +48,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T22:45:10-06:00",
-        "estimated": false,
-        "ram": 49,
-        "cpu": 13,
-        "gpu": 37
-      },
-      {
-        "at": "2026-08-27T22:45:48-06:00",
-        "estimated": false,
-        "ram": 49,
-        "cpu": 13,
-        "gpu": 37
-      },
       {
         "at": "2026-08-27T22:47:26-06:00",
         "estimated": false,
@@ -700,11 +705,23 @@
         "ram": 57,
         "cpu": 32,
         "gpu": 25
+      },
+      {
+        "at": "2026-08-28T08:20:13-06:00",
+        "estimated": false,
+        "ram": 58,
+        "cpu": 24,
+        "gpu": 25
+      },
+      {
+        "at": "2026-08-28T08:27:28-06:00",
+        "estimated": false,
+        "ram": 58,
+        "cpu": 24,
+        "gpu": 25
       }
     ],
     "ram": [
-      49,
-      49,
       49,
       49,
       58,
@@ -798,11 +815,11 @@
       58,
       58,
       63,
-      57
+      57,
+      58,
+      58
     ],
     "cpu": [
-      13,
-      13,
       13,
       13,
       12,
@@ -896,11 +913,11 @@
       13,
       13,
       32,
-      32
+      32,
+      24,
+      24
     ],
     "gpu": [
-      37,
-      37,
       37,
       37,
       17,
@@ -994,6 +1011,8 @@
       15,
       15,
       27,
+      25,
+      25,
       25
     ]
   },
@@ -1148,7 +1167,16 @@
   ],
   "activity": [
     {
-      "at": "2026-08-28T08:05:14-06:00",
+      "at": "2026-08-28T08:27:28-06:00",
+      "source": "kevin-reader",
+      "component": "system_reader",
+      "event": "task_start",
+      "detail": "Checking system status",
+      "result": "",
+      "task_id": "system-status"
+    },
+    {
+      "at": "2026-08-28T08:20:13-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1357,23 +1385,14 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 22000
-    },
-    {
-      "at": "2026-08-28T02:38:35-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: reader-self-check",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-28T08:05:14-06:00",
+    "last": "2026-08-28T08:27:28-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1407,5 +1426,36 @@
       "scheduled": true,
       "promotion": "blocked"
     }
-  }
+  },
+  "attention": {
+    "level": "none",
+    "items": []
+  },
+  "newswire": [
+    {
+      "id": "weather",
+      "text": "Today 82 | Wind 3 to 9 mph | Chance Light Rain then Slight Chance Showers And Thunderstorms",
+      "severity": "normal"
+    },
+    {
+      "id": "mission",
+      "text": "Checking system status \u00b7 started",
+      "severity": "normal"
+    },
+    {
+      "id": "roadmap",
+      "text": "Next: Prove System Reader E2E",
+      "severity": "normal"
+    },
+    {
+      "id": "health",
+      "text": "System health: all checks passed",
+      "severity": "normal"
+    },
+    {
+      "id": "verified",
+      "text": "Verified: Night Forge PASS 132095ms",
+      "severity": "success"
+    }
+  ]
 }
