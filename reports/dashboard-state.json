@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T10:05:14-06:00",
+  "generated_at": "2026-08-28T10:20:14-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -30,22 +30,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 62,
-    "cpu_pct": 11,
+    "memory_pct": 61,
+    "cpu_pct": 1,
     "gpu": "RTX 3060",
-    "gpu_pct": 3
+    "gpu_pct": 0
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T00:20:13-06:00",
-        "estimated": false,
-        "ram": 47,
-        "cpu": 11,
-        "gpu": 9
-      },
       {
         "at": "2026-08-28T00:35:13-06:00",
         "estimated": false,
@@ -710,10 +703,16 @@
         "ram": 62,
         "cpu": 11,
         "gpu": 3
+      },
+      {
+        "at": "2026-08-28T10:20:14-06:00",
+        "estimated": false,
+        "ram": 61,
+        "cpu": 1,
+        "gpu": 0
       }
     ],
     "ram": [
-      47,
       45,
       45,
       47,
@@ -808,10 +807,10 @@
       63,
       63,
       61,
-      62
+      62,
+      61
     ],
     "cpu": [
-      11,
       12,
       12,
       13,
@@ -906,10 +905,10 @@
       25,
       25,
       12,
-      11
+      11,
+      1
     ],
     "gpu": [
-      9,
       9,
       9,
       37,
@@ -1004,7 +1003,8 @@
       47,
       47,
       0,
-      3
+      3,
+      0
     ]
   },
   "weather": {
@@ -1158,7 +1158,7 @@
   ],
   "activity": [
     {
-      "at": "2026-08-28T10:05:14-06:00",
+      "at": "2026-08-28T10:20:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1383,7 +1383,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T10:05:14-06:00",
+    "last": "2026-08-28T10:20:14-06:00",
     "source": "local runtime"
   },
   "self_check": {
