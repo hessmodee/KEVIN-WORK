@@ -184,7 +184,7 @@
   <footer><span id="foot">Kevin HQ</span><span id="foot2"></span></footer>
 </div>
 <script>
-const TABS=[["overview","Overview"],["ops","Ops Floor"],["talk","Talk"],["activity","Activity"],["system","System"],["build","Roadmap"],["capabilities","Capabilities"],["diagnostics","Diagnostics"]];
+const TABS=[["overview","Overview"],["ops","Ops Floor"],["talk","Talk · Exp"],["activity","Activity"],["system","System"],["build","Roadmap"],["capabilities","Capabilities"],["diagnostics","Diagnostics"]];
 let S=null,tab=(location.hash||"#overview").slice(1),selectedCrew="kevin",activityFilter="all";
 if(!TABS.some(x=>x[0]===tab))tab="overview";
 const $=id=>document.getElementById(id);
@@ -702,8 +702,6 @@ function renderInspect(){
 }
 function activity(){const ev=sortedActivity(),comps=["all",...new Set(ev.map(x=>String(x.component||"kevin").toLowerCase()))],shown=activityFilter==="all"?ev:ev.filter(x=>String(x.component||"kevin").toLowerCase()===activityFilter);return`<div class="card"><div class="section-head"><div><div class="k">Activity</div><div class="h">Newest first · evidence, duration, result</div></div><div class="right">${shown.length} events</div></div><div class="filterbar">${comps.map(c=>`<button class="filterbtn ${activityFilter===c?"on":""}" data-filter="${esc(c)}">${esc(c)}</button>`).join("")}</div>${shown.map(eventHtml).join("")||`<div class="empty">No matching activity.</div>`}</div>`}
 function talk(){
- const telegram="https://t.me/KevintheAssistantBot";
-
  return`
  <div class="grid g2eq">
   <div class="card talk-hero">
@@ -711,33 +709,24 @@ function talk(){
     ${avatarSvg(avatarLevel(),avatarMode(),false)}
    </div>
 
-   <div class="k">Talk to Kevin</div>
+   <div class="k">Talk</div>
    <div class="mission-copy" style="margin-left:auto;margin-right:auto">
-    Kevin in your pocket.
+    Experimental / known session instability
    </div>
 
    <div class="h">
-    Open Kevin's existing Telegram channel from your phone,
-    tablet, or computer.
+    This is not a proven Kevin conversation channel.
+    Public HQ remains read-only monitoring.
    </div>
 
    <div class="talk-state">
-    Mobile bridge configured · fresh E2E recheck recommended
-   </div>
-
-   <div>
-    <a
-      class="talk-btn"
-      href="${telegram}"
-      target="_blank"
-      rel="noopener noreferrer"
-    >Open Kevin in Telegram</a>
+    Experimental / known session instability
    </div>
   </div>
 
   <div class="card">
    <div class="k">Embedded HQ Chat</div>
-   <div class="v" style="font-size:18px">Next communication upgrade</div>
+   <div class="v" style="font-size:18px">Not enabled on public HQ</div>
 
    <div class="h">
     A real chat composer directly inside HQ is absolutely possible,
@@ -763,11 +752,10 @@ function talk(){
    </div>
 
    <div class="architecture-note">
-    <div class="k">Why Telegram first</div>
+    <div class="k">Status</div>
     <div class="h">
-     It gives Kevin an immediate mobile conversation surface without
-     exposing his local gateway while we build and test the private
-     in-HQ chat bridge separately.
+     Telegram is not enabled from this page. Conversation
+     surfaces are experimental, with known session instability.
     </div>
    </div>
   </div>
