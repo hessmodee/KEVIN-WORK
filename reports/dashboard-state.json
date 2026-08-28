@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T18:05:14-06:00",
+  "generated_at": "2026-08-27T18:20:14-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 46,
-    "cpu_pct": 8,
+    "memory_pct": 47,
+    "cpu_pct": 24,
     "gpu": "RTX 3060",
-    "gpu_pct": 0
+    "gpu_pct": 6
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-26T21:56:50-06:00",
-        "estimated": true,
-        "ram": 59,
-        "cpu": 31,
-        "gpu": 8
-      },
       {
         "at": "2026-08-26T22:11:50-06:00",
         "estimated": true,
@@ -700,10 +693,16 @@
         "ram": 46,
         "cpu": 8,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-27T18:20:14-06:00",
+        "estimated": false,
+        "ram": 47,
+        "cpu": 24,
+        "gpu": 6
       }
     ],
     "ram": [
-      59,
       59,
       58,
       59,
@@ -798,10 +797,10 @@
       53,
       45,
       48,
-      46
+      46,
+      47
     ],
     "cpu": [
-      31,
       31,
       21,
       29,
@@ -896,10 +895,10 @@
       20,
       27,
       12,
-      8
+      8,
+      24
     ],
     "gpu": [
-      8,
       8,
       2,
       7,
@@ -994,11 +993,12 @@
       0,
       29,
       7,
-      0
+      0,
+      6
     ]
   },
   "weather": {
-    "summary": "This Afternoon 91 | Wind 9 mph | Mostly Sunny"
+    "summary": "Tonight 59 | Wind 3 to 9 mph | Slight Chance Showers And Thunderstorms then Mostly Cloudy"
   },
   "capabilities": [
     {
@@ -1093,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 80,
-      "total": 81
+      "done": 81,
+      "total": 82
     }
   ],
   "roadmap": {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-08-27T18:05:14-06:00",
+      "at": "2026-08-27T18:20:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1376,7 +1376,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T18:05:14-06:00",
+    "last": "2026-08-27T18:20:14-06:00",
     "source": "local runtime"
   },
   "self_check": {
