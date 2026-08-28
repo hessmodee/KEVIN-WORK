@@ -52,15 +52,53 @@
     .cap{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}.cap:last-child{border-bottom:0}.cap .name{flex:1}.empty{font-size:12px;color:var(--muted);padding:12px 0}
     footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;color:var(--muted);font-size:10px}
     .kevin-avatar{--size:78px;width:var(--size);height:var(--size);position:relative;display:grid;place-items:center;flex:0 0 var(--size)}
-    .kevin-avatar.large{--size:132px}.kevin-avatar svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 12px 22px rgba(0,0,0,.22))}
-    .kv-body{fill:#52604e;transition:.8s}.kv-face{fill:#d8d1bf;transition:.8s}.kv-wing{fill:#455141;transition:.8s}.kv-beak{fill:#d6aa5f}.kv-foot{stroke:#af9270;stroke-width:2;stroke-linecap:round}.kv-eye{fill:#121612}.kv-hi{fill:#fff}.kv-ring{fill:none;stroke:rgba(143,170,130,.26);stroke-width:1.2}.kv-feather,.kv-brow,.kv-chest{fill:none;stroke:rgba(242,239,231,.18);stroke-width:1.1;stroke-linecap:round}.kv-detail2,.kv-detail3,.kv-detail4,.kv-detail5{opacity:0;transition:opacity .8s}
-    .kevin-avatar[data-level="2"] .kv-detail2,.kevin-avatar[data-level="3"] .kv-detail2,.kevin-avatar[data-level="4"] .kv-detail2,.kevin-avatar[data-level="5"] .kv-detail2{opacity:1}
-    .kevin-avatar[data-level="3"] .kv-detail3,.kevin-avatar[data-level="4"] .kv-detail3,.kevin-avatar[data-level="5"] .kv-detail3{opacity:1}
-    .kevin-avatar[data-level="4"] .kv-detail4,.kevin-avatar[data-level="5"] .kv-detail4{opacity:1}
+    .kevin-avatar.large{--size:142px}
+    .kevin-avatar svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 12px 22px rgba(0,0,0,.24))}
+    .kv-head,.kv-body{fill:#94705e;transition:fill .8s}
+    .kv-wing{fill:#684332;transition:fill .8s}
+    .kv-face{fill:#d9c5b3;transition:fill .8s}
+    .kv-eye-white{fill:#f8f5ed;stroke:#49372f;stroke-width:1.2}
+    .kv-eye{fill:#111411}
+    .kv-hi{fill:#fff}
+    .kv-beak,.kv-foot{fill:#ef9838}
+    .kv-ring{fill:none;stroke:rgba(143,170,130,.28);stroke-width:1.2}
+    .kv-feather,.kv-brow{fill:none;stroke:#6d4a3a;stroke-width:2;stroke-linecap:round}
+    .kv-wingline{fill:none;stroke:#a77f69;stroke-width:1.7;stroke-linecap:round}
+    .kv-detail2,.kv-detail3,.kv-detail4,.kv-detail5{opacity:0;transition:opacity .8s}
+    .kevin-avatar[data-level="2"] .kv-detail2,
+    .kevin-avatar[data-level="3"] .kv-detail2,
+    .kevin-avatar[data-level="4"] .kv-detail2,
+    .kevin-avatar[data-level="5"] .kv-detail2{opacity:1}
+    .kevin-avatar[data-level="3"] .kv-detail3,
+    .kevin-avatar[data-level="4"] .kv-detail3,
+    .kevin-avatar[data-level="5"] .kv-detail3{opacity:1}
+    .kevin-avatar[data-level="4"] .kv-detail4,
+    .kevin-avatar[data-level="5"] .kv-detail4{opacity:1}
     .kevin-avatar[data-level="5"] .kv-detail5{opacity:1}
-    .kevin-avatar[data-level="2"] .kv-body{fill:#5f735a}.kevin-avatar[data-level="3"] .kv-body{fill:#6d8266}.kevin-avatar[data-level="4"] .kv-body{fill:#799170}.kevin-avatar[data-level="5"] .kv-body{fill:#88a27a}.kevin-avatar[data-level="4"] .kv-face,.kevin-avatar[data-level="5"] .kv-face{fill:#e8e0ce}
-    .kevin-avatar.mode-idle .kv-eyes{transform-origin:50% 45%;animation:kvBlink 6.4s ease-in-out infinite}.kevin-avatar.mode-working{animation:kvBob 2.2s ease-in-out infinite}.kevin-avatar.mode-working:after{content:"";position:absolute;inset:6%;border-radius:50%;border:1px solid rgba(143,170,130,.28);animation:kvRing 2s ease-out infinite}.kevin-avatar.mode-degraded{filter:saturate(.7) sepia(.18)}
-    @keyframes kvBlink{0%,91%,94%,100%{transform:scaleY(1)}92.5%{transform:scaleY(.07)}}@keyframes kvBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}@keyframes kvRing{0%{transform:scale(.78);opacity:.7}100%{transform:scale(1.28);opacity:0}}
+    .kevin-avatar[data-level="2"] .kv-body,
+    .kevin-avatar[data-level="2"] .kv-head{fill:#9b7662}
+    .kevin-avatar[data-level="3"] .kv-body,
+    .kevin-avatar[data-level="3"] .kv-head{fill:#a17d68}
+    .kevin-avatar[data-level="4"] .kv-body,
+    .kevin-avatar[data-level="4"] .kv-head{fill:#a98570}
+    .kevin-avatar[data-level="5"] .kv-body,
+    .kevin-avatar[data-level="5"] .kv-head{fill:#b08d77}
+    .kevin-avatar[data-level="4"] .kv-face,
+    .kevin-avatar[data-level="5"] .kv-face{fill:#ead9c8}
+    .kv-bandage,.kv-bruise{opacity:0}
+    .kevin-avatar.mode-degraded .kv-bandage,
+    .kevin-avatar.mode-degraded .kv-bruise{opacity:1}
+    .kevin-avatar.mode-degraded{filter:saturate(.72)}
+    .kv-work{opacity:0}
+    .kevin-avatar.mode-working .kv-work{opacity:1}
+    .kevin-avatar.mode-idle .kv-eyes{transform-origin:60px 48px;animation:kvBlink 6.4s ease-in-out infinite}
+    .kevin-avatar.mode-working{animation:kvBob 2.1s ease-in-out infinite}
+    .kevin-avatar.mode-working:after{content:"";position:absolute;inset:5%;border-radius:50%;border:1px solid rgba(143,170,130,.3);animation:kvRing 2s ease-out infinite}
+    .kevin-avatar.mode-working .kv-work{animation:kvSpark 1.4s ease-in-out infinite}
+    @keyframes kvBlink{0%,91%,94%,100%{transform:scaleY(1)}92.5%{transform:scaleY(.08)}}
+    @keyframes kvBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+    @keyframes kvRing{0%{transform:scale(.78);opacity:.7}100%{transform:scale(1.28);opacity:0}}
+    @keyframes kvSpark{0%,100%{opacity:.25}50%{opacity:1}}
     .ops-scroll{overflow-x:auto}.ops-map{height:540px;min-width:820px;position:relative;border:1px solid var(--line);border-radius:17px;overflow:hidden;background:radial-gradient(circle at 50% 50%,rgba(143,170,130,.12),transparent 24%),radial-gradient(circle at 18% 15%,rgba(131,167,187,.07),transparent 26%),#10150f}
     .ops-map:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:28px 28px;opacity:.35}
     .ops-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.ops-lines line{stroke:rgba(242,239,231,.12);stroke-width:1.2}.ops-lines line.live{stroke:rgba(143,170,130,.55);stroke-dasharray:8 7;animation:flow 2.4s linear infinite}@keyframes flow{to{stroke-dashoffset:-30}}
@@ -114,19 +152,97 @@ function avatarLevel(){return Math.max(1,Math.min(5,Number(S?.avatar?.level??S?.
 function avatarMode(){if(S?.health?.overall!=="healthy")return"degraded";if(S?.status==="working")return"working";return"idle"}
 function avatarSvg(level,mode,large=false){
   return `<div class="kevin-avatar ${large?"large":""} mode-${mode}" data-level="${level}" title="Kevin · evolution level ${level}">
-  <svg viewBox="0 0 100 100" aria-label="Kevin owl avatar">
-    <circle class="kv-ring kv-detail5" cx="50" cy="50" r="43"/>
-    <path class="kv-wing" d="M23 51 Q14 64 24 79 Q31 72 34 61 Z"/><path class="kv-wing" d="M77 51 Q86 64 76 79 Q69 72 66 61 Z"/>
-    <path class="kv-body" d="M31 37 Q24 49 28 70 Q31 84 50 88 Q69 84 72 70 Q76 49 69 37 Q62 26 50 27 Q38 26 31 37Z"/>
-    <path class="kv-face" d="M31 42 Q34 27 50 31 Q66 27 69 42 Q64 55 50 55 Q36 55 31 42Z"/>
-    <path class="kv-brow kv-detail2" d="M35 39 Q41 34 47 39 M53 39 Q59 34 65 39"/>
-    <g class="kv-eyes"><circle class="kv-eye" cx="40.5" cy="43" r="5.5"/><circle class="kv-eye" cx="59.5" cy="43" r="5.5"/><circle class="kv-hi" cx="42" cy="41.5" r="1.4"/><circle class="kv-hi" cx="61" cy="41.5" r="1.4"/></g>
-    <path class="kv-beak" d="M46 51 L54 51 L50 58 Z"/>
-    <path class="kv-chest kv-detail2" d="M39 63 Q50 70 61 63"/>
-    <path class="kv-feather kv-detail3" d="M37 69 l5 4 l4-5 M48 72 l3 5 l4-5 M57 69 l4 4 l3-5"/>
-    <path class="kv-feather kv-detail4" d="M32 55 q5 5 8 9 M68 55 q-5 5-8 9 M42 79 q8 4 16 0"/>
-    <path class="kv-feather kv-detail5" d="M27 48 q-5 7-3 13 M73 48 q5 7 3 13 M39 29 q11-7 22 0"/>
-    <path class="kv-foot" d="M43 87 l-4 4 M43 87 l1 5 M57 87 l4 4 M57 87 l-1 5"/>
+  <svg viewBox="0 0 120 120" aria-label="Kevin owl avatar">
+
+    <circle class="kv-ring kv-detail5" cx="60" cy="59" r="53"/>
+
+    <!-- rounded body -->
+    <ellipse class="kv-body" cx="60" cy="74" rx="38" ry="38"/>
+
+    <!-- broad side wings -->
+    <path class="kv-wing" d="M28 62 Q11 72 20 94 Q25 107 39 103 Q34 86 38 68 Z"/>
+    <path class="kv-wing" d="M92 62 Q109 72 100 94 Q95 107 81 103 Q86 86 82 68 Z"/>
+
+    <!-- rounded head with small owl ears -->
+    <path class="kv-head"
+      d="M26 48
+         Q19 35 22 19
+         Q31 25 40 25
+         Q49 18 60 18
+         Q71 18 80 25
+         Q89 25 98 19
+         Q101 35 94 48
+         Q100 56 97 66
+         Q94 78 84 86
+         Q74 94 60 94
+         Q46 94 36 86
+         Q26 78 23 66
+         Q20 56 26 48Z"/>
+
+    <!-- soft figure-eight face mask -->
+    <ellipse class="kv-face" cx="44" cy="49" rx="22" ry="24"/>
+    <ellipse class="kv-face" cx="76" cy="49" rx="22" ry="24"/>
+    <path class="kv-face" d="M39 64 Q60 79 81 64 Q76 84 60 87 Q44 84 39 64Z"/>
+
+    <!-- large friendly eyes -->
+    <g class="kv-eyes">
+      <circle class="kv-eye-white" cx="43" cy="48" r="15"/>
+      <circle class="kv-eye-white" cx="77" cy="48" r="15"/>
+      <circle class="kv-eye" cx="43" cy="50" r="7"/>
+      <circle class="kv-eye" cx="77" cy="50" r="7"/>
+      <circle class="kv-hi" cx="40.5" cy="46.5" r="2.1"/>
+      <circle class="kv-hi" cx="74.5" cy="46.5" r="2.1"/>
+    </g>
+
+    <!-- orange beak -->
+    <path class="kv-beak" d="M54 60 Q60 56 66 60 L60 70 Z"/>
+
+    <!-- simple expression -->
+    <path class="kv-brow kv-detail2" d="M32 35 Q42 29 51 35 M69 35 Q78 29 88 35"/>
+
+    <!-- chest scallops -->
+    <g class="kv-feather kv-detail3">
+      <path d="M43 76 Q49 83 55 76"/>
+      <path d="M55 76 Q61 83 67 76"/>
+      <path d="M67 76 Q73 83 79 76"/>
+      <path d="M49 88 Q55 95 61 88"/>
+      <path d="M61 88 Q67 95 73 88"/>
+    </g>
+
+    <!-- simple wing marks -->
+    <g class="kv-wingline kv-detail4">
+      <path d="M24 77 Q30 71 35 77"/>
+      <path d="M25 88 Q31 82 36 88"/>
+      <path d="M96 77 Q90 71 85 77"/>
+      <path d="M95 88 Q89 82 84 88"/>
+    </g>
+
+    <!-- little orange feet -->
+    <ellipse class="kv-foot" cx="47" cy="108" rx="9" ry="5"/>
+    <ellipse class="kv-foot" cx="73" cy="108" rx="9" ry="5"/>
+    <circle class="kv-foot" cx="41" cy="110" r="2.5"/>
+    <circle class="kv-foot" cx="53" cy="110" r="2.5"/>
+    <circle class="kv-foot" cx="67" cy="110" r="2.5"/>
+    <circle class="kv-foot" cx="79" cy="110" r="2.5"/>
+
+    <!-- silly degraded-state details -->
+    <g class="kv-bandage">
+      <rect x="27" y="29" width="22" height="9" rx="3"
+        fill="#eee1c7" stroke="#cdbb98" stroke-width="1.2"
+        transform="rotate(-13 38 34)"/>
+      <path d="M32 29 L44 38 M44 29 L32 38"
+        stroke="#c5ad83" stroke-width="1"/>
+    </g>
+    <ellipse class="kv-bruise" cx="88" cy="67" rx="7" ry="4"
+      fill="rgba(118,80,136,.55)"/>
+
+    <!-- tiny activity sparks -->
+    <g class="kv-work">
+      <circle cx="16" cy="54" r="2.3" fill="#c2d5b6"/>
+      <circle cx="103" cy="46" r="2.3" fill="#d5ad68"/>
+      <circle cx="105" cy="69" r="1.7" fill="#83a7bb"/>
+    </g>
+
   </svg></div>`;
 }
 function serviceChip(name,state){return`<div class="service-chip"><i class="led ${ledClass(state)}"></i><b>${esc(name)}</b><span>${esc(String(state||"unknown").toUpperCase())}</span></div>`}
