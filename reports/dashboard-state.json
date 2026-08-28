@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T13:37:02-06:00",
+  "generated_at": "2026-08-28T13:39:00-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,19 +13,19 @@
     "tools": false
   },
   "current_task": {
-    "id": "night-forge",
-    "title": "Night Forge cycle",
+    "id": "design-forge",
+    "title": "Design Forge: forge-v4",
     "category": "forge",
     "phase": "started",
     "completed": 0,
     "total": null,
-    "started_at": "2026-08-28T13:37:02-06:00",
+    "started_at": "2026-08-28T13:39:00-06:00",
     "source": "forge"
   },
   "campaign": {
     "active": true,
-    "id": "night-forge",
-    "title": "Night Forge cycle"
+    "id": "design-forge",
+    "title": "Design Forge: forge-v4"
   },
   "execution": {
     "running": true,
@@ -40,7 +40,7 @@
   },
   "system": {
     "memory_pct": 22,
-    "cpu_pct": 1,
+    "cpu_pct": 0,
     "gpu": "RTX 3060",
     "gpu_pct": 0
   },
@@ -48,13 +48,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T02:38:35-06:00",
-        "estimated": false,
-        "ram": 46,
-        "cpu": 12,
-        "gpu": 0
-      },
       {
         "at": "2026-08-28T02:38:58-06:00",
         "estimated": false,
@@ -719,10 +712,16 @@
         "ram": 22,
         "cpu": 1,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-28T13:39:00-06:00",
+        "estimated": false,
+        "ram": 22,
+        "cpu": 0,
+        "gpu": 0
       }
     ],
     "ram": [
-      46,
       46,
       46,
       46,
@@ -817,10 +816,10 @@
       72,
       26,
       22,
+      22,
       22
     ],
     "cpu": [
-      12,
       12,
       12,
       8,
@@ -915,10 +914,10 @@
       20,
       0,
       1,
-      1
+      1,
+      0
     ],
     "gpu": [
-      0,
       0,
       0,
       0,
@@ -1011,6 +1010,7 @@
       0,
       24,
       22,
+      0,
       0,
       0,
       0
@@ -1166,6 +1166,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-28T13:39:00-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: forge-v4",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-28T13:37:02-06:00",
       "source": "forge",
@@ -1376,15 +1385,6 @@
       "result": "pass",
       "task_id": "system-status",
       "duration_ms": 3000
-    },
-    {
-      "at": "2026-08-28T08:27:28-06:00",
-      "source": "kevin-reader",
-      "component": "system_reader",
-      "event": "task_start",
-      "detail": "Checking system status",
-      "result": "",
-      "task_id": "system-status"
     }
   ],
   "owl": {
@@ -1392,7 +1392,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-08-28T13:37:02-06:00",
+    "last": "2026-08-28T13:39:00-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1439,7 +1439,7 @@
     },
     {
       "id": "mission",
-      "text": "Night Forge cycle \u00b7 started",
+      "text": "Design Forge: forge-v4 \u00b7 started",
       "severity": "normal"
     },
     {
