@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-28T00:38:39-06:00",
+  "generated_at": "2026-08-28T00:39:02-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,13 +13,13 @@
     "tools": false
   },
   "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: reader-self-check",
+    "id": "overnight-expedition",
+    "title": "Overnight Expedition \u00b7 1/6 builds",
     "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-28T00:38:39-06:00",
+    "phase": "Yielding to scheduled Night Forge \u00b7 resumes automatically",
+    "completed": 1,
+    "total": 6,
+    "started_at": "2026-08-27T23:52:07.9208109-06:00",
     "source": "forge"
   },
   "services": {
@@ -38,13 +38,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T15:12:01-06:00",
-        "estimated": false,
-        "ram": 50,
-        "cpu": 19,
-        "gpu": 15
-      },
       {
         "at": "2026-08-27T15:20:14-06:00",
         "estimated": false,
@@ -709,10 +702,16 @@
         "ram": 47,
         "cpu": 13,
         "gpu": 37
+      },
+      {
+        "at": "2026-08-28T00:39:02-06:00",
+        "estimated": false,
+        "ram": 47,
+        "cpu": 13,
+        "gpu": 37
       }
     ],
     "ram": [
-      50,
       48,
       48,
       48,
@@ -807,10 +806,10 @@
       47,
       45,
       45,
+      47,
       47
     ],
     "cpu": [
-      19,
       21,
       21,
       15,
@@ -905,10 +904,10 @@
       11,
       12,
       12,
+      13,
       13
     ],
     "gpu": [
-      15,
       6,
       6,
       0,
@@ -1003,6 +1002,7 @@
       9,
       9,
       9,
+      37,
       37
     ]
   },
@@ -1156,6 +1156,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-28T00:39:02-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: reader-self-check",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 23000
+    },
     {
       "at": "2026-08-28T00:38:39-06:00",
       "source": "forge",
@@ -1368,16 +1378,6 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-27T22:21:39-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: operator",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 38000
     }
   ],
   "owl": {
@@ -1385,7 +1385,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-08-28T00:38:39-06:00",
+    "last": "2026-08-28T00:39:02-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1395,9 +1395,9 @@
   "autonomy": {
     "mode": "hourly_design",
     "state": "pass",
-    "last_mission": "reader-board",
+    "last_mission": "reader-self-check",
     "iteration": 3,
-    "updated_at": "2026-08-28T00:14:12.0850871-06:00",
+    "updated_at": "2026-08-28T00:39:02.1708416-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1412,10 +1412,10 @@
     "candidate_forge": {
       "result": "pass",
       "mode": "design-forge-v3",
-      "last_mission": "reader-board",
+      "last_mission": "reader-self-check",
       "iteration": 3,
-      "updated_at": "2026-08-28T00:14:12.0850871-06:00",
-      "next_index": 2,
+      "updated_at": "2026-08-28T00:39:02.1708416-06:00",
+      "next_index": 3,
       "scheduled": true,
       "promotion": "blocked"
     }
