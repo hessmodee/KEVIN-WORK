@@ -1,7 +1,7 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T21:04:37-06:00",
-  "status": "working",
+  "generated_at": "2026-08-27T21:05:14-06:00",
+  "status": "idle",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,16 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: reader-board",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-27T21:04:36-06:00",
-    "source": "forge"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -29,29 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 48,
-    "cpu_pct": 7,
+    "memory_pct": 56,
+    "cpu_pct": 16,
     "gpu": "RTX 3060",
-    "gpu_pct": 8
+    "gpu_pct": 98
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T04:26:50-06:00",
-        "estimated": true,
-        "ram": 55,
-        "cpu": 17,
-        "gpu": 10
-      },
-      {
-        "at": "2026-08-27T04:41:50-06:00",
-        "estimated": true,
-        "ram": 56,
-        "cpu": 31,
-        "gpu": 1
-      },
       {
         "at": "2026-08-27T04:56:50-06:00",
         "estimated": true,
@@ -709,11 +686,23 @@
         "ram": 48,
         "cpu": 7,
         "gpu": 8
+      },
+      {
+        "at": "2026-08-27T21:05:13-06:00",
+        "estimated": false,
+        "ram": 56,
+        "cpu": 16,
+        "gpu": 98
+      },
+      {
+        "at": "2026-08-27T21:05:14-06:00",
+        "estimated": false,
+        "ram": 56,
+        "cpu": 16,
+        "gpu": 98
       }
     ],
     "ram": [
-      55,
-      56,
       56,
       56,
       56,
@@ -807,11 +796,11 @@
       45,
       46,
       46,
-      48
+      48,
+      56,
+      56
     ],
     "cpu": [
-      17,
-      31,
       14,
       24,
       19,
@@ -905,11 +894,11 @@
       19,
       11,
       11,
-      7
+      7,
+      16,
+      16
     ],
     "gpu": [
-      10,
-      1,
       2,
       1,
       0,
@@ -1003,7 +992,9 @@
       6,
       0,
       0,
-      8
+      8,
+      98,
+      98
     ]
   },
   "weather": {
@@ -1102,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 92,
-      "total": 93
+      "done": 93,
+      "total": 94
     }
   ],
   "roadmap": {
@@ -1157,6 +1148,23 @@
   ],
   "activity": [
     {
+      "at": "2026-08-27T21:05:14-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: reader-board",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 38000
+    },
+    {
+      "at": "2026-08-27T21:05:13-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-27T21:04:36-06:00",
       "source": "forge",
       "component": "forge",
@@ -1173,13 +1181,6 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-27T20:59:54-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-27T20:39:21-06:00",
@@ -1365,23 +1366,14 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-27T15:12:01-06:00",
-      "source": "forge",
-      "component": "reader",
-      "event": "task_finish",
-      "detail": "Night Forge PASS 163196ms",
-      "result": "pass",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T21:04:37-06:00",
+    "last": "2026-08-27T21:05:14-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1391,9 +1383,9 @@
   "autonomy": {
     "mode": "hourly_design",
     "state": "pass",
-    "last_mission": "reader-weather",
+    "last_mission": "reader-board",
     "iteration": 2,
-    "updated_at": "2026-08-27T20:39:19.0409942-06:00",
+    "updated_at": "2026-08-27T21:05:14.5390142-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1408,10 +1400,10 @@
     "candidate_forge": {
       "result": "pass",
       "mode": "design-forge-v3",
-      "last_mission": "reader-weather",
+      "last_mission": "reader-board",
       "iteration": 2,
-      "updated_at": "2026-08-27T20:39:19.0409942-06:00",
-      "next_index": 1,
+      "updated_at": "2026-08-27T21:05:14.5390142-06:00",
+      "next_index": 2,
       "scheduled": true,
       "promotion": "blocked"
     }
