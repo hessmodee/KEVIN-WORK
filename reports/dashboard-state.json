@@ -1,7 +1,7 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T08:27:28-06:00",
-  "status": "working",
+  "generated_at": "2026-08-28T08:27:31-06:00",
+  "status": "idle",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,24 +12,15 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "system-status",
-    "title": "Checking system status",
-    "category": "system_reader",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-28T08:27:28-06:00",
-    "source": "kevin-reader"
-  },
+  "current_task": null,
   "campaign": {
-    "active": true,
-    "id": "system-status",
-    "title": "Checking system status"
+    "active": false,
+    "id": null,
+    "title": null
   },
   "execution": {
-    "running": true,
-    "phase": "started",
+    "running": false,
+    "phase": null,
     "worker": null
   },
   "services": {
@@ -39,22 +30,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 58,
-    "cpu_pct": 24,
+    "memory_pct": 59,
+    "cpu_pct": 17,
     "gpu": "RTX 3060",
-    "gpu_pct": 25
+    "gpu_pct": 24
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T22:47:26-06:00",
-        "estimated": false,
-        "ram": 49,
-        "cpu": 13,
-        "gpu": 37
-      },
       {
         "at": "2026-08-27T22:47:50-06:00",
         "estimated": false,
@@ -719,10 +703,16 @@
         "ram": 58,
         "cpu": 24,
         "gpu": 25
+      },
+      {
+        "at": "2026-08-28T08:27:31-06:00",
+        "estimated": false,
+        "ram": 59,
+        "cpu": 17,
+        "gpu": 24
       }
     ],
     "ram": [
-      49,
       49,
       58,
       45,
@@ -817,10 +807,10 @@
       63,
       57,
       58,
-      58
+      58,
+      59
     ],
     "cpu": [
-      13,
       13,
       12,
       7,
@@ -915,10 +905,10 @@
       32,
       32,
       24,
-      24
+      24,
+      17
     ],
     "gpu": [
-      37,
       37,
       17,
       0,
@@ -1013,7 +1003,8 @@
       27,
       25,
       25,
-      25
+      25,
+      24
     ]
   },
   "weather": {
@@ -1166,6 +1157,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-28T08:27:31-06:00",
+      "source": "kevin-reader",
+      "component": "system_reader",
+      "event": "task_finish",
+      "detail": "kevin_system_status PASS 2852ms",
+      "result": "pass",
+      "task_id": "system-status",
+      "duration_ms": 3000
+    },
     {
       "at": "2026-08-28T08:27:28-06:00",
       "source": "kevin-reader",
@@ -1375,24 +1376,14 @@
       "detail": "Night Forge PASS 118343ms",
       "result": "pass",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-28T02:38:57-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: reader-self-check",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 22000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T08:27:28-06:00",
+    "last": "2026-08-28T08:27:31-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1438,11 +1429,6 @@
       "severity": "normal"
     },
     {
-      "id": "mission",
-      "text": "Checking system status \u00b7 started",
-      "severity": "normal"
-    },
-    {
       "id": "roadmap",
       "text": "Next: Prove System Reader E2E",
       "severity": "normal"
@@ -1454,7 +1440,7 @@
     },
     {
       "id": "verified",
-      "text": "Verified: Night Forge PASS 132095ms",
+      "text": "Verified: kevin_system_status PASS 2852ms",
       "severity": "success"
     }
   ]
