@@ -113,6 +113,20 @@
     .inspect{min-height:0}.inspect-title{font-family:Georgia,serif;font-size:23px;margin:4px 0}.inspect-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.inspect-mini{border:1px solid var(--line);border-radius:11px;padding:10px;background:#121711}
     .evolution{display:flex;gap:6px;margin-top:10px}.evo{height:6px;flex:1;border-radius:99px;background:#262d25}.evo.on{background:linear-gradient(90deg,#708a67,var(--sage2))}
     @media(max-width:700px){body{padding:12px 10px 44px}.resource-grid{grid-template-columns:1fr}.g4{grid-template-columns:1fr 1fr}.mission-copy{font-size:22px}.ev{grid-template-columns:92px 1fr}.ops-map{height:610px}.agent-node{min-width:104px;max-width:120px;padding:9px}.kevin-avatar.large{--size:128px}.inspect-grid{grid-template-columns:1fr}}
+    .work-progress{margin-top:13px}
+    .work-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-end}
+    .work-pct{font-size:24px;font-variant-numeric:tabular-nums}
+    .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+    .work-cell{border:1px solid var(--line);border-radius:11px;padding:10px;background:#121711;min-width:0}
+    .work-cell .value{font-size:12px;margin-top:4px;line-height:1.4;overflow-wrap:anywhere}
+    .work-note{font-size:10px;color:var(--muted);line-height:1.45;margin-top:10px}
+    .talk-hero{text-align:center;padding:28px 22px}
+    .talk-owl{display:flex;justify-content:center;margin-bottom:8px}
+    .talk-btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:#10150f;background:var(--sage2);font-weight:750;border-radius:12px;padding:12px 18px;margin-top:16px}
+    .talk-btn:hover{filter:brightness(1.08)}
+    .talk-state{display:inline-flex;margin-top:12px;padding:5px 9px;border-radius:999px;border:1px solid rgba(213,173,104,.3);color:var(--gold);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+    .architecture-note{border-left:2px solid rgba(143,170,130,.35);padding-left:12px;margin-top:14px}
+    @media(max-width:700px){.work-grid{grid-template-columns:1fr}.talk-btn{width:100%}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
   </style>
 </head>
@@ -128,7 +142,7 @@
       </div>
     </div>
     <div class="head-right">
-      <span class="version">HQ v6c · Split Forge Truth</span>
+      <span class="version">HQ v6d - Live Work + Talk</span>
       <span class="pill" id="statusPill">...</span>
     </div>
   </header>
@@ -138,7 +152,7 @@
   <footer><span id="foot">Kevin HQ</span><span id="foot2"></span></footer>
 </div>
 <script>
-const TABS=[["overview","Overview"],["ops","Ops Floor"],["activity","Activity"],["system","System"],["build","Roadmap"],["capabilities","Capabilities"],["diagnostics","Diagnostics"]];
+const TABS=[["overview","Overview"],["ops","Ops Floor"],["talk","Talk"],["activity","Activity"],["system","System"],["build","Roadmap"],["capabilities","Capabilities"],["diagnostics","Diagnostics"]];
 let S=null,tab=(location.hash||"#overview").slice(1),selectedCrew="kevin",activityFilter="all";
 if(!TABS.some(x=>x[0]===tab))tab="overview";
 const $=id=>document.getElementById(id);
@@ -276,7 +290,7 @@ function crew(){
   {id:"chat",name:"Chat",role:"Reasoning lane",state:lane("ready"),detail:disconnected?"Telemetry unavailable":`${S?.brain?.name||"Qwen"} · ${S?.brain?.context||"8K"} · tools off`,what:disconnected?"Last known snapshot only · live state unknown":"Fast local conversation and reasoning"},
   {id:"reader",name:"Reader",role:"Read-only senses",state:lane(d.reader_boundary==="green"?"ready":"paused"),detail:disconnected?"Telemetry unavailable":(d.reader_boundary==="green"?`Boundary GREEN · ${d.reader_visible_tools??1} visible tool`:"Reader proof incomplete"),what:disconnected?"Last known snapshot only · live state unknown":"Narrow typed sensing only"},
   {id:"forge",name:"Night Forge",role:"QA gate",state:lane(forgeState()),detail:disconnected?"Telemetry unavailable":lastTaskEvent("night-forge")?.detail||"Hourly safety and regression cycle",what:disconnected?"Last known snapshot only · live state unknown":(forgeState()==="working"?"Running gates before autonomous design":"Ready for next scheduled cycle")},
-  {id:"lab",name:"Build Lab",role:"Design Forge v3",state:lane(buildLabState()),detail:disconnected?"Telemetry unavailable":(a.last_mission?`Last build: ${a.last_mission}`:"Isolated candidate engineering"),what:disconnected?"Last known snapshot only · live state unknown":(buildLabState()==="working"?`Building ${task?.title||"a candidate"}`:(a.scheduled?"Autonomous candidate generation is armed":"Candidate generation is paused"))},
+  {id:"lab",name:"Build Lab",role:"Design Forge v3.6",state:lane(buildLabState()),detail:disconnected?"Telemetry unavailable":(a.last_mission?`Last build: ${a.last_mission}`:"Isolated candidate engineering"),what:disconnected?"Last known snapshot only · live state unknown":(buildLabState()==="working"?`Building ${task?.title||"a candidate"}`:(a.scheduled?"Autonomous candidate generation is armed":"Candidate generation is paused"))},
   {id:"tick",name:"Tick",role:"Health + telemetry",state:lane(statusClass(svc.tick)),detail:disconnected?"Telemetry unavailable":lastEvent("tick")?.detail||"Deterministic refresh cycle",what:disconnected?"Last known snapshot only · live state unknown":"Updates health, reports, telemetry, and HQ state"},
   {id:"bridge",name:"Bridge",role:"GitHub sync",state:lane(statusClass(svc.bridge)),detail:disconnected?"Telemetry unavailable":lastEvent("bridge")?.detail||"Pull + publish lane",what:disconnected?"Last known snapshot only · live state unknown":"Publishes sanitized HQ state"},
   {id:"ollama",name:"Ollama",role:"Local inference",state:lane(statusClass(svc.ollama)),detail:disconnected?"Telemetry unavailable":S?.brain?.name||"Local model runtime",what:disconnected?"Last known snapshot only · live state unknown":"Serves Kevin local models"}
@@ -298,15 +312,133 @@ function applyChrome(){
 }
 function card(k,v,h=""){return`<div class="card"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div>${h?`<div class="h">${esc(h)}</div>`:""}</div>`}
 function bar(d,t){return`<div class="bar"><i style="width:${Math.max(0,Math.min(100,pct(d,t)))}%"></i></div>`}
+
+function taskExecution(){
+ const t=S?.current_task||{},phase=String(t.phase||"");
+
+ if(!t.id){
+  return{
+   worker:"None",
+   engine:"None",
+   action:"Idle",
+   detail:"No active operation"
+  };
+ }
+
+ if(t.id==="design-forge"){
+  return{
+   worker:"Build Lab",
+   engine:"Ollama · Qwen 2.5 14B",
+   action:"Candidate engineering",
+   detail:phase||"Design Forge active"
+  };
+ }
+
+ if(t.id==="night-forge"){
+  return{
+   worker:"Night Forge",
+   engine:"QA / regression",
+   action:"Safety and regression gate",
+   detail:phase||"Night Forge active"
+  };
+ }
+
+ if(t.id==="overnight-expedition"){
+  const waiting=/yield|cooldown|prepar|wait|skip/i.test(phase);
+
+  return{
+   worker:waiting?"Expedition Supervisor":"Build Lab",
+   engine:waiting?"No model call right now":"Ollama · Qwen 2.5 14B",
+   action:waiting?"Scheduling / resource guard":"Candidate engineering",
+   detail:phase||"Overnight expedition active"
+  };
+ }
+
+ return{
+  worker:String(t.source||t.category||"Kevin"),
+  engine:"Kevin runtime",
+  action:String(t.category||"Task"),
+  detail:phase||"Active"
+ };
+}
+
+function taskProgressHtml(asCard=true){
+ const t=S?.current_task;
+
+ if(!t){
+  const empty=`<div class="k">Live work</div><div class="v" style="font-size:16px">No active operation</div><div class="h">Kevin is ready.</div>`;
+  return asCard?`<div class="card">${empty}</div>`:empty;
+ }
+
+ const done=Number(t.completed||0);
+ const total=Number(t.total||0);
+ const overall=total?pct(done,total):0;
+ const x=taskExecution();
+
+ const stepDone=Number(t.step_completed||0);
+ const stepTotal=Number(t.step_total||0);
+
+ const stepHtml=stepTotal>0
+  ?`<div class="row"><span>Current stage</span><span class="h mono">${stepDone}/${stepTotal} · ${pct(stepDone,stepTotal)}%</span></div>${bar(stepDone,stepTotal)}`
+  :"";
+
+ const body=`
+  <div class="work-progress">
+   <div class="work-head">
+    <div>
+     <div class="k">Live work</div>
+     <div class="v" style="font-size:17px">${esc(t.title||"Current operation")}</div>
+    </div>
+    <div class="work-pct">${overall}%</div>
+   </div>
+
+   <div class="row">
+    <span>Verified progress</span>
+    <span class="h mono">${esc(done)}/${esc(total||"-")}</span>
+   </div>
+   ${total?bar(done,total):""}
+   ${stepHtml}
+
+   <div class="work-grid">
+    <div class="work-cell">
+     <div class="k">Current phase</div>
+     <div class="value">${esc(x.detail)}</div>
+    </div>
+
+    <div class="work-cell">
+     <div class="k">Worker</div>
+     <div class="value">${esc(x.worker)}</div>
+    </div>
+
+    <div class="work-cell">
+     <div class="k">Engine / tool</div>
+     <div class="value">${esc(x.engine)}</div>
+    </div>
+
+    <div class="work-cell">
+     <div class="k">Action</div>
+     <div class="value">${esc(x.action)}</div>
+    </div>
+   </div>
+
+   <div class="work-note">
+    Overall percent counts verified completed units only.
+    HQ does not invent an in-flight model percentage.
+    Exact stage progress appears automatically when Kevin telemetry supplies step_completed and step_total.
+   </div>
+  </div>`;
+
+ return asCard?`<div class="card">${body}</div>`:body;
+}
 function queueHtml(limit=99){return sortedBuild().slice(0,limit).map((b,i)=>`<div class="qitem ${esc(b.state||"")}"><div class="qnum">${esc(b.order??i+1)}</div><div><div class="qname">${esc(b.label)}</div><div class="qdetail">${esc(b.detail||"")}</div></div><span class="st ${esc(b.state||"queued")}">${esc(b.state||"queued")}</span></div>`).join("")}
 function eventHtml(e){const r=String(e.result||"").toLowerCase();return`<div class="ev"><time class="mono">${esc(when(e.at))}</time><div><div class="${esc(r)}">${esc(e.detail||e.event||"Event")}</div><div class="h">${esc(e.component||"")}${r?" · "+esc(r.toUpperCase()):""}${e.duration_ms?" · "+Math.round(e.duration_ms/1000)+"s":""}</div></div></div>`}
-function overview(){const t=S?.current_task,a=forgeInfo(),s=S?.system||{},rd=S?.roadmap||{done:0,total:0},next=sortedBuild()[0],ev=sortedActivity();const readyBuild=buildLabState()==="ready";const hero=t?`Kevin is working on ${t.title}.`:`Kevin is healthy and ${readyBuild?"his autonomous Build Lab is armed":"standing by"}.`;return`<div class="card hero"><div class="section-head"><div><div class="k">Living mission control</div><div class="mission-copy">${esc(hero)}${next?` Next major objective: ${esc(next.label)}.`:""}</div></div>${readyBuild?`<div class="next-chip">Build Lab · ARMED</div>`:""}</div></div><div class="grid g4" style="margin-top:12px">${card("Status",String(S?.status||"-").toUpperCase(),t?t.title:"No process running this instant")}${card("Health",String(S?.health?.overall||"-").toUpperCase(),`${S?.health?.failed_checks??0} failed checks`)}${card("Build Lab",buildLabState().toUpperCase(),a.last_mission?`last: ${a.last_mission} · iteration ${a.iteration??"-"}`:"waiting for first design")}${card("Promotion",String(a.promotion||"blocked").toUpperCase(),"Candidates cannot self-promote")}</div><div class="grid g2" style="margin-top:12px"><div class="card"><div class="section-head"><div><div class="k">Live crew</div><div class="h">Real workers and faculties</div></div><div class="right">Build Lab generates isolated candidates</div></div><div class="service-rail">${crew().filter(x=>["reader","forge","lab","tick","bridge"].includes(x.id)).map(x=>serviceChip(x.name,x.state)).join("")}</div><div class="k" style="margin-top:16px">Execution roadmap</div>${queueHtml(4)}</div><div class="card"><div class="k">Current operation</div><div class="v">${esc(t?.title||"Ready")}</div><div class="h">${esc(t?.phase||"Autonomous schedule remains armed.")}</div><div class="k" style="margin-top:16px">Latest activity</div>${ev.slice(0,5).map(eventHtml).join("")||`<div class="empty">Waiting for activity.</div>`}</div></div><div class="grid g2eq" style="margin-top:12px"><div class="card"><div class="section-head"><div><div class="k">System load</div><div class="h">Current · 24-hour average · peak</div></div></div><div class="resource-grid">${resource("RAM","ram",s.memory_pct,"var(--ram)")}${resource("CPU","cpu",s.cpu_pct,"var(--cpu)")}${resource("GPU","gpu",s.gpu_pct,"var(--gpu)")}</div></div><div class="card"><div class="k">Kevin evolution</div><div class="v">Level ${avatarLevel()} / 5</div><div class="h">Visual detail advances only with proven major capabilities.</div><div class="evolution">${[1,2,3,4,5].map(n=>`<i class="evo ${n<=avatarLevel()?"on":""}"></i>`).join("")}</div>${(S?.progress||[]).slice(0,4).map(p=>`<div class="row"><span>${esc(p.label)}</span><span class="h mono">${esc(p.done)}/${esc(p.total)} · ${pct(p.done,p.total)}%</span></div>${bar(p.done,p.total)}`).join("")}<div class="row"><span>Roadmap</span><span class="h mono">${rd.done}/${rd.total} · ${pct(rd.done,rd.total)}%</span></div>${bar(rd.done,rd.total)}</div></div><div class="card" style="margin-top:12px">${chartHtml()}</div>`}
+function overview(){const t=S?.current_task,a=forgeInfo(),s=S?.system||{},rd=S?.roadmap||{done:0,total:0},next=sortedBuild()[0],ev=sortedActivity();const readyBuild=buildLabState()==="ready";const hero=t?`Kevin is working on ${t.title}.`:`Kevin is healthy and ${readyBuild?"his autonomous Build Lab is armed":"standing by"}.`;return`<div class="card hero"><div class="section-head"><div><div class="k">Living mission control</div><div class="mission-copy">${esc(hero)}${next?` Next major objective: ${esc(next.label)}.`:""}</div></div>${readyBuild?`<div class="next-chip">Build Lab · ARMED</div>`:""}</div></div><div class="grid g4" style="margin-top:12px">${card("Status",String(S?.status||"-").toUpperCase(),t?t.title:"No process running this instant")}${card("Health",String(S?.health?.overall||"-").toUpperCase(),`${S?.health?.failed_checks??0} failed checks`)}${card("Build Lab",buildLabState().toUpperCase(),a.last_mission?`last: ${a.last_mission} · iteration ${a.iteration??"-"}`:"waiting for first design")}${card("Promotion",String(a.promotion||"blocked").toUpperCase(),"Candidates cannot self-promote")}</div><div class="grid g2" style="margin-top:12px"><div class="card"><div class="section-head"><div><div class="k">Live crew</div><div class="h">Real workers and faculties</div></div><div class="right">Build Lab generates isolated candidates</div></div><div class="service-rail">${crew().filter(x=>["reader","forge","lab","tick","bridge"].includes(x.id)).map(x=>serviceChip(x.name,x.state)).join("")}</div><div class="k" style="margin-top:16px">Execution roadmap</div>${queueHtml(4)}</div><div class="card"><div class="k">Current operation</div><div class="v">${esc(t?.title||"Ready")}</div><div class="h">${esc(t?.phase||"Autonomous schedule remains armed.")}</div>${taskProgressHtml(false)}<div class="k" style="margin-top:16px">Latest activity</div>${ev.slice(0,5).map(eventHtml).join("")||`<div class="empty">Waiting for activity.</div>`}</div></div><div class="grid g2eq" style="margin-top:12px"><div class="card"><div class="section-head"><div><div class="k">System load</div><div class="h">Current · 24-hour average · peak</div></div></div><div class="resource-grid">${resource("RAM","ram",s.memory_pct,"var(--ram)")}${resource("CPU","cpu",s.cpu_pct,"var(--cpu)")}${resource("GPU","gpu",s.gpu_pct,"var(--gpu)")}</div></div><div class="card"><div class="k">Kevin evolution</div><div class="v">Level ${avatarLevel()} / 5</div><div class="h">Visual detail advances only with proven major capabilities.</div><div class="evolution">${[1,2,3,4,5].map(n=>`<i class="evo ${n<=avatarLevel()?"on":""}"></i>`).join("")}</div>${(S?.progress||[]).slice(0,4).map(p=>`<div class="row"><span>${esc(p.label)}</span><span class="h mono">${esc(p.done)}/${esc(p.total)} · ${pct(p.done,p.total)}%</span></div>${bar(p.done,p.total)}`).join("")}<div class="row"><span>Roadmap</span><span class="h mono">${rd.done}/${rd.total} · ${pct(rd.done,rd.total)}%</span></div>${bar(rd.done,rd.total)}</div></div><div class="card" style="margin-top:12px">${chartHtml()}</div>`}
 function resource(name,key,current,color){const a=pulseSamples().map(x=>Number(x[key])).filter(Number.isFinite),avg=a.length?Math.round(a.reduce((x,y)=>x+y,0)/a.length):null,peak=a.length?Math.max(...a):null;return`<div class="resource"><div class="meter" style="--p:${Math.max(0,Math.min(100,Number(current||0)))};--c:${color}"><b>${esc(current??"-")}%</b></div><div><div class="rname">${esc(name)}</div><div class="rmeta">24h avg ${esc(avg??"-")}%<br>peak ${esc(peak??"-")}%</div></div></div>`}
 function chartHtml(){return`<div class="section-head"><div><div class="k">24-hour telemetry</div><div class="h">RAM · CPU · GPU · hover for exact time and values</div></div><div class="right">${pulseSamples().length} samples</div></div><div class="legend"><span><i class="dot ram"></i>RAM</span><span><i class="dot cpu"></i>CPU</span><span><i class="dot gpu"></i>GPU</span></div><div class="chart-wrap" id="chartWrap"><svg id="chart" class="chart" viewBox="0 0 1000 330" preserveAspectRatio="none"></svg><div id="chartTip" class="chart-tip"></div></div>`}
 function drawChart(){const svg=$("chart"),tip=$("chartTip");if(!svg)return;const arr=pulseSamples(),L=58,R=20,T=18,B=42,W=1000,H=330,pw=W-L-R,ph=H-T-B;if(!arr.length){svg.innerHTML=`<text x="50%" y="50%" text-anchor="middle" class="axis">No telemetry yet</text>`;return}const x=i=>L+(arr.length===1?pw/2:i*pw/(arr.length-1)),y=v=>T+(100-Math.max(0,Math.min(100,Number(v||0))))*ph/100;let h="";[0,25,50,75,100].forEach(v=>{h+=`<line class="gridline" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="axis" x="${L-9}" y="${y(v)+4}" text-anchor="end">${v}%</text>`});const ticks=[0,.25,.5,.75,1].map(f=>Math.round(f*(arr.length-1)));ticks.forEach(i=>{h+=`<text class="axis" x="${x(i)}" y="${H-15}" text-anchor="middle">${esc(shortWhen(arr[i].at))}</text>`});[["ram","ramline"],["cpu","cpuline"],["gpu","gpuline"]].forEach(([k,c])=>{const pts=arr.map((s,i)=>Number.isFinite(Number(s[k]))?`${x(i)},${y(s[k])}`:null).filter(Boolean).join(" ");h+=`<polyline class="series ${c}" points="${pts}"/>`});h+=`<line id="hoverLine" class="hoverline" x1="0" x2="0" y1="${T}" y2="${H-B}" style="display:none"/><circle id="hr" class="hoverdot" r="4" fill="var(--ram)" style="display:none"/><circle id="hc" class="hoverdot" r="4" fill="var(--cpu)" style="display:none"/><circle id="hg" class="hoverdot" r="4" fill="var(--gpu)" style="display:none"/><rect id="chartHit" x="${L}" y="${T}" width="${pw}" height="${ph}" fill="transparent" style="cursor:crosshair"/>`;svg.innerHTML=h;const hit=$("chartHit"),line=$("hoverLine"),dots={ram:$("hr"),cpu:$("hc"),gpu:$("hg")};hit.onmousemove=e=>{const rect=svg.getBoundingClientRect(),px=(e.clientX-rect.left)*W/rect.width,idx=Math.max(0,Math.min(arr.length-1,Math.round((px-L)/pw*(arr.length-1)))),s=arr[idx],xx=x(idx);line.style.display="";line.setAttribute("x1",xx);line.setAttribute("x2",xx);Object.entries(dots).forEach(([k,d])=>{if(Number.isFinite(Number(s[k]))){d.style.display="";d.setAttribute("cx",xx);d.setAttribute("cy",y(s[k]))}else d.style.display="none"});tip.style.display="block";tip.innerHTML=`<b>${esc(when(s.at))}</b><br>RAM ${esc(s.ram??"-")}% · CPU ${esc(s.cpu??"-")}% · GPU ${esc(s.gpu??"-")}%${s.estimated?"<br><span style='color:var(--muted)'>historical timestamp reconstructed</span>":""}`;tip.style.left=Math.min(rect.width-190,Math.max(6,(e.clientX-rect.left)+12))+"px";tip.style.top=Math.max(6,(e.clientY-rect.top)-54)+"px"};hit.onmouseleave=()=>{line.style.display="none";Object.values(dots).forEach(d=>d.style.display="none");tip.style.display="none"}}
 function ops(){
  const c=crew(),positions={chat:[14,18],reader:[14,50],forge:[18,80],lab:[82,80],tick:[86,50],bridge:[86,18],ollama:[50,13]};
- return`<div class="ops-stack"><div class="card"><div class="section-head"><div><div class="k">Operations floor</div><div class="h">Real topology · animated only when a lane is actually working</div></div><div class="right">Build Lab is isolated R&D</div></div><div class="ops-scroll"><div class="ops-map" id="opsMap"><svg class="ops-lines" viewBox="0 0 100 100" preserveAspectRatio="none">${c.filter(x=>x.id!=="kevin").map(x=>{const p=positions[x.id]||[50,50],live=x.state==="working";return`<line class="${live?"live":""}" x1="50" y1="50" x2="${p[0]}" y2="${p[1]}"/>`}).join("")}</svg><div class="kevin-core">${avatarSvg(avatarLevel(),avatarMode(),true)}<div class="core-label">Kevin</div><div class="core-sub">${esc(freshness().disconnected?"Telemetry lost":S?.current_task?`${S.current_task.title}${S.current_task.phase?` · ${S.current_task.phase}`:""}`:"Autonomous build armed")}</div></div>${c.filter(x=>x.id!=="kevin").map(x=>{const p=positions[x.id]||[50,50];return`<button class="agent-node ${x.state}" data-id="${x.id}" style="left:${p[0]}%;top:${p[1]}%"><div class="name">${esc(x.name)}</div><div class="role">${esc(x.role)}</div><div class="tiny">${esc(String(x.state).toUpperCase())}</div></button>`}).join("")}</div></div></div><div class="card inspect" id="inspect"></div></div>`
+ return`<div class="ops-stack"><div class="card"><div class="section-head"><div><div class="k">Operations floor</div><div class="h">Real topology · animated only when a lane is actually working</div></div><div class="right">Build Lab is isolated R&D</div></div><div class="ops-scroll"><div class="ops-map" id="opsMap"><svg class="ops-lines" viewBox="0 0 100 100" preserveAspectRatio="none">${c.filter(x=>x.id!=="kevin").map(x=>{const p=positions[x.id]||[50,50],live=x.state==="working";return`<line class="${live?"live":""}" x1="50" y1="50" x2="${p[0]}" y2="${p[1]}"/>`}).join("")}</svg><div class="kevin-core">${avatarSvg(avatarLevel(),avatarMode(),true)}<div class="core-label">Kevin</div><div class="core-sub">${esc(freshness().disconnected?"Telemetry lost":S?.current_task?`${S.current_task.title}${S.current_task.phase?` · ${S.current_task.phase}`:""}`:"Autonomous build armed")}</div></div>${c.filter(x=>x.id!=="kevin").map(x=>{const p=positions[x.id]||[50,50];return`<button class="agent-node ${x.state}" data-id="${x.id}" style="left:${p[0]}%;top:${p[1]}%"><div class="name">${esc(x.name)}</div><div class="role">${esc(x.role)}</div><div class="tiny">${esc(String(x.state).toUpperCase())}</div></button>`}).join("")}</div></div></div>${taskProgressHtml(true)}<div class="card inspect" id="inspect"></div></div>`
 }
 function renderInspect(){
  const x=crewById(selectedCrew),a=forgeInfo(),e=x.id==="forge"?lastTaskEvent("night-forge"):lastEvent(x.id),isLab=x.id==="lab";
@@ -315,11 +447,84 @@ function renderInspect(){
  $("inspect").innerHTML=`<div class="k">Selected worker</div><div class="inspect-title">${esc(x.name)}</div><span class="st ${esc(x.state)}">${esc(String(x.state).toUpperCase())}</span><div class="h" style="margin-top:10px">${esc(x.role)}</div><div class="k" style="margin-top:16px">Now</div><div class="v" style="font-size:16px">${esc(x.detail)}</div><div class="h">${esc(x.what)}</div><div class="inspect-grid"><div class="inspect-mini"><div class="k">Last activity</div><div class="v" style="font-size:13px">${esc(evidenceAt)}</div></div><div class="inspect-mini"><div class="k">Evidence</div><div class="v" style="font-size:13px">${esc(evidenceText)}</div></div></div>${x.id==="lab"?`<div class="k" style="margin-top:18px">Build Lab contract</div><div class="h">Scheduled: ${a.scheduled===true?"YES":"NO"} · promotion: ${esc(a.promotion||"blocked")} · mode: ${esc(a.mode||"-")}</div><div class="h">Last mission: ${esc(a.last_mission||"-")} · iteration ${esc(a.iteration??"-")}</div>`:""}`
 }
 function activity(){const ev=sortedActivity(),comps=["all",...new Set(ev.map(x=>String(x.component||"kevin").toLowerCase()))],shown=activityFilter==="all"?ev:ev.filter(x=>String(x.component||"kevin").toLowerCase()===activityFilter);return`<div class="card"><div class="section-head"><div><div class="k">Activity</div><div class="h">Newest first · evidence, duration, result</div></div><div class="right">${shown.length} events</div></div><div class="filterbar">${comps.map(c=>`<button class="filterbtn ${activityFilter===c?"on":""}" data-filter="${esc(c)}">${esc(c)}</button>`).join("")}</div>${shown.map(eventHtml).join("")||`<div class="empty">No matching activity.</div>`}</div>`}
+function talk(){
+ const telegram="https://t.me/KevintheAssistantBot";
+
+ return`
+ <div class="grid g2eq">
+  <div class="card talk-hero">
+   <div class="talk-owl">
+    ${avatarSvg(avatarLevel(),avatarMode(),false)}
+   </div>
+
+   <div class="k">Talk to Kevin</div>
+   <div class="mission-copy" style="margin-left:auto;margin-right:auto">
+    Kevin in your pocket.
+   </div>
+
+   <div class="h">
+    Open Kevin's existing Telegram channel from your phone,
+    tablet, or computer.
+   </div>
+
+   <div class="talk-state">
+    Mobile bridge configured · fresh E2E recheck recommended
+   </div>
+
+   <div>
+    <a
+      class="talk-btn"
+      href="${telegram}"
+      target="_blank"
+      rel="noopener noreferrer"
+    >Open Kevin in Telegram</a>
+   </div>
+  </div>
+
+  <div class="card">
+   <div class="k">Embedded HQ Chat</div>
+   <div class="v" style="font-size:18px">Next communication upgrade</div>
+
+   <div class="h">
+    A real chat composer directly inside HQ is absolutely possible,
+    but it needs a private authenticated bridge between this public
+    static page and Kevin's local Chat lane.
+   </div>
+
+   <div class="architecture-note">
+    <div class="k">Security contract</div>
+    <div class="h">
+     Kevin HQ will never publish a gateway token, local privileged
+     endpoint, password, or secret into GitHub Pages.
+    </div>
+   </div>
+
+   <div class="architecture-note">
+    <div class="k">Target architecture</div>
+    <div class="h">
+     Phone -> authenticated private web bridge -> Kevin Chat ->
+     Qwen local inference. The public monitoring page remains
+     sanitized and read-only.
+    </div>
+   </div>
+
+   <div class="architecture-note">
+    <div class="k">Why Telegram first</div>
+    <div class="h">
+     It gives Kevin an immediate mobile conversation surface without
+     exposing his local gateway while we build and test the private
+     in-HQ chat bridge separately.
+    </div>
+   </div>
+  </div>
+ </div>`;
+}
+
 function system(){const s=S?.system||{};return`<div class="grid g3">${card("RAM",`${s.memory_pct??"-"}%`,"current load")}${card("CPU",`${s.cpu_pct??"-"}%`,"current load")}${card("GPU",`${s.gpu_pct??"-"}%`,s.gpu||"")}</div><div class="card" style="margin-top:12px">${chartHtml()}</div>`}
 function roadmap(){return`<div class="card"><div class="k">Ordered execution roadmap</div><div class="h">Major capability milestones drive Kevin's visual evolution.</div><div class="queue" style="margin-top:8px">${queueHtml()}</div></div>`}
 function capabilities(){return`<div class="card"><div class="k">Capabilities</div>${(S?.capabilities||[]).map(c=>`<div class="cap"><div class="name"><div>${esc(c.label)}</div><div class="h">${esc(c.version||"")} ${c.last_verified?"· verified "+esc(c.last_verified):""}</div></div><div class="h mono">${esc(c.qa_pass??0)}/${esc(c.qa_total??0)}</div><span class="st ${esc(c.state||"planned")}">${esc(c.state||"planned")}</span></div>`).join("")}</div>`}
 function diagnostics(){const d=S?.diagnostics||{},a=forgeInfo();return`<div class="grid g2eq"><div class="card"><div class="k">Runtime</div>${Object.entries({Agent:d.agent,Model:d.model,Context:d.context,"Chat QA":d.chat_qa,"Reader boundary":d.reader_boundary,"Visible Reader tools":d.reader_visible_tools}).map(([k,v])=>`<div class="row"><span>${esc(k)}</span><span class="h mono">${esc(v??"-")}</span></div>`).join("")}</div><div class="card"><div class="k">Autonomous build</div>${Object.entries({"Forge result":a.result,"Forge mode":a.mode,Scheduled:a.scheduled,"Last mission":a.last_mission,Iteration:a.iteration,Promotion:a.promotion,Updated:a.updated_at?when(a.updated_at):"-"}).map(([k,v])=>`<div class="row"><span>${esc(k)}</span><span class="h mono">${esc(v??"-")}</span></div>`).join("")}</div></div>`}
-function draw(){if(!S)return;applyChrome();if(tab==="overview")$("main").innerHTML=overview();if(tab==="ops")$("main").innerHTML=ops();if(tab==="activity")$("main").innerHTML=activity();if(tab==="system")$("main").innerHTML=system();if(tab==="build")$("main").innerHTML=roadmap();if(tab==="capabilities")$("main").innerHTML=capabilities();if(tab==="diagnostics")$("main").innerHTML=diagnostics();if(tab==="overview"||tab==="system")drawChart();if(tab==="ops"){renderInspect();$("opsMap").onclick=e=>{const b=e.target.closest("[data-id]");if(!b)return;selectedCrew=b.dataset.id;renderInspect()}}if(tab==="activity")$("main").onclick=e=>{const b=e.target.closest("[data-filter]");if(!b)return;activityFilter=b.dataset.filter;draw()}}
+function draw(){if(!S)return;applyChrome();if(tab==="overview")$("main").innerHTML=overview();if(tab==="ops")$("main").innerHTML=ops();if(tab==="talk")$("main").innerHTML=talk();if(tab==="activity")$("main").innerHTML=activity();if(tab==="system")$("main").innerHTML=system();if(tab==="build")$("main").innerHTML=roadmap();if(tab==="capabilities")$("main").innerHTML=capabilities();if(tab==="diagnostics")$("main").innerHTML=diagnostics();if(tab==="overview"||tab==="system")drawChart();if(tab==="ops"){renderInspect();$("opsMap").onclick=e=>{const b=e.target.closest("[data-id]");if(!b)return;selectedCrew=b.dataset.id;renderInspect()}}if(tab==="activity")$("main").onclick=e=>{const b=e.target.closest("[data-filter]");if(!b)return;activityFilter=b.dataset.filter;draw()}}
 async function fetchState(){
   const bust=Date.now();
   const rawUrl=`https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/dashboard-state.json?ts=${bust}`;
