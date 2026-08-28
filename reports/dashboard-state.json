@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-28T01:49:18-06:00",
+  "generated_at": "2026-08-28T01:50:13-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -14,10 +14,10 @@
   },
   "current_task": {
     "id": "overnight-expedition",
-    "title": "Overnight Expedition \u00b7 4/6 builds",
+    "title": "Overnight Expedition \u00b7 5/6 builds",
     "category": "forge",
-    "phase": "Cooldown after forge-v4 i3 \u00b7 next attempt around 1:48 AM",
-    "completed": 4,
+    "phase": "Cooldown after reader-weather i4 \u00b7 next attempt around 2:09 AM",
+    "completed": 5,
     "total": 6,
     "started_at": "2026-08-27T23:52:07.9208109-06:00",
     "source": "forge"
@@ -29,22 +29,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 46,
+    "memory_pct": 51,
     "cpu_pct": 11,
     "gpu": "RTX 3060",
-    "gpu_pct": 9
+    "gpu_pct": 38
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T18:37:03-06:00",
-        "estimated": false,
-        "ram": 47,
-        "cpu": 15,
-        "gpu": 0
-      },
       {
         "at": "2026-08-27T18:39:12-06:00",
         "estimated": false,
@@ -709,10 +702,16 @@
         "ram": 46,
         "cpu": 11,
         "gpu": 9
+      },
+      {
+        "at": "2026-08-28T01:50:13-06:00",
+        "estimated": false,
+        "ram": 51,
+        "cpu": 11,
+        "gpu": 38
       }
     ],
     "ram": [
-      47,
       47,
       47,
       47,
@@ -807,10 +806,10 @@
       45,
       45,
       46,
-      46
+      46,
+      51
     ],
     "cpu": [
-      15,
       14,
       14,
       14,
@@ -905,10 +904,10 @@
       3,
       3,
       11,
+      11,
       11
     ],
     "gpu": [
-      0,
       0,
       0,
       0,
@@ -1003,7 +1002,8 @@
       34,
       34,
       9,
-      9
+      9,
+      38
     ]
   },
   "weather": {
@@ -1157,6 +1157,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-28T01:50:13-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-28T01:49:17-06:00",
       "source": "forge",
       "component": "forge",
@@ -1211,13 +1218,6 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-28T01:35:13-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-28T01:28:41-06:00",
@@ -1385,7 +1385,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-08-28T01:49:18-06:00",
+    "last": "2026-08-28T01:50:13-06:00",
     "source": "local runtime"
   },
   "self_check": {
