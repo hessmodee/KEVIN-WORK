@@ -1,10 +1,10 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T13:50:14-06:00",
-  "status": "idle",
+  "generated_at": "2026-08-28T14:05:13-06:00",
+  "status": "degraded",
   "health": {
-    "overall": "healthy",
-    "failed_checks": 0
+    "overall": "degraded",
+    "failed_checks": 1
   },
   "brain": {
     "name": "Qwen 2.5 14B",
@@ -25,34 +25,20 @@
   },
   "services": {
     "tick": "healthy",
-    "bridge": "healthy",
+    "bridge": "degraded",
     "ollama": "healthy",
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 51,
+    "memory_pct": 64,
     "cpu_pct": 20,
     "gpu": "RTX 3060",
-    "gpu_pct": 42
+    "gpu_pct": 27
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T03:05:14-06:00",
-        "estimated": false,
-        "ram": 46,
-        "cpu": 11,
-        "gpu": 0
-      },
-      {
-        "at": "2026-08-28T03:20:13-06:00",
-        "estimated": false,
-        "ram": 46,
-        "cpu": 7,
-        "gpu": 0
-      },
       {
         "at": "2026-08-28T03:35:14-06:00",
         "estimated": false,
@@ -710,11 +696,23 @@
         "ram": 51,
         "cpu": 20,
         "gpu": 42
+      },
+      {
+        "at": "2026-08-28T13:58:00-06:00",
+        "estimated": false,
+        "ram": 58,
+        "cpu": 27,
+        "gpu": 26
+      },
+      {
+        "at": "2026-08-28T14:05:13-06:00",
+        "estimated": false,
+        "ram": 64,
+        "cpu": 20,
+        "gpu": 27
       }
     ],
     "ram": [
-      46,
-      46,
       47,
       47,
       48,
@@ -808,11 +806,11 @@
       22,
       22,
       22,
-      51
+      51,
+      58,
+      64
     ],
     "cpu": [
-      11,
-      7,
       11,
       11,
       14,
@@ -906,11 +904,11 @@
       0,
       0,
       0,
+      20,
+      27,
       20
     ],
     "gpu": [
-      0,
-      0,
       0,
       0,
       0,
@@ -1004,7 +1002,9 @@
       0,
       0,
       0,
-      42
+      42,
+      26,
+      27
     ]
   },
   "weather": {
@@ -1103,8 +1103,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 96,
-      "total": 97
+      "done": 97,
+      "total": 99
     }
   ],
   "roadmap": {
@@ -1158,11 +1158,11 @@
   ],
   "activity": [
     {
-      "at": "2026-08-28T13:50:14-06:00",
+      "at": "2026-08-28T14:05:13-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
-      "result": "pass"
+      "result": "fail"
     },
     {
       "at": "2026-08-28T13:39:26-06:00",
@@ -1380,15 +1380,15 @@
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "warning"
   },
   "sync": {
-    "last": "2026-08-28T13:50:14-06:00",
+    "last": "2026-08-28T14:05:13-06:00",
     "source": "local runtime"
   },
   "self_check": {
-    "fails": 0,
-    "summary": "All checks passed"
+    "fails": 1,
+    "summary": "1 check(s) failed"
   },
   "autonomy": {
     "mode": "hourly_design",
@@ -1419,8 +1419,13 @@
     }
   },
   "attention": {
-    "level": "none",
-    "items": []
+    "level": "fail",
+    "items": [
+      {
+        "id": "health",
+        "label": "1 check(s) failed"
+      }
+    ]
   },
   "newswire": [
     {
@@ -1435,8 +1440,8 @@
     },
     {
       "id": "health",
-      "text": "System health: all checks passed",
-      "severity": "normal"
+      "text": "System health: 1 check(s) failed",
+      "severity": "fail"
     },
     {
       "id": "verified",
