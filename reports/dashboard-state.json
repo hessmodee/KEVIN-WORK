@@ -1,7 +1,7 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T19:38:45-06:00",
-  "status": "working",
+  "generated_at": "2026-08-27T19:39:17-06:00",
+  "status": "idle",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,16 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: forge-v4",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-27T19:38:45-06:00",
-    "source": "forge"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -38,13 +29,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T00:56:50-06:00",
-        "estimated": true,
-        "ram": 58,
-        "cpu": 33,
-        "gpu": 0
-      },
       {
         "at": "2026-08-27T01:11:50-06:00",
         "estimated": true,
@@ -709,10 +693,16 @@
         "ram": 47,
         "cpu": 6,
         "gpu": 3
+      },
+      {
+        "at": "2026-08-27T19:39:17-06:00",
+        "estimated": false,
+        "ram": 47,
+        "cpu": 6,
+        "gpu": 3
       }
     ],
     "ram": [
-      58,
       58,
       60,
       60,
@@ -807,10 +797,10 @@
       46,
       46,
       46,
+      47,
       47
     ],
     "cpu": [
-      33,
       33,
       30,
       13,
@@ -905,10 +895,10 @@
       1,
       5,
       5,
+      6,
       6
     ],
     "gpu": [
-      0,
       0,
       0,
       1,
@@ -1003,6 +993,7 @@
       0,
       0,
       0,
+      3,
       3
     ]
   },
@@ -1156,6 +1147,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-27T19:39:17-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: forge-v4",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 32000
+    },
     {
       "at": "2026-08-27T19:38:45-06:00",
       "source": "forge",
@@ -1366,24 +1367,14 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-27T13:39:04-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Night Forge PASS 123631ms",
-      "result": "pass",
-      "task_id": "night-forge",
-      "duration_ms": 124000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T19:38:45-06:00",
+    "last": "2026-08-27T19:39:17-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1393,9 +1384,9 @@
   "autonomy": {
     "mode": "hourly_design",
     "state": "pass",
-    "last_mission": "operator",
+    "last_mission": "forge-v4",
     "iteration": 1,
-    "updated_at": "2026-08-27T18:39:38.7075582-06:00",
+    "updated_at": "2026-08-27T19:39:17.0083831-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1410,10 +1401,10 @@
     "candidate_forge": {
       "result": "pass",
       "mode": "design-forge-v3",
-      "last_mission": "operator",
+      "last_mission": "forge-v4",
       "iteration": 1,
-      "updated_at": "2026-08-27T18:39:38.7075582-06:00",
-      "next_index": 5,
+      "updated_at": "2026-08-27T19:39:17.0083831-06:00",
+      "next_index": 0,
       "scheduled": true,
       "promotion": "blocked"
     }
