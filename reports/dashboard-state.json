@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T22:50:13-06:00",
+  "generated_at": "2026-08-27T23:05:14-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 58,
-    "cpu_pct": 12,
+    "memory_pct": 45,
+    "cpu_pct": 7,
     "gpu": "RTX 3060",
-    "gpu_pct": 17
+    "gpu_pct": 0
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T12:41:50-06:00",
-        "estimated": true,
-        "ram": 56,
-        "cpu": 30,
-        "gpu": 0
-      },
       {
         "at": "2026-08-27T12:56:50-06:00",
         "estimated": true,
@@ -700,10 +693,16 @@
         "ram": 58,
         "cpu": 12,
         "gpu": 17
+      },
+      {
+        "at": "2026-08-27T23:05:14-06:00",
+        "estimated": false,
+        "ram": 45,
+        "cpu": 7,
+        "gpu": 0
       }
     ],
     "ram": [
-      56,
       55,
       59,
       59,
@@ -798,10 +797,10 @@
       49,
       49,
       49,
-      58
+      58,
+      45
     ],
     "cpu": [
-      30,
       25,
       27,
       27,
@@ -896,10 +895,10 @@
       13,
       13,
       13,
-      12
+      12,
+      7
     ],
     "gpu": [
-      0,
       3,
       1,
       1,
@@ -994,11 +993,12 @@
       37,
       37,
       37,
-      17
+      17,
+      0
     ]
   },
   "weather": {
-    "summary": "Tonight 59 | Wind 3 to 9 mph | Slight Chance Showers And Thunderstorms then Mostly Cloudy"
+    "summary": "Tonight 59 | Wind 5 mph | Slight Chance Showers And Thunderstorms then Mostly Cloudy"
   },
   "capabilities": [
     {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-08-27T22:50:13-06:00",
+      "at": "2026-08-27T23:05:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T22:50:13-06:00",
+    "last": "2026-08-27T23:05:14-06:00",
     "source": "local runtime"
   },
   "self_check": {
