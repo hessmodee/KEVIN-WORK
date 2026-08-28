@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T13:20:34-06:00",
+  "generated_at": "2026-08-28T13:26:19-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -30,22 +30,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 63,
-    "cpu_pct": 36,
+    "memory_pct": 72,
+    "cpu_pct": 20,
     "gpu": "RTX 3060",
-    "gpu_pct": 24
+    "gpu_pct": 22
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T02:09:56-06:00",
-        "estimated": false,
-        "ram": 46,
-        "cpu": 2,
-        "gpu": 34
-      },
       {
         "at": "2026-08-28T02:20:13-06:00",
         "estimated": false,
@@ -710,10 +703,16 @@
         "ram": 63,
         "cpu": 36,
         "gpu": 24
+      },
+      {
+        "at": "2026-08-28T13:26:19-06:00",
+        "estimated": false,
+        "ram": 72,
+        "cpu": 20,
+        "gpu": 22
       }
     ],
     "ram": [
-      46,
       47,
       46,
       46,
@@ -808,10 +807,10 @@
       64,
       63,
       69,
-      63
+      63,
+      72
     ],
     "cpu": [
-      2,
       11,
       12,
       12,
@@ -906,10 +905,10 @@
       17,
       22,
       11,
-      36
+      36,
+      20
     ],
     "gpu": [
-      34,
       40,
       0,
       0,
@@ -1004,7 +1003,8 @@
       27,
       24,
       0,
-      24
+      24,
+      22
     ]
   },
   "weather": {
@@ -1032,11 +1032,11 @@
     {
       "id": "weather_reader",
       "label": "Local weather",
-      "state": "planned",
+      "state": "testing",
       "qa_pass": 0,
       "qa_total": 10,
       "version": null,
-      "last_verified": null
+      "last_verified": "2026-08-28"
     },
     {
       "id": "retrieval",
@@ -1103,8 +1103,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 94,
-      "total": 95
+      "done": 95,
+      "total": 96
     }
   ],
   "roadmap": {
@@ -1158,7 +1158,7 @@
   ],
   "activity": [
     {
-      "at": "2026-08-28T13:20:34-06:00",
+      "at": "2026-08-28T13:26:19-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1383,7 +1383,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T13:20:34-06:00",
+    "last": "2026-08-28T13:26:19-06:00",
     "source": "local runtime"
   },
   "self_check": {
