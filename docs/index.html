@@ -134,6 +134,22 @@
     .attention .attn-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
     .attention ul{margin:6px 0 0;padding:0 0 0 18px}
     .attention li{color:var(--fg);font-size:13px;line-height:1.45}
+    .newswire{display:none;align-items:stretch;margin:12px 0 0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:rgba(20,26,19,.92);min-height:40px}
+    .newswire.show{display:flex}
+    .newswire .nw-label{flex:0 0 auto;display:flex;align-items:center;padding:0 13px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;background:#1c241b;color:var(--sage2);border-right:1px solid var(--line)}
+    .newswire .nw-track{flex:1;position:relative;overflow:hidden;min-height:40px}
+    .newswire .nw-item{position:absolute;inset:0;display:flex;align-items:center;padding:8px 14px;font-size:13px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0;transform:translateY(7px);transition:opacity .4s ease,transform .4s ease,color .4s ease;color:var(--fg)}
+    .newswire .nw-item.on{opacity:1;transform:translateY(0)}
+    .newswire .nw-item.success{color:#dcebd5}
+    .newswire .nw-item.caution{color:var(--gold)}
+    .newswire .nw-item.fail{color:#f0b2a8}
+    .newswire .nw-item.disconnected{color:#8a8f88}
+    .newswire.sev-success .nw-label{background:rgba(143,170,130,.2);color:#dcebd5}
+    .newswire.sev-caution .nw-label{background:rgba(213,173,104,.16);color:var(--gold)}
+    .newswire.sev-fail .nw-label{background:rgba(211,109,91,.18);color:#f0b2a8}
+    .newswire.sev-disconnected .nw-label{background:#1b201a;color:#8a8f88}
+    .newswire.sev-success{box-shadow:inset 0 0 0 1px rgba(143,170,130,.28)}
+    @media(prefers-reduced-motion:reduce){.newswire .nw-item{transition:none;transform:none}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
   </style>
 </head>
@@ -154,6 +170,7 @@
     </div>
   </header>
   <div id="attentionBanner" class="attention" hidden></div>
+  <div id="newswire" class="newswire" hidden></div>
   <div class="service-rail" id="serviceRail"></div>
   <nav id="nav"></nav>
   <main id="main"></main>
@@ -367,6 +384,93 @@ function renderAttention(){
   el.className="attention show "+(a.level==="fail"?"fail":"caution");
   el.innerHTML=`<div><div class="attn-title">Needs attention</div><ul>${(a.items||[]).map(i=>`<li>${esc(i.label||i.id)}</li>`).join("")}</ul></div>`;
 }
+let nwIndex=0, nwTimer=null, nwSig="";
+function deriveNewswire(){
+  const items=[];
+  const wx=String(S?.weather?.summary||"").trim();
+  if(wx) items.push({id:"weather",text:wx,severity:"normal"});
+  const task=S?.current_task;
+  const campaign=S?.campaign||{};
+  const execution=S?.execution||{};
+  if(campaign.active || task){
+    const title=campaign.title || task?.title || "Current mission";
+    const phase=execution.phase || task?.phase || "";
+    const text=phase?`${title} · ${phase}`:String(title);
+    let sev="normal";
+    if(/fail/i.test(text)) sev="fail";
+    else if(/block|degrad|caution/i.test(text)) sev="caution";
+    items.push({id:"mission",text,severity:sev});
+  }
+  const builds=sortedBuild();
+  const next=builds.find(b=>["next","queued","planned"].includes(String(b.state||"").toLowerCase())) || builds[0];
+  if(next) items.push({id:"roadmap",text:"Next: "+(next.label||next.id||"Next build"),severity:"normal"});
+  const health=S?.health||{};
+  const overall=String(health.overall||"unknown").toLowerCase();
+  const fails=Number(health.failed_checks||0);
+  if(fails>0) items.push({id:"health",text:`System health: ${fails} check(s) failed`,severity:"fail"});
+  else if(!overall || overall==="healthy") items.push({id:"health",text:"System health: all checks passed",severity:"normal"});
+  else if(overall==="degraded") items.push({id:"health",text:"System health: degraded",severity:"caution"});
+  else items.push({id:"health",text:`System health: ${overall}`,severity:"fail"});
+  const verified=sortedActivity().find(e=>{
+    const r=String(e.result||"").toLowerCase().trim();
+    if(r!=="pass") return false;
+    if(String(e.component||"").toLowerCase()==="tick" && String(e.event||"").toLowerCase()==="cycle") return false;
+    return true;
+  });
+  if(verified) items.push({id:"verified",text:"Verified: "+(verified.detail||verified.event||"recent work"),severity:"success"});
+  return items.slice(0,6);
+}
+function newswireStories(){
+  let items;
+  if(Array.isArray(S?.newswire) && S.newswire.length){
+    items=S.newswire.slice(0,6).map(x=>({id:String(x.id||""),text:String(x.text||"").trim(),severity:String(x.severity||"normal")})).filter(x=>x.text);
+  }else{
+    items=deriveNewswire();
+  }
+  if(freshness().disconnected && !items.some(i=>i.severity==="disconnected"||i.id==="disconnected")){
+    items=[{id:"disconnected",text:"Telemetry lost · showing last known snapshot",severity:"disconnected"},...items].slice(0,6);
+  }
+  return items;
+}
+function paintNewswire(){
+  const el=$("newswire");
+  if(!el) return;
+  const nodes=[...el.querySelectorAll(".nw-item")];
+  if(!nodes.length) return;
+  const i=((nwIndex%nodes.length)+nodes.length)%nodes.length;
+  nodes.forEach((n,idx)=>n.classList.toggle("on",idx===i));
+  const sev=(nodes[i].getAttribute("data-sev")||"normal").toLowerCase();
+  el.className="newswire show"+(sev && sev!=="normal"?" sev-"+sev:"");
+}
+function renderNewswire(){
+  const el=$("newswire");
+  if(!el) return;
+  const items=newswireStories();
+  if(!items.length){
+    el.hidden=true;
+    el.className="newswire";
+    el.innerHTML="";
+    nwSig="";
+    if(nwTimer){clearInterval(nwTimer);nwTimer=null}
+    return;
+  }
+  const sig=items.map(i=>i.id+"|"+i.text+"|"+i.severity).join("||");
+  if(sig!==nwSig){
+    nwSig=sig;
+    nwIndex=0;
+    el.hidden=false;
+    el.innerHTML=`<div class="nw-label">Newswire</div><div class="nw-track">${items.map((it,i)=>`<div class="nw-item ${esc(it.severity||"normal")}" data-sev="${esc(it.severity||"normal")}" data-nw="${i}">${esc(it.text)}</div>`).join("")}</div>`;
+  }else{
+    el.hidden=false;
+  }
+  paintNewswire();
+  const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(items.length>1 && !reduce){
+    if(!nwTimer) nwTimer=setInterval(()=>{nwIndex=(nwIndex+1)%items.length;paintNewswire()},6000);
+  }else if(nwTimer){
+    clearInterval(nwTimer);nwTimer=null;
+  }
+}
 function applyChrome(){
  const f=freshness(),lvl=avatarLevel(),mode=avatarMode();
  $("headerKevin").innerHTML=avatarSvg(lvl,mode,false);
@@ -379,6 +483,7 @@ function applyChrome(){
  $("foot").textContent=`Kevin HQ · ${f.text}`;
  $("foot2").textContent=`State schema ${S?.schema||"-"}`;
  renderAttention();
+ renderNewswire();
 }
 function card(k,v,h=""){return`<div class="card"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div>${h?`<div class="h">${esc(h)}</div>`:""}</div>`}
 function bar(d,t){return`<div class="bar"><i style="width:${Math.max(0,Math.min(100,pct(d,t)))}%"></i></div>`}
