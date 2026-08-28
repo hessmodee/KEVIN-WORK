@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-28T01:28:41-06:00",
+  "generated_at": "2026-08-28T01:37:02-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,13 +13,13 @@
     "tools": false
   },
   "current_task": {
-    "id": "overnight-expedition",
-    "title": "Overnight Expedition \u00b7 3/6 builds",
+    "id": "night-forge",
+    "title": "Night Forge cycle",
     "category": "forge",
-    "phase": "Cooldown after operator i3 \u00b7 next attempt around 1:28 AM",
-    "completed": 3,
-    "total": 6,
-    "started_at": "2026-08-27T23:52:07.9208109-06:00",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-28T01:37:01-06:00",
     "source": "forge"
   },
   "services": {
@@ -32,26 +32,12 @@
     "memory_pct": 45,
     "cpu_pct": 13,
     "gpu": "RTX 3060",
-    "gpu_pct": 38
+    "gpu_pct": 41
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T15:50:32-06:00",
-        "estimated": false,
-        "ram": 54,
-        "cpu": 23,
-        "gpu": 32
-      },
-      {
-        "at": "2026-08-27T16:05:14-06:00",
-        "estimated": false,
-        "ram": 53,
-        "cpu": 20,
-        "gpu": 0
-      },
       {
         "at": "2026-08-27T17:43:22-06:00",
         "estimated": false,
@@ -709,11 +695,23 @@
         "ram": 45,
         "cpu": 13,
         "gpu": 38
+      },
+      {
+        "at": "2026-08-28T01:35:13-06:00",
+        "estimated": false,
+        "ram": 45,
+        "cpu": 13,
+        "gpu": 41
+      },
+      {
+        "at": "2026-08-28T01:37:02-06:00",
+        "estimated": false,
+        "ram": 45,
+        "cpu": 13,
+        "gpu": 41
       }
     ],
     "ram": [
-      54,
-      53,
       45,
       48,
       46,
@@ -807,11 +805,11 @@
       46,
       46,
       45,
+      45,
+      45,
       45
     ],
     "cpu": [
-      23,
-      20,
       27,
       12,
       8,
@@ -905,11 +903,11 @@
       16,
       14,
       13,
+      13,
+      13,
       13
     ],
     "gpu": [
-      32,
-      0,
       29,
       7,
       0,
@@ -1003,7 +1001,9 @@
       38,
       39,
       38,
-      38
+      38,
+      41,
+      41
     ]
   },
   "weather": {
@@ -1157,6 +1157,22 @@
   ],
   "activity": [
     {
+      "at": "2026-08-28T01:37:01-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-08-28T01:35:13-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-28T01:28:41-06:00",
       "source": "forge",
       "component": "forge",
@@ -1174,13 +1190,6 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-28T01:20:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-28T01:08:09-06:00",
@@ -1369,16 +1378,6 @@
       "detail": "Design Forge: operator",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-27T22:47:50-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "JSON repair returned NO_REPLY",
-      "result": "fail",
-      "task_id": "design-forge",
-      "duration_ms": 24000
     }
   ],
   "owl": {
@@ -1386,7 +1385,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-08-28T01:28:41-06:00",
+    "last": "2026-08-28T01:37:02-06:00",
     "source": "local runtime"
   },
   "self_check": {
