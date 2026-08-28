@@ -1,5 +1,5 @@
-# Status 2026-08-28 18:40 UTC
+# Status 2026-08-28 22:10 UTC
 
-Push 3c3b486c2601a161448870566ce214407142cfd2 (hessmodee). Bridge PASS. No heartbeat-latest.json. No ollama-isolate-latest.json. OK-WRITE present.
-No isolate report landed. Do not advance layer. CURRENT_TASK unchanged.
+Bridge stale >2h (13:58 MDT, FAIL). OMEN puller not running. No heartbeat-latest.json. No ollama-isolate-latest.json. OK-WRITE present.
+No isolate → keep write-proof. Do not advance. CURRENT_TASK set to write-proof.
 Cannot SSH HESS-PC. Local Ollama default. Stop.
