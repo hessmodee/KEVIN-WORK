@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T13:31:16-06:00",
+  "generated_at": "2026-08-28T13:35:13-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -30,8 +30,8 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 26,
-    "cpu_pct": 0,
+    "memory_pct": 22,
+    "cpu_pct": 1,
     "gpu": "RTX 3060",
     "gpu_pct": 0
   },
@@ -39,13 +39,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T02:35:13-06:00",
-        "estimated": false,
-        "ram": 46,
-        "cpu": 12,
-        "gpu": 0
-      },
       {
         "at": "2026-08-28T02:37:02-06:00",
         "estimated": false,
@@ -710,10 +703,16 @@
         "ram": 26,
         "cpu": 0,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-28T13:35:13-06:00",
+        "estimated": false,
+        "ram": 22,
+        "cpu": 1,
+        "gpu": 0
       }
     ],
     "ram": [
-      46,
       46,
       46,
       46,
@@ -808,10 +807,10 @@
       69,
       63,
       72,
-      26
+      26,
+      22
     ],
     "cpu": [
-      12,
       12,
       12,
       12,
@@ -906,10 +905,10 @@
       11,
       36,
       20,
-      0
+      0,
+      1
     ],
     "gpu": [
-      0,
       0,
       0,
       0,
@@ -1004,6 +1003,7 @@
       0,
       24,
       22,
+      0,
       0
     ]
   },
@@ -1103,8 +1103,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 96,
-      "total": 97
+      "done": 97,
+      "total": 98
     }
   ],
   "roadmap": {
@@ -1158,7 +1158,7 @@
   ],
   "activity": [
     {
-      "at": "2026-08-28T13:31:16-06:00",
+      "at": "2026-08-28T13:35:13-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1383,7 +1383,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T13:31:16-06:00",
+    "last": "2026-08-28T13:35:13-06:00",
     "source": "local runtime"
   },
   "self_check": {
