@@ -1,7 +1,7 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T08:27:31-06:00",
-  "status": "idle",
+  "generated_at": "2026-08-28T08:37:02-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,15 +12,24 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "night-forge",
+    "title": "Night Forge cycle",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-28T08:37:02-06:00",
+    "source": "forge"
+  },
   "campaign": {
-    "active": false,
-    "id": null,
-    "title": null
+    "active": true,
+    "id": "night-forge",
+    "title": "Night Forge cycle"
   },
   "execution": {
-    "running": false,
-    "phase": null,
+    "running": true,
+    "phase": "started",
     "worker": null
   },
   "services": {
@@ -31,28 +40,14 @@
   },
   "system": {
     "memory_pct": 59,
-    "cpu_pct": 17,
+    "cpu_pct": 18,
     "gpu": "RTX 3060",
-    "gpu_pct": 24
+    "gpu_pct": 11
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T22:47:50-06:00",
-        "estimated": false,
-        "ram": 49,
-        "cpu": 13,
-        "gpu": 37
-      },
-      {
-        "at": "2026-08-27T22:50:13-06:00",
-        "estimated": false,
-        "ram": 58,
-        "cpu": 12,
-        "gpu": 17
-      },
       {
         "at": "2026-08-27T23:05:14-06:00",
         "estimated": false,
@@ -710,11 +705,23 @@
         "ram": 59,
         "cpu": 17,
         "gpu": 24
+      },
+      {
+        "at": "2026-08-28T08:35:13-06:00",
+        "estimated": false,
+        "ram": 59,
+        "cpu": 18,
+        "gpu": 11
+      },
+      {
+        "at": "2026-08-28T08:37:02-06:00",
+        "estimated": false,
+        "ram": 59,
+        "cpu": 18,
+        "gpu": 11
       }
     ],
     "ram": [
-      49,
-      58,
       45,
       53,
       53,
@@ -808,11 +815,11 @@
       57,
       58,
       58,
+      59,
+      59,
       59
     ],
     "cpu": [
-      13,
-      12,
       7,
       11,
       11,
@@ -906,11 +913,11 @@
       32,
       24,
       24,
-      17
+      17,
+      18,
+      18
     ],
     "gpu": [
-      37,
-      17,
       0,
       17,
       17,
@@ -1004,7 +1011,9 @@
       25,
       25,
       25,
-      24
+      24,
+      11,
+      11
     ]
   },
   "weather": {
@@ -1158,6 +1167,22 @@
   ],
   "activity": [
     {
+      "at": "2026-08-28T08:37:02-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-08-28T08:35:13-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-28T08:27:31-06:00",
       "source": "kevin-reader",
       "component": "system_reader",
@@ -1175,13 +1200,6 @@
       "detail": "Checking system status",
       "result": "",
       "task_id": "system-status"
-    },
-    {
-      "at": "2026-08-28T08:20:13-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-28T07:39:14-06:00",
@@ -1367,23 +1385,14 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-28T02:39:00-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Night Forge PASS 118343ms",
-      "result": "pass",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-28T08:27:31-06:00",
+    "last": "2026-08-28T08:37:02-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1426,6 +1435,11 @@
     {
       "id": "weather",
       "text": "Today 82 | Wind 3 to 9 mph | Chance Light Rain then Slight Chance Showers And Thunderstorms",
+      "severity": "normal"
+    },
+    {
+      "id": "mission",
+      "text": "Night Forge cycle \u00b7 started",
       "severity": "normal"
     },
     {
