@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T12:39:25-06:00",
+  "generated_at": "2026-08-28T12:50:14-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -30,22 +30,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 64,
-    "cpu_pct": 17,
+    "memory_pct": 63,
+    "cpu_pct": 22,
     "gpu": "RTX 3060",
-    "gpu_pct": 27
+    "gpu_pct": 24
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T01:50:13-06:00",
-        "estimated": false,
-        "ram": 51,
-        "cpu": 11,
-        "gpu": 38
-      },
       {
         "at": "2026-08-28T02:05:13-06:00",
         "estimated": false,
@@ -710,10 +703,16 @@
         "ram": 64,
         "cpu": 17,
         "gpu": 27
+      },
+      {
+        "at": "2026-08-28T12:50:14-06:00",
+        "estimated": false,
+        "ram": 63,
+        "cpu": 22,
+        "gpu": 24
       }
     ],
     "ram": [
-      51,
       46,
       46,
       46,
@@ -808,10 +807,10 @@
       64,
       64,
       64,
-      64
+      64,
+      63
     ],
     "cpu": [
-      11,
       16,
       2,
       2,
@@ -906,10 +905,10 @@
       19,
       17,
       17,
-      17
+      17,
+      22
     ],
     "gpu": [
-      38,
       38,
       34,
       34,
@@ -1004,11 +1003,12 @@
       11,
       27,
       27,
-      27
+      27,
+      24
     ]
   },
   "weather": {
-    "summary": "This Afternoon 82 | Wind 5 to 9 mph | Slight Chance Showers And Thunderstorms"
+    "summary": "Today 82 | Wind 5 to 9 mph | Slight Chance Light Rain then Slight Chance Showers And Thunderstorms"
   },
   "capabilities": [
     {
@@ -1158,6 +1158,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-28T12:50:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-28T12:39:25-06:00",
       "source": "forge",
       "component": "forge",
@@ -1193,13 +1200,6 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-28T12:35:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-28T11:39:04-06:00",
@@ -1383,7 +1383,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T12:39:25-06:00",
+    "last": "2026-08-28T12:50:14-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1425,7 +1425,7 @@
   "newswire": [
     {
       "id": "weather",
-      "text": "This Afternoon 82 | Wind 5 to 9 mph | Slight Chance Showers And Thunderstorms",
+      "text": "Today 82 | Wind 5 to 9 mph | Slight Chance Light Rain then Slight Chance Showers And Thunderstorms",
       "severity": "normal"
     },
     {
