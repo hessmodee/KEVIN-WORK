@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T13:05:14-06:00",
+  "generated_at": "2026-08-28T13:20:34-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -30,22 +30,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 69,
-    "cpu_pct": 11,
+    "memory_pct": 63,
+    "cpu_pct": 36,
     "gpu": "RTX 3060",
-    "gpu_pct": 0
+    "gpu_pct": 24
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T02:09:21-06:00",
-        "estimated": false,
-        "ram": 46,
-        "cpu": 2,
-        "gpu": 34
-      },
       {
         "at": "2026-08-28T02:09:56-06:00",
         "estimated": false,
@@ -710,11 +703,17 @@
         "ram": 69,
         "cpu": 11,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-28T13:20:34-06:00",
+        "estimated": false,
+        "ram": 63,
+        "cpu": 36,
+        "gpu": 24
       }
     ],
     "ram": [
       46,
-      46,
       47,
       46,
       46,
@@ -808,10 +807,10 @@
       64,
       64,
       63,
-      69
+      69,
+      63
     ],
     "cpu": [
-      2,
       2,
       11,
       12,
@@ -906,10 +905,10 @@
       17,
       17,
       22,
-      11
+      11,
+      36
     ],
     "gpu": [
-      34,
       34,
       40,
       0,
@@ -1004,11 +1003,12 @@
       27,
       27,
       24,
-      0
+      0,
+      24
     ]
   },
   "weather": {
-    "summary": "This Afternoon 82 | Wind 5 to 9 mph | Slight Chance Showers And Thunderstorms"
+    "summary": "This Afternoon 82 | Wind 8 mph | Slight Chance Showers And Thunderstorms"
   },
   "capabilities": [
     {
@@ -1158,7 +1158,7 @@
   ],
   "activity": [
     {
-      "at": "2026-08-28T13:05:14-06:00",
+      "at": "2026-08-28T13:20:34-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1383,7 +1383,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T13:05:14-06:00",
+    "last": "2026-08-28T13:20:34-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1425,7 +1425,7 @@
   "newswire": [
     {
       "id": "weather",
-      "text": "This Afternoon 82 | Wind 5 to 9 mph | Slight Chance Showers And Thunderstorms",
+      "text": "This Afternoon 82 | Wind 8 mph | Slight Chance Showers And Thunderstorms",
       "severity": "normal"
     },
     {
