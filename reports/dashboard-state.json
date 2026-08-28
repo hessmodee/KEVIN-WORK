@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-28T01:50:13-06:00",
+  "generated_at": "2026-08-28T02:09:21-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,13 +13,13 @@
     "tools": false
   },
   "current_task": {
-    "id": "overnight-expedition",
-    "title": "Overnight Expedition \u00b7 5/6 builds",
+    "id": "design-forge",
+    "title": "Design Forge: reader-board",
     "category": "forge",
-    "phase": "Cooldown after reader-weather i4 \u00b7 next attempt around 2:09 AM",
-    "completed": 5,
-    "total": 6,
-    "started_at": "2026-08-27T23:52:07.9208109-06:00",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-28T02:09:20-06:00",
     "source": "forge"
   },
   "services": {
@@ -29,29 +29,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 51,
-    "cpu_pct": 11,
+    "memory_pct": 46,
+    "cpu_pct": 2,
     "gpu": "RTX 3060",
-    "gpu_pct": 38
+    "gpu_pct": 34
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T18:39:12-06:00",
-        "estimated": false,
-        "ram": 47,
-        "cpu": 14,
-        "gpu": 0
-      },
-      {
-        "at": "2026-08-27T18:39:38-06:00",
-        "estimated": false,
-        "ram": 47,
-        "cpu": 14,
-        "gpu": 0
-      },
       {
         "at": "2026-08-27T18:39:42-06:00",
         "estimated": false,
@@ -709,11 +695,23 @@
         "ram": 51,
         "cpu": 11,
         "gpu": 38
+      },
+      {
+        "at": "2026-08-28T02:05:13-06:00",
+        "estimated": false,
+        "ram": 46,
+        "cpu": 16,
+        "gpu": 38
+      },
+      {
+        "at": "2026-08-28T02:09:21-06:00",
+        "estimated": false,
+        "ram": 46,
+        "cpu": 2,
+        "gpu": 34
       }
     ],
     "ram": [
-      47,
-      47,
       47,
       47,
       47,
@@ -807,11 +805,11 @@
       45,
       46,
       46,
-      51
+      51,
+      46,
+      46
     ],
     "cpu": [
-      14,
-      14,
       14,
       8,
       8,
@@ -905,11 +903,11 @@
       3,
       11,
       11,
-      11
+      11,
+      16,
+      2
     ],
     "gpu": [
-      0,
-      0,
       0,
       3,
       3,
@@ -1003,7 +1001,9 @@
       34,
       9,
       9,
-      38
+      38,
+      38,
+      34
     ]
   },
   "weather": {
@@ -1157,7 +1157,16 @@
   ],
   "activity": [
     {
-      "at": "2026-08-28T01:50:13-06:00",
+      "at": "2026-08-28T02:09:20-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: reader-board",
+      "result": "",
+      "task_id": "design-forge"
+    },
+    {
+      "at": "2026-08-28T02:05:13-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1369,15 +1378,6 @@
       "detail": "Design Forge: reader-weather",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-27T23:38:58-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Night Forge PASS 116252ms",
-      "result": "pass",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
@@ -1385,7 +1385,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-08-28T01:50:13-06:00",
+    "last": "2026-08-28T02:09:21-06:00",
     "source": "local runtime"
   },
   "self_check": {
