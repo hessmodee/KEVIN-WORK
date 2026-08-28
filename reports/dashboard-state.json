@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T09:00:27-06:00",
+  "generated_at": "2026-08-28T09:05:14-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -31,21 +31,14 @@
   },
   "system": {
     "memory_pct": 62,
-    "cpu_pct": 24,
+    "cpu_pct": 16,
     "gpu": "RTX 3060",
-    "gpu_pct": 46
+    "gpu_pct": 25
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T23:38:55-06:00",
-        "estimated": false,
-        "ram": 51,
-        "cpu": 10,
-        "gpu": 1
-      },
       {
         "at": "2026-08-27T23:38:58-06:00",
         "estimated": false,
@@ -710,10 +703,16 @@
         "ram": 62,
         "cpu": 24,
         "gpu": 46
+      },
+      {
+        "at": "2026-08-28T09:05:14-06:00",
+        "estimated": false,
+        "ram": 62,
+        "cpu": 16,
+        "gpu": 25
       }
     ],
     "ram": [
-      51,
       51,
       48,
       48,
@@ -808,10 +807,10 @@
       61,
       61,
       62,
+      62,
       62
     ],
     "cpu": [
-      10,
       10,
       23,
       23,
@@ -906,10 +905,10 @@
       39,
       39,
       24,
-      24
+      24,
+      16
     ],
     "gpu": [
-      1,
       1,
       11,
       11,
@@ -1004,7 +1003,8 @@
       25,
       25,
       46,
-      46
+      46,
+      25
     ]
   },
   "weather": {
@@ -1026,8 +1026,8 @@
       "state": "testing",
       "qa_pass": 0,
       "qa_total": 20,
-      "version": "Reader v0.1 \u00b7 boundary GREEN",
-      "last_verified": "2026-08-27T13:44:13.3544609-06:00"
+      "version": "Reader v0.1 \u00b7 boundary GREEN \u00b7 E2E",
+      "last_verified": "2026-08-28"
     },
     {
       "id": "weather_reader",
@@ -1103,8 +1103,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 94,
-      "total": 95
+      "done": 95,
+      "total": 96
     }
   ],
   "roadmap": {
@@ -1158,7 +1158,7 @@
   ],
   "activity": [
     {
-      "at": "2026-08-28T08:55:50-06:00",
+      "at": "2026-08-28T09:05:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1383,7 +1383,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T09:00:27-06:00",
+    "last": "2026-08-28T09:05:14-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1445,6 +1445,12 @@
     }
   ],
   "verified_results": [
+    {
+      "at": "2026-08-28",
+      "kind": "faculty",
+      "label": "Reader system-status E2E",
+      "result": "pass"
+    },
     {
       "at": "2026-08-26",
       "kind": "faculty",
