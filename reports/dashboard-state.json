@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T12:37:02-06:00",
+  "generated_at": "2026-08-28T12:38:51-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,19 +13,19 @@
     "tools": false
   },
   "current_task": {
-    "id": "night-forge",
-    "title": "Night Forge cycle",
+    "id": "design-forge",
+    "title": "Design Forge: operator",
     "category": "forge",
     "phase": "started",
     "completed": 0,
     "total": null,
-    "started_at": "2026-08-28T12:37:02-06:00",
+    "started_at": "2026-08-28T12:38:51-06:00",
     "source": "forge"
   },
   "campaign": {
     "active": true,
-    "id": "night-forge",
-    "title": "Night Forge cycle"
+    "id": "design-forge",
+    "title": "Design Forge: operator"
   },
   "execution": {
     "running": true,
@@ -40,21 +40,14 @@
   },
   "system": {
     "memory_pct": 64,
-    "cpu_pct": 19,
+    "cpu_pct": 17,
     "gpu": "RTX 3060",
-    "gpu_pct": 11
+    "gpu_pct": 27
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T01:40:00-06:00",
-        "estimated": false,
-        "ram": 45,
-        "cpu": 3,
-        "gpu": 34
-      },
       {
         "at": "2026-08-28T01:48:45-06:00",
         "estimated": false,
@@ -719,10 +712,16 @@
         "ram": 64,
         "cpu": 19,
         "gpu": 11
+      },
+      {
+        "at": "2026-08-28T12:38:51-06:00",
+        "estimated": false,
+        "ram": 64,
+        "cpu": 17,
+        "gpu": 27
       }
     ],
     "ram": [
-      45,
       46,
       46,
       51,
@@ -817,10 +816,10 @@
       62,
       62,
       64,
+      64,
       64
     ],
     "cpu": [
-      3,
       11,
       11,
       11,
@@ -915,10 +914,10 @@
       13,
       9,
       19,
-      19
+      19,
+      17
     ],
     "gpu": [
-      34,
       9,
       9,
       38,
@@ -1013,7 +1012,8 @@
       3,
       0,
       11,
-      11
+      11,
+      27
     ]
   },
   "weather": {
@@ -1166,6 +1166,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-28T12:38:51-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: operator",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-28T12:37:02-06:00",
       "source": "forge",
@@ -1376,15 +1385,6 @@
       "detail": "Design Forge: reader-weather",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-28T07:37:01-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Night Forge cycle",
-      "result": "",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
@@ -1392,7 +1392,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-08-28T12:37:02-06:00",
+    "last": "2026-08-28T12:38:51-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1439,7 +1439,7 @@
     },
     {
       "id": "mission",
-      "text": "Night Forge cycle \u00b7 started",
+      "text": "Design Forge: operator \u00b7 started",
       "severity": "normal"
     },
     {
