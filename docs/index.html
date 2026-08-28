@@ -42,7 +42,7 @@
     .mission-copy{font-family:Georgia,serif;font-size:25px;line-height:1.12;letter-spacing:-.025em;margin:6px 0 7px;max-width:760px}
     .next-chip{display:inline-flex;gap:7px;align-items:center;padding:7px 10px;border:1px solid rgba(143,170,130,.2);background:rgba(143,170,130,.08);border-radius:11px;color:var(--sage2);font-size:11px}
     .row{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:13px;margin-top:11px}.bar{height:7px;background:#252c24;border-radius:99px;overflow:hidden;margin-top:7px}.bar i{display:block;height:100%;background:linear-gradient(90deg,#728b68,var(--sage2))}
-    .st{font-size:9px;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:4px 7px}.ready,.healthy,.pass,.working{color:#dcebd5;background:rgba(143,170,130,.18)}.paused,.testing{color:#efd9ae;background:rgba(213,173,104,.16)}.idle,.queued,.planned{color:var(--muted);background:#232922}.failed,.degraded,.fail{color:#f1b3a8;background:rgba(211,109,91,.16)}.locked,.offline{color:#81887f;background:#1b201a}
+    .st{font-size:9px;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:4px 7px}.ready,.healthy,.pass,.working{color:#dcebd5;background:rgba(143,170,130,.18)}.paused,.testing{color:#efd9ae;background:rgba(213,173,104,.16)}.idle,.queued,.planned{color:var(--muted);background:#232922}.failed,.degraded,.fail{color:#f1b3a8;background:rgba(211,109,91,.16)}.locked,.offline,.unknown{color:#81887f;background:#1b201a}
     .queue{counter-reset:q}.qitem{display:grid;grid-template-columns:30px 1fr auto;gap:11px;padding:12px 0;border-bottom:1px solid var(--line)}.qitem:last-child{border-bottom:0}.qnum{width:27px;height:27px;border-radius:50%;display:grid;place-items:center;background:#242b23;color:var(--muted);font-size:11px}.qitem.next .qnum{background:rgba(143,170,130,.18);color:var(--sage2)}.qname{font-size:13px;font-weight:650}.qdetail{font-size:12px;color:var(--muted);line-height:1.4;margin-top:3px}
     .ev{display:grid;grid-template-columns:122px 1fr;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13px}.ev time{font-size:11px;color:var(--muted)}.ev:last-child{border-bottom:0}
     .filterbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
@@ -85,10 +85,14 @@
     .kevin-avatar[data-level="5"] .kv-head{fill:#b08d77}
     .kevin-avatar[data-level="4"] .kv-face,
     .kevin-avatar[data-level="5"] .kv-face{fill:#ead9c8}
-    .kv-bandage,.kv-bruise{opacity:0}
+    .kv-bandage,.kv-bruise,.kv-xeyes,.kv-bonk{opacity:0}
     .kevin-avatar.mode-degraded .kv-bandage,
     .kevin-avatar.mode-degraded .kv-bruise{opacity:1}
     .kevin-avatar.mode-degraded{filter:saturate(.72)}
+    .kevin-avatar.mode-disconnected .kv-eyes{opacity:0}
+    .kevin-avatar.mode-disconnected .kv-xeyes,
+    .kevin-avatar.mode-disconnected .kv-bonk{opacity:1}
+    .kevin-avatar.mode-disconnected{filter:grayscale(.65) saturate(.4);animation:kvBonk 3.2s ease-in-out infinite}
     .kv-work{opacity:0}
     .kevin-avatar.mode-working .kv-work{opacity:1}
     .kevin-avatar.mode-idle .kv-eyes{transform-origin:60px 48px;animation:kvBlink 6.4s ease-in-out infinite}
@@ -99,6 +103,7 @@
     @keyframes kvBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
     @keyframes kvRing{0%{transform:scale(.78);opacity:.7}100%{transform:scale(1.28);opacity:0}}
     @keyframes kvSpark{0%,100%{opacity:.25}50%{opacity:1}}
+    @keyframes kvBonk{0%,100%{transform:rotate(0deg) translateY(0)}50%{transform:rotate(-3deg) translateY(2px)}}
     .ops-stack{display:grid;gap:12px}.ops-scroll{overflow:hidden}.ops-map{height:560px;width:100%;min-width:0;position:relative;border:1px solid var(--line);border-radius:17px;overflow:hidden;background:radial-gradient(circle at 50% 50%,rgba(143,170,130,.12),transparent 24%),radial-gradient(circle at 18% 15%,rgba(131,167,187,.07),transparent 26%),#10150f}
     .ops-map:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:28px 28px;opacity:.35}
     .ops-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.ops-lines line{stroke:rgba(242,239,231,.12);stroke-width:1.2}.ops-lines line.live{stroke:rgba(143,170,130,.55);stroke-dasharray:8 7;animation:flow 2.4s linear infinite}@keyframes flow{to{stroke-dashoffset:-30}}
@@ -123,7 +128,7 @@
       </div>
     </div>
     <div class="head-right">
-      <span class="version">HQ v6a · Clear Ops</span>
+      <span class="version">HQ v6b · Truthful Ops</span>
       <span class="pill" id="statusPill">...</span>
     </div>
   </header>
@@ -142,14 +147,14 @@ function parseAt(v){if(!v)return null;const d=new Date(v);return Number.isNaN(d.
 function when(v){const d=parseAt(v);return d?d.toLocaleString([],{month:"short",day:"numeric",hour:"numeric",minute:"2-digit",second:"2-digit"}):""}
 function shortWhen(v){const d=parseAt(v);return d?d.toLocaleTimeString([],{hour:"numeric",minute:"2-digit"}):""}
 function pct(a,b){return b?Math.round(100*Number(a||0)/Number(b)):0}
-function freshness(){const d=parseAt(S?.sync?.last||S?.generated_at);const s=d?Math.max(0,(Date.now()-d.getTime())/1000):999999;if(s<180)return{label:"LIVE",text:Math.round(s)+" sec ago",cls:"ok"};if(s<2700)return{label:"OK",text:Math.round(s/60)+" min ago",cls:"ok"};return{label:"STALE",text:Math.round(s/60)+" min ago",cls:"warn"}}
-function statusClass(v){const s=String(v||"").toLowerCase();if(["healthy","green","pass","ready","proven","working"].includes(s))return s==="working"?"working":"ready";if(["paused","testing","warning"].includes(s))return"paused";if(["fail","failed","degraded","unhealthy"].includes(s))return"failed";return"idle"}
+function freshness(){const d=parseAt(S?.sync?.last||S?.generated_at);const s=d?Math.max(0,(Date.now()-d.getTime())/1000):999999;if(s<180)return{label:"LIVE",text:Math.round(s)+" sec ago",cls:"ok",disconnected:false};if(s<1020)return{label:"OK",text:Math.round(s/60)+" min ago",cls:"ok",disconnected:false};if(s<1500)return{label:"LATE",text:"last contact "+Math.round(s/60)+" min ago",cls:"warn",disconnected:false};return{label:"DISCONNECTED",text:"last contact "+Math.round(s/60)+" min ago",cls:"bad",disconnected:true}}
+function statusClass(v){const s=String(v||"").toLowerCase();if(["healthy","green","pass","ready","proven","working"].includes(s))return s==="working"?"working":"ready";if(["paused","testing","warning"].includes(s))return"paused";if(["fail","failed","degraded","unhealthy","offline","disconnected"].includes(s))return"failed";return"idle"}
 function ledClass(v){const s=statusClass(v);return s==="ready"||s==="working"?"ok":s==="failed"?"bad":s==="paused"?"warn":""}
 function sortedActivity(){return[...(S?.activity||[])].sort((a,b)=>(parseAt(b.at)?.getTime()||0)-(parseAt(a.at)?.getTime()||0))}
 function sortedBuild(){return[...(S?.build||[])].sort((a,b)=>Number(a.order||99)-Number(b.order||99))}
 function pulseSamples(){const p=S?.pulse||{};if(Array.isArray(p.samples))return p.samples.map(x=>({...x,_d:parseAt(x.at)})).filter(x=>x._d).sort((a,b)=>a._d-b._d);return[]}
 function avatarLevel(){return Math.max(1,Math.min(5,Number(S?.avatar?.level??S?.owl?.level??1)))}
-function avatarMode(){if(S?.health?.overall!=="healthy")return"degraded";if(S?.status==="working")return"working";return"idle"}
+function avatarMode(){if(freshness().disconnected)return"disconnected";if(S?.health?.overall!=="healthy")return"degraded";if(S?.status==="working")return"working";return"idle"}
 function avatarSvg(level,mode,large=false){
   return `<div class="kevin-avatar ${large?"large":""} mode-${mode}" data-level="${level}" title="Kevin · evolution level ${level}">
   <svg viewBox="0 0 120 120" aria-label="Kevin owl avatar">
@@ -194,6 +199,12 @@ function avatarSvg(level,mode,large=false){
       <circle class="kv-hi" cx="74.5" cy="46.5" r="2.1"/>
     </g>
 
+    <!-- disconnected telemetry-loss eyes -->
+    <g class="kv-xeyes">
+      <path d="M35 40 L51 56 M51 40 L35 56 M69 40 L85 56 M85 40 L69 56"
+        fill="none" stroke="#2a2724" stroke-width="4" stroke-linecap="round"/>
+    </g>
+
     <!-- orange beak -->
     <path class="kv-beak" d="M54 60 Q60 56 66 60 L60 70 Z"/>
 
@@ -236,6 +247,12 @@ function avatarSvg(level,mode,large=false){
     <ellipse class="kv-bruise" cx="88" cy="67" rx="7" ry="4"
       fill="rgba(118,80,136,.55)"/>
 
+    <!-- disconnected bonk marks -->
+    <g class="kv-bonk" fill="none" stroke="#d5ad68" stroke-width="2.4" stroke-linecap="round">
+      <path d="M91 20 L96 13 M100 24 L108 21 M97 31 L103 37"/>
+      <circle cx="102" cy="14" r="2" fill="#d5ad68" stroke="none"/>
+    </g>
+
     <!-- tiny activity sparks -->
     <g class="kv-work">
       <circle cx="16" cy="54" r="2.3" fill="#c2d5b6"/>
@@ -251,21 +268,33 @@ function buildLabState(){const a=forgeInfo();if(S?.current_task?.id==="design-fo
 function lastEvent(component){return sortedActivity().find(e=>String(e.component||"").toLowerCase()===component)||null}
 function forgeState(){if(S?.current_task?.id==="night-forge")return"working";const e=lastEvent("forge");if(!e)return"ready";const r=String(e.result||"").toLowerCase();return r==="fail"||r==="failed"?"failed":"ready"}
 function crew(){
- const d=S?.diagnostics||{},svc=S?.services||{},a=forgeInfo(),task=S?.current_task;
+ const d=S?.diagnostics||{},svc=S?.services||{},a=forgeInfo(),task=S?.current_task,disconnected=freshness().disconnected;
+ const lane=v=>disconnected?"unknown":v;
  return [
-  {id:"kevin",name:"Kevin",role:"Main coordinator",state:avatarMode()==="working"?"working":(S?.health?.overall==="healthy"?"ready":"failed"),detail:task?.title||"Autonomous loop armed",what:task?.title||"Autonomous build schedule armed"},
-  {id:"chat",name:"Chat",role:"Reasoning lane",state:"ready",detail:`${S?.brain?.name||"Qwen"} · ${S?.brain?.context||"8K"} · tools off`,what:"Fast local conversation and reasoning"},
-  {id:"reader",name:"Reader",role:"Read-only senses",state:d.reader_boundary==="green"?"ready":"paused",detail:d.reader_boundary==="green"?`Boundary GREEN · ${d.reader_visible_tools??1} visible tool`:"Reader proof incomplete",what:"Narrow typed sensing only"},
-  {id:"forge",name:"Night Forge",role:"QA gate",state:forgeState(),detail:lastEvent("forge")?.detail||"Hourly safety and regression cycle",what:forgeState()==="working"?"Running gates before autonomous design":"Ready for next scheduled cycle"},
-  {id:"lab",name:"Build Lab",role:"Design Forge v3",state:buildLabState(),detail:a.last_mission?`Last build: ${a.last_mission}`:"Isolated candidate engineering",what:buildLabState()==="working"?`Building ${task?.title||"a candidate"}`:(a.scheduled?"Autonomous candidate generation is armed":"Candidate generation is paused")},
-  {id:"tick",name:"Tick",role:"Health + telemetry",state:statusClass(svc.tick),detail:lastEvent("tick")?.detail||"Deterministic refresh cycle",what:"Updates health, reports, telemetry, and HQ state"},
-  {id:"bridge",name:"Bridge",role:"GitHub sync",state:statusClass(svc.bridge),detail:lastEvent("bridge")?.detail||"Pull + publish lane",what:"Publishes sanitized HQ state"},
-  {id:"ollama",name:"Ollama",role:"Local inference",state:statusClass(svc.ollama),detail:S?.brain?.name||"Local model runtime",what:"Serves Kevin's local models"}
+  {id:"kevin",name:"Kevin",role:"Main coordinator",state:lane(avatarMode()==="working"?"working":(S?.health?.overall==="healthy"?"ready":"failed")),detail:disconnected?"Telemetry unavailable":task?.title||"Autonomous loop armed",what:disconnected?"Last known snapshot only · live state unknown":task?.title||"Autonomous build schedule armed"},
+  {id:"chat",name:"Chat",role:"Reasoning lane",state:lane("ready"),detail:disconnected?"Telemetry unavailable":`${S?.brain?.name||"Qwen"} · ${S?.brain?.context||"8K"} · tools off`,what:disconnected?"Last known snapshot only · live state unknown":"Fast local conversation and reasoning"},
+  {id:"reader",name:"Reader",role:"Read-only senses",state:lane(d.reader_boundary==="green"?"ready":"paused"),detail:disconnected?"Telemetry unavailable":(d.reader_boundary==="green"?`Boundary GREEN · ${d.reader_visible_tools??1} visible tool`:"Reader proof incomplete"),what:disconnected?"Last known snapshot only · live state unknown":"Narrow typed sensing only"},
+  {id:"forge",name:"Night Forge",role:"QA gate",state:lane(forgeState()),detail:disconnected?"Telemetry unavailable":lastEvent("forge")?.detail||"Hourly safety and regression cycle",what:disconnected?"Last known snapshot only · live state unknown":(forgeState()==="working"?"Running gates before autonomous design":"Ready for next scheduled cycle")},
+  {id:"lab",name:"Build Lab",role:"Design Forge v3",state:lane(buildLabState()),detail:disconnected?"Telemetry unavailable":(a.last_mission?`Last build: ${a.last_mission}`:"Isolated candidate engineering"),what:disconnected?"Last known snapshot only · live state unknown":(buildLabState()==="working"?`Building ${task?.title||"a candidate"}`:(a.scheduled?"Autonomous candidate generation is armed":"Candidate generation is paused"))},
+  {id:"tick",name:"Tick",role:"Health + telemetry",state:lane(statusClass(svc.tick)),detail:disconnected?"Telemetry unavailable":lastEvent("tick")?.detail||"Deterministic refresh cycle",what:disconnected?"Last known snapshot only · live state unknown":"Updates health, reports, telemetry, and HQ state"},
+  {id:"bridge",name:"Bridge",role:"GitHub sync",state:lane(statusClass(svc.bridge)),detail:disconnected?"Telemetry unavailable":lastEvent("bridge")?.detail||"Pull + publish lane",what:disconnected?"Last known snapshot only · live state unknown":"Publishes sanitized HQ state"},
+  {id:"ollama",name:"Ollama",role:"Local inference",state:lane(statusClass(svc.ollama)),detail:disconnected?"Telemetry unavailable":S?.brain?.name||"Local model runtime",what:disconnected?"Last known snapshot only · live state unknown":"Serves Kevin local models"}
  ]
 }
 function crewById(id){return crew().find(x=>x.id===id)||crew()[0]}
 function renderNav(){$("nav").innerHTML=TABS.map(([id,label])=>`<button class="navbtn ${tab===id?"on":""}" data-tab="${id}">${label}</button>`).join("");$("nav").onclick=e=>{const b=e.target.closest("[data-tab]");if(!b)return;tab=b.dataset.tab;location.hash=tab;renderNav();draw()}}
-function applyChrome(){const f=freshness(),lvl=avatarLevel(),mode=avatarMode();$("headerKevin").innerHTML=avatarSvg(lvl,mode,false);$("owlLabel").textContent=`Evolution ${lvl}/5 · ${mode==="working"?"working":mode==="degraded"?"needs attention":"ready"}`;$("wx").textContent=S?.weather?.summary||"";$("statusPill").textContent=`${String(S?.status||"unknown").toUpperCase()} · ${f.label}`;$("statusPill").className=`pill ${S?.health?.overall==="healthy"?"ok":"bad"}`;const d=S?.diagnostics||{},svc=S?.services||{};$("serviceRail").innerHTML=[serviceChip("Reader",d.reader_boundary==="green"?"green":"testing"),serviceChip("Night Forge",forgeState()),serviceChip("Build Lab",buildLabState()),serviceChip("Ollama",svc.ollama),serviceChip("Bridge",svc.bridge)].join("");$("foot").textContent=`Kevin HQ · ${f.text}`;$("foot2").textContent=`State schema ${S?.schema||"-"}`}
+function applyChrome(){
+ const f=freshness(),lvl=avatarLevel(),mode=avatarMode();
+ $("headerKevin").innerHTML=avatarSvg(lvl,mode,false);
+ $("owlLabel").textContent=`Evolution ${lvl}/5 · ${mode==="working"?"working":mode==="degraded"?"needs attention":mode==="disconnected"?"telemetry lost":"ready"}`;
+ $("wx").textContent=S?.weather?.summary||"";
+ $("statusPill").textContent=f.disconnected?`TELEMETRY · ${f.label}`:`${String(S?.status||"unknown").toUpperCase()} · ${f.label}`;
+ $("statusPill").className=`pill ${f.disconnected?"bad":S?.health?.overall==="healthy"?f.cls:"bad"}`;
+ const d=S?.diagnostics||{},svc=S?.services||{};
+ $("serviceRail").innerHTML=f.disconnected?serviceChip("Telemetry","disconnected"):[serviceChip("Reader",d.reader_boundary==="green"?"green":"testing"),serviceChip("Night Forge",forgeState()),serviceChip("Build Lab",buildLabState()),serviceChip("Ollama",svc.ollama),serviceChip("Bridge",svc.bridge)].join("");
+ $("foot").textContent=`Kevin HQ · ${f.text}`;
+ $("foot2").textContent=`State schema ${S?.schema||"-"}`;
+}
 function card(k,v,h=""){return`<div class="card"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div>${h?`<div class="h">${esc(h)}</div>`:""}</div>`}
 function bar(d,t){return`<div class="bar"><i style="width:${Math.max(0,Math.min(100,pct(d,t)))}%"></i></div>`}
 function queueHtml(limit=99){return sortedBuild().slice(0,limit).map((b,i)=>`<div class="qitem ${esc(b.state||"")}"><div class="qnum">${esc(b.order??i+1)}</div><div><div class="qname">${esc(b.label)}</div><div class="qdetail">${esc(b.detail||"")}</div></div><span class="st ${esc(b.state||"queued")}">${esc(b.state||"queued")}</span></div>`).join("")}
@@ -276,7 +305,7 @@ function chartHtml(){return`<div class="section-head"><div><div class="k">24-hou
 function drawChart(){const svg=$("chart"),tip=$("chartTip");if(!svg)return;const arr=pulseSamples(),L=58,R=20,T=18,B=42,W=1000,H=330,pw=W-L-R,ph=H-T-B;if(!arr.length){svg.innerHTML=`<text x="50%" y="50%" text-anchor="middle" class="axis">No telemetry yet</text>`;return}const x=i=>L+(arr.length===1?pw/2:i*pw/(arr.length-1)),y=v=>T+(100-Math.max(0,Math.min(100,Number(v||0))))*ph/100;let h="";[0,25,50,75,100].forEach(v=>{h+=`<line class="gridline" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="axis" x="${L-9}" y="${y(v)+4}" text-anchor="end">${v}%</text>`});const ticks=[0,.25,.5,.75,1].map(f=>Math.round(f*(arr.length-1)));ticks.forEach(i=>{h+=`<text class="axis" x="${x(i)}" y="${H-15}" text-anchor="middle">${esc(shortWhen(arr[i].at))}</text>`});[["ram","ramline"],["cpu","cpuline"],["gpu","gpuline"]].forEach(([k,c])=>{const pts=arr.map((s,i)=>Number.isFinite(Number(s[k]))?`${x(i)},${y(s[k])}`:null).filter(Boolean).join(" ");h+=`<polyline class="series ${c}" points="${pts}"/>`});h+=`<line id="hoverLine" class="hoverline" x1="0" x2="0" y1="${T}" y2="${H-B}" style="display:none"/><circle id="hr" class="hoverdot" r="4" fill="var(--ram)" style="display:none"/><circle id="hc" class="hoverdot" r="4" fill="var(--cpu)" style="display:none"/><circle id="hg" class="hoverdot" r="4" fill="var(--gpu)" style="display:none"/><rect id="chartHit" x="${L}" y="${T}" width="${pw}" height="${ph}" fill="transparent" style="cursor:crosshair"/>`;svg.innerHTML=h;const hit=$("chartHit"),line=$("hoverLine"),dots={ram:$("hr"),cpu:$("hc"),gpu:$("hg")};hit.onmousemove=e=>{const rect=svg.getBoundingClientRect(),px=(e.clientX-rect.left)*W/rect.width,idx=Math.max(0,Math.min(arr.length-1,Math.round((px-L)/pw*(arr.length-1)))),s=arr[idx],xx=x(idx);line.style.display="";line.setAttribute("x1",xx);line.setAttribute("x2",xx);Object.entries(dots).forEach(([k,d])=>{if(Number.isFinite(Number(s[k]))){d.style.display="";d.setAttribute("cx",xx);d.setAttribute("cy",y(s[k]))}else d.style.display="none"});tip.style.display="block";tip.innerHTML=`<b>${esc(when(s.at))}</b><br>RAM ${esc(s.ram??"-")}% · CPU ${esc(s.cpu??"-")}% · GPU ${esc(s.gpu??"-")}%${s.estimated?"<br><span style='color:var(--muted)'>historical timestamp reconstructed</span>":""}`;tip.style.left=Math.min(rect.width-190,Math.max(6,(e.clientX-rect.left)+12))+"px";tip.style.top=Math.max(6,(e.clientY-rect.top)-54)+"px"};hit.onmouseleave=()=>{line.style.display="none";Object.values(dots).forEach(d=>d.style.display="none");tip.style.display="none"}}
 function ops(){
  const c=crew(),positions={chat:[14,18],reader:[14,50],forge:[18,80],lab:[82,80],tick:[86,50],bridge:[86,18],ollama:[50,13]};
- return`<div class="ops-stack"><div class="card"><div class="section-head"><div><div class="k">Operations floor</div><div class="h">Real topology · animated only when a lane is actually working</div></div><div class="right">Build Lab is isolated R&D</div></div><div class="ops-scroll"><div class="ops-map" id="opsMap"><svg class="ops-lines" viewBox="0 0 100 100" preserveAspectRatio="none">${c.filter(x=>x.id!=="kevin").map(x=>{const p=positions[x.id]||[50,50],live=x.state==="working";return`<line class="${live?"live":""}" x1="50" y1="50" x2="${p[0]}" y2="${p[1]}"/>`}).join("")}</svg><div class="kevin-core">${avatarSvg(avatarLevel(),avatarMode(),true)}<div class="core-label">Kevin</div><div class="core-sub">${esc(S?.current_task?.title||"Autonomous build armed")}</div></div>${c.filter(x=>x.id!=="kevin").map(x=>{const p=positions[x.id]||[50,50];return`<button class="agent-node ${x.state}" data-id="${x.id}" style="left:${p[0]}%;top:${p[1]}%"><div class="name">${esc(x.name)}</div><div class="role">${esc(x.role)}</div><div class="tiny">${esc(String(x.state).toUpperCase())}</div></button>`}).join("")}</div></div></div><div class="card inspect" id="inspect"></div></div>`
+ return`<div class="ops-stack"><div class="card"><div class="section-head"><div><div class="k">Operations floor</div><div class="h">Real topology · animated only when a lane is actually working</div></div><div class="right">Build Lab is isolated R&D</div></div><div class="ops-scroll"><div class="ops-map" id="opsMap"><svg class="ops-lines" viewBox="0 0 100 100" preserveAspectRatio="none">${c.filter(x=>x.id!=="kevin").map(x=>{const p=positions[x.id]||[50,50],live=x.state==="working";return`<line class="${live?"live":""}" x1="50" y1="50" x2="${p[0]}" y2="${p[1]}"/>`}).join("")}</svg><div class="kevin-core">${avatarSvg(avatarLevel(),avatarMode(),true)}<div class="core-label">Kevin</div><div class="core-sub">${esc(freshness().disconnected?"Telemetry lost":S?.current_task?.title||"Autonomous build armed")}</div></div>${c.filter(x=>x.id!=="kevin").map(x=>{const p=positions[x.id]||[50,50];return`<button class="agent-node ${x.state}" data-id="${x.id}" style="left:${p[0]}%;top:${p[1]}%"><div class="name">${esc(x.name)}</div><div class="role">${esc(x.role)}</div><div class="tiny">${esc(String(x.state).toUpperCase())}</div></button>`}).join("")}</div></div></div><div class="card inspect" id="inspect"></div></div>`
 }
 function renderInspect(){
  const x=crewById(selectedCrew),a=forgeInfo(),e=lastEvent(x.id),isLab=x.id==="lab";
@@ -306,7 +335,21 @@ async function fetchState(){
   const bytes=Uint8Array.from(bin,c=>c.charCodeAt(0));
   return JSON.parse(new TextDecoder("utf-8").decode(bytes));
 }
-async function load(){try{S=await fetchState();renderNav();draw()}catch(e){$("main").innerHTML=`<div class="card"><div class="k">HQ state unavailable</div><div class="v">Waiting for Kevin</div><div class="h">${esc(e.message)}</div></div>`}}
+async function load(){
+ try{
+  S=await fetchState();
+  renderNav();
+  draw();
+ }catch(e){
+  if(S){
+   renderNav();
+   draw();
+   $("statusPill").title=`State refresh failed: ${e.message}`;
+  }else{
+   $("main").innerHTML=`<div class="card"><div class="k">HQ state unavailable</div><div class="v">Waiting for Kevin</div><div class="h">${esc(e.message)}</div></div>`;
+  }
+ }
+}
 load();setInterval(load,15000);
 </script>
 </body>
