@@ -1,7 +1,7 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T22:38:40-06:00",
-  "status": "working",
+  "generated_at": "2026-08-27T22:39:10-06:00",
+  "status": "idle",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,16 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: forge-v4",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-27T22:38:40-06:00",
-    "source": "forge"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -38,13 +29,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T10:56:50-06:00",
-        "estimated": true,
-        "ram": 44,
-        "cpu": 28,
-        "gpu": 1
-      },
       {
         "at": "2026-08-27T11:11:50-06:00",
         "estimated": true,
@@ -709,10 +693,16 @@
         "ram": 49,
         "cpu": 13,
         "gpu": 37
+      },
+      {
+        "at": "2026-08-27T22:39:10-06:00",
+        "estimated": false,
+        "ram": 49,
+        "cpu": 13,
+        "gpu": 37
       }
     ],
     "ram": [
-      44,
       46,
       45,
       46,
@@ -807,10 +797,10 @@
       49,
       49,
       49,
+      49,
       49
     ],
     "cpu": [
-      28,
       34,
       16,
       17,
@@ -905,10 +895,10 @@
       14,
       12,
       12,
+      13,
       13
     ],
     "gpu": [
-      1,
       1,
       1,
       0,
@@ -1003,6 +993,7 @@
       26,
       9,
       9,
+      37,
       37
     ]
   },
@@ -1156,6 +1147,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-27T22:39:10-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "quality gate: fewer than two tests",
+      "result": "fail",
+      "task_id": "design-forge",
+      "duration_ms": 30000
+    },
     {
       "at": "2026-08-27T22:38:40-06:00",
       "source": "forge",
@@ -1366,24 +1367,14 @@
       "detail": "Night Forge PASS 137649ms",
       "result": "pass",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-27T19:39:17-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: forge-v4",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 32000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T22:38:40-06:00",
+    "last": "2026-08-27T22:39:10-06:00",
     "source": "local runtime"
   },
   "self_check": {
