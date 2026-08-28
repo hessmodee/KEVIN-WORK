@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T19:05:14-06:00",
+  "generated_at": "2026-08-27T19:20:14-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 47,
-    "cpu_pct": 8,
+    "memory_pct": 46,
+    "cpu_pct": 1,
     "gpu": "RTX 3060",
-    "gpu_pct": 3
+    "gpu_pct": 0
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-26T23:56:50-06:00",
-        "estimated": true,
-        "ram": 59,
-        "cpu": 29,
-        "gpu": 1
-      },
       {
         "at": "2026-08-27T00:11:50-06:00",
         "estimated": true,
@@ -700,10 +693,16 @@
         "ram": 47,
         "cpu": 8,
         "gpu": 3
+      },
+      {
+        "at": "2026-08-27T19:20:14-06:00",
+        "estimated": false,
+        "ram": 46,
+        "cpu": 1,
+        "gpu": 0
       }
     ],
     "ram": [
-      59,
       58,
       58,
       59,
@@ -798,10 +797,10 @@
       47,
       47,
       47,
-      47
+      47,
+      46
     ],
     "cpu": [
-      29,
       23,
       23,
       21,
@@ -896,10 +895,10 @@
       14,
       14,
       8,
-      8
+      8,
+      1
     ],
     "gpu": [
-      1,
       2,
       2,
       0,
@@ -994,7 +993,8 @@
       0,
       0,
       3,
-      3
+      3,
+      0
     ]
   },
   "weather": {
@@ -1093,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 84,
-      "total": 85
+      "done": 85,
+      "total": 86
     }
   ],
   "roadmap": {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-08-27T19:05:14-06:00",
+      "at": "2026-08-27T19:20:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T19:05:14-06:00",
+    "last": "2026-08-27T19:20:14-06:00",
     "source": "local runtime"
   },
   "self_check": {
