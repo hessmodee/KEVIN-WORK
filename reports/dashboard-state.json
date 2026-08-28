@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-28T02:09:21-06:00",
+  "generated_at": "2026-08-28T02:09:56-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,13 +13,13 @@
     "tools": false
   },
   "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: reader-board",
+    "id": "overnight-expedition",
+    "title": "Overnight Expedition \u00b7 5/6 builds",
     "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-28T02:09:20-06:00",
+    "phase": "Cooldown after reader-weather i4 \u00b7 next attempt around 2:09 AM",
+    "completed": 5,
+    "total": 6,
+    "started_at": "2026-08-27T23:52:07.9208109-06:00",
     "source": "forge"
   },
   "services": {
@@ -38,13 +38,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T18:39:42-06:00",
-        "estimated": false,
-        "ram": 47,
-        "cpu": 14,
-        "gpu": 0
-      },
       {
         "at": "2026-08-27T18:50:14-06:00",
         "estimated": false,
@@ -709,10 +702,16 @@
         "ram": 46,
         "cpu": 2,
         "gpu": 34
+      },
+      {
+        "at": "2026-08-28T02:09:56-06:00",
+        "estimated": false,
+        "ram": 46,
+        "cpu": 2,
+        "gpu": 34
       }
     ],
     "ram": [
-      47,
       47,
       47,
       46,
@@ -807,10 +806,10 @@
       46,
       51,
       46,
+      46,
       46
     ],
     "cpu": [
-      14,
       8,
       8,
       1,
@@ -905,10 +904,10 @@
       11,
       11,
       16,
+      2,
       2
     ],
     "gpu": [
-      0,
       3,
       3,
       0,
@@ -1003,6 +1002,7 @@
       9,
       38,
       38,
+      34,
       34
     ]
   },
@@ -1156,6 +1156,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-28T02:09:56-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: reader-board",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 36000
+    },
     {
       "at": "2026-08-28T02:09:20-06:00",
       "source": "forge",
@@ -1369,15 +1379,6 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 27000
-    },
-    {
-      "at": "2026-08-27T23:47:00-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: reader-weather",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
@@ -1385,7 +1386,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-08-28T02:09:21-06:00",
+    "last": "2026-08-28T02:09:56-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1395,9 +1396,9 @@
   "autonomy": {
     "mode": "hourly_design",
     "state": "pass",
-    "last_mission": "reader-weather",
+    "last_mission": "reader-board",
     "iteration": 4,
-    "updated_at": "2026-08-28T01:49:17.8340623-06:00",
+    "updated_at": "2026-08-28T02:09:56.1794549-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1412,10 +1413,10 @@
     "candidate_forge": {
       "result": "pass",
       "mode": "design-forge-v3",
-      "last_mission": "reader-weather",
+      "last_mission": "reader-board",
       "iteration": 4,
-      "updated_at": "2026-08-28T01:49:17.8340623-06:00",
-      "next_index": 1,
+      "updated_at": "2026-08-28T02:09:56.1794549-06:00",
+      "next_index": 2,
       "scheduled": true,
       "promotion": "blocked"
     }
