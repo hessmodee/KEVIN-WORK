@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T23:53:27-06:00",
+  "generated_at": "2026-08-28T00:05:14-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -16,7 +16,7 @@
     "id": "overnight-expedition",
     "title": "Overnight Expedition \u00b7 0/6 builds",
     "category": "forge",
-    "phase": "Preparing first overnight build",
+    "phase": "Build failed safely \u00b7 cooldown before retry",
     "completed": 0,
     "total": 6,
     "started_at": "2026-08-27T23:52:07.9208109-06:00",
@@ -29,22 +29,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 53,
-    "cpu_pct": 19,
+    "memory_pct": 48,
+    "cpu_pct": 7,
     "gpu": "RTX 3060",
-    "gpu_pct": 32
+    "gpu_pct": 9
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T14:47:47-06:00",
-        "estimated": false,
-        "ram": 54,
-        "cpu": 29,
-        "gpu": 10
-      },
       {
         "at": "2026-08-27T14:50:14-06:00",
         "estimated": false,
@@ -709,10 +702,16 @@
         "ram": 53,
         "cpu": 19,
         "gpu": 32
+      },
+      {
+        "at": "2026-08-28T00:05:14-06:00",
+        "estimated": false,
+        "ram": 48,
+        "cpu": 7,
+        "gpu": 9
       }
     ],
     "ram": [
-      54,
       49,
       49,
       47,
@@ -807,10 +806,10 @@
       48,
       54,
       53,
-      53
+      53,
+      48
     ],
     "cpu": [
-      29,
       24,
       24,
       36,
@@ -905,10 +904,10 @@
       23,
       12,
       19,
-      19
+      19,
+      7
     ],
     "gpu": [
-      10,
       6,
       6,
       6,
@@ -1003,7 +1002,8 @@
       11,
       39,
       32,
-      32
+      32,
+      9
     ]
   },
   "weather": {
@@ -1102,8 +1102,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 92,
-      "total": 93
+      "done": 93,
+      "total": 94
     }
   ],
   "roadmap": {
@@ -1157,6 +1157,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-28T00:05:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-27T23:53:27-06:00",
       "source": "forge",
       "component": "forge",
@@ -1174,13 +1181,6 @@
       "detail": "Design Forge: reader-board",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-27T23:50:13-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-27T23:47:27-06:00",
@@ -1385,7 +1385,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-08-27T23:53:27-06:00",
+    "last": "2026-08-28T00:05:14-06:00",
     "source": "local runtime"
   },
   "self_check": {
