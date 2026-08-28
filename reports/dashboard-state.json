@@ -1,7 +1,7 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T21:53:00-06:00",
-  "status": "idle",
+  "generated_at": "2026-08-27T21:56:43-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,16 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "design-forge",
+    "title": "Overnight Expedition \u00b7 0/12 builds",
+    "category": "forge",
+    "phase": "Build failed safely \u00b7 cooldown before retry",
+    "completed": 0,
+    "total": 12,
+    "started_at": "2026-08-27T21:52:33.7948192-06:00",
+    "source": "forge"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -29,13 +38,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T07:56:50-06:00",
-        "estimated": true,
-        "ram": 54,
-        "cpu": 20,
-        "gpu": 0
-      },
       {
         "at": "2026-08-27T08:11:50-06:00",
         "estimated": true,
@@ -700,10 +702,16 @@
         "ram": 50,
         "cpu": 8,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-27T21:56:43-06:00",
+        "estimated": false,
+        "ram": 50,
+        "cpu": 8,
+        "gpu": 0
       }
     ],
     "ram": [
-      54,
       54,
       54,
       55,
@@ -798,10 +806,10 @@
       44,
       50,
       50,
+      50,
       50
     ],
     "cpu": [
-      20,
       12,
       16,
       16,
@@ -896,10 +904,10 @@
       7,
       31,
       8,
+      8,
       8
     ],
     "gpu": [
-      0,
       0,
       0,
       22,
@@ -993,6 +1001,7 @@
       22,
       22,
       18,
+      0,
       0,
       0
     ]
@@ -1371,10 +1380,10 @@
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-27T21:53:00-06:00",
+    "last": "2026-08-27T21:56:43-06:00",
     "source": "local runtime"
   },
   "self_check": {
