@@ -1,7 +1,7 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T12:38:51-06:00",
-  "status": "working",
+  "generated_at": "2026-08-28T12:39:22-06:00",
+  "status": "idle",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,24 +12,15 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: operator",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-28T12:38:51-06:00",
-    "source": "forge"
-  },
+  "current_task": null,
   "campaign": {
-    "active": true,
-    "id": "design-forge",
-    "title": "Design Forge: operator"
+    "active": false,
+    "id": null,
+    "title": null
   },
   "execution": {
-    "running": true,
-    "phase": "started",
+    "running": false,
+    "phase": null,
     "worker": null
   },
   "services": {
@@ -48,13 +39,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T01:48:45-06:00",
-        "estimated": false,
-        "ram": 46,
-        "cpu": 11,
-        "gpu": 9
-      },
       {
         "at": "2026-08-28T01:49:18-06:00",
         "estimated": false,
@@ -719,10 +703,16 @@
         "ram": 64,
         "cpu": 17,
         "gpu": 27
+      },
+      {
+        "at": "2026-08-28T12:39:22-06:00",
+        "estimated": false,
+        "ram": 64,
+        "cpu": 17,
+        "gpu": 27
       }
     ],
     "ram": [
-      46,
       46,
       51,
       46,
@@ -817,10 +807,10 @@
       62,
       64,
       64,
+      64,
       64
     ],
     "cpu": [
-      11,
       11,
       11,
       16,
@@ -915,10 +905,10 @@
       9,
       19,
       19,
+      17,
       17
     ],
     "gpu": [
-      9,
       9,
       38,
       38,
@@ -1013,6 +1003,7 @@
       0,
       11,
       11,
+      27,
       27
     ]
   },
@@ -1166,6 +1157,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-28T12:39:22-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: operator",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 31000
+    },
     {
       "at": "2026-08-28T12:38:51-06:00",
       "source": "forge",
@@ -1376,23 +1377,14 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 27000
-    },
-    {
-      "at": "2026-08-28T07:38:44-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: reader-weather",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T12:38:51-06:00",
+    "last": "2026-08-28T12:39:22-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1402,9 +1394,9 @@
   "autonomy": {
     "mode": "hourly_design",
     "state": "pass",
-    "last_mission": "knowledge",
+    "last_mission": "operator",
     "iteration": 5,
-    "updated_at": "2026-08-28T11:39:01.7999985-06:00",
+    "updated_at": "2026-08-28T12:39:22.4733347-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1419,10 +1411,10 @@
     "candidate_forge": {
       "result": "pass",
       "mode": "design-forge-v3",
-      "last_mission": "knowledge",
+      "last_mission": "operator",
       "iteration": 5,
-      "updated_at": "2026-08-28T11:39:01.7999985-06:00",
-      "next_index": 4,
+      "updated_at": "2026-08-28T12:39:22.4733347-06:00",
+      "next_index": 5,
       "scheduled": true,
       "promotion": "blocked"
     }
@@ -1438,11 +1430,6 @@
       "severity": "normal"
     },
     {
-      "id": "mission",
-      "text": "Design Forge: operator \u00b7 started",
-      "severity": "normal"
-    },
-    {
       "id": "roadmap",
       "text": "Next: Prove System Reader E2E",
       "severity": "normal"
@@ -1454,7 +1441,7 @@
     },
     {
       "id": "verified",
-      "text": "Verified: Night Forge PASS 122361ms",
+      "text": "Verified: Design Forge built candidate: operator",
       "severity": "success"
     }
   ],
@@ -1469,6 +1456,12 @@
       "at": "2026-08-26",
       "kind": "faculty",
       "label": "Chat 18/18",
+      "result": "pass"
+    },
+    {
+      "at": "2026-08-28T12:39:22-06:00",
+      "kind": "candidate",
+      "label": "candidate: operator i5",
       "result": "pass"
     },
     {
@@ -1535,12 +1528,6 @@
       "at": "2026-08-28T01:28:41-06:00",
       "kind": "candidate",
       "label": "candidate: forge-v4 i3",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T01:08:09-06:00",
-      "kind": "candidate",
-      "label": "candidate: operator i3",
       "result": "pass"
     }
   ]
