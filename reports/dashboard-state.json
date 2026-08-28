@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T22:39:10-06:00",
+  "generated_at": "2026-08-27T22:39:13-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -29,13 +29,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T11:11:50-06:00",
-        "estimated": true,
-        "ram": 46,
-        "cpu": 34,
-        "gpu": 1
-      },
       {
         "at": "2026-08-27T11:26:50-06:00",
         "estimated": true,
@@ -700,10 +693,16 @@
         "ram": 49,
         "cpu": 13,
         "gpu": 37
+      },
+      {
+        "at": "2026-08-27T22:39:13-06:00",
+        "estimated": false,
+        "ram": 49,
+        "cpu": 13,
+        "gpu": 37
       }
     ],
     "ram": [
-      46,
       45,
       46,
       46,
@@ -798,10 +797,10 @@
       49,
       49,
       49,
+      49,
       49
     ],
     "cpu": [
-      34,
       16,
       17,
       28,
@@ -896,10 +895,10 @@
       12,
       12,
       13,
+      13,
       13
     ],
     "gpu": [
-      1,
       1,
       0,
       1,
@@ -993,6 +992,7 @@
       26,
       9,
       9,
+      37,
       37,
       37
     ]
@@ -1147,6 +1147,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-27T22:39:13-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 131157ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
     {
       "at": "2026-08-27T22:39:10-06:00",
       "source": "forge",
@@ -1358,15 +1367,6 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-27T19:39:20-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Night Forge PASS 137649ms",
-      "result": "pass",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
@@ -1374,7 +1374,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T22:39:10-06:00",
+    "last": "2026-08-27T22:39:13-06:00",
     "source": "local runtime"
   },
   "self_check": {
