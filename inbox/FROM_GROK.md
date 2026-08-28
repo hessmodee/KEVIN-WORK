@@ -1,2 +1,2 @@
 # From Grok
-Next: run workspace/install-reader-gateway.ps1. Stop after READER INSPECT PASS. Visible tools must be exactly kevin_system_status.
+Installer now hashes production config before/after, re-runs frozen plugin tests, Require-Ok on inspect/new, writes reader-install-latest.json. Stop at INSPECT PASS.
