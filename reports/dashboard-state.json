@@ -1,7 +1,7 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T21:52:34-06:00",
-  "status": "working",
+  "generated_at": "2026-08-27T21:53:00-06:00",
+  "status": "idle",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,16 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: operator",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-27T21:52:34-06:00",
-    "source": "forge"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -38,13 +29,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T07:41:50-06:00",
-        "estimated": true,
-        "ram": 56,
-        "cpu": 25,
-        "gpu": 12
-      },
       {
         "at": "2026-08-27T07:56:50-06:00",
         "estimated": true,
@@ -709,10 +693,16 @@
         "ram": 50,
         "cpu": 8,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-27T21:53:00-06:00",
+        "estimated": false,
+        "ram": 50,
+        "cpu": 8,
+        "gpu": 0
       }
     ],
     "ram": [
-      56,
       54,
       54,
       54,
@@ -807,10 +797,10 @@
       44,
       44,
       50,
+      50,
       50
     ],
     "cpu": [
-      25,
       20,
       12,
       16,
@@ -905,10 +895,10 @@
       7,
       7,
       31,
+      8,
       8
     ],
     "gpu": [
-      12,
       0,
       0,
       0,
@@ -1003,6 +993,7 @@
       22,
       22,
       18,
+      0,
       0
     ]
   },
@@ -1156,6 +1147,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-27T21:53:00-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "candidate response contained no JSON object",
+      "result": "fail",
+      "task_id": "design-forge",
+      "duration_ms": 26000
+    },
     {
       "at": "2026-08-27T21:52:34-06:00",
       "source": "forge",
@@ -1366,23 +1367,14 @@
       "detail": "Design Forge: operator",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-27T18:37:02-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Night Forge cycle",
-      "result": "",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T21:52:34-06:00",
+    "last": "2026-08-27T21:53:00-06:00",
     "source": "local runtime"
   },
   "self_check": {
