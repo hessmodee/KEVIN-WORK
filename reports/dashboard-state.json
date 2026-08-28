@@ -1,7 +1,7 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T13:35:13-06:00",
-  "status": "idle",
+  "generated_at": "2026-08-28T13:37:02-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,15 +12,24 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "night-forge",
+    "title": "Night Forge cycle",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-28T13:37:02-06:00",
+    "source": "forge"
+  },
   "campaign": {
-    "active": false,
-    "id": null,
-    "title": null
+    "active": true,
+    "id": "night-forge",
+    "title": "Night Forge cycle"
   },
   "execution": {
-    "running": false,
-    "phase": null,
+    "running": true,
+    "phase": "started",
     "worker": null
   },
   "services": {
@@ -39,13 +48,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T02:37:02-06:00",
-        "estimated": false,
-        "ram": 46,
-        "cpu": 12,
-        "gpu": 0
-      },
       {
         "at": "2026-08-28T02:38:35-06:00",
         "estimated": false,
@@ -710,10 +712,16 @@
         "ram": 22,
         "cpu": 1,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-28T13:37:02-06:00",
+        "estimated": false,
+        "ram": 22,
+        "cpu": 1,
+        "gpu": 0
       }
     ],
     "ram": [
-      46,
       46,
       46,
       46,
@@ -808,10 +816,10 @@
       63,
       72,
       26,
+      22,
       22
     ],
     "cpu": [
-      12,
       12,
       12,
       12,
@@ -906,10 +914,10 @@
       36,
       20,
       0,
+      1,
       1
     ],
     "gpu": [
-      0,
       0,
       0,
       0,
@@ -1003,6 +1011,7 @@
       0,
       24,
       22,
+      0,
       0,
       0
     ]
@@ -1103,8 +1112,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 97,
-      "total": 98
+      "done": 96,
+      "total": 97
     }
   ],
   "roadmap": {
@@ -1157,6 +1166,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-28T13:37:02-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
     {
       "at": "2026-08-28T13:35:13-06:00",
       "component": "tick",
@@ -1367,23 +1385,14 @@
       "detail": "Checking system status",
       "result": "",
       "task_id": "system-status"
-    },
-    {
-      "at": "2026-08-28T07:39:14-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Night Forge PASS 132095ms",
-      "result": "pass",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-28T13:35:13-06:00",
+    "last": "2026-08-28T13:37:02-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1426,6 +1435,11 @@
     {
       "id": "weather",
       "text": "This Afternoon 82 | Wind 5 to 8 mph | Slight Chance Showers And Thunderstorms",
+      "severity": "normal"
+    },
+    {
+      "id": "mission",
+      "text": "Night Forge cycle \u00b7 started",
       "severity": "normal"
     },
     {
