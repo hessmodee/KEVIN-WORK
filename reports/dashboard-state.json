@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T13:39:26-06:00",
+  "generated_at": "2026-08-28T13:50:14-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -30,22 +30,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 22,
-    "cpu_pct": 0,
+    "memory_pct": 51,
+    "cpu_pct": 20,
     "gpu": "RTX 3060",
-    "gpu_pct": 0
+    "gpu_pct": 42
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T02:50:13-06:00",
-        "estimated": false,
-        "ram": 46,
-        "cpu": 8,
-        "gpu": 0
-      },
       {
         "at": "2026-08-28T03:05:14-06:00",
         "estimated": false,
@@ -710,10 +703,16 @@
         "ram": 22,
         "cpu": 0,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-28T13:50:14-06:00",
+        "estimated": false,
+        "ram": 51,
+        "cpu": 20,
+        "gpu": 42
       }
     ],
     "ram": [
-      46,
       46,
       46,
       47,
@@ -808,10 +807,10 @@
       22,
       22,
       22,
-      22
+      22,
+      51
     ],
     "cpu": [
-      8,
       11,
       7,
       11,
@@ -906,10 +905,10 @@
       1,
       0,
       0,
-      0
+      0,
+      20
     ],
     "gpu": [
-      0,
       0,
       0,
       0,
@@ -1004,7 +1003,8 @@
       0,
       0,
       0,
-      0
+      0,
+      42
     ]
   },
   "weather": {
@@ -1158,6 +1158,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-28T13:50:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-28T13:39:26-06:00",
       "source": "forge",
       "component": "forge",
@@ -1193,13 +1200,6 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-28T13:35:13-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-28T12:39:25-06:00",
@@ -1383,7 +1383,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T13:39:26-06:00",
+    "last": "2026-08-28T13:50:14-06:00",
     "source": "local runtime"
   },
   "self_check": {
