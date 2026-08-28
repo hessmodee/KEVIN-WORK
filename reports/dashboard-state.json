@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-28T00:13:30-06:00",
+  "generated_at": "2026-08-28T00:14:12-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,13 +13,13 @@
     "tools": false
   },
   "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: reader-board",
+    "id": "overnight-expedition",
+    "title": "Overnight Expedition \u00b7 0/6 builds",
     "category": "forge",
-    "phase": "started",
+    "phase": "Build failed safely \u00b7 cooldown before retry",
     "completed": 0,
-    "total": null,
-    "started_at": "2026-08-28T00:13:30-06:00",
+    "total": 6,
+    "started_at": "2026-08-27T23:52:07.9208109-06:00",
     "source": "forge"
   },
   "services": {
@@ -38,13 +38,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T14:53:53-06:00",
-        "estimated": false,
-        "ram": 49,
-        "cpu": 24,
-        "gpu": 6
-      },
       {
         "at": "2026-08-27T15:05:14-06:00",
         "estimated": false,
@@ -709,10 +702,16 @@
         "ram": 52,
         "cpu": 5,
         "gpu": 19
+      },
+      {
+        "at": "2026-08-28T00:14:12-06:00",
+        "estimated": false,
+        "ram": 52,
+        "cpu": 5,
+        "gpu": 19
       }
     ],
     "ram": [
-      49,
       47,
       47,
       50,
@@ -807,10 +806,10 @@
       53,
       53,
       48,
+      52,
       52
     ],
     "cpu": [
-      24,
       36,
       36,
       19,
@@ -905,10 +904,10 @@
       19,
       19,
       7,
+      5,
       5
     ],
     "gpu": [
-      6,
       6,
       6,
       15,
@@ -1003,6 +1002,7 @@
       32,
       32,
       9,
+      19,
       19
     ]
   },
@@ -1156,6 +1156,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-28T00:14:12-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: reader-board",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 42000
+    },
     {
       "at": "2026-08-28T00:13:30-06:00",
       "source": "forge",
@@ -1368,16 +1378,6 @@
       "detail": "Design Forge: operator",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-27T21:53:00-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "candidate response contained no JSON object",
-      "result": "fail",
-      "task_id": "design-forge",
-      "duration_ms": 26000
     }
   ],
   "owl": {
@@ -1385,7 +1385,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-08-28T00:13:30-06:00",
+    "last": "2026-08-28T00:14:12-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1395,9 +1395,9 @@
   "autonomy": {
     "mode": "hourly_design",
     "state": "pass",
-    "last_mission": "reader-weather",
+    "last_mission": "reader-board",
     "iteration": 3,
-    "updated_at": "2026-08-27T23:47:27.7266699-06:00",
+    "updated_at": "2026-08-28T00:14:12.0850871-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1412,10 +1412,10 @@
     "candidate_forge": {
       "result": "pass",
       "mode": "design-forge-v3",
-      "last_mission": "reader-weather",
+      "last_mission": "reader-board",
       "iteration": 3,
-      "updated_at": "2026-08-27T23:47:27.7266699-06:00",
-      "next_index": 1,
+      "updated_at": "2026-08-28T00:14:12.0850871-06:00",
+      "next_index": 2,
       "scheduled": true,
       "promotion": "blocked"
     }
