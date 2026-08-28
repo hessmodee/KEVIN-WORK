@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-28T01:37:02-06:00",
+  "generated_at": "2026-08-28T01:38:40-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,13 +13,13 @@
     "tools": false
   },
   "current_task": {
-    "id": "night-forge",
-    "title": "Night Forge cycle",
+    "id": "design-forge",
+    "title": "Design Forge: reader-weather",
     "category": "forge",
     "phase": "started",
     "completed": 0,
     "total": null,
-    "started_at": "2026-08-28T01:37:01-06:00",
+    "started_at": "2026-08-28T01:38:40-06:00",
     "source": "forge"
   },
   "services": {
@@ -30,21 +30,14 @@
   },
   "system": {
     "memory_pct": 45,
-    "cpu_pct": 13,
+    "cpu_pct": 3,
     "gpu": "RTX 3060",
-    "gpu_pct": 41
+    "gpu_pct": 34
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T17:43:22-06:00",
-        "estimated": false,
-        "ram": 45,
-        "cpu": 27,
-        "gpu": 29
-      },
       {
         "at": "2026-08-27T17:50:14-06:00",
         "estimated": false,
@@ -709,10 +702,16 @@
         "ram": 45,
         "cpu": 13,
         "gpu": 41
+      },
+      {
+        "at": "2026-08-28T01:38:40-06:00",
+        "estimated": false,
+        "ram": 45,
+        "cpu": 3,
+        "gpu": 34
       }
     ],
     "ram": [
-      45,
       48,
       46,
       47,
@@ -807,10 +806,10 @@
       45,
       45,
       45,
+      45,
       45
     ],
     "cpu": [
-      27,
       12,
       8,
       24,
@@ -905,10 +904,10 @@
       13,
       13,
       13,
-      13
+      13,
+      3
     ],
     "gpu": [
-      29,
       7,
       0,
       6,
@@ -1003,7 +1002,8 @@
       38,
       38,
       41,
-      41
+      41,
+      34
     ]
   },
   "weather": {
@@ -1156,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-28T01:38:40-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: reader-weather",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-28T01:37:01-06:00",
       "source": "forge",
@@ -1369,15 +1378,6 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 28000
-    },
-    {
-      "at": "2026-08-27T23:27:04-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: operator",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
@@ -1385,7 +1385,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-08-28T01:37:02-06:00",
+    "last": "2026-08-28T01:38:40-06:00",
     "source": "local runtime"
   },
   "self_check": {
