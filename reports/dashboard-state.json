@@ -1,7 +1,7 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T22:20:57-06:00",
-  "status": "idle",
+  "generated_at": "2026-08-27T22:21:01-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,16 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "design-forge",
+    "title": "Design Forge: operator",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-27T22:21:01-06:00",
+    "source": "forge"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -21,21 +30,14 @@
   },
   "system": {
     "memory_pct": 49,
-    "cpu_pct": 18,
+    "cpu_pct": 14,
     "gpu": "RTX 3060",
-    "gpu_pct": 31
+    "gpu_pct": 26
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T09:26:50-06:00",
-        "estimated": true,
-        "ram": 54,
-        "cpu": 16,
-        "gpu": 0
-      },
       {
         "at": "2026-08-27T09:41:50-06:00",
         "estimated": true,
@@ -700,10 +702,16 @@
         "ram": 49,
         "cpu": 18,
         "gpu": 31
+      },
+      {
+        "at": "2026-08-27T22:21:01-06:00",
+        "estimated": false,
+        "ram": 49,
+        "cpu": 14,
+        "gpu": 26
       }
     ],
     "ram": [
-      54,
       54,
       55,
       96,
@@ -798,10 +806,10 @@
       46,
       49,
       49,
+      49,
       49
     ],
     "cpu": [
-      16,
       25,
       23,
       35,
@@ -896,10 +904,10 @@
       4,
       12,
       18,
-      18
+      18,
+      14
     ],
     "gpu": [
-      0,
       1,
       1,
       2,
@@ -994,7 +1002,8 @@
       37,
       34,
       31,
-      31
+      31,
+      26
     ]
   },
   "weather": {
@@ -1147,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-27T22:21:01-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: operator",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-27T22:20:13-06:00",
       "component": "tick",
@@ -1357,24 +1375,14 @@
       "detail": "Night Forge PASS 159584ms",
       "result": "pass",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-27T18:39:38-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: operator",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 26000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-27T22:20:57-06:00",
+    "last": "2026-08-27T22:21:01-06:00",
     "source": "local runtime"
   },
   "self_check": {
