@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T08:39:40-06:00",
+  "generated_at": "2026-08-28T08:53:41-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -30,29 +30,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 60,
-    "cpu_pct": 21,
+    "memory_pct": 61,
+    "cpu_pct": 39,
     "gpu": "RTX 3060",
-    "gpu_pct": 48
+    "gpu_pct": 25
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T23:27:32-06:00",
-        "estimated": false,
-        "ram": 53,
-        "cpu": 11,
-        "gpu": 17
-      },
-      {
-        "at": "2026-08-27T23:35:14-06:00",
-        "estimated": false,
-        "ram": 52,
-        "cpu": 14,
-        "gpu": 0
-      },
       {
         "at": "2026-08-27T23:37:02-06:00",
         "estimated": false,
@@ -710,11 +696,23 @@
         "ram": 60,
         "cpu": 21,
         "gpu": 48
+      },
+      {
+        "at": "2026-08-28T08:50:33-06:00",
+        "estimated": false,
+        "ram": 61,
+        "cpu": 39,
+        "gpu": 25
+      },
+      {
+        "at": "2026-08-28T08:53:41-06:00",
+        "estimated": false,
+        "ram": 61,
+        "cpu": 39,
+        "gpu": 25
       }
     ],
     "ram": [
-      53,
-      52,
       52,
       51,
       51,
@@ -808,11 +806,11 @@
       59,
       60,
       60,
-      60
+      60,
+      61,
+      61
     ],
     "cpu": [
-      11,
-      14,
       14,
       10,
       10,
@@ -906,11 +904,11 @@
       18,
       21,
       21,
-      21
+      21,
+      39,
+      39
     ],
     "gpu": [
-      17,
-      0,
       0,
       1,
       1,
@@ -1004,7 +1002,9 @@
       11,
       48,
       48,
-      48
+      48,
+      25,
+      25
     ]
   },
   "weather": {
@@ -1103,8 +1103,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 92,
-      "total": 93
+      "done": 93,
+      "total": 94
     }
   ],
   "roadmap": {
@@ -1158,6 +1158,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-28T08:53:41-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-28T08:39:40-06:00",
       "source": "forge",
       "component": "forge",
@@ -1193,13 +1200,6 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-28T08:35:13-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-28T08:27:31-06:00",
@@ -1383,7 +1383,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T08:39:40-06:00",
+    "last": "2026-08-28T08:53:41-06:00",
     "source": "local runtime"
   },
   "self_check": {
