@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T09:40:13-06:00",
+  "generated_at": "2026-08-28T09:40:15-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -39,13 +39,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T00:05:14-06:00",
-        "estimated": false,
-        "ram": 48,
-        "cpu": 7,
-        "gpu": 9
-      },
       {
         "at": "2026-08-28T00:13:30-06:00",
         "estimated": false,
@@ -710,10 +703,16 @@
         "ram": 63,
         "cpu": 25,
         "gpu": 47
+      },
+      {
+        "at": "2026-08-28T09:40:15-06:00",
+        "estimated": false,
+        "ram": 63,
+        "cpu": 25,
+        "gpu": 47
       }
     ],
     "ram": [
-      48,
       52,
       52,
       47,
@@ -805,13 +804,13 @@
       62,
       62,
       61,
+      63,
       63,
       63,
       63,
       63
     ],
     "cpu": [
-      7,
       5,
       5,
       11,
@@ -906,10 +905,10 @@
       16,
       16,
       25,
+      25,
       25
     ],
     "gpu": [
-      9,
       19,
       19,
       9,
@@ -1003,6 +1002,7 @@
       27,
       25,
       25,
+      47,
       47,
       47
     ]
@@ -1157,6 +1157,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-28T09:40:15-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 193557ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
     {
       "at": "2026-08-28T09:40:13-06:00",
       "source": "forge",
@@ -1367,16 +1376,6 @@
       "detail": "Night Forge PASS 180804ms",
       "result": "pass",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-28T04:40:00-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "quality gate: candidate file content too small",
-      "result": "fail",
-      "task_id": "design-forge",
-      "duration_ms": 22000
     }
   ],
   "owl": {
@@ -1384,7 +1383,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T09:40:13-06:00",
+    "last": "2026-08-28T09:40:15-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1441,7 +1440,7 @@
     },
     {
       "id": "verified",
-      "text": "Verified: Night Forge PASS 158594ms",
+      "text": "Verified: Night Forge PASS 193557ms",
       "severity": "success"
     }
   ],
