@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T12:39:22-06:00",
+  "generated_at": "2026-08-28T12:39:25-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -39,13 +39,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T01:49:18-06:00",
-        "estimated": false,
-        "ram": 46,
-        "cpu": 11,
-        "gpu": 9
-      },
       {
         "at": "2026-08-28T01:50:13-06:00",
         "estimated": false,
@@ -710,10 +703,16 @@
         "ram": 64,
         "cpu": 17,
         "gpu": 27
+      },
+      {
+        "at": "2026-08-28T12:39:25-06:00",
+        "estimated": false,
+        "ram": 64,
+        "cpu": 17,
+        "gpu": 27
       }
     ],
     "ram": [
-      46,
       51,
       46,
       46,
@@ -808,10 +807,10 @@
       64,
       64,
       64,
+      64,
       64
     ],
     "cpu": [
-      11,
       11,
       16,
       2,
@@ -906,10 +905,10 @@
       19,
       19,
       17,
+      17,
       17
     ],
     "gpu": [
-      9,
       38,
       38,
       34,
@@ -1003,6 +1002,7 @@
       0,
       11,
       11,
+      27,
       27,
       27
     ]
@@ -1157,6 +1157,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-28T12:39:25-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 143138ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
     {
       "at": "2026-08-28T12:39:22-06:00",
       "source": "forge",
@@ -1367,16 +1376,6 @@
       "detail": "Night Forge PASS 132095ms",
       "result": "pass",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-28T07:39:11-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: reader-weather",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 27000
     }
   ],
   "owl": {
@@ -1384,7 +1383,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T12:39:22-06:00",
+    "last": "2026-08-28T12:39:25-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1441,7 +1440,7 @@
     },
     {
       "id": "verified",
-      "text": "Verified: Design Forge built candidate: operator",
+      "text": "Verified: Night Forge PASS 143138ms",
       "severity": "success"
     }
   ],
