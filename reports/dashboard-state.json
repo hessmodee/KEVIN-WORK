@@ -1,7 +1,7 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T21:39:17-06:00",
-  "status": "idle",
+  "generated_at": "2026-08-27T21:48:48-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,16 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "design-forge",
+    "title": "Design Forge: knowledge",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-27T21:48:48-06:00",
+    "source": "forge"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -29,13 +38,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T06:41:50-06:00",
-        "estimated": true,
-        "ram": 56,
-        "cpu": 26,
-        "gpu": 1
-      },
       {
         "at": "2026-08-27T06:56:50-06:00",
         "estimated": true,
@@ -700,10 +702,16 @@
         "ram": 44,
         "cpu": 7,
         "gpu": 22
+      },
+      {
+        "at": "2026-08-27T21:48:48-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 7,
+        "gpu": 22
       }
     ],
     "ram": [
-      56,
       56,
       56,
       56,
@@ -798,10 +806,10 @@
       44,
       44,
       44,
+      44,
       44
     ],
     "cpu": [
-      26,
       36,
       36,
       23,
@@ -896,10 +904,10 @@
       5,
       7,
       7,
+      7,
       7
     ],
     "gpu": [
-      1,
       2,
       2,
       13,
@@ -992,6 +1000,7 @@
       6,
       0,
       0,
+      22,
       22,
       22,
       22
@@ -1093,8 +1102,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 93,
-      "total": 94
+      "done": 92,
+      "total": 93
     }
   ],
   "roadmap": {
@@ -1147,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-27T21:48:48-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: knowledge",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-27T21:39:17-06:00",
       "source": "forge",
@@ -1357,23 +1375,14 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 33000
-    },
-    {
-      "at": "2026-08-27T15:40:40-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: knowledge",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-27T21:39:17-06:00",
+    "last": "2026-08-27T21:48:48-06:00",
     "source": "local runtime"
   },
   "self_check": {
