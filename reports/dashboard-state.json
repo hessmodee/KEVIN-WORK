@@ -1,7 +1,7 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T22:13:03-06:00",
-  "status": "working",
+  "generated_at": "2026-08-27T22:20:57-06:00",
+  "status": "idle",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,16 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: operator",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-27T22:13:03-06:00",
-    "source": "forge"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -30,28 +21,14 @@
   },
   "system": {
     "memory_pct": 49,
-    "cpu_pct": 12,
+    "cpu_pct": 18,
     "gpu": "RTX 3060",
-    "gpu_pct": 34
+    "gpu_pct": 31
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T08:56:50-06:00",
-        "estimated": true,
-        "ram": 55,
-        "cpu": 20,
-        "gpu": 6
-      },
-      {
-        "at": "2026-08-27T09:11:50-06:00",
-        "estimated": true,
-        "ram": 55,
-        "cpu": 13,
-        "gpu": 6
-      },
       {
         "at": "2026-08-27T09:26:50-06:00",
         "estimated": true,
@@ -709,11 +686,23 @@
         "ram": 49,
         "cpu": 12,
         "gpu": 34
+      },
+      {
+        "at": "2026-08-27T22:20:13-06:00",
+        "estimated": false,
+        "ram": 49,
+        "cpu": 18,
+        "gpu": 31
+      },
+      {
+        "at": "2026-08-27T22:20:57-06:00",
+        "estimated": false,
+        "ram": 49,
+        "cpu": 18,
+        "gpu": 31
       }
     ],
     "ram": [
-      55,
-      55,
       54,
       54,
       55,
@@ -807,11 +796,11 @@
       50,
       50,
       46,
+      49,
+      49,
       49
     ],
     "cpu": [
-      20,
-      13,
       16,
       25,
       23,
@@ -905,11 +894,11 @@
       8,
       8,
       4,
-      12
+      12,
+      18,
+      18
     ],
     "gpu": [
-      6,
-      6,
       0,
       1,
       1,
@@ -1003,7 +992,9 @@
       0,
       0,
       37,
-      34
+      34,
+      31,
+      31
     ]
   },
   "weather": {
@@ -1157,6 +1148,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-27T22:20:13-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-27T22:13:03-06:00",
       "source": "forge",
       "component": "forge",
@@ -1164,13 +1162,6 @@
       "detail": "Design Forge: operator",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-27T22:05:13-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-27T21:53:00-06:00",
@@ -1380,10 +1371,10 @@
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T22:13:03-06:00",
+    "last": "2026-08-27T22:20:57-06:00",
     "source": "local runtime"
   },
   "self_check": {
