@@ -127,6 +127,13 @@
     .talk-state{display:inline-flex;margin-top:12px;padding:5px 9px;border-radius:999px;border:1px solid rgba(213,173,104,.3);color:var(--gold);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
     .architecture-note{border-left:2px solid rgba(143,170,130,.35);padding-left:12px;margin-top:14px}
     @media(max-width:700px){.work-grid{grid-template-columns:1fr}.talk-btn{width:100%}}
+    .attention{display:none;margin:12px 0 0;padding:11px 14px;border-radius:14px;border:1px solid transparent;align-items:flex-start;gap:10px}
+    .attention.show{display:flex}
+    .attention.caution{background:rgba(213,173,104,.12);border-color:rgba(213,173,104,.4);color:var(--gold)}
+    .attention.fail{background:rgba(211,109,91,.14);border-color:rgba(211,109,91,.45);color:#f0b2a8}
+    .attention .attn-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+    .attention ul{margin:6px 0 0;padding:0 0 0 18px}
+    .attention li{color:var(--fg);font-size:13px;line-height:1.45}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
   </style>
 </head>
@@ -146,6 +153,7 @@
       <span class="pill" id="statusPill">...</span>
     </div>
   </header>
+  <div id="attentionBanner" class="attention" hidden></div>
   <div class="service-rail" id="serviceRail"></div>
   <nav id="nav"></nav>
   <main id="main"></main>
@@ -298,6 +306,67 @@ function crew(){
 }
 function crewById(id){return crew().find(x=>x.id===id)||crew()[0]}
 function renderNav(){$("nav").innerHTML=TABS.map(([id,label])=>`<button class="navbtn ${tab===id?"on":""}" data-tab="${id}">${label}</button>`).join("");$("nav").onclick=e=>{const b=e.target.closest("[data-tab]");if(!b)return;tab=b.dataset.tab;location.hash=tab;renderNav();draw()}}
+function deriveAttention(){
+  if(S?.attention && typeof S.attention.level==="string"){
+    const items=Array.isArray(S.attention.items)?S.attention.items:[];
+    return {level:S.attention.level, items};
+  }
+  const items=[];
+  const push=(id,label,level)=>items.push({id,label,level});
+  const health=S?.health||{};
+  const overall=String(health.overall||"").toLowerCase();
+  const fails=Number(health.failed_checks||0);
+  if((overall && overall!=="healthy") || fails>0){
+    push("health", fails>0?`${fails} check(s) failed`:"System health is not healthy", fails>0?"fail":(overall==="degraded"?"caution":"fail"));
+  }
+  const svc=S?.services||{};
+  const ollama=String(svc.ollama||"").toLowerCase();
+  if(ollama && ollama!=="healthy"){
+    push("ollama","Ollama is not healthy",["unhealthy","fail","failed","down"].includes(ollama)?"fail":"caution");
+  }
+  const gateway=String(svc.gateway||"").toLowerCase();
+  if(gateway && gateway!=="healthy"){
+    push("gateway","Gateway is not healthy",["unhealthy","fail","failed","down"].includes(gateway)?"fail":"caution");
+  }
+  const df=[];
+  for(const e of sortedActivity()){
+    const task=String(e.task_id||"").toLowerCase();
+    const detail=String(e.detail||"").toLowerCase();
+    const event=String(e.event||"").toLowerCase();
+    if(!(task==="design-forge" || detail.includes("design forge"))) continue;
+    if(event==="task_start") continue;
+    const result=String(e.result||"").toLowerCase().trim();
+    if(!result) continue;
+    df.push(result);
+  }
+  if(df.length>=3 && df.slice(0,3).every(r=>r==="fail"||r==="failed")){
+    push("design_forge_streak","Design Forge failed 3 times in a row","fail");
+  }
+  const running=typeof S?.execution?.running==="boolean"?S.execution.running:isExecuting();
+  const active=!!(S?.campaign?.active || S?.current_task);
+  const phase=String(S?.execution?.phase || S?.current_task?.phase || "");
+  if(!running && active && /fail|blocked/i.test(phase)){
+    push("campaign_blocked", /fail/i.test(phase)?"Active campaign failed":"Active campaign is blocked","fail");
+  }
+  let level="none";
+  if(items.some(i=>i.level==="fail")) level="fail";
+  else if(items.length) level="caution";
+  return {level, items:items.map(i=>({id:i.id,label:i.label}))};
+}
+function renderAttention(){
+  const el=$("attentionBanner");
+  if(!el) return;
+  const a=deriveAttention();
+  if(!a || a.level==="none" || !(a.items||[]).length){
+    el.hidden=true;
+    el.className="attention";
+    el.innerHTML="";
+    return;
+  }
+  el.hidden=false;
+  el.className="attention show "+(a.level==="fail"?"fail":"caution");
+  el.innerHTML=`<div><div class="attn-title">Needs attention</div><ul>${(a.items||[]).map(i=>`<li>${esc(i.label||i.id)}</li>`).join("")}</ul></div>`;
+}
 function applyChrome(){
  const f=freshness(),lvl=avatarLevel(),mode=avatarMode();
  $("headerKevin").innerHTML=avatarSvg(lvl,mode,false);
@@ -309,6 +378,7 @@ function applyChrome(){
  $("serviceRail").innerHTML=f.disconnected?serviceChip("Telemetry","disconnected"):[serviceChip("Reader",d.reader_boundary==="green"?"green":"testing"),serviceChip("Night Forge",forgeState()),serviceChip("Build Lab",buildLabState()),serviceChip("Ollama",svc.ollama),serviceChip("Bridge",svc.bridge)].join("");
  $("foot").textContent=`Kevin HQ · ${f.text}`;
  $("foot2").textContent=`State schema ${S?.schema||"-"}`;
+ renderAttention();
 }
 function card(k,v,h=""){return`<div class="card"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div>${h?`<div class="h">${esc(h)}</div>`:""}</div>`}
 function bar(d,t){return`<div class="bar"><i style="width:${Math.max(0,Math.min(100,pct(d,t)))}%"></i></div>`}
