@@ -1,6 +1,6 @@
 {
   "schema": 3,
-  "generated_at": "2026-08-27T20:39:21-06:00",
+  "generated_at": "2026-08-27T20:50:14-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 43,
-    "cpu_pct": 9,
+    "memory_pct": 45,
+    "cpu_pct": 19,
     "gpu": "RTX 3060",
-    "gpu_pct": 8
+    "gpu_pct": 6
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-27T03:26:50-06:00",
-        "estimated": true,
-        "ram": 56,
-        "cpu": 36,
-        "gpu": 1
-      },
       {
         "at": "2026-08-27T03:41:50-06:00",
         "estimated": true,
@@ -700,10 +693,16 @@
         "ram": 43,
         "cpu": 9,
         "gpu": 8
+      },
+      {
+        "at": "2026-08-27T20:50:14-06:00",
+        "estimated": false,
+        "ram": 45,
+        "cpu": 19,
+        "gpu": 6
       }
     ],
     "ram": [
-      56,
       56,
       56,
       56,
@@ -798,10 +797,10 @@
       42,
       43,
       43,
-      43
+      43,
+      45
     ],
     "cpu": [
-      36,
       23,
       28,
       28,
@@ -896,10 +895,10 @@
       11,
       9,
       9,
-      9
+      9,
+      19
     ],
     "gpu": [
-      1,
       6,
       1,
       1,
@@ -994,7 +993,8 @@
       0,
       8,
       8,
-      8
+      8,
+      6
     ]
   },
   "weather": {
@@ -1093,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 90,
-      "total": 91
+      "done": 91,
+      "total": 92
     }
   ],
   "roadmap": {
@@ -1148,6 +1148,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-27T20:50:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-27T20:39:21-06:00",
       "source": "forge",
       "component": "forge",
@@ -1183,13 +1190,6 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-27T20:35:15-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-27T19:39:20-06:00",
@@ -1373,7 +1373,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-27T20:39:21-06:00",
+    "last": "2026-08-27T20:50:14-06:00",
     "source": "local runtime"
   },
   "self_check": {
