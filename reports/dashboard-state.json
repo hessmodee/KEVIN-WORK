@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T23:50:14-06:00",
+  "generated_at": "2026-08-28T23:57:03-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -38,57 +38,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 73,
-    "cpu_pct": 6,
+    "memory_pct": 74,
+    "cpu_pct": 7,
     "gpu": "RTX 3060",
-    "gpu_pct": 23
+    "gpu_pct": 6
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T14:37:01-06:00",
-        "estimated": false,
-        "ram": 54,
-        "cpu": 24,
-        "gpu": 31
-      },
-      {
-        "at": "2026-08-28T14:39:00-06:00",
-        "estimated": false,
-        "ram": 53,
-        "cpu": 15,
-        "gpu": 37
-      },
-      {
-        "at": "2026-08-28T14:39:33-06:00",
-        "estimated": false,
-        "ram": 53,
-        "cpu": 15,
-        "gpu": 37
-      },
-      {
-        "at": "2026-08-28T14:39:34-06:00",
-        "estimated": false,
-        "ram": 53,
-        "cpu": 15,
-        "gpu": 37
-      },
-      {
-        "at": "2026-08-28T14:50:14-06:00",
-        "estimated": false,
-        "ram": 52,
-        "cpu": 23,
-        "gpu": 31
-      },
-      {
-        "at": "2026-08-28T15:05:13-06:00",
-        "estimated": false,
-        "ram": 52,
-        "cpu": 10,
-        "gpu": 35
-      },
       {
         "at": "2026-08-28T15:20:13-06:00",
         "estimated": false,
@@ -718,15 +676,51 @@
         "ram": 73,
         "cpu": 6,
         "gpu": 23
+      },
+      {
+        "at": "2026-08-28T23:50:48-06:00",
+        "estimated": false,
+        "ram": 73,
+        "cpu": 10,
+        "gpu": 22
+      },
+      {
+        "at": "2026-08-28T23:51:12-06:00",
+        "estimated": false,
+        "ram": 73,
+        "cpu": 10,
+        "gpu": 22
+      },
+      {
+        "at": "2026-08-28T23:53:48-06:00",
+        "estimated": false,
+        "ram": 73,
+        "cpu": 10,
+        "gpu": 15
+      },
+      {
+        "at": "2026-08-28T23:54:05-06:00",
+        "estimated": false,
+        "ram": 73,
+        "cpu": 10,
+        "gpu": 15
+      },
+      {
+        "at": "2026-08-28T23:56:48-06:00",
+        "estimated": false,
+        "ram": 74,
+        "cpu": 7,
+        "gpu": 6
+      },
+      {
+        "at": "2026-08-28T23:57:03-06:00",
+        "estimated": false,
+        "ram": 74,
+        "cpu": 7,
+        "gpu": 6
       }
     ],
     "ram": [
-      54,
-      53,
-      53,
-      53,
-      52,
-      52,
       53,
       54,
       54,
@@ -816,15 +810,15 @@
       77,
       70,
       70,
-      73
+      73,
+      73,
+      73,
+      73,
+      73,
+      74,
+      74
     ],
     "cpu": [
-      24,
-      15,
-      15,
-      15,
-      23,
-      10,
       19,
       29,
       29,
@@ -914,15 +908,15 @@
       11,
       7,
       7,
-      6
+      6,
+      10,
+      10,
+      10,
+      10,
+      7,
+      7
     ],
     "gpu": [
-      31,
-      37,
-      37,
-      37,
-      31,
-      35,
       34,
       33,
       33,
@@ -1012,7 +1006,13 @@
       7,
       7,
       7,
-      23
+      23,
+      22,
+      22,
+      15,
+      15,
+      6,
+      6
     ]
   },
   "weather": {
@@ -1165,6 +1165,63 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-28T23:57:03-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "quality gate: candidate file content too small",
+      "result": "fail",
+      "task_id": "design-forge",
+      "duration_ms": 15000
+    },
+    {
+      "at": "2026-08-28T23:56:48-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: forge-v4",
+      "result": "",
+      "task_id": "design-forge"
+    },
+    {
+      "at": "2026-08-28T23:54:05-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: knowledge",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 17000
+    },
+    {
+      "at": "2026-08-28T23:53:48-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: knowledge",
+      "result": "",
+      "task_id": "design-forge"
+    },
+    {
+      "at": "2026-08-28T23:51:12-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: operator",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 24000
+    },
+    {
+      "at": "2026-08-28T23:50:48-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: operator",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-28T23:50:14-06:00",
       "component": "tick",
@@ -1331,63 +1388,6 @@
       "detail": "Night Forge PASS 121114ms",
       "result": "pass",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-28T22:39:00-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: forge-v4",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 22000
-    },
-    {
-      "at": "2026-08-28T22:38:38-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: forge-v4",
-      "result": "",
-      "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-28T22:37:01-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Night Forge cycle",
-      "result": "",
-      "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-28T22:29:00-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: operator",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 35000
-    },
-    {
-      "at": "2026-08-28T22:28:25-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: operator",
-      "result": "",
-      "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-28T22:08:20-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: knowledge",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 42000
     }
   ],
   "owl": {
@@ -1395,7 +1395,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T23:50:14-06:00",
+    "last": "2026-08-28T23:57:03-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1406,8 +1406,8 @@
     "mode": "hourly_design",
     "state": "pass",
     "last_mission": "knowledge",
-    "iteration": 8,
-    "updated_at": "2026-08-28T23:48:11.0998090-06:00",
+    "iteration": 9,
+    "updated_at": "2026-08-28T23:54:05.0458890-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1423,9 +1423,9 @@
       "result": "pass",
       "mode": "design-forge-v3",
       "last_mission": "knowledge",
-      "iteration": 8,
-      "updated_at": "2026-08-28T23:48:11.0998090-06:00",
-      "next_index": 4,
+      "iteration": 9,
+      "updated_at": "2026-08-28T23:54:05.0458890-06:00",
+      "next_index": 5,
       "scheduled": true,
       "promotion": "blocked"
     }
@@ -1467,6 +1467,18 @@
       "at": "2026-08-26",
       "kind": "faculty",
       "label": "Chat 18/18",
+      "result": "pass"
+    },
+    {
+      "at": "2026-08-28T23:54:05-06:00",
+      "kind": "candidate",
+      "label": "candidate: knowledge i9",
+      "result": "pass"
+    },
+    {
+      "at": "2026-08-28T23:51:12-06:00",
+      "kind": "candidate",
+      "label": "candidate: operator i9",
       "result": "pass"
     },
     {
@@ -1527,18 +1539,6 @@
       "at": "2026-08-28T21:47:35-06:00",
       "kind": "candidate",
       "label": "candidate: reader-self-check i7",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T21:39:21-06:00",
-      "kind": "candidate",
-      "label": "candidate: reader-board i7",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T20:39:04-06:00",
-      "kind": "candidate",
-      "label": "candidate: reader-weather i7",
       "result": "pass"
     }
   ]
