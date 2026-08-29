@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-29T11:17:53.7643834-06:00",
+  "generated_at": "2026-08-29T11:20:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -21,7 +21,7 @@
   },
   "system": {
     "memory_pct": 60,
-    "cpu_pct": 9,
+    "cpu_pct": 0,
     "gpu": "RTX 3060",
     "gpu_pct": 0
   },
@@ -29,13 +29,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-29T02:50:13-06:00",
-        "estimated": false,
-        "ram": 57,
-        "cpu": 12,
-        "gpu": 7
-      },
       {
         "at": "2026-08-29T03:05:13-06:00",
         "estimated": false,
@@ -700,12 +693,18 @@
         "ram": 60,
         "cpu": 9,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-29T11:20:14-06:00",
+        "estimated": false,
+        "ram": 60,
+        "cpu": 0,
+        "gpu": 0
       }
     ],
     "ram": [
       57,
       57,
-      57,
       58,
       58,
       58,
@@ -797,11 +796,11 @@
       64,
       64,
       64,
+      60,
       60,
       60
     ],
     "cpu": [
-      12,
       1,
       0,
       2,
@@ -896,10 +895,10 @@
       0,
       0,
       10,
-      9
+      9,
+      0
     ],
     "gpu": [
-      7,
       0,
       0,
       0,
@@ -994,6 +993,7 @@
       0,
       0,
       99,
+      0,
       0
     ]
   },
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-08-29T11:05:14-06:00",
+      "at": "2026-08-29T11:20:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1376,7 +1376,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-29T11:17:53.7643834-06:00",
+    "last": "2026-08-29T11:20:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1413,7 +1413,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-29T11:17:53.7643834-06:00",
+    "generated_at": "2026-08-29T11:19:53.7754282-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
