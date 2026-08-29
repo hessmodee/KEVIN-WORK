@@ -1,0 +1,48 @@
+name: Final gate Kevin Autonomy scheduler v0.1j
+
+on:
+  push:
+    branches: [kevin-autonomy-actuator-v0.1]
+    paths:
+      - 'control-plane/actuator/finalize-v01j-resume.ps1'
+      - '.github/workflows/autonomy-v01j-final-gate.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  final-windows-gate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-autonomy-actuator-v0.1
+      - name: Finalize exact shipping resume
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/actuator/finalize-v01j-resume.ps1'
+          if($LASTEXITCODE -ne 0){throw 'v0.1j finalizer failed'}
+      - name: Parse and execute exact transport self-test from shipping artifact
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $p='control-plane/actuator/KEVIN-AUTONOMY-SCHEDULER-RESUME-v0.1j.ps1'
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors -and $errors.Count){$errors|ForEach-Object{Write-Error ("line {0}: {1}" -f $_.Extent.StartLineNumber,$_.Message)};throw 'Shipping resume parser failure'}
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -Mode ValidateTransport
+          if($LASTEXITCODE -ne 0 -or ($out -join "`n") -notmatch 'TRANSPORT_OK'){throw 'Shipping resume transport regression failed'}
+          $text=Get-Content -LiteralPath $p -Raw
+          if($text -notmatch 'd542581dc4783fc8f34ede34edf47e4427df7091'){throw 'Pinned hardened bridge blob missing'}
+          if($text -notmatch 'KEVIN_GH_EXE'){throw 'Pinned scheduler gh environment missing'}
+          if($text -notmatch 'Assert-RunSuccessDetailed'){throw 'Detailed cron run verifier missing'}
+          Write-Host 'PASS exact shipping v0.1j PowerShell + transport + static contract gate.'
+      - name: Commit validated shipping artifact
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          git config user.name 'Kevin Control Plane CI'
+          git config user.email 'kevin-control-plane-ci@users.noreply.github.com'
+          git add control-plane/actuator/KEVIN-AUTONOMY-SCHEDULER-RESUME-v0.1j.ps1
+          if(-not (git diff --cached --quiet)){git commit -m 'Finalize validated autonomy scheduler resume v0.1j';git push origin HEAD:kevin-autonomy-actuator-v0.1}
