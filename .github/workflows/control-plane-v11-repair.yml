@@ -1,0 +1,33 @@
+name: Repair Kevin Control Plane v1.1
+
+on:
+  push:
+    branches: [kevin-control-plane-v1]
+    paths:
+      - '.github/scripts/patch-control-plane-v11.ps1'
+      - '.github/workflows/control-plane-v11-repair.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-control-plane-v1
+      - name: Apply repair and run Windows PowerShell 5.1 regressions
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/patch-control-plane-v11.ps1
+          if($LASTEXITCODE -ne 0){throw 'Control Plane v1.1 repair regression failed'}
+      - name: Commit repaired control plane
+        shell: powershell
+        run: |
+          git config user.name "Kevin Control Plane CI"
+          git config user.email "kevin-control-plane-ci@users.noreply.github.com"
+          git add control-plane/dispatcher/kevin-mission-worker-v0.1.ps1 control-plane/dispatcher/kevin-mission-dispatcher-v0.1.ps1 control-plane/intake/kevin-work-order-intake-v0.1.ps1 control-plane/install/KEVIN-CONTROL-PLANE-v1.ps1 .github/scripts/test-control-plane-v1.ps1 .github/scripts/test-work-order-intake-v1.ps1 .github/scripts/test-control-plane-installer-v1.ps1
+          if(git diff --cached --quiet){throw 'Repair produced no tracked changes'}
+          git commit -m "Repair Control Plane JSON recovery and failed-order replay"
+          git push origin HEAD:kevin-control-plane-v1
