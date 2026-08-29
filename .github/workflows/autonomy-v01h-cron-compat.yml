@@ -1,0 +1,136 @@
+name: Validate Kevin Autonomy v0.1h cron compatibility
+
+on:
+  push:
+    branches:
+      - kevin-autonomy-actuator-v0.1
+    paths:
+      - 'control-plane/actuator/build-v01h-cron-compat.ps1'
+      - '.github/workflows/autonomy-v01h-cron-compat.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows-openclaw-2026-7-1-2:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-autonomy-actuator-v0.1
+
+      - name: Install and inspect exact Kevin OpenClaw release
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          npm install -g openclaw@2026.7.1-2
+          if($LASTEXITCODE -ne 0){throw 'npm install openclaw@2026.7.1-2 failed'}
+          $ocl=(Get-Command openclaw.cmd -ErrorAction Stop).Source
+          $ver=(& $ocl --version 2>&1) -join "`n"
+          Write-Host $ver
+          if($LASTEXITCODE -ne 0 -or $ver -notmatch '2026\.7\.1-2'){throw "Unexpected OpenClaw version: $ver"}
+
+          $cron=(& $ocl cron --help 2>&1) -join "`n"
+          if($LASTEXITCODE -ne 0){throw "openclaw cron unavailable: $cron"}
+          foreach($word in @('create','get','show','enable','remove','run','runs','list')){
+            if($cron -notmatch ("\b"+[regex]::Escape($word)+"\b")){throw "cron help missing command: $word"}
+          }
+
+          $create=(& $ocl cron create --help 2>&1) -join "`n"
+          if($LASTEXITCODE -ne 0){throw "cron create help failed: $create"}
+          foreach($flag in @('--command-argv','--command-cwd','--timeout-seconds','--no-output-timeout-seconds','--output-max-bytes','--no-deliver','--json')){
+            if($create -notmatch [regex]::Escape($flag)){throw "cron create missing expected flag: $flag"}
+          }
+
+          $run=(& $ocl cron run --help 2>&1) -join "`n"
+          if($LASTEXITCODE -ne 0){throw "cron run help failed: $run"}
+          foreach($flag in @('--wait','--wait-timeout','--poll-interval')){
+            if($run -notmatch [regex]::Escape($flag)){throw "cron run missing expected flag: $flag"}
+          }
+          if($run -match [regex]::Escape('--json')){throw 'Stable cron run unexpectedly exposes --json; update compatibility assumptions.'}
+
+          $get=(& $ocl cron get --help 2>&1) -join "`n"
+          if($LASTEXITCODE -ne 0){throw "cron get help failed: $get"}
+          if($get -match [regex]::Escape('--json')){throw 'Stable cron get unexpectedly exposes --json; update compatibility assumptions.'}
+
+          $enable=(& $ocl cron enable --help 2>&1) -join "`n"
+          if($LASTEXITCODE -ne 0){throw "cron enable help failed: $enable"}
+          if($enable -match [regex]::Escape('--json')){throw 'Stable cron enable unexpectedly exposes --json; update compatibility assumptions.'}
+
+          $runs=(& $ocl cron runs --help 2>&1) -join "`n"
+          if($LASTEXITCODE -ne 0){throw "cron runs help failed: $runs"}
+          if($runs -match [regex]::Escape('--json')){throw 'Stable cron runs unexpectedly exposes --json; update compatibility assumptions.'}
+          Write-Host 'PASS exact OpenClaw 2026.7.1-2 cron command surface verified.'
+
+      - name: Build v0.1h and validate PowerShell plus stable cron contracts
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/actuator/build-v01h-cron-compat.ps1'
+          if($LASTEXITCODE -ne 0){throw 'v0.1h builder failed'}
+
+          $act='control-plane/actuator/kevin-autonomy-actuator-v0.1.ps1'
+          $resume='control-plane/actuator/KEVIN-AUTONOMY-RESUME-v0.1h.ps1'
+          foreach($p in @($act,$resume)){
+            $tokens=$null;$errors=$null
+            [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+            if($errors -and $errors.Count){$errors|ForEach-Object{Write-Error ("$p line {0}: {1}" -f $_.Extent.StartLineNumber,$_.Message)};throw "Parser rejected $p"}
+            $text=Get-Content -LiteralPath $p -Raw
+            if($text -match [regex]::Escape("'automations'")){throw "$p still uses automations namespace"}
+            if($text -match "@\('cron','(?:get|enable|run|runs)'[^\r\n]*'--json'"){throw "$p uses unsupported --json on stable cron simple command"}
+          }
+          $a=Get-Content -LiteralPath $act -Raw
+          if($a -notmatch [regex]::Escape("PSObject.Properties.Name -contains 'entries'")){throw 'Reconciler does not parse stable cron.runs entries schema'}
+          $r=Get-Content -LiteralPath $resume -Raw
+          foreach($needle in @("@('cron','create','*/3 * * * *'","@('cron','create','*/5 * * * *'","@('cron','get',`$rId)","@('cron','get',`$bId)")){
+            if($r -notmatch [regex]::Escape($needle)){throw "Resume missing stable cron contract: $needle"}
+          }
+          Write-Host 'PASS v0.1h scripts parse and match stable cron contracts.'
+
+      - name: Re-run actual healthy zero-drift reconciler regression
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $fake=Join-Path $env:RUNNER_TEMP 'kevin-v01h-profile'
+          $ws=Join-Path $fake '.openclaw\workspace'
+          $cp=Join-Path $ws 'ControlPlane'
+          $reports=Join-Path $ws 'reports'
+          New-Item -ItemType Directory -Path $cp,$reports -Force|Out-Null
+          Copy-Item 'control-plane/desired-state-v1.json' (Join-Path $cp 'desired-state-v1.json')
+          Copy-Item 'control-plane/OWNER-AUTHORIZATION-v1.md' (Join-Path $cp 'OWNER-AUTHORIZATION-v1.md')
+          $desired=Get-Content 'control-plane/desired-state-v1.json' -Raw|ConvertFrom-Json
+          $jobs=@();$n=1
+          foreach($j in @($desired.required_automations)){
+            $jobs += [pscustomobject]@{id=("test-job-{0}" -f $n);declaration_key=$j.declaration_key;name=$j.name;enabled=$true;last_status='ok';last_run_status='ok';consecutive_errors=0};$n++
+          }
+          $support=[pscustomobject]@{schema=1;kind='kevin-support-snapshot';generated_at=(Get-Date).ToString('o');hashes=$desired.core_hashes;governance=[pscustomobject]@{ok=$true};cron=[pscustomobject]@{ok=$true;jobs=$jobs};benchmark=[pscustomobject]@{status='PASS'};supervisor=[pscustomobject]@{last_result='RECOVERY_SATURATED'};active_workers=[pscustomobject]@{design_forge=0;night_forge=0;supervisor=0;benchmark=0}}
+          $dashboard=[pscustomobject]@{schema=5;generated_at=(Get-Date).ToString('o');health=[pscustomobject]@{overall='healthy';failed_checks=0}}
+          [IO.File]::WriteAllText((Join-Path $reports 'support-latest.json'),($support|ConvertTo-Json -Depth 20),(New-Object Text.UTF8Encoding($false)))
+          [IO.File]::WriteAllText((Join-Path $reports 'dashboard-state.json'),($dashboard|ConvertTo-Json -Depth 20),(New-Object Text.UTF8Encoding($false)))
+          $oldProfile=$env:USERPROFILE
+          try{
+            $env:USERPROFILE=$fake
+            $act=(Resolve-Path 'control-plane/actuator/kevin-autonomy-actuator-v0.1.ps1').Path
+            $self=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $act -Mode SelfTest 2>&1;$selfCode=$LASTEXITCODE;$self|ForEach-Object{Write-Host $_}
+            if($selfCode -ne 0 -or ($self -join "`n") -notmatch 'SELF_TEST_PASS :: drift=0'){throw 'v0.1h SelfTest zero-drift regression failed'}
+            $audit=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $act -Mode Audit 2>&1;$auditCode=$LASTEXITCODE;$audit|ForEach-Object{Write-Host $_}
+            if($auditCode -ne 0 -or ($audit -join "`n") -notmatch 'HEALTHY :: drift=0'){throw 'v0.1h Audit zero-drift regression failed'}
+          } finally {$env:USERPROFILE=$oldProfile}
+          Write-Host 'PASS actual v0.1h reconciler healthy zero-drift execution.'
+
+      - name: Commit validated v0.1h artifacts
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $files=@('control-plane/actuator/kevin-autonomy-actuator-v0.1.ps1','control-plane/actuator/KEVIN-AUTONOMY-RESUME-v0.1h.ps1')
+          foreach($p in $files){if(-not(Test-Path -LiteralPath $p)){throw "Missing validated artifact: $p"}}
+          git config user.name 'Kevin Control Plane CI'
+          git config user.email 'kevin-control-plane-ci@users.noreply.github.com'
+          git add -- $files
+          if(git status --porcelain -- $files){
+            git commit -m 'Make autonomy actuator compatible with OpenClaw 2026.7.1 cron CLI'
+            git push origin HEAD:kevin-autonomy-actuator-v0.1
+          } else {
+            Write-Host 'No artifact changes to commit.'
+          }
