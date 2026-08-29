@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-29T10:19:58-06:00",
-  "status": "working",
+  "generated_at": "2026-08-29T10:20:16-06:00",
+  "status": "ready",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,16 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: forge-v4",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-29T10:19:58-06:00",
-    "source": "forge"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -29,29 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 60,
-    "cpu_pct": 0,
+    "memory_pct": 62,
+    "cpu_pct": 7,
     "gpu": "RTX 3060",
-    "gpu_pct": 0
+    "gpu_pct": 98
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-29T01:35:13-06:00",
-        "estimated": false,
-        "ram": 63,
-        "cpu": 1,
-        "gpu": 4
-      },
-      {
-        "at": "2026-08-29T01:37:01-06:00",
-        "estimated": false,
-        "ram": 65,
-        "cpu": 0,
-        "gpu": 0
-      },
       {
         "at": "2026-08-29T01:38:32-06:00",
         "estimated": false,
@@ -709,11 +686,23 @@
         "ram": 60,
         "cpu": 0,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-29T10:20:14-06:00",
+        "estimated": false,
+        "ram": 62,
+        "cpu": 7,
+        "gpu": 98
+      },
+      {
+        "at": "2026-08-29T10:20:16-06:00",
+        "estimated": false,
+        "ram": 62,
+        "cpu": 7,
+        "gpu": 98
       }
     ],
     "ram": [
-      63,
-      65,
       68,
       68,
       68,
@@ -807,11 +796,11 @@
       60,
       59,
       60,
-      60
+      60,
+      62,
+      62
     ],
     "cpu": [
-      1,
-      0,
       0,
       0,
       0,
@@ -905,11 +894,11 @@
       7,
       6,
       0,
-      0
+      0,
+      7,
+      7
     ],
     "gpu": [
-      4,
-      0,
       0,
       0,
       0,
@@ -1003,7 +992,9 @@
       0,
       7,
       0,
-      0
+      0,
+      98,
+      98
     ]
   },
   "weather": {
@@ -1157,6 +1148,23 @@
   ],
   "activity": [
     {
+      "at": "2026-08-29T10:20:16-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: forge-v4",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 18000
+    },
+    {
+      "at": "2026-08-29T10:20:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-29T10:19:58-06:00",
       "source": "forge",
       "component": "forge",
@@ -1164,13 +1172,6 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-29T10:05:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-29T09:38:44-06:00",
@@ -1368,23 +1369,14 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 23000
-    },
-    {
-      "at": "2026-08-29T07:34:56-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: operator",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-29T10:19:58-06:00",
+    "last": "2026-08-29T10:20:16-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1395,8 +1387,8 @@
     "mode": "hourly_design",
     "state": "pass",
     "last_mission": "forge-v4",
-    "iteration": 15,
-    "updated_at": "2026-08-29T09:38:42.0120090-06:00",
+    "iteration": 16,
+    "updated_at": "2026-08-29T10:20:16.3737707-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1412,39 +1404,39 @@
       "result": "pass",
       "mode": "design-forge-v3",
       "last_mission": "forge-v4",
-      "iteration": 15,
-      "updated_at": "2026-08-29T09:38:42.0120090-06:00",
-      "next_index": 5,
+      "iteration": 16,
+      "updated_at": "2026-08-29T10:20:16.3737707-06:00",
+      "next_index": 0,
       "scheduled": true,
       "promotion": "blocked"
     }
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-29T10:19:58-06:00",
+    "generated_at": "2026-08-29T10:19:52.9638928-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "design-forge",
-      "name": "Build Lab",
-      "title": "Design Forge: forge-v4",
-      "category": "forge",
-      "state": "working",
-      "detail": "started",
-      "what": "Generating and validating an isolated candidate.",
-      "engine": "Ollama | Qwen 2.5 14B",
-      "action": "Candidate engineering"
+      "id": "supervisor",
+      "name": "Supervisor",
+      "title": "Kevin autonomous system armed",
+      "category": "supervisor",
+      "state": "ready",
+      "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4",
+      "what": "Waiting only for the next scheduled three-minute control cycle.",
+      "engine": "Supervisor v1.4",
+      "action": "Autonomous schedule armed"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "coordinating",
-        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
+        "state": "ready",
+        "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1472,17 +1464,17 @@
     ]
   },
   "execution": {
-    "running": true,
-    "state": "working",
-    "phase": "started",
-    "worker": "Build Lab",
-    "engine": "Ollama | Qwen 2.5 14B",
-    "action": "Candidate engineering"
+    "running": false,
+    "state": "ready",
+    "phase": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4",
+    "worker": "Supervisor",
+    "engine": "Supervisor v1.4",
+    "action": "Autonomous schedule armed"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Build Lab | WORKING | started",
+      "text": "Supervisor | READY | Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4",
       "severity": "normal"
     }
   ]
