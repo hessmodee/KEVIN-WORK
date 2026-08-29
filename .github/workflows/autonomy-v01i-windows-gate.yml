@@ -1,0 +1,33 @@
+name: Validate Kevin Autonomy scheduler v0.1i
+on:
+  push:
+    branches: [kevin-autonomy-actuator-v0.1]
+    paths:
+      - 'control-plane/actuator/KEVIN-AUTONOMY-SCHEDULER-RESUME-v0.1i.ps1'
+      - '.github/workflows/autonomy-v01i-windows-gate.yml'
+permissions:
+  contents: read
+jobs:
+  windows-gate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse exact v0.1i artifact with Windows PowerShell
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $p='control-plane/actuator/KEVIN-AUTONOMY-SCHEDULER-RESUME-v0.1i.ps1'
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors -and $errors.Count){$errors|ForEach-Object{Write-Error ("line {0}: {1}" -f $_.Extent.StartLineNumber,$_.Message)};throw 'v0.1i parse failed'}
+          $text=Get-Content -LiteralPath $p -Raw
+          if($text -match "'automations'"){throw 'Obsolete automations namespace remains'}
+          if($text -notmatch 'ProcessStartInfo-Win32-argv-quoting-v1'){throw 'Exact native transport marker missing'}
+          if($text -notmatch '847c0a0dd629df75ce89e6591ed1d7dcdb80afad'){throw 'Validated actuator pin missing'}
+          Write-Host 'PASS v0.1i Windows PowerShell syntax and static invariants.'
+      - name: Execute exact transport self-test from the shipping artifact
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/actuator/KEVIN-AUTONOMY-SCHEDULER-RESUME-v0.1i.ps1' -Mode ValidateTransport
+          if($LASTEXITCODE -ne 0){throw "v0.1i transport self-test exit $LASTEXITCODE"}
