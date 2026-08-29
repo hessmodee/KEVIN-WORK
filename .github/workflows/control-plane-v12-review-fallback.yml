@@ -18,22 +18,38 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: kevin-control-plane-v1.2-review-fallback
-      - name: Normalize builder strict-mode literal
+      - name: Normalize builder assertions
         shell: powershell
         run: |
           $p='.github/scripts/patch-control-plane-v12-review-fallback.ps1'
           $t=[IO.File]::ReadAllText($p)
-          $bad=@'
+
+          $badCounter=@'
           $text=Replace-Once $text '$script:FormatRecoveryCount=0' "$script:FormatRecoveryCount=0`n`$script:ReviewLineFallbackCount=0" 'fallback counter'
           '@.Trim()
-          $good=@'
+          $goodCounter=@'
           $counterReplacement='$script:FormatRecoveryCount=0'+"`n"+'$script:ReviewLineFallbackCount=0'
           $text=Replace-Once $text '$script:FormatRecoveryCount=0' $counterReplacement 'fallback counter'
           '@.Trim()
-          if(-not $t.Contains($bad)){throw 'Expected strict-mode builder line not found'}
-          $t=$t.Replace($bad,$good)
+          if(-not $t.Contains($badCounter)){throw 'Expected strict-mode counter builder line not found'}
+          $t=$t.Replace($badCounter,$goodCounter)
+
+          $badTelemetry=@'
+          $text=Replace-Once $text 'candidate_only=$true;format_recovery_count=[int]$script:FormatRecoveryCount;safety=' 'candidate_only=$true;format_recovery_count=[int]$script:FormatRecoveryCount;review_line_fallback_count=[int]$script:ReviewLineFallbackCount;safety=' 'success telemetry'
+          $text=Replace-Once $text 'candidate_only=$true;format_recovery_count=[int]$script:FormatRecoveryCount;safety=' 'candidate_only=$true;format_recovery_count=[int]$script:FormatRecoveryCount;review_line_fallback_count=[int]$script:ReviewLineFallbackCount;safety=' 'failure telemetry'
+          '@.Trim()
+          $goodTelemetry=@'
+          $telemetryOld='candidate_only=$true;format_recovery_count=[int]$script:FormatRecoveryCount;safety='
+          $telemetryNew='candidate_only=$true;format_recovery_count=[int]$script:FormatRecoveryCount;review_line_fallback_count=[int]$script:ReviewLineFallbackCount;safety='
+          $telemetryCount=([regex]::Matches($text,[regex]::Escape($telemetryOld))).Count
+          if($telemetryCount -ne 2){throw "review fallback telemetry replacement count=$telemetryCount"}
+          $text=$text.Replace($telemetryOld,$telemetryNew)
+          '@.Trim()
+          if(-not $t.Contains($badTelemetry)){throw 'Expected dual telemetry builder lines not found'}
+          $t=$t.Replace($badTelemetry,$goodTelemetry)
+
           [IO.File]::WriteAllText($p,$t,(New-Object Text.UTF8Encoding($false)))
-          Write-Host 'PASS builder strict-mode literal normalized.'
+          Write-Host 'PASS builder assertions normalized.'
       - name: Apply v1.2 reviewer protocol patch
         shell: powershell
         run: |
