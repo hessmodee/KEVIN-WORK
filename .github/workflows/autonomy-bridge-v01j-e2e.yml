@@ -31,8 +31,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           $ErrorActionPreference='Stop'
-          $home=Join-Path $env:RUNNER_TEMP 'kevin-v01j-home'
-          $reports=Join-Path $home '.openclaw\workspace\reports'
+          $testHome=Join-Path $env:RUNNER_TEMP 'kevin-v01j-home'
+          $reports=Join-Path $testHome '.openclaw\workspace\reports'
           New-Item -ItemType Directory -Path $reports -Force|Out-Null
           $local=[ordered]@{
             schema=1;kind='kevin-autonomy-reconcile-result';generated_at=(Get-Date).ToString('o');mode='Audit';state='HEALTHY';fingerprint='CI-V01J';drift=@();selected_action=$null;action_result=$null;
@@ -41,7 +41,7 @@ jobs:
             safety=[ordered]@{green_only=$true;arbitrary_shell=$false;authority_expansion=$false;novel_production_promotion=$false}
           }
           $local|ConvertTo-Json -Depth 20|Set-Content -LiteralPath (Join-Path $reports 'autonomy-latest.json') -Encoding UTF8
-          $env:USERPROFILE=$home
+          $env:USERPROFILE=$testHome
           $env:KEVIN_AUTONOMY_REPORTS_DIR=$reports
           $env:KEVIN_AUTONOMY_REPO=$env:GITHUB_REPOSITORY
           $env:KEVIN_AUTONOMY_BRANCH=$env:GITHUB_REF_NAME
