@@ -74,7 +74,7 @@ jobs:
         run: |
           $p='control-plane/actuator/KEVIN-AUTONOMY-SCHEDULER-RESUME-v0.1k.ps1'
           $t=Get-Content -LiteralPath $p -Raw
-          foreach($needle in @("$NewBridgeBlob='d542581dc4783fc8f34ede34edf47e4427df7091'",'Get-OptionalPropertyValue','Top-level properties: $props','KEVIN_GH_EXE','cron create','SCHEDULER v0.1k INSTALLED + PROVEN')){if(-not $t.Contains($needle)){throw "Missing v0.1k contract: $needle"}}
+          foreach($needle in @("$NewBridgeBlob='d542581dc4783fc8f34ede34edf47e4427df7091'",'Get-OptionalPropertyValue','Top-level properties: $props','KEVIN_GH_EXE',"@('cron','create'",'SCHEDULER v0.1k INSTALLED + PROVEN')){if(-not $t.Contains($needle)){throw "Missing v0.1k contract: $needle"}}
           if($t.Contains('if($Object -and $Object.id)')){throw 'Unsafe StrictMode property probe remains.'}
           git config user.name 'Kevin Control Plane CI'
           git config user.email 'kevin-control-plane-ci@users.noreply.github.com'
