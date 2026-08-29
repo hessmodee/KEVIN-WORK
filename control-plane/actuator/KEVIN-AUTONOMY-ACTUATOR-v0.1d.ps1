@@ -60,8 +60,8 @@ $branchCount=([regex]::Matches($text,[regex]::Escape($OldBranch))).Count
 if($branchCount -ne 1){throw "Expected exactly one mutable component branch reference; found $branchCount. Refusing patch."}
 $text=$text.Replace($OldBranch,$PinnedRef)
 
-# 3. Replace the original raw SHA-256 pin table with Git blob IDs from the immutable component commit.
-$pinsPattern='(?ms)^\$Pins=\[ordered\]@\{.*?^\}\r?\n\$Sources='
+# 3. Replace only the original pin-table block; leave the following $Sources= statement untouched.
+$pinsPattern='(?ms)^\$Pins=\[ordered\]@\{.*?^\}\r?\n(?=\$Sources=)'
 $pinsMatches=[regex]::Matches($text,$pinsPattern)
 if($pinsMatches.Count -ne 1){throw "Expected exactly one component pin table; found $($pinsMatches.Count). Refusing patch."}
 $newPins=@'
@@ -71,7 +71,6 @@ $Pins=[ordered]@{
  'kevin-autonomy-actuator-v0.1.ps1'='38bc72bc29569c72c3618b0b8ce8fa59876ba76c'
  'kevin-autonomy-bridge-v0.1.ps1'='05bb7d3a01d9eace3105a717020656a040f4da8c'
 }
-$Sources=
 '@
 $text=[regex]::Replace($text,$pinsPattern,[System.Text.RegularExpressions.MatchEvaluator]{param($m)$newPins},1)
 
