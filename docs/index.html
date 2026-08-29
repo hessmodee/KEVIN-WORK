@@ -188,6 +188,7 @@
 const TABS=[["overview","Overview"],["ops","Ops Floor"],["talk","Talk · Exp"],["activity","Activity"],["system","System"],["build","Roadmap"],["capabilities","Capabilities"],["diagnostics","Diagnostics"]];
 let S=null,tab=(location.hash||"#overview").slice(1),selectedCrew="kevin",activityFilter="all";
 if(!TABS.some(x=>x[0]===tab))tab="overview";
+if(tab==="ops"){location.replace("./ops/");}
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function parseAt(v){if(!v)return null;const d=new Date(v);return Number.isNaN(d.getTime())?null:d}
@@ -346,7 +347,7 @@ function crew(){
  return base;
 }
 function crewById(id){return crew().find(x=>x.id===id)||crew()[0]}
-function renderNav(){$("nav").innerHTML=TABS.map(([id,label])=>`<button class="navbtn ${tab===id?"on":""}" data-tab="${id}">${label}</button>`).join("");$("nav").onclick=e=>{const b=e.target.closest("[data-tab]");if(!b)return;tab=b.dataset.tab;location.hash=tab;renderNav();draw()}}
+function renderNav(){$("nav").innerHTML=TABS.map(([id,label])=>`<button class="navbtn ${tab===id?"on":""}" data-tab="${id}">${label}</button>`).join("");$("nav").onclick=e=>{const b=e.target.closest("[data-tab]");if(!b)return;if(b.dataset.tab==="ops"){location.href="./ops/";return;}tab=b.dataset.tab;location.hash=tab;renderNav();draw()}}
 function deriveAttention(){
   if(S?.attention && typeof S.attention.level==="string"){
     const items=Array.isArray(S.attention.items)?S.attention.items:[];
