@@ -1,0 +1,88 @@
+name: Validate WinPS 5.1 exact native argv runner
+on:
+  push:
+    branches: [kevin-autonomy-actuator-v0.1]
+    paths: ['.github/workflows/winps51-exact-native-runner-probe.yml']
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify ProcessStartInfo preserves JSON and paths exactly
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          @'
+          const args = process.argv.slice(2);
+          console.log('ARGV='+JSON.stringify(args));
+          const i=args.indexOf('--command-argv');
+          if(i<0 || i+1>=args.length){process.exit(31)}
+          const value=args[i+1];
+          let parsed;
+          try{parsed=JSON.parse(value)}catch(e){console.error(e.message);process.exit(32)}
+          const ok=Array.isArray(parsed) && parsed.length===4 &&
+            parsed[0]==='powershell.exe' &&
+            parsed[1]==='C:\\Path With Space\\x.ps1' &&
+            parsed[2]==='A"B' &&
+            parsed[3]==='tail\\';
+          console.log('VALUE='+JSON.stringify(value));
+          console.log('PARSED='+JSON.stringify(parsed));
+          console.log('OK='+(ok?'true':'false'));
+          process.exit(ok?0:33);
+          '@ | Set-Content -LiteralPath .\argv-probe.js -Encoding UTF8
+
+          function ConvertTo-Win32CommandLineArg {
+            param([AllowEmptyString()][string]$Value)
+            if($null -eq $Value -or $Value.Length -eq 0){return '""'}
+            if($Value -notmatch '[\s"]'){return $Value}
+            $sb=New-Object System.Text.StringBuilder
+            [void]$sb.Append('"')
+            $slashes=0
+            for($i=0;$i -lt $Value.Length;$i++){
+              $ch=$Value[$i]
+              if($ch -eq '\'){$slashes++;continue}
+              if($ch -eq '"'){
+                if($slashes -gt 0){[void]$sb.Append(('\' * ($slashes*2)))}
+                [void]$sb.Append('\"')
+                $slashes=0
+                continue
+              }
+              if($slashes -gt 0){[void]$sb.Append(('\' * $slashes));$slashes=0}
+              [void]$sb.Append($ch)
+            }
+            if($slashes -gt 0){[void]$sb.Append(('\' * ($slashes*2)))}
+            [void]$sb.Append('"')
+            return $sb.ToString()
+          }
+
+          function Invoke-ExactNative {
+            param([string]$Exe,[string[]]$Argv)
+            $psi=New-Object System.Diagnostics.ProcessStartInfo
+            $psi.FileName=$Exe
+            $psi.Arguments=(($Argv|ForEach-Object{ConvertTo-Win32CommandLineArg ([string]$_)}) -join ' ')
+            $psi.UseShellExecute=$false
+            $psi.CreateNoWindow=$true
+            $psi.RedirectStandardOutput=$true
+            $psi.RedirectStandardError=$true
+            $p=New-Object System.Diagnostics.Process
+            $p.StartInfo=$psi
+            if(-not $p.Start()){throw 'Process failed to start'}
+            $ot=$p.StandardOutput.ReadToEndAsync(); $et=$p.StandardError.ReadToEndAsync()
+            $p.WaitForExit()
+            $stdout=$ot.Result; $stderr=$et.Result; $code=$p.ExitCode
+            $p.Dispose()
+            [pscustomobject]@{ExitCode=$code;Stdout=$stdout;Stderr=$stderr;CommandLine=$psi.Arguments}
+          }
+
+          $payload=@('powershell.exe','C:\Path With Space\x.ps1','A"B','tail\')
+          $json=$payload|ConvertTo-Json -Compress
+          $node=(Get-Command node.exe).Source
+          $r=Invoke-ExactNative -Exe $node -Argv @((Join-Path (Get-Location) 'argv-probe.js'),'--command-argv',$json)
+          Write-Host ('COMMANDLINE='+$r.CommandLine)
+          Write-Host $r.Stdout
+          if($r.Stderr){Write-Host ('STDERR='+$r.Stderr)}
+          if($r.ExitCode -ne 0){throw "Exact native runner failed with exit $($r.ExitCode)"}
+          if($r.Stdout -notmatch 'OK=true'){throw 'Exact runner did not preserve JSON exactly'}
+          Write-Host 'PASS WinPS 5.1 exact native argv transport preserves JSON, spaces, quotes, and trailing backslashes.'
