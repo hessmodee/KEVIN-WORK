@@ -158,6 +158,9 @@
     .vr-item:last-child{border-bottom:0}
     .vr-note{font-size:11px;color:var(--muted);line-height:1.45;margin-top:10px}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
+    .ops-v11-frame-shell{width:100%;min-width:0}
+    .ops-v11-frame{display:block;width:100%;height:1160px;border:0;background:transparent;border-radius:18px;overflow:hidden}
+    @media(max-width:900px){.ops-v11-frame{height:1500px}}
   </style>
 </head>
 <body>
@@ -188,7 +191,7 @@
 const TABS=[["overview","Overview"],["ops","Ops Floor"],["talk","Talk · Exp"],["activity","Activity"],["system","System"],["build","Roadmap"],["capabilities","Capabilities"],["diagnostics","Diagnostics"]];
 let S=null,tab=(location.hash||"#overview").slice(1),selectedCrew="kevin",activityFilter="all";
 if(!TABS.some(x=>x[0]===tab))tab="overview";
-if(tab==="ops"){location.replace("./ops/");}
+
 const $=id=>document.getElementById(id);
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function parseAt(v){if(!v)return null;const d=new Date(v);return Number.isNaN(d.getTime())?null:d}
@@ -347,7 +350,7 @@ function crew(){
  return base;
 }
 function crewById(id){return crew().find(x=>x.id===id)||crew()[0]}
-function renderNav(){$("nav").innerHTML=TABS.map(([id,label])=>`<button class="navbtn ${tab===id?"on":""}" data-tab="${id}">${label}</button>`).join("");$("nav").onclick=e=>{const b=e.target.closest("[data-tab]");if(!b)return;if(b.dataset.tab==="ops"){location.href="./ops/";return;}tab=b.dataset.tab;location.hash=tab;renderNav();draw()}}
+function renderNav(){$("nav").innerHTML=TABS.map(([id,label])=>`<button class="navbtn ${tab===id?"on":""}" data-tab="${id}">${label}</button>`).join("");$("nav").onclick=e=>{const b=e.target.closest("[data-tab]");if(!b)return;tab=b.dataset.tab;location.hash=tab;renderNav();draw()}}
 function deriveAttention(){
   if(S?.attention && typeof S.attention.level==="string"){
     const items=Array.isArray(S.attention.items)?S.attention.items:[];
@@ -715,8 +718,7 @@ function resource(name,key,current,color){const a=pulseSamples().map(x=>Number(x
 function chartHtml(){return`<div class="section-head"><div><div class="k">24-hour telemetry</div><div class="h">RAM · CPU · GPU · hover for exact time and values</div></div><div class="right">${pulseSamples().length} samples</div></div><div class="legend"><span><i class="dot ram"></i>RAM</span><span><i class="dot cpu"></i>CPU</span><span><i class="dot gpu"></i>GPU</span></div><div class="chart-wrap" id="chartWrap"><svg id="chart" class="chart" viewBox="0 0 1000 330" preserveAspectRatio="none"></svg><div id="chartTip" class="chart-tip"></div></div>`}
 function drawChart(){const svg=$("chart"),tip=$("chartTip");if(!svg)return;const arr=pulseSamples(),L=58,R=20,T=18,B=42,W=1000,H=330,pw=W-L-R,ph=H-T-B;if(!arr.length){svg.innerHTML=`<text x="50%" y="50%" text-anchor="middle" class="axis">No telemetry yet</text>`;return}const x=i=>L+(arr.length===1?pw/2:i*pw/(arr.length-1)),y=v=>T+(100-Math.max(0,Math.min(100,Number(v||0))))*ph/100;let h="";[0,25,50,75,100].forEach(v=>{h+=`<line class="gridline" x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}"/><text class="axis" x="${L-9}" y="${y(v)+4}" text-anchor="end">${v}%</text>`});const ticks=[0,.25,.5,.75,1].map(f=>Math.round(f*(arr.length-1)));ticks.forEach(i=>{h+=`<text class="axis" x="${x(i)}" y="${H-15}" text-anchor="middle">${esc(shortWhen(arr[i].at))}</text>`});[["ram","ramline"],["cpu","cpuline"],["gpu","gpuline"]].forEach(([k,c])=>{const pts=arr.map((s,i)=>Number.isFinite(Number(s[k]))?`${x(i)},${y(s[k])}`:null).filter(Boolean).join(" ");h+=`<polyline class="series ${c}" points="${pts}"/>`});h+=`<line id="hoverLine" class="hoverline" x1="0" x2="0" y1="${T}" y2="${H-B}" style="display:none"/><circle id="hr" class="hoverdot" r="4" fill="var(--ram)" style="display:none"/><circle id="hc" class="hoverdot" r="4" fill="var(--cpu)" style="display:none"/><circle id="hg" class="hoverdot" r="4" fill="var(--gpu)" style="display:none"/><rect id="chartHit" x="${L}" y="${T}" width="${pw}" height="${ph}" fill="transparent" style="cursor:crosshair"/>`;svg.innerHTML=h;const hit=$("chartHit"),line=$("hoverLine"),dots={ram:$("hr"),cpu:$("hc"),gpu:$("hg")};hit.onmousemove=e=>{const rect=svg.getBoundingClientRect(),px=(e.clientX-rect.left)*W/rect.width,idx=Math.max(0,Math.min(arr.length-1,Math.round((px-L)/pw*(arr.length-1)))),s=arr[idx],xx=x(idx);line.style.display="";line.setAttribute("x1",xx);line.setAttribute("x2",xx);Object.entries(dots).forEach(([k,d])=>{if(Number.isFinite(Number(s[k]))){d.style.display="";d.setAttribute("cx",xx);d.setAttribute("cy",y(s[k]))}else d.style.display="none"});tip.style.display="block";tip.innerHTML=`<b>${esc(when(s.at))}</b><br>RAM ${esc(s.ram??"-")}% · CPU ${esc(s.cpu??"-")}% · GPU ${esc(s.gpu??"-")}%${s.estimated?"<br><span style='color:var(--muted)'>historical timestamp reconstructed</span>":""}`;tip.style.left=Math.min(rect.width-190,Math.max(6,(e.clientX-rect.left)+12))+"px";tip.style.top=Math.max(6,(e.clientY-rect.top)-54)+"px"};hit.onmouseleave=()=>{line.style.display="none";Object.values(dots).forEach(d=>d.style.display="none");tip.style.display="none"}}
 function ops(){
- const c=crew(),positions={chat:[14,18],reader:[14,42],forge:[14,68],staging:[34,86],expedition:[50,74],lab:[86,68],benchmark:[66,86],tick:[86,42],bridge:[86,18],supervisor:[50,86],ollama:[50,8]};
- return`<div class="ops-stack"><div class="card"><div class="section-head"><div><div class="k">Operations floor</div><div class="h">Real topology · animated only when a lane is actually working</div></div><div class="right">Build Lab is isolated R&D</div></div><div class="ops-scroll"><div class="ops-map" id="opsMap"><svg class="ops-lines" viewBox="0 0 100 100" preserveAspectRatio="none">${c.filter(x=>x.id!=="kevin").map(x=>{const p=positions[x.id]||[50,50],live=x.state==="working"||x.state==="coordinating"||x.state==="coordinating";return`<line class="${live?"live":""}" x1="50" y1="50" x2="${p[0]}" y2="${p[1]}"/>`}).join("")}</svg><div class="kevin-core">${avatarSvg(avatarLevel(),avatarMode(),true)}<div class="core-label">Kevin</div><div class="core-sub">${esc(freshness().disconnected?"Telemetry lost":S?.current_task?`${S.current_task.title}${S.current_task.phase?` · ${S.current_task.phase}`:""}`:"Autonomous build armed")}</div></div>${c.filter(x=>x.id!=="kevin").map(x=>{const p=positions[x.id]||[50,50];return`<button class="agent-node ${x.state}" data-id="${x.id}" style="left:${p[0]}%;top:${p[1]}%"><div class="name">${esc(x.name)}</div><div class="role">${esc(x.role)}</div><div class="tiny">${esc(String(x.state).toUpperCase())}</div></button>`}).join("")}</div></div></div>${taskProgressHtml(true)}<div class="card inspect" id="inspect"></div></div>`
+ return`<div class="ops-v11-frame-shell"><iframe id="opsV11Frame" class="ops-v11-frame" title="Kevin HQ Operations Floor" src="./ops/embed.html?v=12" loading="eager"></iframe></div>`
 }
 function renderInspect(){
  const x=crewById(selectedCrew),a=forgeInfo(),e=x.id==="forge"?lastTaskEvent("night-forge"):lastEvent(x.id),isLab=x.id==="lab";
@@ -790,7 +792,7 @@ function system(){const s=S?.system||{};return`<div class="grid g3">${card("RAM"
 function roadmap(){return`<div class="card"><div class="k">Ordered execution roadmap</div><div class="h">Major capability milestones drive Kevin's visual evolution.</div><div class="queue" style="margin-top:8px">${queueHtml()}</div></div>`}
 function capabilities(){return`<div class="card"><div class="k">Capabilities</div>${(S?.capabilities||[]).map(c=>`<div class="cap"><div class="name"><div>${esc(c.label)}</div><div class="h">${esc(c.version||"")} ${c.last_verified?"· verified "+esc(c.last_verified):""}</div></div><div class="h mono">${esc(c.qa_pass??0)}/${esc(c.qa_total??0)}</div><span class="st ${esc(c.state||"planned")}">${esc(c.state||"planned")}</span></div>`).join("")}</div>`}
 function diagnostics(){const d=S?.diagnostics||{},a=forgeInfo();return`<div class="grid g2eq"><div class="card"><div class="k">Runtime</div>${Object.entries({Agent:d.agent,Model:d.model,Context:d.context,"Chat QA":d.chat_qa,"Reader boundary":d.reader_boundary,"Visible Reader tools":d.reader_visible_tools}).map(([k,v])=>`<div class="row"><span>${esc(k)}</span><span class="h mono">${esc(v??"-")}</span></div>`).join("")}</div><div class="card"><div class="k">Autonomous build</div>${Object.entries({"Forge result":a.result,"Forge mode":a.mode,Scheduled:a.scheduled,"Last mission":a.last_mission,Iteration:a.iteration,Promotion:a.promotion,Updated:a.updated_at?when(a.updated_at):"-"}).map(([k,v])=>`<div class="row"><span>${esc(k)}</span><span class="h mono">${esc(v??"-")}</span></div>`).join("")}</div></div>`}
-function draw(){if(!S)return;applyChrome();if(tab==="overview")$("main").innerHTML=overview();if(tab==="ops")$("main").innerHTML=ops();if(tab==="talk")$("main").innerHTML=talk();if(tab==="activity")$("main").innerHTML=activity();if(tab==="system")$("main").innerHTML=system();if(tab==="build")$("main").innerHTML=roadmap();if(tab==="capabilities")$("main").innerHTML=capabilities();if(tab==="diagnostics")$("main").innerHTML=diagnostics();if(tab==="overview"||tab==="system")drawChart();if(tab==="ops"){renderInspect();$("opsMap").onclick=e=>{const b=e.target.closest("[data-id]");if(!b)return;selectedCrew=b.dataset.id;renderInspect()}}if(tab==="activity")$("main").onclick=e=>{const b=e.target.closest("[data-filter]");if(!b)return;activityFilter=b.dataset.filter;draw()}}
+function draw(){if(!S)return;applyChrome();if(tab==="overview")$("main").innerHTML=overview();if(tab==="ops")$("main").innerHTML=ops();if(tab==="talk")$("main").innerHTML=talk();if(tab==="activity")$("main").innerHTML=activity();if(tab==="system")$("main").innerHTML=system();if(tab==="build")$("main").innerHTML=roadmap();if(tab==="capabilities")$("main").innerHTML=capabilities();if(tab==="diagnostics")$("main").innerHTML=diagnostics();if(tab==="overview"||tab==="system")drawChart();if(tab==="activity")$("main").onclick=e=>{const b=e.target.closest("[data-filter]");if(!b)return;activityFilter=b.dataset.filter;draw()}}
 async function fetchState(){
   const bust=Date.now();
   const rawUrl=`https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/dashboard-state.json?ts=${bust}`;
@@ -822,6 +824,16 @@ async function load(){
   }
  }
 }
+addEventListener("message",e=>{
+ if(e.origin!==location.origin||e.data?.type!=="kevin-ops-height")return;
+ const frame=$("opsV11Frame"),h=Number(e.data.height||0);
+ if(frame&&Number.isFinite(h)&&h>400&&h<3000)frame.style.height=Math.ceil(h)+"px";
+});
+addEventListener("hashchange",()=>{
+ const next=(location.hash||"#overview").slice(1);
+ if(!TABS.some(x=>x[0]===next)||next===tab)return;
+ tab=next;renderNav();draw();
+});
 load();setInterval(load,15000);
 </script>
 </body>
