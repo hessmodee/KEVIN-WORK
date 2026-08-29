@@ -170,7 +170,7 @@ function Add-Drift {
 }
 
 function Test-DesiredState {
-    param($Desired,$Support,$Dashboard,$LiveJobs)
+    param($Desired,$Support,$Dashboard)
     $drift = New-Object System.Collections.ArrayList
     if (-not $Support) {
         Add-Drift $drift 'support_snapshot_missing' 'repair' 'support-latest.json is missing or invalid.' 'run_support_bridge' 'kevin-support-bridge-v1'
@@ -202,12 +202,11 @@ function Test-DesiredState {
 
     foreach ($expected in @($Desired.required_automations)) {
         $sj = Find-SnapshotJob -Support $Support -DeclarationKey $expected.declaration_key -Name $expected.name
-        $lj = Find-LiveJob -LiveJobs $LiveJobs -SnapshotJob $sj -Name $expected.name
-        if (-not $lj) {
-            Add-Drift $drift ("automation_missing_"+$expected.declaration_key) 'review' ("Expected automation not found: {0}" -f $expected.name) '' $expected.declaration_key
+        if (-not $sj) {
+            Add-Drift $drift ("automation_missing_"+$expected.declaration_key) 'review' ("Expected automation not present in fresh Support Bridge snapshot: {0}" -f $expected.name) '' $expected.declaration_key
             continue
         }
-        if ($expected.must_be_enabled -and (-not [bool]$lj.enabled)) {
+        if ($expected.must_be_enabled -and (-not [bool]$sj.enabled)) {
             Add-Drift $drift ("automation_disabled_"+$expected.declaration_key) 'repair' ("Expected automation is disabled: {0}" -f $expected.name) 'enable_expected_automation' $expected.declaration_key
         }
     }
@@ -263,9 +262,9 @@ function Invoke-GreenAction {
         $job = Get-JobIdentity -Support $Support -LiveJobs $LiveJobs -DeclarationKey $expected.declaration_key -Name $expected.name
         if (-not $job) { throw 'Expected automation identity cannot be resolved.' }
         $null = Invoke-OpenClawJson -Args @('automations','enable',$job.id,'--json')
-        $after = Get-LiveJobs
-        $verified = @($after | Where-Object { $_.id -eq $job.id -and [bool]$_.enabled }).Count -gt 0
-        return [pscustomobject]@{ ok=$verified; detail=("Enable {0}; verified={1}" -f $job.name,$verified); target=$job.id }
+        $after = Invoke-OpenClawJson -Args @('automations','get',$job.id,'--json')
+        $verified = ($after -and [bool]$after.enabled)
+        return [pscustomobject]@{ ok=$verified; detail=("Enable {0}; verified={1} through automations get" -f $job.name,$verified); target=$job.id }
     }
 
     if ($verb -eq 'run_support_bridge') {
@@ -352,8 +351,7 @@ try { $LiveJobs = Get-LiveJobs } catch { $liveError=$_.Exception.Message }
 
 $state = Get-ReconcilerState
 $drift = New-Object System.Collections.ArrayList
-if ($liveError) { Add-Drift $drift 'openclaw_live_jobs_unavailable' 'review' $liveError '' 'openclaw-automations' }
-else { foreach($d in @(Test-DesiredState -Desired $Desired -Support $Support -Dashboard $Dashboard -LiveJobs $LiveJobs)){ [void]$drift.Add($d) } }
+foreach($d in @(Test-DesiredState -Desired $Desired -Support $Support -Dashboard $Dashboard)){ [void]$drift.Add($d) }
 $fingerprint = Get-Fingerprint -Drift @($drift)
 $queue = Update-WorkQueue -Desired $Desired -Support $Support -Dashboard $Dashboard -State $state
 
@@ -419,6 +417,7 @@ $evidence = [pscustomobject]@{
     action_result=$actionResult
     failure_budget=[pscustomobject]@{ family=$state.failure_family; attempts=[int]$state.attempts; cooldown_until=$state.cooldown_until }
     work_conserving=$queue
+    live_query_error=$liveError
     safety=[pscustomobject]@{ green_only=$true; arbitrary_shell=$false; authority_expansion=$false; novel_production_promotion=$false }
 }
 $stamp=(Get-Date).ToString('yyyyMMdd-HHmmss')
