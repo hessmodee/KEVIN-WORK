@@ -1,0 +1,84 @@
+name: Validate Kevin Autonomy scheduler v0.1k
+
+on:
+  push:
+    branches: [kevin-autonomy-actuator-v0.1]
+    paths:
+      - '.github/scripts/build-v01k-strict-resolver.ps1'
+      - '.github/workflows/autonomy-v01k-strict-resolver.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  windows-v01k:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-autonomy-actuator-v0.1
+      - name: Build v0.1k
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/build-v01k-strict-resolver.ps1
+      - name: Parse full shipping resume
+        shell: powershell
+        run: |
+          $p='control-plane/actuator/KEVIN-AUTONOMY-SCHEDULER-RESUME-v0.1k.ps1'
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors -and $errors.Count){$errors|ForEach-Object{Write-Error ("line {0}: {1}" -f $_.Extent.StartLineNumber,$_.Message)};throw 'v0.1k parse failed'}
+          Write-Host 'PASS full v0.1k parses on Windows PowerShell 5.1.'
+      - name: StrictMode response-shape regression
+        shell: powershell
+        run: |
+          Set-StrictMode -Version 2.0
+          $ErrorActionPreference='Stop'
+          function Get-OptionalPropertyValue {
+            param($Object,[Parameter(Mandatory=$true)][string]$Name)
+            if($null -eq $Object){return $null}
+            $prop=$Object.PSObject.Properties[$Name]
+            if($null -eq $prop){return $null}
+            return $prop.Value
+          }
+          function Resolve-JobId {
+            param($Object,[string]$Label)
+            if($null -eq $Object){throw "Could not resolve job id from $Label create response: response was null."}
+            $id=Get-OptionalPropertyValue -Object $Object -Name 'id'; if($id){return [string]$id}
+            $jobId=Get-OptionalPropertyValue -Object $Object -Name 'jobId'; if($jobId){return [string]$jobId}
+            $job=Get-OptionalPropertyValue -Object $Object -Name 'job'; if($job){$nestedId=Get-OptionalPropertyValue -Object $job -Name 'id';if($nestedId){return [string]$nestedId}}
+            $result=Get-OptionalPropertyValue -Object $Object -Name 'result'; if($result){$nestedId=Get-OptionalPropertyValue -Object $result -Name 'id';if($nestedId){return [string]$nestedId}}
+            $props=@($Object.PSObject.Properties.Name) -join ','
+            throw "Could not resolve job id from $Label create response. Top-level properties: $props"
+          }
+          $cases=@(
+            @{o=([pscustomobject]@{id='direct-id';name='x'});want='direct-id';label='direct'},
+            @{o=([pscustomobject]@{created=$true;job=[pscustomobject]@{id='wrapped-id';name='x'}});want='wrapped-id';label='declarative-wrapper'},
+            @{o=([pscustomobject]@{jobId='job-id'});want='job-id';label='jobId'},
+            @{o=([pscustomobject]@{result=[pscustomobject]@{id='result-id'}});want='result-id';label='result'}
+          )
+          foreach($c in $cases){$got=Resolve-JobId $c.o $c.label;if($got -cne $c.want){throw "Resolver failed $($c.label): got '$got', want '$($c.want)'"};Write-Host "PASS resolver $($c.label) => $got"}
+          $failed=$false
+          try{$null=Resolve-JobId ([pscustomobject]@{created=$true;updated=$false}) 'malformed'}catch{$failed=$true;if($_.Exception.Message -notmatch 'Top-level properties: created,updated'){throw}}
+          if(-not $failed){throw 'Malformed response did not fail.'}
+          Write-Host 'PASS malformed response fails cleanly under StrictMode.'
+      - name: Execute shipping transport self-test
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File control-plane/actuator/KEVIN-AUTONOMY-SCHEDULER-RESUME-v0.1k.ps1 -Mode ValidateTransport
+          if($LASTEXITCODE -ne 0){throw 'v0.1k transport self-test failed'}
+      - name: Contract checks and commit validated artifact
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $p='control-plane/actuator/KEVIN-AUTONOMY-SCHEDULER-RESUME-v0.1k.ps1'
+          $t=Get-Content -LiteralPath $p -Raw
+          foreach($needle in @("$NewBridgeBlob='d542581dc4783fc8f34ede34edf47e4427df7091'",'Get-OptionalPropertyValue','Top-level properties: $props','KEVIN_GH_EXE','cron create','SCHEDULER v0.1k INSTALLED + PROVEN')){if(-not $t.Contains($needle)){throw "Missing v0.1k contract: $needle"}}
+          if($t.Contains('if($Object -and $Object.id)')){throw 'Unsafe StrictMode property probe remains.'}
+          git config user.name 'Kevin Control Plane CI'
+          git config user.email 'kevin-control-plane-ci@users.noreply.github.com'
+          git add -- $p
+          git diff --cached --quiet; if($LASTEXITCODE -eq 0){throw 'No v0.1k artifact to commit.'}
+          git commit -m 'Finalize validated autonomy scheduler resume v0.1k'
+          git push origin HEAD:kevin-autonomy-actuator-v0.1
