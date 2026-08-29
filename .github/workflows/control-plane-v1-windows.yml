@@ -37,5 +37,6 @@ jobs:
       - name: Validate final Control Plane v1 installer
         shell: powershell
         run: |
+          # Full rerun after the one-shot installer parser repair.
           & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/test-control-plane-installer-v1.ps1
           if($LASTEXITCODE -ne 0){throw 'Control Plane v1 installer validation failed'}
