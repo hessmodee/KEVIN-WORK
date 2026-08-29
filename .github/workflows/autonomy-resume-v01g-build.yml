@@ -1,0 +1,51 @@
+name: Build Kevin Autonomy Resume v0.1g
+
+on:
+  push:
+    branches:
+      - kevin-autonomy-actuator-v0.1
+    paths:
+      - 'control-plane/actuator/build-resume-v01g.ps1'
+      - '.github/workflows/autonomy-resume-v01g-build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows-build-validate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-autonomy-actuator-v0.1
+
+      - name: Generate and parse v0.1g resume
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/actuator/build-resume-v01g.ps1'
+          if($LASTEXITCODE -ne 0){throw 'Resume builder failed'}
+          $path='control-plane/actuator/KEVIN-AUTONOMY-RESUME-v0.1g.ps1'
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $path),[ref]$tokens,[ref]$errors)
+          if($errors -and $errors.Count){$errors|ForEach-Object{Write-Error ("line {0}: {1}" -f $_.Extent.StartLineNumber,$_.Message)};throw 'Generated resume parser failure'}
+          $text=Get-Content -LiteralPath $path -Raw
+          if($text -match '\}\$Sources'){throw 'Known missing-newline packaging signature found'}
+          if($text -match '\belif\b'){throw 'Non-PowerShell elif token found'}
+          if($text -notmatch '489dfd2277245341a790c00a5db04ecd3ffb4fab'){throw 'v0.1g repaired actuator pin missing'}
+          if($text -notmatch [regex]::Escape("@('automations','get',`$rId,'--json')")){throw 'Reconciler get verification missing'}
+          if($text -notmatch [regex]::Escape("@('automations','get',`$bId,'--json')")){throw 'Telemetry get verification missing'}
+          Write-Host 'PASS generated v0.1g resume parses in Windows PowerShell and retains typed job verification.'
+
+      - name: Commit validated v0.1g resume
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $path='control-plane/actuator/KEVIN-AUTONOMY-RESUME-v0.1g.ps1'
+          if(-not(Test-Path -LiteralPath $path)){throw 'Generated v0.1g resume missing'}
+          git config user.name 'Kevin Control Plane CI'
+          git config user.email 'kevin-control-plane-ci@users.noreply.github.com'
+          git add $path
+          git commit -m 'Add validated autonomy resume v0.1g'
+          git push origin HEAD:kevin-autonomy-actuator-v0.1
