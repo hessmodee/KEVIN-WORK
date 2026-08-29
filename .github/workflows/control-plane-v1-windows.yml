@@ -9,6 +9,7 @@ on:
       - 'control-plane/schemas/**'
       - 'control-plane/CONTROL-PLANE-v1.md'
       - '.github/scripts/test-control-plane-v1.ps1'
+      - '.github/scripts/test-work-order-intake-v1.ps1'
       - '.github/workflows/control-plane-v1-windows.yml'
 
 permissions:
@@ -26,3 +27,8 @@ jobs:
         run: |
           & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/test-control-plane-v1.ps1
           if($LASTEXITCODE -ne 0){throw 'Control Plane v1 Windows test suite failed'}
+      - name: Run typed work-order intake end-to-end regression
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/test-work-order-intake-v1.ps1
+          if($LASTEXITCODE -ne 0){throw 'Work-order intake end-to-end regression failed'}
