@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "kind": "kevin-mission-catalog",
+  "version": "1.0",
+  "policy": {
+    "candidate_only": true,
+    "single_14b_worker": true,
+    "allow_production_mutation": false,
+    "allow_permission_changes": false,
+    "allow_arbitrary_shell": false,
+    "allow_external_owner_messages": false,
+    "max_candidate_files": 3,
+    "max_candidate_chars": 20000,
+    "minimum_review_score": 75
+  },
+  "missions": [
+    {
+      "id": "benchmark-fixtures",
+      "title": "Benchmark Fixture Expansion",
+      "priority": 90,
+      "goal": "Design candidate benchmark fixtures that catch regressions in autonomy, typed-action validation, stale telemetry, replay protection, cooldown behavior, and false-success claims. Candidate artifacts only; do not alter the production Benchmark or run generated code."
+    },
+    {
+      "id": "knowledge-provenance",
+      "title": "Knowledge Provenance",
+      "priority": 95,
+      "goal": "Design candidate provenance and HandoffEnvelope improvements for Kevin Knowledge. Preserve immutable raw-source hashes, claim/source links, evidence grade, assumptions, unknowns, staleness, semantic-success checks, and fail-closed behavior. Do not rewrite canonical memory or production knowledge automatically."
+    },
+    {
+      "id": "checkpoint-resume",
+      "title": "Checkpoint and Resume",
+      "priority": 100,
+      "goal": "Design candidate checkpoint/resume mechanics for long-running Kevin missions. Persist stage, inputs, evidence, budget, retry family, next action, and semantic completion criteria so interrupted work can continue without duplicating side effects. Candidate artifacts only."
+    },
+    {
+      "id": "postmortem-cleanup",
+      "title": "Postmortem and Lesson Cleanup",
+      "priority": 80,
+      "goal": "Design candidate postmortem and reusable-lesson structures that distinguish symptom, root cause, fix, prevention, evidence, confidence, and review date. Prevent reflection from silently rewriting authority or canonical memory."
+    },
+    {
+      "id": "telemetry-quality",
+      "title": "Telemetry Quality",
+      "priority": 92,
+      "goal": "Design candidate telemetry improvements that distinguish activity from semantic progress, expose stale/contradictory states, preserve privacy, and make failed handoffs or saturated recovery visible without fake busy signals. Do not redesign the production Ops Floor avatar or visual system."
+    },
+    {
+      "id": "skill-evaluation",
+      "title": "Skill Evaluation",
+      "priority": 85,
+      "goal": "Design candidate skill-lifecycle evaluation fixtures covering trigger, inputs, tools, steps, validation, approvals, rollback, baseline-vs-with-skill measurement, retention criteria, and failure handling. Do not auto-install or auto-promote generated skills."
+    }
+  ]
+}
