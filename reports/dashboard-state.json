@@ -1,7 +1,7 @@
 {
-  "schema": 4,
-  "generated_at": "2026-08-28T23:57:03-06:00",
-  "status": "idle",
+  "schema": 5,
+  "generated_at": "2026-08-29T00:00:43.1738994-06:00",
+  "status": "ready",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -20,8 +20,11 @@
   },
   "execution": {
     "running": false,
-    "phase": null,
-    "worker": null
+    "state": "ready",
+    "phase": "All current strategic missions are inside failure cooldown.",
+    "worker": "Supervisor",
+    "engine": "Supervisor v1.4",
+    "action": "Autonomous schedule armed"
   },
   "director": {
     "planning": true,
@@ -1395,8 +1398,8 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T23:57:03-06:00",
-    "source": "local runtime"
+    "last": "2026-08-29T00:00:43.1738994-06:00",
+    "source": "Kevin HQ Live Ops v1"
   },
   "self_check": {
     "fails": 0,
@@ -1435,6 +1438,11 @@
     "items": []
   },
   "newswire": [
+    {
+      "id": "live-ops",
+      "text": "Supervisor \u00c2\u00b7 READY \u00c2\u00b7 All current strategic missions are inside failure cooldown.",
+      "severity": "normal"
+    },
     {
       "id": "weather",
       "text": "Tonight 54 | Wind 5 mph | Showers And Thunderstorms Likely",
@@ -1541,5 +1549,57 @@
       "label": "candidate: reader-self-check i7",
       "result": "pass"
     }
-  ]
+  ],
+  "ops_floor": {
+    "schema": 1,
+    "generated_at": "2026-08-29T00:00:43.1738994-06:00",
+    "source": "Kevin HQ Live Ops v1",
+    "expedition_active": false,
+    "forge_active": false,
+    "supervisor_active": false,
+    "benchmark_active": false,
+    "primary": {
+      "id": "supervisor",
+      "name": "Supervisor",
+      "title": "Kevin autonomous system armed",
+      "category": "supervisor",
+      "state": "ready",
+      "detail": "All current strategic missions are inside failure cooldown.",
+      "what": "Waiting only for the next scheduled three-minute control cycle.",
+      "engine": "Supervisor v1.4",
+      "action": "Autonomous schedule armed"
+    },
+    "lanes": [
+      {
+        "id": "supervisor",
+        "name": "Supervisor",
+        "role": "Goal-aware control plane",
+        "state": "ready",
+        "detail": "All current strategic missions are inside failure cooldown.",
+        "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
+        "engine": "Supervisor v1.4",
+        "action": "Awaiting next 3-minute cycle"
+      },
+      {
+        "id": "benchmark",
+        "name": "Benchmark",
+        "role": "Regression + capability fitness",
+        "state": "ready",
+        "detail": "Cheap regression watchdog armed; heavy model suite remains resource-gated.",
+        "what": "Protects proven behavior and measures challenger quality.",
+        "engine": "Kevin Benchmark v1",
+        "action": "10-minute watchdog armed"
+      },
+      {
+        "id": "staging",
+        "name": "Staging",
+        "role": "Policy-gated champion archive",
+        "state": "ready",
+        "detail": "Isolated staging evidence exists; executable production promotion remains locked.",
+        "what": "Candidate \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 Champion \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 isolated staging. No staged code executes here.",
+        "engine": "Promotion policy v1",
+        "action": "Safe auto-staging"
+      }
+    ]
+  }
 }
