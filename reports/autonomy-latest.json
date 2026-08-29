@@ -1,0 +1,32 @@
+{
+    "schema":  1,
+    "kind":  "kevin-autonomy-public",
+    "generated_at":  "2026-08-29T15:33:54.6204172-06:00",
+    "state":  "HEALTHY",
+    "fingerprint":  "6C0A391856539EBD86F60FD04E965B7C6792A9340CA93ED22F9982EA48DD6588",
+    "drift_count":  0,
+    "selected_action":  null,
+    "action_ok":  null,
+    "failure_budget":  {
+                           "family":  "",
+                           "attempts":  0,
+                           "cooldown_until":  null
+                       },
+    "work_conserving":  {
+                            "schema":  1,
+                            "generated_at":  "2026-08-29T15:33:54.6015210-06:00",
+                            "active_engineering_workers":  0,
+                            "supervisor_blocked_or_cooling":  true,
+                            "next_suggested_candidate":  "postmortem-cleanup",
+                            "status":  "READY_FOR_SUPERVISOR_INTEGRATION",
+                            "candidate_only":  true,
+                            "note":  "This queue is advisory in v0.1. It never grants authority and never executes arbitrary code."
+                        },
+    "safety":  {
+                   "green_only":  true,
+                   "arbitrary_shell":  false,
+                   "authority_expansion":  false,
+                   "novel_production_promotion":  false
+               },
+    "semantic_hash":  "161D66E175E31DC169A6758EAB96A4D6CBC1D8126E972B949C8712CF90046FC1"
+}
