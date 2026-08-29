@@ -1,0 +1,55 @@
+name: Probe WinPS 5.1 native JSON transport
+on:
+  push:
+    branches: [kevin-autonomy-actuator-v0.1]
+    paths: ['.github/workflows/winps51-native-json-transport-probe.yml']
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe exact JSON transport to node.exe from Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          @'
+          const args = process.argv.slice(2);
+          const i = args.indexOf('--command-argv');
+          const eq = args.find(x => x.startsWith('--command-argv='));
+          const value = i >= 0 ? args[i+1] : (eq ? eq.slice('--command-argv='.length) : null);
+          console.log('ARGV='+JSON.stringify(args));
+          console.log('VALUE='+JSON.stringify(value));
+          let ok=false;
+          try { const p=JSON.parse(value); ok=Array.isArray(p) && p.length===3 && p[0]==='powershell.exe' && p[1]==='C:\\Path With Space\\x.ps1' && p[2]==='Reconcile'; } catch(e) { console.log('PARSE='+e.message); }
+          console.log('OK='+(ok?'true':'false'));
+          process.exit(ok?0:23);
+          '@ | Set-Content -LiteralPath .\argv-probe.js -Encoding UTF8
+
+          $json=@('powershell.exe','C:\Path With Space\x.ps1','Reconcile') | ConvertTo-Json -Compress
+          Write-Host "SOURCE=$json"
+
+          $candidates=[ordered]@{}
+          $candidates['direct']=$json
+          $candidates['backslash_quote']=$json.Replace('"','\"')
+          $candidates['double_backslash_quote']=$json.Replace('"','\\"')
+
+          $winner=$null
+          foreach($kv in $candidates.GetEnumerator()){
+            Write-Host "--- $($kv.Key) ---"
+            $old=$ErrorActionPreference; $ErrorActionPreference='Continue'
+            try { & node.exe .\argv-probe.js '--command-argv' ([string]$kv.Value); $code=$LASTEXITCODE } finally { $ErrorActionPreference=$old }
+            Write-Host "EXIT=$code"
+            if($code -eq 0 -and -not $winner){$winner=$kv.Key}
+          }
+
+          Write-Host '--- equals_backslash_quote ---'
+          $eq='--command-argv='+$candidates['backslash_quote']
+          $old=$ErrorActionPreference; $ErrorActionPreference='Continue'
+          try { & node.exe .\argv-probe.js $eq; $eqCode=$LASTEXITCODE } finally { $ErrorActionPreference=$old }
+          Write-Host "EXIT=$eqCode"
+          if($eqCode -eq 0 -and -not $winner){$winner='equals_backslash_quote'}
+
+          if(-not $winner){throw 'No simple WinPS 5.1 JSON transport candidate preserved JSON.'}
+          Write-Host "WINNER=$winner"
