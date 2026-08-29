@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kevin-work-order-v1",
+  "title": "Kevin GREEN Work Order v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema","kind","id","idempotency_key","created_at","expires_at","authority_class","verb","target"],
+  "properties": {
+    "schema": {"const": 1},
+    "kind": {"const": "kevin-work-order"},
+    "id": {"type":"string","pattern":"^[A-Za-z0-9._-]{8,80}$"},
+    "idempotency_key": {"type":"string","pattern":"^[A-Za-z0-9._-]{8,120}$"},
+    "created_at": {"type":"string","format":"date-time"},
+    "expires_at": {"type":"string","format":"date-time"},
+    "authority_class": {"const":"GREEN"},
+    "verb": {"enum":["dispatch_mission","run_reconcile","run_benchmark","run_support_bridge","refresh_autonomy_telemetry"]},
+    "target": {"type":"string","minLength":1,"maxLength":128},
+    "reason": {"type":"string","maxLength":500}
+  }
+}
