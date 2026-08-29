@@ -1,0 +1,28 @@
+name: Validate Kevin Control Plane v1
+
+on:
+  push:
+    branches: [kevin-control-plane-v1]
+    paths:
+      - 'control-plane/dispatcher/**'
+      - 'control-plane/intake/**'
+      - 'control-plane/schemas/**'
+      - 'control-plane/CONTROL-PLANE-v1.md'
+      - '.github/scripts/test-control-plane-v1.ps1'
+      - '.github/workflows/control-plane-v1-windows.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  windows-control-plane-v1:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-control-plane-v1
+      - name: Run Windows PowerShell 5.1 control-plane tests
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/test-control-plane-v1.ps1
+          if($LASTEXITCODE -ne 0){throw 'Control Plane v1 Windows test suite failed'}
