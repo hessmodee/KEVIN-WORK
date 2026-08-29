@@ -250,7 +250,7 @@ Step 'First live reconciliation'
 $first=Run-Ps -File $Actuator -Args @('-Mode','Reconcile')
 Write-Host $first.Stdout
 if($first.ExitCode -eq 2){Note 'First reconcile completed bounded with NEEDS_REVIEW or failed repair; actuator remains installed for evidence.'}
-elif($first.ExitCode -ne 0){throw "First reconcile failed unexpectedly :: $($first.Stderr)"}
+elseif($first.ExitCode -ne 0){throw "First reconcile failed unexpectedly :: $($first.Stderr)"}
 else{Good 'First live reconcile completed.'}
 
 Step 'Publish and independently verify first autonomy snapshot'
