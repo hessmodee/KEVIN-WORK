@@ -85,9 +85,9 @@ $ExistingPins=[ordered]@{
 }
 $Components=[ordered]@{
   'mission-catalog-v1.json'='743db880f6529f59341f2e0f89da533091392001'
-  'kevin-mission-worker-v0.1.ps1'='5546b2bc5d6eb87b7f25b3d72214e99fe6636ba8'
-  'kevin-mission-dispatcher-v0.1.ps1'='893d2fac2e0ffb5aa536d9d6b02eb49164018d10'
-  'kevin-work-order-intake-v0.1.ps1'='75709657b6d34ffb24a9e6a9dc968d07e0467557'
+  'kevin-mission-worker-v0.1.ps1'='3b02fb4acfadb715a017641b622179a9cf422eb0'
+  'kevin-mission-dispatcher-v0.1.ps1'='766fa55163b238f04ca54cc18164363b962a777e'
+  'kevin-work-order-intake-v0.1.ps1'='b21488796d967da6b892190538d61b4e58d072f5'
   'work-order-v1.schema.json'='c030d84c1da9de2d1df4f3a9b067dbd4ac8935c9'
 }
 

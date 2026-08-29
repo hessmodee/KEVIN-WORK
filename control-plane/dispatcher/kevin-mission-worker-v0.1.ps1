@@ -120,6 +120,34 @@ function Extract-JsonObject([string]$Text){
   return ($t.Substring($first,$last-$first+1)|ConvertFrom-Json)
 }
 
+$script:FormatRecoveryCount=0
+function New-FormatRecoveryPrompt([string]$BasePrompt,[string]$Label){
+  return ("FORMAT RECOVERY FOR {0}: The previous response contained no JSON object. Do not explain, apologize, use markdown, or discuss the failure. Return exactly one valid JSON object matching the requested schema below. Preserve the mission and all safety constraints. This is the only format-recovery attempt.`n`n{1}" -f $Label,$BasePrompt)
+}
+function Invoke-AgentJson {
+  param(
+    [Parameter(Mandatory=$true)]$Runtime,
+    [Parameter(Mandatory=$true)][string]$SessionKey,
+    [Parameter(Mandatory=$true)][string]$PromptPath,
+    [Parameter(Mandatory=$true)][string]$RepairPromptPath,
+    [Parameter(Mandatory=$true)][string]$Label,
+    [int]$TimeoutSeconds=220
+  )
+  $primary=Invoke-ExactNative -Executable $Runtime.Node -Argv @($Runtime.Cli,'agent','--agent','kevin-lab-qwen','--session-key',$SessionKey,'--json','--timeout','180','--message-file',$PromptPath) -TimeoutSeconds $TimeoutSeconds -WorkingDirectory $Workspace
+  if($primary.ExitCode -ne 0){throw "$Label model run failed exit=$($primary.ExitCode): $($primary.Stderr)"}
+  $outer=$primary.Stdout|ConvertFrom-Json;$visible=Extract-AssistantText $outer
+  try{return (Extract-JsonObject $visible)}catch{
+    $script:FormatRecoveryCount=[int]$script:FormatRecoveryCount+1
+    $base=[IO.File]::ReadAllText($PromptPath);$repairPrompt=New-FormatRecoveryPrompt -BasePrompt $base -Label $Label
+    [IO.File]::WriteAllText($RepairPromptPath,$repairPrompt,$Utf8)
+    if((Get-Item -LiteralPath $RepairPromptPath).Length -gt 20000){throw "$Label format-recovery prompt exceeded 20KB cap."}
+    $repair=Invoke-ExactNative -Executable $Runtime.Node -Argv @($Runtime.Cli,'agent','--agent','kevin-lab-qwen','--session-key',("repair-"+$SessionKey),'--json','--timeout','180','--message-file',$RepairPromptPath) -TimeoutSeconds $TimeoutSeconds -WorkingDirectory $Workspace
+    if($repair.ExitCode -ne 0){throw "$Label format-recovery model run failed exit=$($repair.ExitCode): $($repair.Stderr)"}
+    $repairOuter=$repair.Stdout|ConvertFrom-Json;$repairVisible=Extract-AssistantText $repairOuter
+    try{return (Extract-JsonObject $repairVisible)}catch{throw "$Label model JSON contract failed after one bounded format-recovery attempt."}
+  }
+}
+
 function Save-CandidateFiles($Proposal,[string]$CandidateRoot,[int]$MaxFiles,[int]$MaxChars){
   $files=@($Proposal.candidate_files)
   if($files.Count -gt $MaxFiles){throw "Candidate file count exceeded cap: $($files.Count)>$MaxFiles"}
@@ -141,7 +169,9 @@ if($Mode -eq 'SelfTest'){
   $ids=@($Catalog.missions|ForEach-Object{[string]$_.id})
   if($ids.Count -lt 1){throw 'Mission catalog is empty.'}
   if(($ids|Select-Object -Unique).Count -ne $ids.Count){throw 'Mission catalog contains duplicate ids.'}
-  Write-Output ("MISSION_WORKER_SELF_TEST_PASS missions={0}" -f $ids.Count);exit 0
+  $probe=Extract-JsonObject 'prefix {"ok":true} suffix';if(-not [bool]$probe.ok){throw 'JSON extraction self-test failed.'}
+  $rp=New-FormatRecoveryPrompt -BasePrompt 'RETURN CONTRACT' -Label 'Candidate';if($rp -notmatch 'FORMAT RECOVERY FOR Candidate' -or $rp -notmatch 'RETURN CONTRACT'){throw 'Format-recovery prompt self-test failed.'}
+  Write-Output ("MISSION_WORKER_SELF_TEST_PASS missions={0} json_recovery=1" -f $ids.Count);exit 0
 }
 
 if([string]::IsNullOrWhiteSpace($MissionId)){throw 'MissionId is required in Run mode.'}
@@ -192,9 +222,8 @@ Return ONLY valid JSON with this shape:
   $promptPath=Join-Path $runRoot 'candidate.prompt.txt';[IO.File]::WriteAllText($promptPath,$prompt,$Utf8)
   if((Get-Item -LiteralPath $promptPath).Length -gt 16000){throw 'Candidate prompt exceeded 16KB cap.'}
   $session="mission-$stamp-$MissionId"
-  $gen=Invoke-ExactNative -Executable $rt.Node -Argv @($rt.Cli,'agent','--agent','kevin-lab-qwen','--session-key',$session,'--json','--timeout','180','--message-file',$promptPath) -TimeoutSeconds 220 -WorkingDirectory $Workspace
-  if($gen.ExitCode -ne 0){throw "Candidate model run failed exit=$($gen.ExitCode): $($gen.Stderr)"}
-  $outer=$gen.Stdout|ConvertFrom-Json;$proposal=Extract-JsonObject (Extract-AssistantText $outer)
+  $candidateRepairPath=Join-Path $runRoot 'candidate.repair.prompt.txt'
+  $proposal=Invoke-AgentJson -Runtime $rt -SessionKey $session -PromptPath $promptPath -RepairPromptPath $candidateRepairPath -Label 'Candidate' -TimeoutSeconds 220
   if([string]$proposal.mission_id -ne $MissionId){throw "Candidate mission mismatch: $($proposal.mission_id)"}
   $stats=Save-CandidateFiles -Proposal $proposal -CandidateRoot $candidateRoot -MaxFiles ([int]$Catalog.policy.max_candidate_files) -MaxChars ([int]$Catalog.policy.max_candidate_chars)
   Write-JsonAtomic $proposal (Join-Path $runRoot 'proposal.json')
@@ -224,22 +253,21 @@ Return ONLY valid JSON:
 }
 "@
   $reviewPath=Join-Path $runRoot 'review.prompt.txt';[IO.File]::WriteAllText($reviewPath,$reviewPrompt,$Utf8)
-  $review=Invoke-ExactNative -Executable $rt.Node -Argv @($rt.Cli,'agent','--agent','kevin-lab-qwen','--session-key',("review-$stamp-$MissionId"),'--json','--timeout','180','--message-file',$reviewPath) -TimeoutSeconds 220 -WorkingDirectory $Workspace
-  if($review.ExitCode -ne 0){throw "Review model run failed exit=$($review.ExitCode): $($review.Stderr)"}
-  $reviewOuter=$review.Stdout|ConvertFrom-Json;$evaluation=Extract-JsonObject (Extract-AssistantText $reviewOuter)
+  $reviewRepairPath=Join-Path $runRoot 'review.repair.prompt.txt'
+  $evaluation=Invoke-AgentJson -Runtime $rt -SessionKey ("review-$stamp-$MissionId") -PromptPath $reviewPath -RepairPromptPath $reviewRepairPath -Label 'Review' -TimeoutSeconds 220
   if([string]$evaluation.mission_id -ne $MissionId){throw 'Review mission mismatch.'}
   $score=[int]$evaluation.score;$securityCount=@($evaluation.security_findings).Count
   $passed=([string]$evaluation.verdict -eq 'PASS' -and $score -ge [int]$Catalog.policy.minimum_review_score -and $securityCount -eq 0 -and [bool]$evaluation.semantic_success)
   Write-JsonAtomic $evaluation (Join-Path $runRoot 'evaluation.json')
 
-  $result=[ordered]@{schema=1;kind='kevin-mission-factory-result';generated_at=(Get-Date).ToString('o');mission_id=$MissionId;state=$(if($passed){'PASS'}else{'REJECT'});run_path=$runRoot;candidate_files=[int]$stats.count;candidate_chars=[int]$stats.chars;review_score=$score;security_findings=$securityCount;reusable_lesson=[string]$evaluation.reusable_lesson;next_experiment=[string]$evaluation.next_experiment;candidate_only=$true;safety=[ordered]@{production_mutation=$false;authority_expansion=$false;generated_code_executed=$false}}
+  $result=[ordered]@{schema=1;kind='kevin-mission-factory-result';generated_at=(Get-Date).ToString('o');mission_id=$MissionId;state=$(if($passed){'PASS'}else{'REJECT'});run_path=$runRoot;candidate_files=[int]$stats.count;candidate_chars=[int]$stats.chars;review_score=$score;security_findings=$securityCount;reusable_lesson=[string]$evaluation.reusable_lesson;next_experiment=[string]$evaluation.next_experiment;candidate_only=$true;format_recovery_count=[int]$script:FormatRecoveryCount;safety=[ordered]@{production_mutation=$false;authority_expansion=$false;generated_code_executed=$false}}
   Write-JsonAtomic $result $StatePath;Write-JsonAtomic $result $LatestPath
   if(Test-Path -LiteralPath $StatePy){try{& python $StatePy finish design-forge $result.state ("Mission Factory "+$MissionId+" "+$result.state+" score="+$score) --source control-plane|Out-Null}catch{}}
   Write-Output ("MISSION_WORKER_COMPLETE mission={0} state={1} score={2} files={3}" -f $MissionId,$result.state,$score,$stats.count)
   exit 0
 }catch{
   $msg=[string]$_.Exception.Message
-  $result=[ordered]@{schema=1;kind='kevin-mission-factory-result';generated_at=(Get-Date).ToString('o');mission_id=$MissionId;state='INFRA_FAILURE';run_path=$runRoot;error=$msg;candidate_only=$true;safety=[ordered]@{production_mutation=$false;authority_expansion=$false;generated_code_executed=$false}}
+  $result=[ordered]@{schema=1;kind='kevin-mission-factory-result';generated_at=(Get-Date).ToString('o');mission_id=$MissionId;state='INFRA_FAILURE';run_path=$runRoot;error=$msg;candidate_only=$true;format_recovery_count=[int]$script:FormatRecoveryCount;safety=[ordered]@{production_mutation=$false;authority_expansion=$false;generated_code_executed=$false}}
   Write-JsonAtomic $result $StatePath;Write-JsonAtomic $result $LatestPath
   if(Test-Path -LiteralPath $StatePy){try{& python $StatePy finish design-forge FAIL $msg --source control-plane|Out-Null}catch{}}
   Write-Output ("MISSION_WORKER_ERROR mission={0} detail={1}" -f $MissionId,($msg -replace '[\r\n]+',' '));exit 2

@@ -57,6 +57,11 @@ try{
   if(-not $dispatchReport.eligible -or -not $dispatchReport.supervisor_blocked_or_cooling){throw 'Dispatcher healthy-state eligibility report was not truthful.'}
   Write-Host ($inspectOut -join "`n")
 
+  $dispatchFail=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File (Join-Path $cp 'kevin-mission-dispatcher-v0.1.ps1') -Mode Dispatch -RequestedMission checkpoint-resume 2>&1
+  $dispatchFailCode=$LASTEXITCODE
+  if($dispatchFailCode -ne 2 -or ($dispatchFail -join "`n") -notmatch 'detail=.*helper_system_status.py missing'){throw "Dispatcher did not surface sanitized worker root cause: exit=$dispatchFailCode output=$($dispatchFail -join ' | ')"}
+  Write-Host 'PASS dispatcher failure detail propagation.'
+
   $intakeOut=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File (Join-Path $cp 'kevin-work-order-intake-v0.1.ps1') -Mode SelfTest
   if($LASTEXITCODE -ne 0 -or ($intakeOut -join "`n") -notmatch 'WORK_ORDER_INTAKE_SELF_TEST_PASS'){throw "Intake self-test failed: $($intakeOut -join ' | ')"}
   Write-Host ($intakeOut -join "`n")
@@ -72,5 +77,7 @@ foreach($p in $files){
 $intake=Get-Content 'control-plane/intake/kevin-work-order-intake-v0.1.ps1' -Raw
 foreach($verb in @('dispatch_mission','run_reconcile','run_benchmark','run_support_bridge','refresh_autonomy_telemetry')){if(-not $intake.Contains($verb)){throw "Missing typed verb: $verb"}}
 if($intake -match 'command_string|shell_command|arbitrary_command'){throw 'Intake exposes command-string authority.'}
+$workerText=Get-Content 'control-plane/dispatcher/kevin-mission-worker-v0.1.ps1' -Raw;if(-not $workerText.Contains('FORMAT RECOVERY FOR') -or -not $workerText.Contains('format_recovery_count')){throw 'Worker format-recovery contract missing.'}
+$dispatcherText=Get-Content 'control-plane/dispatcher/kevin-mission-dispatcher-v0.1.ps1' -Raw;if(-not $dispatcherText.Contains('Sanitize-PublicDetail') -or -not $dispatcherText.Contains('detail={3}')){throw 'Dispatcher public failure-detail contract missing.'}
 Write-Host 'PASS authority/static contracts.'
 Write-Host 'CONTROL_PLANE_V1_TEST_PASS'

@@ -33,6 +33,8 @@ class Program {
       string order;
       if (mode=="malformed") {
         order="{\"schema\":1,\"kind\":\"kevin-work-order\",\"idempotency_key\":\"malformed-key-001\",\"created_at\":\""+created+"\",\"expires_at\":\""+expires+"\",\"authority_class\":\"GREEN\",\"verb\":\"run_reconcile\",\"target\":\"autonomy\"}";
+      } else if (mode=="execution_failure") {
+        order="{\"schema\":1,\"kind\":\"kevin-work-order\",\"id\":\"ci-order-fail1\",\"idempotency_key\":\"ci-idem-fail1\",\"created_at\":\""+created+"\",\"expires_at\":\""+expires+"\",\"authority_class\":\"GREEN\",\"verb\":\"run_benchmark\",\"target\":\"kevin-benchmark-v1\",\"reason\":\"CI terminal failure replay regression\"}";
       } else {
         order="{\"schema\":1,\"kind\":\"kevin-work-order\",\"id\":\"ci-order-0001\",\"idempotency_key\":\"ci-idem-0001\",\"created_at\":\""+created+"\",\"expires_at\":\""+expires+"\",\"authority_class\":\"GREEN\",\"verb\":\"refresh_autonomy_telemetry\",\"target\":\"autonomy-telemetry\",\"reason\":\"CI typed work-order regression\"}";
       }
@@ -75,10 +77,20 @@ class Program {
   if($LASTEXITCODE -ne 0 -or ($second -join "`n") -notmatch 'WORK_ORDER_REPLAY_IGNORED'){throw "Replay protection failed: $($second -join ' | ')"}
   Write-Host ($second -join "`n")
 
-  $env:FAKE_ORDER_MODE='malformed'
+  $env:FAKE_ORDER_MODE='execution_failure'
   $third=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File (Join-Path $cp 'kevin-work-order-intake-v0.1.ps1') -Mode Poll 2>&1
-  if($LASTEXITCODE -ne 2 -or ($third -join "`n") -notmatch 'WORK_ORDER_FAILED'){throw "Malformed order did not fail cleanly: exit=$LASTEXITCODE output=$($third -join ' | ')"}
-  Write-Host ($third -join "`n")
+  if($LASTEXITCODE -ne 2 -or ($third -join "`n") -notmatch 'WORK_ORDER_FAILED'){throw "Valid execution failure did not fail cleanly: exit=$LASTEXITCODE output=$($third -join ' | ')"}
+  $failedLatest=Get-Content (Join-Path $reports 'work-order-latest.json') -Raw|ConvertFrom-Json;if($failedLatest.status -ne 'FAILED'){throw 'Execution failure acknowledgement was not retained.'}
+  $ledger=Get-Content (Join-Path $cp 'State\work-order-ledger-v1.json') -Raw|ConvertFrom-Json;if(@($ledger.processed|Where-Object{$_.idempotency_key -eq 'ci-idem-fail1' -and $_.status -eq 'FAILED'}).Count -ne 1){throw 'Execution failure was not terminalized in idempotency ledger.'}
+  $fourth=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File (Join-Path $cp 'kevin-work-order-intake-v0.1.ps1') -Mode Poll
+  if($LASTEXITCODE -ne 0 -or ($fourth -join "`n") -notmatch 'WORK_ORDER_REPLAY_IGNORED'){throw "Failed-order replay was not ignored: $($fourth -join ' | ')"}
+  $afterReplay=Get-Content (Join-Path $reports 'work-order-latest.json') -Raw|ConvertFrom-Json;if($afterReplay.status -ne 'FAILED'){throw 'Replay overwrote the terminal FAILED acknowledgement.'}
+  Write-Host 'PASS schema-valid execution failure is terminal and replay-safe.'
+
+  $env:FAKE_ORDER_MODE='malformed'
+  $fifth=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File (Join-Path $cp 'kevin-work-order-intake-v0.1.ps1') -Mode Poll 2>&1
+  if($LASTEXITCODE -ne 2 -or ($fifth -join "`n") -notmatch 'WORK_ORDER_FAILED'){throw "Malformed order did not fail cleanly: exit=$LASTEXITCODE output=$($fifth -join ' | ')"}
+  Write-Host ($fifth -join "`n")
 
   Write-Host 'WORK_ORDER_INTAKE_E2E_PASS'
 } finally {

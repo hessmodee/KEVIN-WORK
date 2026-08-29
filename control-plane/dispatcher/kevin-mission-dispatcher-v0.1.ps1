@@ -59,6 +59,13 @@ function Get-Eligibility($Support,$Autonomy){
   return [pscustomobject]@{ok=($reasons.Count -eq 0);reasons=@($reasons);active_workers=$active;supervisor_blocked_or_cooling=$blocked}
 }
 
+function Sanitize-PublicDetail([AllowEmptyString()][string]$Text){
+  if($null -eq $Text){return ''};$s=($Text -replace '[\r\n]+',' ').Trim()
+  if($env:USERPROFILE){$s=$s.Replace([string]$env:USERPROFILE,'<HOME>')}
+  if($env:USERNAME){$s=$s -replace [regex]::Escape([string]$env:USERNAME),'<USER>'}
+  if($s.Length -gt 700){$s=$s.Substring(0,700)}
+  return $s
+}
 function Normalize-Recent($State,[int]$Max=30){$items=@($State.recent);if($items.Count -gt $Max){$items=@($items|Select-Object -Last $Max)};$State.recent=$items}
 function Was-RecentlyRun($State,[string]$MissionId,[double]$CooldownMinutes){foreach($r in @($State.recent)){if([string]$r.mission_id -eq $MissionId){try{if((([DateTimeOffset]::Now)-[DateTimeOffset]::Parse([string]$r.at)).TotalMinutes -lt $CooldownMinutes){return $true}}catch{}}};return $false}
 function Pick-Mission($Catalog,$State,$Autonomy,[string]$Requested){
@@ -100,6 +107,11 @@ try{
     $result.worker_error=(($worker.Stdout+' '+$worker.Stderr) -replace '[\r\n]+',' ').Trim()
   }
   Save-State $State;Write-JsonAtomic $result $LatestPath
+  if($result.state -eq 'DISPATCH_INFRA_FAILURE'){
+    $publicDetail=Sanitize-PublicDetail ([string]$result.worker_error)
+    Write-Output ("MISSION_DISPATCHER_RESULT mission={0} state={1} worker={2} detail={3}" -f $mission,$result.state,$workerState,$publicDetail)
+    exit 2
+  }
   Write-Output ("MISSION_DISPATCHER_RESULT mission={0} state={1} worker={2}" -f $mission,$result.state,$workerState)
-  if($result.state -eq 'DISPATCH_INFRA_FAILURE'){exit 2};exit 0
+  exit 0
 }finally{if($owned){try{$mutex.ReleaseMutex()}catch{}};$mutex.Dispose()}
