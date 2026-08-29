@@ -1,7 +1,7 @@
 {
-  "schema": 5,
-  "generated_at": "2026-08-28T23:37:42.1168822-06:00",
-  "status": "ready",
+  "schema": 4,
+  "generated_at": "2026-08-28T23:38:33-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,19 +12,25 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "design-forge",
+    "title": "Design Forge: reader-weather",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-28T23:38:33-06:00",
+    "source": "forge"
+  },
   "campaign": {
-    "active": false,
-    "id": null,
-    "title": null
+    "active": true,
+    "id": "design-forge",
+    "title": "Design Forge: reader-weather"
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "Completed forge-v4 i8 evaluation=REJECT score=2 auto_staged=False",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "running": true,
+    "phase": "started",
+    "worker": null
   },
   "director": {
     "planning": true,
@@ -50,13 +56,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T13:35:13-06:00",
-        "estimated": false,
-        "ram": 22,
-        "cpu": 1,
-        "gpu": 0
-      },
       {
         "at": "2026-08-28T13:37:02-06:00",
         "estimated": false,
@@ -721,10 +720,16 @@
         "ram": 71,
         "cpu": 6,
         "gpu": 8
+      },
+      {
+        "at": "2026-08-28T23:38:33-06:00",
+        "estimated": false,
+        "ram": 71,
+        "cpu": 6,
+        "gpu": 8
       }
     ],
     "ram": [
-      22,
       22,
       22,
       22,
@@ -819,10 +824,10 @@
       64,
       66,
       66,
+      71,
       71
     ],
     "cpu": [
-      1,
       1,
       0,
       0,
@@ -917,10 +922,10 @@
       5,
       0,
       0,
+      6,
       6
     ],
     "gpu": [
-      0,
       0,
       0,
       0,
@@ -1015,6 +1020,7 @@
       12,
       1,
       1,
+      8,
       8
     ]
   },
@@ -1168,6 +1174,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-28T23:38:33-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: reader-weather",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-28T23:37:25-06:00",
       "source": "forge",
@@ -1380,25 +1395,15 @@
       "detail": "Night Forge PASS 126131ms",
       "result": "pass",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-28T20:39:04-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: reader-weather",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 24000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-28T23:37:42.1168822-06:00",
-    "source": "Kevin HQ Live Ops v1"
+    "last": "2026-08-28T23:38:33-06:00",
+    "source": "local runtime"
   },
   "self_check": {
     "fails": 0,
@@ -1438,13 +1443,13 @@
   },
   "newswire": [
     {
-      "id": "live-ops",
-      "text": "Supervisor \u00c2\u00b7 READY \u00c2\u00b7 Completed forge-v4 i8 evaluation=REJECT score=2 auto_staged=False",
+      "id": "weather",
+      "text": "Tonight 54 | Wind 3 to 7 mph | Showers And Thunderstorms Likely",
       "severity": "normal"
     },
     {
-      "id": "weather",
-      "text": "Tonight 54 | Wind 3 to 7 mph | Showers And Thunderstorms Likely",
+      "id": "mission",
+      "text": "Design Forge: reader-weather \u00b7 started",
       "severity": "normal"
     },
     {
@@ -1548,57 +1553,5 @@
       "label": "candidate: knowledge i6",
       "result": "pass"
     }
-  ],
-  "ops_floor": {
-    "schema": 1,
-    "generated_at": "2026-08-28T23:37:42.1168822-06:00",
-    "source": "Kevin HQ Live Ops v1",
-    "expedition_active": false,
-    "forge_active": false,
-    "supervisor_active": false,
-    "benchmark_active": false,
-    "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "Completed forge-v4 i8 evaluation=REJECT score=2 auto_staged=False",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
-    },
-    "lanes": [
-      {
-        "id": "supervisor",
-        "name": "Supervisor",
-        "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "Completed forge-v4 i8 evaluation=REJECT score=2 auto_staged=False",
-        "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
-        "engine": "Supervisor v1.4",
-        "action": "Awaiting next 3-minute cycle"
-      },
-      {
-        "id": "benchmark",
-        "name": "Benchmark",
-        "role": "Regression + capability fitness",
-        "state": "ready",
-        "detail": "Cheap regression watchdog armed; heavy model suite remains resource-gated.",
-        "what": "Protects proven behavior and measures challenger quality.",
-        "engine": "Kevin Benchmark v1",
-        "action": "10-minute watchdog armed"
-      },
-      {
-        "id": "staging",
-        "name": "Staging",
-        "role": "Policy-gated champion archive",
-        "state": "ready",
-        "detail": "Isolated staging evidence exists; executable production promotion remains locked.",
-        "what": "Candidate \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 Champion \u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122 isolated staging. No staged code executes here.",
-        "engine": "Promotion policy v1",
-        "action": "Safe auto-staging"
-      }
-    ]
-  }
+  ]
 }
