@@ -1,0 +1,31 @@
+name: Validate Kevin Control Plane v1.2 Review Repair Installer
+
+on:
+  push:
+    branches:
+      - kevin-control-plane-v1.2-review-fallback
+    paths:
+      - 'control-plane/install/KEVIN-CONTROL-PLANE-v1.2-REVIEW-REPAIR.ps1'
+      - '.github/scripts/test-control-plane-v12-review-repair-installer.ps1'
+      - '.github/workflows/control-plane-v12-review-repair-installer-gate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  windows-installer-gate:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-control-plane-v1.2-review-fallback
+      - name: Re-run v1.2 worker regression suite
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/test-control-plane-v1.ps1
+          if($LASTEXITCODE -ne 0){throw 'v1.2 worker regression failed'}
+      - name: Validate v1.2 surgical repair installer
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/test-control-plane-v12-review-repair-installer.ps1
+          if($LASTEXITCODE -ne 0){throw 'v1.2 review repair installer gate failed'}
