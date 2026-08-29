@@ -1,0 +1,69 @@
+name: Patch HQ Ops Floor route
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/patch-hq-ops-route.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch exact Ops Floor routing only
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('docs/index.html')
+          text = p.read_text(encoding='utf-8')
+
+          old_nav = '''function renderNav(){$("nav").innerHTML=TABS.map(([id,label])=>`<button class="navbtn ${tab===id?"on":""}" data-tab="${id}">${label}</button>`).join("");$("nav").onclick=e=>{const b=e.target.closest("[data-tab]");if(!b)return;tab=b.dataset.tab;location.hash=tab;renderNav();draw()}}'''
+          new_nav = '''function renderNav(){$("nav").innerHTML=TABS.map(([id,label])=>`<button class="navbtn ${tab===id?"on":""}" data-tab="${id}">${label}</button>`).join("");$("nav").onclick=e=>{const b=e.target.closest("[data-tab]");if(!b)return;if(b.dataset.tab==="ops"){location.href="./ops/";return;}tab=b.dataset.tab;location.hash=tab;renderNav();draw()}}'''
+
+          count = text.count(old_nav)
+          if count != 1:
+              raise SystemExit(f'STOP: expected exactly one renderNav target, found {count}')
+          text = text.replace(old_nav, new_nav, 1)
+
+          anchor = 'if(!TABS.some(x=>x[0]===tab))tab="overview";'
+          direct = 'if(tab==="ops"){location.replace("./ops/");}'
+          if direct not in text:
+              count = text.count(anchor)
+              if count != 1:
+                  raise SystemExit(f'STOP: expected exactly one startup-route anchor, found {count}')
+              text = text.replace(anchor, anchor + '\n' + direct, 1)
+
+          p.write_text(text, encoding='utf-8')
+          print('PASS exact root HQ routing patch staged')
+          PY
+
+      - name: Remove one-shot workflow
+        run: git rm .github/workflows/patch-hq-ops-route.yml
+
+      - name: Commit and push with bounded rebase retry
+        shell: bash
+        run: |
+          git config user.name "Kevin HQ Repair"
+          git config user.email "actions@users.noreply.github.com"
+          git add docs/index.html
+          git commit -m "Route root HQ Ops Floor to production v8"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              echo "PASS route patch pushed"
+              exit 0
+            fi
+            echo "push retry $attempt"
+            sleep 4
+          done
+          echo "STOP: push failed after bounded retries"
+          exit 1
