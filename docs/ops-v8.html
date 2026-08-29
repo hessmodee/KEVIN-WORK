@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="color-scheme" content="dark" />
+<title>Kevin HQ — Ops Floor v8</title>
+<style>
+:root{
+  --bg:#080b08;--panel:#111811;--panel2:#141d14;--fg:#f1eee6;--muted:#929b90;
+  --line:rgba(231,238,228,.10);--line2:rgba(231,238,228,.20);
+  --green:#79c56a;--blue:#59b6ef;--gold:#f0b74e;--orange:#ff9a3d;--violet:#b38cff;
+  --red:#e46f61;--teal:#68d8ce;--gray:#69716a;
+}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--fg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+body{padding:18px;background:radial-gradient(900px 520px at 50% 16%,rgba(66,98,62,.16),transparent 67%),linear-gradient(#080b08,#0b100b 55%,#080b08)}
+.wrap{max-width:1280px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}.brand{display:flex;align-items:center;gap:14px}.mini-kevin{width:58px;height:70px}.title{font-family:Georgia,serif;font-size:36px;letter-spacing:-.03em}.subtitle{font-size:12px;color:var(--muted);margin-top:2px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip,.state{border:1px solid var(--line2);border-radius:999px;padding:6px 10px;font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}.chip.ok{color:#cce9c6;border-color:rgba(121,197,106,.42)}
+.news{margin:16px 0 10px;padding:10px 13px;border:1px solid var(--line);border-radius:14px;background:rgba(17,24,17,.86);display:flex;gap:12px;align-items:center;font-size:12px}.news b{font-size:10px;letter-spacing:.14em;color:#c5e2bd}.rail{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:13px}.svc{display:flex;align-items:center;gap:7px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#111711;font-size:11px}.dot{width:8px;height:8px;border-radius:50%;background:var(--gray)}.dot.ready{background:var(--green);box-shadow:0 0 12px rgba(121,197,106,.5)}.dot.active{background:var(--orange);box-shadow:0 0 12px rgba(255,154,61,.55)}.dot.sync{background:var(--blue);box-shadow:0 0 12px rgba(89,182,239,.55)}
+.nav{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.nav a{color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:10px;text-transform:uppercase;letter-spacing:.08em}.nav a.on{color:var(--fg);background:#162016;border-color:rgba(121,197,106,.3)}
+.card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(18,27,18,.96),rgba(11,16,11,.98));border-radius:20px;padding:16px;box-shadow:0 18px 45px rgba(0,0,0,.18)}.ops-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}.kicker{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}.helper{font-size:11px;color:var(--muted);margin-top:4px}.topology{position:relative;min-height:660px;margin-top:10px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:radial-gradient(circle at 50% 49%,rgba(240,183,78,.07),transparent 21%),radial-gradient(circle at 50% 50%,rgba(121,197,106,.05),transparent 60%),#0b100b}
+.gridline{position:absolute;inset:0;opacity:.16;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:32px 32px}.hub{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:220px;height:220px;border-radius:50%;display:grid;place-items:center;text-align:center;border:1px solid rgba(240,183,78,.35);background:radial-gradient(circle,rgba(240,183,78,.10),rgba(13,18,13,.96) 66%);box-shadow:0 0 55px rgba(240,183,78,.08)}.hub:before,.hub:after{content:"";position:absolute;border-radius:50%;border:1px dashed rgba(240,183,78,.18)}.hub:before{inset:-22px}.hub:after{inset:-44px}.hub .owl-main{width:90px;height:108px;margin:auto}.hub h2{font-family:Georgia,serif;font-size:27px;margin:3px 0 0}.role{font-size:11px;color:var(--gold);margin-top:2px}.loop{display:inline-flex;margin-top:7px;padding:5px 9px;border-radius:999px;border:1px solid rgba(121,197,106,.3);color:var(--green);font-size:10px;letter-spacing:.09em;text-transform:uppercase}
+.worker{--c:var(--green);position:absolute;width:170px;text-align:center;transform:translate(-50%,-50%);z-index:3}.worker .owl{width:48px;height:58px;margin:0 auto 2px;filter:drop-shadow(0 0 9px color-mix(in srgb,var(--c) 55%,transparent))}.worker .box{padding:8px 10px;border:1px solid color-mix(in srgb,var(--c) 40%,transparent);border-radius:18px;background:rgba(12,18,12,.92);box-shadow:0 0 22px color-mix(in srgb,var(--c) 8%,transparent)}.worker b{font-size:13px}.worker small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.worker .state{display:inline-block;margin-top:5px;color:var(--c);border-color:color-mix(in srgb,var(--c) 35%,transparent);padding:4px 8px}.worker.ready .owl{animation:glow 3.2s ease-in-out infinite}.worker.thinking .owl{animation:think 1.5s ease-in-out infinite}.worker.working .owl,.worker.building .owl{animation:bob 1.2s ease-in-out infinite}.worker.connecting .owl{animation:signal 1.15s ease-in-out infinite}.worker.cooling .owl{opacity:.68;animation:cool 3s ease-in-out infinite}.worker.offline{opacity:.4;filter:grayscale(1)}.worker.degraded .owl{animation:shake 2.5s ease-in-out infinite}
+.line{position:absolute;height:2px;background:linear-gradient(90deg,transparent,var(--c),transparent);transform-origin:left center;opacity:.32;z-index:1}.line.active{opacity:.9;box-shadow:0 0 10px color-mix(in srgb,var(--c) 42%,transparent);background:repeating-linear-gradient(90deg,var(--c) 0 8px,transparent 8px 15px);background-size:30px 2px;animation:flow 1s linear infinite}
+.legend{margin-top:12px;display:flex;gap:14px;flex-wrap:wrap;padding:12px 14px;border:1px solid var(--line);border-radius:15px;background:#101610;font-size:10px;color:var(--muted)}.legend span{display:flex;align-items:center;gap:6px}.legend i{width:12px;height:12px;border-radius:50%}
+.strip{display:grid;grid-template-columns:1.35fr 1.2fr 1fr 1fr 1.2fr;gap:1px;margin-top:12px;border:1px solid var(--line);border-radius:17px;overflow:hidden;background:var(--line)}.strip>div{background:#111811;padding:13px 14px;min-width:0}.strip .lbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.strip .val{font-size:12px;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.subagents{display:flex;gap:5px;margin-top:6px}.subowl{width:20px;height:25px}
+.detail{margin-top:12px}.detail-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;margin-top:10px}.detail h3{font-family:Georgia,serif;font-size:22px;margin:2px 0}.metric{border:1px solid var(--line);border-radius:14px;padding:12px}.metric .big{font-size:16px;margin-top:5px}.metric .small{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4}.foot{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin:12px 2px 0}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}@keyframes think{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-3px) rotate(2deg)}}@keyframes signal{0%,100%{filter:drop-shadow(0 0 4px var(--c))}50%{filter:drop-shadow(0 0 16px var(--c));transform:scale(1.04)}}@keyframes glow{0%,100%{filter:drop-shadow(0 0 4px var(--c))}50%{filter:drop-shadow(0 0 11px var(--c))}}@keyframes cool{0%,100%{opacity:.55}50%{opacity:.8}}@keyframes shake{0%,93%,100%{transform:translateX(0)}95%{transform:translateX(-2px)}97%{transform:translateX(2px)}}@keyframes flow{to{background-position:30px 0}}
+@media(max-width:900px){.topology{min-height:780px}.worker{width:140px}.strip{grid-template-columns:1fr 1fr}.detail-grid{grid-template-columns:1fr}.hub{width:180px;height:180px}.hub .owl-main{width:72px;height:88px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">
+      <svg class="mini-kevin" viewBox="0 0 90 108" aria-hidden="true"><g fill="none" stroke="#d9c5b3" stroke-width="4" stroke-linejoin="round"><path d="M27 22 L34 11 L42 19 Q45 17 48 19 L57 11 L64 22 Q71 31 70 47 L69 79 Q66 96 45 101 Q24 96 21 79 L20 47 Q19 31 27 22Z" fill="#94705e"/><circle cx="34" cy="39" r="13" fill="#f4efe6" stroke="#49372f"/><circle cx="56" cy="39" r="13" fill="#f4efe6" stroke="#49372f"/><circle cx="34" cy="40" r="5" fill="#111" stroke="none"/><circle cx="56" cy="40" r="5" fill="#111" stroke="none"/><path d="M45 49 L38 57 L52 57Z" fill="#ef9838" stroke="none"/></g></svg>
+      <div><div class="title">Kevin HQ</div><div class="subtitle">Chief of Staff · telemetry-backed Ops Floor v8</div></div>
+    </div>
+    <div class="chips"><span class="chip">HQ v8 preview</span><span id="overallChip" class="chip ok">LIVE</span></div>
+  </div>
+
+  <div class="news"><b>NEWSWIRE</b><span id="newsText">Loading Kevin telemetry…</span></div>
+  <div id="serviceRail" class="rail"></div>
+  <div class="nav"><a href="./">Overview</a><a class="on" href="./ops-v8.html">Ops Floor v8</a><a href="./#activity">Activity</a><a href="./#system">System</a><a href="./#roadmap">Roadmap</a><a href="./#capabilities">Capabilities</a><a href="./#diagnostics">Diagnostics</a></div>
+
+  <section class="card">
+    <div class="ops-head"><div><div class="kicker">Operations Floor</div><div class="helper">Real topology · motion is telemetry-driven, never decorative busy-work</div></div><div class="helper">Chief of Staff in center · internal Supervisor remains code-only name</div></div>
+    <div id="topology" class="topology"><div class="gridline"></div>
+      <div class="hub" id="kevinHub">
+        <div>
+          <svg class="owl-main" viewBox="0 0 90 108" aria-hidden="true"><g fill="none" stroke="#f0b74e" stroke-width="3.2" stroke-linejoin="round"><path d="M27 22 L34 11 L42 19 Q45 17 48 19 L57 11 L64 22 Q71 31 70 47 L69 79 Q66 96 45 101 Q24 96 21 79 L20 47 Q19 31 27 22Z" fill="rgba(240,183,78,.08)"/><path d="M30 61 Q45 70 60 61" opacity=".65"/><path d="M31 76 Q45 83 59 76" opacity=".45"/></g></svg>
+          <h2>Kevin</h2><div class="role">Chief of Staff</div><div id="kevinState" class="loop">LOOP ACTIVE</div>
+        </div>
+      </div>
+    </div>
+    <div class="legend"><span><i style="background:#69716a"></i>Idle</span><span><i style="background:#79c56a"></i>Ready / working</span><span><i style="background:#f0b74e"></i>Thinking / cooling</span><span><i style="background:#59b6ef"></i>Connecting</span><span><i style="background:#ff9a3d"></i>Building</span><span><i style="background:#e46f61"></i>Degraded</span><span><i style="background:#353b36"></i>Offline</span></div>
+  </section>
+
+  <div class="strip">
+    <div><div class="lbl">Active mission</div><div id="mission" class="val">—</div></div>
+    <div><div class="lbl">Current action</div><div id="action" class="val">—</div></div>
+    <div><div class="lbl">Recent event</div><div id="recent" class="val">—</div></div>
+    <div><div class="lbl">Evidence</div><div id="evidence" class="val">—</div></div>
+    <div><div class="lbl">Active workers</div><div id="activeWorkers" class="val">—</div><div id="subagents" class="subagents"></div></div>
+  </div>
+
+  <section class="card detail">
+    <div class="kicker">Selected worker</div><h3 id="selectedName">Kevin — Chief of Staff</h3>
+    <div class="detail-grid">
+      <div class="metric"><div class="kicker">Status</div><div id="selectedStatus" class="big">Loading…</div><div id="selectedDetail" class="small">Waiting for telemetry.</div></div>
+      <div class="metric"><div class="kicker">System load</div><div id="load" class="big">—</div><div id="loadDetail" class="small">—</div></div>
+      <div class="metric"><div class="kicker">Evidence age</div><div id="age" class="big">—</div><div id="benchmark" class="small">—</div></div>
+    </div>
+  </section>
+  <div class="foot"><span id="updated">Kevin HQ v8 preview</span><span>Display titles only · internal Supervisor identifiers unchanged</span></div>
+</div>
+<script>
+const RAW='https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/';
+const WORKERS=[
+ {key:'chat',name:'Chat',role:'Reasoning lane',x:18,y:24,c:'#59b6ef'},
+ {key:'ollama',name:'Ollama',role:'Local inference',x:50,y:13,c:'#79c56a'},
+ {key:'bridge',name:'Bridge',role:'GitHub sync',x:82,y:24,c:'#59b6ef'},
+ {key:'reader',name:'Reader',role:'Read-only senses',x:10,y:50,c:'#79c56a'},
+ {key:'tick',name:'Tick',role:'Health + telemetry',x:90,y:50,c:'#79c56a'},
+ {key:'night',name:'Night Forge',role:'QA gate',x:14,y:76,c:'#b38cff'},
+ {key:'staging',name:'Staging',role:'Policy-gated champion',x:35,y:87,c:'#b38cff'},
+ {key:'mission',name:'Mission Control',role:'Supervisor engine',x:50,y:89,c:'#f0b74e'},
+ {key:'benchmark',name:'Benchmark',role:'Regression + fitness',x:66,y:87,c:'#68d8ce'},
+ {key:'build',name:'Build Lab',role:'Design Forge v3.6',x:86,y:76,c:'#ff9a3d'}
+];
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function owl(c){return `<svg class="owl" viewBox="0 0 90 108" aria-hidden="true"><path d="M27 22 L34 11 L42 19 Q45 17 48 19 L57 11 L64 22 Q71 31 70 47 L69 79 Q66 96 45 101 Q24 96 21 79 L20 47 Q19 31 27 22Z" fill="rgba(255,255,255,.01)" stroke="${c}" stroke-width="5" stroke-linejoin="round"/></svg>`}
+function norm(v){return String(v||'').toLowerCase()}
+function workerState(key,d,s){
+ const sup=s?.supervisor||{}, bw=s?.active_workers||{};
+ if(key==='bridge') return d?.services?.bridge==='healthy'?'connecting':'degraded';
+ if(key==='tick') return d?.services?.tick==='healthy'?'ready':'degraded';
+ if(key==='ollama') return d?.services?.ollama==='healthy'?'ready':'degraded';
+ if(key==='benchmark') return bw?.benchmark>0?'working':(s?.benchmark?.status==='PASS'?'ready':'degraded');
+ if(key==='build') return bw?.design_forge>0?'building':(sup?.last_mission==='forge-v4'&&sup?.last_result&&!/THROTTLED|WAIT|BLOCK/i.test(sup.last_result)?'thinking':'ready');
+ if(key==='night') return bw?.night_forge>0?'working':'ready';
+ if(key==='mission') return bw?.supervisor>0?'thinking':(/THROTTLED|WAIT/i.test(sup?.last_result||'')?'cooling':'ready');
+ if(key==='reader') return 'ready';
+ if(key==='staging') return 'ready';
+ if(key==='chat') return d?.current_task?'thinking':'ready';
+ return 'ready';
+}
+function stateLabel(st){return ({ready:'READY',thinking:'THINKING',working:'WORKING',building:'BUILDING',connecting:'SYNCING',cooling:'COOLING',degraded:'DEGRADED',offline:'OFFLINE'})[st]||st.toUpperCase()}
+function lineBetween(topology,a,b,c,active){
+ const W=topology.clientWidth,H=topology.clientHeight,x1=W*a.x/100,y1=H*a.y/100,x2=W*b.x/100,y2=H*b.y/100;
+ const dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy),ang=Math.atan2(dy,dx)*180/Math.PI;
+ const el=document.createElement('div');el.className='line'+(active?' active':'');el.style.cssText=`left:${x1}px;top:${y1}px;width:${len}px;transform:rotate(${ang}deg);--c:${c}`;topology.appendChild(el)
+}
+async function load(){
+ let d={},s={};
+ try{[d,s]=await Promise.all([fetch(RAW+'dashboard-state.json?'+Date.now()).then(r=>r.json()),fetch(RAW+'support-latest.json?'+Date.now()).then(r=>r.json())])}catch(e){document.getElementById('newsText').textContent='Telemetry fetch failed: '+e.message;return}
+ const overall=norm(d?.health?.overall||d?.status||'unknown');
+ const chip=document.getElementById('overallChip');chip.textContent=overall==='healthy'?'READY · OK':overall.toUpperCase();chip.className='chip '+(overall==='healthy'?'ok':'');
+ const sup=s?.supervisor||{}, rec=s?.recovery||{}, bench=s?.benchmark||{};
+ const detail=/THROTTLED/i.test(sup.last_result||'')?'Strategic missions cooling; recovery throttle is preventing duplicate work.':(sup.last_result?`Mission ${sup.last_mission||'—'} · ${sup.last_result}`:'Control plane healthy.');
+ document.getElementById('newsText').textContent=`Chief of Staff | ${detail}`;
+ const rail=document.getElementById('serviceRail');rail.innerHTML='';
+ [['Reader','ready'],['Night Forge',(s?.active_workers?.night_forge||0)>0?'active':'ready'],['Build Lab',(s?.active_workers?.design_forge||0)>0?'active':'ready'],['Ollama',d?.services?.ollama==='healthy'?'ready':''],['Bridge',d?.services?.bridge==='healthy'?'sync':''],['Tick',d?.services?.tick==='healthy'?'ready':'']].forEach(([n,st])=>rail.insertAdjacentHTML('beforeend',`<div class="svc"><i class="dot ${st}"></i><b>${esc(n)}</b><span>${st==='active'?'ACTIVE':st==='sync'?'SYNC':st==='ready'?'READY':'CHECK'}</span></div>`));
+ const top=document.getElementById('topology');top.querySelectorAll('.worker,.line').forEach(x=>x.remove());
+ const center={x:50,y:50};let active=[];
+ WORKERS.forEach(w=>{const st=workerState(w.key,d,s);if(['thinking','working','building','connecting'].includes(st))active.push(w);lineBetween(top,center,w,w.c,['thinking','working','building','connecting'].includes(st));const el=document.createElement('div');el.className=`worker ${st}`;el.style.cssText=`left:${w.x}%;top:${w.y}%;--c:${w.c}`;el.innerHTML=`${owl(w.c)}<div class="box"><b>${w.name}</b><small>${w.role}</small><span class="state">${stateLabel(st)}</span></div>`;el.onclick=()=>selectWorker(w,st,d,s);top.appendChild(el)});
+ const kstate=active.length?'WORKING':(/THROTTLED|WAIT/i.test(sup.last_result||'')?'COOLING':'READY');document.getElementById('kevinState').textContent=kstate==='WORKING'?'LOOP ACTIVE':kstate;
+ document.getElementById('mission').textContent=sup.last_mission?`${sup.last_mission} · cycle ${sup.cycle??'—'}`:'No active mission';
+ document.getElementById('action').textContent=/THROTTLED/i.test(sup.last_result||'')?'Recovery cooldown':(sup.last_result||'Ready for work');
+ document.getElementById('recent').textContent=rec.last_brief?`Recovery ${rec.round||'—'} · ${rec.last_brief}`:(sup.last_result||'—');
+ document.getElementById('evidence').textContent=bench.status?`Benchmark ${bench.status} ${bench.regression?.passed||0}/${bench.regression?.total||0}`:'HQ state snapshot';
+ document.getElementById('activeWorkers').textContent=active.length?`${active.length} active`:'0 active · available lanes ready';
+ document.getElementById('subagents').innerHTML=active.map(w=>owl(w.c).replace('class="owl"','class="subowl"')).join('');
+ const at=new Date(d.generated_at||s.generated_at||Date.now()),age=Math.max(0,Math.round((Date.now()-at)/60000));document.getElementById('age').textContent=age+' min';document.getElementById('benchmark').textContent=bench.status?`Benchmark ${bench.status} · ${bench.regression?.passed||0}/${bench.regression?.total||0} · critical ${bench.regression?.critical_failures||0}`:'Benchmark unavailable';
+ document.getElementById('load').textContent=`RAM ${d?.system?.memory_pct??'—'}% · CPU ${d?.system?.cpu_pct??'—'}%`;document.getElementById('loadDetail').textContent=`GPU ${d?.system?.gpu||'—'} ${d?.system?.gpu_pct??'—'}% · Brain ${d?.brain?.name||'—'}`;
+ document.getElementById('selectedStatus').textContent=`${kstate} · cycle ${sup.cycle??'—'}`;document.getElementById('selectedDetail').textContent=detail;document.getElementById('updated').textContent=`Kevin HQ · telemetry ${at.toLocaleTimeString()} · schema ${d.schema??'—'}`;
+}
+function selectWorker(w,st,d,s){document.getElementById('selectedName').textContent=`${w.name} — ${w.role}`;document.getElementById('selectedStatus').textContent=stateLabel(st);let detail='Telemetry-backed worker state.';if(w.key==='mission')detail=`Internal Supervisor engine. Last mission ${s?.supervisor?.last_mission||'—'}, result ${s?.supervisor?.last_result||'—'}.`;if(w.key==='benchmark')detail=`Regression ${s?.benchmark?.regression?.passed||0}/${s?.benchmark?.regression?.total||0}, critical failures ${s?.benchmark?.regression?.critical_failures||0}.`;if(w.key==='bridge')detail=`GitHub sync service: ${d?.services?.bridge||'unknown'}.`;if(w.key==='build')detail=`Design Forge workers active: ${s?.active_workers?.design_forge||0}.`;document.getElementById('selectedDetail').textContent=detail}
+load();setInterval(load,60000);addEventListener('resize',()=>load());
+</script>
+</body>
+</html>
