@@ -1,0 +1,48 @@
+name: Build Kevin Control Plane v1.2 Review Fallback
+
+on:
+  push:
+    branches:
+      - kevin-control-plane-v1.2-review-fallback
+    paths:
+      - '.github/scripts/patch-control-plane-v12-review-fallback.ps1'
+      - '.github/workflows/control-plane-v12-review-fallback.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-test:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-control-plane-v1.2-review-fallback
+      - name: Apply v1.2 reviewer protocol patch
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/patch-control-plane-v12-review-fallback.ps1
+          if($LASTEXITCODE -ne 0){throw 'v1.2 reviewer patch failed'}
+      - name: Run Control Plane regression suite
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/test-control-plane-v1.ps1
+          if($LASTEXITCODE -ne 0){throw 'Control Plane v1 regression failed after v1.2 reviewer patch'}
+      - name: Verify v1.2 static safety contract
+        shell: powershell
+        run: |
+          $p='control-plane/dispatcher/kevin-mission-worker-v0.1.ps1'
+          $t=Get-Content -LiteralPath $p -Raw
+          foreach($n in @('Invoke-ReviewLineFallback','Parse-ReviewLineProtocol','line_fallback=1','review_line_fallback_count','Review line protocol mission mismatch','CANDIDATE MATERIAL')){if(-not $t.Contains($n)){throw "Missing v1.2 contract: $n"}}
+          foreach($bad in @('Invoke-Expression','allow_arbitrary_shell=$true','allow_production_mutation=$true')){if($t -match [regex]::Escape($bad)){throw "Forbidden authority pattern: $bad"}}
+          Write-Host ('V12_WORKER_BLOB=' + ((git hash-object -- $p).Trim()))
+          Write-Host 'CONTROL_PLANE_V12_STATIC_PASS'
+      - name: Commit tested v1.2 worker
+        shell: powershell
+        run: |
+          git config user.name "Kevin Control Plane CI"
+          git config user.email "kevin-control-plane-ci@users.noreply.github.com"
+          git add control-plane/dispatcher/kevin-mission-worker-v0.1.ps1
+          if(git diff --cached --quiet){throw 'v1.2 builder produced no worker change'}
+          git commit -m "Add bounded line-protocol reviewer fallback"
+          git push origin HEAD:kevin-control-plane-v1.2-review-fallback
