@@ -1,0 +1,91 @@
+name: Validate Kevin Autonomy zero-drift v0.1g
+
+on:
+  push:
+    branches:
+      - kevin-autonomy-actuator-v0.1
+    paths:
+      - 'control-plane/actuator/patch-v01g-zero-drift.ps1'
+      - '.github/workflows/autonomy-actuator-v01g-zero-drift.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows-zero-drift:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-autonomy-actuator-v0.1
+
+      - name: Patch reconciler and test actual healthy zero-drift execution
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/actuator/patch-v01g-zero-drift.ps1'
+          if($LASTEXITCODE -ne 0){throw 'Zero-drift patch script failed'}
+
+          $fake=Join-Path $env:RUNNER_TEMP 'kevin-zero-drift-profile'
+          $ws=Join-Path $fake '.openclaw\workspace'
+          $cp=Join-Path $ws 'ControlPlane'
+          $reports=Join-Path $ws 'reports'
+          New-Item -ItemType Directory -Path $cp,$reports -Force|Out-Null
+          Copy-Item 'control-plane/desired-state-v1.json' (Join-Path $cp 'desired-state-v1.json')
+          Copy-Item 'control-plane/OWNER-AUTHORIZATION-v1.md' (Join-Path $cp 'OWNER-AUTHORIZATION-v1.md')
+
+          $desired=Get-Content 'control-plane/desired-state-v1.json' -Raw|ConvertFrom-Json
+          $jobs=@()
+          $n=1
+          foreach($j in @($desired.required_automations)){
+            $jobs += [pscustomobject]@{id=("test-job-{0}" -f $n);declaration_key=$j.declaration_key;name=$j.name;enabled=$true;last_status='ok';last_run_status='ok';consecutive_errors=0}
+            $n++
+          }
+          $support=[pscustomobject]@{
+            schema=1;kind='kevin-support-snapshot';generated_at=(Get-Date).ToString('o');
+            hashes=$desired.core_hashes;
+            governance=[pscustomobject]@{ok=$true};
+            cron=[pscustomobject]@{ok=$true;jobs=$jobs};
+            benchmark=[pscustomobject]@{status='PASS'};
+            supervisor=[pscustomobject]@{last_result='RECOVERY_SATURATED'};
+            active_workers=[pscustomobject]@{design_forge=0;night_forge=0;supervisor=0;benchmark=0}
+          }
+          $dashboard=[pscustomobject]@{schema=5;generated_at=(Get-Date).ToString('o');health=[pscustomobject]@{overall='healthy';failed_checks=0}}
+          [IO.File]::WriteAllText((Join-Path $reports 'support-latest.json'),($support|ConvertTo-Json -Depth 20),(New-Object Text.UTF8Encoding($false)))
+          [IO.File]::WriteAllText((Join-Path $reports 'dashboard-state.json'),($dashboard|ConvertTo-Json -Depth 20),(New-Object Text.UTF8Encoding($false)))
+
+          $oldProfile=$env:USERPROFILE
+          try{
+            $env:USERPROFILE=$fake
+            $act=(Resolve-Path 'control-plane/actuator/kevin-autonomy-actuator-v0.1.ps1').Path
+            $self=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $act -Mode SelfTest 2>&1
+            $selfCode=$LASTEXITCODE
+            $self|ForEach-Object{Write-Host $_}
+            if($selfCode -ne 0){throw "Actual SelfTest failed in healthy zero-drift fixture with exit $selfCode"}
+            if(($self -join "`n") -notmatch 'SELF_TEST_PASS :: drift=0'){throw 'SelfTest did not prove zero drift'}
+
+            $audit=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $act -Mode Audit 2>&1
+            $auditCode=$LASTEXITCODE
+            $audit|ForEach-Object{Write-Host $_}
+            if($auditCode -ne 0){throw "Actual Audit failed in healthy zero-drift fixture with exit $auditCode"}
+            if(($audit -join "`n") -notmatch 'HEALTHY :: drift=0'){throw 'Audit did not prove healthy zero drift'}
+
+            $latest=Get-Content (Join-Path $reports 'autonomy-latest.json') -Raw|ConvertFrom-Json
+            if($latest.fingerprint -ne '6C0A391856539EBD86F60FD04E965B7C6792A9340CA93ED22F9982EA48DD6588'){throw "Unexpected zero-drift fingerprint: $($latest.fingerprint)"}
+            if(@($latest.drift).Count -ne 0){throw 'Healthy fixture evidence contains drift'}
+          } finally {
+            $env:USERPROFILE=$oldProfile
+          }
+          Write-Host 'PASS actual reconciler SelfTest + Audit with healthy zero-drift state on Windows PowerShell.'
+
+      - name: Commit validated zero-drift repair
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          if(-not (git status --porcelain -- control-plane/actuator/kevin-autonomy-actuator-v0.1.ps1)){throw 'Expected reconciler patch produced no change'}
+          git config user.name 'Kevin Control Plane CI'
+          git config user.email 'kevin-control-plane-ci@users.noreply.github.com'
+          git add control-plane/actuator/kevin-autonomy-actuator-v0.1.ps1
+          git commit -m 'Handle healthy zero-drift autonomy fingerprint'
+          git push origin HEAD:kevin-autonomy-actuator-v0.1
