@@ -1,0 +1,35 @@
+name: Validate Kevin Control Plane v1.1 Repair Installer
+
+on:
+  push:
+    branches: [kevin-control-plane-v1]
+    paths:
+      - 'control-plane/install/KEVIN-CONTROL-PLANE-v1.1-REPAIR.ps1'
+      - '.github/scripts/test-control-plane-v11-repair-installer.ps1'
+      - '.github/workflows/control-plane-v11-repair-installer-gate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  windows-repair-installer:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-control-plane-v1
+      - name: Re-run repaired Control Plane core tests
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/test-control-plane-v1.ps1
+          if($LASTEXITCODE -ne 0){throw 'Repaired Control Plane core test failed'}
+      - name: Re-run work-order E2E tests
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/test-work-order-intake-v1.ps1
+          if($LASTEXITCODE -ne 0){throw 'Repaired work-order E2E failed'}
+      - name: Validate surgical v1.1 repair installer
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/test-control-plane-v11-repair-installer.ps1
+          if($LASTEXITCODE -ne 0){throw 'Control Plane v1.1 repair installer validation failed'}
