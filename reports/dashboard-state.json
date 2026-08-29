@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-29T17:15:08-06:00",
-  "status": "working",
+  "generated_at": "2026-08-29T17:16:08-06:00",
+  "status": "ready",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,16 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "design-forge",
-    "title": "Mission Factory: knowledge-provenance",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-29T17:15:08-06:00",
-    "source": "manual"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -38,13 +29,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-29T10:05:14-06:00",
-        "estimated": false,
-        "ram": 60,
-        "cpu": 0,
-        "gpu": 0
-      },
       {
         "at": "2026-08-29T10:19:58-06:00",
         "estimated": false,
@@ -709,10 +693,16 @@
         "ram": 57,
         "cpu": 3,
         "gpu": 22
+      },
+      {
+        "at": "2026-08-29T17:16:08-06:00",
+        "estimated": false,
+        "ram": 57,
+        "cpu": 3,
+        "gpu": 22
       }
     ],
     "ram": [
-      60,
       60,
       62,
       62,
@@ -807,10 +797,10 @@
       55,
       55,
       55,
+      57,
       57
     ],
     "cpu": [
-      0,
       0,
       7,
       7,
@@ -905,10 +895,10 @@
       20,
       11,
       11,
+      3,
       3
     ],
     "gpu": [
-      0,
       0,
       98,
       98,
@@ -1003,6 +993,7 @@
       37,
       39,
       39,
+      22,
       22
     ]
   },
@@ -1156,6 +1147,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-29T17:16:08-06:00",
+      "source": "manual",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Review model JSON contract failed after one bounded format-recovery attempt.",
+      "result": "fail",
+      "task_id": "design-forge",
+      "duration_ms": 60000
+    },
     {
       "at": "2026-08-29T17:15:08-06:00",
       "source": "manual",
@@ -1371,23 +1372,14 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 21000
-    },
-    {
-      "at": "2026-08-29T16:40:29-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: knowledge",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-29T17:15:08-06:00",
+    "last": "2026-08-29T17:16:08-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1424,30 +1416,30 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-29T17:15:08-06:00",
+    "generated_at": "2026-08-29T17:14:27.7335055-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "design-forge",
-      "name": "Build Lab",
-      "title": "Mission Factory: knowledge-provenance",
-      "category": "forge",
-      "state": "working",
-      "detail": "started",
-      "what": "Generating and validating an isolated candidate.",
-      "engine": "Ollama | Qwen 2.5 14B",
-      "action": "Candidate engineering"
+      "id": "supervisor",
+      "name": "Supervisor",
+      "title": "Kevin autonomous system armed",
+      "category": "supervisor",
+      "state": "ready",
+      "detail": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes.",
+      "what": "Waiting only for the next scheduled three-minute control cycle.",
+      "engine": "Supervisor v1.4",
+      "action": "Autonomous schedule armed"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "coordinating",
-        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
+        "state": "ready",
+        "detail": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1475,17 +1467,17 @@
     ]
   },
   "execution": {
-    "running": true,
-    "state": "working",
-    "phase": "started",
-    "worker": "Build Lab",
-    "engine": "Ollama | Qwen 2.5 14B",
-    "action": "Candidate engineering"
+    "running": false,
+    "state": "ready",
+    "phase": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes.",
+    "worker": "Supervisor",
+    "engine": "Supervisor v1.4",
+    "action": "Autonomous schedule armed"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Build Lab | WORKING | started",
+      "text": "Supervisor | READY | All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes.",
       "severity": "normal"
     }
   ]
