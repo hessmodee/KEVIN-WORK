@@ -1,13 +1,13 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-08-29T17:10:06.5032579-06:00",
-    "order_id":  "bess-20260829-230801-checkpoint-resume-v11",
-    "idempotency_key":  "bess-cp11-checkpoint-resume-20260829-230801",
+    "generated_at":  "2026-08-29T17:22:00.8617431-06:00",
+    "order_id":  "bess-20260829-232111-checkpoint-resume-v12",
+    "idempotency_key":  "bess-cp12-checkpoint-resume-20260829-232111",
     "verb":  "dispatch_mission",
     "target":  "checkpoint-resume",
-    "status":  "FAILED",
-    "detail":  "Dispatcher failed: MISSION_DISPATCHER_RESULT mission=checkpoint-resume state=DISPATCH_INFRA_FAILURE worker=INFRA_FAILURE detail=MISSION_WORKER_ERROR mission=checkpoint-resume detail=Review model JSON contract failed after one bounded format-recovery attempt.",
+    "status":  "VERIFIED",
+    "detail":  "MISSION_DISPATCHER_NOT_ELIGIBLE reasons=active-workers=1",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
