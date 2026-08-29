@@ -1,7 +1,7 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T21:39:24-06:00",
-  "status": "idle",
+  "generated_at": "2026-08-28T21:47:00-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,15 +12,24 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "design-forge",
+    "title": "Design Forge: reader-self-check",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-28T21:47:00-06:00",
+    "source": "forge"
+  },
   "campaign": {
-    "active": false,
-    "id": null,
-    "title": null
+    "active": true,
+    "id": "design-forge",
+    "title": "Design Forge: reader-self-check"
   },
   "execution": {
-    "running": false,
-    "phase": null,
+    "running": true,
+    "phase": "started",
     "worker": null
   },
   "director": {
@@ -38,22 +47,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 63,
-    "cpu_pct": 4,
+    "memory_pct": 64,
+    "cpu_pct": 0,
     "gpu": "RTX 3060",
-    "gpu_pct": 20
+    "gpu_pct": 0
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T10:37:02-06:00",
-        "estimated": false,
-        "ram": 61,
-        "cpu": 16,
-        "gpu": 0
-      },
       {
         "at": "2026-08-28T10:38:42-06:00",
         "estimated": false,
@@ -718,10 +720,16 @@
         "ram": 63,
         "cpu": 4,
         "gpu": 20
+      },
+      {
+        "at": "2026-08-28T21:47:00-06:00",
+        "estimated": false,
+        "ram": 64,
+        "cpu": 0,
+        "gpu": 0
       }
     ],
     "ram": [
-      61,
       61,
       61,
       61,
@@ -816,10 +824,10 @@
       63,
       63,
       63,
-      63
+      63,
+      64
     ],
     "cpu": [
-      16,
       16,
       16,
       16,
@@ -914,10 +922,10 @@
       6,
       4,
       4,
-      4
+      4,
+      0
     ],
     "gpu": [
-      0,
       3,
       3,
       3,
@@ -1012,7 +1020,8 @@
       2,
       20,
       20,
-      20
+      20,
+      0
     ]
   },
   "weather": {
@@ -1165,6 +1174,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-28T21:47:00-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: reader-self-check",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-28T21:39:24-06:00",
       "source": "forge",
@@ -1375,23 +1393,14 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 24000
-    },
-    {
-      "at": "2026-08-28T16:39:32-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: reader-self-check",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-28T21:39:24-06:00",
+    "last": "2026-08-28T21:47:00-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1434,6 +1443,11 @@
     {
       "id": "weather",
       "text": "Tonight 54 | Wind 3 to 7 mph | Showers And Thunderstorms Likely",
+      "severity": "normal"
+    },
+    {
+      "id": "mission",
+      "text": "Design Forge: reader-self-check \u00b7 started",
       "severity": "normal"
     },
     {
