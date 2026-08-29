@@ -155,7 +155,7 @@ function Get-GitBlobToFile{
  if($r.ExitCode -ne 0){throw "GitHub blob fetch failed for $Blob :: $($r.Stderr)"}
  $o=$r.Stdout|ConvertFrom-Json
  if(([string]$o.sha).ToLowerInvariant() -ne $Blob.ToLowerInvariant()){throw "Git blob identity mismatch. Expected $Blob, got $($o.sha)"}
- if([string]$o.encoding -ne 'base64'){throw "Unexpected Git blob encoding for $Blob: $($o.encoding)"}
+ if([string]$o.encoding -ne 'base64'){throw "Unexpected Git blob encoding for ${Blob}: $($o.encoding)"}
  $bytes=[Convert]::FromBase64String(([string]$o.content -replace '\s',''))
  [IO.File]::WriteAllBytes($Destination,$bytes)
 }
