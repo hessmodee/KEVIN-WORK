@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T22:08:20-06:00",
+  "generated_at": "2026-08-28T22:20:15-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -14,10 +14,10 @@
   },
   "current_task": {
     "id": "overnight-expedition",
-    "title": "Overnight Expedition \u00b7 1/24 builds",
+    "title": "Overnight Expedition \u00b7 2/24 builds",
     "category": "forge",
-    "phase": "Cooldown after reader-self-check i7 \u00b7 next attempt around 10:07 PM",
-    "completed": 1,
+    "phase": "Cooldown after knowledge i7 \u00b7 next attempt around 10:28 PM",
+    "completed": 2,
     "total": 24,
     "started_at": "2026-08-28T21:42:15.5429475-06:00",
     "source": "forge"
@@ -25,11 +25,11 @@
   "campaign": {
     "active": true,
     "id": "overnight-expedition",
-    "title": "Overnight Expedition \u00b7 1/24 builds"
+    "title": "Overnight Expedition \u00b7 2/24 builds"
   },
   "execution": {
     "running": false,
-    "phase": "Cooldown after reader-self-check i7 \u00b7 next attempt around 10:07 PM",
+    "phase": "Cooldown after knowledge i7 \u00b7 next attempt around 10:28 PM",
     "worker": null
   },
   "director": {
@@ -47,22 +47,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 64,
-    "cpu_pct": 1,
+    "memory_pct": 66,
+    "cpu_pct": 2,
     "gpu": "RTX 3060",
-    "gpu_pct": 22
+    "gpu_pct": 2
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T11:20:14-06:00",
-        "estimated": false,
-        "ram": 63,
-        "cpu": 1,
-        "gpu": 0
-      },
       {
         "at": "2026-08-28T11:35:14-06:00",
         "estimated": false,
@@ -727,10 +720,16 @@
         "ram": 64,
         "cpu": 1,
         "gpu": 22
+      },
+      {
+        "at": "2026-08-28T22:20:15-06:00",
+        "estimated": false,
+        "ram": 66,
+        "cpu": 2,
+        "gpu": 2
       }
     ],
     "ram": [
-      63,
       62,
       62,
       62,
@@ -825,10 +824,10 @@
       68,
       63,
       64,
-      64
+      64,
+      66
     ],
     "cpu": [
-      1,
       7,
       7,
       11,
@@ -923,10 +922,10 @@
       9,
       5,
       1,
-      1
+      1,
+      2
     ],
     "gpu": [
-      0,
       1,
       1,
       3,
@@ -1021,7 +1020,8 @@
       28,
       0,
       22,
-      22
+      22,
+      2
     ]
   },
   "weather": {
@@ -1175,6 +1175,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-28T22:20:15-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-28T22:08:20-06:00",
       "source": "forge",
       "component": "forge",
@@ -1192,13 +1199,6 @@
       "detail": "Design Forge: knowledge",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-28T22:05:13-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-28T21:47:35-06:00",
@@ -1401,7 +1401,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T22:08:20-06:00",
+    "last": "2026-08-28T22:20:15-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1448,7 +1448,7 @@
     },
     {
       "id": "mission",
-      "text": "Overnight Expedition \u00b7 1/24 builds \u00b7 Cooldown after reader-self-check i7 \u00b7 next attempt around 10:07 PM",
+      "text": "Overnight Expedition \u00b7 2/24 builds \u00b7 Cooldown after knowledge i7 \u00b7 next attempt around 10:28 PM",
       "severity": "normal"
     },
     {
