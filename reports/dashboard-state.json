@@ -1,7 +1,7 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T22:07:38-06:00",
-  "status": "working",
+  "generated_at": "2026-08-28T22:08:20-06:00",
+  "status": "idle",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -13,23 +13,23 @@
     "tools": false
   },
   "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: knowledge",
+    "id": "overnight-expedition",
+    "title": "Overnight Expedition \u00b7 1/24 builds",
     "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-28T22:07:38-06:00",
+    "phase": "Cooldown after reader-self-check i7 \u00b7 next attempt around 10:07 PM",
+    "completed": 1,
+    "total": 24,
+    "started_at": "2026-08-28T21:42:15.5429475-06:00",
     "source": "forge"
   },
   "campaign": {
     "active": true,
-    "id": "design-forge",
-    "title": "Design Forge: knowledge"
+    "id": "overnight-expedition",
+    "title": "Overnight Expedition \u00b7 1/24 builds"
   },
   "execution": {
-    "running": true,
-    "phase": "started",
+    "running": false,
+    "phase": "Cooldown after reader-self-check i7 \u00b7 next attempt around 10:07 PM",
     "worker": null
   },
   "director": {
@@ -56,13 +56,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T11:05:14-06:00",
-        "estimated": false,
-        "ram": 61,
-        "cpu": 9,
-        "gpu": 0
-      },
       {
         "at": "2026-08-28T11:20:14-06:00",
         "estimated": false,
@@ -727,10 +720,16 @@
         "ram": 64,
         "cpu": 1,
         "gpu": 22
+      },
+      {
+        "at": "2026-08-28T22:08:20-06:00",
+        "estimated": false,
+        "ram": 64,
+        "cpu": 1,
+        "gpu": 22
       }
     ],
     "ram": [
-      61,
       63,
       62,
       62,
@@ -825,10 +824,10 @@
       64,
       68,
       63,
+      64,
       64
     ],
     "cpu": [
-      9,
       1,
       7,
       7,
@@ -923,10 +922,10 @@
       0,
       9,
       5,
+      1,
       1
     ],
     "gpu": [
-      0,
       0,
       1,
       1,
@@ -1021,6 +1020,7 @@
       0,
       28,
       0,
+      22,
       22
     ]
   },
@@ -1174,6 +1174,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-28T22:08:20-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: knowledge",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 42000
+    },
     {
       "at": "2026-08-28T22:07:38-06:00",
       "source": "forge",
@@ -1384,23 +1394,14 @@
       "detail": "Design Forge: knowledge",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-28T17:37:01-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Night Forge cycle",
-      "result": "",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T22:07:38-06:00",
+    "last": "2026-08-28T22:08:20-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1410,9 +1411,9 @@
   "autonomy": {
     "mode": "hourly_design",
     "state": "pass",
-    "last_mission": "reader-self-check",
+    "last_mission": "knowledge",
     "iteration": 7,
-    "updated_at": "2026-08-28T21:47:35.3809642-06:00",
+    "updated_at": "2026-08-28T22:08:20.5914467-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1427,10 +1428,10 @@
     "candidate_forge": {
       "result": "pass",
       "mode": "design-forge-v3",
-      "last_mission": "reader-self-check",
+      "last_mission": "knowledge",
       "iteration": 7,
-      "updated_at": "2026-08-28T21:47:35.3809642-06:00",
-      "next_index": 3,
+      "updated_at": "2026-08-28T22:08:20.5914467-06:00",
+      "next_index": 4,
       "scheduled": true,
       "promotion": "blocked"
     }
@@ -1447,7 +1448,7 @@
     },
     {
       "id": "mission",
-      "text": "Design Forge: knowledge \u00b7 started",
+      "text": "Overnight Expedition \u00b7 1/24 builds \u00b7 Cooldown after reader-self-check i7 \u00b7 next attempt around 10:07 PM",
       "severity": "normal"
     },
     {
@@ -1462,7 +1463,7 @@
     },
     {
       "id": "verified",
-      "text": "Verified: Design Forge built candidate: reader-self-check",
+      "text": "Verified: Design Forge built candidate: knowledge",
       "severity": "success"
     }
   ],
@@ -1477,6 +1478,12 @@
       "at": "2026-08-26",
       "kind": "faculty",
       "label": "Chat 18/18",
+      "result": "pass"
+    },
+    {
+      "at": "2026-08-28T22:08:20-06:00",
+      "kind": "candidate",
+      "label": "candidate: knowledge i7",
       "result": "pass"
     },
     {
@@ -1543,12 +1550,6 @@
       "at": "2026-08-28T12:39:22-06:00",
       "kind": "candidate",
       "label": "candidate: operator i5",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T11:39:01-06:00",
-      "kind": "candidate",
-      "label": "candidate: knowledge i5",
       "result": "pass"
     }
   ]
