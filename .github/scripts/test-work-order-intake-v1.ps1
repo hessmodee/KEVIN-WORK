@@ -23,7 +23,7 @@ class Program {
     foreach (var n in new[]{"GH_TOKEN","GITHUB_TOKEN","GH_ENTERPRISE_TOKEN","GITHUB_ENTERPRISE_TOKEN"}) {
       if (!String.IsNullOrEmpty(Environment.GetEnvironmentVariable(n))) { Console.Error.Write("TOKEN_ENV_NOT_REMOVED:"+n); return 71; }
     }
-    if (args.Length < 2 || args[0] != "api") return 72;
+    if (args.Length < 2 || args[0] != "api") { Console.Error.Write("BAD_ARGV:"+String.Join("|",args)); return 72; }
     var joined=String.Join(" ",args);
     bool isPut=joined.Contains("--method PUT");
     if (joined.Contains("contents/control-plane/orders/CURRENT.json")) {
@@ -49,10 +49,22 @@ class Program {
 }
 '@
   $fakeGh=Join-Path $env:TEMP 'fakegh-control-plane-v1.exe'
+  Remove-Item -LiteralPath $fakeGh -Force -ErrorAction SilentlyContinue
   Add-Type -TypeDefinition $src -Language CSharp -OutputAssembly $fakeGh -OutputType ConsoleApplication
-  $env:KEVIN_GH_EXE=$fakeGh;$env:GH_TOKEN='poison';$env:GITHUB_TOKEN='poison';$env:GH_ENTERPRISE_TOKEN='poison';$env:GITHUB_ENTERPRISE_TOKEN='poison'
+  if(-not(Test-Path -LiteralPath $fakeGh)){throw 'fake gh executable was not created'}
 
   $env:FAKE_ORDER_MODE='valid'
+  foreach($n in @('GH_TOKEN','GITHUB_TOKEN','GH_ENTERPRISE_TOKEN','GITHUB_ENTERPRISE_TOKEN')){Remove-Item -LiteralPath ("Env:{0}" -f $n) -ErrorAction SilentlyContinue}
+  $probe=& $fakeGh 'api' 'repos/hessmodee/KEVIN-WORK/contents/control-plane/orders/CURRENT.json?ref=kevin-control-plane-v1' '-H' 'Accept: application/vnd.github+json' 2>&1
+  $probeCode=$LASTEXITCODE
+  if($probeCode -ne 0){throw "Fake GitHub direct probe failed exit=$probeCode output=$($probe -join ' | ')"}
+  $probeObj=($probe -join "`n")|ConvertFrom-Json
+  $probeOrder=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String([string]$probeObj.content))|ConvertFrom-Json
+  if([string]$probeOrder.id -ne 'ci-order-0001'){throw 'Fake GitHub direct probe returned wrong order.'}
+  Write-Host 'PASS fake GitHub endpoint transport and encoded-order response.'
+
+  $env:KEVIN_GH_EXE=$fakeGh;$env:GH_TOKEN='poison';$env:GITHUB_TOKEN='poison';$env:GH_ENTERPRISE_TOKEN='poison';$env:GITHUB_ENTERPRISE_TOKEN='poison'
+
   $first=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File (Join-Path $cp 'kevin-work-order-intake-v0.1.ps1') -Mode Poll
   if($LASTEXITCODE -ne 0 -or ($first -join "`n") -notmatch 'WORK_ORDER_VERIFIED'){throw "Valid work order failed: $($first -join ' | ')"}
   Write-Host ($first -join "`n")
@@ -73,4 +85,5 @@ class Program {
   $env:USERPROFILE=$oldProfile
   foreach($n in @('KEVIN_GH_EXE','GH_TOKEN','GITHUB_TOKEN','GH_ENTERPRISE_TOKEN','GITHUB_ENTERPRISE_TOKEN','FAKE_ORDER_MODE')){Remove-Item -LiteralPath ("Env:{0}" -f $n) -ErrorAction SilentlyContinue}
   Remove-Item -LiteralPath $fakeProfile -Recurse -Force -ErrorAction SilentlyContinue
+  Remove-Item -LiteralPath (Join-Path $env:TEMP 'fakegh-control-plane-v1.exe') -Force -ErrorAction SilentlyContinue
 }
