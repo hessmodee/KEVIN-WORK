@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-29T08:02:51.3406324-06:00",
+  "generated_at": "2026-08-29T08:05:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -21,7 +21,7 @@
   },
   "system": {
     "memory_pct": 60,
-    "cpu_pct": 0,
+    "cpu_pct": 1,
     "gpu": "RTX 3060",
     "gpu_pct": 0
   },
@@ -29,13 +29,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T23:41:48-06:00",
-        "estimated": false,
-        "ram": 75,
-        "cpu": 8,
-        "gpu": 28
-      },
       {
         "at": "2026-08-28T23:42:06-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 60,
         "cpu": 0,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-29T08:05:14-06:00",
+        "estimated": false,
+        "ram": 60,
+        "cpu": 1,
+        "gpu": 0
       }
     ],
     "ram": [
-      75,
       75,
       77,
       77,
@@ -798,10 +797,10 @@
       64,
       64,
       64,
+      60,
       60
     ],
     "cpu": [
-      8,
       8,
       11,
       11,
@@ -896,10 +895,10 @@
       0,
       2,
       2,
-      0
+      0,
+      1
     ],
     "gpu": [
-      28,
       28,
       7,
       7,
@@ -994,11 +993,12 @@
       0,
       34,
       34,
+      0,
       0
     ]
   },
   "weather": {
-    "summary": "Today 73 | Wind 3 to 10 mph | Showers And Thunderstorms"
+    "summary": "Today 73 | Wind 5 to 10 mph | Showers And Thunderstorms"
   },
   "capabilities": [
     {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-08-29T07:50:15-06:00",
+      "at": "2026-08-29T08:05:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1376,7 +1376,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-29T08:02:51.3406324-06:00",
+    "last": "2026-08-29T08:05:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1413,7 +1413,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-29T08:02:51.3406324-06:00",
+    "generated_at": "2026-08-29T08:04:51.3555861-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
