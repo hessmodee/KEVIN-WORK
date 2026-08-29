@@ -255,7 +255,7 @@ Good 'Remote autonomy telemetry exists and was independently fetched.'
 $install=[ordered]@{
  schema=1
  installed_at=(Get-Date).ToString('o')
- version='0.1f'
+ version='0.1h'
  reconciler_blob=$NewActuatorBlob
  root=$Root
  backup=$Backup
@@ -268,8 +268,8 @@ Write-JsonAtomic -Object $install -Path $oldManifest
 Write-JsonAtomic -Object $install -Path (Join-Path $EvidenceDir ("$Stamp-install-proof-v0.1h.json"))
 $rollback=@"
 `$ErrorActionPreference='Continue'
-openclaw automations remove '$rId' --json | Out-Null
-openclaw automations remove '$bId' --json | Out-Null
+openclaw cron remove '$rId' --json | Out-Null
+openclaw cron remove '$bId' --json | Out-Null
 Write-Host 'Kevin Autonomy v0.1h jobs removed. Backup: $Backup'
 "@
 [IO.File]::WriteAllText((Join-Path $Root 'ROLLBACK-v0.1h.ps1'),$rollback,(New-Object Text.UTF8Encoding($false)))
@@ -281,6 +281,6 @@ Write-Host 'Reconciler: every 3 minutes'
 Write-Host 'Telemetry: every 5 minutes'
 Write-Host 'Audit truth: fresh Support Bridge desired-state evidence'
 Write-Host 'Live list-query errors: diagnostic only, still recorded'
-Write-Host 'Typed job verification: automations get <job-id>'
+Write-Host 'Typed job verification: cron get <job-id>'
 Write-Host "Evidence: $EvidenceDir"
 Write-Host "Rollback: $(Join-Path $Root 'ROLLBACK-v0.1h.ps1')"
