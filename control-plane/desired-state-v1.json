@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "kind": "kevin-desired-state",
+  "version": "1.0",
+  "authority": {
+    "owner_authorization": "Kevin Owner Authorization v1",
+    "green_only": true,
+    "allow_arbitrary_shell": false,
+    "allow_authority_expansion": false,
+    "allow_novel_production_promotion": false
+  },
+  "core_hashes": {
+    "supervisor": "EA28600FDE1E7572F431710416238DA8A4AD6B80321C9A8F0687C1C8A92421F7",
+    "benchmark": "02447EE8F3302E3EA1EF00290DBA6804F30FAC9F46CAE8714F402EA2D013CC38",
+    "forge": "0ED50A9714B4B5E778844006CD24E57D25FFA0873261E5BF63F990FBB4D5643E",
+    "goal_os": "B20C7AC8EDC35C656ED544C4D13D3EB4FF4A79453AF0F49BD60B7DF31092AEF0",
+    "support_bridge": "E72A2A635326CF1AB036404E64E274D2F56E79CA5CEB268DBF9B2EA4B67BEA5",
+    "maintenance_runner": "B47714C91EFDCCD1FAE6C2CB0B97D72F799125A63C084956916A8BD5A07678C1"
+  },
+  "required_automations": [
+    {"declaration_key":"kevin-support-bridge-v1","name":"Kevin Support Bridge v1.1d","must_be_enabled":true},
+    {"declaration_key":"kevin-hq-live-pulse-v15","name":"Kevin HQ Live Pulse v1.5","must_be_enabled":true},
+    {"declaration_key":"kevin-maintenance-intake-v1","name":"Kevin Maintenance Intake v1.1d","must_be_enabled":true},
+    {"declaration_key":"kevin-supervisor-v1","name":"Kevin Supervisor v1.5.3b","must_be_enabled":true},
+    {"declaration_key":"kevin-benchmark-v1","name":"Kevin Benchmark v1.1c","must_be_enabled":true}
+  ],
+  "health_contract": {
+    "support_snapshot_max_age_minutes": 10,
+    "benchmark_required_status": "PASS",
+    "governance_must_be_ok": true,
+    "max_same_failure_attempts": 3,
+    "cooldown_minutes_after_budget": 60
+  },
+  "green_registry": [
+    "collect_diagnostics",
+    "run_support_bridge",
+    "run_benchmark",
+    "enable_expected_automation"
+  ],
+  "work_conserving": {
+    "enabled": true,
+    "single_14b_worker": true,
+    "candidate_queue": [
+      "benchmark-fixtures",
+      "knowledge-provenance",
+      "checkpoint-resume",
+      "postmortem-cleanup",
+      "telemetry-quality",
+      "skill-evaluation"
+    ]
+  }
+}
