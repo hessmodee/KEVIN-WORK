@@ -105,7 +105,12 @@ def reconcile(desired, snapshot, now=None):
     if eligible and eligible.tzinfo is None:
         eligible = eligible.replace(tzinfo=timezone.utc)
 
-    throttle_results = {"RECOVERY_THROTTLED", "WAIT", "THROTTLED"}
+    alternate_results = {
+        "RECOVERY_THROTTLED",
+        "RECOVERY_SATURATED",
+        "WAIT",
+        "THROTTLED",
+    }
     last_result = str(supervisor.get("last_result") or "").upper()
 
     if (
@@ -114,13 +119,13 @@ def reconcile(desired, snapshot, now=None):
         and eligible
         and now >= eligible.astimezone(timezone.utc)
         and active_count == 0
-        and last_result in throttle_results
+        and last_result in alternate_results
     ):
         proposals.append(
             proposal(
                 "select_alternate_mission",
                 "supervisor",
-                "work-conserving policy: idle capacity after throttle eligibility should evaluate another authorized mission",
+                "work-conserving policy: idle capacity after throttle/saturation eligibility should evaluate another authorized mission",
                 {
                     "last_result": supervisor.get("last_result"),
                     "next_eligible_at": supervisor.get("next_eligible_at"),
