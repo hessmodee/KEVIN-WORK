@@ -96,7 +96,7 @@ $DesiredBlob='610e89b426ac0e7fa947f6575c977aa0a08efbe6'
 $OwnerBlob='b0cc4465f12457492b3a6c2761287398cc6295b5'
 $ActuatorBlob='847c0a0dd629df75ce89e6591ed1d7dcdb80afad'
 $OldBridgeBlob='05bb7d3a01d9eace3105a717020656a040f4da8c'
-$NewBridgeBlob='d9ccb7d0eb1f46a6ddafd4cd917e947e82d1c3b5'
+$NewBridgeBlob='d542581dc4783fc8f34ede34edf47e4427df7091'
 
 $DesiredPath=Join-Path $Root 'desired-state-v1.json'
 $OwnerPath=Join-Path $Root 'OWNER-AUTHORIZATION-v1.md'
@@ -176,10 +176,14 @@ function Resolve-JobId {param($Object,[string]$Label);if($Object -and $Object.id
 function Assert-StringArrayEqual {param([string[]]$Actual,[string[]]$Expected,[string]$Label);if(@($Actual).Count -ne @($Expected).Count){throw "$Label argv length mismatch."};for($i=0;$i -lt @($Expected).Count;$i++){if([string]$Actual[$i] -cne [string]$Expected[$i]){throw "$Label argv mismatch at index $i. Expected '$($Expected[$i])', got '$($Actual[$i])'."}}}
 
 function Assert-CronJob {
-  param($Job,[string]$Label,[string]$ExpectedExpr,[string[]]$ExpectedArgv,[string]$ExpectedCwd)
+  param($Job,[string]$Label,[string]$ExpectedExpr,[string[]]$ExpectedArgv,[string]$ExpectedCwd,[string]$ExpectedGhExe='')
   if(-not $Job){throw "$Label cron get returned no job."};if(-not [bool]$Job.enabled){throw "$Label job is not enabled."};if(-not $Job.payload -or [string]$Job.payload.kind -ne 'command'){throw "$Label payload is not command kind."}
   Assert-StringArrayEqual -Actual @($Job.payload.argv) -Expected $ExpectedArgv -Label $Label
   if([string]$Job.payload.cwd -cne $ExpectedCwd){throw "$Label cwd mismatch."};if([string]$Job.schedule.kind -ne 'cron' -or [string]$Job.schedule.expr -cne $ExpectedExpr){throw "$Label schedule mismatch."}
+  if($ExpectedGhExe){
+    if(-not $Job.payload.env -or -not ($Job.payload.env.PSObject.Properties.Name -contains 'KEVIN_GH_EXE')){throw "$Label stored environment is missing KEVIN_GH_EXE."}
+    if([string]$Job.payload.env.KEVIN_GH_EXE -cne $ExpectedGhExe){throw "$Label KEVIN_GH_EXE mismatch. Expected '$ExpectedGhExe', got '$([string]$Job.payload.env.KEVIN_GH_EXE)'."}
+  }
 }
 
 function Get-RunFailureDetail {
@@ -254,8 +258,8 @@ $rId=$null;$bId=$null
 try{
   $rc=Invoke-OpenClawJson -Args @('cron','create','*/3 * * * *','--exact','--name','Kevin Autonomy Reconciler v0.1','--declaration-key','kevin-autonomy-reconciler-v0.1','--session','isolated','--command-argv',$reconcileJson,'--command-cwd',$Root,'--timeout-seconds','600','--no-output-timeout-seconds','600','--output-max-bytes','65536','--no-deliver','--json')
   $rId=Resolve-JobId $rc 'reconciler';$rj=Invoke-OpenClawJson -Args @('cron','get',$rId);Assert-CronJob $rj 'Reconciler' '*/3 * * * *' $reconcileArgv $Root;Good "Reconciler job stored exact argv: $rId"
-  $bc=Invoke-OpenClawJson -Args @('cron','create','*/5 * * * *','--exact','--name','Kevin Autonomy Telemetry v0.1','--declaration-key','kevin-autonomy-telemetry-v0.1','--session','isolated','--command-argv',$bridgeJson,'--command-cwd',$Root,'--timeout-seconds','120','--no-output-timeout-seconds','120','--output-max-bytes','32768','--no-deliver','--json')
-  $bId=Resolve-JobId $bc 'telemetry';$bj=Invoke-OpenClawJson -Args @('cron','get',$bId);Assert-CronJob $bj 'Telemetry' '*/5 * * * *' $bridgeArgv $Root;Good "Telemetry job stored exact argv: $bId"
+  $bc=Invoke-OpenClawJson -Args @('cron','create','*/5 * * * *','--exact','--name','Kevin Autonomy Telemetry v0.1','--declaration-key','kevin-autonomy-telemetry-v0.1','--session','isolated','--command-argv',$bridgeJson,'--command-cwd',$Root,'--timeout-seconds','120','--no-output-timeout-seconds','120','--output-max-bytes','32768','--command-env',("KEVIN_GH_EXE={0}" -f $script:GhExe),'--no-deliver','--json')
+  $bId=Resolve-JobId $bc 'telemetry';$bj=Invoke-OpenClawJson -Args @('cron','get',$bId);Assert-CronJob $bj 'Telemetry' '*/5 * * * *' $bridgeArgv $Root $script:GhExe;Good "Telemetry job stored exact argv: $bId"
 }catch{if($rId){try{$null=Invoke-OpenClawJson -Args @('cron','remove',$rId,'--json')}catch{}};if($bId){try{$null=Invoke-OpenClawJson -Args @('cron','remove',$bId,'--json')}catch{}};throw}
 
 Step 'Execute and prove both jobs through OpenClaw cron'
@@ -295,7 +299,7 @@ Write-Host 'KEVIN AUTONOMY SCHEDULER v0.1j INSTALLED + PROVEN' -ForegroundColor 
 Write-Host '============================================================' -ForegroundColor Green
 Write-Host 'Reconciler: every 3 minutes'
 Write-Host 'Telemetry: every 5 minutes'
-Write-Host 'Bridge: hardened exact gh transport + bounded retry'
+Write-Host 'Bridge: hardened exact gh transport + bounded retry + pinned scheduler gh.exe'
 Write-Host 'Scheduler evidence: exact run-id history with failure diagnostics'
 Write-Host "Manifest: $manifestPath"
 Write-Host "Rollback: $rollbackPath"
