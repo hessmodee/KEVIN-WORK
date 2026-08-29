@@ -32,7 +32,7 @@ foreach($needle in @(
   'befc526f-5f59-4216-9339-cfd998d303f0',
   'b2b620e7-b217-471f-be51-dea33f6bc839',
   '5ab49387-6664-4620-a9a1-1b0165a3b9d3',
-  "$OrderBranch='kevin-control-plane-v1'",
+  '$OrderBranch=''kevin-control-plane-v1''',
   'A CURRENT work order exists; refusing review repair while intake has pending work.',
   'Review model JSON contract failed after one bounded format-recovery attempt.',
   'CONTROL_PLANE_V12_REVIEW_PROTOCOL_READY',
@@ -59,10 +59,13 @@ foreach($forbidden in @(
 }
 Write-Host 'PASS v1.2 repair cannot create/remove/update/enable/disable scheduler jobs.'
 
-if(-not $text.Contains("$tmpTarget=\"$WorkerPath.tmp-$PID\"")){throw 'Worker-only atomic mutation contract missing.'}
+$atomicNeedle='$tmpTarget="$WorkerPath.tmp-$PID"'
+if(-not $text.Contains($atomicNeedle)){throw 'Worker-only atomic mutation contract missing.'}
 foreach($badTarget in @('$DispatcherPath.tmp-','$IntakePath.tmp-','Move-Item -LiteralPath $tmpTarget -Destination $DispatcherPath','Move-Item -LiteralPath $tmpTarget -Destination $IntakePath')){if($text.Contains($badTarget)){throw "Unexpected non-worker file mutation contract: $badTarget"}}
 if(-not $text.Contains('Only mission worker changed; exact v1.2 identity proven.')){throw 'Worker-only proof statement missing.'}
-if(-not $text.Contains("[string](Get-OptionalPropertyValue $ws 'error') -eq 'Review model JSON contract failed after one bounded format-recovery attempt.'")){throw 'Exact reviewer failure reset precondition missing.'}
-if(-not $text.Contains("[string](Get-OptionalPropertyValue $ds 'failure_family') -eq [string](Get-OptionalPropertyValue $ws 'mission_id')")){throw 'Failure-family/mission reset binding missing.'}
+$errorNeedle='[string](Get-OptionalPropertyValue $ws ''error'') -eq ''Review model JSON contract failed after one bounded format-recovery attempt.'''
+if(-not $text.Contains($errorNeedle)){throw 'Exact reviewer failure reset precondition missing.'}
+$familyNeedle='[string](Get-OptionalPropertyValue $ds ''failure_family'') -eq [string](Get-OptionalPropertyValue $ws ''mission_id'')'
+if(-not $text.Contains($familyNeedle)){throw 'Failure-family/mission reset binding missing.'}
 Write-Host 'PASS v1.2 worker-only mutation and exact cooldown-reset contracts.'
 Write-Host 'CONTROL_PLANE_V12_REVIEW_REPAIR_INSTALLER_TEST_PASS'
