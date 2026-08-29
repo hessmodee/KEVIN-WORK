@@ -1,0 +1,36 @@
+name: Fix Control Plane replay acknowledgement
+
+on:
+  push:
+    branches: [kevin-control-plane-v1]
+    paths:
+      - '.github/scripts/fix-control-plane-replay-ack.ps1'
+      - '.github/workflows/control-plane-replay-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-control-plane-v1
+      - name: Patch and parse intake
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/fix-control-plane-replay-ack.ps1
+          if($LASTEXITCODE -ne 0){throw 'Replay acknowledgement correction failed'}
+      - name: Commit corrected intake
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name 'Kevin Control Plane CI'
+          git config user.email 'kevin-control-plane-ci@users.noreply.github.com'
+          git add -- control-plane/intake/kevin-work-order-intake-v0.1.ps1
+          git diff --cached --quiet
+          if($LASTEXITCODE -eq 0){throw 'Replay acknowledgement patch produced no change.'}
+          git commit -m 'Preserve verified acknowledgement across replay polls'
+          git push origin HEAD:kevin-control-plane-v1
