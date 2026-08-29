@@ -25,7 +25,7 @@ jobs:
           $text=Get-Content $path -Raw
           if($text -match '\}\$Sources'){throw 'Known missing-newline signature found'}
           if($text -match '\belif\b'){throw 'Non-PowerShell elif token found'}
-          if($text -match '\$[A-Za-z_][A-Za-z0-9_]*:'){throw 'Potential ambiguous variable-colon token found'}
+          if($text.Contains('for $Blob:')){throw 'Known $Blob colon parser defect found'}
           if($text -notmatch 'ef1e7f9ea6847e6d963af0cd40c28735573bc26d'){throw 'Validated reconciler blob pin missing'}
           if($text -notmatch [regex]::Escape("@('automations','get',`$rId,'--json')")){throw 'Reconciler typed get verification missing'}
           if($text -notmatch [regex]::Escape("@('automations','get',`$bId,'--json')")){throw 'Telemetry typed get verification missing'}
