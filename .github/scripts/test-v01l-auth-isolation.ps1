@@ -3,6 +3,8 @@ Set-StrictMode -Version 2.0
 
 $Bridge='control-plane/actuator/kevin-autonomy-bridge-v0.1l.ps1'
 $Resume='control-plane/actuator/KEVIN-AUTONOMY-TELEMETRY-AUTH-RESUME-v0.1l.ps1'
+$goodGhToken=[string]$env:GH_TOKEN
+if(-not $goodGhToken){throw 'CI GH_TOKEN missing before auth-isolation test.'}
 
 foreach($p in @($Bridge,$Resume)){
   $tokens=$null;$errors=$null
@@ -40,11 +42,10 @@ $fakeCode=$LASTEXITCODE
 if($fakeCode -ne 25){throw "Expected fake-gh publish-stage exit 25 after auth isolation, got $fakeCode :: $($fakeOut -join ' | ')"}
 Write-Host 'PASS stored mode removed inherited GitHub token variables before gh launch.'
 
-foreach($n in @('KEVIN_GH_AUTH_MODE','GH_ENTERPRISE_TOKEN','GITHUB_ENTERPRISE_TOKEN')){Remove-Item -LiteralPath ("Env:{0}" -f $n) -ErrorAction SilentlyContinue}
+foreach($n in @('KEVIN_GH_AUTH_MODE','GH_ENTERPRISE_TOKEN','GITHUB_ENTERPRISE_TOKEN','GITHUB_TOKEN')){Remove-Item -LiteralPath ("Env:{0}" -f $n) -ErrorAction SilentlyContinue}
+$env:GH_TOKEN=$goodGhToken
 $env:KEVIN_GH_EXE=(Get-Command gh.exe).Source
 $env:KEVIN_AUTONOMY_REPO='hessmodee/KEVIN-WORK';$env:KEVIN_AUTONOMY_BRANCH='kevin-autonomy-actuator-v0.1';$env:KEVIN_AUTONOMY_PATH='reports/_ci-autonomy-v01l.json';$env:KEVIN_AUTONOMY_REPORTS_DIR=$r
-if(-not $env:GH_TOKEN){throw 'CI GH_TOKEN missing for real GitHub ambient-mode test.'}
-Remove-Item Env:GITHUB_TOKEN -ErrorAction SilentlyContinue
 $obj.generated_at=(Get-Date).ToString('o');$obj.fingerprint='CI-V01L';[IO.File]::WriteAllText((Join-Path $r 'autonomy-latest.json'),($obj|ConvertTo-Json -Depth 10),(New-Object Text.UTF8Encoding($false)))
 $out1=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $Bridge
 if($LASTEXITCODE -ne 0 -or ($out1 -join "`n") -notmatch 'AUTONOMY_PUBLISHED'){throw "First real publish failed: $($out1 -join ' | ')"}
