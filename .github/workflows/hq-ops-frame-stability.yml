@@ -1,0 +1,57 @@
+name: Validate Kevin HQ Ops Floor Frame Stability
+
+on:
+  push:
+    branches:
+      - kevin-hq-ops-shell-stability
+    paths:
+      - '.github/workflows/hq-ops-frame-stability.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch-and-test:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-hq-ops-shell-stability
+      - name: Preserve Ops frame across telemetry refresh
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $p='docs/index.html'
+          $expected='b7f0a4375946de90d03e88644b91a2e7274d4b3b'
+          $actual=(git hash-object -- $p).Trim()
+          if($actual -cne $expected){throw "Unexpected HQ preimage: $actual"}
+          $t=[IO.File]::ReadAllText($p)
+          $old='if(tab==="ops")$("main").innerHTML=ops();'
+          $new='if(tab==="ops"&&!$("opsV11Frame"))$("main").innerHTML=ops();'
+          $count=([regex]::Matches($t,[regex]::Escape($old))).Count
+          if($count -ne 1){throw "Ops draw replacement count=$count"}
+          $t=$t.Replace($old,$new)
+          [IO.File]::WriteAllText($p,$t,(New-Object Text.UTF8Encoding($false)))
+          Write-Host 'PASS Ops iframe will stay mounted across 15-second parent telemetry refreshes.'
+      - name: Validate JavaScript and routing contract
+        shell: powershell
+        run: |
+          $html=Get-Content docs/index.html -Raw
+          foreach($must in @('if(tab==="ops"&&!$("opsV11Frame"))$("main").innerHTML=ops();','["talk","Talk · Exp"]','src="./ops/embed.html?v=12"','addEventListener("hashchange"')){if(-not $html.Contains($must)){throw "Missing stability contract: $must"}}
+          if($html.Contains('location.href="./ops/"')){throw 'Split-site Ops redirect returned'}
+          $m=[regex]::Matches($html,'(?s)<script>(.*?)</script>')
+          if($m.Count -ne 1){throw "Expected one inline HQ script; got $($m.Count)"}
+          $tmp=Join-Path $env:TEMP 'hq-inline.js'
+          [IO.File]::WriteAllText($tmp,$m[0].Groups[1].Value,(New-Object Text.UTF8Encoding($false)))
+          node --check $tmp
+          if($LASTEXITCODE -ne 0){throw 'HQ inline JS syntax failed'}
+          Write-Host 'PASS frame stability + JavaScript syntax.'
+      - name: Commit stability fix
+        shell: powershell
+        run: |
+          git config user.name "Kevin HQ CI"
+          git config user.email "kevin-hq-ci@users.noreply.github.com"
+          git add docs/index.html
+          if(git diff --cached --quiet){throw 'Stability patch produced no change'}
+          git commit -m "Keep Ops Floor mounted during HQ telemetry refresh"
+          git push origin HEAD:kevin-hq-ops-shell-stability
