@@ -75,8 +75,10 @@ foreach($leaf in @('kevin-mission-worker-v0.1.ps1','kevin-mission-dispatcher-v0.
 }
 if(-not $text.Contains('foreach($p in @($WorkerPath,$DispatcherPath,$IntakePath))')){throw 'Repair mutation loop is not restricted to Worker/Dispatcher/Intake.'}
 if(-not $text.Contains('$OldPins=[ordered]@{$WorkerPath=') -or -not $text.Contains('$NewPins=[ordered]@{$WorkerPath=')){throw 'Old/new mutable pin maps are missing.'}
-if($text -notmatch "state='INFRA_FAILURE'" -or $text -notmatch "failure_family.*mission_id"){throw 'Exact stale-failure state-reset preconditions are missing.'}
+if(-not $text.Contains("Get-OptionalPropertyValue `$ws 'state') -eq 'INFRA_FAILURE'")){throw 'Worker INFRA_FAILURE state precondition is missing.'}
+if(-not $text.Contains("Get-OptionalPropertyValue `$ws 'error') -match 'Model response contained no JSON object|JSON contract failed after one bounded format-recovery attempt'")){throw 'Exact JSON-format failure-family precondition is missing.'}
+if(-not $text.Contains("Get-OptionalPropertyValue `$ds 'failure_family') -eq [string](Get-OptionalPropertyValue `$ws 'mission_id')")){throw 'Dispatcher failure-family/mission identity precondition is missing.'}
 if($text -notmatch 'stateBackup'){throw 'Dispatcher-state rollback evidence contract missing.'}
-Write-Host 'PASS v1.1 three-target mutation, state-reset, and rollback contracts.'
+Write-Host 'PASS v1.1 three-target mutation, exact state-reset, and rollback contracts.'
 
 Write-Host 'CONTROL_PLANE_V11_REPAIR_INSTALLER_TEST_PASS'
