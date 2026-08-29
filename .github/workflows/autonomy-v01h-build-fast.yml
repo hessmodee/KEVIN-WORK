@@ -1,0 +1,81 @@
+name: Build Kevin Autonomy v0.1h fast Windows gate
+
+on:
+  push:
+    branches:
+      - kevin-autonomy-actuator-v0.1
+    paths:
+      - '.github/workflows/autonomy-v01h-build-fast.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-regress:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-autonomy-actuator-v0.1
+
+      - name: Build cron-compatible v0.1h
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/actuator/build-v01h-cron-compat.ps1'
+          if($LASTEXITCODE -ne 0){throw 'v0.1h builder failed'}
+          foreach($p in @('control-plane/actuator/kevin-autonomy-actuator-v0.1.ps1','control-plane/actuator/KEVIN-AUTONOMY-RESUME-v0.1h.ps1')){
+            $tokens=$null;$errors=$null
+            [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+            if($errors -and $errors.Count){$errors|ForEach-Object{Write-Error ("$p line {0}: {1}" -f $_.Extent.StartLineNumber,$_.Message)};throw "Parser rejected $p"}
+            $text=Get-Content -LiteralPath $p -Raw
+            if($text -match [regex]::Escape("'automations'")){throw "$p still uses automations namespace"}
+            if($text -match "@\('cron','(?:get|enable|run|runs)'[^\r\n]*'--json'"){throw "$p has unsupported stable cron --json"}
+          }
+          $a=Get-Content 'control-plane/actuator/kevin-autonomy-actuator-v0.1.ps1' -Raw
+          if($a -notmatch [regex]::Escape("PSObject.Properties.Name -contains 'entries'")){throw 'Stable cron.runs entries parser missing'}
+          Write-Host 'PASS v0.1h static compatibility gate.'
+
+      - name: Execute healthy zero-drift regression on Windows PowerShell
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $fake=Join-Path $env:RUNNER_TEMP 'kevin-v01h-fast-profile'
+          $ws=Join-Path $fake '.openclaw\workspace'
+          $cp=Join-Path $ws 'ControlPlane'
+          $reports=Join-Path $ws 'reports'
+          New-Item -ItemType Directory -Path $cp,$reports -Force|Out-Null
+          Copy-Item 'control-plane/desired-state-v1.json' (Join-Path $cp 'desired-state-v1.json')
+          Copy-Item 'control-plane/OWNER-AUTHORIZATION-v1.md' (Join-Path $cp 'OWNER-AUTHORIZATION-v1.md')
+          $desired=Get-Content 'control-plane/desired-state-v1.json' -Raw|ConvertFrom-Json
+          $jobs=@();$n=1
+          foreach($j in @($desired.required_automations)){$jobs += [pscustomobject]@{id=("test-job-{0}" -f $n);declaration_key=$j.declaration_key;name=$j.name;enabled=$true;last_status='ok';last_run_status='ok';consecutive_errors=0};$n++}
+          $support=[pscustomobject]@{schema=1;kind='kevin-support-snapshot';generated_at=(Get-Date).ToString('o');hashes=$desired.core_hashes;governance=[pscustomobject]@{ok=$true};cron=[pscustomobject]@{ok=$true;jobs=$jobs};benchmark=[pscustomobject]@{status='PASS'};supervisor=[pscustomobject]@{last_result='RECOVERY_SATURATED'};active_workers=[pscustomobject]@{design_forge=0;night_forge=0;supervisor=0;benchmark=0}}
+          $dashboard=[pscustomobject]@{schema=5;generated_at=(Get-Date).ToString('o');health=[pscustomobject]@{overall='healthy';failed_checks=0}}
+          [IO.File]::WriteAllText((Join-Path $reports 'support-latest.json'),($support|ConvertTo-Json -Depth 20),(New-Object Text.UTF8Encoding($false)))
+          [IO.File]::WriteAllText((Join-Path $reports 'dashboard-state.json'),($dashboard|ConvertTo-Json -Depth 20),(New-Object Text.UTF8Encoding($false)))
+          $oldProfile=$env:USERPROFILE
+          try{
+            $env:USERPROFILE=$fake
+            $act=(Resolve-Path 'control-plane/actuator/kevin-autonomy-actuator-v0.1.ps1').Path
+            $self=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $act -Mode SelfTest 2>&1;$selfCode=$LASTEXITCODE;$self|ForEach-Object{Write-Host $_}
+            if($selfCode -ne 0 -or ($self -join "`n") -notmatch 'SELF_TEST_PASS :: drift=0'){throw 'SelfTest zero-drift regression failed'}
+            $audit=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $act -Mode Audit 2>&1;$auditCode=$LASTEXITCODE;$audit|ForEach-Object{Write-Host $_}
+            if($auditCode -ne 0 -or ($audit -join "`n") -notmatch 'HEALTHY :: drift=0'){throw 'Audit zero-drift regression failed'}
+          } finally {$env:USERPROFILE=$oldProfile}
+          Write-Host 'PASS v0.1h actual healthy-state execution.'
+
+      - name: Commit validated artifacts
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $files=@('control-plane/actuator/kevin-autonomy-actuator-v0.1.ps1','control-plane/actuator/KEVIN-AUTONOMY-RESUME-v0.1h.ps1')
+          git config user.name 'Kevin Control Plane CI'
+          git config user.email 'kevin-control-plane-ci@users.noreply.github.com'
+          git add -- $files
+          if(git status --porcelain -- $files){
+            git commit -m 'Build validated OpenClaw 2026.7.1 cron compatibility v0.1h'
+            git pull --rebase origin kevin-autonomy-actuator-v0.1
+            git push origin HEAD:kevin-autonomy-actuator-v0.1
+          } else { Write-Host 'No artifact changes to commit.' }
