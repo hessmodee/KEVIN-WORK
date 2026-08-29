@@ -1,7 +1,7 @@
-# Kevin board 2026-08-28 14:05
+# Kevin board 2026-08-28 19:20
 
 ## self-check.md
-# Self-check 2026-08-28 14:05
+# Self-check 2026-08-28 19:20
 - PASS: ollama - 11434
 - PASS: gateway - 18789
 - PASS: daily-note - C:\Users\hessm\.openclaw\workspace\memory\2026-08-28.md
@@ -9,38 +9,38 @@
 - PASS: weather-83263.md - C:\Users\hessm\.openclaw\workspace\reports\weather-83263.md
 - PASS: morning-brief-2026-08-28.md - C:\Users\hessm\.openclaw\workspace\reports\morning-brief-2026-08-28.md
 - PASS: BOARD.md - C:\Users\hessm\.openclaw\workspace\reports\BOARD.md
-- FAIL: github-bridge - age_min=7.2 pull=PASS publish=FAIL bridge=FAIL
+- FAIL: github-bridge - age_min=7.2 pull=FAIL publish=FAIL bridge=FAIL
 fails: 1
 
 
 ## system-status.md
-# System status 2026-08-28 14:05
+# System status 2026-08-28 19:20
 Host: HESS-PC
 User: hessm
-RAM used: 10.3 GB
+RAM used: 10.8 GB
 RAM total: 15.9 GB
-RAM load: 64%
-CPU load: 20%
+RAM load: 67%
+CPU load: 9%
 GPU: NVIDIA GeForce RTX 3060
-VRAM used: 10465 MB
+VRAM used: 1418 MB
 VRAM total: 12288 MB
-GPU utilization: 27%
-C: free 125.9 GB
+GPU utilization: 30%
+C: free 130.6 GB
 Ollama: running
 Gateway: open
 
 
 ## weather-83263.md
-# Weather 83263 - 2026-08-28 14:05
+# Weather 83263 - 2026-08-28 19:20
 
 Preston, ID
-This Afternoon 82
-Wind 5 to 8 mph
-Slight Chance Showers And Thunderstorms
+Tonight 54
+Wind 3 to 8 mph
+Chance Showers And Thunderstorms then Showers And Thunderstorms Likely
 
 
 ## context-latest.md
-# Context 2026-08-28 14:05 America/Boise
+# Context 2026-08-28 19:20 America/Boise
 Place: Preston, Idaho 83263
 
 ## Alerts
@@ -53,18 +53,18 @@ None active.
 
 
 ## morning-brief-2026-08-28.md
-# Morning brief 2026-08-28 14:05 America/Boise
+# Morning brief 2026-08-28 19:20 America/Boise
 
 Place: Preston, Idaho 83263
 
 ## Weather
 
-# Weather 83263 - 2026-08-28 14:05
+# Weather 83263 - 2026-08-28 19:20
 
 Preston, ID
-This Afternoon 82
-Wind 5 to 8 mph
-Slight Chance Showers And Thunderstorms
+Tonight 54
+Wind 3 to 8 mph
+Chance Showers And Thunderstorms then Showers And Thunderstorms Likely
 
 ## Note
 KevinTick is the 15-minute loop. One new skill after this file exists.
