@@ -223,7 +223,12 @@ function Test-DesiredState {
 
 function Get-Fingerprint {
     param($Drift)
-    $semantic = @($Drift | ForEach-Object { "{0}|{1}|{2}|{3}" -f $_.family,$_.severity,$_.verb,$_.target }) -join "`n"
+    $items = @($Drift)
+    if ($items.Count -eq 0) {
+        $semantic = 'NO_DRIFT'
+    } else {
+        $semantic = @($items | ForEach-Object { "{0}|{1}|{2}|{3}" -f $_.family,$_.severity,$_.verb,$_.target }) -join "`n"
+    }
     return Get-Sha256Text -Text $semantic
 }
 
