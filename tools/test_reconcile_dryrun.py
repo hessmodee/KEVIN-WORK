@@ -27,7 +27,7 @@ def desired():
     }
 
 
-def healthy_snapshot():
+def healthy_snapshot(last_result="RECOVERY_THROTTLED"):
     return {
         "governance": {"ok": True},
         "cron": {
@@ -41,7 +41,7 @@ def healthy_snapshot():
         },
         "benchmark": {"status": "PASS"},
         "supervisor": {
-            "last_result": "RECOVERY_THROTTLED",
+            "last_result": last_result,
             "next_eligible_at": "2026-08-29T14:28:27-06:00",
         },
         "active_workers": {"supervisor": 0, "benchmark": 0},
@@ -64,8 +64,20 @@ def test_work_conserving_proposal_after_eligibility():
         healthy_snapshot(),
         datetime.fromisoformat("2026-08-29T14:30:41-06:00"),
     )
-    kinds = [item["kind"] for item in result["proposals"]]
-    assert kinds == ["select_alternate_mission"]
+    assert [item["kind"] for item in result["proposals"]] == [
+        "select_alternate_mission"
+    ]
+
+
+def test_saturated_recovery_also_selects_alternate_mission():
+    result = mod.reconcile(
+        desired(),
+        healthy_snapshot("RECOVERY_SATURATED"),
+        datetime.fromisoformat("2026-08-29T14:30:41-06:00"),
+    )
+    assert [item["kind"] for item in result["proposals"]] == [
+        "select_alternate_mission"
+    ]
 
 
 def test_no_alternate_mission_before_eligibility():
@@ -90,6 +102,7 @@ def test_disabled_declared_job_proposes_only_named_enable():
 if __name__ == "__main__":
     test_governance_blocks_everything()
     test_work_conserving_proposal_after_eligibility()
+    test_saturated_recovery_also_selects_alternate_mission()
     test_no_alternate_mission_before_eligibility()
     test_disabled_declared_job_proposes_only_named_enable()
     print("PASS: reconcile_dryrun safety tests")
