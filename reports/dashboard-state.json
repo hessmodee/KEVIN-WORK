@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-29T13:05:03.7269302-06:00",
+  "generated_at": "2026-08-29T13:05:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -21,21 +21,14 @@
   },
   "system": {
     "memory_pct": 50,
-    "cpu_pct": 2,
+    "cpu_pct": 0,
     "gpu": "RTX 3060",
-    "gpu_pct": 35
+    "gpu_pct": 0
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-29T04:05:13-06:00",
-        "estimated": false,
-        "ram": 61,
-        "cpu": 0,
-        "gpu": 0
-      },
       {
         "at": "2026-08-29T04:20:13-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 50,
         "cpu": 2,
         "gpu": 35
+      },
+      {
+        "at": "2026-08-29T13:05:14-06:00",
+        "estimated": false,
+        "ram": 50,
+        "cpu": 0,
+        "gpu": 0
       }
     ],
     "ram": [
-      61,
       58,
       58,
       58,
@@ -798,10 +797,10 @@
       53,
       53,
       53,
+      50,
       50
     ],
     "cpu": [
-      0,
       3,
       0,
       0,
@@ -896,10 +895,10 @@
       9,
       9,
       9,
-      2
+      2,
+      0
     ],
     "gpu": [
-      0,
       0,
       0,
       0,
@@ -994,11 +993,12 @@
       6,
       6,
       6,
-      35
+      35,
+      0
     ]
   },
   "weather": {
-    "summary": "This Afternoon 73 | Wind 10 mph | Showers And Thunderstorms Likely"
+    "summary": "This Afternoon 73 | Wind 10 mph | Chance Showers And Thunderstorms"
   },
   "capabilities": [
     {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-08-29T12:50:14-06:00",
+      "at": "2026-08-29T13:05:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1374,7 +1374,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-29T13:05:03.7269302-06:00",
+    "last": "2026-08-29T13:05:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
