@@ -1,10 +1,10 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T19:20:14-06:00",
-  "status": "degraded",
+  "generated_at": "2026-08-28T19:35:14-06:00",
+  "status": "idle",
   "health": {
-    "overall": "degraded",
-    "failed_checks": 1
+    "overall": "healthy",
+    "failed_checks": 0
   },
   "brain": {
     "name": "Qwen 2.5 14B",
@@ -33,27 +33,20 @@
   },
   "services": {
     "tick": "healthy",
-    "bridge": "degraded",
+    "bridge": "healthy",
     "ollama": "healthy",
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 67,
-    "cpu_pct": 9,
+    "memory_pct": 61,
+    "cpu_pct": 16,
     "gpu": "RTX 3060",
-    "gpu_pct": 30
+    "gpu_pct": 25
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T08:35:13-06:00",
-        "estimated": false,
-        "ram": 59,
-        "cpu": 18,
-        "gpu": 11
-      },
       {
         "at": "2026-08-28T08:37:02-06:00",
         "estimated": false,
@@ -718,10 +711,16 @@
         "ram": 67,
         "cpu": 9,
         "gpu": 30
+      },
+      {
+        "at": "2026-08-28T19:35:14-06:00",
+        "estimated": false,
+        "ram": 61,
+        "cpu": 16,
+        "gpu": 25
       }
     ],
     "ram": [
-      59,
       59,
       60,
       60,
@@ -816,10 +815,10 @@
       60,
       60,
       62,
-      67
+      67,
+      61
     ],
     "cpu": [
-      18,
       18,
       21,
       21,
@@ -914,10 +913,10 @@
       0,
       2,
       0,
-      9
+      9,
+      16
     ],
     "gpu": [
-      11,
       11,
       48,
       48,
@@ -1012,11 +1011,12 @@
       19,
       8,
       8,
-      30
+      30,
+      25
     ]
   },
   "weather": {
-    "summary": "Tonight 54 | Wind 3 to 8 mph | Chance Showers And Thunderstorms then Showers And Thunderstorms Likely"
+    "summary": "Tonight 54 | Wind 3 to 7 mph | Showers And Thunderstorms Likely"
   },
   "capabilities": [
     {
@@ -1166,11 +1166,11 @@
   ],
   "activity": [
     {
-      "at": "2026-08-28T19:20:14-06:00",
+      "at": "2026-08-28T19:35:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
-      "result": "fail"
+      "result": "pass"
     },
     {
       "at": "2026-08-28T18:39:06-06:00",
@@ -1388,15 +1388,15 @@
   ],
   "owl": {
     "level": 1,
-    "state": "warning"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T19:20:14-06:00",
+    "last": "2026-08-28T19:35:14-06:00",
     "source": "local runtime"
   },
   "self_check": {
-    "fails": 1,
-    "summary": "1 check(s) failed"
+    "fails": 0,
+    "summary": "All checks passed"
   },
   "autonomy": {
     "mode": "hourly_design",
@@ -1427,18 +1427,13 @@
     }
   },
   "attention": {
-    "level": "fail",
-    "items": [
-      {
-        "id": "health",
-        "label": "1 check(s) failed"
-      }
-    ]
+    "level": "none",
+    "items": []
   },
   "newswire": [
     {
       "id": "weather",
-      "text": "Tonight 54 | Wind 3 to 8 mph | Chance Showers And Thunderstorms then Showers And Thunderstorms Likely",
+      "text": "Tonight 54 | Wind 3 to 7 mph | Showers And Thunderstorms Likely",
       "severity": "normal"
     },
     {
@@ -1448,8 +1443,8 @@
     },
     {
       "id": "health",
-      "text": "System health: 1 check(s) failed",
-      "severity": "fail"
+      "text": "System health: all checks passed",
+      "severity": "normal"
     },
     {
       "id": "verified",
