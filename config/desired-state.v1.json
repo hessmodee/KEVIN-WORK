@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "kind": "kevin-desired-state",
+  "owner_controlled": true,
+  "jobs": [
+    {
+      "declaration_key": "kevin-support-bridge-v1",
+      "must_be_enabled": true,
+      "max_consecutive_errors": 0
+    },
+    {
+      "declaration_key": "kevin-hq-live-pulse-v15",
+      "must_be_enabled": true,
+      "max_consecutive_errors": 0
+    },
+    {
+      "declaration_key": "kevin-supervisor-v1",
+      "must_be_enabled": true,
+      "max_consecutive_errors": 0
+    },
+    {
+      "declaration_key": "kevin-maintenance-intake-v1",
+      "must_be_enabled": true,
+      "max_consecutive_errors": 0
+    },
+    {
+      "declaration_key": "kevin-benchmark-v1",
+      "must_be_enabled": true,
+      "max_consecutive_errors": 0
+    }
+  ],
+  "benchmark": {
+    "require_pass": true
+  },
+  "scheduler": {
+    "work_conserving": true,
+    "alternate_mission_after_throttle": true,
+    "never_bypass_cooldown": true
+  },
+  "forbidden_authority": [
+    "permissions",
+    "arbitrary_shell",
+    "production_chat_tools",
+    "financial_transactions",
+    "purchases",
+    "external_sends",
+    "credential_access",
+    "safety_weakening",
+    "automatic_production_promotion"
+  ]
+}
