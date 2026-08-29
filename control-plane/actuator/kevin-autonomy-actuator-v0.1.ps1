@@ -122,7 +122,7 @@ function Get-DashboardSnapshot {
 }
 
 function Get-LiveJobs {
-    $obj = Invoke-OpenClawJson -Args @('automations','list','--all','--json')
+    $obj = Invoke-OpenClawJson -Args @('cron','list','--all','--json')
     if ($null -eq $obj) { return @() }
     if ($obj.PSObject.Properties.Name -contains 'jobs') { return @($obj.jobs) }
     return @($obj)
@@ -244,11 +244,11 @@ function Get-JobIdentity {
 function Run-And-VerifyJob {
     param([string]$JobId,[int]$WaitMinutes=5)
     $started = [DateTimeOffset]::Now
-    $null = Invoke-OpenClawJson -Args @('automations','run',$JobId,'--wait','--wait-timeout',("{0}m" -f $WaitMinutes),'--poll-interval','2s','--json')
+    $null = Invoke-OpenClawJson -Args @('cron','run',$JobId,'--wait','--wait-timeout',("{0}m" -f $WaitMinutes),'--poll-interval','2s')
     Start-Sleep -Milliseconds 400
-    $runs = Invoke-OpenClawJson -Args @('automations','runs','--id',$JobId,'--limit','3','--json')
+    $runs = Invoke-OpenClawJson -Args @('cron','runs','--id',$JobId,'--limit','3')
     $items = @()
-    if ($runs -and ($runs.PSObject.Properties.Name -contains 'runs')) { $items=@($runs.runs) } elseif ($runs) { $items=@($runs) }
+    if ($runs -and ($runs.PSObject.Properties.Name -contains 'entries')) { $items=@($runs.entries) } elseif ($runs -and ($runs.PSObject.Properties.Name -contains 'runs')) { $items=@($runs.runs) } elseif ($runs) { $items=@($runs) }
     foreach ($r in $items) {
         $ok = (($r.PSObject.Properties.Name -contains 'completionStatus') -and ([string]$r.completionStatus -eq 'succeeded')) -or (($r.PSObject.Properties.Name -contains 'status') -and ([string]$r.status -eq 'ok'))
         if ($ok) { return [pscustomobject]@{ ok=$true; evidence='Automation run history independently reports success.'; started_at=$started.ToString('o') } }
@@ -266,8 +266,8 @@ function Invoke-GreenAction {
         if (-not $expected) { throw 'Target is not in required automation allowlist.' }
         $job = Get-JobIdentity -Support $Support -LiveJobs $LiveJobs -DeclarationKey $expected.declaration_key -Name $expected.name
         if (-not $job) { throw 'Expected automation identity cannot be resolved.' }
-        $null = Invoke-OpenClawJson -Args @('automations','enable',$job.id,'--json')
-        $after = Invoke-OpenClawJson -Args @('automations','get',$job.id,'--json')
+        $null = Invoke-OpenClawJson -Args @('cron','enable',$job.id)
+        $after = Invoke-OpenClawJson -Args @('cron','get',$job.id)
         $verified = ($after -and [bool]$after.enabled)
         return [pscustomobject]@{ ok=$verified; detail=("Enable {0}; verified={1} through automations get" -f $job.name,$verified); target=$job.id }
     }
