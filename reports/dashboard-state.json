@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-29T00:52:00.1773490-06:00",
+  "generated_at": "2026-08-29T00:52:33-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -14,13 +14,11 @@
   },
   "current_task": {
     "id": "design-forge",
-    "title": "Design Forge: operator",
+    "title": "Design Forge | operator i10",
     "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-29T00:51:55-06:00",
-    "source": "forge"
+    "phase": "Building isolated candidate operator | iteration 10",
+    "started_at": "2026-08-29T00:52:00.1773490-06:00",
+    "source": "hq-live-ops"
   },
   "services": {
     "tick": "healthy",
@@ -38,13 +36,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T15:50:13-06:00",
-        "estimated": false,
-        "ram": 53,
-        "cpu": 27,
-        "gpu": 31
-      },
       {
         "at": "2026-08-28T16:05:13-06:00",
         "estimated": false,
@@ -709,10 +700,16 @@
         "ram": 63,
         "cpu": 0,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-29T00:52:33-06:00",
+        "estimated": false,
+        "ram": 63,
+        "cpu": 0,
+        "gpu": 0
       }
     ],
     "ram": [
-      53,
       53,
       51,
       52,
@@ -807,10 +804,10 @@
       68,
       62,
       63,
+      63,
       63
     ],
     "cpu": [
-      27,
       1,
       6,
       6,
@@ -905,10 +902,10 @@
       0,
       11,
       7,
+      0,
       0
     ],
     "gpu": [
-      31,
       4,
       3,
       3,
@@ -1002,6 +999,7 @@
       33,
       33,
       19,
+      0,
       0,
       0
     ]
@@ -1156,6 +1154,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-29T00:52:33-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: operator",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 38000
+    },
     {
       "at": "2026-08-29T00:51:55-06:00",
       "source": "forge",
@@ -1370,23 +1378,14 @@
       "result": "fail",
       "task_id": "design-forge",
       "duration_ms": 17000
-    },
-    {
-      "at": "2026-08-28T23:41:48-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: forge-v4",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-29T00:52:00.1773490-06:00",
+    "last": "2026-08-29T00:52:33-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1397,8 +1396,8 @@
     "mode": "hourly_design",
     "state": "pass",
     "last_mission": "operator",
-    "iteration": 10,
-    "updated_at": "2026-08-29T00:39:02.5122152-06:00",
+    "iteration": 11,
+    "updated_at": "2026-08-29T00:52:33.7620995-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1414,9 +1413,9 @@
       "result": "pass",
       "mode": "design-forge-v3",
       "last_mission": "operator",
-      "iteration": 10,
-      "updated_at": "2026-08-29T00:39:02.5122152-06:00",
-      "next_index": 4,
+      "iteration": 11,
+      "updated_at": "2026-08-29T00:52:33.7620995-06:00",
+      "next_index": 5,
       "scheduled": true,
       "promotion": "blocked"
     }
