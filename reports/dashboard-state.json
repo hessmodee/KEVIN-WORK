@@ -1,7 +1,7 @@
 {
-  "schema": 5,
-  "generated_at": "2026-08-29T00:43:15.4285089-06:00",
-  "status": "ready",
+  "schema": 3,
+  "generated_at": "2026-08-29T00:50:14-06:00",
+  "status": "idle",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -13,27 +13,6 @@
     "tools": false
   },
   "current_task": null,
-  "campaign": {
-    "active": false,
-    "id": null,
-    "title": null
-  },
-  "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "All current strategic missions are inside failure cooldown.",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
-  },
-  "director": {
-    "planning": true,
-    "queue_depth": 5,
-    "next_goal": null,
-    "blocked_count": 2,
-    "needs_review_count": 0,
-    "updated_at": "2026-08-28T19:37:53-06:00"
-  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -41,43 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 74,
-    "cpu_pct": 7,
+    "memory_pct": 62,
+    "cpu_pct": 11,
     "gpu": "RTX 3060",
-    "gpu_pct": 6
+    "gpu_pct": 19
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T15:20:13-06:00",
-        "estimated": false,
-        "ram": 53,
-        "cpu": 19,
-        "gpu": 34
-      },
-      {
-        "at": "2026-08-28T15:35:14-06:00",
-        "estimated": false,
-        "ram": 54,
-        "cpu": 29,
-        "gpu": 33
-      },
-      {
-        "at": "2026-08-28T15:37:01-06:00",
-        "estimated": false,
-        "ram": 54,
-        "cpu": 29,
-        "gpu": 33
-      },
-      {
-        "at": "2026-08-28T15:39:37-06:00",
-        "estimated": false,
-        "ram": 54,
-        "cpu": 30,
-        "gpu": 35
-      },
       {
         "at": "2026-08-28T15:40:24-06:00",
         "estimated": false,
@@ -721,13 +672,37 @@
         "ram": 74,
         "cpu": 7,
         "gpu": 6
+      },
+      {
+        "at": "2026-08-29T00:43:18-06:00",
+        "estimated": false,
+        "ram": 70,
+        "cpu": 3,
+        "gpu": 34
+      },
+      {
+        "at": "2026-08-29T00:43:32-06:00",
+        "estimated": false,
+        "ram": 68,
+        "cpu": 0,
+        "gpu": 33
+      },
+      {
+        "at": "2026-08-29T00:43:47-06:00",
+        "estimated": false,
+        "ram": 68,
+        "cpu": 0,
+        "gpu": 33
+      },
+      {
+        "at": "2026-08-29T00:50:14-06:00",
+        "estimated": false,
+        "ram": 62,
+        "cpu": 11,
+        "gpu": 19
       }
     ],
     "ram": [
-      53,
-      54,
-      54,
-      54,
       54,
       54,
       53,
@@ -819,13 +794,13 @@
       73,
       73,
       74,
-      74
+      74,
+      70,
+      68,
+      68,
+      62
     ],
     "cpu": [
-      19,
-      29,
-      29,
-      30,
       30,
       30,
       27,
@@ -917,13 +892,13 @@
       10,
       10,
       7,
-      7
+      7,
+      3,
+      0,
+      0,
+      11
     ],
     "gpu": [
-      34,
-      33,
-      33,
-      35,
       35,
       35,
       31,
@@ -1015,11 +990,15 @@
       15,
       15,
       6,
-      6
+      6,
+      34,
+      33,
+      33,
+      19
     ]
   },
   "weather": {
-    "summary": "Tonight 54 | Wind 5 mph | Showers And Thunderstorms Likely"
+    "summary": "Overnight 54 | Wind 5 mph | Showers And Thunderstorms Likely"
   },
   "capabilities": [
     {
@@ -1037,17 +1016,17 @@
       "state": "testing",
       "qa_pass": 0,
       "qa_total": 20,
-      "version": "Reader v0.1 \u00b7 boundary GREEN \u00b7 E2E",
-      "last_verified": "2026-08-28"
+      "version": "Reader v0.1 \u00b7 boundary GREEN",
+      "last_verified": "2026-08-27T13:44:13.3544609-06:00"
     },
     {
       "id": "weather_reader",
       "label": "Local weather",
-      "state": "testing",
+      "state": "planned",
       "qa_pass": 0,
       "qa_total": 10,
       "version": null,
-      "last_verified": "2026-08-28"
+      "last_verified": null
     },
     {
       "id": "retrieval",
@@ -1114,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 79,
-      "total": 101
+      "done": 76,
+      "total": 98
     }
   ],
   "roadmap": {
@@ -1168,6 +1147,107 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-29T00:50:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
+      "at": "2026-08-29T00:43:47-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "quality gate: candidate file content too small",
+      "result": "fail",
+      "task_id": "design-forge",
+      "duration_ms": 15000
+    },
+    {
+      "at": "2026-08-29T00:43:32-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: forge-v4",
+      "result": "",
+      "task_id": "design-forge"
+    },
+    {
+      "at": "2026-08-29T00:39:03-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 121593ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-08-29T00:39:02-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: operator",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 19000
+    },
+    {
+      "at": "2026-08-29T00:38:43-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: operator",
+      "result": "",
+      "task_id": "design-forge"
+    },
+    {
+      "at": "2026-08-29T00:37:01-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-08-29T00:09:03-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: knowledge",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 15000
+    },
+    {
+      "at": "2026-08-29T00:08:48-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: knowledge",
+      "result": "",
+      "task_id": "design-forge"
+    },
+    {
+      "at": "2026-08-29T00:06:21-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: operator",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 33000
+    },
+    {
+      "at": "2026-08-29T00:05:48-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: operator",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-28T23:57:03-06:00",
       "source": "forge",
@@ -1224,13 +1304,6 @@
       "detail": "Design Forge: operator",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-28T23:50:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-28T23:48:11-06:00",
@@ -1297,100 +1370,6 @@
       "detail": "Night Forge PASS 115722ms",
       "result": "pass",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-28T23:38:54-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: reader-weather",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 21000
-    },
-    {
-      "at": "2026-08-28T23:38:33-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: reader-weather",
-      "result": "",
-      "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-28T23:37:25-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: forge-v4",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 24000
-    },
-    {
-      "at": "2026-08-28T23:37:01-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Night Forge cycle",
-      "result": "",
-      "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-28T23:36:54-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: forge-v4",
-      "result": "",
-      "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-28T23:10:31-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: reader-board",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 52000
-    },
-    {
-      "at": "2026-08-28T23:09:39-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: reader-board",
-      "result": "",
-      "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-28T22:49:36-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: reader-weather",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 33000
-    },
-    {
-      "at": "2026-08-28T22:49:03-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: reader-weather",
-      "result": "",
-      "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-28T22:39:02-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Night Forge PASS 121114ms",
-      "result": "pass",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
@@ -1398,8 +1377,8 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-29T00:43:15.4285089-06:00",
-    "source": "Kevin HQ Live Ops v1.4"
+    "last": "2026-08-29T00:50:14-06:00",
+    "source": "local runtime"
   },
   "self_check": {
     "fails": 0,
@@ -1408,9 +1387,9 @@
   "autonomy": {
     "mode": "hourly_design",
     "state": "pass",
-    "last_mission": "knowledge",
-    "iteration": 9,
-    "updated_at": "2026-08-28T23:54:05.0458890-06:00",
+    "last_mission": "operator",
+    "iteration": 10,
+    "updated_at": "2026-08-29T00:39:02.5122152-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1425,181 +1404,12 @@
     "candidate_forge": {
       "result": "pass",
       "mode": "design-forge-v3",
-      "last_mission": "knowledge",
-      "iteration": 9,
-      "updated_at": "2026-08-28T23:54:05.0458890-06:00",
+      "last_mission": "operator",
+      "iteration": 10,
+      "updated_at": "2026-08-29T00:39:02.5122152-06:00",
       "next_index": 5,
       "scheduled": true,
       "promotion": "blocked"
     }
-  },
-  "attention": {
-    "level": "none",
-    "items": []
-  },
-  "newswire": [
-    {
-      "id": "live-ops",
-      "text": "Supervisor | READY | All current strategic missions are inside failure cooldown.",
-      "severity": "normal"
-    },
-    {
-      "id": "weather",
-      "text": "Tonight 54 | Wind 5 mph | Showers And Thunderstorms Likely",
-      "severity": "normal"
-    },
-    {
-      "id": "roadmap",
-      "text": "Next: Prove System Reader E2E",
-      "severity": "normal"
-    },
-    {
-      "id": "health",
-      "text": "System health: all checks passed",
-      "severity": "normal"
-    },
-    {
-      "id": "verified",
-      "text": "Verified: Design Forge built candidate: knowledge",
-      "severity": "success"
-    }
-  ],
-  "verified_results": [
-    {
-      "at": "2026-08-28",
-      "kind": "faculty",
-      "label": "Reader system-status E2E",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-26",
-      "kind": "faculty",
-      "label": "Chat 18/18",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T23:54:05-06:00",
-      "kind": "candidate",
-      "label": "candidate: knowledge i9",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T23:51:12-06:00",
-      "kind": "candidate",
-      "label": "candidate: operator i9",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T23:48:11-06:00",
-      "kind": "candidate",
-      "label": "candidate: knowledge i8",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T23:45:16-06:00",
-      "kind": "candidate",
-      "label": "candidate: operator i8",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T23:38:54-06:00",
-      "kind": "candidate",
-      "label": "candidate: reader-weather i9",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T23:37:25-06:00",
-      "kind": "candidate",
-      "label": "candidate: forge-v4 i8",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T23:10:31-06:00",
-      "kind": "candidate",
-      "label": "candidate: reader-board i8",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T22:49:36-06:00",
-      "kind": "candidate",
-      "label": "candidate: reader-weather i8",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T22:39:00-06:00",
-      "kind": "candidate",
-      "label": "candidate: forge-v4 i7",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T22:29:00-06:00",
-      "kind": "candidate",
-      "label": "candidate: operator i7",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T22:08:20-06:00",
-      "kind": "candidate",
-      "label": "candidate: knowledge i7",
-      "result": "pass"
-    },
-    {
-      "at": "2026-08-28T21:47:35-06:00",
-      "kind": "candidate",
-      "label": "candidate: reader-self-check i7",
-      "result": "pass"
-    }
-  ],
-  "ops_floor": {
-    "schema": 2,
-    "generated_at": "2026-08-29T00:43:15.4285089-06:00",
-    "source": "Kevin HQ Live Ops v1.5",
-    "expedition_active": false,
-    "forge_active": false,
-    "supervisor_active": false,
-    "benchmark_active": false,
-    "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "All current strategic missions are inside failure cooldown.",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
-    },
-    "lanes": [
-      {
-        "id": "supervisor",
-        "name": "Supervisor",
-        "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "All current strategic missions are inside failure cooldown.",
-        "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
-        "engine": "Supervisor v1.4",
-        "action": "Awaiting next 3-minute cycle"
-      },
-      {
-        "id": "benchmark",
-        "name": "Benchmark",
-        "role": "Regression + capability fitness",
-        "state": "ready",
-        "detail": "Cheap regression watchdog armed; heavy model suite remains resource-gated.",
-        "what": "Protects proven behavior and measures challenger quality.",
-        "engine": "Kevin Benchmark v1",
-        "action": "10-minute watchdog armed"
-      },
-      {
-        "id": "staging",
-        "name": "Staging",
-        "role": "Policy-gated champion archive",
-        "state": "ready",
-        "detail": "Isolated staging evidence exists; executable production promotion remains locked.",
-        "what": "Candidate -> Champion -> isolated staging. No staged code executes here.",
-        "engine": "Promotion policy v1",
-        "action": "Safe auto-staging"
-      }
-    ]
   }
 }
