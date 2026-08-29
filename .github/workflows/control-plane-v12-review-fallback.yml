@@ -18,6 +18,22 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: kevin-control-plane-v1.2-review-fallback
+      - name: Normalize builder strict-mode literal
+        shell: powershell
+        run: |
+          $p='.github/scripts/patch-control-plane-v12-review-fallback.ps1'
+          $t=[IO.File]::ReadAllText($p)
+          $bad=@'
+          $text=Replace-Once $text '$script:FormatRecoveryCount=0' "$script:FormatRecoveryCount=0`n`$script:ReviewLineFallbackCount=0" 'fallback counter'
+          '@.Trim()
+          $good=@'
+          $counterReplacement='$script:FormatRecoveryCount=0'+"`n"+'$script:ReviewLineFallbackCount=0'
+          $text=Replace-Once $text '$script:FormatRecoveryCount=0' $counterReplacement 'fallback counter'
+          '@.Trim()
+          if(-not $t.Contains($bad)){throw 'Expected strict-mode builder line not found'}
+          $t=$t.Replace($bad,$good)
+          [IO.File]::WriteAllText($p,$t,(New-Object Text.UTF8Encoding($false)))
+          Write-Host 'PASS builder strict-mode literal normalized.'
       - name: Apply v1.2 reviewer protocol patch
         shell: powershell
         run: |
