@@ -100,7 +100,7 @@ try{
     Validate-Order $o
     $oid=[string](Get-OptionalPropertyValue $o 'id');$oIdem=[string](Get-OptionalPropertyValue $o 'idempotency_key');$oVerb=[string](Get-OptionalPropertyValue $o 'verb');$oTarget=[string](Get-OptionalPropertyValue $o 'target')
     $ack.order_id=$oid;$ack.idempotency_key=$oIdem;$ack.verb=$oVerb;$ack.target=$oTarget
-    if(Is-Replay $ledger $oIdem){$ack.status='REPLAY_IGNORED';$ack.detail='Idempotency key already processed.';Write-JsonAtomic $ack $LatestPath;Publish-Ack $ack;Write-Output 'WORK_ORDER_REPLAY_IGNORED';exit 0}
+    if(Is-Replay $ledger $oIdem){Write-Output 'WORK_ORDER_REPLAY_IGNORED';exit 0}
     $detail=Execute-Order $o;$ack.status='VERIFIED';$ack.detail=$detail
     $ledger.processed=@($ledger.processed)+@([pscustomobject]@{id=$oid;idempotency_key=$oIdem;verb=$oVerb;target=$oTarget;completed_at=(Get-Date).ToString('o');status='VERIFIED'});Save-Ledger $ledger
     Write-JsonAtomic $ack $LatestPath;Publish-Ack $ack;Write-Output ("WORK_ORDER_VERIFIED id={0} verb={1} target={2}" -f $oid,$oVerb,$oTarget);exit 0
