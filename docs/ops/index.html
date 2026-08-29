@@ -5,7 +5,9 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="dark" name="color-scheme"/>
 <title>Kevin HQ — Ops Floor v8</title>
-<link href="./style.css?v=8" rel="stylesheet"/></head>
+<link href="./style.css?v=8" rel="stylesheet"/>
+<link href="./ops-v9.css?v=9" rel="stylesheet"/>
+</head>
 <body>
 <div class="wrap">
 <div class="top">
@@ -23,7 +25,7 @@
 <div class="topology" id="topology"><div class="gridline"></div>
 <div class="hub" id="kevinHub"><div><div id="hubKevinProd"></div><h2>Kevin</h2><div class="role">Chief of Staff</div><div class="loop" id="kevinState">LOOP ACTIVE</div></div></div>
 </div>
-<div class="legend"><span><i style="background:#69716a"></i>Idle</span><span><i style="background:#79c56a"></i>Ready / working</span><span><i style="background:#f0b74e"></i>Thinking / cooling</span><span><i style="background:#59b6ef"></i>Connecting</span><span><i style="background:#ff9a3d"></i>Building</span><span><i style="background:#e46f61"></i>Degraded</span><span><i style="background:#353b36"></i>Offline</span></div>
+<div class="legend"><span><i style="background:#69716a"></i>Idle</span><span><i style="background:#79c56a"></i>Ready / working</span><span><i style="background:#f0b74e"></i>Thinking / cooling</span><span><i style="background:#59b6ef"></i>Connecting</span><span><i style="background:#ff9a3d"></i>Building</span><span><i style="background:#e46f61"></i>Degraded</span><span><i style="background:#353b36"></i>Offline</span><span class="identity-note">Owl outline = worker identity · lane + status = live state</span></div>
 </section>
 <div class="strip">
 <div><div class="lbl">Active mission</div><div class="val" id="mission">—</div></div>
@@ -42,5 +44,7 @@
 </section>
 <div class="foot"><span id="updated">Kevin HQ v8 · production</span><span>Display titles only · internal Supervisor identifiers unchanged</span></div>
 </div>
-<script src="./app.js?v=8"></script></body>
+<script src="./app.js?v=8"></script>
+<script src="./ops-v9.js?v=9"></script>
+</body>
 </html>
