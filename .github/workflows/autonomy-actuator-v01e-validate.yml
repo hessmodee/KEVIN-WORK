@@ -1,4 +1,4 @@
-name: Validate Kevin Autonomy Actuator v0.1e
+name: Repair and Validate Kevin Autonomy Actuator v0.1e
 
 on:
   push:
@@ -12,16 +12,36 @@ on:
       - '.github/workflows/autonomy-actuator-v01e-validate.yml'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   windows-powershell-51-parse:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: kevin-autonomy-actuator-v0.1
 
-      - name: Parse PowerShell and validate desired state
+      - name: Apply exact parser repair and validate
         shell: powershell
         run: |
           $ErrorActionPreference = 'Stop'
+          $path = 'control-plane/actuator/KEVIN-AUTONOMY-ACTUATOR-v0.1e.ps1'
+          $text = Get-Content $path -Raw
+          $old = 'Unexpected Git blob encoding for $Blob: $($o.encoding)'
+          $new = 'Unexpected Git blob encoding for ${Blob}: $($o.encoding)'
+          $count = ([regex]::Matches($text,[regex]::Escape($old))).Count
+          if ($count -eq 1) {
+            $text = $text.Replace($old,$new)
+            [IO.File]::WriteAllText((Resolve-Path $path),$text,(New-Object Text.UTF8Encoding($false)))
+            Write-Host 'Applied exact $Blob: variable-delimiter repair.'
+          } elseif ($count -eq 0 -and $text.Contains($new)) {
+            Write-Host 'Exact repair already present.'
+          } else {
+            throw "Expected one repair target or an already-repaired file; found count=$count"
+          }
+
           $files = @(
             'control-plane/actuator/KEVIN-AUTONOMY-ACTUATOR-v0.1e.ps1',
             'control-plane/actuator/kevin-autonomy-actuator-v0.1.ps1',
@@ -44,7 +64,22 @@ jobs:
           if ($desired.authority.allow_arbitrary_shell -or $desired.authority.allow_authority_expansion -or $desired.authority.allow_novel_production_promotion) { throw 'Authority boundary failed.' }
           Write-Host 'PASS desired-state validation'
 
-          $installer = Get-Content 'control-plane/actuator/KEVIN-AUTONOMY-ACTUATOR-v0.1e.ps1' -Raw
+          $installer = Get-Content $path -Raw
           if ($installer -match '\}\$Sources') { throw 'Known missing-newline packaging signature found.' }
           if ($installer -match '\belif\b') { throw 'Non-PowerShell elif token found.' }
+          if ($installer.Contains($old)) { throw 'Known $Blob: parser defect remains.' }
           Write-Host 'PASS packaging regression checks'
+
+      - name: Commit validated repair when changed
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if (-not (git status --porcelain)) {
+            Write-Host 'No source repair to commit.'
+            exit 0
+          }
+          git config user.name 'Kevin Control Plane CI'
+          git config user.email 'kevin-control-plane-ci@users.noreply.github.com'
+          git add control-plane/actuator/KEVIN-AUTONOMY-ACTUATOR-v0.1e.ps1
+          git commit -m 'Fix and validate Windows PowerShell 5.1 installer syntax'
+          git push origin HEAD:kevin-autonomy-actuator-v0.1
