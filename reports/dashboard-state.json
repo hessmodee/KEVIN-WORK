@@ -1,6 +1,6 @@
 {
   "schema": 4,
-  "generated_at": "2026-08-28T20:39:07-06:00",
+  "generated_at": "2026-08-28T20:50:14-06:00",
   "status": "idle",
   "health": {
     "overall": "healthy",
@@ -38,7 +38,7 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 66,
+    "memory_pct": 67,
     "cpu_pct": 0,
     "gpu": "RTX 3060",
     "gpu_pct": 0
@@ -47,13 +47,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T09:37:02-06:00",
-        "estimated": false,
-        "ram": 63,
-        "cpu": 16,
-        "gpu": 25
-      },
       {
         "at": "2026-08-28T09:38:53-06:00",
         "estimated": false,
@@ -718,10 +711,16 @@
         "ram": 66,
         "cpu": 0,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-28T20:50:14-06:00",
+        "estimated": false,
+        "ram": 67,
+        "cpu": 0,
+        "gpu": 0
       }
     ],
     "ram": [
-      63,
       63,
       63,
       63,
@@ -816,10 +815,10 @@
       66,
       66,
       66,
-      66
+      66,
+      67
     ],
     "cpu": [
-      16,
       25,
       25,
       25,
@@ -914,10 +913,10 @@
       0,
       0,
       0,
+      0,
       0
     ],
     "gpu": [
-      25,
       47,
       47,
       47,
@@ -1012,11 +1011,12 @@
       12,
       0,
       0,
+      0,
       0
     ]
   },
   "weather": {
-    "summary": "Tonight 54 | Wind 3 to 8 mph | Chance Showers And Thunderstorms then Showers And Thunderstorms Likely"
+    "summary": "Tonight 54 | Wind 3 to 7 mph | Showers And Thunderstorms Likely"
   },
   "capabilities": [
     {
@@ -1166,6 +1166,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-28T20:50:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-28T20:39:07-06:00",
       "source": "forge",
       "component": "forge",
@@ -1201,13 +1208,6 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-28T20:35:13-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-28T19:39:11-06:00",
@@ -1391,7 +1391,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-28T20:39:07-06:00",
+    "last": "2026-08-28T20:50:14-06:00",
     "source": "local runtime"
   },
   "self_check": {
@@ -1433,7 +1433,7 @@
   "newswire": [
     {
       "id": "weather",
-      "text": "Tonight 54 | Wind 3 to 8 mph | Chance Showers And Thunderstorms then Showers And Thunderstorms Likely",
+      "text": "Tonight 54 | Wind 3 to 7 mph | Showers And Thunderstorms Likely",
       "severity": "normal"
     },
     {
