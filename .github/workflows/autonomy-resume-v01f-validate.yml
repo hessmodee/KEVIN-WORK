@@ -1,0 +1,32 @@
+name: Validate Kevin Autonomy Resume v0.1f
+
+on:
+  push:
+    branches:
+      - kevin-autonomy-actuator-v0.1
+    paths:
+      - 'control-plane/actuator/KEVIN-AUTONOMY-RESUME-v0.1f.ps1'
+      - '.github/workflows/autonomy-resume-v01f-validate.yml'
+  workflow_dispatch:
+
+jobs:
+  windows-powershell-51-parse:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse and validate resume installer
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $path='control-plane/actuator/KEVIN-AUTONOMY-RESUME-v0.1f.ps1'
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $path),[ref]$tokens,[ref]$errors)
+          if($errors -and $errors.Count){$errors|ForEach-Object{Write-Error ("line {0}: {1}" -f $_.Extent.StartLineNumber,$_.Message)};throw 'Resume installer parse failed'}
+          $text=Get-Content $path -Raw
+          if($text -match '\}\$Sources'){throw 'Known missing-newline signature found'}
+          if($text -match '\belif\b'){throw 'Non-PowerShell elif token found'}
+          if($text -match '\$[A-Za-z_][A-Za-z0-9_]*:'){throw 'Potential ambiguous variable-colon token found'}
+          if($text -notmatch 'ef1e7f9ea6847e6d963af0cd40c28735573bc26d'){throw 'Validated reconciler blob pin missing'}
+          if($text -notmatch [regex]::Escape("@('automations','get',`$rId,'--json')")){throw 'Reconciler typed get verification missing'}
+          if($text -notmatch [regex]::Escape("@('automations','get',`$bId,'--json')")){throw 'Telemetry typed get verification missing'}
+          Write-Host 'PASS resume installer PowerShell 5.1 parse and regression checks'
