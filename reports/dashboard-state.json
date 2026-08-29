@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-29T02:38:22-06:00",
+  "generated_at": "2026-08-29T02:38:41-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,14 +13,12 @@
     "tools": false
   },
   "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: forge-v4",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-29T02:38:22-06:00",
-    "source": "forge"
+    "id": "night-forge",
+    "title": "Night Forge QA",
+    "category": "qa",
+    "phase": "Night Forge QA/regression cycle active.",
+    "started_at": "2026-08-29T02:37:47.1620789-06:00",
+    "source": "hq-live-ops"
   },
   "services": {
     "tick": "healthy",
@@ -38,13 +36,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T17:38:54-06:00",
-        "estimated": false,
-        "ram": 58,
-        "cpu": 2,
-        "gpu": 4
-      },
       {
         "at": "2026-08-28T17:50:13-06:00",
         "estimated": false,
@@ -709,10 +700,16 @@
         "ram": 57,
         "cpu": 0,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-29T02:38:41-06:00",
+        "estimated": false,
+        "ram": 57,
+        "cpu": 0,
+        "gpu": 0
       }
     ],
     "ram": [
-      58,
       58,
       59,
       58,
@@ -807,10 +804,10 @@
       56,
       57,
       57,
+      57,
       57
     ],
     "cpu": [
-      2,
       0,
       0,
       1,
@@ -905,10 +902,10 @@
       2,
       7,
       7,
+      0,
       0
     ],
     "gpu": [
-      4,
       4,
       4,
       5,
@@ -999,6 +996,7 @@
       0,
       0,
       22,
+      0,
       0,
       0,
       0,
@@ -1156,6 +1154,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-29T02:38:41-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: forge-v4",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 19000
+    },
     {
       "at": "2026-08-29T02:38:22-06:00",
       "source": "forge",
@@ -1368,24 +1376,14 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-28T23:54:05-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: knowledge",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 17000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-29T02:38:22-06:00",
+    "last": "2026-08-29T02:38:41-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1395,9 +1393,9 @@
   "autonomy": {
     "mode": "hourly_design",
     "state": "pass",
-    "last_mission": "operator",
+    "last_mission": "forge-v4",
     "iteration": 11,
-    "updated_at": "2026-08-29T01:39:05.0329752-06:00",
+    "updated_at": "2026-08-29T02:38:41.0259909-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1412,40 +1410,40 @@
     "candidate_forge": {
       "result": "pass",
       "mode": "design-forge-v3",
-      "last_mission": "operator",
+      "last_mission": "forge-v4",
       "iteration": 11,
-      "updated_at": "2026-08-29T01:39:05.0329752-06:00",
-      "next_index": 5,
+      "updated_at": "2026-08-29T02:38:41.0259909-06:00",
+      "next_index": 0,
       "scheduled": true,
       "promotion": "blocked"
     }
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-29T02:38:22-06:00",
+    "generated_at": "2026-08-29T02:37:47.1620789-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "design-forge",
-      "name": "Build Lab",
-      "title": "Design Forge: forge-v4",
-      "category": "forge",
+      "id": "night-forge",
+      "name": "Night Forge",
+      "title": "Night Forge QA",
+      "category": "qa",
       "state": "working",
-      "detail": "started",
-      "what": "Generating and validating an isolated candidate.",
-      "engine": "Ollama | Qwen 2.5 14B",
-      "action": "Candidate engineering"
+      "detail": "Night Forge QA/regression cycle active.",
+      "what": "Running safety and regression checks.",
+      "engine": "Night Forge",
+      "action": "QA / regression"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "coordinating",
-        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
+        "state": "ready",
+        "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=knowledge",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1475,15 +1473,15 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "started",
-    "worker": "Build Lab",
-    "engine": "Ollama | Qwen 2.5 14B",
-    "action": "Candidate engineering"
+    "phase": "Night Forge QA/regression cycle active.",
+    "worker": "Night Forge",
+    "engine": "Night Forge",
+    "action": "QA / regression"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Build Lab | WORKING | started",
+      "text": "Night Forge | WORKING | Night Forge QA/regression cycle active.",
       "severity": "normal"
     }
   ]
