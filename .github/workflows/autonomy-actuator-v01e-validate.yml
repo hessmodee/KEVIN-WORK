@@ -1,0 +1,50 @@
+name: Validate Kevin Autonomy Actuator v0.1e
+
+on:
+  push:
+    branches:
+      - kevin-autonomy-actuator-v0.1
+    paths:
+      - 'control-plane/actuator/KEVIN-AUTONOMY-ACTUATOR-v0.1e.ps1'
+      - 'control-plane/actuator/kevin-autonomy-actuator-v0.1.ps1'
+      - 'control-plane/actuator/kevin-autonomy-bridge-v0.1.ps1'
+      - 'control-plane/desired-state-v1.json'
+      - '.github/workflows/autonomy-actuator-v01e-validate.yml'
+  workflow_dispatch:
+
+jobs:
+  windows-powershell-51-parse:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse PowerShell and validate desired state
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $files = @(
+            'control-plane/actuator/KEVIN-AUTONOMY-ACTUATOR-v0.1e.ps1',
+            'control-plane/actuator/kevin-autonomy-actuator-v0.1.ps1',
+            'control-plane/actuator/kevin-autonomy-bridge-v0.1.ps1'
+          )
+          foreach ($file in $files) {
+            $tokens = $null
+            $errors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $file), [ref]$tokens, [ref]$errors)
+            if ($errors -and $errors.Count -gt 0) {
+              $errors | ForEach-Object { Write-Error ("{0}:{1} {2}" -f $file,$_.Extent.StartLineNumber,$_.Message) }
+              throw "PowerShell parse failed: $file"
+            }
+            Write-Host "PASS parse: $file"
+          }
+
+          $desired = Get-Content 'control-plane/desired-state-v1.json' -Raw | ConvertFrom-Json
+          if ($desired.kind -ne 'kevin-desired-state' -or $desired.version -ne '1.0') { throw 'Desired State identity/version failed.' }
+          if ($desired.core_hashes.support_bridge -ne 'E72A2A635326CF1AB036404E64E274D2F56CE79CA5CEB268DBF9B2EA4B67BEA5') { throw 'Support Bridge pin is incorrect.' }
+          if ($desired.authority.allow_arbitrary_shell -or $desired.authority.allow_authority_expansion -or $desired.authority.allow_novel_production_promotion) { throw 'Authority boundary failed.' }
+          Write-Host 'PASS desired-state validation'
+
+          $installer = Get-Content 'control-plane/actuator/KEVIN-AUTONOMY-ACTUATOR-v0.1e.ps1' -Raw
+          if ($installer -match '\}\$Sources') { throw 'Known missing-newline packaging signature found.' }
+          if ($installer -match '\belif\b') { throw 'Non-PowerShell elif token found.' }
+          Write-Host 'PASS packaging regression checks'
