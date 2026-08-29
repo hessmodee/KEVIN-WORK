@@ -28,7 +28,7 @@ $exactRepls=[ordered]@{
 }
 foreach($kv in $exactRepls.GetEnumerator()){
   $count=([regex]::Matches($a,[regex]::Escape([string]$kv.Key))).Count
-  if($count -ne 1){throw "Expected exactly one reconciler compatibility target, found $count: $($kv.Key)"}
+  if($count -ne 1){throw "Expected exactly one reconciler compatibility target; found ${count}: $($kv.Key)"}
   $a=$a.Replace([string]$kv.Key,[string]$kv.Value)
 }
 
