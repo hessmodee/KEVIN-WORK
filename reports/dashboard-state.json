@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-29T01:38:46.4862473-06:00",
+  "generated_at": "2026-08-29T01:39:05-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -14,13 +14,11 @@
   },
   "current_task": {
     "id": "design-forge",
-    "title": "Design Forge: operator",
+    "title": "Design Forge | knowledge i11",
     "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-29T01:38:32-06:00",
-    "source": "forge"
+    "phase": "Building isolated candidate knowledge | iteration 11",
+    "started_at": "2026-08-29T01:38:46.4862473-06:00",
+    "source": "hq-live-ops"
   },
   "services": {
     "tick": "healthy",
@@ -38,13 +36,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-28T16:50:13-06:00",
-        "estimated": false,
-        "ram": 52,
-        "cpu": 2,
-        "gpu": 4
-      },
       {
         "at": "2026-08-28T17:05:13-06:00",
         "estimated": false,
@@ -709,10 +700,16 @@
         "ram": 68,
         "cpu": 0,
         "gpu": 0
+      },
+      {
+        "at": "2026-08-29T01:39:05-06:00",
+        "estimated": false,
+        "ram": 68,
+        "cpu": 0,
+        "gpu": 0
       }
     ],
     "ram": [
-      52,
       54,
       54,
       57,
@@ -807,10 +804,10 @@
       61,
       63,
       65,
+      68,
       68
     ],
     "cpu": [
-      2,
       5,
       5,
       7,
@@ -905,10 +902,10 @@
       3,
       1,
       0,
+      0,
       0
     ],
     "gpu": [
-      4,
       4,
       4,
       4,
@@ -1002,6 +999,7 @@
       12,
       44,
       4,
+      0,
       0,
       0
     ]
@@ -1156,6 +1154,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-29T01:39:05-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: operator",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 33000
+    },
     {
       "at": "2026-08-29T01:38:32-06:00",
       "source": "forge",
@@ -1369,24 +1377,14 @@
       "detail": "Design Forge: operator",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-28T23:48:11-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: knowledge",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 23000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-29T01:38:46.4862473-06:00",
+    "last": "2026-08-29T01:39:05-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1396,9 +1394,9 @@
   "autonomy": {
     "mode": "hourly_design",
     "state": "pass",
-    "last_mission": "knowledge",
+    "last_mission": "operator",
     "iteration": 11,
-    "updated_at": "2026-08-29T00:57:08.8711769-06:00",
+    "updated_at": "2026-08-29T01:39:05.0329752-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1413,10 +1411,10 @@
     "candidate_forge": {
       "result": "pass",
       "mode": "design-forge-v3",
-      "last_mission": "knowledge",
+      "last_mission": "operator",
       "iteration": 11,
-      "updated_at": "2026-08-29T00:57:08.8711769-06:00",
-      "next_index": 4,
+      "updated_at": "2026-08-29T01:39:05.0329752-06:00",
+      "next_index": 5,
       "scheduled": true,
       "promotion": "blocked"
     }
