@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/kevin/control-plane/repair-result-v1.schema.json",
+  "title": "Kevin Control Plane Repair Result v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "kind",
+    "version",
+    "work_order_id",
+    "idempotency_key",
+    "verb",
+    "target",
+    "attempt",
+    "started_at",
+    "finished_at",
+    "status",
+    "pre_state_fingerprint",
+    "post_state_fingerprint",
+    "postconditions_verified",
+    "authority_delta"
+  ],
+  "properties": {
+    "schema": { "const": 1 },
+    "kind": { "const": "kevin-control-repair-result" },
+    "version": { "const": "1.0" },
+    "work_order_id": { "type": "string", "minLength": 8, "maxLength": 100 },
+    "idempotency_key": { "type": "string", "minLength": 8, "maxLength": 160 },
+    "verb": { "type": "string", "minLength": 1, "maxLength": 100 },
+    "target": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "attempt": { "type": "integer", "minimum": 1, "maximum": 3 },
+    "started_at": { "type": "string", "format": "date-time" },
+    "finished_at": { "type": "string", "format": "date-time" },
+    "status": {
+      "enum": [
+        "VERIFIED",
+        "NOOP_ALREADY_HEALTHY",
+        "PRECONDITION_REJECTED",
+        "POLICY_REJECTED",
+        "FAILED",
+        "ROLLED_BACK",
+        "COOLING_DOWN",
+        "BLOCKED",
+        "NEEDS_REVIEW"
+      ]
+    },
+    "pre_state_fingerprint": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" },
+    "post_state_fingerprint": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" },
+    "postconditions_verified": { "type": "boolean" },
+    "rollback_performed": { "type": "boolean" },
+    "failure_family": { "type": "string", "maxLength": 160 },
+    "reusable_lesson": { "type": "string", "maxLength": 1000 },
+    "evidence_refs": {
+      "type": "array",
+      "maxItems": 20,
+      "items": { "type": "string", "maxLength": 300 }
+    },
+    "authority_delta": { "const": "NONE" }
+  }
+}
