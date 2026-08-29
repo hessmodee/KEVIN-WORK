@@ -1,0 +1,68 @@
+name: Validate autonomy bridge v0.1j end to end
+
+on:
+  push:
+    branches: [kevin-autonomy-actuator-v0.1]
+    paths:
+      - 'control-plane/actuator/kevin-autonomy-bridge-v0.1j.ps1'
+      - '.github/workflows/autonomy-bridge-v01j-e2e.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  windows-e2e:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-autonomy-actuator-v0.1
+      - name: Parse bridge with Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $p='control-plane/actuator/kevin-autonomy-bridge-v0.1j.ps1'
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors -and $errors.Count){$errors|ForEach-Object{Write-Error ("line {0}: {1}" -f $_.Extent.StartLineNumber,$_.Message)};throw 'Bridge parse failed'}
+          Write-Host 'PASS bridge parses on Windows PowerShell 5.1.'
+      - name: Publish and verify through real GitHub CLI
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference='Stop'
+          $home=Join-Path $env:RUNNER_TEMP 'kevin-v01j-home'
+          $reports=Join-Path $home '.openclaw\workspace\reports'
+          New-Item -ItemType Directory -Path $reports -Force|Out-Null
+          $local=[ordered]@{
+            schema=1;kind='kevin-autonomy-reconcile-result';generated_at=(Get-Date).ToString('o');mode='Audit';state='HEALTHY';fingerprint='CI-V01J';drift=@();selected_action=$null;action_result=$null;
+            failure_budget=[ordered]@{family='';attempts=0;cooldown_until=$null};
+            work_conserving=[ordered]@{schema=1;generated_at=(Get-Date).ToString('o');active_engineering_workers=0;supervisor_blocked_or_cooling=$true;next_suggested_candidate='ci-test';status='READY_FOR_SUPERVISOR_INTEGRATION';candidate_only=$true;note='CI'};
+            safety=[ordered]@{green_only=$true;arbitrary_shell=$false;authority_expansion=$false;novel_production_promotion=$false}
+          }
+          $local|ConvertTo-Json -Depth 20|Set-Content -LiteralPath (Join-Path $reports 'autonomy-latest.json') -Encoding UTF8
+          $env:USERPROFILE=$home
+          $env:KEVIN_AUTONOMY_REPORTS_DIR=$reports
+          $env:KEVIN_AUTONOMY_REPO=$env:GITHUB_REPOSITORY
+          $env:KEVIN_AUTONOMY_BRANCH=$env:GITHUB_REF_NAME
+          $env:KEVIN_AUTONOMY_PATH='reports/ci-autonomy-bridge-v01j.json'
+          $script='control-plane/actuator/kevin-autonomy-bridge-v0.1j.ps1'
+          $first=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $script
+          $code=$LASTEXITCODE
+          Write-Host $first
+          if($code -ne 0){throw "First bridge run failed with $code"}
+          if(($first -join "`n") -notmatch 'AUTONOMY_PUBLISHED'){throw 'First bridge run did not publish.'}
+          $second=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $script
+          $code=$LASTEXITCODE
+          Write-Host $second
+          if($code -ne 0){throw "Second bridge run failed with $code"}
+          if(($second -join "`n") -notmatch 'AUTONOMY_UNCHANGED'){throw 'Second bridge run did not prove semantic no-op.'}
+          $ref=[Uri]::EscapeDataString($env:GITHUB_REF_NAME)
+          $remote=gh api ("repos/{0}/contents/{1}?ref={2}" -f $env:GITHUB_REPOSITORY,$env:KEVIN_AUTONOMY_PATH,$ref)|ConvertFrom-Json
+          $decoded=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(($remote.content -replace '\s','')))|ConvertFrom-Json
+          if($decoded.kind -ne 'kevin-autonomy-public' -or $decoded.state -ne 'HEALTHY' -or -not $decoded.semantic_hash){throw 'Published bridge payload verification failed.'}
+          Write-Host 'PASS real gh publish, readback, and unchanged-idempotency proof.'
+          $body=@{message='cleanup autonomy bridge CI';sha=$remote.sha;branch=$env:GITHUB_REF_NAME}|ConvertTo-Json -Compress
+          $bodyPath=Join-Path $env:RUNNER_TEMP 'cleanup.json'
+          [IO.File]::WriteAllText($bodyPath,$body,(New-Object Text.UTF8Encoding($false)))
+          gh api --method DELETE ("repos/{0}/contents/{1}" -f $env:GITHUB_REPOSITORY,$env:KEVIN_AUTONOMY_PATH) --input $bodyPath|Out-Null
