@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/kevin/control-plane/work-order-v1.schema.json",
+  "title": "Kevin Control Plane Work Order v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "kind",
+    "version",
+    "id",
+    "idempotency_key",
+    "authority_class",
+    "verb",
+    "target",
+    "created_at",
+    "expires_at",
+    "preconditions",
+    "budgets",
+    "expected_postconditions",
+    "authority_delta"
+  ],
+  "properties": {
+    "schema": { "const": 1 },
+    "kind": { "const": "kevin-control-work-order" },
+    "version": { "const": "1.0" },
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9._-]{8,100}$" },
+    "idempotency_key": { "type": "string", "pattern": "^[A-Za-z0-9._:-]{8,160}$" },
+    "authority_class": { "enum": ["GREEN", "YELLOW", "RED"] },
+    "verb": {
+      "enum": [
+        "collect_diagnostics",
+        "run_benchmark",
+        "run_support_bridge",
+        "run_doctor_lint",
+        "enable_expected_automation",
+        "restart_known_kevin_service",
+        "restore_pinned_kevin_file",
+        "clear_verified_stale_lock"
+      ]
+    },
+    "target": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "expires_at": { "type": "string", "format": "date-time" },
+    "preconditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "observed_state_fingerprint": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" },
+        "expected_current_sha256": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" },
+        "expected_status": { "type": "string", "maxLength": 100 }
+      }
+    },
+    "budgets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_attempts", "timeout_seconds"],
+      "properties": {
+        "max_attempts": { "type": "integer", "minimum": 1, "maximum": 3 },
+        "timeout_seconds": { "type": "integer", "minimum": 1, "maximum": 900 },
+        "cooldown_seconds": { "type": "integer", "minimum": 0, "maximum": 86400 }
+      }
+    },
+    "expected_postconditions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sha256": { "type": "string", "pattern": "^[A-Fa-f0-9]{64}$" },
+        "status": { "type": "string", "maxLength": 100 },
+        "benchmark_min_passed": { "type": "integer", "minimum": 0, "maximum": 1000 },
+        "critical_failures_max": { "type": "integer", "minimum": 0, "maximum": 1000 }
+      }
+    },
+    "authority_delta": { "const": "NONE" },
+    "notes": { "type": "string", "maxLength": 1000 }
+  }
+}
