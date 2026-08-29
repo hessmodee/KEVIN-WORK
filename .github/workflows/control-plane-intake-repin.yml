@@ -1,0 +1,36 @@
+name: Repin Control Plane replay-safe intake
+
+on:
+  push:
+    branches: [kevin-control-plane-v1]
+    paths:
+      - '.github/scripts/repin-control-plane-intake.ps1'
+      - '.github/workflows/control-plane-intake-repin.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  repin:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-control-plane-v1
+      - name: Repin final installer
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/repin-control-plane-intake.ps1
+          if($LASTEXITCODE -ne 0){throw 'Control Plane intake repin failed'}
+      - name: Commit repinned installer and validation
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name 'Kevin Control Plane CI'
+          git config user.email 'kevin-control-plane-ci@users.noreply.github.com'
+          git add -- control-plane/install/KEVIN-CONTROL-PLANE-v1.ps1 .github/scripts/test-control-plane-installer-v1.ps1
+          git diff --cached --quiet
+          if($LASTEXITCODE -eq 0){throw 'Repin produced no change.'}
+          git commit -m 'Pin Control Plane v1 to replay-safe intake'
+          git push origin HEAD:kevin-control-plane-v1
