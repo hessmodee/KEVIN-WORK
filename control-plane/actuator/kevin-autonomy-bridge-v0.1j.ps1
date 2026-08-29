@@ -65,10 +65,14 @@ $Repo=if($env:KEVIN_AUTONOMY_REPO){[string]$env:KEVIN_AUTONOMY_REPO}else{'hessmo
 $RemotePath=if($env:KEVIN_AUTONOMY_PATH){[string]$env:KEVIN_AUTONOMY_PATH}else{'reports/autonomy-latest.json'}
 $Branch=if($env:KEVIN_AUTONOMY_BRANCH){[string]$env:KEVIN_AUTONOMY_BRANCH}else{'main'}
 
-$gh=Get-Command gh.exe -ErrorAction SilentlyContinue
-if(-not $gh){$gh=Get-Command gh -ErrorAction SilentlyContinue}
-if(-not $gh){Fail -Stage 'gh-resolution' -Code 20 -Detail 'GitHub CLI not found in scheduler environment.'}
-$GhExe=$gh.Source
+$GhExe=$null
+if($env:KEVIN_GH_EXE -and (Test-Path -LiteralPath ([string]$env:KEVIN_GH_EXE))){$GhExe=[string]$env:KEVIN_GH_EXE}
+if(-not $GhExe){
+  $gh=Get-Command gh.exe -ErrorAction SilentlyContinue
+  if(-not $gh){$gh=Get-Command gh -ErrorAction SilentlyContinue}
+  if($gh){$GhExe=$gh.Source}
+}
+if(-not $GhExe){Fail -Stage 'gh-resolution' -Code 20 -Detail 'GitHub CLI not found in scheduler environment and KEVIN_GH_EXE was not usable.'}
 
 try{$obj=Get-Content -LiteralPath $Local -Raw|ConvertFrom-Json}catch{Fail -Stage 'local-report-parse' -Code 22 -Detail $_.Exception.Message}
 
@@ -112,16 +116,13 @@ for($attempt=1;$attempt -le 3;$attempt++){
   try{
     [IO.File]::WriteAllText($bodyPath,($body|ConvertTo-Json -Compress),(New-Object Text.UTF8Encoding($false)))
     $put=Invoke-ExactNative -Executable $GhExe -Argv @('api','--method','PUT',$endpoint,'--input',$bodyPath,'-H','Accept: application/vnd.github+json')
-  } finally {
-    Remove-Item -LiteralPath $bodyPath -Force -ErrorAction SilentlyContinue
-  }
+  } finally {Remove-Item -LiteralPath $bodyPath -Force -ErrorAction SilentlyContinue}
   if($put.ExitCode -eq 0){
     $publishedSha=''
     try{$po=$put.Stdout|ConvertFrom-Json;if($po.content -and $po.content.sha){$publishedSha=[string]$po.content.sha}}catch{}
     Write-Output ("AUTONOMY_PUBLISHED sha={0}" -f $publishedSha)
     exit 0
   }
-
   $lastError=("PUT exit={0} stdout={1} stderr={2}" -f $put.ExitCode,(One-Line $put.Stdout),(One-Line $put.Stderr))
   if($attempt -lt 3){Write-Output ("AUTONOMY_RETRY stage=publish attempt={0}" -f $attempt);Start-Sleep -Seconds $attempt;continue}
 }
