@@ -1,0 +1,71 @@
+name: Validate Kevin HQ Ops Floor Shell Integration
+
+on:
+  push:
+    branches:
+      - kevin-hq-ops-shell-integration
+    paths:
+      - '.github/scripts/integrate-ops-v11-into-hq.ps1'
+      - '.github/workflows/hq-ops-shell-integration.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  integrate-and-test:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-hq-ops-shell-integration
+      - name: Apply unified shell patch
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .github/scripts/integrate-ops-v11-into-hq.ps1
+          if($LASTEXITCODE -ne 0){throw 'HQ Ops integration patch failed'}
+      - name: Static integration contract
+        shell: powershell
+        run: |
+          $index=Get-Content docs/index.html -Raw
+          $embed=Get-Content docs/ops/embed.html -Raw
+          $redir=Get-Content docs/ops/index.html -Raw
+          foreach($must in @(
+            '["ops","Ops Floor"]',
+            '["talk","Talk · Exp"]',
+            'src="./ops/embed.html?v=12"',
+            'kevin-ops-height',
+            'addEventListener("hashchange"',
+            'ops-v11-frame'
+          )){if(-not $index.Contains($must)){throw "Missing unified HQ contract: $must"}}
+          foreach($bad in @('if(tab==="ops"){location.replace("./ops/");}','if(b.dataset.tab==="ops"){location.href="./ops/";return;}')){if($index.Contains($bad)){throw "Legacy split-site routing remains: $bad"}}
+          foreach($id in @('topology','hubKevinProd','kevinState','kevinMeta','mission','action','recent','evidence','activeWorkers','selectedName','selectedStatus','selectedDetail','load','loadDetail','age','benchmark','headerKevinProd','overallChip','newsText','serviceRail','updated')){if(-not $embed.Contains(('id="'+$id+'"'))){throw "Embed missing ops-v11.js DOM contract: $id"}}
+          if(-not $redir.Contains("../#ops")){throw 'Legacy /ops/ route does not forward into unified #ops shell'}
+          Write-Host 'PASS unified shell/nav/embed DOM contracts.'
+      - name: JavaScript syntax checks
+        shell: powershell
+        run: |
+          $html=Get-Content docs/index.html -Raw
+          $m=[regex]::Matches($html,'(?s)<script>(.*?)</script>')
+          if($m.Count -ne 1){throw "Expected one inline HQ script; got $($m.Count)"}
+          [IO.File]::WriteAllText((Join-Path $env:TEMP 'hq-inline.js'),$m[0].Groups[1].Value,(New-Object Text.UTF8Encoding($false)))
+          node --check (Join-Path $env:TEMP 'hq-inline.js')
+          if($LASTEXITCODE -ne 0){throw 'HQ inline JS syntax failed'}
+          node --check docs/ops/ops-v11.js
+          if($LASTEXITCODE -ne 0){throw 'Ops v11 JS syntax failed'}
+          Write-Host 'PASS JavaScript syntax checks.'
+      - name: Verify production avatar invariant
+        shell: powershell
+        run: |
+          $ops=Get-Content docs/ops/ops-v11.js -Raw
+          $index=Get-Content docs/index.html -Raw
+          foreach($needle in @('kv-bandage','kv-bruise','kv-xeyes','kv-bonk','kv-foot')){if(-not $ops.Contains($needle)){throw "Ops production avatar invariant missing: $needle"};if(-not $index.Contains($needle)){throw "HQ production avatar invariant missing: $needle"}}
+          Write-Host 'PASS production Kevin avatar contracts preserved.'
+      - name: Commit integrated dashboard
+        shell: powershell
+        run: |
+          git config user.name "Kevin HQ CI"
+          git config user.email "kevin-hq-ci@users.noreply.github.com"
+          git add docs/index.html docs/ops/index.html docs/ops/embed.html
+          if(git diff --cached --quiet){throw 'Integration produced no dashboard changes'}
+          git commit -m "Integrate Ops Floor v11 into shared Kevin HQ shell"
+          git push origin HEAD:kevin-hq-ops-shell-integration
