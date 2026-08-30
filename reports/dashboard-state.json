@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T06:03:15.0523493-06:00",
+  "generated_at": "2026-08-30T06:05:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -12,14 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "supervisor",
-    "title": "Supervisor autonomous cycle",
-    "category": "supervisor",
-    "phase": "Goal-aware Supervisor cycle active.",
-    "started_at": "2026-08-30T06:02:15.0778178-06:00",
-    "source": "hq-live-ops"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -27,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 48,
-    "cpu_pct": 2,
+    "memory_pct": 55,
+    "cpu_pct": 5,
     "gpu": "RTX 3060",
-    "gpu_pct": 50
+    "gpu_pct": 34
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T02:04:00-06:00",
-        "estimated": false,
-        "ram": 47,
-        "cpu": 2,
-        "gpu": 33
-      },
       {
         "at": "2026-08-30T02:04:34-06:00",
         "estimated": false,
@@ -707,11 +693,17 @@
         "ram": 48,
         "cpu": 2,
         "gpu": 50
+      },
+      {
+        "at": "2026-08-30T06:05:14-06:00",
+        "estimated": false,
+        "ram": 55,
+        "cpu": 5,
+        "gpu": 34
       }
     ],
     "ram": [
       47,
-      47,
       54,
       54,
       54,
@@ -805,11 +797,11 @@
       49,
       49,
       48,
-      48
+      48,
+      55
     ],
     "cpu": [
       2,
-      2,
       5,
       13,
       13,
@@ -903,10 +895,10 @@
       8,
       8,
       2,
-      2
+      2,
+      5
     ],
     "gpu": [
-      33,
       33,
       34,
       31,
@@ -1001,11 +993,12 @@
       27,
       27,
       50,
-      50
+      50,
+      34
     ]
   },
   "weather": {
-    "summary": "Overnight 50 | Wind 3 mph | Showers And Thunderstorms Likely"
+    "summary": "Today 74 | Wind 5 mph | Chance Showers And Thunderstorms then Mostly Sunny"
   },
   "capabilities": [
     {
@@ -1155,6 +1148,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-30T06:05:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-30T05:59:51-06:00",
       "source": "forge",
       "component": "forge",
@@ -1182,13 +1182,6 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 44000
-    },
-    {
-      "at": "2026-08-30T05:50:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-30T05:50:12-06:00",
@@ -1385,7 +1378,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-30T06:03:15.0523493-06:00",
+    "last": "2026-08-30T06:05:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1422,7 +1415,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-30T06:03:15.0523493-06:00",
+    "generated_at": "2026-08-30T06:04:24.2006966-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
