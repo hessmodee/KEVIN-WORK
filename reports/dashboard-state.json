@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T15:49:52.9871377-06:00",
+  "generated_at": "2026-08-30T15:50:13-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -12,14 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "benchmark",
-    "title": "Kevin Benchmark v1",
-    "category": "benchmark",
-    "phase": "Regression/capability fitness worker active.",
-    "started_at": "2026-08-30T15:26:52.4805341-06:00",
-    "source": "hq-live-ops"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -27,29 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 48,
-    "cpu_pct": 9,
+    "memory_pct": 16,
+    "cpu_pct": 1,
     "gpu": "RTX 3060",
-    "gpu_pct": 35
+    "gpu_pct": 8
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T11:18:54-06:00",
-        "estimated": false,
-        "ram": 54,
-        "cpu": 3,
-        "gpu": 32
-      },
-      {
-        "at": "2026-08-30T11:20:14-06:00",
-        "estimated": false,
-        "ram": 55,
-        "cpu": 3,
-        "gpu": 45
-      },
       {
         "at": "2026-08-30T11:24:34-06:00",
         "estimated": false,
@@ -707,11 +686,23 @@
         "ram": 48,
         "cpu": 9,
         "gpu": 35
+      },
+      {
+        "at": "2026-08-30T15:50:10-06:00",
+        "estimated": false,
+        "ram": 16,
+        "cpu": 26,
+        "gpu": 8
+      },
+      {
+        "at": "2026-08-30T15:50:13-06:00",
+        "estimated": false,
+        "ram": 16,
+        "cpu": 1,
+        "gpu": 8
       }
     ],
     "ram": [
-      54,
-      55,
       55,
       55,
       47,
@@ -805,11 +796,11 @@
       48,
       57,
       48,
-      48
+      48,
+      16,
+      16
     ],
     "cpu": [
-      3,
-      3,
       5,
       5,
       16,
@@ -903,11 +894,11 @@
       3,
       11,
       9,
-      9
+      9,
+      26,
+      1
     ],
     "gpu": [
-      32,
-      45,
       31,
       31,
       37,
@@ -1001,7 +992,9 @@
       30,
       98,
       35,
-      35
+      35,
+      8,
+      8
     ]
   },
   "weather": {
@@ -1155,6 +1148,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-30T15:50:13-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-30T15:26:35-06:00",
       "source": "forge",
       "component": "forge",
@@ -1172,13 +1172,6 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-30T15:20:13-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-30T15:17:34-06:00",
@@ -1385,7 +1378,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-30T15:49:52.9871377-06:00",
+    "last": "2026-08-30T15:50:13-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
