@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "kind": "kevin-work-order",
-  "id": "watch-20260830-042647-autonomy-reconcile",
-  "idempotency_key": "watch-autonomy-reconcile-20260830-042647",
-  "created_at": "2026-08-30T04:26:47Z",
-  "expires_at": "2026-08-30T05:26:47Z",
+  "id": "watch-20260830-062530-autonomy-refresh",
+  "idempotency_key": "watch-autonomy-refresh-20260830-062530",
+  "created_at": "2026-08-30T06:25:30Z",
+  "expires_at": "2026-08-30T07:25:30Z",
   "authority_class": "GREEN",
-  "verb": "run_reconcile",
-  "target": "autonomy",
-  "reason": "Refresh autonomy reconciliation after prior order expiration."
+  "verb": "refresh_autonomy_telemetry",
+  "target": "autonomy-telemetry",
+  "reason": "Autonomy telemetry is stale while support telemetry is current; refresh the authorized autonomy snapshot before further reconciliation."
 }
