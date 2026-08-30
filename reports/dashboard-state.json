@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-29T19:38:38-06:00",
-  "status": "ready",
+  "generated_at": "2026-08-29T19:38:42.8137640-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,14 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "night-forge",
+    "title": "Night Forge QA",
+    "category": "qa",
+    "phase": "Night Forge QA/regression cycle active.",
+    "started_at": "2026-08-29T19:38:42.8137640-06:00",
+    "source": "hq-live-ops"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -1377,7 +1384,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-29T19:38:38-06:00",
+    "last": "2026-08-29T19:38:42.8137640-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1414,33 +1421,33 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-29T19:33:19.0055182-06:00",
+    "generated_at": "2026-08-29T19:38:42.8137640-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
-    "supervisor_active": false,
+    "supervisor_active": true,
     "benchmark_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "All current strategic missions are cooling. Four distinct recovery passes already completed for the current evidence set.",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
+      "id": "night-forge",
+      "name": "Night Forge",
+      "title": "Night Forge QA",
+      "category": "qa",
+      "state": "working",
+      "detail": "Night Forge QA/regression cycle active.",
+      "what": "Running safety and regression checks.",
+      "engine": "Night Forge",
+      "action": "QA / regression"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "All current strategic missions are cooling. Four distinct recovery passes already completed for the current evidence set.",
+        "state": "coordinating",
+        "detail": "Selecting, evaluating, staging, or recording autonomous work.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
-        "action": "Awaiting next 3-minute cycle"
+        "action": "Autonomous coordination"
       },
       {
         "id": "benchmark",
@@ -1465,17 +1472,17 @@
     ]
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "All current strategic missions are cooling. Four distinct recovery passes already completed for the current evidence set.",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "running": true,
+    "state": "working",
+    "phase": "Night Forge QA/regression cycle active.",
+    "worker": "Night Forge",
+    "engine": "Night Forge",
+    "action": "QA / regression"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | All current strategic missions are cooling. Four distinct recovery passes already completed for the current evidence set.",
+      "text": "Night Forge | WORKING | Night Forge QA/regression cycle active.",
       "severity": "normal"
     }
   ]
