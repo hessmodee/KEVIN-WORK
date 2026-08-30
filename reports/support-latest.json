@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-29T18:34:07.0412457-06:00",
+    "generated_at":  "2026-08-29T18:37:09.1552019-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788049737475,
-                                  "next_run_at_ms":  1788049917475
-                              },
-                              {
-                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
-                                  "declaration_key":  "kevin-supervisor-v1",
-                                  "name":  "Kevin Supervisor v1.5.3b",
-                                  "enabled":  true,
-                                  "every_ms":  180000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788049774158,
-                                  "next_run_at_ms":  1788049954158
+                                  "last_run_at_ms":  1788050042082,
+                                  "next_run_at_ms":  1788050222082
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,20 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788049894182,
-                                  "next_run_at_ms":  1788049954182
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788049657106,
-                                  "next_run_at_ms":  1788049957106
+                                  "last_run_at_ms":  1788050167524,
+                                  "next_run_at_ms":  1788050227524
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -115,6 +91,30 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788049642956,
                                   "next_run_at_ms":  1788050242956
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788050042088,
+                                  "next_run_at_ms":  1788050342088
+                              },
+                              {
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.5.3b",
+                                  "enabled":  true,
+                                  "every_ms":  180000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788050222077,
+                                  "next_run_at_ms":  1788050402077
                               }
                           ],
                  "error":  ""
@@ -122,16 +122,16 @@
     "supervisor":  {
                        "cycle":  32,
                        "last_mission":  "knowledge",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-08-29T18:29:35.5565038-06:00",
+                       "last_result":  "RECOVERY_PASS",
+                       "next_eligible_at":  "2026-08-29T18:34:24.9881787-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
     "recovery":  {
                      "fingerprint":  "5F5DB16B694241E74FFB67387C95628808BD460BC7B0F2AA0724E79C604ADA9E",
-                     "round":  3,
-                     "last_at":  "2026-08-29T18:20:55.7705133-06:00",
-                     "last_brief":  "20260829-182055-round3.json"
+                     "round":  4,
+                     "last_at":  "2026-08-29T18:34:24.9712679-06:00",
+                     "last_brief":  "20260829-183424-round4.json"
                  },
     "benchmark":  {
                       "at":  "2026-08-29T18:27:32.0525196-06:00",
@@ -169,9 +169,9 @@
                     },
     "active_workers":  {
                            "design_forge":  0,
-                           "night_forge":  0,
-                           "supervisor":  1,
+                           "night_forge":  1,
+                           "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "A7B6EDDAD13785AE52E328A794F365B5155685B3E00664B25FD314B55A77CB17"
+    "semantic_hash":  "D8885750E3860CBF578194BCC049E09C647B29973A53EA5E798B9269D7D4264F"
 }
