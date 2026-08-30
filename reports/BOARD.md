@@ -1,7 +1,7 @@
-# Kevin board 2026-08-30 05:50
+# Kevin board 2026-08-30 06:05
 
 ## self-check.md
-# Self-check 2026-08-30 05:50
+# Self-check 2026-08-30 06:05
 - PASS: ollama - 11434
 - PASS: gateway - 18789
 - PASS: daily-note - C:\Users\hessm\.openclaw\workspace\memory\2026-08-30.md
@@ -9,38 +9,38 @@
 - PASS: weather-83263.md - C:\Users\hessm\.openclaw\workspace\reports\weather-83263.md
 - PASS: morning-brief-2026-08-30.md - C:\Users\hessm\.openclaw\workspace\reports\morning-brief-2026-08-30.md
 - PASS: BOARD.md - C:\Users\hessm\.openclaw\workspace\reports\BOARD.md
-- PASS: github-bridge - age_min=7.2 pull=PASS publish=PASS bridge=PASS
+- PASS: github-bridge - age_min=7.1 pull=PASS publish=PASS bridge=PASS
 fails: 0
 
 
 ## system-status.md
-# System status 2026-08-30 05:50
+# System status 2026-08-30 06:05
 Host: HESS-PC
 User: hessm
-RAM used: 7.9 GB
+RAM used: 8.8 GB
 RAM total: 15.9 GB
-RAM load: 49%
-CPU load: 8%
+RAM load: 55%
+CPU load: 5%
 GPU: NVIDIA GeForce RTX 3060
-VRAM used: 1300 MB
+VRAM used: 10394 MB
 VRAM total: 12288 MB
-GPU utilization: 27%
+GPU utilization: 34%
 C: free 130.9 GB
 Ollama: running
 Gateway: open
 
 
 ## weather-83263.md
-# Weather 83263 - 2026-08-30 05:50
+# Weather 83263 - 2026-08-30 06:05
 
 Preston, ID
-Overnight 50
-Wind 3 mph
-Showers And Thunderstorms Likely
+Today 74
+Wind 5 mph
+Chance Showers And Thunderstorms then Mostly Sunny
 
 
 ## context-latest.md
-# Context 2026-08-30 05:50 America/Boise
+# Context 2026-08-30 06:05 America/Boise
 Place: Preston, Idaho 83263
 
 ## Alerts
@@ -53,18 +53,18 @@ None active.
 
 
 ## morning-brief-2026-08-30.md
-# Morning brief 2026-08-30 05:50 America/Boise
+# Morning brief 2026-08-30 06:05 America/Boise
 
 Place: Preston, Idaho 83263
 
 ## Weather
 
-# Weather 83263 - 2026-08-30 05:50
+# Weather 83263 - 2026-08-30 06:05
 
 Preston, ID
-Overnight 50
-Wind 3 mph
-Showers And Thunderstorms Likely
+Today 74
+Wind 5 mph
+Chance Showers And Thunderstorms then Mostly Sunny
 
 ## Note
 KevinTick is the 15-minute loop. One new skill after this file exists.
