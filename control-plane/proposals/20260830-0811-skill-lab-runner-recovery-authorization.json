@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "kind": "kevin-owner-authorization",
+  "authorized_at": "2026-08-30T08:11:19-06:00",
+  "status": "APPROVED",
+  "scope": "skill_lab_runner_recovery_only",
+  "owner_instruction": "This is approved! Get it done!",
+  "authorized_action": "one bounded local repair/replacement/restart of the known Kevin Skill Lab runner under SKILL-LAB-RUNNER-RECOVERY-SPEC-v1",
+  "must_preserve": [
+    "existing owner locks and frozen governance",
+    "no arbitrary shell or arbitrary remote code execution",
+    "no new primitive authority",
+    "no permission widening",
+    "no credentials/config exposure",
+    "no purchases/payments",
+    "no external sends",
+    "bounded retries and deterministic stale-RUNNING recovery",
+    "idempotent step work-order IDs",
+    "independent evidence verification",
+    "rollback capability"
+  ],
+  "proof_required": [
+    "parser/static validation",
+    "Skill Lab self-test",
+    "stale-RUNNING recovery test",
+    "one-step create_text composite",
+    "two-step create_text -> ui_notepad_write composite",
+    "duplicate/replay test",
+    "intentional failure evidence test",
+    "restart/resume test",
+    "fresh Benchmark PASS 30/30 critical=0",
+    "durable exact-hash proof artifact"
+  ],
+  "authority_not_granted": [
+    "arbitrary shell",
+    "arbitrary remote code",
+    "new primitive authority",
+    "browser authority promotion",
+    "Yellow/Red consequential authority",
+    "financial transactions",
+    "external communications"
+  ]
+}
