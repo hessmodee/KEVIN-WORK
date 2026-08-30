@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-30T14:15:29.7974736-06:00",
+    "generated_at":  "2026-08-30T14:18:32.5279486-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788120745648,
-                                  "next_run_at_ms":  1788120925648
-                              },
-                              {
-                                  "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
-                                  "declaration_key":  "kevin-benchmark-v1",
-                                  "name":  "Kevin Benchmark v1.1c",
-                                  "enabled":  true,
-                                  "every_ms":  600000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788120374914,
-                                  "next_run_at_ms":  1788120974914
+                                  "last_run_at_ms":  1788120925673,
+                                  "next_run_at_ms":  1788121105673
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,20 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788120915002,
-                                  "next_run_at_ms":  1788120975002
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788120685653,
-                                  "next_run_at_ms":  1788120985653
+                                  "last_run_at_ms":  1788121105560,
+                                  "next_run_at_ms":  1788121165560
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -113,8 +89,32 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788120810102,
-                                  "next_run_at_ms":  1788120990102
+                                  "last_run_at_ms":  1788120990118,
+                                  "next_run_at_ms":  1788121170118
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788120988455,
+                                  "next_run_at_ms":  1788121288455
+                              },
+                              {
+                                  "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
+                                  "declaration_key":  "kevin-benchmark-v1",
+                                  "name":  "Kevin Benchmark v1.1c",
+                                  "enabled":  true,
+                                  "every_ms":  600000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788120974933,
+                                  "next_run_at_ms":  1788121574933
                               }
                           ],
                  "error":  ""
@@ -122,8 +122,8 @@
     "supervisor":  {
                        "cycle":  165,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_PASS",
-                       "next_eligible_at":  "2026-08-30T14:14:00.2493099-06:00",
+                       "last_result":  "RECOVERY_THROTTLED",
+                       "next_eligible_at":  "2026-08-30T14:16:31.5541334-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -134,7 +134,7 @@
                      "last_brief":  "20260830-141400-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-08-30T14:06:23.5259848-06:00",
+                      "at":  "2026-08-30T14:16:23.4281911-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -161,11 +161,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-30T14:13:01.6390202-06:00",
-                        "status":  "APPLIED_PROVEN",
+                        "at":  "2026-08-30T14:16:29.3012562-06:00",
+                        "status":  "LEGACY_STAGED_APPROVAL_REQUIRED",
                         "manifest_id":  "maintenance-bootstrap-v12-20260830-1015",
-                        "stage_path":  "~\\.openclaw\\workspace\\reports\\maintenance\\staged\\maintenance-bootstrap-v12-20260830-1015.ps1",
-                        "detail":  "exit=0 duration_seconds=1.4 log=~\\.openclaw\\workspace\\reports\\maintenance\\apply-maintenance-bootstrap-v12-20260830-1015-20260830-141300.log"
+                        "stage_path":  "",
+                        "detail":  "Legacy executable maintenance remains explicit ApplyOnce only."
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "750129FBEC5509ACBD6D232A41B3AA7F6B4A7645AABA51F8234CBC9586865644"
+    "semantic_hash":  "32E73A74AB7729C3E46DD631929F11F3533216ACAC427B3A741C2877E8AC7F9F"
 }
