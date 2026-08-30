@@ -63,8 +63,9 @@ $workerBackup='';$dispatcherBackup='';$workerChanged=$false;$dispatcherChanged=$
 $engMutex=New-Object Threading.Mutex($false,'Global\Kevin14BEngineeringWorkerV1');$dispatchMutex=New-Object Threading.Mutex($false,'Global\KevinMissionDispatcherV1');$engOwned=$false;$dispatchOwned=$false
 try{
   Step 'Acquire engineering and dispatcher maintenance locks'
-  $engOwned=$engMutex.WaitOne(0);if(-not $engOwned){throw 'Engineering worker is active. Retry after the current candidate run finishes.'}
-  $dispatchOwned=$dispatchMutex.WaitOne(0);if(-not $dispatchOwned){throw 'Mission dispatcher is active. Retry after the current dispatch finishes.'};Good 'Both maintenance locks acquired.'
+  Note 'Waiting up to 12 minutes for any in-flight engineering/dispatch work to finish.'
+  $engOwned=$engMutex.WaitOne([TimeSpan]::FromMinutes(12));if(-not $engOwned){throw 'Timed out waiting for the engineering worker maintenance lock.'}
+  $dispatchOwned=$dispatchMutex.WaitOne([TimeSpan]::FromMinutes(2));if(-not $dispatchOwned){throw 'Timed out waiting for the mission dispatcher maintenance lock.'};Good 'Both maintenance locks acquired.'
 
   Step 'Verify frozen Control Plane authority roots'
   foreach($kv in $InvariantPins.GetEnumerator()){if(-not(Test-Path -LiteralPath $kv.Key)){throw "Missing invariant: $($kv.Key)"};$a=Get-GitBlobSha1 $kv.Key;if($a -ne [string]$kv.Value){throw "Invariant drift: $(Split-Path $kv.Key -Leaf) expected $($kv.Value), got $a"};Good "$(Split-Path $kv.Key -Leaf) unchanged: $a"}
