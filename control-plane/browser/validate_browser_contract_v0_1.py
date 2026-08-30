@@ -140,10 +140,13 @@ def validate_navigate(req, policy):
         errors.append("url whitespace forbidden")
         return errors
 
+    # Parse the scheme before requiring a network host. Non-network/dangerous
+    # schemes such as file: and javascript: frequently have no hostname; they
+    # must still be classified explicitly as forbidden rather than collapsing
+    # into a generic parse failure.
     try:
         u = urlsplit(raw)
         scheme = u.scheme.lower()
-        host = _normalize_host(u.hostname)
     except Exception:
         errors.append("url parse failed")
         return errors
@@ -151,10 +154,19 @@ def validate_navigate(req, policy):
     if scheme in DANGEROUS_SCHEMES or scheme not in {"https", "http"}:
         errors.append("scheme forbidden")
         return errors
-    if u.username is not None or u.password is not None:
-        errors.append("embedded credentials forbidden")
+
     if not u.netloc:
         errors.append("network location required")
+        return errors
+
+    try:
+        host = _normalize_host(u.hostname)
+    except Exception:
+        errors.append("url parse failed")
+        return errors
+
+    if u.username is not None or u.password is not None:
+        errors.append("embedded credentials forbidden")
 
     ip = _literal_ip(host)
     try:
