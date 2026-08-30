@@ -31,13 +31,13 @@ jobs:
       - name: Validate HQ inline JavaScript
         shell: pwsh
         run: |
-          python - <<'PY'
+          @'
           from pathlib import Path
           import re
           s=Path('docs/index.html').read_text(encoding='utf-8')
           blocks=re.findall(r'<script>(.*?)</script>',s,re.S)
           Path('hq-inline-check.js').write_text('\n'.join(blocks),encoding='utf-8')
-          PY
+          '@ | python -
           node --check hq-inline-check.js
           if($LASTEXITCODE -ne 0){throw 'HQ inline JS syntax failed'}
           Remove-Item hq-inline-check.js -Force
@@ -51,7 +51,7 @@ jobs:
           $embed=Get-Content docs/ops/embed.html -Raw
           $index=Get-Content docs/index.html -Raw
           foreach($n in @('workerProgress','progressFromObject','Confirmed task checkpoints','worker-progress')){if(($js+$css) -notmatch [regex]::Escape($n)){throw "Missing progress contract $n"}}
-          foreach($n in @('event===\'task_finish\'','latestForgePass','Design Forge failed 3 completed runs in a row')){if($index -notmatch [regex]::Escape($n)){throw "Missing alert-resolution contract $n"}}
+          foreach($n in @('task_finish','latestForgePass','Design Forge failed 3 completed runs in a row')){if($index -notmatch [regex]::Escape($n)){throw "Missing alert-resolution contract $n"}}
           foreach($n in @('fetchExternalNewswire','public-weather','LOCAL','U.S.','WORLD','TOP')){if($index -notmatch [regex]::Escape($n)){throw "Missing newswire contract $n"}}
           if($embed -notmatch 'ops-v11\.css\?v=15' -or $embed -notmatch 'ops-v11\.js\?v=15'){throw 'Inner cache bump missing'}
           if($index -notmatch 'ops/embed\.html\?v=15'){throw 'Iframe cache bump missing'}
@@ -63,7 +63,7 @@ jobs:
       - name: Validate public newswire
         shell: pwsh
         run: |
-          python - <<'PY'
+          @'
           import json
           p=json.load(open('reports/newswire-latest.json',encoding='utf-8'))
           assert p['schema']==1
@@ -72,7 +72,7 @@ jobs:
           cats={x['category'] for x in p['headlines']}
           assert {'local','national','world'} <= cats, cats
           print('PASS NEWSWIRE',len(p['headlines']),sorted(cats))
-          PY
+          '@ | python -
       - name: Commit validated production files
         shell: pwsh
         run: |
