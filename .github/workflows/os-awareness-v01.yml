@@ -1,0 +1,101 @@
+name: OS Awareness v0.1 Gate
+
+on:
+  push:
+    branches: [kevin-os-awareness-v0.1]
+    paths:
+      - control-plane/os-awareness/**
+      - .github/workflows/os-awareness-v01.yml
+  pull_request:
+    paths:
+      - control-plane/os-awareness/**
+      - .github/workflows/os-awareness-v01.yml
+
+permissions:
+  contents: read
+
+jobs:
+  static-boundary:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: GREEN read-only authority boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('control-plane/os-awareness/kevin-os-observer-v0.1.ps1')
+          s=p.read_text(encoding='utf-8')
+          forbidden=[
+            'Invoke-Expression','Start-Process','Stop-Process','Restart-Service','Stop-Service','Start-Service',
+            'Set-Service','Set-ItemProperty','New-ItemProperty','Remove-ItemProperty','Remove-Item','Rename-Item',
+            'Copy-Item','schtasks.exe','cmd.exe','Invoke-WebRequest','Invoke-RestMethod','System.Net.WebClient',
+            'DownloadString','DownloadFile','Add-Type','Set-Net','Disable-Net','Enable-Net','Clear-EventLog',
+            'wevtutil cl','reg.exe add','reg.exe delete','shutdown.exe','Restart-Computer','Stop-Computer'
+          ]
+          bad=[x for x in forbidden if x.lower() in s.lower()]
+          assert not bad,bad
+          for marker in [
+            "ValidateSet('snapshot','hardware','processes','services','storage','tasks','network','software','event_health')",
+            "Get-CimInstance Win32_OperatingSystem",
+            "Get-CimInstance Win32_PhysicalMemory",
+            "Get-ScheduledTask",
+            "Get-NetAdapter",
+            "Get-WinEvent",
+            "Get-ItemProperty -Path $path",
+            "read_only = $true",
+            "arbitrary_shell=false",
+            "caller_command=false",
+            "credentials=false",
+            "mutation=false"
+          ]:
+            assert marker in s,marker
+          for forbidden_data in ['CommandLine','Environment::GetEnvironmentVariables','IPAddress','MacAddress','SerialNumber','EventRecord.Message']:
+            assert forbidden_data.lower() not in s.lower(),forbidden_data
+          print('PASS OS observer fixed read-only typed boundary')
+          PY
+      - name: Candidate SHA256
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          p=Path('control-plane/os-awareness/kevin-os-observer-v0.1.ps1')
+          print('candidate_sha256='+sha256(p.read_bytes()).hexdigest().upper())
+          PY
+
+  windows-powershell-51:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse and self-test in Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $p='control-plane\os-awareness\kevin-os-observer-v0.1.ps1'
+          $tokens=$null; $errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){$errors|Format-List|Out-String|Write-Host;throw 'Windows PowerShell 5.1 parse failed'}
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'OS observer self-test failed'}
+      - name: Real read-only hardware observation
+        shell: powershell
+        run: |
+          $p='control-plane\os-awareness\kevin-os-observer-v0.1.ps1'
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -Operation hardware
+          if($LASTEXITCODE -ne 0){throw 'hardware observation failed'}
+          $r='control-plane\os-awareness\reports\os-awareness\latest-local.json'
+          $pub='control-plane\os-awareness\reports\os-awareness\latest-public.json'
+          if(-not(Test-Path $r -PathType Leaf) -or -not(Test-Path $pub -PathType Leaf)){throw 'observer evidence missing'}
+          $j=Get-Content $r -Raw|ConvertFrom-Json
+          $p2=Get-Content $pub -Raw|ConvertFrom-Json
+          if([string]$j.kind -ne 'kevin-os-awareness-local-evidence' -or -not [bool]$j.read_only){throw 'local evidence contract invalid'}
+          if([string]$p2.kind -ne 'kevin-os-awareness-public-summary' -or -not [bool]$p2.read_only){throw 'public summary contract invalid'}
+          if([int64]$p2.hardware_summary.total_physical_memory_bytes -le 0){throw 'physical memory observation missing'}
+          Write-Host ('PASS hardware bytes='+[string]$p2.hardware_summary.total_physical_memory_bytes+' modules='+[string]$p2.hardware_summary.memory_module_count)
+      - name: Real read-only process/service/storage/network/task/event probes
+        shell: powershell
+        run: |
+          $p='control-plane\os-awareness\kevin-os-observer-v0.1.ps1'
+          foreach($op in @('processes','services','storage','network','tasks','software','event_health')){
+            & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -Operation $op
+            if($LASTEXITCODE -ne 0){throw ('probe failed '+$op)}
+          }
+          Write-Host 'PASS all typed read-only OS observation verbs executed on Windows'
