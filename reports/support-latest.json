@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-29T23:04:34.4153181-06:00",
+    "generated_at":  "2026-08-29T23:07:34.3727434-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,32 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788066090066,
-                                  "next_run_at_ms":  1788066270066
-                              },
-                              {
-                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
-                                  "declaration_key":  "kevin-hq-live-pulse-v15",
-                                  "name":  "Kevin HQ Live Pulse v1.5",
-                                  "enabled":  true,
-                                  "every_ms":  60000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788066243430,
-                                  "next_run_at_ms":  1788066303430
-                              },
-                              {
-                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
-                                  "declaration_key":  "kevin-supervisor-v1",
-                                  "name":  "Kevin Supervisor v1.6 High Gear",
-                                  "enabled":  true,
-                                  "every_ms":  180000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788066183629,
-                                  "next_run_at_ms":  1788066363629
+                                  "last_run_at_ms":  1788066270079,
+                                  "next_run_at_ms":  1788066450079
                               },
                               {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
@@ -105,6 +81,30 @@
                                   "next_run_at_ms":  1788066477649
                               },
                               {
+                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
+                                  "declaration_key":  "kevin-hq-live-pulse-v15",
+                                  "name":  "Kevin HQ Live Pulse v1.5",
+                                  "enabled":  true,
+                                  "every_ms":  60000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788066425800,
+                                  "next_run_at_ms":  1788066485800
+                              },
+                              {
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.6 High Gear",
+                                  "enabled":  true,
+                                  "every_ms":  180000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788066365768,
+                                  "next_run_at_ms":  1788066545768
+                              },
+                              {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
                                   "declaration_key":  "kevin-benchmark-v1",
                                   "name":  "Kevin Benchmark v1.1c",
@@ -113,7 +113,7 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788066007458,
+                                  "last_run_at_ms":  1788066279167,
                                   "next_run_at_ms":  1788066607458
                               }
                           ],
@@ -122,19 +122,19 @@
     "supervisor":  {
                        "cycle":  50,
                        "last_mission":  "forge-v4",
-                       "last_result":  "REJECT",
-                       "next_eligible_at":  "2026-08-29T23:04:01.3622267-06:00",
+                       "last_result":  "RECOVERY_PASS",
+                       "next_eligible_at":  "2026-08-29T23:06:35.4693225-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
     "recovery":  {
-                     "fingerprint":  "3A5A79C9CF3F441DBB47DB1B57F62BF188F14F1B5D8311762681DEFDE4BEDA3F",
+                     "fingerprint":  "CBCE1630707CEA9D40A5CDC72A8CA020FDEF816B7230CB867B199EAF34D99BE8",
                      "round":  1,
-                     "last_at":  "2026-08-29T22:57:35.3028580-06:00",
-                     "last_brief":  "20260829-225735-round1.json"
+                     "last_at":  "2026-08-29T23:06:35.4147188-06:00",
+                     "last_brief":  "20260829-230635-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-08-29T23:00:15.8811710-06:00",
+                      "at":  "2026-08-29T23:04:47.7608547-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "E50D3577EA173EA373949B539D9B3ECD890D4C995621CB78F72C7B87B8A2AF66"
+    "semantic_hash":  "2056FBCE339E966E7FF4849F5858C41203C52078CC3DB2A80687BDC441FF3A8C"
 }
