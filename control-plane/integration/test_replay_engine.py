@@ -15,7 +15,7 @@ FIXTURES = json.loads((ROOT / "phase-a-replay-fixtures.v0.1.json").read_text())
 
 def test_all_phase_a_cases_match_expected_outcome():
     cases = FIXTURES["cases"]
-    assert len(cases) == 14
+    assert len(cases) == 17
     for case in cases:
         decision = engine.evaluate(case)
         assert decision.outcome == case["expected"], (
@@ -73,14 +73,76 @@ def test_mission_local_failure_rotates_only_when_alternative_exists():
     assert cool.outcome == "COOLED"
 
 
-def test_shared_pipeline_failure_blocks_instead_of_rotating():
-    decision = engine.evaluate({
+def test_shared_pipeline_failure_blocks_pipeline_work_but_not_independent_green():
+    blocked = engine.evaluate({
         "failure_count": 3,
         "failure_scope": "SHARED",
         "eligible_alternative": True,
+        "pipeline_dependent": True,
     })
-    assert decision.outcome == "BLOCKED"
-    assert decision.rotate_mission is False
+    assert blocked.outcome == "BLOCKED"
+    assert blocked.rotate_mission is False
+
+    independent = engine.evaluate({
+        "failure_count": 3,
+        "failure_scope": "SHARED",
+        "eligible_alternative": True,
+        "pipeline_dependent": False,
+        "requires_14b_worker": False,
+        "authority": "GREEN",
+    })
+    assert independent.outcome == "ROTATE_DETERMINISTIC_GREEN"
+    assert independent.rotate_mission is True
+
+    needs_model = engine.evaluate({
+        "failure_count": 3,
+        "failure_scope": "SHARED",
+        "eligible_alternative": True,
+        "pipeline_dependent": False,
+        "requires_14b_worker": True,
+        "authority": "GREEN",
+    })
+    assert needs_model.outcome == "BLOCKED"
+
+    not_green = engine.evaluate({
+        "failure_count": 3,
+        "failure_scope": "SHARED",
+        "eligible_alternative": True,
+        "pipeline_dependent": False,
+        "requires_14b_worker": False,
+        "authority": "YELLOW",
+    })
+    assert not_green.outcome == "BLOCKED"
+
+
+def test_reject_accounting_survives_recovery_pass():
+    reject = engine.evaluate({
+        "evaluator_verdict": "REJECT",
+        "failure_count_before": 2,
+        "failure_count_after": 3,
+        "failure_evidence_cleared": False,
+    })
+    assert reject.outcome == "FAILURE_RETAINED"
+    assert reject.reason == "REJECT_EVIDENCE_PRESERVED"
+
+    recovery = engine.evaluate({
+        "evaluator_verdict": "REJECT",
+        "recovery_result": "RECOVERY_PASS",
+        "failure_count_before": 3,
+        "failure_count_after": 3,
+        "failure_evidence_cleared": False,
+    })
+    assert recovery.outcome == "FAILURE_RETAINED"
+
+    erased = engine.evaluate({
+        "evaluator_verdict": "REJECT",
+        "recovery_result": "RECOVERY_PASS",
+        "failure_count_before": 3,
+        "failure_count_after": 0,
+        "failure_evidence_cleared": True,
+    })
+    assert erased.outcome == "REJECTED"
+    assert erased.reason == "REJECT_EVIDENCE_CLEARED"
 
 
 def test_resume_rejects_replay_of_verified_stage():
