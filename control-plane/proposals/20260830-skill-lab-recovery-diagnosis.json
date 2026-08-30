@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "kind": "kevin-skill-lab-recovery-diagnosis",
+  "generated_at": "2026-08-30T06:35:00Z",
+  "classification": "GREEN_DIAGNOSIS_ONLY",
+  "summary": "Skill Lab orchestration/runner is wedged; proven GREEN primitives and staging path are healthy.",
+  "evidence": {
+    "skill_lab_cron": {
+      "enabled": true,
+      "last_status": "error",
+      "consecutive_errors": 5,
+      "every_ms": 120000
+    },
+    "action_selftests": {
+      "operator": "PASS",
+      "initiative": "PASS",
+      "ui_bridge_hash_match": true,
+      "ui_bridge_task_present": true,
+      "benchmark": {
+        "status": "PASS",
+        "passed": 30,
+        "total": 30,
+        "critical": 0
+      }
+    },
+    "isolation_composite": {
+      "path": "inbox/skills/watchtower-create-text-proof-v1.json",
+      "sha256": "26B7AB4DBF350E31CCD3F96D0A0F5FDAD29CF7DDAB6BEA165DDF244A2171FFC7",
+      "stage_status": "STAGED",
+      "steps": [
+        "create_text"
+      ],
+      "post_interval_state": {
+        "ready": 1,
+        "running": 1,
+        "done": 0,
+        "failed": 0,
+        "proven_count": 0
+      }
+    },
+    "control_plane": {
+      "autonomy_snapshot_stale": true,
+      "refresh_order_acknowledged": false
+    }
+  },
+  "conclusion": {
+    "primary_failure_family": "skill_lab_runner_orchestration",
+    "ruled_out": [
+      "composite manifest hash/validation",
+      "create_text GREEN primitive",
+      "Green Operator selftest",
+      "Initiative Engine selftest",
+      "UI Bridge component hash"
+    ],
+    "safe_machine_repair_available": false,
+    "reason": "Existing typed GREEN maintenance actions do not include repairing/restarting/replacing an erroring Skill Lab runner."
+  },
+  "safety": {
+    "production_mutation": false,
+    "authority_expansion": false,
+    "arbitrary_shell": false,
+    "auto_promotion": false,
+    "owner_hash_pins_changed": false
+  }
+}
