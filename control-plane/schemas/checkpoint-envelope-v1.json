@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "kind": "kevin-checkpoint-envelope-contract",
+  "candidate_only": true,
+  "required_fields": [
+    "mission_id",
+    "run_id",
+    "stage",
+    "updated_at",
+    "input_fingerprint",
+    "evidence_fingerprints",
+    "budget",
+    "failure_family",
+    "failure_attempts",
+    "next_action",
+    "semantic_completion",
+    "operation_receipts",
+    "worker_slot"
+  ],
+  "stages": ["admit", "plan", "build", "review", "benchmark", "complete"],
+  "worker_slot": "14b-primary",
+  "max_failure_attempts_per_family": 3,
+  "resume_policy": {
+    "input_drift": "block_and_re_admit",
+    "budget_exhausted": "block",
+    "failure_family_saturated": "cool_family",
+    "completed_operation_key": "skip_replay",
+    "stage_regression": "forbidden",
+    "complete_requires_semantic_evidence": true
+  },
+  "safety": {
+    "grants_authority": false,
+    "executes_actions": false,
+    "production_mutation": false,
+    "arbitrary_shell": false,
+    "external_sends": false
+  }
+}
