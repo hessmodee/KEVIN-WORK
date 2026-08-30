@@ -16,5 +16,23 @@
     "created_at": {"type": "string", "format": "date-time"},
     "expires_at": {"type": "string", "format": "date-time"},
     "params": {"type": "object"}
-  }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"operation": {"const": "stage_composite_skill"}}},
+      "then": {
+        "properties": {
+          "params": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["skill_path", "skill_sha256"],
+            "properties": {
+              "skill_path": {"type": "string", "pattern": "^inbox/skills/[A-Za-z0-9._-]+\\.json$"},
+              "skill_sha256": {"type": "string", "pattern": "^[A-Fa-f0-9]{64}$"}
+            }
+          }
+        }
+      }
+    }
+  ]
 }
