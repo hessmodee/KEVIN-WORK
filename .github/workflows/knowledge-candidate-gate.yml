@@ -1,0 +1,23 @@
+name: Knowledge Candidate Gate
+on:
+  pull_request:
+    paths:
+      - 'tools/validate_knowledge_record.py'
+      - 'tools/test_validate_knowledge_record.py'
+      - '.github/workflows/knowledge-candidate-gate.yml'
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile
+        run: python -m py_compile tools/validate_knowledge_record.py tools/test_validate_knowledge_record.py
+      - name: Deterministic tests
+        working-directory: tools
+        run: python test_validate_knowledge_record.py
+      - name: Static authority boundary
+        run: |
+          ! grep -Eqi 'subprocess|os\.system|socket|requests|urllib|powershell|cmd\.exe|ssh|production mutation|send external|move money' tools/validate_knowledge_record.py
