@@ -1,0 +1,36 @@
+name: GREEN Maintenance Receipt Gate
+
+on:
+  push:
+    branches: [kevin-green-maintenance-receipts-v0.1]
+  pull_request:
+    paths:
+      - control-plane/schemas/green-maintenance-receipt-v1.schema.json
+      - tools/verify_green_maintenance_receipt.py
+      - tools/test_verify_green_maintenance_receipt.py
+      - .github/workflows/green-maintenance-receipts-gate.yml
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile
+        run: python -m py_compile tools/verify_green_maintenance_receipt.py tools/test_verify_green_maintenance_receipt.py
+      - name: Contract tests
+        working-directory: tools
+        run: python test_verify_green_maintenance_receipt.py
+      - name: Static authority boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('tools/verify_green_maintenance_receipt.py').read_text()
+          forbidden=['subprocess','os.system','requests.','urllib.request','socket.','powershell','cmd.exe','shell=True']
+          bad=[x for x in forbidden if x in s]
+          assert not bad,bad
+          assert 'ALLOWED_ACTIONS' in s and 'authority_class' in s
+          print('PASS static GREEN-only verifier boundary')
+          PY

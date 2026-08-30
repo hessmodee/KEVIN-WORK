@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kevin.local/schemas/green-maintenance-receipt-v1.schema.json",
+  "title": "Kevin GREEN Maintenance Receipt v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema","kind","receipt_id","idempotency_key","action","target","authority_class","started_at","finished_at","precondition_fingerprint","postcondition","rollback","evidence","result"],
+  "properties": {
+    "schema": {"const": 1},
+    "kind": {"const": "kevin-green-maintenance-receipt"},
+    "receipt_id": {"type":"string","pattern":"^[A-Za-z0-9._-]{8,100}$"},
+    "idempotency_key": {"type":"string","pattern":"^[A-Za-z0-9._-]{8,140}$"},
+    "action": {"enum":["collect_diagnostics","run_support_bridge","run_benchmark","enable_expected_automation"]},
+    "target": {"type":"string","minLength":1,"maxLength":160},
+    "authority_class": {"const":"GREEN"},
+    "started_at": {"type":"string","format":"date-time"},
+    "finished_at": {"type":"string","format":"date-time"},
+    "precondition_fingerprint": {"type":"string","pattern":"^[A-Fa-f0-9]{64}$"},
+    "postcondition": {
+      "type":"object","additionalProperties":false,"required":["verified","check","observed"],
+      "properties":{"verified":{"type":"boolean"},"check":{"type":"string","minLength":1,"maxLength":240},"observed":{"type":"string","minLength":1,"maxLength":500}}
+    },
+    "rollback": {
+      "type":"object","additionalProperties":false,"required":["required","available","performed","evidence"],
+      "properties":{"required":{"type":"boolean"},"available":{"type":"boolean"},"performed":{"type":"boolean"},"evidence":{"type":"string","maxLength":500}}
+    },
+    "evidence": {"type":"array","minItems":1,"maxItems":20,"items":{"type":"string","minLength":1,"maxLength":500}},
+    "result": {"enum":["PASS","FAIL","ROLLED_BACK"]}
+  }
+}
