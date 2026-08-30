@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-29T19:16:18.7502958-06:00",
+  "generated_at": "2026-08-29T19:20:18.8187791-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 49,
-    "cpu_pct": 1,
+    "memory_pct": 50,
+    "cpu_pct": 8,
     "gpu": "RTX 3060",
-    "gpu_pct": 39
+    "gpu_pct": 22
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-29T13:38:48-06:00",
-        "estimated": false,
-        "ram": 60,
-        "cpu": 2,
-        "gpu": 2
-      },
       {
         "at": "2026-08-29T13:38:50-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 49,
         "cpu": 1,
         "gpu": 39
+      },
+      {
+        "at": "2026-08-29T19:20:14-06:00",
+        "estimated": false,
+        "ram": 50,
+        "cpu": 8,
+        "gpu": 22
       }
     ],
     "ram": [
-      60,
       60,
       68,
       68,
@@ -798,10 +797,10 @@
       58,
       58,
       50,
-      49
+      49,
+      50
     ],
     "cpu": [
-      2,
       2,
       12,
       12,
@@ -896,10 +895,10 @@
       7,
       7,
       14,
-      1
+      1,
+      8
     ],
     "gpu": [
-      2,
       2,
       28,
       28,
@@ -994,11 +993,12 @@
       34,
       34,
       42,
-      39
+      39,
+      22
     ]
   },
   "weather": {
-    "summary": "Tonight 50 | Wind 6 mph | Chance Showers And Thunderstorms then Showers And Thunderstorms Likely"
+    "summary": "Tonight 50 | Wind 3 to 8 mph | Chance Showers And Thunderstorms then Showers And Thunderstorms Likely"
   },
   "capabilities": [
     {
@@ -1093,7 +1093,7 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 92,
+      "done": 93,
       "total": 93
     }
   ],
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-08-29T19:05:22-06:00",
+      "at": "2026-08-29T19:20:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1377,7 +1377,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-29T19:16:18.7502958-06:00",
+    "last": "2026-08-29T19:20:18.8187791-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1414,7 +1414,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-29T19:16:18.7502958-06:00",
+    "generated_at": "2026-08-29T19:20:18.8187791-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
