@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "kind": "kevin-owner-checkpoint",
+  "generated_at": "2026-08-30T07:08:33-06:00",
+  "status": "OWNER_ACTION_REQUIRED",
+  "scope": "skill_lab_runner_recovery_only",
+  "evidence": {
+    "engineering_relay": "healthy",
+    "benchmark": {"status":"PASS","passed":30,"total":30,"critical":0,"at":"2026-08-30T07:02:33.0877275-06:00"},
+    "action_queue": {"ready":0,"running":0,"done":4,"failed":0},
+    "composite_skills": {"ready":1,"running":1,"done":0,"failed":0,"proven_count":0},
+    "skill_lab_cron": {"enabled":true,"last_status":"error","consecutive_errors":12,"every_ms":120000},
+    "core_governance_ok": true
+  },
+  "diagnosis": "The local Skill Lab runner/orchestration layer remains wedged while proven GREEN primitives and staging/relay paths remain healthy.",
+  "requested_owner_authorization": {
+    "action": "Approve one bounded local repair/install of the known Kevin Skill Lab runner, or explicitly extend the typed GREEN maintenance allowlist with a narrowly defined skill_lab_runner_recover action.",
+    "must_preserve": [
+      "existing owner locks and governance",
+      "no arbitrary shell or arbitrary remote code",
+      "no new primitive authority",
+      "existing Engineering Relay allowlist",
+      "bounded retries and deterministic stale-RUNNING recovery",
+      "idempotent step work-order IDs",
+      "independent evidence verification",
+      "rollback capability"
+    ],
+    "proof_required_after_repair": [
+      "parser/static validation",
+      "Skill Lab self-test",
+      "stale-RUNNING recovery test",
+      "one-step create_text composite",
+      "two-step create_text -> ui_notepad_write composite",
+      "duplicate/replay test",
+      "intentional failure evidence test",
+      "restart/resume test",
+      "fresh Benchmark PASS 30/30 critical=0",
+      "durable exact-hash proof artifact"
+    ]
+  },
+  "not_requested": [
+    "administrator credentials unless the local installer itself requires elevation",
+    "arbitrary shell authority",
+    "permission broadening",
+    "browser authority promotion",
+    "Yellow/Red consequential authority"
+  ]
+}
