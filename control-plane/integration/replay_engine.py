@@ -41,6 +41,19 @@ DEFAULTS = {
     "verified_stage_replay": False,
 }
 
+SAFE_FIXTURE_METADATA = {"name", "expected"}
+AUTHORITY_INJECTION_KEYS = {
+    "authority_override",
+    "authority_class",
+    "arbitrary_shell",
+    "permission_widening",
+    "production_promotion",
+    "external_send",
+    "money_movement",
+    "purchase",
+    "credential_access",
+}
+
 
 def _state(case: Mapping[str, Any]) -> dict[str, Any]:
     state = dict(DEFAULTS)
@@ -50,6 +63,14 @@ def _state(case: Mapping[str, Any]) -> dict[str, Any]:
 
 def evaluate(case: Mapping[str, Any]) -> ReplayDecision:
     """Evaluate one synthetic integration case using fail-closed ordering."""
+    keys = set(case)
+    if keys & AUTHORITY_INJECTION_KEYS:
+        return ReplayDecision("BLOCKED", "AUTHORITY_INJECTION")
+
+    unknown = keys - set(DEFAULTS) - SAFE_FIXTURE_METADATA
+    if unknown:
+        return ReplayDecision("REJECTED", "UNKNOWN_FIXTURE_FIELD")
+
     s = _state(case)
 
     if int(s["heavy_workers"]) > 1:
