@@ -1,41 +1,21 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-08-30T00:30:12.1812912-06:00",
+    "generated_at":  "2026-08-30T00:32:13.8550695-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
-                    "id":  "watch-action-selftests-20260830-002830",
-                    "operation":  "action_selftests",
-                    "status":  "DONE",
-                    "detail":  "Action self-tests completed."
+                    "id":  "watch-stage-text-proof-20260830-003100",
+                    "operation":  "stage_composite_skill",
+                    "status":  "STAGED",
+                    "detail":  "Composite skill staged for Skill Lab."
                 },
     "result":  {
-                   "operator":  {
-                                    "exit_code":  0,
-                                    "summary":  "GREEN OPERATOR v0.3.3 SELFTEST PASS allowlist=3 ui_bridge=InteractiveToken negative_blocks=5 generic_mouse_keyboard=false"
-                                },
-                   "initiative":  {
-                                      "exit_code":  0,
-                                      "summary":  "INITIATIVE ENGINE v0.3 SELFTEST PASS green_only=true ui_bridge_first_win=valid nested_rows=true daily_budget=4"
-                                  },
-                   "ui_bridge":  {
-                                     "hash_match":  true,
-                                     "task_present":  true,
-                                     "heartbeat":  {
-                                                       "schema":  1,
-                                                       "kind":  "kevin-ui-bridge-heartbeat",
-                                                       "version":  "0.3.3",
-                                                       "at":  "2026-08-29T22:58:27.0502425-06:00",
-                                                       "state":  "READY",
-                                                       "detail":  "Interactive UI Bridge online; Notepad-only GREEN requests accepted.",
-                                                       "session_id":  1,
-                                                       "explorer_same_session":  true,
-                                                       "user":  "HESS-PC\\hessm",
-                                                       "process_id":  25820,
-                                                       "authority":  "GREEN_NOTEPAD_ONLY"
-                                                   }
-                                 }
+                   "skill_id":  "watchtower-create-text-proof",
+                   "version":  "1",
+                   "local_name":  "watchtower-create-text-proof--1.json",
+                   "step_count":  1,
+                   "skill_sha256":  "26B7AB4DBF350E31CCD3F96D0A0F5FDAD29CF7DDAB6BEA165DDF244A2171FFC7"
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -51,7 +31,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  5505.1
+                                     "heartbeat_age_seconds":  5626.8
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -60,7 +40,7 @@
                                   "failed":  0
                               },
                    "composite_skills":  {
-                                            "ready":  0,
+                                            "ready":  1,
                                             "running":  1,
                                             "done":  0,
                                             "failed":  0,
@@ -90,11 +70,11 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-maintenance-intake-v1",
+                                    "declaration_key":  "kevin-skill-lab-v1",
                                     "enabled":  true,
-                                    "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
+                                    "every_ms":  120000,
+                                    "last_status":  "error",
+                                    "consecutive_errors":  5
                                 },
                                 {
                                     "declaration_key":  "kevin-support-bridge-v1",
@@ -104,11 +84,11 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-skill-lab-v1",
+                                    "declaration_key":  "kevin-maintenance-intake-v1",
                                     "enabled":  true,
-                                    "every_ms":  120000,
-                                    "last_status":  "error",
-                                    "consecutive_errors":  5
+                                    "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
                                 },
                                 {
                                     "declaration_key":  "kevin-benchmark-v1",
