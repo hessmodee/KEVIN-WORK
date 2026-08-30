@@ -40,6 +40,41 @@ function taskText(t){return `${norm(t?.id)} ${norm(t?.title)} ${norm(t?.category
 function telemetryAgeMs(d,s){const vals=[d?.generated_at,s?.generated_at].map(v=>Date.parse(v||'')).filter(Number.isFinite);return vals.length?Math.max(0,Date.now()-Math.max(...vals)):Infinity}
 function telemetryOffline(d,s){return telemetryAgeMs(d,s)>15*60*1000}
 
+
+function clampPct(v){const n=Number(v);return Number.isFinite(n)?Math.max(0,Math.min(100,Math.round(n))):null}
+function progressFromObject(o){
+ if(!o||typeof o!=='object')return null;
+ for(const k of ['progress_pct','percent','pct']){const p=clampPct(o[k]);if(p!==null)return p}
+ const done=Number(o.completed??o.done),total=Number(o.total);
+ if(Number.isFinite(done)&&Number.isFinite(total)&&total>0&&done>=0)return clampPct((done/total)*100);
+ return null;
+}
+function taskMatchesWorker(key,t){
+ const tt=taskText(t);
+ if(key==='build')return /design forge|forge|build|builder|mission factory/.test(tt);
+ if(key==='night')return /night[- ]forge|night forge|qa\/regression/.test(tt);
+ if(key==='benchmark')return /benchmark|regression/.test(tt);
+ if(key==='reader')return /reader|read-only|research|source review/.test(tt);
+ if(key==='staging')return /staging|promotion|champion/.test(tt);
+ if(key==='chat')return /chat|reasoning|analysis|planning|conversation/.test(tt);
+ if(key==='ollama')return taskActive(t);
+ return false;
+}
+function workerProgress(key,state,d,s){
+ if(!['working','building'].includes(state))return null;
+ const candidates=[s?.worker_progress?.[key],d?.worker_progress?.[key],d?.ops_floor?.progress?.[key]];
+ for(const c of candidates){const p=progressFromObject(c);if(p!==null)return {percent:p,measured:true,detail:'Explicit worker progress telemetry'}}
+ const t=d?.current_task||null;
+ if(taskActive(t)&&taskMatchesWorker(key,t)){
+   const p=progressFromObject(t);
+   if(p!==null)return {percent:p,measured:true,detail:'Confirmed task checkpoints'};
+   return {percent:0,measured:false,detail:'Active; no completed progress checkpoint has been reported yet'};
+ }
+ if(key==='bridge'||key==='tick')return {percent:100,measured:true,detail:'Most recent scheduled cycle completed'};
+ return {percent:0,measured:false,detail:'Active; awaiting explicit progress telemetry'};
+}
+
+
 function workerState(key,d,s){
  const bw=s?.active_workers||{};
  const t=d?.current_task||null;
@@ -141,7 +176,7 @@ async function load(){
  [['Reader','ready'],['Night Forge',(s?.active_workers?.night_forge||0)>0?'active':'ready'],['Build Lab',(s?.active_workers?.design_forge||0)>0?'active':'ready'],['Ollama',d?.services?.ollama==='healthy'?'ready':''],['Bridge',workerState('bridge',d,s)==='working'?'active':(d?.services?.bridge==='healthy'?'ready':'')],['Tick',d?.services?.tick==='healthy'?'ready':'']].forEach(([n,st])=>rail.insertAdjacentHTML('beforeend',`<div class="svc"><i class="dot ${st}"></i><b>${esc(n)}</b><span>${st==='active'?'ACTIVE':st==='ready'?'READY':'CHECK'}</span></div>`));
  const top=document.getElementById('topology');top.querySelectorAll('.worker,.line').forEach(x=>x.remove());
  const center={x:top.clientWidth/2,y:top.clientHeight/2},positions=ringPositions(top,WORKERS.length),active=[];
- WORKERS.forEach((w,i)=>{const st=workerState(w.key,d,s),p=positions[i];if(['working','building'].includes(st))active.push({w,st});lineBetween(top,center,p,st);const el=document.createElement('div');el.className=`worker ${st}`;el.style.cssText=`left:${(p.x/top.clientWidth)*100}%;top:${(p.y/top.clientHeight)*100}%;--idc:${w.c};--statec:${stateColor(st)}`;el.innerHTML=`<div class="box">${owl(w.c,w.key)}<div class="worker-copy"><b>${w.name}</b><small>${w.role}</small><span class="state">${stateLabel(st)}</span></div></div>`;el.onclick=()=>selectWorker(w,st,d,s);top.appendChild(el)});
+ WORKERS.forEach((w,i)=>{const st=workerState(w.key,d,s),p=positions[i];if(['working','building'].includes(st))active.push({w,st});lineBetween(top,center,p,st);const prog=workerProgress(w.key,st,d,s),el=document.createElement('div');el.className=`worker ${st}`;el.style.cssText=`left:${(p.x/top.clientWidth)*100}%;top:${(p.y/top.clientHeight)*100}%;--idc:${w.c};--statec:${stateColor(st)}`;const progressHtml=prog?`<div class="worker-progress ${prog.measured?'measured':'checkpoint-wait'}" title="${esc(prog.detail)}"><div class="worker-progress-fill" style="width:${prog.percent}%"></div><span>${prog.percent}%</span></div>`:'';el.innerHTML=`<div class="box">${owl(w.c,w.key)}<div class="worker-copy"><b>${w.name}</b><small>${w.role}</small><span class="state">${stateLabel(st)}</span></div></div>${progressHtml}`;el.onclick=()=>selectWorker(w,st,d,s);top.appendChild(el)});
  const kstates=kevinStates(d,s),ks=kstates[0],kmode=ks==='offline'?'disconnected':ks==='degraded'?'degraded':kstates.some(x=>['working','building'].includes(x))?'working':'ready';
  document.getElementById('headerKevinProd').innerHTML=kevinProd(kmode,true);document.getElementById('hubKevinProd').innerHTML=kevinProd(kmode,false);renderKevinCenter(d,s,kstates);
  const liveTask=taskActive(d?.current_task)?d.current_task:null;

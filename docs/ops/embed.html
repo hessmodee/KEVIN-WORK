@@ -4,8 +4,8 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <meta content="dark" name="color-scheme"/>
-<title>Kevin HQ â€” Ops Floor embedded</title>
-<link href="./ops-v11.css?v=14" rel="stylesheet"/>
+<title>Kevin HQ — Ops Floor embedded</title>
+<link href="./ops-v11.css?v=15" rel="stylesheet"/>
 <style>
 html,body{background:transparent!important}
 body{padding:0!important;background:none!important}
@@ -17,37 +17,37 @@ body{padding:0!important;background:none!important}
 <body>
 <div class="wrap">
 <div class="top">
-<div class="brand"><div id="headerKevinProd"></div><div><div class="title">Kevin HQ</div><div class="subtitle">Chief of Staff Â· telemetry-backed Ops Floor v11</div></div></div>
-<div class="chips"><span class="chip">HQ v11 Â· production</span><span class="chip ok" id="overallChip">LIVE</span></div>
+<div class="brand"><div id="headerKevinProd"></div><div><div class="title">Kevin HQ</div><div class="subtitle">Chief of Staff · telemetry-backed Ops Floor v11</div></div></div>
+<div class="chips"><span class="chip">HQ v11 · production</span><span class="chip ok" id="overallChip">LIVE</span></div>
 </div>
-<div class="news"><b>NEWSWIRE</b><span id="newsText">Loading Kevin telemetryâ€¦</span></div>
+<div class="news"><b>NEWSWIRE</b><span id="newsText">Loading Kevin telemetry…</span></div>
 <div class="rail" id="serviceRail"></div>
 <div class="nav"></div>
 <section class="card">
-<div class="ops-head"><div><div class="kicker">Operations Floor</div><div class="helper">Real topology Â· motion is telemetry-driven, never decorative busy-work</div></div><div class="helper">Kevin is the Chief of Staff Â· center badge = Kevin's current state</div></div>
+<div class="ops-head"><div><div class="kicker">Operations Floor</div><div class="helper">Real topology · motion is telemetry-driven, never decorative busy-work</div></div><div class="helper">Kevin is the Chief of Staff · center badge = Kevin's current state</div></div>
 <div class="topology" id="topology"><div class="gridline"></div>
-<div class="hub" id="kevinHub"><div class="hub-inner"><h2>Kevin</h2><div class="role">Chief of Staff</div><div id="hubKevinProd"></div><div class="kevin-states" id="kevinState" aria-live="polite"><span class="loop state-ready" style="--kstatec:#68d8ce">READY</span></div><div class="kevin-meta" id="kevinMeta"><div><b>Autonomy loop enabled</b></div><div>Waiting for telemetryâ€¦</div></div></div></div>
+<div class="hub" id="kevinHub"><div class="hub-inner"><h2>Kevin</h2><div class="role">Chief of Staff</div><div id="hubKevinProd"></div><div class="kevin-states" id="kevinState" aria-live="polite"><span class="loop state-ready" style="--kstatec:#68d8ce">READY</span></div><div class="kevin-meta" id="kevinMeta"><div><b>Autonomy loop enabled</b></div><div>Waiting for telemetry…</div></div></div></div>
 </div>
 <div class="legend"><span><i style="background:#68d8ce"></i>Ready</span><span><i style="background:#79c56a"></i>Working</span><span><i style="background:#f06dbb"></i>Building</span><span><i style="background:#b38cff"></i>Cooldown</span><span><i style="background:#ff9a3d"></i>Degraded</span><span><i style="background:#e46f61"></i>Offline</span><span class="note">WORKING = moving bars · BUILDING = moving dots · Ready lanes stay quiet · colors are evidence-backed</span></div>
 </section>
 <div class="strip">
-<div><div class="lbl">Active mission</div><div class="val" id="mission">â€”</div></div>
-<div><div class="lbl">Current action</div><div class="val" id="action">â€”</div></div>
-<div><div class="lbl">Recent event</div><div class="val" id="recent">â€”</div></div>
-<div><div class="lbl">Evidence</div><div class="val" id="evidence">â€”</div></div>
-<div><div class="lbl">Active workers</div><div class="val" id="activeWorkers">â€”</div><div class="subagents" id="subagents"></div></div>
+<div><div class="lbl">Active mission</div><div class="val" id="mission">—</div></div>
+<div><div class="lbl">Current action</div><div class="val" id="action">—</div></div>
+<div><div class="lbl">Recent event</div><div class="val" id="recent">—</div></div>
+<div><div class="lbl">Evidence</div><div class="val" id="evidence">—</div></div>
+<div><div class="lbl">Active workers</div><div class="val" id="activeWorkers">—</div><div class="subagents" id="subagents"></div></div>
 </div>
 <section class="card detail">
-<div class="kicker">Selected worker</div><h3 id="selectedName">Kevin â€” Chief of Staff</h3>
+<div class="kicker">Selected worker</div><h3 id="selectedName">Kevin — Chief of Staff</h3>
 <div class="detail-grid">
-<div class="metric"><div class="kicker">Status</div><div class="big" id="selectedStatus">Loadingâ€¦</div><div class="small" id="selectedDetail">Waiting for telemetry.</div></div>
-<div class="metric"><div class="kicker">System load</div><div class="big" id="load">â€”</div><div class="small" id="loadDetail">â€”</div></div>
-<div class="metric"><div class="kicker">Evidence age</div><div class="big" id="age">â€”</div><div class="small" id="benchmark">â€”</div></div>
+<div class="metric"><div class="kicker">Status</div><div class="big" id="selectedStatus">Loading…</div><div class="small" id="selectedDetail">Waiting for telemetry.</div></div>
+<div class="metric"><div class="kicker">System load</div><div class="big" id="load">—</div><div class="small" id="loadDetail">—</div></div>
+<div class="metric"><div class="kicker">Evidence age</div><div class="big" id="age">—</div><div class="small" id="benchmark">—</div></div>
 </div>
 </section>
-<div class="foot"><span id="updated">Kevin HQ v11 Â· production</span><span>Internal Supervisor remains an implementation detail, not a separate coworker</span></div>
+<div class="foot"><span id="updated">Kevin HQ v11 · production</span><span>Internal Supervisor remains an implementation detail, not a separate coworker</span></div>
 </div>
-<script src="./ops-v11.js?v=14"></script>
+<script src="./ops-v11.js?v=15"></script>
 <script>
 (()=>{
  const send=()=>{try{parent.postMessage({type:'kevin-ops-height',height:Math.ceil(document.documentElement.scrollHeight)},location.origin)}catch(_e){}};
