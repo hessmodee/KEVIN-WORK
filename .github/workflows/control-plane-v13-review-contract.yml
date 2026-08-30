@@ -1,0 +1,78 @@
+name: Control Plane v1.3 Review Contract Repair
+
+on:
+  push:
+    branches:
+      - kevin-control-plane-v1.3-review-contract
+
+permissions:
+  contents: write
+
+jobs:
+  windows-gate:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply v1.3 repair
+        shell: pwsh
+        run: python .github/scripts/patch-control-plane-v13-review-contract.py
+
+      - name: Parse patched PowerShell
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          foreach($p in @('control-plane/dispatcher/kevin-mission-worker-v0.1.ps1','control-plane/dispatcher/kevin-mission-dispatcher-v0.1.ps1')){
+            $tokens=$null;$errors=$null
+            [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+            if($errors -and $errors.Count){$errors|ForEach-Object{Write-Host ("PARSE {0}:{1} {2}" -f $p,$_.Extent.StartLineNumber,$_.Message)};throw "PowerShell parser failed: $p"}
+          }
+          Write-Host 'PASS Windows PowerShell parser'
+
+      - name: Runtime self-tests in isolated fixture
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $fake=Join-Path $env:RUNNER_TEMP 'kevin-v13-fixture'
+          $env:USERPROFILE=$fake
+          $control=Join-Path $fake '.openclaw\workspace\ControlPlane'
+          New-Item -ItemType Directory -Path $control -Force|Out-Null
+          Copy-Item 'control-plane/dispatcher/mission-catalog-v1.json' (Join-Path $control 'mission-catalog-v1.json') -Force
+          Copy-Item 'control-plane/dispatcher/kevin-mission-worker-v0.1.ps1' (Join-Path $control 'kevin-mission-worker-v0.1.ps1') -Force
+          Copy-Item 'control-plane/dispatcher/kevin-mission-dispatcher-v0.1.ps1' (Join-Path $control 'kevin-mission-dispatcher-v0.1.ps1') -Force
+          $w=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File (Join-Path $control 'kevin-mission-worker-v0.1.ps1') -Mode SelfTest
+          if($LASTEXITCODE -ne 0){throw "Worker self-test failed exit=$LASTEXITCODE"}
+          $w|Write-Host
+          if(($w -join "`n") -notmatch 'structured_fallback=line-or-json'){throw 'Worker v1.3 structured fallback proof marker missing.'}
+          $d=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File (Join-Path $control 'kevin-mission-dispatcher-v0.1.ps1') -Mode SelfTest
+          if($LASTEXITCODE -ne 0){throw "Dispatcher self-test failed exit=$LASTEXITCODE"}
+          $d|Write-Host
+          if(($d -join "`n") -notmatch 'failure_family=review-output-contract'){throw 'Dispatcher v1.3 failure-family proof marker missing.'}
+          Write-Host 'PASS v1.3 isolated runtime self-tests'
+
+      - name: Static safety invariants
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $w=Get-Content 'control-plane/dispatcher/kevin-mission-worker-v0.1.ps1' -Raw
+          $d=Get-Content 'control-plane/dispatcher/kevin-mission-dispatcher-v0.1.ps1' -Raw
+          foreach($needle in @('Parse-ReviewStructuredFallback','REVIEW_OUTPUT_CONTRACT_FAILURE','Validate-ReviewObject')){if($w -notmatch [regex]::Escape($needle)){throw "Missing worker invariant: $needle"}}
+          foreach($needle in @('Get-InfraFailureFamily','review-output-contract','$State.failure_family -eq $family')){if($d -notmatch [regex]::Escape($needle)){throw "Missing dispatcher invariant: $needle"}}
+          if($w -match 'allow_arbitrary_shell\s*=\s*\$true' -or $d -match 'allow_arbitrary_shell\s*=\s*\$true'){throw 'Safety regression: arbitrary shell enabled.'}
+          Write-Host 'PASS safety invariants'
+
+      - name: Commit repaired runtime sources
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          git config user.name 'Kevin CI'
+          git config user.email 'actions@users.noreply.github.com'
+          git add control-plane/dispatcher/kevin-mission-worker-v0.1.ps1 control-plane/dispatcher/kevin-mission-dispatcher-v0.1.ps1
+          if(-not (git diff --cached --quiet)){
+            git commit -m 'Repair Mission Factory review contract and failure budget [skip ci]'
+            git push origin HEAD:kevin-control-plane-v1.3-review-contract
+          } else {
+            Write-Host 'No source changes to commit.'
+          }
