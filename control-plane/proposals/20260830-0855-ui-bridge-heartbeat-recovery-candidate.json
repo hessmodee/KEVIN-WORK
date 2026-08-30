@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "kind": "kevin-ui-bridge-heartbeat-recovery-candidate",
+  "generated_at": "2026-08-30T08:55:00-06:00",
+  "status": "GREEN_REPAIR_CANDIDATE_AWAITING_TYPED_LOCAL_EXECUTION",
+  "problem": {
+    "component": "Kevin UI Bridge v0.3.4",
+    "expected_sha256": "5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42",
+    "scheduled_task": "Kevin UI Bridge v0.3",
+    "observed_task_present": true,
+    "observed_hash_match": true,
+    "observed_heartbeat_at": "2026-08-29T22:58:27.0502425-06:00",
+    "observed_heartbeat_state": "READY",
+    "observed_heartbeat_age_seconds": 35659.4,
+    "expected_live_heartbeat_interval_seconds": 5,
+    "diagnosis": "Task registration and binary identity are intact, but the proven bridge loop should refresh heartbeat about every 5 seconds while alive. Current heartbeat is materially stale. Engineering Relay action_selftests does not actively execute the UI Bridge self-test; it only checks hash/task/heartbeat. Current interactive availability is therefore not proven and the bridge is likely not running."
+  },
+  "authority": {
+    "classification": "GREEN_ROUTINE_REPAIR_CANDIDATE",
+    "new_primitive_authority": false,
+    "arbitrary_shell": false,
+    "arbitrary_process_control": false,
+    "permission_widening": false,
+    "external_send": false,
+    "purchase_or_payment": false
+  },
+  "typed_repair_contract": {
+    "operation": "recover_ui_bridge_v034",
+    "fixed_target": "Kevin UI Bridge v0.3",
+    "preconditions": [
+      "installed ui bridge SHA256 equals pinned proven v0.3.4 hash",
+      "scheduled task exists with exact expected name",
+      "scheduled task principal remains LIMITED and interactive-session scoped",
+      "no authority/config/trust-pin changes",
+      "capture pre-repair task state and heartbeat"
+    ],
+    "actions": [
+      "start or boundedly restart only the exact existing Kevin UI Bridge v0.3 scheduled task"
+    ],
+    "postconditions": [
+      "new heartbeat timestamp is later than pre-repair heartbeat",
+      "heartbeat age is <= 10 seconds when verified",
+      "heartbeat state is READY",
+      "authority remains GREEN_NOTEPAD_ONLY",
+      "explorer_same_session is true",
+      "session_id is an interactive logged-in session",
+      "ui bridge SHA256 still equals pinned proven hash",
+      "scheduled task definition/principal unchanged",
+      "fresh Benchmark PASS 30/30 critical=0"
+    ],
+    "timeout_seconds": 30,
+    "max_attempts": 1,
+    "rollback": "If the task definition or authority changes, restore captured task state. A simple start/restart with unchanged definition requires no code rollback."
+  },
+  "monitoring_correction": {
+    "rule": "Do not call UI Bridge healthy from hash_match + task_present alone.",
+    "freshness_required": true,
+    "relay_action_selftests_limitation": "Current v1 action_selftests runs Operator and Initiative -SelfTest but only reports UI Bridge hash/task/heartbeat."
+  },
+  "execution_boundary": "Do not execute through arbitrary shell or widen Engineering Relay allowlist via a request. Use only an already-proven typed local actuator/maintenance action, or add this as a separately reviewed fixed typed repair verb before local execution."
+}
