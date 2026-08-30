@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-30T02:14:27.2694482-06:00",
+    "generated_at":  "2026-08-30T02:17:27.0466504-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -57,18 +57,6 @@
                  "ok":  true,
                  "jobs":  [
                               {
-                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
-                                  "declaration_key":  "kevin-hq-live-pulse-v15",
-                                  "name":  "Kevin HQ Live Pulse v1.5",
-                                  "enabled":  true,
-                                  "every_ms":  60000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788077580997,
-                                  "next_run_at_ms":  1788077640997
-                              },
-                              {
                                   "id":  "88a986b2-9ab8-4fe7-a738-d7e52930b1d5",
                                   "declaration_key":  "kevin-support-bridge-v1",
                                   "name":  "Kevin Support Bridge v1.1d",
@@ -77,8 +65,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788077480733,
-                                  "next_run_at_ms":  1788077660733
+                                  "last_run_at_ms":  1788077662991,
+                                  "next_run_at_ms":  1788077842991
+                              },
+                              {
+                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
+                                  "declaration_key":  "kevin-hq-live-pulse-v15",
+                                  "name":  "Kevin HQ Live Pulse v1.5",
+                                  "enabled":  true,
+                                  "every_ms":  60000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788077806742,
+                                  "next_run_at_ms":  1788077866742
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -89,20 +89,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788077590485,
-                                  "next_run_at_ms":  1788077770485
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788077503003,
-                                  "next_run_at_ms":  1788077803003
+                                  "last_run_at_ms":  1788077770507,
+                                  "next_run_at_ms":  1788077950507
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -115,15 +103,27 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788077448476,
                                   "next_run_at_ms":  1788078048476
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788077806747,
+                                  "next_run_at_ms":  1788078106747
                               }
                           ],
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  75,
-                       "last_mission":  "forge-v4",
+                       "cycle":  76,
+                       "last_mission":  "knowledge",
                        "last_result":  "REJECT",
-                       "next_eligible_at":  "2026-08-30T02:14:20.9133466-06:00",
+                       "next_eligible_at":  "2026-08-30T02:16:44.6742382-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -148,20 +148,20 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260830-021341-forge-v4-i56-evaluation.json",
-                              "at":  "2026-08-30T02:14:20.8240757-06:00",
-                              "mission":  "forge-v4",
-                              "iteration":  56,
+                              "file":  "20260830-021611-knowledge-i23-evaluation.json",
+                              "at":  "2026-08-30T02:16:44.5854412-06:00",
+                              "mission":  "knowledge",
+                              "iteration":  23,
                               "verdict":  "REJECT",
-                              "score":  0,
+                              "score":  65,
                               "result":  "",
-                              "failure_count":  8,
-                              "security_finding_count":  0,
+                              "failure_count":  6,
+                              "security_finding_count":  1,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-30T02:11:43.7877454-06:00",
+                        "at":  "2026-08-30T02:16:47.5154019-06:00",
                         "status":  "NO_MANIFEST",
                         "manifest_id":  "",
                         "stage_path":  "",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "B47D5E8E1F64042DA97504A09C9E57D23944313C48F7B65141F34EDFF1BF425F"
+    "semantic_hash":  "69EA5B850842D91B2D0B88CDA71D0A87686350FA670C7FE7721A3EFD55A61E5F"
 }
