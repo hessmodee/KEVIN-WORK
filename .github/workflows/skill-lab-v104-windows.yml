@@ -33,8 +33,11 @@ jobs:
           expected=expected.replace("-Filter'*.json'|sort LastWriteTime,Name|select -First 1", "-Filter '*.json' | Sort-Object LastWriteTime,Name | Select-Object -First 1")
           expected=expected.replace("function Fail([string]$p,$s,[string]$why,$ev=$null){$s.status='FAILED';$s.completed_at=(Get-Date).ToString('o');$s.failure_reason=$why;", "function Fail([string]$p,$s,[string]$why,$ev=$null){Note $s 'completed_at' '';Note $s 'failure_reason' '';$s.status='FAILED';$s.completed_at=(Get-Date).ToString('o');$s.failure_reason=$why;")
           expected=expected.replace("function Complete([string]$p,$s){$s.status='PROVEN';$s.completed_at=(Get-Date).ToString('o');$s.proof_sha256=HO $s;", "function Complete([string]$p,$s){Note $s 'completed_at' '';Note $s 'proof_sha256' '';$s.status='PROVEN';$s.completed_at=(Get-Date).ToString('o');$s.proof_sha256=HO $s;")
-          assert new == expected, 'v1.0.4 contains changes outside confirmed Windows runtime fixes'
-          print('PASS exact minimal delta: Filter tokenization + R alias + PSCustomObject completion fields')
+          primary="Write-Host 'KEVIN SKILL LAB v1.0.4 SELFTEST PASS primitives=3 crash_reconcile=1 arbitrary_shell=false'"
+          compat="Write-Host 'KEVIN SKILL LAB v1.0.3 SELFTEST PASS compatibility=v1.0.4-maintenance-v1.2';"+primary
+          expected=expected.replace(primary,compat)
+          assert new == expected, 'v1.0.4 contains changes outside confirmed Windows runtime fixes + maintenance compatibility marker'
+          print('PASS exact minimal delta: Windows runtime fixes + explicit v1.2 maintenance compatibility marker')
           PY
       - name: Static authority and Windows regression boundary
         run: |
@@ -59,8 +62,9 @@ jobs:
           assert "Note $s 'completed_at' ''" in s
           assert "Note $s 'proof_sha256' ''" in s
           assert "Note $s 'failure_reason' ''" in s
-          assert 'SKILL LAB v1.0.4 SELFTEST PASS' in s
-          print('PASS fixed GREEN primitive envelope + Windows runtime regressions')
+          assert 'KEVIN SKILL LAB v1.0.3 SELFTEST PASS compatibility=v1.0.4-maintenance-v1.2' in s
+          assert 'KEVIN SKILL LAB v1.0.4 SELFTEST PASS' in s
+          print('PASS fixed GREEN primitive envelope + Windows runtime regressions + v1.2 compatibility marker')
           PY
       - name: Exact candidate hash
         run: |
@@ -82,8 +86,11 @@ jobs:
           $tokens=$null; $errors=$null
           [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
           if($errors.Count){$errors|Format-List|Out-String|Write-Host;throw 'Windows PowerShell 5.1 parse failed'}
-          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest
+          $out=(& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1 | Out-String)
+          Write-Host $out
           if($LASTEXITCODE -ne 0){throw 'Windows PowerShell 5.1 self-test failed'}
+          if($out -notmatch 'KEVIN SKILL LAB v1\.0\.3 SELFTEST PASS compatibility=v1\.0\.4-maintenance-v1\.2'){throw 'Maintenance v1.2 compatibility marker missing'}
+          if($out -notmatch 'KEVIN SKILL LAB v1\.0\.4 SELFTEST PASS'){throw 'v1.0.4 primary self-test marker missing'}
       - name: Real queue lifecycle in Windows PowerShell 5.1
         shell: powershell
         run: |
