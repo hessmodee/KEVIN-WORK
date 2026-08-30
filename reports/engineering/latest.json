@@ -1,96 +1,41 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-08-30T00:28:10.3145820-06:00",
+    "generated_at":  "2026-08-30T00:30:12.1812912-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
-                    "id":  "watch-skill-status-20260830-002530",
-                    "operation":  "action_status",
+                    "id":  "watch-action-selftests-20260830-002830",
+                    "operation":  "action_selftests",
                     "status":  "DONE",
-                    "detail":  "Fresh sanitized engineering snapshot captured."
+                    "detail":  "Action self-tests completed."
                 },
     "result":  {
-                   "phase2b_proof_present":  true,
-                   "hashes":  {
-                                  "operator":  "19EEA6749FB70EB18A6ACC2DC0C9DF4313C0AC0D893F646A6D1170044E4C282F",
-                                  "initiative":  "8AA0DC8F5A1502A3E4D0150EB073DC77C29D47F153E066B32D6B8E4B2ACB7CD3",
-                                  "ui_bridge":  "5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42"
-                              },
-                   "hashes_match":  {
-                                        "operator":  true,
-                                        "initiative":  true,
-                                        "ui_bridge":  true
-                                    },
+                   "operator":  {
+                                    "exit_code":  0,
+                                    "summary":  "GREEN OPERATOR v0.3.3 SELFTEST PASS allowlist=3 ui_bridge=InteractiveToken negative_blocks=5 generic_mouse_keyboard=false"
+                                },
+                   "initiative":  {
+                                      "exit_code":  0,
+                                      "summary":  "INITIATIVE ENGINE v0.3 SELFTEST PASS green_only=true ui_bridge_first_win=valid nested_rows=true daily_budget=4"
+                                  },
                    "ui_bridge":  {
+                                     "hash_match":  true,
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  5378.3
-                                 },
-                   "queues":  {
-                                  "ready":  0,
-                                  "running":  0,
-                                  "done":  4,
-                                  "failed":  0
-                              },
-                   "composite_skills":  {
-                                            "ready":  0,
-                                            "running":  1,
-                                            "done":  0,
-                                            "failed":  0,
-                                            "proven_count":  0,
-                                            "latest_proven":  null
-                                        },
-                   "benchmark":  {
-                                     "status":  "PASS",
-                                     "passed":  30,
-                                     "total":  30,
-                                     "critical":  0,
-                                     "at":  "2026-08-30T00:20:07.2473128-06:00"
-                                 },
-                   "cron":  [
-                                {
-                                    "declaration_key":  "kevin-engineering-relay-v1",
-                                    "enabled":  true,
-                                    "every_ms":  120000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-support-bridge-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-benchmark-v1",
-                                    "enabled":  true,
-                                    "every_ms":  600000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-supervisor-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-maintenance-intake-v1",
-                                    "enabled":  true,
-                                    "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-skill-lab-v1",
-                                    "enabled":  true,
-                                    "every_ms":  120000,
-                                    "last_status":  "error",
-                                    "consecutive_errors":  5
-                                }
-                            ]
+                                     "heartbeat":  {
+                                                       "schema":  1,
+                                                       "kind":  "kevin-ui-bridge-heartbeat",
+                                                       "version":  "0.3.3",
+                                                       "at":  "2026-08-29T22:58:27.0502425-06:00",
+                                                       "state":  "READY",
+                                                       "detail":  "Interactive UI Bridge online; Notepad-only GREEN requests accepted.",
+                                                       "session_id":  1,
+                                                       "explorer_same_session":  true,
+                                                       "user":  "HESS-PC\\hessm",
+                                                       "process_id":  25820,
+                                                       "authority":  "GREEN_NOTEPAD_ONLY"
+                                                   }
+                                 }
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -106,7 +51,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  5383.3
+                                     "heartbeat_age_seconds":  5505.1
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -127,27 +72,13 @@
                                      "passed":  30,
                                      "total":  30,
                                      "critical":  0,
-                                     "at":  "2026-08-30T00:20:07.2473128-06:00"
+                                     "at":  "2026-08-30T00:30:07.4204057-06:00"
                                  },
                    "cron":  [
                                 {
                                     "declaration_key":  "kevin-engineering-relay-v1",
                                     "enabled":  true,
                                     "every_ms":  120000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-support-bridge-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-benchmark-v1",
-                                    "enabled":  true,
-                                    "every_ms":  600000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
@@ -166,11 +97,25 @@
                                     "consecutive_errors":  0
                                 },
                                 {
+                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
                                     "declaration_key":  "kevin-skill-lab-v1",
                                     "enabled":  true,
                                     "every_ms":  120000,
                                     "last_status":  "error",
                                     "consecutive_errors":  5
+                                },
+                                {
+                                    "declaration_key":  "kevin-benchmark-v1",
+                                    "enabled":  true,
+                                    "every_ms":  600000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
                                 }
                             ]
                }
