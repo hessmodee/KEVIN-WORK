@@ -15,15 +15,25 @@ permissions:
   contents: read
 
 jobs:
-  model-and-static:
+  delta-and-static:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Existing recovery reference model
-        working-directory: control-plane/skill-lab
+      - name: Exact minimal delta from v1.0.3
         run: |
-          python -m py_compile skill_lab_recovery_model.py test_skill_lab_recovery_model.py
-          python test_skill_lab_recovery_model.py
+          python - <<'PY'
+          from pathlib import Path
+          old=Path('control-plane/skill-lab/kevin-skill-lab-v1.0.3.ps1').read_text(encoding='utf-8')
+          new=Path('control-plane/skill-lab/kevin-skill-lab-v1.0.4.ps1').read_text(encoding='utf-8')
+          expected=old.replace('v1.0.3','v1.0.4')
+          expected=expected.replace('function R([string]$p)','function ReadJ([string]$p)')
+          expected=expected.replace('order=R $p','order=ReadJ $p')
+          expected=expected.replace('$x=R $reg','$x=ReadJ $reg')
+          expected=expected.replace('$s=R $f.FullName','$s=ReadJ $f.FullName')
+          expected=expected.replace("-Filter'*.json'|sort LastWriteTime,Name|select -First 1", "-Filter '*.json' | Sort-Object LastWriteTime,Name | Select-Object -First 1")
+          assert new == expected, 'v1.0.4 contains changes outside the two confirmed Windows runtime fixes'
+          print('PASS exact minimal delta: Filter tokenization + R alias collision only')
+          PY
       - name: Static authority and Windows regression boundary
         run: |
           python - <<'PY'
@@ -42,8 +52,10 @@ jobs:
           assert '$staleMin=15' in s
           assert "-Filter'*.json'" not in s
           assert s.count("-Filter '*.json'") == 2
+          assert 'function R(' not in s
+          assert 'function ReadJ(' in s
           assert 'SKILL LAB v1.0.4 SELFTEST PASS' in s
-          print('PASS fixed GREEN primitive envelope + Windows Filter token regression')
+          print('PASS fixed GREEN primitive envelope + Windows runtime regressions')
           PY
       - name: Exact candidate hash
         run: |
