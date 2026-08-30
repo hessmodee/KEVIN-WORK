@@ -1,18 +1,17 @@
 {
-  "schema": 1,
-  "kind": "kevin-maintenance-manifest",
-  "id": "maintenance-bootstrap-v12-20260830-1015",
+  "schema": 2,
+  "kind": "kevin-typed-maintenance-manifest",
+  "id": "typed-skill-lab-recovery-v103-20260830",
   "authority_class": "GREEN",
-  "production_effect": "NONE",
   "authority_delta": "NONE",
-  "requires_owner_approval": true,
-  "payload_path": "inbox/maintenance/packages/bootstrap-maintenance-v12-20260830.ps1",
-  "payload_sha256": "8DAD35982EFACAB9165D3100C977D42DB5442002413E093A2A01B01600292935",
-  "expires_at": "2026-08-31T12:00:00-06:00",
-  "expected_current": {
-    "kevin-maintenance-runner.ps1": "B47714C91EFDCCD1FAE6C2CB0B97D72F799125A63C084956916A8BD5A07678C1"
-  },
-  "expected_after": {
-    "kevin-maintenance-runner.ps1": "3B9D5B235E593C1CFF8CC9B7DED9E82FB958C2F7CD1F29FC813ECFA87E5C5483"
-  }
+  "production_effect": "NONE",
+  "owner_policy": "Kevin Owner Authorization v1",
+  "preauthorized": true,
+  "operation": "replace_pinned_file",
+  "target_alias": "skill_lab_runner",
+  "source_path": "control-plane/skill-lab/kevin-skill-lab-v1.0.3.ps1",
+  "source_sha256": "A771B050A5DA3D49BC3445BE4C20B4BF928C86AFA22E6634550CFBA4F30DB865",
+  "expected_current_sha256": "4275BA67602BFBD00CD4AF14D77A41C57E6D72A4F46B5E44CCAAC61121479CAB",
+  "expected_after_sha256": "A771B050A5DA3D49BC3445BE4C20B4BF928C86AFA22E6634550CFBA4F30DB865",
+  "expires_at": "2026-09-02T12:00:00-06:00"
 }
