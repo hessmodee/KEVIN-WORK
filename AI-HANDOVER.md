@@ -1,6 +1,6 @@
 # Kevin AI Engineering Handover
 
-Last updated: 2026-08-30 07:57 MDT / 13:57 UTC
+Last updated: 2026-08-30 08:00 MDT / 14:00 UTC
 
 Purpose: this is the durable turnover sheet for any AI model or engineer resuming Kevin work. Read this file before making assumptions about current priorities, authority, branch state, or known blockers. Update it whenever a substantive milestone, blocker, authority change, production promotion, rollback, or priority change occurs. A scheduled maintenance pass may refresh it periodically, but do not fabricate telemetry merely to make the timestamp newer.
 
@@ -42,7 +42,7 @@ Next integration objective: move from contract/fixture proof into a deterministi
 - PR #13: HandoffEnvelope v2. Separates technical success from semantic success; provenance, freshness-at-consumption, trust levels, consequential-claim evidence and typed rejection.
 - PR #14: Tool Budget Governor. Stateful cumulative budgets, duplicate/no-progress circuit breaker, internal failure-family accounting, idempotency replay protection, no authority injection. Expanded deterministic suite reached 25/25 and CI success.
 - PR #15: Postmortem contract. Durable symptom/root-cause/fix/prevention/evidence, confidence/review timing, three-material-failure cooling rule, semantic resolution. CI success.
-- PR #16: Knowledge v0.1 provenance + freshness gate. Candidate vs verified knowledge, immutable source fingerprints, duplicate rejection, stale-at-consumption failure, confidence/trust requirements, KNOWLEDGE_ONLY boundary. Verify latest CI before claiming final proof.
+- PR #16: Knowledge v0.1 provenance + freshness gate. Candidate vs verified knowledge, immutable source fingerprints, duplicate rejection, stale-at-consumption failure, confidence/trust requirements, KNOWLEDGE_ONLY boundary. GitHub `Knowledge Candidate Gate` completed successfully on head `95d08136430da57eb4fd9d732df7524882cec5ce`.
 - PR #17: integrated autonomy candidate described above; latest head gate is currently proven successful.
 
 ## Known blockers / caution areas
