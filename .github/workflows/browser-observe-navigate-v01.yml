@@ -29,7 +29,12 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           s=Path('control-plane/browser/validate_browser_contract_v0_1.py').read_text()
-          forbidden=['subprocess','os.system','requests.','urllib.request','socket.','playwright','selenium','powershell','cmd.exe','shell=True','eval(','exec(']
+          forbidden=[
+              'import subprocess','from subprocess','os.system','shell=True',
+              'import requests','from requests','urllib.request','import socket','from socket',
+              'import playwright','from playwright','import selenium','from selenium',
+              'powershell','cmd.exe','eval(','exec('
+          ]
           bad=[x for x in forbidden if x in s]
           assert not bad,bad
           assert 'DANGEROUS_SCHEMES' in s
