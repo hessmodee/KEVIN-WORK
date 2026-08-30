@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "kind": "kevin-watchtower-recovery-evidence",
+  "generated_at": "2026-08-30T09:22:00Z",
+  "classification": "GREEN_DIAGNOSIS_ONLY",
+  "support": {
+    "generated_at": "2026-08-30T03:14:55.0870471-06:00",
+    "governance_ok": true,
+    "benchmark": {
+      "status": "PASS",
+      "passed": 30,
+      "total": 30,
+      "critical_failures": 0
+    },
+    "supervisor": {
+      "last_result": "RECOVERY_PASS",
+      "consecutive_failures": 0
+    }
+  },
+  "autonomy": {
+    "generated_at": "2026-08-30T03:03:17.5796979-06:00",
+    "state": "NEEDS_REVIEW",
+    "drift_count": 2,
+    "selected_action": null
+  },
+  "control_plane": {
+    "last_ack_status": "FAILED",
+    "last_ack_detail": "Work order is expired.",
+    "fresh_typed_refresh_attempt": "connector_safety_blocked_before_repo_write",
+    "arbitrary_shell_used": false
+  },
+  "skill_lab": {
+    "enabled": true,
+    "last_status": "error",
+    "consecutive_errors": 8,
+    "previous_recorded_errors": 5,
+    "failure_family": "skill_lab_runner_orchestration",
+    "bounded_retry_action": "no additional runner repair attempt; no authorized typed repair verb exists"
+  },
+  "independent_health": {
+    "operator_hash_match": true,
+    "initiative_hash_match": true,
+    "ui_bridge_hash_match": true,
+    "action_queue_failed": 0,
+    "composite_ready": 1,
+    "composite_running": 1
+  },
+  "safety": {
+    "production_mutation": false,
+    "authority_expansion": false,
+    "arbitrary_shell": false,
+    "auto_promotion": false,
+    "owner_hash_pins_changed": false
+  }
+}
