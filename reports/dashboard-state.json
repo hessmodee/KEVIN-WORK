@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T07:39:29-06:00",
+  "generated_at": "2026-08-30T07:39:31-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -36,13 +36,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T03:38:43-06:00",
-        "estimated": false,
-        "ram": 47,
-        "cpu": 6,
-        "gpu": 10
-      },
       {
         "at": "2026-08-30T03:39:04-06:00",
         "estimated": false,
@@ -707,12 +700,18 @@
         "ram": 55,
         "cpu": 9,
         "gpu": 40
+      },
+      {
+        "at": "2026-08-30T07:39:31-06:00",
+        "estimated": false,
+        "ram": 55,
+        "cpu": 9,
+        "gpu": 40
       }
     ],
     "ram": [
       47,
       47,
-      47,
       55,
       55,
       47,
@@ -802,6 +801,7 @@
       47,
       48,
       48,
+      55,
       55,
       55,
       55,
@@ -810,7 +810,6 @@
     "cpu": [
       6,
       6,
-      6,
       7,
       7,
       2,
@@ -902,11 +901,11 @@
       10,
       12,
       12,
+      9,
       9,
       9
     ],
     "gpu": [
-      10,
       10,
       10,
       27,
@@ -1000,6 +999,7 @@
       34,
       29,
       26,
+      40,
       40,
       40
     ]
@@ -1154,6 +1154,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-30T07:39:31-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 149870ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
     {
       "at": "2026-08-30T07:39:29-06:00",
       "source": "forge",
@@ -1368,15 +1377,6 @@
       "detail": "Design Forge: reader-weather",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-30T06:37:01-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Night Forge cycle",
-      "result": "",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
@@ -1384,7 +1384,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-30T07:39:29-06:00",
+    "last": "2026-08-30T07:39:31-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
