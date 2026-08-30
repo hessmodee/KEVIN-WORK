@@ -1,0 +1,63 @@
+name: Typed GREEN Intake v1.2 Gate
+
+on:
+  push:
+    branches: [kevin-work-order-contract-v1.1]
+    paths:
+      - control-plane/intake/work_order_policy_v1_1.py
+      - control-plane/intake/work_order_policy_cli_v1_1.py
+      - .github/scripts/build-work-order-intake-v12.py
+      - .github/workflows/work-order-intake-v12-gate.yml
+
+permissions:
+  contents: write
+
+jobs:
+  gate:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build candidate from current intake
+        shell: pwsh
+        run: python .github/scripts/build-work-order-intake-v12.py
+      - name: Parse PowerShell candidate
+        shell: pwsh
+        run: |
+          $path=(Resolve-Path 'control-plane/intake/kevin-work-order-intake-v0.2-candidate.ps1').Path
+          $tokens=$null;$errors=$null
+          [System.Management.Automation.Language.Parser]::ParseFile($path,[ref]$tokens,[ref]$errors)|Out-Null
+          if($errors.Count -gt 0){$errors|ForEach-Object{Write-Error $_.Message};throw 'PowerShell parser errors'}
+          Write-Host 'PASS PowerShell parse'
+      - name: Run policy tests
+        shell: pwsh
+        run: |
+          python control-plane/intake/test_work_order_policy_v1_1.py
+          if($LASTEXITCODE -ne 0){throw 'Policy tests failed'}
+      - name: Run candidate policy self-test
+        shell: pwsh
+        run: |
+          & pwsh -NoProfile -File control-plane/intake/kevin-work-order-intake-v0.2-candidate.ps1 -Mode PolicySelfTest
+          if($LASTEXITCODE -ne 0){throw 'Candidate policy self-test failed'}
+      - name: Static integration contracts
+        shell: pwsh
+        run: |
+          $c=Get-Content control-plane/intake/kevin-work-order-intake-v0.2-candidate.ps1 -Raw
+          foreach($n in @('Invoke-AdmissionPolicy','Verify-Postcondition','Add-FailureRecord','precondition_fingerprint','POSTCONDITION_NOT_VERIFIED','three bounded failed attempts')){if(-not $c.Contains($n)){throw "Missing integration contract: $n"}}
+          $allowed=@('dispatch_mission','run_reconcile','run_benchmark','run_support_bridge','refresh_autonomy_telemetry')
+          $m=[regex]::Match($c,'\$verbs=@\(([^\)]*)\)')
+          if(-not $m.Success){throw 'GREEN verb allowlist not found'}
+          $declared=@([regex]::Matches($m.Groups[1].Value,"'([^']+)'")|ForEach-Object{$_.Groups[1].Value})
+          if(($declared|Sort-Object) -join '|' -ne ($allowed|Sort-Object) -join '|'){throw "GREEN verb surface changed: $($declared -join ',')"}
+          if($c -match "'shell'\s*\{" -or $c -match "'arbitrary_shell'\s*\{"){throw 'Executable shell verb detected'}
+          Write-Host 'PASS typed GREEN integration contracts'
+      - name: Commit validated candidate
+        shell: pwsh
+        run: |
+          git config user.name 'Kevin CI'
+          git config user.email 'actions@users.noreply.github.com'
+          git add control-plane/intake/kevin-work-order-intake-v0.2-candidate.ps1
+          if(git diff --cached --quiet){Write-Host 'Candidate already current';exit 0}
+          git commit -m 'Bind typed GREEN admission to intake candidate [skip ci]'
+          git push origin HEAD:kevin-work-order-contract-v1.1
