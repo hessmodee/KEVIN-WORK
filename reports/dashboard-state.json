@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T08:48:41.1985104-06:00",
+  "generated_at": "2026-08-30T08:50:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 68,
-    "cpu_pct": 17,
+    "memory_pct": 69,
+    "cpu_pct": 9,
     "gpu": "RTX 3060",
-    "gpu_pct": 14
+    "gpu_pct": 42
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T04:38:53-06:00",
-        "estimated": false,
-        "ram": 54,
-        "cpu": 8,
-        "gpu": 24
-      },
       {
         "at": "2026-08-30T04:38:56-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 68,
         "cpu": 17,
         "gpu": 14
+      },
+      {
+        "at": "2026-08-30T08:50:14-06:00",
+        "estimated": false,
+        "ram": 69,
+        "cpu": 9,
+        "gpu": 42
       }
     ],
     "ram": [
-      54,
       54,
       57,
       57,
@@ -798,10 +797,10 @@
       64,
       64,
       68,
-      68
+      68,
+      69
     ],
     "cpu": [
-      8,
       8,
       11,
       11,
@@ -896,10 +895,10 @@
       14,
       14,
       17,
-      17
+      17,
+      9
     ],
     "gpu": [
-      24,
       24,
       40,
       40,
@@ -994,7 +993,8 @@
       16,
       16,
       14,
-      14
+      14,
+      42
     ]
   },
   "weather": {
@@ -1148,6 +1148,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-30T08:50:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-30T08:45:45-06:00",
       "source": "forge",
       "component": "forge",
@@ -1240,13 +1247,6 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-30T08:35:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-30T08:27:39-06:00",
@@ -1377,7 +1377,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-30T08:48:41.1985104-06:00",
+    "last": "2026-08-30T08:50:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1414,7 +1414,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-30T08:48:41.1985104-06:00",
+    "generated_at": "2026-08-30T08:49:41.1308982-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
