@@ -44,7 +44,9 @@ jobs:
           assert "target alias not allowlisted" in m and "source path outside alias root" in m
           assert "run_typed_maintenance" in i and "kevin-maintenance-v1" in i
           assert "return Ps $MaintenancePath @('-CheckOnly')" in i
-          assert 'command' not in i.split('function Validate($o)')[0].lower()
+          ilow=i.lower()
+          for caller_field in ['$o.command','$o.argv','$o.args','$o.path','$o.executable','$o.script','$o.url']:
+              assert caller_field not in ilow, caller_field
           assert "gateway','status','--require-rpc','--json" in w
           assert "gateway','restart','--wait','30s','--json" in w
           assert '$MaxAttempts=3' in w and '$CooldownMinutes=15' in w
