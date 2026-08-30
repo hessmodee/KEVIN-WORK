@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-30T12:39:06.0098778-06:00",
+    "generated_at":  "2026-08-30T12:42:05.8533801-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788114961784,
-                                  "next_run_at_ms":  1788115141784
+                                  "last_run_at_ms":  1788115141796,
+                                  "next_run_at_ms":  1788115321796
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,20 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788115120142,
-                                  "next_run_at_ms":  1788115180142
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788114886610,
-                                  "next_run_at_ms":  1788115186610
+                                  "last_run_at_ms":  1788115305159,
+                                  "next_run_at_ms":  1788115365159
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -101,8 +89,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788115021616,
-                                  "next_run_at_ms":  1788115201616
+                                  "last_run_at_ms":  1788115201633,
+                                  "next_run_at_ms":  1788115381633
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788115186629,
+                                  "next_run_at_ms":  1788115486629
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -120,10 +120,10 @@
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  153,
+                       "cycle":  154,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-08-30T12:34:02.9790405-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-08-30T12:40:43.0769174-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -148,30 +148,30 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260830-122800-forge-v4-i122-evaluation.json",
-                              "at":  "2026-08-30T12:28:58.3508788-06:00",
+                              "file":  "20260830-124003-forge-v4-i123-evaluation.json",
+                              "at":  "2026-08-30T12:40:42.9736621-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  122,
+                              "iteration":  123,
                               "verdict":  "REJECT",
-                              "score":  0,
+                              "score":  2,
                               "result":  "",
-                              "failure_count":  8,
+                              "failure_count":  7,
                               "security_finding_count":  1,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-30T12:34:47.9042596-06:00",
+                        "at":  "2026-08-30T12:39:48.0097652-06:00",
                         "status":  "STAGED_APPROVAL_REQUIRED",
                         "manifest_id":  "maintenance-bootstrap-v12-20260830-1015",
                         "stage_path":  "~\\.openclaw\\workspace\\reports\\maintenance\\staged\\maintenance-bootstrap-v12-20260830-1015.ps1",
                         "detail":  "Payload hash and parser verified. Run kevin-maintenance-runner.ps1 -ApplyOnce for explicit owner approval."
                     },
     "active_workers":  {
-                           "design_forge":  1,
-                           "night_forge":  1,
+                           "design_forge":  0,
+                           "night_forge":  0,
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "7A5E3A92458F0A292B765F1121E459D4913759A75D2BEC985702022C21A7A1F9"
+    "semantic_hash":  "75937C48D07AF586282C5C3AF06F42746BC63D972C84DAE3536528428D54F53A"
 }
