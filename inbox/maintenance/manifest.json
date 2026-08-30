@@ -1,16 +1,17 @@
 {
   "schema": 2,
   "kind": "kevin-typed-maintenance-manifest",
-  "id": "typed-ui-bridge-restart-v033-20260830",
+  "id": "typed-skill-lab-recovery-v103-20260830",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "restart_ui_bridge",
-  "target_alias": "ui_bridge_runner",
-  "expected_current_sha256": "5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42",
-  "task_name": "Kevin UI Bridge v0.3",
-  "heartbeat_timeout_seconds": 15,
+  "operation": "replace_pinned_file",
+  "target_alias": "skill_lab_runner",
+  "source_path": "control-plane/skill-lab/kevin-skill-lab-v1.0.3.ps1",
+  "source_sha256": "A771B050A5DA3D49BC3445BE4C20B4BF928C86AFA22E6634550CFBA4F30DB865",
+  "expected_current_sha256": "4275BA67602BFBD00CD4AF14D77A41C57E6D72A4F46B5E44CCAAC61121479CAB",
+  "expected_after_sha256": "A771B050A5DA3D49BC3445BE4C20B4BF928C86AFA22E6634550CFBA4F30DB865",
   "expires_at": "2026-09-02T12:00:00-06:00"
 }
