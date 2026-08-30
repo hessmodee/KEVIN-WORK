@@ -1,0 +1,32 @@
+name: Work-Conserving Cooldown v0.1 Gate
+on:
+  push:
+    branches: [kevin-work-conserving-cooldown-v0.1]
+    paths:
+      - control-plane/dispatcher/scheduler_policy_v0_2.py
+      - control-plane/dispatcher/test_scheduler_policy_v0_2.py
+      - .github/workflows/work-conserving-cooldown-v01.yml
+  pull_request:
+    paths:
+      - control-plane/dispatcher/scheduler_policy_v0_2.py
+      - control-plane/dispatcher/test_scheduler_policy_v0_2.py
+permissions:
+  contents: read
+jobs:
+  policy-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m py_compile control-plane/dispatcher/scheduler_policy_v0_2.py control-plane/dispatcher/test_scheduler_policy_v0_2.py
+      - run: python control-plane/dispatcher/test_scheduler_policy_v0_2.py
+      - name: Static authority boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('control-plane/dispatcher/scheduler_policy_v0_2.py').read_text()
+          forbidden=['subprocess','os.system','shell=True','requests.','urllib.request','powershell.exe']
+          bad=[x for x in forbidden if x in s]
+          assert not bad,bad
+          assert 'allow_production_mutation' in s and 'allow_arbitrary_shell' in s
+          print('PASS: pure policy / no executor surface')
+          PY
