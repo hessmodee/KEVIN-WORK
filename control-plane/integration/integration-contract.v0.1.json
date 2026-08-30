@@ -1,0 +1,62 @@
+{
+  "schema_version": "0.1",
+  "candidate_only": true,
+  "authority_class": "GREEN_ONLY_TESTING",
+  "production_promotion": "OWNER_RESERVED",
+  "worker_policy": {
+    "heavy_model_slot": "14b-primary",
+    "max_concurrent_heavy_workers": 1
+  },
+  "required_stages": [
+    "MISSION_ADMISSION",
+    "WORK_SELECTION",
+    "WORK_ORDER_VALIDATION",
+    "PRECONDITION_GATE",
+    "BUDGET_GATE",
+    "GREEN_ACTUATOR_DECISION",
+    "POSTCONDITION_VERIFICATION",
+    "RECEIPT_VERIFICATION",
+    "SEMANTIC_HANDOFF",
+    "CHECKPOINT",
+    "FAILURE_ACCOUNTING",
+    "KNOWLEDGE_ADMISSION"
+  ],
+  "required_controls": {
+    "idempotency": true,
+    "replay_rejection": true,
+    "bounded_retries": 3,
+    "semantic_progress_required": true,
+    "independent_postcondition": true,
+    "rollback_for_mutation": true,
+    "evidence_required": true,
+    "freshness_required_for_consequential_claims": true,
+    "unknown_authority_fields_fail_closed": true
+  },
+  "forbidden_capabilities": [
+    "ARBITRARY_REMOTE_SHELL",
+    "RED_AUTHORITY_EXPANSION",
+    "PERMISSION_WIDENING",
+    "MONEY_MOVEMENT",
+    "PURCHASES",
+    "OWNER_REPRESENTING_EXTERNAL_SEND",
+    "AUTO_PROMOTE_NOVEL_YELLOW",
+    "AUTO_BLESS_TRUST_ANCHOR_DRIFT",
+    "OPS_FLOOR_REDESIGN"
+  ],
+  "phase_a_cases": [
+    "VALID_GREEN_PASS",
+    "REPLAY_REJECTED",
+    "STALE_PRECONDITION_REJECTED",
+    "GOVERNANCE_DRIFT_BLOCKED",
+    "BUDGET_EXHAUSTED",
+    "DUPLICATE_NO_PROGRESS_REJECTED",
+    "MISSION_LOCAL_COOLDOWN_ROTATES",
+    "SHARED_PIPELINE_COOLDOWN_BLOCKS",
+    "FAILED_POSTCONDITION_REQUIRES_ROLLBACK",
+    "SEMANTIC_HANDOFF_REJECTED",
+    "CHECKPOINT_RESUME_NO_REDO",
+    "THREE_FAILURE_COOLING",
+    "STALE_KNOWLEDGE_REJECTED",
+    "UNVERIFIED_KNOWLEDGE_NOT_AUTHORITATIVE"
+  ]
+}
