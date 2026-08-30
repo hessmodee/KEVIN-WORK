@@ -1,0 +1,48 @@
+{
+  "schema": 2,
+  "kind": "kevin-handoff-envelope-contract",
+  "candidate_only": true,
+  "required_fields": [
+    "mission_id",
+    "stage_id",
+    "owner",
+    "next_owner",
+    "input_refs",
+    "source_refs",
+    "technical_success",
+    "semantic_success",
+    "claims",
+    "assumptions",
+    "unknowns",
+    "freshness",
+    "output_schema_version",
+    "budget",
+    "approval_class",
+    "checkpoint_ref",
+    "rejection_reason"
+  ],
+  "semantic_success_policy": {
+    "requires_relevant_output": true,
+    "requires_supported_claims": true,
+    "requires_nonstale_sources": true,
+    "requires_schema_validity": true,
+    "technical_success_is_not_semantic_success": true
+  },
+  "claim_policy": {
+    "evidence_grades": ["A", "B", "C", "UNVERIFIED"],
+    "consequential_claim_requires_source": true,
+    "unsupported_consequential_claim_rejected": true
+  },
+  "freshness_policy": {
+    "stale_output_rejected_when_freshness_required": true,
+    "stale_after_required_for_time_sensitive_claims": true
+  },
+  "safety": {
+    "grants_authority": false,
+    "executes_actions": false,
+    "production_mutation": false,
+    "arbitrary_shell": false,
+    "external_sends": false,
+    "owner_locked_governance_unchanged": true
+  }
+}
