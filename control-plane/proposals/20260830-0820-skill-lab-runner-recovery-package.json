@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "kind": "kevin-skill-lab-runner-recovery-package",
+  "generated_at": "2026-08-30T08:20:00-06:00",
+  "status": "OWNER_APPROVED_AWAITING_TYPED_LOCAL_EXECUTION",
+  "failure_family": "skill_lab_runner_orchestration",
+  "owner_authorization": {
+    "path": "control-plane/proposals/20260830-0811-skill-lab-runner-recovery-authorization.json",
+    "blob_sha": "75ee2435527f89cc748b351d772f1036ec350baf"
+  },
+  "recovery_spec": {
+    "path": "docs/engineering/SKILL-LAB-RUNNER-RECOVERY-SPEC-v1.md",
+    "blob_sha": "8c690580882ba5e9fb8eb5750a591ad775eca5fa"
+  },
+  "current_evidence": {
+    "support_generated_at": "2026-08-30T08:19:21.8485043-06:00",
+    "benchmark": {
+      "status": "PASS",
+      "passed": 30,
+      "total": 30,
+      "critical": 0
+    },
+    "engineering_generated_at": "2026-08-30T08:19:51.2105944-06:00",
+    "skill_lab_consecutive_errors": 13,
+    "skill_lab_enabled": true,
+    "composite_skills": {
+      "ready": 1,
+      "running": 1,
+      "done": 0,
+      "failed": 0,
+      "proven_count": 0
+    },
+    "operator_hash": "19EEA6749FB70EB18A6ACC2DC0C9DF4313C0AC0D893F646A6D1170044E4C282F",
+    "initiative_hash": "8AA0DC8F5A1502A3E4D0150EB073DC77C29D47F153E066B32D6B8E4B2ACB7CD3",
+    "ui_bridge_hash": "5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42",
+    "action_hashes_match": true
+  },
+  "execution_contract": {
+    "authority": "GREEN",
+    "scope": "one bounded Skill Lab runner repair/replacement/restart only",
+    "must_use": "already-installed typed local mechanism; no arbitrary shell transport",
+    "max_attempts_same_family": 3,
+    "required_postconditions": [
+      "parser/static validation",
+      "Skill Lab self-test",
+      "stale-RUNNING recovery test",
+      "one-step create_text composite",
+      "two-step create_text -> ui_notepad_write composite",
+      "duplicate/replay test",
+      "intentional failure evidence test",
+      "restart/resume test",
+      "fresh Benchmark PASS 30/30 critical=0",
+      "durable exact-hash proof artifact"
+    ],
+    "forbidden": [
+      "arbitrary shell",
+      "arbitrary remote code",
+      "new primitive authority",
+      "permission widening",
+      "credentials/config exposure",
+      "external sends",
+      "financial transactions",
+      "automatic novel production promotion"
+    ]
+  },
+  "transport_note": "Engineering Relay v1 does not currently expose a typed Skill Lab repair operation. Do not modify its allowlist from a request. Use only an already-authorized local actuator/maintenance typed verb if present; otherwise this package remains staged evidence."
+}
