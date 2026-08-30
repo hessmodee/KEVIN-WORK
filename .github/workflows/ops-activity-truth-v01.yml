@@ -1,0 +1,39 @@
+name: Ops Activity Truth v0.1 Gate
+
+on:
+  push:
+    branches: [kevin-ops-activity-truth-v0.1]
+    paths:
+      - control-plane/telemetry/ops_activity_policy_v0_1.py
+      - control-plane/telemetry/test_ops_activity_policy_v0_1.py
+      - .github/workflows/ops-activity-truth-v01.yml
+  pull_request:
+    paths:
+      - control-plane/telemetry/ops_activity_policy_v0_1.py
+      - control-plane/telemetry/test_ops_activity_policy_v0_1.py
+      - .github/workflows/ops-activity-truth-v01.yml
+
+permissions:
+  contents: read
+
+jobs:
+  truth-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile
+        run: python -m py_compile control-plane/telemetry/ops_activity_policy_v0_1.py control-plane/telemetry/test_ops_activity_policy_v0_1.py
+      - name: Truth contract tests
+        working-directory: control-plane/telemetry
+        run: python test_ops_activity_policy_v0_1.py
+      - name: Static no-executor boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('control-plane/telemetry/ops_activity_policy_v0_1.py').read_text()
+          forbidden=['subprocess','os.system','requests.','urllib.request','socket.','powershell','cmd.exe','shell=True','open(']
+          bad=[x for x in forbidden if x in s]
+          assert not bad,bad
+          assert 'ACTIVE' in s and 'ARMED' in s and 'IDLE' in s
+          print('PASS telemetry-only / no executor surface')
+          PY
