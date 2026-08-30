@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T08:39:00-06:00",
+  "generated_at": "2026-08-30T08:39:02-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -36,13 +36,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T04:34:52-06:00",
-        "estimated": false,
-        "ram": 47,
-        "cpu": 5,
-        "gpu": 31
-      },
       {
         "at": "2026-08-30T04:35:14-06:00",
         "estimated": false,
@@ -707,10 +700,16 @@
         "ram": 60,
         "cpu": 10,
         "gpu": 99
+      },
+      {
+        "at": "2026-08-30T08:39:02-06:00",
+        "estimated": false,
+        "ram": 60,
+        "cpu": 10,
+        "gpu": 99
       }
     ],
     "ram": [
-      47,
       53,
       53,
       53,
@@ -805,10 +804,10 @@
       53,
       53,
       60,
+      60,
       60
     ],
     "cpu": [
-      5,
       22,
       22,
       22,
@@ -902,11 +901,11 @@
       12,
       12,
       12,
+      10,
       10,
       10
     ],
     "gpu": [
-      31,
       98,
       98,
       98,
@@ -1000,6 +999,7 @@
       10,
       10,
       10,
+      99,
       99,
       99
     ]
@@ -1154,6 +1154,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-30T08:39:02-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 120683ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
     {
       "at": "2026-08-30T08:39:00-06:00",
       "source": "forge",
@@ -1368,15 +1377,6 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 45000
-    },
-    {
-      "at": "2026-08-30T07:29:50-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: forge-v4",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
@@ -1384,7 +1384,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-30T08:39:00-06:00",
+    "last": "2026-08-30T08:39:02-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
