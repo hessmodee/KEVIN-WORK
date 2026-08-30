@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-29T18:35:02.3813869-06:00",
+  "generated_at": "2026-08-29T18:35:13-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -12,14 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "supervisor",
-    "title": "Supervisor autonomous cycle",
-    "category": "supervisor",
-    "phase": "Goal-aware Supervisor cycle active.",
-    "started_at": "2026-08-29T18:34:02.4338750-06:00",
-    "source": "hq-live-ops"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -27,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 52,
+    "memory_pct": 60,
     "cpu_pct": 11,
     "gpu": "RTX 3060",
-    "gpu_pct": 41
+    "gpu_pct": 42
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-29T13:22:27-06:00",
-        "estimated": false,
-        "ram": 58,
-        "cpu": 2,
-        "gpu": 0
-      },
       {
         "at": "2026-08-29T13:22:48-06:00",
         "estimated": false,
@@ -707,10 +693,16 @@
         "ram": 52,
         "cpu": 11,
         "gpu": 41
+      },
+      {
+        "at": "2026-08-29T18:35:13-06:00",
+        "estimated": false,
+        "ram": 60,
+        "cpu": 11,
+        "gpu": 42
       }
     ],
     "ram": [
-      58,
       58,
       50,
       50,
@@ -805,10 +797,10 @@
       48,
       60,
       52,
-      52
+      52,
+      60
     ],
     "cpu": [
-      2,
       2,
       5,
       5,
@@ -903,10 +895,10 @@
       8,
       14,
       11,
+      11,
       11
     ],
     "gpu": [
-      0,
       0,
       39,
       39,
@@ -1001,7 +993,8 @@
       41,
       35,
       41,
-      41
+      41,
+      42
     ]
   },
   "weather": {
@@ -1100,7 +1093,7 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 89,
+      "done": 90,
       "total": 93
     }
   ],
@@ -1155,6 +1148,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-29T18:35:13-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-29T18:33:57-06:00",
       "source": "manual",
       "component": "forge",
@@ -1172,13 +1172,6 @@
       "detail": "Mission Factory: postmortem-cleanup",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-29T18:20:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-29T18:16:52-06:00",
@@ -1385,7 +1378,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-29T18:35:02.3813869-06:00",
+    "last": "2026-08-29T18:35:13-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
