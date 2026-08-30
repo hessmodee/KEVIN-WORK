@@ -37,7 +37,6 @@ function Read-JsonFile([string]$Path){if(-not(Test-Path -LiteralPath $Path)){ret
 function Get-PropertyValue($Object,[string]$Name){if($null-eq$Object){return $null};$p=$Object.PSObject.Properties[$Name];if($null-eq$p){return $null};return $p.Value}
 function One-Line([AllowEmptyString()][string]$Text){if($null-eq$Text){return ''};$s=($Text-replace'[\r\n]+',' ').Trim();if($s.Length-gt900){$s=$s.Substring(0,900)};return $s}
 
-# Proven WinPS 5.1 argv transport pattern inherited from Intake v0.1.
 function ConvertTo-Win32CommandLineArg {
     param([AllowEmptyString()][string]$Value)
     if($null-eq$Value -or $Value.Length-eq0){return '""'}
@@ -75,7 +74,7 @@ function Invoke-ExactNative {
 }
 function Resolve-Gh {$g=Get-Command gh.exe -ErrorAction SilentlyContinue;if(-not$g){$g=Get-Command gh -ErrorAction SilentlyContinue};if(-not$g){throw 'GitHub CLI missing'};return $g.Source}
 function Invoke-Gh {param([string[]]$Argv);Remove-Item Env:GH_TOKEN,Env:GITHUB_TOKEN -ErrorAction SilentlyContinue;$env:GH_PROMPT_DISABLED='1';return Invoke-ExactNative (Resolve-Gh) $Argv 90 $Workspace}
-function Get-RemoteJson([string]$Path,[string]$Branch){$endpoint=('repos/{0}/contents/{1}?ref={2}'-f$Repo,$Path,[Uri]::EscapeDataString($Branch));$r=Invoke-Gh @('api',$endpoint,'-H','Accept: application/vnd.github+json');if($r.ExitCode-ne0){$all=One-Line ($r.Stdout+' '+$r.Stderr);if($all-match'404|Not Found'){return $null};throw('GitHub GET failed: '+$all)};$meta=$r.Stdout|ConvertFrom-Json;$txt=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(([string]$meta.content-replace'\s','')));return[pscustomobject]@{meta=$meta;data=($txt|ConvertFrom-Json)}}
+function Get-RemoteJson([string]$Path,[string]$Branch){$endpoint=('repos/{0}/contents/{1}?ref={2}' -f $Repo,$Path,[Uri]::EscapeDataString($Branch));$r=Invoke-Gh @('api',$endpoint,'-H','Accept: application/vnd.github+json');if($r.ExitCode-ne0){$all=One-Line ($r.Stdout+' '+$r.Stderr);if($all-match'404|Not Found'){return $null};throw('GitHub GET failed: '+$all)};$meta=$r.Stdout|ConvertFrom-Json;$txt=[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String(([string]$meta.content-replace'\s','')));return[pscustomobject]@{meta=$meta;data=($txt|ConvertFrom-Json)}}
 function Publish-Ack($Ack){$existing=Get-RemoteJson $AckPath $AckBranch;$payload=$Ack|ConvertTo-Json -Depth 20;$body=[ordered]@{message='kevin control plane telemetry';content=[Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($payload));branch=$AckBranch};if($existing){$body.sha=[string]$existing.meta.sha};$tmp=Join-Path $env:TEMP ('kevin-wo-ack-'+[guid]::NewGuid().ToString('N')+'.json');try{[IO.File]::WriteAllText($tmp,($body|ConvertTo-Json -Compress),$Utf8);$r=Invoke-Gh @('api','--method','PUT',('repos/'+$Repo+'/contents/'+$AckPath),'--input',$tmp,'-H','Accept: application/vnd.github+json');if($r.ExitCode-ne0){throw 'Ack publish failed'}}finally{Remove-Item -LiteralPath $tmp -Force -ErrorAction SilentlyContinue}}
 function Get-Ledger {$l=Read-JsonFile $LedgerPath;if($l){return $l};return[pscustomobject]@{schema=1;processed=@();updated_at=(Get-Date).ToString('o')}}
 function Save-Ledger($l){$l.processed=@($l.processed|Select-Object -Last 100);$l.updated_at=(Get-Date).ToString('o');Write-JsonAtomic $l $LedgerPath}
