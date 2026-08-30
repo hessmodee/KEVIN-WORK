@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T16:15:24.1960051-06:00",
-  "status": "ready",
+  "generated_at": "2026-08-30T16:17:51-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,16 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "design-forge",
+    "title": "Design Forge: operator",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-30T16:17:51-06:00",
+    "source": "forge"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -20,22 +29,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 26,
-    "cpu_pct": 22,
+    "memory_pct": 30,
+    "cpu_pct": 5,
     "gpu": "RTX 3060",
-    "gpu_pct": 34
+    "gpu_pct": 37
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T11:42:44-06:00",
-        "estimated": false,
-        "ram": 58,
-        "cpu": 10,
-        "gpu": 40
-      },
       {
         "at": "2026-08-30T11:43:30-06:00",
         "estimated": false,
@@ -700,10 +702,16 @@
         "ram": 26,
         "cpu": 22,
         "gpu": 34
+      },
+      {
+        "at": "2026-08-30T16:17:51-06:00",
+        "estimated": false,
+        "ram": 30,
+        "cpu": 5,
+        "gpu": 37
       }
     ],
     "ram": [
-      58,
       58,
       54,
       48,
@@ -798,10 +806,10 @@
       32,
       33,
       26,
-      26
+      26,
+      30
     ],
     "cpu": [
-      10,
       10,
       2,
       2,
@@ -896,10 +904,10 @@
       25,
       10,
       22,
-      22
+      22,
+      5
     ],
     "gpu": [
-      40,
       40,
       46,
       33,
@@ -994,7 +1002,8 @@
       36,
       31,
       34,
-      34
+      34,
+      37
     ]
   },
   "weather": {
@@ -1147,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-30T16:17:51-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: operator",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-30T16:12:37-06:00",
       "source": "forge",
@@ -1361,23 +1379,14 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-30T14:39:43-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Night Forge PASS 161781ms",
-      "result": "pass",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-30T16:15:24.1960051-06:00",
+    "last": "2026-08-30T16:17:51-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1407,37 +1416,37 @@
       "last_mission": "forge-v4",
       "iteration": 144,
       "updated_at": "2026-08-30T16:12:37.8448433-06:00",
-      "next_index": 0,
+      "next_index": 4,
       "scheduled": true,
       "promotion": "blocked"
     }
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-30T16:15:24.1960051-06:00",
+    "generated_at": "2026-08-30T16:17:51-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
+      "id": "design-forge",
+      "name": "Build Lab",
+      "title": "Design Forge: operator",
+      "category": "forge",
+      "state": "working",
+      "detail": "started",
+      "what": "Generating and validating an isolated candidate.",
+      "engine": "Ollama | Qwen 2.5 14B",
+      "action": "Candidate engineering"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
+        "state": "coordinating",
+        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1465,17 +1474,17 @@
     ]
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "running": true,
+    "state": "working",
+    "phase": "started",
+    "worker": "Build Lab",
+    "engine": "Ollama | Qwen 2.5 14B",
+    "action": "Candidate engineering"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
+      "text": "Build Lab | WORKING | started",
       "severity": "normal"
     }
   ]
