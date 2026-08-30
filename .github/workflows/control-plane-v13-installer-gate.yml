@@ -1,0 +1,82 @@
+name: Control Plane v1.3 Installer Gate
+
+on:
+  push:
+    branches:
+      - kevin-control-plane-v1.3-review-contract
+    paths:
+      - control-plane/install/KEVIN-CONTROL-PLANE-v1.3-REVIEW-CONTRACT-REPAIR.ps1
+      - .github/workflows/control-plane-v13-installer-gate.yml
+
+permissions:
+  contents: read
+
+jobs:
+  install-fixture:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Parse installer
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $p=(Resolve-Path 'control-plane/install/KEVIN-CONTROL-PLANE-v1.3-REVIEW-CONTRACT-REPAIR.ps1')
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors -and $errors.Count){$errors|ForEach-Object{Write-Host ("PARSE line {0}: {1}" -f $_.Extent.StartLineNumber,$_.Message)};throw 'Installer parser failed.'}
+          Write-Host 'PASS installer Windows PowerShell syntax'
+
+      - name: Full isolated install and rollback proof
+        shell: powershell
+        env:
+          TEST_GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference='Stop'
+          $installer=(Resolve-Path 'control-plane/install/KEVIN-CONTROL-PLANE-v1.3-REVIEW-CONTRACT-REPAIR.ps1').Path
+          $token=$env:TEST_GITHUB_TOKEN
+          Remove-Item Env:GH_TOKEN -ErrorAction SilentlyContinue
+          Remove-Item Env:GITHUB_TOKEN -ErrorAction SilentlyContinue
+          Remove-Item Env:TEST_GITHUB_TOKEN -ErrorAction SilentlyContinue
+          $token | gh auth login --hostname github.com --with-token
+          if($LASTEXITCODE -ne 0){throw 'Could not establish stored GitHub CLI credential for fixture.'}
+
+          $fake=Join-Path $env:RUNNER_TEMP 'kevin-cp13-install-fixture'
+          $root=Join-Path $fake '.openclaw\workspace\ControlPlane'
+          New-Item -ItemType Directory -Path $root -Force|Out-Null
+          function Write-Blob([string]$Sha,[string]$Dest){
+            $raw=& gh api ("repos/hessmodee/KEVIN-WORK/git/blobs/{0}" -f $Sha)
+            if($LASTEXITCODE -ne 0){throw "Blob fetch failed: $Sha"}
+            $o=$raw|ConvertFrom-Json
+            if(([string]$o.sha).ToLowerInvariant() -ne $Sha){throw "Blob identity mismatch: $Sha"}
+            [IO.File]::WriteAllBytes($Dest,[Convert]::FromBase64String(([string]$o.content -replace '\s','')))
+          }
+          Write-Blob '610e89b426ac0e7fa947f6575c977aa0a08efbe6' (Join-Path $root 'desired-state-v1.json')
+          Write-Blob 'b0cc4465f12457492b3a6c2761287398cc6295b5' (Join-Path $root 'OWNER-AUTHORIZATION-v1.md')
+          Write-Blob '847c0a0dd629df75ce89e6591ed1d7dcdb80afad' (Join-Path $root 'kevin-autonomy-actuator-v0.1.ps1')
+          Write-Blob '2b0a4f168b2d5f64b1979063eaf62807373e25ce' (Join-Path $root 'kevin-autonomy-bridge-v0.1.ps1')
+          Write-Blob '743db880f6529f59341f2e0f89da533091392001' (Join-Path $root 'mission-catalog-v1.json')
+          Write-Blob 'b21488796d967da6b892190538d61b4e58d072f5' (Join-Path $root 'kevin-work-order-intake-v0.1.ps1')
+          Write-Blob 'a3e9797aca21aa99121148e21473beeccde1f63f' (Join-Path $root 'kevin-mission-worker-v0.1.ps1')
+          Write-Blob '766fa55163b238f04ca54cc18164363b962a777e' (Join-Path $root 'kevin-mission-dispatcher-v0.1.ps1')
+
+          $env:USERPROFILE=$fake
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $installer
+          $code=$LASTEXITCODE
+          $out|Write-Host
+          if($code -ne 0){throw "Fixture installer failed exit=$code"}
+          if(($out -join "`n") -notmatch 'v1.3 REVIEW CONTRACT REPAIR INSTALLED \+ PROVEN'){throw 'Installer proof marker missing.'}
+          $worker=Join-Path $root 'kevin-mission-worker-v0.1.ps1';$dispatcher=Join-Path $root 'kevin-mission-dispatcher-v0.1.ps1'
+          if((& git hash-object --no-filters $worker).Trim() -ne 'befe1924996fc7015fea56ae893d74390dd2b78c'){throw 'Installed worker blob mismatch.'}
+          if((& git hash-object --no-filters $dispatcher).Trim() -ne 'f91b17e16639129cc3522e93da65b7c0a50f9ce5'){throw 'Installed dispatcher blob mismatch.'}
+          $manifest=Get-Content (Join-Path $root 'install-manifest-control-plane-v1.3.json') -Raw|ConvertFrom-Json
+          if([string]$manifest.version -ne '1.3' -or -not [bool]$manifest.safety.green_only -or [bool]$manifest.safety.arbitrary_shell -or [bool]$manifest.safety.authority_expansion){throw 'Manifest safety proof failed.'}
+          $rollback=Join-Path $root 'ROLLBACK-CONTROL-PLANE-v1.3.ps1'
+          if(-not(Test-Path $rollback)){throw 'Rollback script missing.'}
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $rollback
+          if($LASTEXITCODE -ne 0){throw 'Rollback execution failed.'}
+          if((& git hash-object --no-filters $worker).Trim() -ne 'a3e9797aca21aa99121148e21473beeccde1f63f'){throw 'Worker rollback mismatch.'}
+          if((& git hash-object --no-filters $dispatcher).Trim() -ne '766fa55163b238f04ca54cc18164363b962a777e'){throw 'Dispatcher rollback mismatch.'}
+          Write-Host 'PASS full v1.3 isolated install + runtime self-tests + atomic rollback'
