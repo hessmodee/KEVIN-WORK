@@ -18,7 +18,7 @@ jobs:
 
       - name: Apply v1.3 repair
         shell: pwsh
-        run: python .github/scripts/patch-control-plane-v13-review-contract.py
+        run: python .github/scripts/run-control-plane-v13-review-contract-patch.py
 
       - name: Parse patched PowerShell
         shell: powershell
