@@ -68,7 +68,12 @@ jobs:
           foreach($p in $files){
             $tokens=$null;$errors=$null
             [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
-            if($errors.Count){$errors|Format-List|Out-String|Write-Host;throw "Parser failed $p"}
+            if($errors.Count){
+              foreach($e in $errors){
+                Write-Host ("PARSER_ERROR file={0} line={1} col={2} id={3} text=<{4}> message={5}" -f $p,$e.Extent.StartLineNumber,$e.Extent.StartColumnNumber,$e.ErrorId,$e.Extent.Text,$e.Message)
+              }
+              throw "Parser failed $p"
+            }
           }
           & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1' -SelfTest
           if($LASTEXITCODE -ne 0){throw 'Maintenance self-test failed'}
