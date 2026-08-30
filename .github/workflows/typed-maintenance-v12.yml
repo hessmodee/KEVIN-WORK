@@ -36,11 +36,19 @@ jobs:
           & $p -SelfTest
           if($LASTEXITCODE -ne 0){ throw 'Maintenance self-test failed' }
 
+      - name: Bootstrap parser gate
+        shell: pwsh
+        run: |
+          $p = 'control-plane/maintenance/bootstrap-maintenance-v12-20260830.ps1'
+          $tokens=$null; $errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){ $errors | Format-List | Out-String | Write-Host; throw 'Bootstrap PowerShell parse failed' }
+          Write-Host 'PASS bootstrap PowerShell parser'
+
       - name: Static authority boundary
         run: |
           python - <<'PY'
           from pathlib import Path
-          import re
           p=Path('control-plane/maintenance/kevin-maintenance-runner-v1.2.ps1')
           s=p.read_text(encoding='utf-8')
           low=s.lower()
@@ -52,8 +60,6 @@ jobs:
           ]
           bad=[x for x in forbidden if x in low]
           assert not bad, bad
-
-          # Exact typed envelope: no generic repair verb and no caller-selected local path.
           assert "@('replace_pinned_file','restart_ui_bridge')" in s
           assert "'skill_lab_runner' { return (Join-Path $Workspace 'kevin-skill-lab.ps1') }" in s
           assert "'ui_bridge_runner' { return (Join-Path $Workspace 'kevin-ui-bridge.ps1') }" in s
@@ -68,20 +74,40 @@ jobs:
           assert 'allow_arbitrary_shell' in s and 'allow_authority_expansion' in s
           assert 'allow_novel_production_promotion' in s
           assert 'v1.2 refuses to execute legacy PowerShell packages' in s
-
-          # The only process launches are two fixed local proof calls. Remote manifest
-          # fields are never splatted or appended to process argv.
           launches=[line.strip() for line in s.splitlines() if '& powershell.exe ' in line.lower()]
           assert len(launches)==2, launches
           assert all('@' not in line and '$m.' not in line for line in launches), launches
           assert any('-File $Path -SelfTest' in line for line in launches)
           assert any('-File $bench ' in line for line in launches)
-
-          # Remote source fetch is locked to the Skill Lab candidate root and only gh api.
           gh_calls=[line.strip() for line in s.splitlines() if 'Invoke-Gh @(' in line]
           assert len(gh_calls)==2, gh_calls
           assert all("'api'" in line for line in gh_calls)
           print('PASS typed maintenance fixed verbs / fixed aliases / no executor expansion')
+          PY
+
+      - name: Bootstrap authority boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          p=Path('control-plane/maintenance/bootstrap-maintenance-v12-20260830.ps1')
+          s=p.read_text(encoding='utf-8')
+          low=s.lower()
+          forbidden=['invoke-expression','invoke-command','start-process','cmd.exe','invoke-webrequest','invoke-restmethod','system.net.webclient','downloadstring','downloadfile','add-type','schtasks.exe','reg.exe']
+          bad=[x for x in forbidden if x in low]
+          assert not bad,bad
+          assert "B47714C91EFDCCD1FAE6C2CB0B97D72F799125A63C084956916A8BD5A07678C1" in s
+          assert "3B9D5B235E593C1CFF8CC9B7DED9E82FB958C2F7CD1F29FC813ECFA87E5C5483" in s
+          assert "control-plane/maintenance/kevin-maintenance-runner-v1.2.ps1?ref=main" in s
+          assert "Join-Path $ws 'kevin-maintenance-runner.ps1'" in s
+          assert 'kevin-skill-lab.ps1' not in s
+          assert 'kevin-ui-bridge.ps1' not in s
+          assert 'Get-ScheduledTask' not in s and 'Set-ScheduledTask' not in s and 'Start-ScheduledTask' not in s
+          assert 'desired-state-v1.json' not in s and 'OWNER-AUTHORIZATION-v1.md' not in s
+          launches=[line.strip() for line in s.splitlines() if '& powershell.exe ' in line.lower()]
+          assert len(launches)==1 and '-File $temp -SelfTest' in launches[0],launches
+          print('PASS bootstrap only replaces exact Maintenance Runner / no adjacent mutation')
+          print('bootstrap_sha256='+sha256(p.read_bytes()).hexdigest().upper())
           PY
 
       - name: Exact candidate hash
