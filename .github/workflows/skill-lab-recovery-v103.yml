@@ -1,0 +1,65 @@
+name: Skill Lab Recovery v1.0.3 Gate
+
+on:
+  push:
+    branches: [kevin-skill-lab-recovery-v1.0.3]
+    paths:
+      - control-plane/skill-lab/**
+      - .github/workflows/skill-lab-recovery-v103.yml
+  pull_request:
+    paths:
+      - control-plane/skill-lab/**
+      - .github/workflows/skill-lab-recovery-v103.yml
+
+permissions:
+  contents: read
+
+jobs:
+  recovery-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python reference model
+        working-directory: control-plane/skill-lab
+        run: |
+          python -m py_compile skill_lab_recovery_model.py test_skill_lab_recovery_model.py
+          python test_skill_lab_recovery_model.py
+      - name: PowerShell parser and runner self-test
+        shell: pwsh
+        run: |
+          $p = 'control-plane/skill-lab/kevin-skill-lab-v1.0.3.ps1'
+          $tokens=$null; $errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){ $errors | Format-List | Out-String | Write-Host; throw 'PowerShell parse failed' }
+          & $p -SelfTest
+          if($LASTEXITCODE -ne 0){ throw 'Skill Lab self-test failed' }
+      - name: Static authority boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('control-plane/skill-lab/kevin-skill-lab-v1.0.3.ps1')
+          s=p.read_text(encoding='utf-8')
+          forbidden=[
+            'Invoke-Expression','Start-Process','Invoke-WebRequest','Invoke-RestMethod',
+            'System.Diagnostics.Process','Net.WebClient','cmd.exe','powershell.exe',
+            'DownloadString','DownloadFile','Add-Type','shell=True','arbitrary_remote'
+          ]
+          bad=[x for x in forbidden if x.lower() in s.lower()]
+          assert not bad,bad
+          assert "@('create_text','create_spreadsheet','ui_notepad_write')" in s
+          assert '$maxRecover=3' in s
+          assert '$staleMin=15' in s
+          assert "'INTENT_PERSISTED'" in s
+          assert "'queue\\running'" in s
+          assert 'work-order collision/replay mismatch' in s
+          assert 'completion replay' in s
+          print('PASS fixed GREEN primitive envelope / no executor expansion')
+          PY
+      - name: Exact candidate hash
+        run: |
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          p=Path('control-plane/skill-lab/kevin-skill-lab-v1.0.3.ps1')
+          print('candidate_sha256='+sha256(p.read_bytes()).hexdigest().upper())
+          PY
