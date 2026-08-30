@@ -1,0 +1,34 @@
+name: HandoffEnvelope v2 Gate
+
+on:
+  push:
+    branches: [kevin-handoff-envelope-v2]
+  pull_request:
+    branches: [kevin-control-plane-v1.3-review-contract]
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile
+        run: python -m py_compile tools/validate_handoff_envelope_v2.py tools/test_handoff_envelope_v2.py
+      - name: Deterministic tests
+        working-directory: tools
+        run: python -m unittest -v test_handoff_envelope_v2.py
+      - name: Static authority boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('tools/validate_handoff_envelope_v2.py').read_text()
+          banned=['subprocess','socket','requests','urllib','os.system','Popen','shell=True']
+          found=[x for x in banned if x in s]
+          assert not found, found
+          contract=Path('control-plane/schemas/handoff-envelope-v2.json').read_text()
+          for token in ['"grants_authority": false','"executes_actions": false','"production_mutation": false','"arbitrary_shell": false','"external_sends": false']:
+              assert token in contract, token
+          print('HANDOFF_V2_AUTHORITY_BOUNDARY_PASS')
+          PY
