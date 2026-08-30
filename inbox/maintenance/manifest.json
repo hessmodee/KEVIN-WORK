@@ -1,17 +1,18 @@
 {
-  "schema": 2,
-  "kind": "kevin-typed-maintenance-manifest",
-  "id": "typed-skill-lab-windows-runtime-v104-compat-20260830",
+  "schema": 1,
+  "kind": "kevin-maintenance-manifest",
+  "id": "maintenance-bootstrap-v13-20260830-1735",
   "authority_class": "GREEN",
-  "authority_delta": "NONE",
   "production_effect": "NONE",
-  "owner_policy": "Kevin Owner Authorization v1",
-  "preauthorized": true,
-  "operation": "replace_pinned_file",
-  "target_alias": "skill_lab_runner",
-  "source_path": "control-plane/skill-lab/kevin-skill-lab-v1.0.4.ps1",
-  "source_sha256": "BCF21255F5D2BF1ED5B852DE26A06BB4FB5ACC14708539801E3E234A0968CE29",
-  "expected_current_sha256": "A771B050A5DA3D49BC3445BE4C20B4BF928C86AFA22E6634550CFBA4F30DB865",
-  "expected_after_sha256": "BCF21255F5D2BF1ED5B852DE26A06BB4FB5ACC14708539801E3E234A0968CE29",
-  "expires_at": "2026-09-02T12:00:00-06:00"
+  "authority_delta": "NONE",
+  "requires_owner_approval": true,
+  "payload_path": "inbox/maintenance/packages/bootstrap-maintenance-v13-20260830.ps1",
+  "payload_sha256": "EBDC7E4ED18FD2B496D16C3B8B3807AE483D32603AB1273FC79BD832CAC74B98",
+  "expires_at": "2026-08-31T18:00:00-06:00",
+  "expected_current": {
+    "kevin-maintenance-runner.ps1": "3B9D5B235E593C1CFF8CC9B7DED9E82FB958C2F7CD1F29FC813ECFA87E5C5483"
+  },
+  "expected_after": {
+    "kevin-maintenance-runner.ps1": "5C3B170FAF996FFE0890C028ABE1DD16D8A14258E5A1CAE2653E39F857AB324A"
+  }
 }
