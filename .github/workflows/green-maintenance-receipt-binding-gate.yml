@@ -1,0 +1,27 @@
+name: GREEN Maintenance Receipt Binding Gate
+on:
+  push:
+    branches: [kevin-green-maintenance-receipt-binding-v0.1]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile
+        run: python -m py_compile tools/build_green_maintenance_receipt.py tools/verify_green_maintenance_receipt.py tools/test_build_green_maintenance_receipt.py
+      - name: Deterministic binding tests
+        working-directory: tools
+        run: python -m unittest -v test_build_green_maintenance_receipt.py test_verify_green_maintenance_receipt.py
+      - name: Static authority boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('tools/build_green_maintenance_receipt.py').read_text()
+          banned=['subprocess','os.system','socket','requests','urllib','Popen','powershell','cmd.exe','Invoke-Expression']
+          hit=[x for x in banned if x in s]
+          assert not hit, hit
+          assert 'ALLOWED_ACTIONS' in s and 'MUTABLE_ACTIONS' in s
+          print('PASS static authority boundary')
+          PY
