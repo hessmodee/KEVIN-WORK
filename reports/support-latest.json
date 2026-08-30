@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-29T22:07:28.3315431-06:00",
+    "generated_at":  "2026-08-29T22:10:28.4538466-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788062664180,
-                                  "next_run_at_ms":  1788062844180
+                                  "last_run_at_ms":  1788062844191,
+                                  "next_run_at_ms":  1788063024191
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788062792979,
-                                  "next_run_at_ms":  1788062852979
+                                  "last_run_at_ms":  1788062984996,
+                                  "next_run_at_ms":  1788063044996
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -89,20 +89,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788062752360,
-                                  "next_run_at_ms":  1788062932360
-                              },
-                              {
-                                  "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
-                                  "declaration_key":  "kevin-benchmark-v1",
-                                  "name":  "Kevin Benchmark v1.1c",
-                                  "enabled":  true,
-                                  "every_ms":  600000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788062729741,
-                                  "next_run_at_ms":  1788062953299
+                                  "last_run_at_ms":  1788062932376,
+                                  "next_run_at_ms":  1788063112376
                               },
                               {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
@@ -115,15 +103,27 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788062815811,
                                   "next_run_at_ms":  1788063115811
+                              },
+                              {
+                                  "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
+                                  "declaration_key":  "kevin-benchmark-v1",
+                                  "name":  "Kevin Benchmark v1.1c",
+                                  "enabled":  true,
+                                  "every_ms":  600000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788062984991,
+                                  "next_run_at_ms":  1788063584991
                               }
                           ],
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  43,
+                       "cycle":  44,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-08-29T22:05:53.7883943-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-08-29T22:09:42.9231868-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -134,7 +134,7 @@
                      "last_brief":  "20260829-220322-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-08-29T22:05:38.5178958-06:00",
+                      "at":  "2026-08-29T22:09:53.7087312-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -148,15 +148,15 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260829-215953-forge-v4-i28-evaluation.json",
-                              "at":  "2026-08-29T22:00:51.3325849-06:00",
+                              "file":  "20260829-220853-forge-v4-i29-evaluation.json",
+                              "at":  "2026-08-29T22:09:42.8302603-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  28,
+                              "iteration":  29,
                               "verdict":  "REJECT",
                               "score":  2,
                               "result":  "",
-                              "failure_count":  5,
-                              "security_finding_count":  2,
+                              "failure_count":  6,
+                              "security_finding_count":  1,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
                           },
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "6DEA1EBC9527874668CB8A7AF43C9AFE5E941D87AA06F1EF1EEA63200FEDD835"
+    "semantic_hash":  "494A43D8F55F487E2F04B7F325BEACC2D797538F713244F5CEBB4739EF5E7EEB"
 }
