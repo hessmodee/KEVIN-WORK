@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T08:36:48-06:00",
+  "generated_at": "2026-08-30T08:37:01-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,12 +13,14 @@
     "tools": false
   },
   "current_task": {
-    "id": "supervisor",
-    "title": "Supervisor autonomous cycle",
-    "category": "supervisor",
-    "phase": "Goal-aware Supervisor cycle active.",
-    "started_at": "2026-08-30T08:36:04.4218330-06:00",
-    "source": "hq-live-ops"
+    "id": "night-forge",
+    "title": "Night Forge cycle",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-30T08:37:01-06:00",
+    "source": "forge"
   },
   "services": {
     "tick": "healthy",
@@ -36,13 +38,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T04:20:14-06:00",
-        "estimated": false,
-        "ram": 57,
-        "cpu": 11,
-        "gpu": 99
-      },
       {
         "at": "2026-08-30T04:25:46-06:00",
         "estimated": false,
@@ -707,10 +702,16 @@
         "ram": 53,
         "cpu": 12,
         "gpu": 10
+      },
+      {
+        "at": "2026-08-30T08:37:01-06:00",
+        "estimated": false,
+        "ram": 53,
+        "cpu": 12,
+        "gpu": 10
       }
     ],
     "ram": [
-      57,
       48,
       48,
       47,
@@ -805,12 +806,12 @@
       52,
       61,
       53,
+      53,
       53
     ],
     "cpu": [
       11,
       11,
-      11,
       5,
       22,
       22,
@@ -902,11 +903,11 @@
       3,
       3,
       14,
+      12,
       12,
       12
     ],
     "gpu": [
-      99,
       30,
       30,
       31,
@@ -1000,6 +1001,7 @@
       0,
       0,
       40,
+      10,
       10,
       10
     ]
@@ -1154,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-30T08:37:01-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
     {
       "at": "2026-08-30T08:36:48-06:00",
       "source": "forge",
@@ -1368,24 +1379,14 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-30T07:12:58-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: forge-v4",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 39000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-30T08:36:48-06:00",
+    "last": "2026-08-30T08:37:01-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1422,30 +1423,30 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-30T08:36:04.4218330-06:00",
+    "generated_at": "2026-08-30T08:37:01-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": true,
     "benchmark_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Supervisor autonomous cycle",
-      "category": "supervisor",
-      "state": "coordinating",
-      "detail": "Goal-aware Supervisor cycle active.",
-      "what": "Selecting and advancing the highest-value authorized mission.",
-      "engine": "Supervisor v1.4",
-      "action": "Mission coordination"
+      "id": "night-forge",
+      "name": "Night Forge",
+      "title": "Night Forge cycle",
+      "category": "qa",
+      "state": "working",
+      "detail": "started",
+      "what": "Running safety and regression checks.",
+      "engine": "Night Forge",
+      "action": "QA / regression"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "coordinating",
-        "detail": "Selecting, evaluating, staging, or recording autonomous work.",
+        "state": "waiting",
+        "detail": "Supervisor is yielding while Night Forge owns the engineering lane.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Autonomous coordination"
@@ -1474,16 +1475,16 @@
   },
   "execution": {
     "running": true,
-    "state": "coordinating",
-    "phase": "Goal-aware Supervisor cycle active.",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Mission coordination"
+    "state": "working",
+    "phase": "started",
+    "worker": "Night Forge",
+    "engine": "Night Forge",
+    "action": "QA / regression"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | COORDINATING | Goal-aware Supervisor cycle active.",
+      "text": "Night Forge | WORKING | started",
       "severity": "normal"
     }
   ]
