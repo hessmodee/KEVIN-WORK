@@ -1,0 +1,94 @@
+name: Typed Maintenance v1.2 Gate
+
+on:
+  push:
+    branches: [kevin-typed-maintenance-v1.2]
+    paths:
+      - control-plane/maintenance/**
+      - .github/workflows/typed-maintenance-v12.yml
+  pull_request:
+    paths:
+      - control-plane/maintenance/**
+      - .github/workflows/typed-maintenance-v12.yml
+
+permissions:
+  contents: read
+
+jobs:
+  typed-maintenance-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Independent policy model
+        working-directory: control-plane/maintenance
+        run: |
+          python -m py_compile typed_maintenance_policy.py test_typed_maintenance_policy.py
+          python test_typed_maintenance_policy.py
+
+      - name: PowerShell parse and candidate self-test
+        shell: pwsh
+        run: |
+          $p = 'control-plane/maintenance/kevin-maintenance-runner-v1.2.ps1'
+          $tokens=$null; $errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){ $errors | Format-List | Out-String | Write-Host; throw 'PowerShell parse failed' }
+          & $p -SelfTest
+          if($LASTEXITCODE -ne 0){ throw 'Maintenance self-test failed' }
+
+      - name: Static authority boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('control-plane/maintenance/kevin-maintenance-runner-v1.2.ps1')
+          s=p.read_text(encoding='utf-8')
+          low=s.lower()
+          forbidden=[
+            'invoke-expression','invoke-command','start-process','cmd.exe',
+            'invoke-webrequest','invoke-restmethod','system.net.webclient',
+            'downloadstring','downloadfile','add-type','scriptblock::create',
+            'wscript.shell','schtasks.exe','reg.exe','net.exe '
+          ]
+          bad=[x for x in forbidden if x in low]
+          assert not bad, bad
+
+          # Exact typed envelope: no generic repair verb and no caller-selected local path.
+          assert "@('replace_pinned_file','restart_ui_bridge')" in s
+          assert "'skill_lab_runner' { return (Join-Path $Workspace 'kevin-skill-lab.ps1') }" in s
+          assert "'ui_bridge_runner' { return (Join-Path $Workspace 'kevin-ui-bridge.ps1') }" in s
+          assert "[string]$m.target_alias -ne 'skill_lab_runner'" in s
+          assert "[string]$m.task_name -ne 'Kevin UI Bridge v0.3'" in s
+          assert "^control-plane/skill-lab/[A-Za-z0-9._-]+\\.ps1$" in s
+          assert "^inbox/maintenance/packages/[A-Za-z0-9._-]+\\.ps1$" in s
+          assert '$MaxAttempts = 3' in s
+          assert "authority_delta -ne 'NONE'" in s
+          assert "production_effect -ne 'NONE'" in s
+          assert "preauthorized -ne $true" in s
+          assert 'allow_arbitrary_shell' in s and 'allow_authority_expansion' in s
+          assert 'allow_novel_production_promotion' in s
+          assert 'v1.2 refuses to execute legacy PowerShell packages' in s
+
+          # The only process launches are two fixed local proof calls. Remote manifest
+          # fields are never splatted or appended to process argv.
+          launches=[line.strip() for line in s.splitlines() if '& powershell.exe ' in line.lower()]
+          assert len(launches)==2, launches
+          assert all('@' not in line and '$m.' not in line for line in launches), launches
+          assert any('-File $Path -SelfTest' in line for line in launches)
+          assert any('-File $bench ' in line for line in launches)
+
+          # Remote source fetch is locked to the Skill Lab candidate root and only gh api.
+          gh_calls=[line.strip() for line in s.splitlines() if 'Invoke-Gh @(' in line]
+          assert len(gh_calls)==2, gh_calls
+          assert all("'api'" in line for line in gh_calls)
+          print('PASS typed maintenance fixed verbs / fixed aliases / no executor expansion')
+          PY
+
+      - name: Exact candidate hash
+        run: |
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          p=Path('control-plane/maintenance/kevin-maintenance-runner-v1.2.ps1')
+          print('candidate_sha256='+sha256(p.read_bytes()).hexdigest().upper())
+          PY
