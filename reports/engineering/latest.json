@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-08-30T16:37:31.3742499-06:00",
+    "generated_at":  "2026-08-30T16:39:31.4355258-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
-                    "id":  "bess-skill-lab-preproof-status-20260830-1635",
-                    "operation":  "action_status",
-                    "status":  "DUPLICATE_IGNORED",
-                    "detail":  "Request id already processed."
+                    "id":  "bess-stage-core-toolchain-proof-20260830-1638",
+                    "operation":  "stage_composite_skill",
+                    "status":  "BUDGET_EXHAUSTED",
+                    "detail":  "Daily remote engineering request budget reached."
                 },
     "result":  {
 
@@ -27,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  5
+                                     "heartbeat_age_seconds":  3.3
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -66,6 +66,13 @@
                                     "consecutive_errors":  0
                                 },
                                 {
+                                    "declaration_key":  "kevin-maintenance-intake-v1",
+                                    "enabled":  true,
+                                    "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
                                     "declaration_key":  "kevin-support-bridge-v1",
                                     "enabled":  true,
                                     "every_ms":  180000,
@@ -76,13 +83,6 @@
                                     "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-maintenance-intake-v1",
-                                    "enabled":  true,
-                                    "every_ms":  300000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
