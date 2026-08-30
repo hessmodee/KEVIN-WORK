@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kevin-engineering-request-v1",
+  "title": "Kevin Engineering Request v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "kind", "id", "authority", "operation", "created_at", "expires_at", "params"],
+  "properties": {
+    "schema": {"const": 1},
+    "kind": {"const": "kevin-engineering-request"},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9._-]{6,96}$"},
+    "authority": {"const": "GREEN"},
+    "operation": {
+      "enum": ["snapshot", "benchmark", "action_selftests", "action_status", "stage_composite_skill"]
+    },
+    "created_at": {"type": "string", "format": "date-time"},
+    "expires_at": {"type": "string", "format": "date-time"},
+    "params": {"type": "object"}
+  }
+}
