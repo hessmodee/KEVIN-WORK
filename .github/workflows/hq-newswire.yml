@@ -1,0 +1,63 @@
+name: Kevin HQ Newswire
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/15 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - .github/scripts/build-hq-newswire.py
+      - .github/workflows/hq-newswire.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kevin-hq-newswire-main
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Build public newswire
+        run: python .github/scripts/build-hq-newswire.py
+      - name: Validate feed
+        run: |
+          python - <<'PY'
+          import json
+          p=json.load(open('reports/newswire-latest.json',encoding='utf-8'))
+          assert p.get('schema')==1
+          assert p.get('kind')=='kevin-hq-public-newswire'
+          assert p.get('weather',{}).get('summary'), p.get('errors')
+          assert len(p.get('headlines',[]))>=6, p.get('errors')
+          cats={x.get('category') for x in p['headlines']}
+          assert 'local' in cats, cats
+          assert 'national' in cats, cats
+          assert 'world' in cats, cats
+          print('NEWSWIRE_CONTRACT_PASS',len(p['headlines']),sorted(cats))
+          PY
+      - name: Publish if changed
+        run: |
+          git config user.name 'Kevin Newswire'
+          git config user.email 'actions@users.noreply.github.com'
+          git add reports/newswire-latest.json
+          if git diff --cached --quiet; then
+            echo 'Newswire unchanged.'
+            exit 0
+          fi
+          git commit -m 'kevin hq newswire'
+          for n in 1 2 3; do
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            git rebase --abort || true
+            sleep $((n*3))
+          done
+          echo 'Could not publish newswire after bounded retries.' >&2
+          exit 1
