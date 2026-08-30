@@ -1,0 +1,57 @@
+name: Kevin HQ Owner Updates Gate
+
+on:
+  push:
+    branches: [kevin-hq-owner-updates-20260830]
+    paths:
+      - docs/**
+      - .github/scripts/build-hq-newswire.py
+      - .github/workflows/hq-owner-updates-gate.yml
+  pull_request:
+    paths:
+      - docs/**
+      - .github/scripts/build-hq-newswire.py
+      - .github/workflows/hq-owner-updates-gate.yml
+
+permissions:
+  contents: read
+
+jobs:
+  hq-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python compile and newswire duplicate-source tests
+        run: |
+          python -m py_compile .github/scripts/build-hq-newswire.py
+          python - <<'PY'
+          import importlib.util
+          from pathlib import Path
+          p=Path('.github/scripts/build-hq-newswire.py')
+          spec=importlib.util.spec_from_file_location('hq_news',p)
+          m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+          cases=[
+            ('Story - NBC','NBC',('Story','NBC')),
+            ('Story — Reuters','Reuters',('Story','Reuters')),
+            ('Story','AP',('Story','AP')),
+            ('Story - KSL','',('Story','KSL')),
+          ]
+          for title,source,want in cases:
+            got=m.strip_duplicate_source(title,source)
+            assert got==want,(title,source,got,want)
+          print('PASS newswire publisher appears once')
+          PY
+      - name: JavaScript syntax
+        run: |
+          node --check docs/hq-overrides-v1.js
+          node --check docs/ops/ops-truth-patch-v1.js
+      - name: HQ extension invariants
+        run: |
+          test -s docs/hq-core-v7.html
+          grep -q 'hq-core-v7.html#overview' docs/index.html
+          grep -q '7000' docs/hq-overrides-v1.js
+          grep -q 'hqCopyHandover' docs/hq-overrides-v1.js
+          grep -q 'hqViewHandover' docs/hq-overrides-v1.js
+          grep -q "state:'ARMED'" docs/ops/ops-truth-patch-v1.js
+          grep -q 'ops-truth-patch-v1.js' docs/ops/embed.html
+          echo 'PASS HQ shell, ticker dwell, handover controls, and truthful Ops overlay present'
