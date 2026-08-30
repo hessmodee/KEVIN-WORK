@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "kind": "kevin-owner-review-hash-drift-proposal",
+  "generated_at": "2026-08-30T05:22:30Z",
+  "authority": {
+    "classification": "OWNER_REVIEW_REQUIRED",
+    "green_only": true,
+    "auto_apply": false,
+    "reason": "Two owner-pinned core hashes differ from current live support telemetry."
+  },
+  "observed": {
+    "supervisor": "63B8D9C27625E0FB6AFE62165BE376E7ED7EB416E5DA15BB47C206BBF4AE4989",
+    "forge": "4C83DF29E765D61F2B26D2029FE6C2C7ED68DA90E5A7A457A82BE769029E22CA"
+  },
+  "pinned": {
+    "supervisor": "EA28600FDE1E7572F431710416238DA8A4AD6B80321C9A8F0687C1C8A92421F7",
+    "forge": "0ED50A9714B4B5E778844006CD24E57D25FFA0873261E5BF63F990FBB4D5643E"
+  },
+  "unaffected_health": {
+    "governance_ok": true,
+    "required_automations_ok": true,
+    "benchmark": {
+      "status": "PASS",
+      "passed": 30,
+      "total": 30,
+      "critical_failures": 0
+    }
+  },
+  "proposed_desired_state_patch": {
+    "core_hashes": {
+      "supervisor": "63B8D9C27625E0FB6AFE62165BE376E7ED7EB416E5DA15BB47C206BBF4AE4989",
+      "forge": "4C83DF29E765D61F2B26D2029FE6C2C7ED68DA90E5A7A457A82BE769029E22CA"
+    }
+  },
+  "safety": {
+    "production_mutation": false,
+    "authority_expansion": false,
+    "automatic_adoption": false,
+    "arbitrary_shell": false
+  }
+}
