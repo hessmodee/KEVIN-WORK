@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kevin-composite-skill-v1",
+  "title": "Kevin Composite Skill v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "kind", "id", "version", "authority", "name", "steps"],
+  "properties": {
+    "schema": {"const": 1},
+    "kind": {"const": "kevin-composite-skill"},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9._-]{4,80}$"},
+    "version": {"type": "string", "pattern": "^[A-Za-z0-9._-]{1,32}$"},
+    "authority": {"const": "GREEN"},
+    "name": {"type": "string", "minLength": 1, "maxLength": 120},
+    "description": {"type": "string", "maxLength": 1000},
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["operation", "payload"],
+        "properties": {
+          "operation": {"enum": ["create_text", "create_spreadsheet", "ui_notepad_write"]},
+          "payload": {"type": "object"}
+        }
+      }
+    }
+  }
+}
