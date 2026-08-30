@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "kevin-core-toolchain-proof",
+  "version": "1.0.0",
+  "authority": "GREEN",
+  "name": "Kevin Core Toolchain Proof",
+  "steps": [
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "kevin-core-toolchain-proof.txt",
+        "content": "KEVIN CORE TOOLCHAIN PROOF v1.0.0\nPurpose: prove a governed multi-step skill across file creation, spreadsheet creation, and visible UI interaction.\nAuthority: GREEN\nExpected result: deterministic evidence for every step.\n"
+      }
+    },
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "kevin-core-toolchain-proof.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Proof",
+              "rows": [
+                ["Capability", "Expected"],
+                ["create_text", "DONE"],
+                ["create_spreadsheet", "DONE"],
+                ["ui_notepad_write", "DONE"],
+                ["Authority", "GREEN"]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "ui_notepad_write",
+      "payload": {
+        "filename": "kevin-core-toolchain-proof-ui.txt",
+        "app": "notepad",
+        "content": "KEVIN CORE TOOLCHAIN PROOF v1.0.0\n\nKevin reached the Windows desktop through the governed UI Bridge and wrote this message using the proven Notepad UI primitive.\n\nAuthority: GREEN\n"
+      }
+    }
+  ]
+}
