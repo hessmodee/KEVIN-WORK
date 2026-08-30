@@ -45,11 +45,12 @@ jobs:
         run: |
           $c=Get-Content control-plane/intake/kevin-work-order-intake-v0.2-candidate.ps1 -Raw
           foreach($n in @('Invoke-AdmissionPolicy','Verify-Postcondition','Add-FailureRecord','precondition_fingerprint','POSTCONDITION_NOT_VERIFIED','three bounded failed attempts')){if(-not $c.Contains($n)){throw "Missing integration contract: $n"}}
-          if($c -match "ValidateSet\([^\)]*Shell" -or $c -match "verb.*shell"){throw 'Arbitrary shell authority detected'}
           $allowed=@('dispatch_mission','run_reconcile','run_benchmark','run_support_bridge','refresh_autonomy_telemetry')
           $m=[regex]::Match($c,"\$verbs=@\(([^\)]*)\)")
           if(-not $m.Success){throw 'GREEN verb allowlist not found'}
-          foreach($v in $allowed){if(-not $m.Groups[1].Value.Contains("'$v'")){throw "Missing GREEN verb $v"}}
+          $declared=@([regex]::Matches($m.Groups[1].Value,"'([^']+)'")|ForEach-Object{$_.Groups[1].Value})
+          if(($declared|Sort-Object) -join '|' -ne ($allowed|Sort-Object) -join '|'){throw "GREEN verb surface changed: $($declared -join ',')"}
+          if($c -match "'shell'\s*\{" -or $c -match "'arbitrary_shell'\s*\{"){throw 'Executable shell verb detected'}
           Write-Host 'PASS typed GREEN integration contracts'
       - name: Commit validated candidate
         shell: pwsh
