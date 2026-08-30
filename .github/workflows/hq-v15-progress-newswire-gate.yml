@@ -1,0 +1,84 @@
+name: Kevin HQ v15 Progress Newswire Gate
+
+on:
+  push:
+    branches: [kevin-hq-v15-progress-newswire]
+    paths:
+      - .github/scripts/patch-hq-v15.py
+      - .github/scripts/build-hq-newswire.py
+      - .github/workflows/hq-newswire.yml
+      - .github/workflows/hq-v15-progress-newswire-gate.yml
+
+permissions:
+  contents: write
+
+jobs:
+  gate:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply HQ v15 patch
+        shell: pwsh
+        run: python .github/scripts/patch-hq-v15.py
+      - name: Validate Ops JavaScript
+        shell: pwsh
+        run: |
+          node --check docs/ops/ops-v11.js
+          if($LASTEXITCODE -ne 0){throw 'Ops JS syntax failed'}
+          Write-Host 'PASS Ops JS syntax'
+      - name: Validate HQ inline JavaScript
+        shell: pwsh
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('docs/index.html').read_text(encoding='utf-8')
+          blocks=re.findall(r'<script>(.*?)</script>',s,re.S)
+          Path('hq-inline-check.js').write_text('\n'.join(blocks),encoding='utf-8')
+          PY
+          node --check hq-inline-check.js
+          if($LASTEXITCODE -ne 0){throw 'HQ inline JS syntax failed'}
+          Remove-Item hq-inline-check.js -Force
+          Write-Host 'PASS HQ inline JS syntax'
+      - name: Validate v15 contracts
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $js=Get-Content docs/ops/ops-v11.js -Raw
+          $css=Get-Content docs/ops/ops-v11.css -Raw
+          $embed=Get-Content docs/ops/embed.html -Raw
+          $index=Get-Content docs/index.html -Raw
+          foreach($n in @('workerProgress','progressFromObject','Confirmed task checkpoints','worker-progress')){if(($js+$css) -notmatch [regex]::Escape($n)){throw "Missing progress contract $n"}}
+          foreach($n in @('event===\'task_finish\'','latestForgePass','Design Forge failed 3 completed runs in a row')){if($index -notmatch [regex]::Escape($n)){throw "Missing alert-resolution contract $n"}}
+          foreach($n in @('fetchExternalNewswire','public-weather','LOCAL','U.S.','WORLD','TOP')){if($index -notmatch [regex]::Escape($n)){throw "Missing newswire contract $n"}}
+          if($embed -notmatch 'ops-v11\.css\?v=15' -or $embed -notmatch 'ops-v11\.js\?v=15'){throw 'Inner cache bump missing'}
+          if($index -notmatch 'ops/embed\.html\?v=15'){throw 'Iframe cache bump missing'}
+          foreach($bad in @('â€”','â€¦','Â·','Ã—','�')){if(($index+$embed+$js+$css).Contains($bad)){throw "Mojibake remains: $bad"}}
+          Write-Host 'PASS v15 UI contracts'
+      - name: Build live public newswire fixture
+        shell: pwsh
+        run: python .github/scripts/build-hq-newswire.py
+      - name: Validate public newswire
+        shell: pwsh
+        run: |
+          python - <<'PY'
+          import json
+          p=json.load(open('reports/newswire-latest.json',encoding='utf-8'))
+          assert p['schema']==1
+          assert p['weather']['summary'], p.get('errors')
+          assert len(p['headlines'])>=6, p.get('errors')
+          cats={x['category'] for x in p['headlines']}
+          assert {'local','national','world'} <= cats, cats
+          print('PASS NEWSWIRE',len(p['headlines']),sorted(cats))
+          PY
+      - name: Commit validated production files
+        shell: pwsh
+        run: |
+          git config user.name 'Kevin CI'
+          git config user.email 'actions@users.noreply.github.com'
+          git add docs/index.html docs/ops/embed.html docs/ops/ops-v11.js docs/ops/ops-v11.css reports/newswire-latest.json
+          if(git diff --cached --quiet){throw 'HQ v15 patch produced no production changes'}
+          git commit -m 'Add truthful worker progress and live HQ newswire [skip ci]'
+          git push origin HEAD:kevin-hq-v15-progress-newswire
