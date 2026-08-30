@@ -1,6 +1,6 @@
 # Kevin AI Engineering Handover
 
-Last updated: 2026-08-30 08:00 MDT / 14:00 UTC
+Last updated: 2026-08-30 08:21 MDT / 14:21 UTC
 
 Purpose: this is the durable turnover sheet for any AI model or engineer resuming Kevin work. Read this file before making assumptions about current priorities, authority, branch state, or known blockers. Update it whenever a substantive milestone, blocker, authority change, production promotion, rollback, or priority change occurs. A scheduled maintenance pass may refresh it periodically, but do not fabricate telemetry merely to make the timestamp newer.
 
@@ -23,13 +23,37 @@ One-14B-primary-worker resource discipline remains the default unless evidence p
 Primary active draft: PR #17, `Draft: Integrated autonomy control-plane candidate v0.1`
 
 Branch: `kevin-autonomy-integration-v0.1-final`
-Head at this update: `5dbe2f1f637f50b2a0d8bcd62865b01cb0e66bf2`
+Head at this update: `f50bd1e3d6121d04886b7b156760acdde95b501a`
 Base: `kevin-control-plane-v1.3-review-contract`
 Status: open, draft, mergeable.
 
-The latest GitHub Actions `Autonomy Integration Candidate Gate` for the head above completed successfully. The integration branch includes deterministic replay fixtures for valid GREEN success, replay rejection, stale preconditions, governance drift, budget exhaustion, no-progress rejection, mission-local cooldown rotation, shared-pipeline cooldown block, rollback-required postcondition failure, semantic handoff rejection, checkpoint resume/no-redo, three-failure cooling, stale Knowledge rejection, and unverified Knowledge rejection.
+The previously expanded integration fixture head passed the GitHub `Autonomy Integration Candidate Gate`. The branch now also contains a pure deterministic behavioral replay engine plus a dedicated replay test suite that evaluates all 14 Phase A scenarios instead of only checking contract/fixture shape. The replay engine fails closed on authority injection, unknown fields, more than one heavy worker, stale preconditions, budget exhaustion, no semantic progress, shared-pipeline cooldown, missing rollback after a failed mutable postcondition, semantic handoff failure, verified-stage replay, and stale/unverified Knowledge. Mission-local three-failure cooling rotates only when an eligible alternative exists.
 
-Next integration objective: move from contract/fixture proof into a deterministic end-to-end orchestration harness, then exercise one already-declared reversible GREEN action on the real Omen host with captured before-state, typed admission, budget decision, execution receipt, independent postcondition, rollback proof, restart/resume evidence, and regression/governance evidence. Do not use a generic arbitrary-command surface to accomplish this.
+A separate `Autonomy Replay Engine Gate` workflow was added at the current head. Its first workflow run had not surfaced yet when this handover was updated, so do not claim this new behavioral gate as independently proven until CI reports success.
+
+Next integration objective: once replay-engine CI is independently green, bind the replay decisions into the next narrow actuator/reconciler proof and then exercise one already-declared reversible GREEN action on the real Omen host with captured before-state, typed admission, budget decision, execution receipt, independent postcondition, rollback proof, restart/resume evidence, and regression/governance evidence. Do not use a generic arbitrary-command surface to accomplish this.
+
+## Fresh trustworthy telemetry
+
+Fresh support snapshot retrieved from `reports/support-latest.json`, generated `2026-08-30T08:19:21.8485043-06:00`:
+
+- governance `ok: true`, owner locks intact, explicit owner adoption true;
+- all five declared jobs enabled, last run status `ok`, zero consecutive errors;
+- Benchmark at `2026-08-30T08:13:38.7936096-06:00`: PASS, 30/30, 100%, zero critical failures;
+- active workers: design_forge 0, night_forge 0, supervisor 0, benchmark 0;
+- latest evaluation: `forge-v4`, iteration 95, REJECT, score 2, 8 failures, 1 security finding, reusable lesson true, next experiment true;
+- maintenance intake: `NO_MANIFEST`, no waiting proposal.
+
+Fresh autonomy snapshot from `reports/autonomy-latest.json`, generated `2026-08-30T08:03:54.4548330-06:00`:
+
+- state remains `NEEDS_REVIEW`;
+- drift_count: 2;
+- no selected action;
+- no active engineering workers at that snapshot;
+- work-conserving status: `NO_DISPATCH_NEEDED`, candidate-only advisory;
+- safety flags remain GREEN-only, no arbitrary shell, no authority expansion, no novel production promotion.
+
+Do not silently bless the two drift items. A fresh support snapshot being healthy does not itself authorize changing trust anchors.
 
 ## Proven/advanced isolated candidates
 
@@ -43,15 +67,15 @@ Next integration objective: move from contract/fixture proof into a deterministi
 - PR #14: Tool Budget Governor. Stateful cumulative budgets, duplicate/no-progress circuit breaker, internal failure-family accounting, idempotency replay protection, no authority injection. Expanded deterministic suite reached 25/25 and CI success.
 - PR #15: Postmortem contract. Durable symptom/root-cause/fix/prevention/evidence, confidence/review timing, three-material-failure cooling rule, semantic resolution. CI success.
 - PR #16: Knowledge v0.1 provenance + freshness gate. Candidate vs verified knowledge, immutable source fingerprints, duplicate rejection, stale-at-consumption failure, confidence/trust requirements, KNOWLEDGE_ONLY boundary. GitHub `Knowledge Candidate Gate` completed successfully on head `95d08136430da57eb4fd9d732df7524882cec5ce`.
-- PR #17: integrated autonomy candidate described above; latest head gate is currently proven successful.
+- PR #17: integrated autonomy candidate described above; prior fixture/contract gate proven, new behavioral replay gate pending independent CI at this update.
 
 ## Known blockers / caution areas
 
 1. Direct actuator rollback integration remains the most important P1 engineering gap. An earlier isolated actuator path could verify `enable_expected_automation` after mutation but did not yet prove restoration of the prior state when verification failed. A direct executable patch attempt was blocked by the repository/tool safety layer. Do not bypass that guardrail. Solve this through a narrow typed GREEN mechanism with before-state capture and explicit rollback proof.
 
-2. Trust-anchor drift must not be silently blessed. Earlier autonomy telemetry showed two core-hash drift items and `NEEDS_REVIEW`. A newer trusted autonomy snapshot has not yet been verified in this handover. Treat freshness explicitly and re-read current telemetry before making live-state claims.
+2. Trust-anchor drift remains unresolved. Current autonomy telemetry still shows two drift items and `NEEDS_REVIEW`. Do not auto-approve or rewrite Desired State anchors merely to clear the warning.
 
-3. Fresh support telemetry is limited in the current evidence trail. The last trustworthy support snapshot previously used showed governance healthy, Benchmark 30/30 PASS, declared jobs enabled with zero consecutive errors, and zero active workers at that capture. Do not present those numbers as current unless a newer snapshot is actually retrieved.
+3. The current `forge-v4` evaluation is a REJECT with eight failures and one security finding. The reusable lesson and next experiment are available, but this is not a production-success signal.
 
 4. Ops Floor and production Kevin avatar are owner-locked. Only real defects/telemetry improvements may touch that surface; no redesign.
 
