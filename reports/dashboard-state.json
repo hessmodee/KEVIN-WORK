@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T14:32:15.1585473-06:00",
+  "generated_at": "2026-08-30T14:35:15.2115041-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 57,
-    "cpu_pct": 10,
+    "memory_pct": 59,
+    "cpu_pct": 6,
     "gpu": "RTX 3060",
-    "gpu_pct": 32
+    "gpu_pct": 25
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T10:30:34-06:00",
-        "estimated": false,
-        "ram": 47,
-        "cpu": 7,
-        "gpu": 31
-      },
       {
         "at": "2026-08-30T10:31:13-06:00",
         "estimated": false,
@@ -700,11 +693,17 @@
         "ram": 57,
         "cpu": 10,
         "gpu": 32
+      },
+      {
+        "at": "2026-08-30T14:35:13-06:00",
+        "estimated": false,
+        "ram": 59,
+        "cpu": 6,
+        "gpu": 25
       }
     ],
     "ram": [
       47,
-      47,
       54,
       54,
       53,
@@ -798,10 +797,10 @@
       49,
       49,
       57,
-      57
+      57,
+      59
     ],
     "cpu": [
-      7,
       7,
       16,
       5,
@@ -896,10 +895,10 @@
       8,
       8,
       10,
-      10
+      10,
+      6
     ],
     "gpu": [
-      31,
       31,
       33,
       33,
@@ -994,7 +993,8 @@
       45,
       45,
       32,
-      32
+      32,
+      25
     ]
   },
   "weather": {
@@ -1148,6 +1148,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-30T14:35:13-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-30T14:32:00-06:00",
       "source": "forge",
       "component": "forge",
@@ -1184,13 +1191,6 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-30T14:20:13-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-30T14:20:10-06:00",
@@ -1378,7 +1378,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-30T14:32:15.1585473-06:00",
+    "last": "2026-08-30T14:35:15.2115041-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1415,7 +1415,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-30T14:32:15.1585473-06:00",
+    "generated_at": "2026-08-30T14:35:15.2115041-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1427,7 +1427,7 @@
       "title": "Kevin autonomous system armed",
       "category": "supervisor",
       "state": "ready",
-      "detail": "Completed knowledge i30 evaluation=REJECT score=25 auto_staged=False",
+      "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
       "what": "Waiting only for the next scheduled three-minute control cycle.",
       "engine": "Supervisor v1.4",
       "action": "Autonomous schedule armed"
@@ -1438,7 +1438,7 @@
         "name": "Supervisor",
         "role": "Goal-aware control plane",
         "state": "ready",
-        "detail": "Completed knowledge i30 evaluation=REJECT score=25 auto_staged=False",
+        "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1468,7 +1468,7 @@
   "execution": {
     "running": false,
     "state": "ready",
-    "phase": "Completed knowledge i30 evaluation=REJECT score=25 auto_staged=False",
+    "phase": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
     "worker": "Supervisor",
     "engine": "Supervisor v1.4",
     "action": "Autonomous schedule armed"
@@ -1476,7 +1476,7 @@
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | Completed knowledge i30 evaluation=REJECT score=25 auto_staged=False",
+      "text": "Supervisor | READY | Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
       "severity": "normal"
     }
   ]
