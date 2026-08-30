@@ -1,0 +1,82 @@
+name: Self Maintenance Transport v1 Gate
+
+on:
+  push:
+    branches: [kevin-self-maintenance-transport-v1]
+    paths:
+      - control-plane/maintenance/**
+      - control-plane/intake/kevin-work-order-intake-v1.2.1.ps1
+      - docs/engineering/SELF-MAINTENANCE-TRANSPORT-v1.md
+      - .github/workflows/self-maintenance-transport-v1.yml
+  pull_request:
+    paths:
+      - control-plane/maintenance/**
+      - control-plane/intake/kevin-work-order-intake-v1.2.1.ps1
+      - docs/engineering/SELF-MAINTENANCE-TRANSPORT-v1.md
+      - .github/workflows/self-maintenance-transport-v1.yml
+
+permissions:
+  contents: read
+
+jobs:
+  policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Policy model
+        working-directory: control-plane/maintenance
+        run: |
+          python -m py_compile self_maintenance_policy_v1.py test_self_maintenance_policy_v1.py
+          python test_self_maintenance_policy_v1.py
+      - name: Static no remote execution expansion
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          m=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1').read_text()
+          i=Path('control-plane/intake/kevin-work-order-intake-v1.2.1.ps1').read_text()
+          w=Path('control-plane/maintenance/kevin-gateway-watchdog-v1.ps1').read_text()
+          for name,s in [('maintenance',m),('intake',i),('watchdog',w)]:
+              low=s.lower()
+              bad=[x for x in ['invoke-expression','scriptblock::create','invoke-command','-encodedcommand','downloadstring','wscript.shell'] if x in low]
+              assert not bad,(name,bad)
+          assert "@('replace_pinned_component','restart_ui_bridge')" in m
+          assert "'maintenance_runner'" in m and "'work_order_intake'" in m and "'skill_lab_runner'" in m
+          assert "target alias not allowlisted" in m and "source path outside alias root" in m
+          assert "run_typed_maintenance" in i and "kevin-maintenance-v1" in i
+          assert "return Ps $MaintenancePath @('-CheckOnly')" in i
+          assert 'command' not in i.split('function Validate($o)')[0].lower()
+          assert "gateway','status','--require-rpc','--json" in w
+          assert "gateway','restart','--wait','30s','--json" in w
+          assert '$MaxAttempts=3' in w and '$CooldownMinutes=15' in w
+          print('PASS static authority boundary')
+          PY
+
+  windows-powershell:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Windows PowerShell 5.1 parse and self-tests
+        shell: powershell
+        run: |
+          $files=@(
+            'control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1',
+            'control-plane/intake/kevin-work-order-intake-v1.2.1.ps1',
+            'control-plane/maintenance/kevin-gateway-watchdog-v1.ps1'
+          )
+          foreach($p in $files){
+            $tokens=$null;$errors=$null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+            if($errors.Count){$errors|Format-List|Out-String|Write-Host;throw "Parser failed $p"}
+          }
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1' -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'Maintenance self-test failed'}
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/intake/kevin-work-order-intake-v1.2.1.ps1' -Mode SelfTest
+          if($LASTEXITCODE -ne 0){throw 'Intake self-test failed'}
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/maintenance/kevin-gateway-watchdog-v1.ps1' -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'Watchdog self-test failed'}
+      - name: Exact hashes
+        shell: powershell
+        run: |
+          Get-FileHash control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1 -Algorithm SHA256
+          Get-FileHash control-plane/intake/kevin-work-order-intake-v1.2.1.ps1 -Algorithm SHA256
+          Get-FileHash control-plane/maintenance/kevin-gateway-watchdog-v1.ps1 -Algorithm SHA256
