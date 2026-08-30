@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T16:20:13-06:00",
-  "status": "ready",
+  "generated_at": "2026-08-30T16:21:22-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,16 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "design-forge",
+    "title": "Design Forge: forge-v4",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-30T16:21:22-06:00",
+    "source": "forge"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -21,21 +30,14 @@
   },
   "system": {
     "memory_pct": 31,
-    "cpu_pct": 11,
+    "cpu_pct": 15,
     "gpu": "RTX 3060",
-    "gpu_pct": 35
+    "gpu_pct": 37
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T11:51:44-06:00",
-        "estimated": false,
-        "ram": 48,
-        "cpu": 2,
-        "gpu": 33
-      },
       {
         "at": "2026-08-30T11:52:17-06:00",
         "estimated": false,
@@ -700,10 +702,16 @@
         "ram": 31,
         "cpu": 11,
         "gpu": 35
+      },
+      {
+        "at": "2026-08-30T16:21:22-06:00",
+        "estimated": false,
+        "ram": 31,
+        "cpu": 15,
+        "gpu": 37
       }
     ],
     "ram": [
-      48,
       48,
       47,
       47,
@@ -798,10 +806,10 @@
       26,
       30,
       30,
+      31,
       31
     ],
     "cpu": [
-      2,
       2,
       2,
       2,
@@ -896,10 +904,10 @@
       22,
       5,
       5,
-      11
+      11,
+      15
     ],
     "gpu": [
-      33,
       33,
       45,
       45,
@@ -994,7 +1002,8 @@
       34,
       37,
       37,
-      35
+      35,
+      37
     ]
   },
   "weather": {
@@ -1147,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-30T16:21:22-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: forge-v4",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-30T16:20:13-06:00",
       "component": "tick",
@@ -1361,24 +1379,14 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-30T14:41:15-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: forge-v4",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 35000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-30T16:20:13-06:00",
+    "last": "2026-08-30T16:21:22-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1408,37 +1416,37 @@
       "last_mission": "forge-v4",
       "iteration": 144,
       "updated_at": "2026-08-30T16:12:37.8448433-06:00",
-      "next_index": 4,
+      "next_index": 5,
       "scheduled": true,
       "promotion": "blocked"
     }
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-30T16:19:20.3595691-06:00",
+    "generated_at": "2026-08-30T16:21:22-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "Forge attempt failed; Supervisor scheduled a bounded retry.",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
+      "id": "design-forge",
+      "name": "Build Lab",
+      "title": "Design Forge: forge-v4",
+      "category": "forge",
+      "state": "working",
+      "detail": "started",
+      "what": "Generating and validating an isolated candidate.",
+      "engine": "Ollama | Qwen 2.5 14B",
+      "action": "Candidate engineering"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "Forge attempt failed; Supervisor scheduled a bounded retry.",
+        "state": "coordinating",
+        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1466,17 +1474,17 @@
     ]
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "Forge attempt failed; Supervisor scheduled a bounded retry.",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "running": true,
+    "state": "working",
+    "phase": "started",
+    "worker": "Build Lab",
+    "engine": "Ollama | Qwen 2.5 14B",
+    "action": "Candidate engineering"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | Forge attempt failed; Supervisor scheduled a bounded retry.",
+      "text": "Build Lab | WORKING | started",
       "severity": "normal"
     }
   ]
