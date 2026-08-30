@@ -1,6 +1,6 @@
 # Kevin AI Engineering Handover
 
-Last updated: 2026-08-30 08:21 MDT / 14:21 UTC
+Last updated: 2026-08-30 08:26 MDT / 14:26 UTC
 
 Purpose: this is the durable turnover sheet for any AI model or engineer resuming Kevin work. Read this file before making assumptions about current priorities, authority, branch state, or known blockers. Update it whenever a substantive milestone, blocker, authority change, production promotion, rollback, or priority change occurs. A scheduled maintenance pass may refresh it periodically, but do not fabricate telemetry merely to make the timestamp newer.
 
@@ -23,15 +23,15 @@ One-14B-primary-worker resource discipline remains the default unless evidence p
 Primary active draft: PR #17, `Draft: Integrated autonomy control-plane candidate v0.1`
 
 Branch: `kevin-autonomy-integration-v0.1-final`
-Head at this update: `f50bd1e3d6121d04886b7b156760acdde95b501a`
+Head at this update: `403bf570a44eb0ca7486bc4eff2e742fff21ef6b`
 Base: `kevin-control-plane-v1.3-review-contract`
 Status: open, draft, mergeable.
 
-The previously expanded integration fixture head passed the GitHub `Autonomy Integration Candidate Gate`. The branch now also contains a pure deterministic behavioral replay engine plus a dedicated replay test suite that evaluates all 14 Phase A scenarios instead of only checking contract/fixture shape. The replay engine fails closed on authority injection, unknown fields, more than one heavy worker, stale preconditions, budget exhaustion, no semantic progress, shared-pipeline cooldown, missing rollback after a failed mutable postcondition, semantic handoff failure, verified-stage replay, and stale/unverified Knowledge. Mission-local three-failure cooling rotates only when an eligible alternative exists.
+The branch contains a pure deterministic behavioral replay engine plus a dedicated replay suite that evaluates all 14 Phase A scenarios instead of only checking contract/fixture shape. It fails closed on authority injection, unknown fields, more than one heavy worker, stale preconditions, budget exhaustion, no semantic progress, shared-pipeline cooldown, missing rollback after a failed mutable postcondition, semantic handoff failure, verified-stage replay, and stale/unverified Knowledge. Mission-local three-failure cooling rotates only when an eligible alternative exists.
 
-A separate `Autonomy Replay Engine Gate` workflow was added at the current head. Its first workflow run had not surfaced yet when this handover was updated, so do not claim this new behavioral gate as independently proven until CI reports success.
+At head `403bf570...`, both GitHub gates are independently green: `Autonomy Integration Candidate Gate` succeeded and `Autonomy Replay Engine Gate` succeeded. The replay gate compiled the engine/tests, ran the deterministic suite successfully, and passed the candidate-only safety marker check. The first replay run had failed only because the test harness loaded a dataclass module without registering it in `sys.modules` under Python 3.12; the harness was corrected and the rerun passed. This is a test-harness defect, not an autonomy-policy defect.
 
-Next integration objective: once replay-engine CI is independently green, bind the replay decisions into the next narrow actuator/reconciler proof and then exercise one already-declared reversible GREEN action on the real Omen host with captured before-state, typed admission, budget decision, execution receipt, independent postcondition, rollback proof, restart/resume evidence, and regression/governance evidence. Do not use a generic arbitrary-command surface to accomplish this.
+Next integration objective: bind the proven replay decisions into the next narrow actuator/reconciler proof and then exercise one already-declared reversible GREEN action on the real Omen host with captured before-state, typed admission, budget decision, execution receipt, independent postcondition, rollback proof, restart/resume evidence, and regression/governance evidence. Do not use a generic arbitrary-command surface to accomplish this.
 
 ## Fresh trustworthy telemetry
 
@@ -67,7 +67,7 @@ Do not silently bless the two drift items. A fresh support snapshot being health
 - PR #14: Tool Budget Governor. Stateful cumulative budgets, duplicate/no-progress circuit breaker, internal failure-family accounting, idempotency replay protection, no authority injection. Expanded deterministic suite reached 25/25 and CI success.
 - PR #15: Postmortem contract. Durable symptom/root-cause/fix/prevention/evidence, confidence/review timing, three-material-failure cooling rule, semantic resolution. CI success.
 - PR #16: Knowledge v0.1 provenance + freshness gate. Candidate vs verified knowledge, immutable source fingerprints, duplicate rejection, stale-at-consumption failure, confidence/trust requirements, KNOWLEDGE_ONLY boundary. GitHub `Knowledge Candidate Gate` completed successfully on head `95d08136430da57eb4fd9d732df7524882cec5ce`.
-- PR #17: integrated autonomy candidate described above; prior fixture/contract gate proven, new behavioral replay gate pending independent CI at this update.
+- PR #17: integrated autonomy candidate described above; contract/fixture gate and behavioral replay gate are both independently green at head `403bf570a44eb0ca7486bc4eff2e742fff21ef6b`.
 
 ## Known blockers / caution areas
 
