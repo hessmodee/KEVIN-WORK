@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "kind": "kevin-watchtower-recovery-evidence",
+  "generated_at": "2026-08-30T02:17:30-06:00",
+  "support": {
+    "generated_at": "2026-08-30T02:14:27.2694482-06:00",
+    "governance_ok": true,
+    "benchmark_status": "PASS",
+    "benchmark_passed": 30,
+    "benchmark_total": 30,
+    "benchmark_critical_failures": 0,
+    "supervisor_last_result": "REJECT",
+    "supervisor_consecutive_failures": 0
+  },
+  "autonomy": {
+    "generated_at": "2026-08-30T02:03:12.4584595-06:00",
+    "state": "NEEDS_REVIEW",
+    "drift_count": 2,
+    "selected_action": null
+  },
+  "engineering": {
+    "skill_lab_enabled": true,
+    "skill_lab_last_status": "error",
+    "skill_lab_consecutive_errors": 7,
+    "operator_hash_match": true,
+    "initiative_hash_match": true,
+    "ui_bridge_hash_match": true,
+    "composite_ready": 1,
+    "composite_running": 1
+  },
+  "actions": [
+    {
+      "type": "repo_green_status_request_refresh",
+      "request_id": "watch-skill-status-20260830-021607",
+      "result": "written_to_main"
+    },
+    {
+      "type": "typed_green_autonomy_refresh",
+      "result": "connector_write_blocked_before_submission",
+      "arbitrary_shell_used": false
+    }
+  ],
+  "diagnosis": {
+    "family": "engineering-relay-request-sync",
+    "evidence": "A fresh engineering response generated after the renewed request still referenced the prior expired request ID, while main already contained the renewed request.",
+    "next": "Observe next relay cycle for pickup of renewed request; do not retry the same write family without state change."
+  },
+  "safety": {
+    "green_only": true,
+    "arbitrary_shell": false,
+    "authority_expansion": false,
+    "novel_production_promotion": false
+  }
+}
