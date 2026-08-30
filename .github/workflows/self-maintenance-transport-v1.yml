@@ -5,13 +5,13 @@ on:
     branches: [kevin-self-maintenance-transport-v1]
     paths:
       - control-plane/maintenance/**
-      - control-plane/intake/kevin-work-order-intake-v1.2.1.ps1
+      - control-plane/intake/kevin-work-order-intake-v1.2.2.ps1
       - docs/engineering/SELF-MAINTENANCE-TRANSPORT-v1.md
       - .github/workflows/self-maintenance-transport-v1.yml
   pull_request:
     paths:
       - control-plane/maintenance/**
-      - control-plane/intake/kevin-work-order-intake-v1.2.1.ps1
+      - control-plane/intake/kevin-work-order-intake-v1.2.2.ps1
       - docs/engineering/SELF-MAINTENANCE-TRANSPORT-v1.md
       - .github/workflows/self-maintenance-transport-v1.yml
 
@@ -33,7 +33,7 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           m=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1').read_text()
-          i=Path('control-plane/intake/kevin-work-order-intake-v1.2.1.ps1').read_text()
+          i=Path('control-plane/intake/kevin-work-order-intake-v1.2.2.ps1').read_text()
           w=Path('control-plane/maintenance/kevin-gateway-watchdog-v1.ps1').read_text()
           for name,s in [('maintenance',m),('intake',i),('watchdog',w)]:
               low=s.lower()
@@ -43,7 +43,7 @@ jobs:
           assert "'maintenance_runner'" in m and "'work_order_intake'" in m and "'skill_lab_runner'" in m
           assert "target alias not allowlisted" in m and "source path outside alias root" in m
           assert "run_typed_maintenance" in i and "kevin-maintenance-v1" in i
-          assert "return Ps $MaintenancePath @('-CheckOnly')" in i
+          assert "return Invoke-FixedPowerShell $MaintenancePath @('-CheckOnly') 600" in i
           ilow=i.lower()
           for caller_field in ['$o.command','$o.argv','$o.args','$o.path','$o.executable','$o.script','$o.url']:
               assert caller_field not in ilow, caller_field
@@ -62,7 +62,7 @@ jobs:
         run: |
           $files=@(
             'control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1',
-            'control-plane/intake/kevin-work-order-intake-v1.2.1.ps1',
+            'control-plane/intake/kevin-work-order-intake-v1.2.2.ps1',
             'control-plane/maintenance/kevin-gateway-watchdog-v1.ps1'
           )
           foreach($p in $files){
@@ -72,7 +72,7 @@ jobs:
           }
           & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1' -SelfTest
           if($LASTEXITCODE -ne 0){throw 'Maintenance self-test failed'}
-          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/intake/kevin-work-order-intake-v1.2.1.ps1' -Mode SelfTest
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/intake/kevin-work-order-intake-v1.2.2.ps1' -Mode SelfTest
           if($LASTEXITCODE -ne 0){throw 'Intake self-test failed'}
           & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/maintenance/kevin-gateway-watchdog-v1.ps1' -SelfTest
           if($LASTEXITCODE -ne 0){throw 'Watchdog self-test failed'}
@@ -80,5 +80,5 @@ jobs:
         shell: powershell
         run: |
           Get-FileHash control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1 -Algorithm SHA256
-          Get-FileHash control-plane/intake/kevin-work-order-intake-v1.2.1.ps1 -Algorithm SHA256
+          Get-FileHash control-plane/intake/kevin-work-order-intake-v1.2.2.ps1 -Algorithm SHA256
           Get-FileHash control-plane/maintenance/kevin-gateway-watchdog-v1.ps1 -Algorithm SHA256
