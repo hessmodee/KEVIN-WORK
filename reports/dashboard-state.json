@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-29T20:38:32-06:00",
+  "generated_at": "2026-08-29T20:39:17.7479457-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -1385,7 +1385,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-08-29T20:38:32-06:00",
+    "last": "2026-08-29T20:39:17.7479457-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1422,19 +1422,19 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-29T20:38:32-06:00",
+    "generated_at": "2026-08-29T20:39:17.7479457-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
-    "forge_active": false,
+    "forge_active": true,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
       "id": "design-forge",
       "name": "Build Lab",
-      "title": "Design Forge: operator",
+      "title": "Design Forge | knowledge i20",
       "category": "forge",
       "state": "working",
-      "detail": "started",
+      "detail": "Building isolated candidate knowledge | iteration 20",
       "what": "Generating and validating an isolated candidate.",
       "engine": "Ollama | Qwen 2.5 14B",
       "action": "Candidate engineering"
@@ -1444,8 +1444,8 @@
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "coordinating",
-        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
+        "state": "ready",
+        "detail": "Another Kevin engineering worker is active.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1475,7 +1475,7 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "started",
+    "phase": "Building isolated candidate knowledge | iteration 20",
     "worker": "Build Lab",
     "engine": "Ollama | Qwen 2.5 14B",
     "action": "Candidate engineering"
@@ -1483,7 +1483,7 @@
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Build Lab | WORKING | started",
+      "text": "Build Lab | WORKING | Building isolated candidate knowledge | iteration 20",
       "severity": "normal"
     }
   ]
