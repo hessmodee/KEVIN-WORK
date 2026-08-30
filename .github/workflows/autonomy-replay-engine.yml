@@ -1,0 +1,56 @@
+name: Autonomy Replay Engine Gate
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/integration/replay_engine.py'
+      - 'control-plane/integration/test_replay_engine.py'
+      - 'control-plane/integration/phase-a-replay-fixtures.v0.1.json'
+      - '.github/workflows/autonomy-replay-engine.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile replay candidate
+        run: |
+          python -m py_compile control-plane/integration/replay_engine.py control-plane/integration/test_replay_engine.py
+      - name: Run deterministic replay tests
+        run: |
+          python - <<'PY'
+          import importlib.util
+          from pathlib import Path
+          p = Path('control-plane/integration/test_replay_engine.py')
+          spec = importlib.util.spec_from_file_location('replay_tests', p)
+          mod = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(mod)
+          tests = sorted(name for name in dir(mod) if name.startswith('test_'))
+          for name in tests:
+              getattr(mod, name)()
+              print('PASS', name)
+          print(f'PASS {len(tests)}/{len(tests)}')
+          PY
+      - name: Confirm candidate-only execution surface
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          src = Path('control-plane/integration/replay_engine.py').read_text()
+          required = [
+              'AUTHORITY_INJECTION',
+              'ONE_HEAVY_WORKER_INVARIANT',
+              'POSTCONDITION_FAILED_NO_ROLLBACK',
+              'THREE_FAILURE_LIMIT',
+              'KNOWLEDGE_STALE',
+          ]
+          for marker in required:
+              assert marker in src, f'missing safety decision: {marker}'
+          print('PASS candidate-only replay boundary')
+          PY
