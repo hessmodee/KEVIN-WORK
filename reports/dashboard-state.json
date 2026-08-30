@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-29T21:18:12.0328114-06:00",
+  "generated_at": "2026-08-29T21:20:14.9307848-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -21,21 +21,14 @@
   },
   "system": {
     "memory_pct": 49,
-    "cpu_pct": 4,
+    "cpu_pct": 3,
     "gpu": "RTX 3060",
-    "gpu_pct": 33
+    "gpu_pct": 9
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-29T16:40:29-06:00",
-        "estimated": false,
-        "ram": 58,
-        "cpu": 17,
-        "gpu": 38
-      },
       {
         "at": "2026-08-29T16:40:50-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 49,
         "cpu": 4,
         "gpu": 33
+      },
+      {
+        "at": "2026-08-29T21:20:13-06:00",
+        "estimated": false,
+        "ram": 49,
+        "cpu": 3,
+        "gpu": 9
       }
     ],
     "ram": [
-      58,
       58,
       60,
       60,
@@ -798,10 +797,10 @@
       49,
       56,
       49,
+      49,
       49
     ],
     "cpu": [
-      17,
       17,
       20,
       20,
@@ -896,10 +895,10 @@
       10,
       6,
       4,
-      4
+      4,
+      3
     ],
     "gpu": [
-      38,
       38,
       38,
       38,
@@ -994,7 +993,8 @@
       34,
       35,
       33,
-      33
+      33,
+      9
     ]
   },
   "weather": {
@@ -1093,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 93,
-      "total": 93
+      "done": 94,
+      "total": 94
     }
   ],
   "roadmap": {
@@ -1148,6 +1148,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-29T21:20:13-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-29T21:12:28-06:00",
       "source": "forge",
       "component": "forge",
@@ -1165,13 +1172,6 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-29T21:05:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-29T21:03:23-06:00",
@@ -1377,7 +1377,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-29T21:18:12.0328114-06:00",
+    "last": "2026-08-29T21:20:14.9307848-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1414,7 +1414,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-29T21:18:12.0328114-06:00",
+    "generated_at": "2026-08-29T21:20:14.9307848-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
