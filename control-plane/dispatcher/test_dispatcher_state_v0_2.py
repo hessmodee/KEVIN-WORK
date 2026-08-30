@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from datetime import datetime, timedelta, timezone
 
-from dispatcher_state_v0_2 import record_failure, record_success, upgrade_state
+from dispatcher_state_v0_2 import record_evaluation, record_failure, record_success, upgrade_state
 
 
 def main():
@@ -30,16 +30,48 @@ def main():
         g=record_failure(g,"forge-v4","runtime-transport",until)
     assert g["failure_cooldowns"][-1]["scope"]=="pipeline"
 
-    cleared=record_success(s,"knowledge","REJECT",now.isoformat())
-    assert not any(x.get("mission_id")=="knowledge" for x in cleared["failure_attempts"])
-    assert not any(x.get("mission_id")=="knowledge" and x.get("scope")!="pipeline" for x in cleared["failure_cooldowns"])
-    assert cleared["recent"][-1]["result"]=="REJECT"
+    # A REJECT is failure evidence, not semantic success. It must never erase
+    # accumulated mission history through record_success().
+    try:
+        record_success(s,"knowledge","REJECT",now.isoformat())
+    except ValueError as e:
+        assert "semantically successful" in str(e)
+    else:
+        raise AssertionError("REJECT incorrectly cleared failure evidence")
+
+    # Evaluator rejections accumulate across recovery/planning cycles and cool
+    # the mission after the bounded threshold.
+    r=upgrade_state({"schema":2,"failure_attempts":[],"failure_cooldowns":[],"recent":[]})
+    r=record_evaluation(r,"forge-v4","REJECT","candidate-evaluation",now.isoformat(),until)
+    r=record_evaluation(r,"forge-v4","REJECT","candidate-evaluation",now.isoformat(),until)
+    assert next(x for x in r["failure_attempts"] if x["mission_id"]=="forge-v4")["attempts"]==2
+    assert not r["failure_cooldowns"]
+    r=record_evaluation(r,"forge-v4","REJECT","candidate-evaluation",now.isoformat(),until)
+    assert next(x for x in r["failure_attempts"] if x["mission_id"]=="forge-v4")["attempts"]==3
+    assert r["failure_cooldowns"][-1]["scope"]=="mission"
+    assert r["recent"][-1]["result"]=="REJECT"
+
+    # A later semantically successful evaluator verdict can clear only that
+    # mission's local failure evidence; independent mission evidence remains.
+    r=record_failure(r,"knowledge","candidate-output-contract",until)
+    cleared=record_evaluation(r,"forge-v4","PASS","candidate-evaluation",now.isoformat())
+    assert not any(x.get("mission_id")=="forge-v4" for x in cleared["failure_attempts"])
+    assert any(x.get("mission_id")=="knowledge" for x in cleared["failure_attempts"])
+    assert not any(x.get("mission_id")=="forge-v4" and x.get("scope")!="pipeline" for x in cleared["failure_cooldowns"])
+    assert cleared["recent"][-1]["result"]=="PASS"
+
+    try:
+        record_evaluation(cleared,"forge-v4","MAYBE","candidate-evaluation",now.isoformat())
+    except ValueError as e:
+        assert "unknown evaluator verdict" in str(e)
+    else:
+        raise AssertionError("unknown evaluator verdict accepted")
 
     # Never manufacture a success while migrating state.
     plain=upgrade_state({"schema":1,"last_result":"","recent":[]})
     assert plain["recent"]==[] and plain["last_result"]==""
 
-    print('PASS: scoped dispatcher state migration tests')
+    print('PASS: scoped dispatcher state migration/evaluation tests')
 
 
 if __name__=='__main__':
