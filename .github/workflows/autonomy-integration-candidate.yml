@@ -1,0 +1,50 @@
+name: Autonomy Integration Candidate Gate
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/integration/**'
+      - '.github/workflows/autonomy-integration-candidate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile candidate tests
+        run: python -m py_compile control-plane/integration/test_integration_contract.py
+      - name: Run deterministic contract tests
+        run: |
+          python - <<'PY'
+          import importlib.util
+          from pathlib import Path
+          p = Path('control-plane/integration/test_integration_contract.py')
+          spec = importlib.util.spec_from_file_location('integration_tests', p)
+          mod = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(mod)
+          tests = sorted(name for name in dir(mod) if name.startswith('test_'))
+          for name in tests:
+              getattr(mod, name)()
+              print('PASS', name)
+          print(f'PASS {len(tests)}/{len(tests)}')
+          PY
+      - name: Static authority-boundary scan
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          contract = Path('control-plane/integration/integration-contract.v0.1.json').read_text()
+          test = Path('control-plane/integration/test_integration_contract.py').read_text()
+          executable_forbidden = ['subprocess', 'os.system', 'Popen(', 'requests.', 'urllib.request', 'socket.', 'Invoke-Expression']
+          for token in executable_forbidden:
+              assert token not in test, f'executor/network surface detected: {token}'
+          for required in ['ARBITRARY_REMOTE_SHELL','PERMISSION_WIDENING','MONEY_MOVEMENT','AUTO_PROMOTE_NOVEL_YELLOW']:
+              assert required in contract, f'missing forbidden capability: {required}'
+          print('PASS static authority boundary')
+          PY
