@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T04:47:24.7453970-06:00",
+  "generated_at": "2026-08-30T04:50:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -12,14 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "supervisor",
-    "title": "Supervisor autonomous cycle",
-    "category": "supervisor",
-    "phase": "Goal-aware Supervisor cycle active.",
-    "started_at": "2026-08-30T04:43:53.5507011-06:00",
-    "source": "hq-live-ops"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -27,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 58,
-    "cpu_pct": 13,
+    "memory_pct": 57,
+    "cpu_pct": 7,
     "gpu": "RTX 3060",
-    "gpu_pct": 40
+    "gpu_pct": 34
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T00:52:12-06:00",
-        "estimated": false,
-        "ram": 47,
-        "cpu": 3,
-        "gpu": 30
-      },
       {
         "at": "2026-08-30T01:00:33-06:00",
         "estimated": false,
@@ -707,10 +693,16 @@
         "ram": 58,
         "cpu": 13,
         "gpu": 40
+      },
+      {
+        "at": "2026-08-30T04:50:14-06:00",
+        "estimated": false,
+        "ram": 57,
+        "cpu": 7,
+        "gpu": 34
       }
     ],
     "ram": [
-      47,
       46,
       46,
       54,
@@ -805,10 +797,10 @@
       57,
       57,
       58,
-      58
+      58,
+      57
     ],
     "cpu": [
-      3,
       5,
       5,
       7,
@@ -903,10 +895,10 @@
       11,
       11,
       13,
-      13
+      13,
+      7
     ],
     "gpu": [
-      30,
       30,
       30,
       33,
@@ -1001,7 +993,8 @@
       40,
       40,
       40,
-      40
+      40,
+      34
     ]
   },
   "weather": {
@@ -1155,6 +1148,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-30T04:50:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-30T04:44:55-06:00",
       "source": "forge",
       "component": "forge",
@@ -1238,13 +1238,6 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 38000
-    },
-    {
-      "at": "2026-08-30T04:35:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-30T04:34:52-06:00",
@@ -1385,7 +1378,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-30T04:47:24.7453970-06:00",
+    "last": "2026-08-30T04:50:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1422,7 +1415,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-30T04:47:24.7453970-06:00",
+    "generated_at": "2026-08-30T04:49:24.7724924-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
