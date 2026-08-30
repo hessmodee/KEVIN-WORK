@@ -90,12 +90,17 @@ def test_resume_rejects_replay_of_verified_stage():
     assert replay.reason == "VERIFIED_STAGE_REPLAY"
 
 
-def test_unknown_case_fields_do_not_grant_authority():
+def test_authority_injection_fails_closed():
     decision = engine.evaluate({
         "authority_override": "RED",
         "arbitrary_shell": True,
         "production_promotion": True,
     })
-    assert decision.outcome == "PASS"
-    # The replay evaluator ignores unknown fixture metadata; authority remains entirely
-    # outside this pure decision surface. Static scans separately reject executor code.
+    assert decision.outcome == "BLOCKED"
+    assert decision.reason == "AUTHORITY_INJECTION"
+
+
+def test_unknown_fixture_field_is_rejected():
+    decision = engine.evaluate({"mystery_field": "value"})
+    assert decision.outcome == "REJECTED"
+    assert decision.reason == "UNKNOWN_FIXTURE_FIELD"
