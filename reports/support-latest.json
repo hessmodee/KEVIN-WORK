@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-30T15:28:00.6367401-06:00",
+    "generated_at":  "2026-08-30T15:31:07.9427716-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788125096489,
-                                  "next_run_at_ms":  1788125276489
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788124976636,
-                                  "next_run_at_ms":  1788125276636
+                                  "last_run_at_ms":  1788125276513,
+                                  "next_run_at_ms":  1788125456513
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788125272185,
-                                  "next_run_at_ms":  1788125332185
+                                  "last_run_at_ms":  1788125454549,
+                                  "next_run_at_ms":  1788125514549
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -101,8 +89,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788125156641,
-                                  "next_run_at_ms":  1788125336641
+                                  "last_run_at_ms":  1788125343908,
+                                  "next_run_at_ms":  1788125523908
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788125284553,
+                                  "next_run_at_ms":  1788125584553
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -122,19 +122,19 @@
     "supervisor":  {
                        "cycle":  174,
                        "last_mission":  "forge-v4",
-                       "last_result":  "REJECT",
-                       "next_eligible_at":  "2026-08-30T15:26:50.0828026-06:00",
+                       "last_result":  "RECOVERY_PASS",
+                       "next_eligible_at":  "2026-08-30T15:29:44.3300304-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
     "recovery":  {
-                     "fingerprint":  "450776D037D01F97A3EC64C6A50E700F0121861FC046171EBBF0DEDE409E0062",
+                     "fingerprint":  "8A833C4A964868A71EC94FFBD5ECDA0E370110699701BFE294F582C18651CDAB",
                      "round":  1,
-                     "last_at":  "2026-08-30T15:20:26.1075508-06:00",
-                     "last_brief":  "20260830-152026-round1.json"
+                     "last_at":  "2026-08-30T15:29:44.2203863-06:00",
+                     "last_brief":  "20260830-152944-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-08-30T15:27:01.3526871-06:00",
+                      "at":  "2026-08-30T15:28:14.9283432-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -161,11 +161,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-30T15:22:57.5029651-06:00",
-                        "status":  "LEGACY_STAGED_APPROVAL_REQUIRED",
-                        "manifest_id":  "maintenance-bootstrap-v12-20260830-1015",
+                        "at":  "2026-08-30T15:28:15.0238501-06:00",
+                        "status":  "APPLIED_PREAUTHORIZED_PROVEN",
+                        "manifest_id":  "typed-skill-lab-recovery-v103-20260830",
                         "stage_path":  "",
-                        "detail":  "Legacy executable maintenance remains explicit ApplyOnce only."
+                        "detail":  "Typed GREEN maintenance applied and independently verified."
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "6F48BD767961A90A68B365F45628F0A7DD00174145F3F40EA9BBC74E7D042618"
+    "semantic_hash":  "D6877F3B9F93525AA99F1E3C22C4DEBD23B10F1EA30180FCF71BA20FB9EBAB3F"
 }
