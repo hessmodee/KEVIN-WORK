@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-30T11:53:46.3255500-06:00",
+    "generated_at":  "2026-08-30T11:56:46.4389987-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788112242279,
-                                  "next_run_at_ms":  1788112422279
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788112138317,
-                                  "next_run_at_ms":  1788112438317
+                                  "last_run_at_ms":  1788112422298,
+                                  "next_run_at_ms":  1788112602298
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788112421300,
-                                  "next_run_at_ms":  1788112481300
+                                  "last_run_at_ms":  1788112543397,
+                                  "next_run_at_ms":  1788112603397
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -101,8 +89,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788112301951,
-                                  "next_run_at_ms":  1788112481951
+                                  "last_run_at_ms":  1788112483373,
+                                  "next_run_at_ms":  1788112663373
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788112438342,
+                                  "next_run_at_ms":  1788112738342
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -113,8 +113,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788111929417,
-                                  "next_run_at_ms":  1788112529417
+                                  "last_run_at_ms":  1788112529431,
+                                  "next_run_at_ms":  1788113129431
                               }
                           ],
                  "error":  ""
@@ -122,19 +122,19 @@
     "supervisor":  {
                        "cycle":  148,
                        "last_mission":  "forge-v4",
-                       "last_result":  "REJECT",
-                       "next_eligible_at":  "2026-08-30T11:52:29.9708806-06:00",
+                       "last_result":  "RECOVERY_PASS",
+                       "next_eligible_at":  "2026-08-30T11:55:15.7411878-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
     "recovery":  {
-                     "fingerprint":  "5C842ADF312EE726D5E96305A3349F24C34017E2BAF7940CE0F8A7A8FE29E1D6",
+                     "fingerprint":  "CE5695DBE0C6CD254245DFEB7B75AFCBB1DB70A12C57E132B2053A2EFA4C11DE",
                      "round":  1,
-                     "last_at":  "2026-08-30T11:46:21.9210091-06:00",
-                     "last_brief":  "20260830-114621-round1.json"
+                     "last_at":  "2026-08-30T11:55:15.6324058-06:00",
+                     "last_brief":  "20260830-115515-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-08-30T11:45:37.8080821-06:00",
+                      "at":  "2026-08-30T11:55:37.9036127-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -161,7 +161,7 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-30T11:48:59.7059394-06:00",
+                        "at":  "2026-08-30T11:53:59.7318148-06:00",
                         "status":  "STAGED_APPROVAL_REQUIRED",
                         "manifest_id":  "maintenance-bootstrap-v12-20260830-1015",
                         "stage_path":  "~\\.openclaw\\workspace\\reports\\maintenance\\staged\\maintenance-bootstrap-v12-20260830-1015.ps1",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "D9E1B8B0BA131E26C059422159423A89F9C679F70274404018B5931C0968BA1C"
+    "semantic_hash":  "633063EC4A51F9F5D2DC1726B5A08ACC5F88C44A75C61CE4CC202A3A0093D0D0"
 }
