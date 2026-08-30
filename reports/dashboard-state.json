@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T01:37:32-06:00",
-  "status": "ready",
+  "generated_at": "2026-08-30T01:37:52.6867123-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,14 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "night-forge",
+    "title": "Night Forge QA",
+    "category": "qa",
+    "phase": "Night Forge QA/regression cycle active.",
+    "started_at": "2026-08-30T01:37:52.6867123-06:00",
+    "source": "hq-live-ops"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -1377,7 +1384,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-30T01:37:32-06:00",
+    "last": "2026-08-30T01:37:52.6867123-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1414,22 +1421,22 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-30T01:36:28.8896338-06:00",
+    "generated_at": "2026-08-30T01:37:52.6867123-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-08-30T01:34:40.9416303-06:00",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
+      "id": "night-forge",
+      "name": "Night Forge",
+      "title": "Night Forge QA",
+      "category": "qa",
+      "state": "working",
+      "detail": "Night Forge QA/regression cycle active.",
+      "what": "Running safety and regression checks.",
+      "engine": "Night Forge",
+      "action": "QA / regression"
     },
     "lanes": [
       {
@@ -1437,7 +1444,7 @@
         "name": "Supervisor",
         "role": "Goal-aware control plane",
         "state": "ready",
-        "detail": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-08-30T01:34:40.9416303-06:00",
+        "detail": "Completed forge-v4 i52 evaluation=REJECT score=2 auto_staged=False",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1465,17 +1472,17 @@
     ]
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-08-30T01:34:40.9416303-06:00",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "running": true,
+    "state": "working",
+    "phase": "Night Forge QA/regression cycle active.",
+    "worker": "Night Forge",
+    "engine": "Night Forge",
+    "action": "QA / regression"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-08-30T01:34:40.9416303-06:00",
+      "text": "Night Forge | WORKING | Night Forge QA/regression cycle active.",
       "severity": "normal"
     }
   ]
