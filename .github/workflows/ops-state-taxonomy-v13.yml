@@ -1,0 +1,52 @@
+name: Validate Ops State Taxonomy v13
+
+on:
+  push:
+    branches:
+      - kevin-ops-state-taxonomy-v13
+
+permissions:
+  contents: write
+
+jobs:
+  patch-test:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: kevin-ops-state-taxonomy-v13
+      - name: Apply taxonomy cleanup
+        shell: pwsh
+        run: python .github/scripts/patch-ops-state-taxonomy-v13.py
+      - name: Validate JavaScript syntax
+        shell: pwsh
+        run: node --check docs/ops/ops-v11.js
+      - name: Validate exact state/color contract
+        shell: pwsh
+        run: |
+          $js = Get-Content docs/ops/ops-v11.js -Raw
+          $css = Get-Content docs/ops/ops-v11.css -Raw
+          $embed = Get-Content docs/ops/embed.html -Raw
+          $removed = @('IDLE','THINKING','CONNECTING','COOLING','#4f7dff','#f0c44f','#35c7e8','--idle:','--thinking:','--connecting:','--cooling:')
+          foreach($x in $removed){ if($embed.Contains($x) -or $css.Contains($x)){ throw "Removed Ops visual state/color still present: $x" } }
+          foreach($x in @('READY','WORKING','BUILDING','COOLDOWN','DEGRADED','OFFLINE')){ if(-not $embed.Contains($x.Substring(0,1)+$x.Substring(1).ToLower())){ throw "Legend missing state: $x" } }
+          if(-not $js.Contains("const active=['working','building'].includes(state)")){ throw 'Active lane set is not streamlined.' }
+          if(-not $js.Contains("return recentlyRan(cronJob(s,'kevin-support-bridge-v1'),45000)?'working':'ready';")){ throw 'Bridge did not collapse into WORKING/READY.' }
+          if(-not $js.Contains("if((bw?.supervisor||0)>0)return 'working';")){ throw 'Supervisor reasoning did not collapse into WORKING.' }
+          if(-not $js.Contains("return 'cooldown';")){ throw 'Cooldown state missing.' }
+          Write-Host 'PASS six-state Ops contract and palette.'
+      - name: Preserve Kevin production owl invariants
+        shell: pwsh
+        run: |
+          $js = Get-Content docs/ops/ops-v11.js -Raw
+          foreach($x in @('kv-head','kv-body','kv-wing','kv-face','kv-bandage','kv-bruise','kv-xeyes','kv-bonk','ellipse class="kv-foot"')){ if(-not $js.Contains($x)){ throw "Kevin avatar invariant missing: $x" } }
+          Write-Host 'PASS Kevin production avatar geometry/treatments preserved.'
+      - name: Commit production changes
+        shell: pwsh
+        run: |
+          git config user.name "Matt"
+          git config user.email "hessmodee@gmail.com"
+          git add docs/ops/ops-v11.js docs/ops/ops-v11.css docs/ops/embed.html
+          if(git diff --cached --quiet){ throw 'No production changes generated.' }
+          git commit -m "Streamline Ops Floor to six evidence-backed states"
+          git push origin HEAD:kevin-ops-state-taxonomy-v13
