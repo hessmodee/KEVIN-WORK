@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "kind": "kevin-typed-maintenance-bootstrap-status",
+  "generated_at": "2026-08-30T10:16:30-06:00",
+  "status": "CI_PROVEN_SOURCE_READY_LOCAL_TYPED_INVOCATION_BLOCKED",
+  "authority": "GREEN",
+  "authority_delta": "NONE",
+  "production_effect": "NONE_UNTIL_LOCAL_BOOTSTRAP",
+  "live": {
+    "maintenance_runner_sha256": "B47714C91EFDCCD1FAE6C2CB0B97D72F799125A63C084956916A8BD5A07678C1",
+    "skill_lab_consecutive_errors": 15,
+    "ui_bridge_heartbeat_fresh": false,
+    "benchmark": "PASS_30_OF_30_CRITICAL_0"
+  },
+  "typed_maintenance_v12": {
+    "pr": 22,
+    "candidate_sha256": "3B9D5B235E593C1CFF8CC9B7DED9E82FB958C2F7CD1F29FC813ECFA87E5C5483",
+    "main_path": "control-plane/maintenance/kevin-maintenance-runner-v1.2.ps1",
+    "main_blob_sha": "054278bc3007b662c3a2a20ccc487f6b5c2ff190",
+    "ci": "PASS",
+    "typed_operations": ["replace_pinned_file", "restart_ui_bridge"],
+    "arbitrary_shell": false,
+    "authority_expansion": false
+  },
+  "bootstrap": {
+    "path": "control-plane/maintenance/bootstrap-maintenance-v12-20260830.ps1",
+    "blob_sha": "ac03fd0655f8a34d8b43e2697d50ac81c9e9cae3",
+    "expected_before_sha256": "B47714C91EFDCCD1FAE6C2CB0B97D72F799125A63C084956916A8BD5A07678C1",
+    "expected_after_sha256": "3B9D5B235E593C1CFF8CC9B7DED9E82FB958C2F7CD1F29FC813ECFA87E5C5483",
+    "parser_gate": "PASS",
+    "authority_boundary_gate": "PASS",
+    "rollback": "exact v1.1d backup restored on post-mutation failure"
+  },
+  "skill_lab_recovery": {
+    "pr": 21,
+    "candidate_sha256": "A771B050A5DA3D49BC3445BE4C20B4BF928C86AFA22E6634550CFBA4F30DB865",
+    "ci": "PASS",
+    "policy_cases": "19/19",
+    "local_install": "WAITING_FOR_TYPED_MAINTENANCE_V12"
+  },
+  "blocker": "The installed v1.1d maintenance cron is intentionally CheckOnly. No currently proven remote actuator verb can invoke the fixed bootstrap without broadening authority. Do not substitute arbitrary shell or remote command execution.",
+  "next_safe_step": "Use an already-proven fixed local invocation path for the exact bootstrap. After v1.2 hash is live, submit schema-2 replace_pinned_file for Skill Lab v1.0.3, independently prove recovery sequence and Benchmark, then submit schema-2 restart_ui_bridge and require fresh interactive heartbeat evidence.",
+  "forbidden": [
+    "arbitrary shell",
+    "arbitrary remote code execution",
+    "permission widening",
+    "trust-anchor drift blessing",
+    "novel primitive auto-promotion"
+  ]
+}
