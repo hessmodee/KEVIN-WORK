@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T05:02:00.0906641-06:00",
+  "generated_at": "2026-08-30T05:02:34-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -28,28 +28,14 @@
   },
   "system": {
     "memory_pct": 48,
-    "cpu_pct": 10,
+    "cpu_pct": 20,
     "gpu": "RTX 3060",
-    "gpu_pct": 30
+    "gpu_pct": 32
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T01:05:14-06:00",
-        "estimated": false,
-        "ram": 54,
-        "cpu": 7,
-        "gpu": 33
-      },
-      {
-        "at": "2026-08-30T01:09:33-06:00",
-        "estimated": false,
-        "ram": 46,
-        "cpu": 7,
-        "gpu": 29
-      },
       {
         "at": "2026-08-30T01:10:14-06:00",
         "estimated": false,
@@ -707,11 +693,23 @@
         "ram": 48,
         "cpu": 10,
         "gpu": 30
+      },
+      {
+        "at": "2026-08-30T05:02:01-06:00",
+        "estimated": false,
+        "ram": 48,
+        "cpu": 20,
+        "gpu": 32
+      },
+      {
+        "at": "2026-08-30T05:02:34-06:00",
+        "estimated": false,
+        "ram": 48,
+        "cpu": 20,
+        "gpu": 32
       }
     ],
     "ram": [
-      54,
-      46,
       46,
       54,
       54,
@@ -804,13 +802,13 @@
       58,
       58,
       57,
+      48,
+      48,
       48,
       48
     ],
     "cpu": [
       7,
-      7,
-      7,
       6,
       6,
       4,
@@ -903,11 +901,11 @@
       13,
       7,
       10,
-      10
+      10,
+      20,
+      20
     ],
     "gpu": [
-      33,
-      29,
       29,
       41,
       41,
@@ -1001,7 +999,9 @@
       40,
       34,
       30,
-      30
+      30,
+      32,
+      32
     ]
   },
   "weather": {
@@ -1154,6 +1154,25 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-30T05:02:34-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: forge-v4",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 33000
+    },
+    {
+      "at": "2026-08-30T05:02:01-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: forge-v4",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-30T04:53:27-06:00",
       "source": "forge",
@@ -1359,25 +1378,6 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 24000
-    },
-    {
-      "at": "2026-08-30T03:58:39-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: forge-v4",
-      "result": "",
-      "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-30T03:52:59-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: knowledge",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 21000
     }
   ],
   "owl": {
@@ -1385,7 +1385,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-30T05:02:00.0906641-06:00",
+    "last": "2026-08-30T05:02:34-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1396,8 +1396,8 @@
     "mode": "hourly_design",
     "state": "pass",
     "last_mission": "forge-v4",
-    "iteration": 73,
-    "updated_at": "2026-08-30T04:53:26.9640009-06:00",
+    "iteration": 74,
+    "updated_at": "2026-08-30T05:02:34.6502801-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1413,8 +1413,8 @@
       "result": "pass",
       "mode": "design-forge-v3",
       "last_mission": "forge-v4",
-      "iteration": 73,
-      "updated_at": "2026-08-30T04:53:26.9640009-06:00",
+      "iteration": 74,
+      "updated_at": "2026-08-30T05:02:34.6502801-06:00",
       "next_index": 0,
       "scheduled": true,
       "promotion": "blocked"
