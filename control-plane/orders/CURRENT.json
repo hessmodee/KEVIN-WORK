@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "kind": "kevin-work-order",
-  "id": "watch-20260830-031231-autonomy-reconcile",
-  "idempotency_key": "watch-autonomy-reconcile-20260830-031231",
-  "created_at": "2026-08-30T03:12:31Z",
-  "expires_at": "2026-08-30T04:12:31Z",
+  "id": "watch-20260830-042647-autonomy-reconcile",
+  "idempotency_key": "watch-autonomy-reconcile-20260830-042647",
+  "created_at": "2026-08-30T04:26:47Z",
+  "expires_at": "2026-08-30T05:26:47Z",
   "authority_class": "GREEN",
   "verb": "run_reconcile",
   "target": "autonomy",
-  "reason": "Fresh autonomy telemetry reports NEEDS_REVIEW with drift_count=2 while governance, required automations, services, and Benchmark PASS 30/30 zero-critical are healthy. Invoke only the installed typed GREEN autonomy reconcile path to restore owner-pinned desired state, preserve governance locks, bounded retries, no arbitrary shell, no authority expansion, and no novel production promotion."
+  "reason": "Refresh autonomy reconciliation after prior order expiration."
 }
