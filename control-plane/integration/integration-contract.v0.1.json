@@ -5,7 +5,8 @@
   "production_promotion": "OWNER_RESERVED",
   "worker_policy": {
     "heavy_model_slot": "14b-primary",
-    "max_concurrent_heavy_workers": 1
+    "max_concurrent_heavy_workers": 1,
+    "independent_deterministic_green_may_run_during_shared_pipeline_cooldown": true
   },
   "required_stages": [
     "MISSION_ADMISSION",
@@ -30,7 +31,11 @@
     "rollback_for_mutation": true,
     "evidence_required": true,
     "freshness_required_for_consequential_claims": true,
-    "unknown_authority_fields_fail_closed": true
+    "unknown_authority_fields_fail_closed": true,
+    "rejected_candidate_preserves_failure_evidence": true,
+    "recovery_or_planning_success_does_not_clear_candidate_failure": true,
+    "pipeline_cooldown_blocks_only_pipeline_dependent_work": true,
+    "deterministic_green_lane_requires_no_shared_pipeline_no_14b_and_green_authority": true
   },
   "forbidden_capabilities": [
     "ARBITRARY_REMOTE_SHELL",
@@ -52,6 +57,9 @@
     "DUPLICATE_NO_PROGRESS_REJECTED",
     "MISSION_LOCAL_COOLDOWN_ROTATES",
     "SHARED_PIPELINE_COOLDOWN_BLOCKS",
+    "SHARED_PIPELINE_COOLDOWN_ALLOWS_INDEPENDENT_DETERMINISTIC_GREEN",
+    "REJECT_PRESERVES_FAILURE_EVIDENCE",
+    "RECOVERY_PASS_DOES_NOT_CLEAR_REJECT",
     "FAILED_POSTCONDITION_REQUIRES_ROLLBACK",
     "SEMANTIC_HANDOFF_REJECTED",
     "CHECKPOINT_RESUME_NO_REDO",
