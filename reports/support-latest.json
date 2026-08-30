@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-30T17:49:55.3547468-06:00",
+    "generated_at":  "2026-08-30T17:52:55.2957106-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788133610724,
-                                  "next_run_at_ms":  1788133790724
+                                  "last_run_at_ms":  1788133790737,
+                                  "next_run_at_ms":  1788133970737
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,20 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788133737670,
-                                  "next_run_at_ms":  1788133797670
-                              },
-                              {
-                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
-                                  "declaration_key":  "kevin-supervisor-v1",
-                                  "name":  "Kevin Supervisor v1.6 High Gear",
-                                  "enabled":  true,
-                                  "every_ms":  180000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788133710855,
-                                  "next_run_at_ms":  1788133890855
+                                  "last_run_at_ms":  1788133946348,
+                                  "next_run_at_ms":  1788134006348
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -115,15 +103,27 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788133768567,
                                   "next_run_at_ms":  1788134068567
+                              },
+                              {
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.6 High Gear",
+                                  "enabled":  true,
+                                  "every_ms":  180000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788133890869,
+                                  "next_run_at_ms":  1788134070869
                               }
                           ],
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  188,
+                       "cycle":  189,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-08-30T17:48:32.3249063-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-08-30T17:52:24.2681148-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -148,24 +148,24 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260830-174228-forge-v4-i153-evaluation.json",
-                              "at":  "2026-08-30T17:43:19.3113778-06:00",
+                              "file":  "20260830-175132-forge-v4-i154-evaluation.json",
+                              "at":  "2026-08-30T17:52:24.1679158-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  153,
+                              "iteration":  154,
                               "verdict":  "REJECT",
                               "score":  2,
                               "result":  "",
-                              "failure_count":  6,
-                              "security_finding_count":  1,
+                              "failure_count":  8,
+                              "security_finding_count":  0,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-30T17:49:29.4153879-06:00",
-                        "status":  "LEGACY_STAGED_APPROVAL_REQUIRED",
-                        "manifest_id":  "maintenance-bootstrap-v13-20260830-1735",
+                        "at":  "2026-08-30T17:51:03.5609659-06:00",
+                        "status":  "ERROR",
+                        "manifest_id":  "",
                         "stage_path":  "",
-                        "detail":  "Legacy executable maintenance remains explicit ApplyOnce only."
+                        "detail":  "v1.2 refuses to execute legacy PowerShell packages. Bootstrap legacy ApplyOnce must be performed by v1.1d before v1.2 installation."
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "0A5A344F19D90C28F317C26A4D2B2E81A5B1C3AF75A5EFFDC5D58DC966FA409C"
+    "semantic_hash":  "2F08E5CC0F8B78E4B7D4758D855F85F3ADB13E7B57E42FD60AB69A20C1DFCD01"
 }
