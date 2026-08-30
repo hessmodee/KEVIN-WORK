@@ -32,16 +32,11 @@ jobs:
       - name: Full isolated install and rollback proof
         shell: powershell
         env:
-          TEST_GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
+          KEVIN_GH_AUTH_MODE: env
         run: |
           $ErrorActionPreference='Stop'
           $installer=(Resolve-Path 'control-plane/install/KEVIN-CONTROL-PLANE-v1.3-REVIEW-CONTRACT-REPAIR.ps1').Path
-          $token=$env:TEST_GITHUB_TOKEN
-          Remove-Item Env:GH_TOKEN -ErrorAction SilentlyContinue
-          Remove-Item Env:GITHUB_TOKEN -ErrorAction SilentlyContinue
-          Remove-Item Env:TEST_GITHUB_TOKEN -ErrorAction SilentlyContinue
-          $token | gh auth login --hostname github.com --with-token
-          if($LASTEXITCODE -ne 0){throw 'Could not establish stored GitHub CLI credential for fixture.'}
 
           $fake=Join-Path $env:RUNNER_TEMP 'kevin-cp13-install-fixture'
           $root=Join-Path $fake '.openclaw\workspace\ControlPlane'
