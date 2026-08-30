@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "watchtower-create-text-proof",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Watchtower Create Text Proof",
+  "description": "Isolation test for Skill Lab using only the already-proven GREEN create_text primitive.",
+  "steps": [
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Skill Lab - Create Text Isolation Proof.md",
+        "content": "# Kevin Skill Lab Isolation Proof\n\nThis artifact is produced by a GREEN composite containing only the already-proven create_text primitive. It is used to isolate Skill Lab orchestration from the InteractiveToken UI bridge.\n"
+      }
+    }
+  ]
+}
