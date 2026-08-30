@@ -1,0 +1,42 @@
+name: Patch v1.3 Installer Bounded Lock Wait
+
+on:
+  push:
+    branches:
+      - kevin-control-plane-v1.3-review-contract
+    paths:
+      - .github/scripts/patch-v13-installer-bounded-lock-wait.py
+      - .github/workflows/patch-v13-installer-bounded-lock-wait.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Patch bounded lock wait
+        shell: pwsh
+        run: python .github/scripts/patch-v13-installer-bounded-lock-wait.py
+      - name: Parse patched installer
+        shell: powershell
+        run: |
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path 'control-plane/install/KEVIN-CONTROL-PLANE-v1.3-REVIEW-CONTRACT-REPAIR.ps1'),[ref]$tokens,[ref]$errors)
+          if($errors -and $errors.Count){throw 'Patched installer parser failed.'}
+          Write-Host 'PASS bounded-wait installer Windows PowerShell syntax'
+      - name: Commit installer only
+        shell: pwsh
+        run: |
+          git config user.name 'Kevin CI'
+          git config user.email 'actions@users.noreply.github.com'
+          git add control-plane/install/KEVIN-CONTROL-PLANE-v1.3-REVIEW-CONTRACT-REPAIR.ps1
+          if(-not (git diff --cached --quiet)){
+            git commit -m 'Wait boundedly for safe v1.3 maintenance locks [skip ci]'
+            git push origin HEAD:kevin-control-plane-v1.3-review-contract
+          } else {
+            Write-Host 'No installer change required.'
+          }
