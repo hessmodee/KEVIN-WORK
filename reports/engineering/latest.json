@@ -1,24 +1,17 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-08-30T10:04:56.4238889-06:00",
+    "generated_at":  "2026-08-30T10:07:17.4885737-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
                     "id":  "bess-live-proof-benchmark-20260830-1002",
                     "operation":  "benchmark",
-                    "status":  "DONE",
-                    "detail":  "Fresh Benchmark PASS 30/30 critical=0."
+                    "status":  "DUPLICATE_IGNORED",
+                    "detail":  "Request id already processed."
                 },
     "result":  {
-                   "run_summary":  "BENCHMARK PASS regression=30/30",
-                   "latest":  {
-                                  "status":  "PASS",
-                                  "passed":  30,
-                                  "total":  30,
-                                  "critical":  0,
-                                  "at":  "2026-08-30T10:04:56.1550965-06:00"
-                              }
+
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -34,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  39989.4
+                                     "heartbeat_age_seconds":  40130.5
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -55,7 +48,7 @@
                                      "passed":  30,
                                      "total":  30,
                                      "critical":  0,
-                                     "at":  "2026-08-30T10:04:56.1550965-06:00"
+                                     "at":  "2026-08-30T10:05:30.4246375-06:00"
                                  },
                    "cron":  [
                                 {
@@ -73,9 +66,9 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-benchmark-v1",
+                                    "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
-                                    "every_ms":  600000,
+                                    "every_ms":  180000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
@@ -87,9 +80,9 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-supervisor-v1",
+                                    "declaration_key":  "kevin-benchmark-v1",
                                     "enabled":  true,
-                                    "every_ms":  180000,
+                                    "every_ms":  600000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
