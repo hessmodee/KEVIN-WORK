@@ -1,0 +1,31 @@
+name: Postmortem Candidate Gate
+on:
+  pull_request:
+    paths:
+      - 'control_plane/postmortem_validator.py'
+      - 'control_plane/test_postmortem_validator.py'
+      - '.github/workflows/postmortem-candidate-gate.yml'
+  workflow_dispatch:
+jobs:
+  deterministic-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile
+        run: python -m py_compile control_plane/postmortem_validator.py control_plane/test_postmortem_validator.py
+      - name: Deterministic adversarial tests
+        working-directory: control_plane
+        run: python -m unittest -v test_postmortem_validator.py
+      - name: Static authority-boundary scan
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('control_plane/postmortem_validator.py').read_text().lower()
+          forbidden=['subprocess','os.system','socket','requests.','urllib.request','paramiko','ssh ','invoke-expression']
+          found=[x for x in forbidden if x in p]
+          assert not found, f'forbidden executor/network surface: {found}'
+          print('PASS static authority-boundary scan')
+          PY
