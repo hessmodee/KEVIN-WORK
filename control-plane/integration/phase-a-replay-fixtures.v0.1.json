@@ -1,0 +1,20 @@
+{
+  "schema_version": "0.1",
+  "candidate_only": true,
+  "cases": [
+    {"name":"VALID_GREEN_PASS","expected":"PASS","governance_ok":true,"precondition_fresh":true,"idempotency_unique":true,"budget_ok":true,"postcondition_ok":true,"evidence_ok":true,"semantic_ok":true,"handoff_fresh":true,"knowledge_verified":true,"knowledge_fresh":true,"heavy_workers":1},
+    {"name":"REPLAY_REJECTED","expected":"REJECTED","idempotency_unique":false},
+    {"name":"STALE_PRECONDITION_REJECTED","expected":"REJECTED","precondition_fresh":false},
+    {"name":"GOVERNANCE_DRIFT_BLOCKED","expected":"BLOCKED","governance_ok":false},
+    {"name":"BUDGET_EXHAUSTED","expected":"REJECTED","budget_ok":false},
+    {"name":"DUPLICATE_NO_PROGRESS_REJECTED","expected":"REJECTED","semantic_progress":false},
+    {"name":"MISSION_LOCAL_COOLDOWN_ROTATES","expected":"ROTATE","failure_scope":"MISSION","failure_count":3,"eligible_alternative":true},
+    {"name":"SHARED_PIPELINE_COOLDOWN_BLOCKS","expected":"BLOCKED","failure_scope":"SHARED","failure_count":3},
+    {"name":"FAILED_POSTCONDITION_REQUIRES_ROLLBACK","expected":"ROLLBACK_REQUIRED","postcondition_ok":false,"mutation":true,"rollback_available":true},
+    {"name":"SEMANTIC_HANDOFF_REJECTED","expected":"REJECTED","semantic_ok":false},
+    {"name":"CHECKPOINT_RESUME_NO_REDO","expected":"PASS","resume":true,"verified_stage_replay":false},
+    {"name":"THREE_FAILURE_COOLING","expected":"COOLED","failure_count":3},
+    {"name":"STALE_KNOWLEDGE_REJECTED","expected":"REJECTED","knowledge_fresh":false},
+    {"name":"UNVERIFIED_KNOWLEDGE_NOT_AUTHORITATIVE","expected":"REJECTED","knowledge_verified":false}
+  ]
+}
