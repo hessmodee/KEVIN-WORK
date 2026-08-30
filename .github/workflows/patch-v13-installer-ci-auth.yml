@@ -1,0 +1,37 @@
+name: Patch v1.3 Installer CI Auth
+
+on:
+  push:
+    branches:
+      - kevin-control-plane-v1.3-review-contract
+    paths:
+      - .github/scripts/patch-v13-installer-ci-auth.py
+      - .github/workflows/patch-v13-installer-ci-auth.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Patch installer and gate
+        shell: pwsh
+        run: python .github/scripts/patch-v13-installer-ci-auth.py
+      - name: Parse installer after patch
+        shell: powershell
+        run: |
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path 'control-plane/install/KEVIN-CONTROL-PLANE-v1.3-REVIEW-CONTRACT-REPAIR.ps1'),[ref]$tokens,[ref]$errors)
+          if($errors -and $errors.Count){throw 'Patched installer parser failed.'}
+      - name: Commit patch
+        shell: pwsh
+        run: |
+          git config user.name 'Kevin CI'
+          git config user.email 'actions@users.noreply.github.com'
+          git add control-plane/install/KEVIN-CONTROL-PLANE-v1.3-REVIEW-CONTRACT-REPAIR.ps1 .github/workflows/control-plane-v13-installer-gate.yml
+          git commit -m 'Support CI-only environment auth in v1.3 installer gate'
+          git push origin HEAD:kevin-control-plane-v1.3-review-contract
