@@ -1,0 +1,53 @@
+name: Self-Heal Watchdog v0.1 Gate
+
+on:
+  push:
+    branches: [kevin-self-heal-watchdog-v0.1]
+    paths:
+      - control-plane/self-heal/**
+      - docs/engineering/KEVIN-SELF-HEAL-AND-REMOTE-BOOTSTRAP-ARCHITECTURE-v1.md
+      - .github/workflows/self-heal-watchdog-v01.yml
+  pull_request:
+    paths:
+      - control-plane/self-heal/**
+      - docs/engineering/KEVIN-SELF-HEAL-AND-REMOTE-BOOTSTRAP-ARCHITECTURE-v1.md
+      - .github/workflows/self-heal-watchdog-v01.yml
+
+permissions:
+  contents: read
+
+jobs:
+  watchdog-gate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse and self-test
+        shell: powershell
+        run: |
+          $p='control-plane/self-heal/kevin-external-watchdog-v0.1.ps1'
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){$errors|Format-List|Out-String|Write-Host;throw 'PowerShell parse failed'}
+          $env:KEVIN_WATCHDOG_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'kevin-watchdog-test'
+          & $p -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'watchdog self-test failed'}
+      - name: Fixed authority boundary
+        shell: python
+        run: |
+          from pathlib import Path
+          s=Path('control-plane/self-heal/kevin-external-watchdog-v0.1.ps1').read_text(encoding='utf-8')
+          required=["'gateway','restart'","'cron','run'","$UiTaskName='Kevin UI Bridge v0.3'","$MaintenanceKey='kevin-maintenance-intake-v1'","$MaxAttempts=3"]
+          for x in required: assert x in s,x
+          forbidden=['Invoke-Expression','iex ','cmd.exe','-Command $','Start-Process','DownloadString','DownloadFile','Invoke-WebRequest','Invoke-RestMethod','Set-ExecutionPolicy','New-ScheduledTask','Register-ScheduledTask','Set-ScheduledTask','Remove-ScheduledTask']
+          bad=[x for x in forbidden if x.lower() in s.lower()]
+          assert not bad,bad
+          assert 'caller_commands=$false' in s
+          assert 'caller_paths=$false' in s
+          print('PASS fixed watchdog authority boundary')
+      - name: Exact candidate hash
+        shell: python
+        run: |
+          from hashlib import sha256
+          from pathlib import Path
+          p=Path('control-plane/self-heal/kevin-external-watchdog-v0.1.ps1')
+          print('watchdog_sha256='+sha256(p.read_bytes()).hexdigest().upper())
