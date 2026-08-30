@@ -15,6 +15,8 @@ GLOBAL_FAILURE_FAMILIES = {
     "model-timeout",
     "resource-guard",
 }
+SUCCESS_RESULTS = {"PASS", "PROVEN", "VERIFIED", "ACCEPT", "CHAMPION", "SUCCEEDED"}
+FAIL_RESULTS = {"REJECT", "FAIL", "FAILED"}
 
 
 def _dt(value):
@@ -92,14 +94,42 @@ def record_failure(state, mission_id, family, cooldown_until=None, threshold=3):
 
 
 def record_success(state, mission_id, result, at):
-    """Clear mission-local failures only; global pipeline evidence is preserved."""
+    """Clear mission-local failure evidence only for semantic success.
+
+    A recovery/planning pass is not equivalent to a successful candidate. REJECT,
+    FAIL, and unknown result vocabularies are refused here so they cannot erase
+    accumulated evaluator evidence or bypass the three-failure cooling rule.
+    """
+    result_norm = str(result or "").upper()
+    if result_norm not in SUCCESS_RESULTS:
+        raise ValueError("record_success requires a semantically successful terminal result")
+
     out = upgrade_state(state)
     out["last_mission"] = mission_id
-    out["last_result"] = result
-    out["recent"].append({"mission_id": mission_id, "at": at, "result": result})
+    out["last_result"] = result_norm
+    out["recent"].append({"mission_id": mission_id, "at": at, "result": result_norm})
     out["failure_attempts"] = [x for x in out["failure_attempts"] if x.get("mission_id") != mission_id]
     out["failure_cooldowns"] = [
         x for x in out["failure_cooldowns"]
         if x.get("mission_id") != mission_id or x.get("scope") == "pipeline"
     ]
+    return out
+
+
+def record_evaluation(state, mission_id, verdict, family, at, cooldown_until=None, threshold=3):
+    """Bind evaluator terminal verdicts to durable failure/success accounting.
+
+    This prevents a successful recovery/planning cycle from silently erasing a
+    rejected candidate attempt. Unknown verdicts fail closed.
+    """
+    verdict_norm = str(verdict or "").upper()
+    if verdict_norm in SUCCESS_RESULTS:
+        return record_success(state, mission_id, verdict_norm, at)
+    if verdict_norm not in FAIL_RESULTS:
+        raise ValueError("unknown evaluator verdict")
+
+    out = record_failure(state, mission_id, family, cooldown_until, threshold)
+    out["last_mission"] = mission_id
+    out["last_result"] = verdict_norm
+    out["recent"].append({"mission_id": mission_id, "at": at, "result": verdict_norm, "failure_family": family})
     return out
