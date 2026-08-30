@@ -1,0 +1,70 @@
+name: Ops Floor v14 Visual Truth
+
+on:
+  push:
+    branches:
+      - kevin-hq-ops-v14-visual-truth
+    paths:
+      - .github/scripts/patch-ops-v14-visual-truth.py
+      - .github/workflows/ops-v14-visual-truth.yml
+
+permissions:
+  contents: write
+
+jobs:
+  windows-gate:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply Ops v14 patch
+        shell: pwsh
+        run: python .github/scripts/patch-ops-v14-visual-truth.py
+
+      - name: Validate JavaScript syntax
+        shell: pwsh
+        run: |
+          node --check docs/ops/ops-v11.js
+          if($LASTEXITCODE -ne 0){throw 'Ops JavaScript syntax check failed.'}
+          Write-Host 'PASS Ops JavaScript syntax'
+
+      - name: Validate production contracts
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $embed=Get-Content docs/ops/embed.html -Raw
+          $js=Get-Content docs/ops/ops-v11.js -Raw
+          $css=Get-Content docs/ops/ops-v11.css -Raw
+          $index=Get-Content docs/index.html -Raw
+          foreach($bad in @('>Idle<','>Thinking<','>Connecting<','>Cooling<')){if($embed -match [regex]::Escape($bad)){throw "Stale state key survived: $bad"}}
+          foreach($good in @('>Ready<','>Working<','>Building<','>Cooldown<','>Degraded<','>Offline<')){if($embed -notmatch [regex]::Escape($good)){throw "Missing evidence-backed state: $good"}}
+          foreach($needle in @('WORKING = moving bars','BUILDING = moving dots','hub-inner','kevin-states')){if($embed -notmatch [regex]::Escape($needle)){throw "Missing embed contract: $needle"}}
+          foreach($needle in @('function kevinStates','active.push({w,st})','owl-cut-','owl-feet','kstates.map(stateLabel)')){if($js -notmatch [regex]::Escape($needle)){throw "Missing JS contract: $needle"}}
+          foreach($needle in @('flowWorking','flowBuilding','radial-gradient(circle at 3.5px 3.5px','worker-copy','.worker.working .owl-body,.worker.building .owl-body')){if($css -notmatch [regex]::Escape($needle)){throw "Missing CSS contract: $needle"}}
+          if($index -notmatch [regex]::Escape("font-family:'Stencil Std','Stencil','Copperplate','Impact'")){throw 'Shared HQ stencil title missing.'}
+          if($index -notmatch [regex]::Escape('ops/embed.html?v=14')){throw 'Shared HQ iframe cache bump missing.'}
+          if($embed -notmatch [regex]::Escape('ops-v11.css?v=14') -or $embed -notmatch [regex]::Escape('ops-v11.js?v=14')){throw 'Embedded asset cache bump missing.'}
+          Write-Host 'PASS visual + telemetry truth contracts'
+
+      - name: Check production-avatar invariants
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $js=Get-Content docs/ops/ops-v11.js -Raw
+          foreach($needle in @('kv-bandage','kv-bruise','kv-xeyes','kv-bonk','kv-foot','mode-degraded','mode-disconnected')){if($js -notmatch [regex]::Escape($needle)){throw "Kevin production avatar invariant missing: $needle"}}
+          Write-Host 'PASS Kevin production avatar invariants'
+
+      - name: Commit production files
+        shell: pwsh
+        run: |
+          git config user.name 'Kevin CI'
+          git config user.email 'actions@users.noreply.github.com'
+          git add docs/index.html docs/ops/embed.html docs/ops/ops-v11.js docs/ops/ops-v11.css
+          if(-not (git diff --cached --quiet)){
+            git commit -m 'Redesign Ops Floor worker language and truthful Kevin state [skip ci]'
+            git push origin HEAD:kevin-hq-ops-v14-visual-truth
+          } else {
+            throw 'Ops v14 patch produced no production changes.'
+          }
