@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-08-30T17:32:00.0348743-06:00",
+    "generated_at":  "2026-08-30T17:34:09.4732189-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
@@ -27,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  41.8
+                                     "heartbeat_age_seconds":  171.2
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -37,15 +37,15 @@
                               },
                    "composite_skills":  {
                                             "ready":  0,
-                                            "running":  1,
-                                            "done":  1,
+                                            "running":  0,
+                                            "done":  2,
                                             "failed":  1,
-                                            "proven_count":  1,
+                                            "proven_count":  2,
                                             "latest_proven":  {
-                                                                  "key":  "watchtower-create-text-proof@1",
-                                                                  "proven_at":  "2026-08-30T17:27:56.5577903-06:00",
-                                                                  "manifest_sha256":  "FC83B763EA2D32747764B92F3B66243A12BD6C4BF5F85992D00A386811FBAEA1",
-                                                                  "proof_sha256":  "D1AD8B5A7DDCF4E68244CF05863BE7BEFB6369743313E85F55F63CAFA3C68D55",
+                                                                  "key":  "skill-lab-recovery-isolation-create-text@1",
+                                                                  "proven_at":  "2026-08-30T17:32:09.4586325-06:00",
+                                                                  "manifest_sha256":  "63B34295BFA6EC4C432DE594AD2F5B1087C51748111BDB4CFE1C7BB24B8E37E6",
+                                                                  "proof_sha256":  "9E4412B8AAFD335D080597EB1C456213208DE0E17935320320A3D06BCF990198",
                                                                   "primitive_steps":  [
                                                                                           "create_text"
                                                                                       ]
@@ -59,6 +59,13 @@
                                      "at":  "2026-08-30T17:23:30.0542103-06:00"
                                  },
                    "cron":  [
+                                {
+                                    "declaration_key":  "kevin-benchmark-v1",
+                                    "enabled":  true,
+                                    "every_ms":  600000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
                                 {
                                     "declaration_key":  "kevin-engineering-relay-v1",
                                     "enabled":  true,
@@ -74,20 +81,6 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-supervisor-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-benchmark-v1",
-                                    "enabled":  true,
-                                    "every_ms":  600000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-maintenance-intake-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
@@ -96,6 +89,13 @@
                                 },
                                 {
                                     "declaration_key":  "kevin-support-bridge-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  180000,
                                     "last_status":  "ok",
