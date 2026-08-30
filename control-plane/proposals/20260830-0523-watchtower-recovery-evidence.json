@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "kind": "kevin-watchtower-recovery-evidence",
+  "generated_at": "2026-08-30T05:23:40-06:00",
+  "support": {
+    "generated_at": "2026-08-30T05:21:16.5217704-06:00",
+    "governance_ok": true,
+    "benchmark": {
+      "status": "PASS",
+      "passed": 30,
+      "total": 30,
+      "critical_failures": 0,
+      "at": "2026-08-30T05:11:58.1679586-06:00"
+    },
+    "supervisor": {
+      "cycle": 99,
+      "last_mission": "forge-v4",
+      "last_result": "REJECT",
+      "consecutive_failures": 0
+    }
+  },
+  "autonomy": {
+    "generated_at": "2026-08-30T05:03:27.7769134-06:00",
+    "state": "NEEDS_REVIEW",
+    "drift_count": 2,
+    "selected_action": null
+  },
+  "engineering": {
+    "generated_at": "2026-08-30T05:22:59.5600582-06:00",
+    "operator_hash_match": true,
+    "initiative_hash_match": true,
+    "ui_bridge_hash_match": true,
+    "benchmark": {
+      "status": "PASS",
+      "passed": 30,
+      "total": 30,
+      "critical": 0,
+      "at": "2026-08-30T05:21:58.2162678-06:00"
+    },
+    "skill_lab": {
+      "enabled": true,
+      "last_status": "error",
+      "consecutive_errors": 10
+    },
+    "composite_skills": {
+      "ready": 1,
+      "running": 1,
+      "done": 0,
+      "failed": 0,
+      "proven_count": 0
+    }
+  },
+  "actions": {
+    "engineering_status_request": {
+      "id": "watch-skill-status-20260830-052340",
+      "authority": "GREEN",
+      "operation": "action_status",
+      "created_at": "2026-08-30T05:23:40-06:00",
+      "expires_at": "2026-08-30T06:23:40-06:00",
+      "repo_commit": "b7ee6e103f8d1ed861a726f704751e1088a3c21e"
+    },
+    "autonomy_refresh": "BLOCKED_BY_CONNECTED_WRITE_SAFETY; no bypass attempted"
+  },
+  "bounded_retry": {
+    "family": "skill_lab_runner_orchestration",
+    "status": "STOP_DIRECT_RETRIES_UNTIL_STATE_CHANGES",
+    "reason": "failure family already isolated and exceeds three attempts"
+  },
+  "safety": {
+    "arbitrary_shell": false,
+    "authority_expansion": false,
+    "novel_production_promotion": false,
+    "owner_locks_preserved": true
+  }
+}
