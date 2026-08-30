@@ -1,0 +1,42 @@
+name: Refine Ops v14 Aggregate State
+
+on:
+  push:
+    branches:
+      - kevin-hq-ops-v14-aggregate-refine
+    paths:
+      - .github/scripts/refine-ops-v14-aggregate.py
+      - .github/workflows/refine-ops-v14-aggregate.yml
+
+permissions:
+  contents: write
+
+jobs:
+  gate:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply refinement
+        shell: pwsh
+        run: python .github/scripts/refine-ops-v14-aggregate.py
+      - name: Validate runtime contract
+        shell: pwsh
+        run: |
+          node --check docs/ops/ops-v11.js
+          if($LASTEXITCODE -ne 0){throw 'JavaScript syntax failed.'}
+          $js=Get-Content docs/ops/ops-v11.js -Raw
+          if($js -notmatch [regex]::Escape("if(['bridge','tick'].includes(w.key))continue;")){throw 'Housekeeping exclusion missing.'}
+          if($js -notmatch [regex]::Escape("if(Number(s?.active_workers?.supervisor||0)>0)active.add('working');")){throw 'Supervisor substantive work signal missing.'}
+          Write-Host 'PASS substantive Kevin aggregate contract'
+      - name: Commit production JS
+        shell: pwsh
+        run: |
+          git config user.name 'Kevin CI'
+          git config user.email 'actions@users.noreply.github.com'
+          git add docs/ops/ops-v11.js
+          if(-not (git diff --cached --quiet)){
+            git commit -m 'Keep Kevin aggregate state substantive [skip ci]'
+            git push origin HEAD:kevin-hq-ops-v14-aggregate-refine
+          } else { throw 'No JS change produced.' }
