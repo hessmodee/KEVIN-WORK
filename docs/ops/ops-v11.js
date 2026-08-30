@@ -91,6 +91,7 @@ function kevinStates(d,s){
  if(['bridge','tick','ollama','gateway'].some(k=>d?.services?.[k]&&norm(d.services[k])!=='healthy'))return ['degraded'];
  const active=new Set();
  for(const w of WORKERS){
+   if(['bridge','tick'].includes(w.key))continue;
    const st=workerState(w.key,d,s);
    if(st==='building')active.add('building');
    else if(st==='working')active.add('working');
