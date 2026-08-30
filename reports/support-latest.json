@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-30T11:32:42.9663000-06:00",
+    "generated_at":  "2026-08-30T11:35:44.2537752-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788110978859,
-                                  "next_run_at_ms":  1788111158859
+                                  "last_run_at_ms":  1788111158881,
+                                  "next_run_at_ms":  1788111338881
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,20 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788111098896,
-                                  "next_run_at_ms":  1788111158896
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788110911753,
-                                  "next_run_at_ms":  1788111211753
+                                  "last_run_at_ms":  1788111304740,
+                                  "next_run_at_ms":  1788111364740
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -101,8 +89,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788111041821,
-                                  "next_run_at_ms":  1788111221821
+                                  "last_run_at_ms":  1788111221838,
+                                  "next_run_at_ms":  1788111401838
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788111218685,
+                                  "next_run_at_ms":  1788111518685
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -113,17 +113,17 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788110729378,
-                                  "next_run_at_ms":  1788111329378
+                                  "last_run_at_ms":  1788111329403,
+                                  "next_run_at_ms":  1788111929403
                               }
                           ],
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  144,
+                       "cycle":  145,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-08-30T11:30:43.2074961-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-08-30T11:35:02.6708984-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -134,7 +134,7 @@
                      "last_brief":  "20260830-112829-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-08-30T11:25:38.4001579-06:00",
+                      "at":  "2026-08-30T11:35:37.9225846-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -148,20 +148,20 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260830-112433-forge-v4-i115-evaluation.json",
-                              "at":  "2026-08-30T11:25:27.2082497-06:00",
+                              "file":  "20260830-113343-forge-v4-i116-evaluation.json",
+                              "at":  "2026-08-30T11:35:02.5480692-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  115,
+                              "iteration":  116,
                               "verdict":  "REJECT",
                               "score":  0,
                               "result":  "",
                               "failure_count":  8,
                               "security_finding_count":  0,
-                              "has_reusable_lesson":  true,
+                              "has_reusable_lesson":  false,
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-30T11:28:33.1542213-06:00",
+                        "at":  "2026-08-30T11:33:40.0544479-06:00",
                         "status":  "STAGED_APPROVAL_REQUIRED",
                         "manifest_id":  "maintenance-bootstrap-v12-20260830-1015",
                         "stage_path":  "~\\.openclaw\\workspace\\reports\\maintenance\\staged\\maintenance-bootstrap-v12-20260830-1015.ps1",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "35817D14F0421EF296DEBCA505FA7A8C57AF96FA94EDD1DBFE7156AD281586E8"
+    "semantic_hash":  "C43887E44165905C47CFCAE0712A9274810CB1D69823AD2FCF18D04E520429AB"
 }
