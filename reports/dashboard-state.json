@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-29T19:37:01-06:00",
-  "status": "working",
+  "generated_at": "2026-08-29T19:38:38-06:00",
+  "status": "ready",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,16 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "night-forge",
-    "title": "Night Forge cycle",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-29T19:37:01-06:00",
-    "source": "forge"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -29,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 57,
-    "cpu_pct": 12,
+    "memory_pct": 58,
+    "cpu_pct": 18,
     "gpu": "RTX 3060",
-    "gpu_pct": 98
+    "gpu_pct": 94
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-29T13:50:14-06:00",
-        "estimated": false,
-        "ram": 54,
-        "cpu": 1,
-        "gpu": 1
-      },
       {
         "at": "2026-08-29T14:05:14-06:00",
         "estimated": false,
@@ -709,10 +693,16 @@
         "ram": 57,
         "cpu": 12,
         "gpu": 98
+      },
+      {
+        "at": "2026-08-29T19:38:38-06:00",
+        "estimated": false,
+        "ram": 58,
+        "cpu": 18,
+        "gpu": 94
       }
     ],
     "ram": [
-      54,
       50,
       55,
       51,
@@ -807,10 +797,10 @@
       50,
       50,
       57,
-      57
+      57,
+      58
     ],
     "cpu": [
-      1,
       0,
       18,
       4,
@@ -905,10 +895,10 @@
       8,
       6,
       12,
-      12
+      12,
+      18
     ],
     "gpu": [
-      1,
       0,
       20,
       41,
@@ -1003,7 +993,8 @@
       22,
       19,
       98,
-      98
+      98,
+      94
     ]
   },
   "weather": {
@@ -1156,6 +1147,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-29T19:38:38-06:00",
+      "source": "manual",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "REVIEW_OUTPUT_CONTRACT_FAILURE line=[Review line protocol expected exactly one MISSION_ID= line; saw 0.] json=[Model response contained no JSON object.]",
+      "result": "fail",
+      "task_id": "design-forge",
+      "duration_ms": 97000
+    },
     {
       "at": "2026-08-29T19:37:01-06:00",
       "source": "forge",
@@ -1369,23 +1370,14 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-29T17:39:06-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Night Forge PASS 125112ms",
-      "result": "pass",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-29T19:37:01-06:00",
+    "last": "2026-08-29T19:38:38-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1422,30 +1414,30 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-29T19:37:01-06:00",
+    "generated_at": "2026-08-29T19:33:19.0055182-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "night-forge",
-      "name": "Night Forge",
-      "title": "Night Forge cycle",
-      "category": "qa",
-      "state": "working",
-      "detail": "started",
-      "what": "Running safety and regression checks.",
-      "engine": "Night Forge",
-      "action": "QA / regression"
+      "id": "supervisor",
+      "name": "Supervisor",
+      "title": "Kevin autonomous system armed",
+      "category": "supervisor",
+      "state": "ready",
+      "detail": "All current strategic missions are cooling. Four distinct recovery passes already completed for the current evidence set.",
+      "what": "Waiting only for the next scheduled three-minute control cycle.",
+      "engine": "Supervisor v1.4",
+      "action": "Autonomous schedule armed"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "waiting",
-        "detail": "Supervisor is yielding while Night Forge owns the engineering lane.",
+        "state": "ready",
+        "detail": "All current strategic missions are cooling. Four distinct recovery passes already completed for the current evidence set.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1473,17 +1465,17 @@
     ]
   },
   "execution": {
-    "running": true,
-    "state": "working",
-    "phase": "started",
-    "worker": "Night Forge",
-    "engine": "Night Forge",
-    "action": "QA / regression"
+    "running": false,
+    "state": "ready",
+    "phase": "All current strategic missions are cooling. Four distinct recovery passes already completed for the current evidence set.",
+    "worker": "Supervisor",
+    "engine": "Supervisor v1.4",
+    "action": "Autonomous schedule armed"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Night Forge | WORKING | started",
+      "text": "Supervisor | READY | All current strategic missions are cooling. Four distinct recovery passes already completed for the current evidence set.",
       "severity": "normal"
     }
   ]
