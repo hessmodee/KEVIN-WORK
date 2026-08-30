@@ -53,7 +53,10 @@ jobs:
         run: |
           $ErrorActionPreference='Stop'
           $js=Get-Content docs/ops/ops-v11.js -Raw
-          foreach($needle in @('kv-bandage','kv-bruise','kv-xeyes','kv-bonk','kv-foot','mode-degraded','mode-disconnected')){if($js -notmatch [regex]::Escape($needle)){throw "Kevin production avatar invariant missing: $needle"}}
+          $css=Get-Content docs/ops/ops-v11.css -Raw
+          foreach($needle in @('kv-bandage','kv-bruise','kv-xeyes','kv-bonk','kv-foot')){if($js -notmatch [regex]::Escape($needle)){throw "Kevin production avatar geometry/detail invariant missing: $needle"}}
+          foreach($needle in @('mode-degraded','mode-disconnected')){if($css -notmatch [regex]::Escape($needle)){throw "Kevin production state-treatment invariant missing: $needle"}}
+          if($js -notmatch [regex]::Escape("ks==='offline'?'disconnected':ks==='degraded'?'degraded'")){throw 'Kevin runtime degraded/disconnected mapping missing.'}
           Write-Host 'PASS Kevin production avatar invariants'
 
       - name: Commit production files
