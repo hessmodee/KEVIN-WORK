@@ -183,6 +183,35 @@ function Parse-ReviewLineProtocol {
   $next=Get-ProtocolOne -Lines $lines -Key 'NEXT_EXPERIMENT'
   return [pscustomobject]@{mission_id=$mission;verdict=$verdict;score=$score;failures=$failures;security_findings=$security;reusable_lesson=$lesson;next_experiment=$next;semantic_success=$semantic}
 }
+function Validate-ReviewObject {
+  param([Parameter(Mandatory=$true)]$Object,[Parameter(Mandatory=$true)][string]$ExpectedMissionId)
+  if($null -eq $Object){throw 'Review structured object was null.'}
+  $mission=[string](Get-PropertyValue $Object 'mission_id')
+  if($mission -cne $ExpectedMissionId){throw "Review structured mission mismatch: $mission"}
+  $verdict=([string](Get-PropertyValue $Object 'verdict')).ToUpperInvariant()
+  if($verdict -notin @('PASS','REJECT')){throw "Review structured verdict invalid: $verdict"}
+  $scoreRaw=Get-PropertyValue $Object 'score';$score=0
+  if($null -eq $scoreRaw -or -not [int]::TryParse([string]$scoreRaw,[ref]$score) -or $score -lt 0 -or $score -gt 100){throw "Review structured score invalid: $scoreRaw"}
+  $semanticRaw=Get-PropertyValue $Object 'semantic_success'
+  if($semanticRaw -isnot [bool]){throw 'Review structured semantic_success must be boolean.'}
+  $failProp=$Object.PSObject.Properties['failures'];if($null -eq $failProp){throw 'Review structured failures property missing.'};$failures=@($failProp.Value)
+  $secProp=$Object.PSObject.Properties['security_findings'];if($null -eq $secProp){throw 'Review structured security_findings property missing.'};$security=@($secProp.Value)
+  $lesson=[string](Get-PropertyValue $Object 'reusable_lesson');if([string]::IsNullOrWhiteSpace($lesson)){throw 'Review structured reusable_lesson was empty.'}
+  $next=[string](Get-PropertyValue $Object 'next_experiment');if([string]::IsNullOrWhiteSpace($next)){throw 'Review structured next_experiment was empty.'}
+  return [pscustomobject]@{mission_id=$mission;verdict=$verdict;score=$score;failures=$failures;security_findings=$security;reusable_lesson=$lesson;next_experiment=$next;semantic_success=[bool]$semanticRaw}
+}
+function Parse-ReviewStructuredFallback {
+  param([Parameter(Mandatory=$true)][string]$Text,[Parameter(Mandatory=$true)][string]$ExpectedMissionId)
+  $lineError=''
+  try{return (Parse-ReviewLineProtocol -Text $Text -ExpectedMissionId $ExpectedMissionId)}catch{$lineError=[string]$_.Exception.Message}
+  try{
+    $obj=Extract-JsonObject $Text
+    return (Validate-ReviewObject -Object $obj -ExpectedMissionId $ExpectedMissionId)
+  }catch{
+    $jsonError=[string]$_.Exception.Message
+    throw ("REVIEW_OUTPUT_CONTRACT_FAILURE line=[{0}] json=[{1}]" -f $lineError,$jsonError)
+  }
+}
 function Invoke-ReviewLineFallback {
   param(
     [Parameter(Mandatory=$true)]$Runtime,
@@ -224,7 +253,7 @@ $bounded
   $r=Invoke-ExactNative -Executable $Runtime.Node -Argv @($Runtime.Cli,'agent','--agent','kevin-lab-qwen','--session-key',$SessionKey,'--json','--timeout','180','--message-file',$PromptPath) -TimeoutSeconds $TimeoutSeconds -WorkingDirectory $Workspace
   if($r.ExitCode -ne 0){throw "Review line-fallback model run failed exit=$($r.ExitCode): $($r.Stderr)"}
   $outer=$r.Stdout|ConvertFrom-Json;$visible=Extract-AssistantText $outer
-  return (Parse-ReviewLineProtocol -Text $visible -ExpectedMissionId $MissionId)
+  return (Parse-ReviewStructuredFallback -Text $visible -ExpectedMissionId $MissionId)
 }
 function Save-CandidateFiles($Proposal,[string]$CandidateRoot,[int]$MaxFiles,[int]$MaxChars){
   $files=@($Proposal.candidate_files)
@@ -258,7 +287,10 @@ SECURITY_FINDING=NONE
 REUSABLE_LESSON=keep evidence
 NEXT_EXPERIMENT=bounded test
 ") -ExpectedMissionId 'probe';if($lp.verdict -ne 'PASS' -or [int]$lp.score -ne 80 -or @($lp.failures).Count -ne 0 -or @($lp.security_findings).Count -ne 0){throw 'Review line protocol self-test failed.'}
-  Write-Output ("MISSION_WORKER_SELF_TEST_PASS missions={0} json_recovery=1 line_fallback=1" -f $ids.Count);exit 0
+  $jsonProbe='{"mission_id":"probe","verdict":"REJECT","score":55,"failures":["missing evidence"],"security_findings":[],"reusable_lesson":"prove the claim","next_experiment":"bounded rerun","semantic_success":false}'
+  $jp=Parse-ReviewStructuredFallback -Text $jsonProbe -ExpectedMissionId 'probe';if($jp.verdict -ne 'REJECT' -or [int]$jp.score -ne 55 -or @($jp.failures).Count -ne 1){throw 'Review JSON fallback self-test failed.'}
+  $closed=$false;try{$null=Parse-ReviewStructuredFallback -Text 'unstructured prose only' -ExpectedMissionId 'probe'}catch{if([string]$_.Exception.Message -match '^REVIEW_OUTPUT_CONTRACT_FAILURE '){$closed=$true}};if(-not $closed){throw 'Review structured fallback did not fail closed on prose.'}
+  Write-Output ("MISSION_WORKER_SELF_TEST_PASS missions={0} json_recovery=1 structured_fallback=line-or-json fail_closed=1" -f $ids.Count);exit 0
 }
 
 if([string]::IsNullOrWhiteSpace($MissionId)){throw 'MissionId is required in Run mode.'}
@@ -349,7 +381,7 @@ Return ONLY valid JSON:
     $reviewLinePath=Join-Path $runRoot 'review.line.prompt.txt'
     $evaluation=Invoke-ReviewLineFallback -Runtime $rt -SessionKey ("review-line-$stamp-$MissionId") -MissionId $MissionId -Goal ([string]$Mission.goal) -CandidateText $proposalCompact -MinimumScore ([int]$Catalog.policy.minimum_review_score) -PromptPath $reviewLinePath -TimeoutSeconds 220
   }
-  if([string]$evaluation.mission_id -ne $MissionId){throw 'Review mission mismatch.'}
+  $evaluation=Validate-ReviewObject -Object $evaluation -ExpectedMissionId $MissionId
   $score=[int]$evaluation.score;$securityCount=@($evaluation.security_findings).Count
   $passed=([string]$evaluation.verdict -eq 'PASS' -and $score -ge [int]$Catalog.policy.minimum_review_score -and $securityCount -eq 0 -and [bool]$evaluation.semantic_success)
   Write-JsonAtomic $evaluation (Join-Path $runRoot 'evaluation.json')

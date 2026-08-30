@@ -66,6 +66,16 @@ function Sanitize-PublicDetail([AllowEmptyString()][string]$Text){
   if($s.Length -gt 700){$s=$s.Substring(0,700)}
   return $s
 }
+function Get-InfraFailureFamily {
+  param([AllowEmptyString()][string]$WorkerState,[AllowEmptyString()][string]$ErrorText)
+  $s=(($WorkerState+' '+$ErrorText) -replace '[\r\n]+',' ').ToLowerInvariant()
+  if($s -match 'review line protocol|review model json contract|review_output_contract_failure|review output contract|review.*format-recovery'){return 'review-output-contract'}
+  if($s -match 'candidate.*json contract|candidate mission mismatch|candidate.*format-recovery|candidate prompt exceeded'){return 'candidate-output-contract'}
+  if($s -match 'exit=124|timed out|timeout'){return 'model-timeout'}
+  if($s -match 'resource_guard|14b.*busy|mutex.*busy'){return 'resource-guard'}
+  if($s -match 'openclaw runtime|node.exe not found|model run failed exit='){return 'runtime-transport'}
+  return 'infra-other'
+}
 function Normalize-Recent($State,[int]$Max=30){$items=@($State.recent);if($items.Count -gt $Max){$items=@($items|Select-Object -Last $Max)};$State.recent=$items}
 function Was-RecentlyRun($State,[string]$MissionId,[double]$CooldownMinutes){foreach($r in @($State.recent)){if([string]$r.mission_id -eq $MissionId){try{if((([DateTimeOffset]::Now)-[DateTimeOffset]::Parse([string]$r.at)).TotalMinutes -lt $CooldownMinutes){return $true}}catch{}}};return $false}
 function Pick-Mission($Catalog,$State,$Autonomy,[string]$Requested){
@@ -79,7 +89,7 @@ function Pick-Mission($Catalog,$State,$Autonomy,[string]$Requested){
 }
 
 $Catalog=Get-Catalog
-if($Mode -eq 'SelfTest'){if(-not(Test-Path -LiteralPath $WorkerPath)){throw 'Mission worker missing.'};$r=Invoke-ExactNative 'powershell.exe' @('-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',$WorkerPath,'-Mode','SelfTest') 60 $Workspace;if($r.ExitCode -ne 0){throw "Mission worker self-test failed: $($r.Stdout) $($r.Stderr)"};Write-Output 'MISSION_DISPATCHER_SELF_TEST_PASS';exit 0}
+if($Mode -eq 'SelfTest'){if(-not(Test-Path -LiteralPath $WorkerPath)){throw 'Mission worker missing.'};$r=Invoke-ExactNative 'powershell.exe' @('-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',$WorkerPath,'-Mode','SelfTest') 60 $Workspace;if($r.ExitCode -ne 0){throw "Mission worker self-test failed: $($r.Stdout) $($r.Stderr)"};$f1=Get-InfraFailureFamily 'INFRA_FAILURE' 'Review line protocol expected exactly one MISSION_ID= line; saw 0.';$f2=Get-InfraFailureFamily 'INFRA_FAILURE' 'Review model JSON contract failed after one bounded format-recovery attempt.';if($f1 -ne 'review-output-contract' -or $f2 -ne $f1){throw 'Cross-mission review failure-family classifier self-test failed.'};Write-Output 'MISSION_DISPATCHER_SELF_TEST_PASS failure_family=review-output-contract';exit 0}
 
 $mutex=New-Object Threading.Mutex($false,'Global\KevinMissionDispatcherV1');$owned=$false
 try{
@@ -102,9 +112,9 @@ try{
     $recent=@($State.recent)+@([pscustomobject]@{mission_id=$mission;at=(Get-Date).ToString('o');result=$workerState});$State.recent=$recent;Normalize-Recent $State
   }elseif($workerState -eq 'SKIP_14B_BUSY'){$result.state='RESOURCE_RACE_SKIP'}
   else{
-    $result.state='DISPATCH_INFRA_FAILURE';$same=([string]$State.failure_family -eq $mission);if(-not $same){$State.failure_family=$mission;$State.attempts=0};$State.attempts=[int]$State.attempts+1;$State.last_mission=$mission;$State.last_result='INFRA_FAILURE'
-    if([int]$State.attempts -ge [int]$Catalog.policy.max_same_mission_infra_failures){$State.cooldown_until=([DateTimeOffset]::Now.AddMinutes([double]$Catalog.policy.infra_failure_cooldown_minutes)).ToString('o')}
-    $result.worker_error=(($worker.Stdout+' '+$worker.Stderr) -replace '[\r\n]+',' ').Trim()
+    $result.state='DISPATCH_INFRA_FAILURE';$rawError=(($worker.Stdout+' '+$worker.Stderr) -replace '[\r\n]+',' ').Trim();$family=Get-InfraFailureFamily -WorkerState $workerState -ErrorText $rawError;$same=([string]$State.failure_family -eq $family);if(-not $same){$State.failure_family=$family;$State.attempts=0};$State.attempts=[int]$State.attempts+1;$State.last_mission=$mission;$State.last_result='INFRA_FAILURE';$result.failure_family=$family;$result.failure_attempts=[int]$State.attempts
+    if([int]$State.attempts -ge [int]$Catalog.policy.max_same_mission_infra_failures){$State.cooldown_until=([DateTimeOffset]::Now.AddMinutes([double]$Catalog.policy.infra_failure_cooldown_minutes)).ToString('o');$result.cooldown_until=[string]$State.cooldown_until}
+    $result.worker_error=$rawError
   }
   Save-State $State;Write-JsonAtomic $result $LatestPath
   if($result.state -eq 'DISPATCH_INFRA_FAILURE'){
