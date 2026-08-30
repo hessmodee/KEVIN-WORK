@@ -1,13 +1,10 @@
 const RAW='https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/';
 
 const STATE_COLORS={
- idle:'#4f7dff',
  ready:'#68d8ce',
  working:'#79c56a',
- thinking:'#f0c44f',
- cooling:'#b38cff',
- connecting:'#35c7e8',
  building:'#f06dbb',
+ cooldown:'#b38cff',
  degraded:'#ff9a3d',
  offline:'#e46f61'
 };
@@ -26,10 +23,10 @@ const WORKERS=[
 
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function norm(v){return String(v||'').toLowerCase()}
-function stateColor(st){return STATE_COLORS[st]||STATE_COLORS.idle}
-function stateLabel(st){return ({idle:'IDLE',ready:'READY',thinking:'THINKING',working:'WORKING',building:'BUILDING',connecting:'CONNECTING',cooling:'COOLING',degraded:'DEGRADED',offline:'OFFLINE'})[st]||String(st||'').toUpperCase()}
+function stateColor(st){return STATE_COLORS[st]||STATE_COLORS.degraded}
+function stateLabel(st){return ({ready:'READY',working:'WORKING',building:'BUILDING',cooldown:'COOLDOWN',degraded:'DEGRADED',offline:'OFFLINE'})[st]||String(st||'').toUpperCase()}
 function owl(c){return `<svg class="owl" viewBox="0 0 120 120" aria-hidden="true"><path d="M27 48 Q20 36 23 19 Q32 25 40 25 Q49 18 60 18 Q71 18 80 25 Q89 25 97 19 Q100 36 93 48 Q100 55 97 67 Q94 79 84 88 Q74 98 60 98 Q46 98 36 88 Q26 79 23 67 Q20 55 27 48Z" fill="none" stroke="${c}" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`}
-function kevinProd(mode='idle',small=false){return `<div class="kevin-avatar-prod ${small?'small':''} mode-${mode}"><svg viewBox="0 0 120 120" aria-label="Kevin owl avatar"><circle class="kv-ring kv-detail5" cx="60" cy="59" r="53"/><ellipse class="kv-body" cx="60" cy="74" rx="38" ry="38"/><path class="kv-wing" d="M34 60 C27 64 24 74 25 86 C26 97 32 104 41 104 C40 94 39 82 40 72 C41 66 39 62 34 60 Z"/><path class="kv-wing" d="M86 60 C93 64 96 74 95 86 C94 97 88 104 79 104 C80 94 81 82 80 72 C79 66 81 62 86 60 Z"/><path class="kv-head" d="M26 48 Q19 35 22 19 Q31 25 40 25 Q49 18 60 18 Q71 18 80 25 Q89 25 98 19 Q101 35 94 48 Q100 56 97 66 Q94 78 84 86 Q74 94 60 94 Q46 94 36 86 Q26 78 23 66 Q20 56 26 48Z"/><ellipse class="kv-face" cx="44" cy="49" rx="22" ry="24"/><ellipse class="kv-face" cx="76" cy="49" rx="22" ry="24"/><path class="kv-face" d="M37 61 Q60 55 83 61 Q82 80 72 88 Q60 94 48 88 Q38 80 37 61Z"/><g class="kv-eyes"><circle class="kv-eye-white" cx="43" cy="48" r="15"/><circle class="kv-eye-white" cx="77" cy="48" r="15"/><circle class="kv-eye" cx="43" cy="50" r="7"/><circle class="kv-eye" cx="77" cy="50" r="7"/><circle class="kv-hi" cx="40.5" cy="46.5" r="2.1"/><circle class="kv-hi" cx="74.5" cy="46.5" r="2.1"/></g><g class="kv-xeyes"><path d="M35 40 L51 56 M51 40 L35 56 M69 40 L85 56 M85 40 L69 56" fill="none" stroke="#2a2724" stroke-width="4" stroke-linecap="round"/></g><path class="kv-beak" d="M54 60 Q60 56 66 60 L60 70 Z"/><path class="kv-brow kv-detail2" d="M32 35 Q42 29 51 35 M69 35 Q78 29 88 35"/><g class="kv-feather kv-detail3"><path d="M43 76 Q49 83 55 76"/><path d="M55 76 Q61 83 67 76"/><path d="M67 76 Q73 83 79 76"/><path d="M49 88 Q55 95 61 88"/><path d="M61 88 Q67 95 73 88"/></g><g class="kv-wingline kv-detail4"><path d="M29 77 Q34 73 38 77"/><path d="M29 90 Q34 86 39 90"/><path d="M91 77 Q86 73 82 77"/><path d="M91 90 Q86 86 81 90"/></g><ellipse class="kv-foot" cx="47" cy="108" rx="9" ry="5"/><ellipse class="kv-foot" cx="73" cy="108" rx="9" ry="5"/><circle class="kv-foot" cx="41" cy="110" r="2.5"/><circle class="kv-foot" cx="53" cy="110" r="2.5"/><circle class="kv-foot" cx="67" cy="110" r="2.5"/><circle class="kv-foot" cx="79" cy="110" r="2.5"/><g class="kv-bandage"><rect x="27" y="29" width="22" height="9" rx="3" fill="#eee1c7" stroke="#cdbb98" stroke-width="1.2" transform="rotate(-13 38 34)"/><path d="M32 29 L44 38 M44 29 L32 38" stroke="#c5ad83" stroke-width="1"/></g><ellipse class="kv-bruise" cx="88" cy="67" rx="7" ry="4" fill="rgba(118,80,136,.55)"/><g class="kv-bonk" fill="none" stroke="#d5ad68" stroke-width="2.4" stroke-linecap="round"><path d="M91 20 L96 13 M100 24 L108 21 M97 31 L103 37"/><circle cx="102" cy="14" r="2" fill="#d5ad68" stroke="none"/></g></svg></div>`}
+function kevinProd(mode='ready',small=false){return `<div class="kevin-avatar-prod ${small?'small':''} mode-${mode}"><svg viewBox="0 0 120 120" aria-label="Kevin owl avatar"><circle class="kv-ring kv-detail5" cx="60" cy="59" r="53"/><ellipse class="kv-body" cx="60" cy="74" rx="38" ry="38"/><path class="kv-wing" d="M34 60 C27 64 24 74 25 86 C26 97 32 104 41 104 C40 94 39 82 40 72 C41 66 39 62 34 60 Z"/><path class="kv-wing" d="M86 60 C93 64 96 74 95 86 C94 97 88 104 79 104 C80 94 81 82 80 72 C79 66 81 62 86 60 Z"/><path class="kv-head" d="M26 48 Q19 35 22 19 Q31 25 40 25 Q49 18 60 18 Q71 18 80 25 Q89 25 98 19 Q101 35 94 48 Q100 56 97 66 Q94 78 84 86 Q74 94 60 94 Q46 94 36 86 Q26 78 23 66 Q20 56 26 48Z"/><ellipse class="kv-face" cx="44" cy="49" rx="22" ry="24"/><ellipse class="kv-face" cx="76" cy="49" rx="22" ry="24"/><path class="kv-face" d="M37 61 Q60 55 83 61 Q82 80 72 88 Q60 94 48 88 Q38 80 37 61Z"/><g class="kv-eyes"><circle class="kv-eye-white" cx="43" cy="48" r="15"/><circle class="kv-eye-white" cx="77" cy="48" r="15"/><circle class="kv-eye" cx="43" cy="50" r="7"/><circle class="kv-eye" cx="77" cy="50" r="7"/><circle class="kv-hi" cx="40.5" cy="46.5" r="2.1"/><circle class="kv-hi" cx="74.5" cy="46.5" r="2.1"/></g><g class="kv-xeyes"><path d="M35 40 L51 56 M51 40 L35 56 M69 40 L85 56 M85 40 L69 56" fill="none" stroke="#2a2724" stroke-width="4" stroke-linecap="round"/></g><path class="kv-beak" d="M54 60 Q60 56 66 60 L60 70 Z"/><path class="kv-brow kv-detail2" d="M32 35 Q42 29 51 35 M69 35 Q78 29 88 35"/><g class="kv-feather kv-detail3"><path d="M43 76 Q49 83 55 76"/><path d="M55 76 Q61 83 67 76"/><path d="M67 76 Q73 83 79 76"/><path d="M49 88 Q55 95 61 88"/><path d="M61 88 Q67 95 73 88"/></g><g class="kv-wingline kv-detail4"><path d="M29 77 Q34 73 38 77"/><path d="M29 90 Q34 86 39 90"/><path d="M91 77 Q86 73 82 77"/><path d="M91 90 Q86 86 81 90"/></g><ellipse class="kv-foot" cx="47" cy="108" rx="9" ry="5"/><ellipse class="kv-foot" cx="73" cy="108" rx="9" ry="5"/><circle class="kv-foot" cx="41" cy="110" r="2.5"/><circle class="kv-foot" cx="53" cy="110" r="2.5"/><circle class="kv-foot" cx="67" cy="110" r="2.5"/><circle class="kv-foot" cx="79" cy="110" r="2.5"/><g class="kv-bandage"><rect x="27" y="29" width="22" height="9" rx="3" fill="#eee1c7" stroke="#cdbb98" stroke-width="1.2" transform="rotate(-13 38 34)"/><path d="M32 29 L44 38 M44 29 L32 38" stroke="#c5ad83" stroke-width="1"/></g><ellipse class="kv-bruise" cx="88" cy="67" rx="7" ry="4" fill="rgba(118,80,136,.55)"/><g class="kv-bonk" fill="none" stroke="#d5ad68" stroke-width="2.4" stroke-linecap="round"><path d="M91 20 L96 13 M100 24 L108 21 M97 31 L103 37"/><circle cx="102" cy="14" r="2" fill="#d5ad68" stroke="none"/></g></svg></div>`}
 
 function msOf(v){const n=Number(v||0);return Number.isFinite(n)?n:0}
 function cronJob(s,key){return (s?.cron?.jobs||[]).find(j=>j?.declaration_key===key)||null}
@@ -46,7 +43,7 @@ function workerState(key,d,s){
  if(telemetryOffline(d,s)) return 'offline';
  if(key==='bridge'){
    if(norm(d?.services?.bridge)!=='healthy')return 'degraded';
-   return recentlyRan(cronJob(s,'kevin-support-bridge-v1'),45000)?'connecting':'ready';
+   return recentlyRan(cronJob(s,'kevin-support-bridge-v1'),45000)?'working':'ready';
  }
  if(key==='tick'){
    if(norm(d?.services?.tick)!=='healthy')return 'degraded';
@@ -77,10 +74,10 @@ function workerState(key,d,s){
    return 'ready';
  }
  if(key==='chat'){
-   if(taskActive(t)&&/chat|reasoning|analysis|planning|conversation/.test(tt))return 'thinking';
+   if(taskActive(t)&&/chat|reasoning|analysis|planning|conversation/.test(tt))return 'working';
    return 'ready';
  }
- return 'idle';
+ return 'ready';
 }
 
 function kevinState(d,s){
@@ -91,13 +88,12 @@ function kevinState(d,s){
  const t=d?.current_task||null,tt=taskText(t),bw=s?.active_workers||{};
  if(taskActive(t)){
    if(/design forge|forge|build|builder|create|compile/.test(tt))return 'building';
-   if(/analysis|planning|reasoning|evaluate|evaluation|research|think/.test(tt))return 'thinking';
    return 'working';
  }
  if((bw?.design_forge||0)>0)return 'building';
  if((bw?.night_forge||0)>0||(bw?.benchmark||0)>0)return 'working';
- if((bw?.supervisor||0)>0)return 'thinking';
- if(/THROTTLED|SATURATED|WAIT|COOL/i.test(s?.supervisor?.last_result||''))return 'cooling';
+ if((bw?.supervisor||0)>0)return 'working';
+ if(/THROTTLED|SATURATED|WAIT|COOL/i.test(s?.supervisor?.last_result||''))return 'cooldown';
  return 'ready';
 }
 
@@ -109,7 +105,7 @@ function lineBetween(topology,from,to,state){
  const sx=from.x,sy=from.y,ex=to.x,ey=to.y,dx=ex-sx,dy=ey-sy,dist=Math.hypot(dx,dy)||1;
  const startTrim=96,endTrim=56,x1=sx+dx*(startTrim/dist),y1=sy+dy*(startTrim/dist),x2=ex-dx*(endTrim/dist),y2=ey-dy*(endTrim/dist);
  const len=Math.max(0,Math.hypot(x2-x1,y2-y1)),ang=Math.atan2(y2-y1,x2-x1)*180/Math.PI;
- const active=['thinking','working','building','connecting'].includes(state),el=document.createElement('div');
+ const active=['working','building'].includes(state),el=document.createElement('div');
  el.className=`line state-${state}${active?' active':''}`;
  el.style.cssText=`left:${x1}px;top:${y1}px;width:${len}px;transform:rotate(${ang}deg);--statec:${stateColor(state)}`;
  topology.appendChild(el)
@@ -127,14 +123,14 @@ async function load(){
  const overall=norm(d?.health?.overall||d?.status||'unknown'),chip=document.getElementById('overallChip');
  chip.textContent=overall==='healthy'?'HEALTHY':overall.toUpperCase();chip.className='chip '+(overall==='healthy'?'ok':'');
  const sup=s?.supervisor||{},rec=s?.recovery||{},bench=s?.benchmark||{};
- const detail=/THROTTLED|SATURATED/i.test(sup.last_result||'')?'Autonomy engine is cooling after bounded recovery attempts.':(sup.last_result?`Mission ${sup.last_mission||'—'} · ${sup.last_result}`:'Control plane healthy.');
+ const detail=/THROTTLED|SATURATED/i.test(sup.last_result||'')?'Recovery cooldown is active after bounded recovery attempts.':(sup.last_result?`Mission ${sup.last_mission||'—'} · ${sup.last_result}`:'Control plane healthy.');
  document.getElementById('newsText').textContent=`Chief of Staff | ${detail}`;
  const rail=document.getElementById('serviceRail');rail.innerHTML='';
- [['Reader','ready'],['Night Forge',(s?.active_workers?.night_forge||0)>0?'active':'ready'],['Build Lab',(s?.active_workers?.design_forge||0)>0?'active':'ready'],['Ollama',d?.services?.ollama==='healthy'?'ready':''],['Bridge',workerState('bridge',d,s)==='connecting'?'sync':(d?.services?.bridge==='healthy'?'ready':'')],['Tick',d?.services?.tick==='healthy'?'ready':'']].forEach(([n,st])=>rail.insertAdjacentHTML('beforeend',`<div class="svc"><i class="dot ${st}"></i><b>${esc(n)}</b><span>${st==='active'?'ACTIVE':st==='sync'?'SYNC':st==='ready'?'READY':'CHECK'}</span></div>`));
+ [['Reader','ready'],['Night Forge',(s?.active_workers?.night_forge||0)>0?'active':'ready'],['Build Lab',(s?.active_workers?.design_forge||0)>0?'active':'ready'],['Ollama',d?.services?.ollama==='healthy'?'ready':''],['Bridge',workerState('bridge',d,s)==='working'?'active':(d?.services?.bridge==='healthy'?'ready':'')],['Tick',d?.services?.tick==='healthy'?'ready':'']].forEach(([n,st])=>rail.insertAdjacentHTML('beforeend',`<div class="svc"><i class="dot ${st}"></i><b>${esc(n)}</b><span>${st==='active'?'ACTIVE':st==='ready'?'READY':'CHECK'}</span></div>`));
  const top=document.getElementById('topology');top.querySelectorAll('.worker,.line').forEach(x=>x.remove());
  const center={x:top.clientWidth/2,y:top.clientHeight/2},positions=ringPositions(top,WORKERS.length),active=[];
- WORKERS.forEach((w,i)=>{const st=workerState(w.key,d,s),p=positions[i];if(['thinking','working','building','connecting'].includes(st))active.push(w);lineBetween(top,center,p,st);const el=document.createElement('div');el.className=`worker ${st}`;el.style.cssText=`left:${(p.x/top.clientWidth)*100}%;top:${(p.y/top.clientHeight)*100}%;--idc:${w.c};--statec:${stateColor(st)}`;el.innerHTML=`${owl(w.c)}<div class="box"><b>${w.name}</b><small>${w.role}</small><span class="state">${stateLabel(st)}</span></div>`;el.onclick=()=>selectWorker(w,st,d,s);top.appendChild(el)});
- const ks=kevinState(d,s),kmode=ks==='offline'?'disconnected':ks==='degraded'?'degraded':['working','building','thinking'].includes(ks)?'working':'idle';
+ WORKERS.forEach((w,i)=>{const st=workerState(w.key,d,s),p=positions[i];if(['working','building'].includes(st))active.push(w);lineBetween(top,center,p,st);const el=document.createElement('div');el.className=`worker ${st}`;el.style.cssText=`left:${(p.x/top.clientWidth)*100}%;top:${(p.y/top.clientHeight)*100}%;--idc:${w.c};--statec:${stateColor(st)}`;el.innerHTML=`${owl(w.c)}<div class="box"><b>${w.name}</b><small>${w.role}</small><span class="state">${stateLabel(st)}</span></div>`;el.onclick=()=>selectWorker(w,st,d,s);top.appendChild(el)});
+ const ks=kevinState(d,s),kmode=ks==='offline'?'disconnected':ks==='degraded'?'degraded':['working','building'].includes(ks)?'working':'ready';
  document.getElementById('headerKevinProd').innerHTML=kevinProd(kmode,true);document.getElementById('hubKevinProd').innerHTML=kevinProd(kmode,false);renderKevinCenter(d,s,ks);
  document.getElementById('mission').textContent=sup.last_mission?`${sup.last_mission} · cycle ${sup.cycle??'—'}`:'No active mission';
  document.getElementById('action').textContent=taskActive(d?.current_task)?(d.current_task.phase||d.current_task.title||stateLabel(ks)):(/THROTTLED|SATURATED/i.test(sup.last_result||'')?'Recovery cooldown':(sup.last_result||'Ready for work'));
@@ -145,6 +141,6 @@ async function load(){
  document.getElementById('load').textContent=`RAM ${d?.system?.memory_pct??'—'}% · CPU ${d?.system?.cpu_pct??'—'}%`;document.getElementById('loadDetail').textContent=`GPU ${d?.system?.gpu||'—'} ${d?.system?.gpu_pct??'—'}% · Brain ${d?.brain?.name||'—'}`;
  document.getElementById('selectedStatus').textContent=`${stateLabel(ks)} · cycle ${sup.cycle??'—'}`;document.getElementById('selectedDetail').textContent=`Kevin state. ${detail}`;document.getElementById('updated').textContent=`Kevin HQ · telemetry ${at.toLocaleTimeString()} · schema ${d.schema??'—'}`;
 }
-function selectWorker(w,st,d,s){document.getElementById('selectedName').textContent=`${w.name} — ${w.role}`;document.getElementById('selectedStatus').textContent=stateLabel(st);let detail='Telemetry-backed worker state.';if(w.key==='benchmark')detail=`Regression ${s?.benchmark?.regression?.passed||0}/${s?.benchmark?.regression?.total||0}, critical failures ${s?.benchmark?.regression?.critical_failures||0}.`;if(w.key==='bridge')detail=`GitHub sync service: ${d?.services?.bridge||'unknown'}. CONNECTING is shown only around a recent Bridge run; otherwise a healthy Bridge is READY.`;if(w.key==='build')detail=`Design Forge workers active: ${s?.active_workers?.design_forge||0}.`;if(w.key==='ollama')detail=`Primary local inference service: ${d?.services?.ollama||'unknown'}.`;document.getElementById('selectedDetail').textContent=detail}
+function selectWorker(w,st,d,s){document.getElementById('selectedName').textContent=`${w.name} — ${w.role}`;document.getElementById('selectedStatus').textContent=stateLabel(st);let detail='Telemetry-backed worker state.';if(w.key==='benchmark')detail=`Regression ${s?.benchmark?.regression?.passed||0}/${s?.benchmark?.regression?.total||0}, critical failures ${s?.benchmark?.regression?.critical_failures||0}.`;if(w.key==='bridge')detail=`GitHub sync service: ${d?.services?.bridge||'unknown'}. A recent Bridge run is WORKING; otherwise a healthy Bridge is READY.`;if(w.key==='build')detail=`Design Forge workers active: ${s?.active_workers?.design_forge||0}.`;if(w.key==='ollama')detail=`Primary local inference service: ${d?.services?.ollama||'unknown'}.`;document.getElementById('selectedDetail').textContent=detail}
 
-document.getElementById('headerKevinProd').innerHTML=kevinProd('idle',true);document.getElementById('hubKevinProd').innerHTML=kevinProd('idle',false);load();setInterval(load,30000);addEventListener('resize',()=>load());
+document.getElementById('headerKevinProd').innerHTML=kevinProd('ready',true);document.getElementById('hubKevinProd').innerHTML=kevinProd('ready',false);load();setInterval(load,30000);addEventListener('resize',()=>load());
