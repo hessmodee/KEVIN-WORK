@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-30T15:55:37.1771907-06:00",
+    "generated_at":  "2026-08-30T15:58:56.3579400-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,32 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788126752601,
-                                  "next_run_at_ms":  1788126932601
-                              },
-                              {
-                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
-                                  "declaration_key":  "kevin-supervisor-v1",
-                                  "name":  "Kevin Supervisor v1.6 High Gear",
-                                  "enabled":  true,
-                                  "every_ms":  180000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788126781413,
-                                  "next_run_at_ms":  1788126961413
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "error",
-                                  "last_run_status":  "error",
-                                  "consecutive_errors":  1,
-                                  "last_run_at_ms":  1788126682380,
-                                  "next_run_at_ms":  1788126982380
+                                  "last_run_at_ms":  1788126932624,
+                                  "next_run_at_ms":  1788127112624
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -101,8 +77,32 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788126931300,
-                                  "next_run_at_ms":  1788126991300
+                                  "last_run_at_ms":  1788127056542,
+                                  "next_run_at_ms":  1788127116542
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788126982402,
+                                  "next_run_at_ms":  1788127153447
+                              },
+                              {
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.6 High Gear",
+                                  "enabled":  true,
+                                  "every_ms":  180000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788126974811,
+                                  "next_run_at_ms":  1788127154811
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -113,7 +113,7 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788126682360,
+                                  "last_run_at_ms":  1788126956493,
                                   "next_run_at_ms":  1788127282360
                               }
                           ],
@@ -122,8 +122,8 @@
     "supervisor":  {
                        "cycle":  175,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_PASS",
-                       "next_eligible_at":  "2026-08-30T15:53:29.1870871-06:00",
+                       "last_result":  "RECOVERY_THROTTLED",
+                       "next_eligible_at":  "2026-08-30T15:56:16.2605972-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -134,7 +134,7 @@
                      "last_brief":  "20260830-155329-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-08-30T15:51:31.2551720-06:00",
+                      "at":  "2026-08-30T15:56:34.3503049-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -161,17 +161,17 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-30T15:51:39.8133423-06:00",
-                        "status":  "APPLY_FAILED",
+                        "at":  "2026-08-30T15:56:34.4544576-06:00",
+                        "status":  "APPLIED_PREAUTHORIZED_PROVEN",
                         "manifest_id":  "typed-ui-bridge-restart-v033-20260830",
                         "stage_path":  "",
-                        "detail":  "UI Bridge did not produce fresh READY heartbeat after bounded restart"
+                        "detail":  "Typed GREEN maintenance applied and independently verified."
                     },
     "active_workers":  {
                            "design_forge":  0,
-                           "night_forge":  0,
+                           "night_forge":  1,
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "D862FD412D729CFA2A0717B165B8F05DF16588C6FB5D38A1C2A93A1A8968FD49"
+    "semantic_hash":  "E75B27D4DAA9041519BF410D409E9E280219BF40F229FB84FACE74341442884C"
 }
