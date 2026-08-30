@@ -1,0 +1,74 @@
+name: Skill Lab v1.0.4 Windows Runtime Gate
+
+on:
+  push:
+    branches: [kevin-skill-lab-v1.0.4-windows-runtime-fix]
+    paths:
+      - control-plane/skill-lab/**
+      - .github/workflows/skill-lab-v104-windows.yml
+  pull_request:
+    paths:
+      - control-plane/skill-lab/**
+      - .github/workflows/skill-lab-v104-windows.yml
+
+permissions:
+  contents: read
+
+jobs:
+  model-and-static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Existing recovery reference model
+        working-directory: control-plane/skill-lab
+        run: |
+          python -m py_compile skill_lab_recovery_model.py test_skill_lab_recovery_model.py
+          python test_skill_lab_recovery_model.py
+      - name: Static authority and Windows regression boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('control-plane/skill-lab/kevin-skill-lab-v1.0.4.ps1')
+          s=p.read_text(encoding='utf-8')
+          forbidden=[
+            'Invoke-Expression','Start-Process','Invoke-WebRequest','Invoke-RestMethod',
+            'System.Diagnostics.Process','Net.WebClient','cmd.exe','DownloadString',
+            'DownloadFile','Add-Type','shell=True','arbitrary_remote'
+          ]
+          bad=[x for x in forbidden if x.lower() in s.lower()]
+          assert not bad,bad
+          assert "@('create_text','create_spreadsheet','ui_notepad_write')" in s
+          assert '$maxRecover=3' in s
+          assert '$staleMin=15' in s
+          assert "-Filter'*.json'" not in s
+          assert s.count("-Filter '*.json'") == 2
+          assert 'SKILL LAB v1.0.4 SELFTEST PASS' in s
+          print('PASS fixed GREEN primitive envelope + Windows Filter token regression')
+          PY
+      - name: Exact candidate hash
+        run: |
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          p=Path('control-plane/skill-lab/kevin-skill-lab-v1.0.4.ps1')
+          print('candidate_sha256='+sha256(p.read_bytes()).hexdigest().upper())
+          PY
+
+  windows-powershell-51-runtime:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse and self-test in Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $p='control-plane\skill-lab\kevin-skill-lab-v1.0.4.ps1'
+          $tokens=$null; $errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){$errors|Format-List|Out-String|Write-Host;throw 'Windows PowerShell 5.1 parse failed'}
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'Windows PowerShell 5.1 self-test failed'}
+      - name: Real queue lifecycle in Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane\skill-lab\test_skill_lab_windows_runtime_v104.ps1'
+          if($LASTEXITCODE -ne 0){throw 'Windows runtime queue lifecycle failed'}
