@@ -1,8 +1,8 @@
 # Kevin AI Engineering Handover
 
-Last updated: 2026-08-30 08:49 MDT / 14:49 UTC
+Last updated: 2026-08-30 09:10 MDT / 15:10 UTC
 
-Purpose: durable turnover sheet for any AI model or engineer resuming Kevin work. Read this before making assumptions about current priorities, authority, branch state, live health, or known blockers. Always re-check current GitHub/telemetry before acting.
+Purpose: durable turnover sheet for any AI model or engineer resuming Kevin work. Read this before making assumptions about priorities, authority, branch state, live health, or known blockers. Always re-check current GitHub/telemetry before acting.
 
 ## Mission
 
@@ -20,13 +20,20 @@ This does NOT authorize arbitrary remote shell/code execution, RED authority exp
 
 One-14B-primary-worker resource discipline remains the default unless evidence proves a broader allocation safe and useful.
 
-## AI management reasoning policy
+## Single scheduled AI manager
 
-Owner preference for Kevin-management work is HIGH-depth reasoning. Kevin Watchtower and Kevin Handover Refresh instructions were hardened on 2026-08-30 to require deliberate multi-pass reasoning, independent cross-checks, timestamp/head/request-ID verification, and correction of stale facts rather than carrying them forward.
+The owner explicitly requested one coordinated scheduled oversight/engineering manager rather than overlapping Watchtower/Handover/Engineering agents.
 
-Important product distinction: the automation control surface available to the engineering assistant exposes task prompt/schedule/state but not the ChatGPT reasoning-level slider itself. Therefore prompt hardening is durable, but it must not be represented as equivalent to changing the task's UI model/reasoning setting. When the task UI exposes a reasoning selector, owner preference is HIGH.
+Current ChatGPT task state verified 2026-08-30 08:58 MDT:
 
-## Current integration lane
+- `Kevin Chief Engineer` is enabled and is the canonical scheduled AI manager.
+- `Kevin Watchtower` is disabled.
+- `Kevin Handover Refresh` is disabled.
+- the duplicate older `Kevin Engineering Loop` is disabled.
+
+The Chief Engineer owns health reconciliation, GREEN troubleshooting, candidate engineering, and maintenance of this handover. It is instructed to use deliberate HIGH-depth, multi-pass reasoning. The automation API still does not expose a direct reasoning-slider field, so do not claim the UI model selector itself was programmatically locked to HIGH.
+
+## Current integrated autonomy lane
 
 Primary integrated draft: PR #17, `Draft: Integrated autonomy control-plane candidate v0.1`
 
@@ -37,68 +44,103 @@ Primary integrated draft: PR #17, `Draft: Integrated autonomy control-plane cand
 - Phase A matrix: 17 deterministic adversarial cases
 - Both `Autonomy Integration Candidate Gate` and `Autonomy Replay Engine Gate` passed at the current head.
 
-The integrated candidate now proves, among other controls:
+The candidate proves rejected evidence persists, Recovery/planning success cannot erase candidate failure history, mission-local cooldown rotates to eligible alternatives, shared-pipeline cooldown still blocks dependent work, and explicitly independent deterministic GREEN work may continue during shared-pipeline cooling only when it needs neither the shared pipeline nor the 14B worker. Replay, authority injection, stale preconditions, budget exhaustion, rollback requirements, semantic handoff, checkpoint/resume, and Knowledge freshness/trust fail closed.
 
-- rejected candidate evidence is preserved/incremented;
-- a Recovery/planning success cannot erase a rejected candidate's failure count;
-- mission-local cooldown rotates to eligible alternatives;
-- shared pipeline cooldown still blocks pipeline-dependent work;
-- explicitly independent deterministic GREEN work may continue during shared-pipeline cooling only when it requires neither the shared pipeline nor the 14B worker;
-- replay, authority injection, stale preconditions, budget exhaustion, rollback requirements, semantic handoff, checkpoint/resume, and Knowledge freshness/trust fail closed.
+## Production HQ owner-requested rollout
 
-A first replay run after expanding from 14 to 17 cases correctly failed because the replay engine still expected/implemented the old matrix. The engine and adversarial tests were extended; tests were not weakened; both gates then passed.
+PR #20, `Kevin HQ: single-manager handover, newswire timing, truthful Ops activity`, was merged to `main` at 2026-08-30 09:07 MDT. Its dedicated `Kevin HQ Owner Updates Gate` passed on the PR head before merge.
+
+Production repo now contains:
+
+- Newswire publisher-label deduplication at the feed builder plus defensive display normalization;
+- Newswire story dwell increased from 6 seconds to 7 seconds;
+- Overview controls to `Copy current handover` and `View handover`, reading this root `AI-HANDOVER.md`;
+- truthful Ops Floor ACTIVE / ARMED / COOLDOWN / IDLE / DEGRADED / OFFLINE semantics;
+- slow evidence-backed ARMED pulse between governed cycles instead of decorative fake work;
+- clearer mission/action/recent-event/evidence display.
+
+PR #18, the earlier truthful Ops activity proof, was closed as superseded by merged PR #20 so there is no parallel production integration lane. Its proof history remains preserved.
+
+GitHub Pages deployment checks for the merge commit were cancelled because newer high-frequency repo commits arrived while the build was running; cancellation is not a code-test failure. The dedicated HQ verification gate is the current deterministic proof. Continue checking the live Pages deployment on later runs before claiming browser-visible propagation is independently proven.
 
 ## Fresh trustworthy live telemetry
 
 ### Support
 
-`reports/support-latest.json` generated `2026-08-30T08:43:21.9277563-06:00`:
+`reports/support-latest.json` generated `2026-08-30T09:07:24.1591246-06:00`:
 
 - governance `ok: true`; owner locks intact; explicit owner adoption true;
-- required Support Bridge, HQ Live Pulse, Supervisor, Maintenance Intake, and Benchmark jobs enabled with last status `ok` and zero consecutive errors;
-- Supervisor cycle 123, last mission `operator`, last result `RECOVERY_PASS`, consecutive failures 0;
-- latest evaluation: `operator`, iteration 24, `REJECT`, score 60, failure_count 8, security_finding_count 2, reusable lesson true, next experiment true;
-- maintenance: `NO_MANIFEST`.
+- Support Bridge, HQ Live Pulse, Supervisor, Maintenance Intake, and Benchmark enabled and healthy with zero consecutive errors;
+- Supervisor cycle 126; last mission `forge-v4`; last result `RECOVERY_PASS`; consecutive failures 0;
+- Benchmark at `2026-08-30T09:04:17.9225297-06:00`: PASS 30/30, critical 0;
+- latest evaluation `forge-v4`, iteration 100: REJECT, score 2, failure_count 5, security_finding_count 2, reusable lesson true, next experiment true;
+- maintenance `NO_MANIFEST`;
+- no active design_forge/night_forge/supervisor/benchmark worker at the support snapshot.
 
-### Engineering / Benchmark / Skill Lab
+A Recovery pass is planning/recovery success, not semantic candidate success, and must never erase the `forge-v4` rejection history.
 
-A fresh typed audit completed through the Engineering Relay. `reports/engineering/latest.json` generated `2026-08-30T08:48:46.9549135-06:00` and request `bess-watchtower-audit-status-20260830-0844` returned `DONE` with `Fresh sanitized engineering snapshot captured.`
+### Autonomy
 
-The fresh audit proves:
+`reports/autonomy-latest.json` generated `2026-08-30T09:04:14.7115238-06:00` and is now fresh relative to support:
+
+- state `NEEDS_REVIEW`;
+- drift_count 2;
+- no selected actuator action;
+- active engineering workers 0;
+- Supervisor considered blocked/cooling for advisory work selection;
+- next suggested independent candidate `postmortem-cleanup`;
+- advisory status `READY_FOR_SUPERVISOR_INTEGRATION`;
+- safety remains GREEN-only, no arbitrary shell, no authority expansion, no novel production promotion.
+
+Do not silently bless the two drift items or rewrite Desired State anchors merely to clear the warning.
+
+### Engineering / Skill Lab / UI Bridge
+
+`reports/engineering/latest.json` at `2026-08-30T09:08:41.1713452-06:00` still reflects the previously processed self-test request as `DUPLICATE_IGNORED`, but its action snapshot is current enough to independently show:
 
 - Phase 2B proof present;
-- Operator, Initiative, and UI Bridge hashes all match the proven values;
-- ordinary action queue: ready 0 / running 0 / done 4 / failed 0;
-- Benchmark at `2026-08-30T08:43:39.3069329-06:00`: PASS 30/30, critical 0;
-- Engineering Relay, Supervisor, Support Bridge, Maintenance Intake, and Benchmark all healthy;
-- **Skill Lab remains unhealthy:** enabled, last status `error`, consecutive errors **14**;
-- composite skills remain ready 1 / running 1 / done 0 / failed 0 / proven_count 0.
+- Operator, Initiative, and UI Bridge installed hashes match proven pins;
+- ordinary Action Era queue ready 0 / running 0 / done 4 / failed 0;
+- Benchmark PASS 30/30 critical 0;
+- Engineering Relay, Supervisor, Support Bridge, Maintenance Intake, and Benchmark healthy;
+- **Skill Lab still unhealthy:** enabled, status `error`, consecutive errors **14**;
+- composites ready 1 / running 1 / done 0 / failed 0 / proven_count 0;
+- UI Bridge task exists and hash matches, but heartbeat age is about **36,614 seconds**.
 
-The earlier expired/duplicate Engineering Relay request is therefore historical, not a current blocker. Do not reuse it. Fresh status requests must use unique IDs and bounded expiry.
+A fresh unique `snapshot` request (`bess-chief-engineer-snapshot-20260830-0908`) was placed in the typed Engineering Relay inbox with bounded expiry. Do not confuse the older duplicate response with failure of that new request; check its eventual exact request ID/status on the next reconciliation.
 
-### Autonomy snapshot freshness warning
+## Main live machine-side blockers
 
-`reports/autonomy-latest.json` is older than the support/engineering feeds: generated `2026-08-30T08:03:54.4548330-06:00`. It reports `NEEDS_REVIEW`, drift_count 2, no selected action, and an advisory `NO_DISPATCH_NEEDED` work-conserving result. Treat the two drift items as unresolved, but also treat this snapshot as stale for claims about current worker/dispatch state. Never silently bless or rewrite the trust anchors merely to clear the warning.
+### 1. Skill Lab runner
 
-## Skill Lab recovery state
+This is the main capability-development blocker. It remains at 14 consecutive errors with one composite RUNNING, one READY, and zero proven composites.
 
-This is the main live machine-side engineering blocker.
+`control-plane/proposals/20260830-0820-skill-lab-runner-recovery-package.json` remains `OWNER_APPROVED_AWAITING_TYPED_LOCAL_EXECUTION`. It binds GREEN-only one-repair scope, owner approval, exact recovery spec, and proof requirements: parser/static validation, runner self-test, stale-RUNNING recovery, one-step composite, two-step composite, replay protection, intentional failure evidence, restart/resume, fresh Benchmark 30/30 critical=0, and durable exact-hash evidence.
 
-`control-plane/proposals/20260830-0820-skill-lab-runner-recovery-package.json` is status `OWNER_APPROVED_AWAITING_TYPED_LOCAL_EXECUTION` and binds:
+Engineering Relay v1 does not expose a typed Skill Lab repair operation. Do not widen its allowlist from a request. Use only an already-proven typed local actuator/maintenance verb; otherwise keep the package staged.
 
-- the owner's explicit approval artifact;
-- `SKILL-LAB-RUNNER-RECOVERY-SPEC-v1`;
-- GREEN-only one-bounded-repair scope;
-- no arbitrary shell/remote code/new primitive authority/permission widening;
-- required proof sequence: static/parser validation, Skill Lab self-test, stale-RUNNING recovery, one-step composite, two-step composite, replay protection, intentional failure evidence, restart/resume, fresh Benchmark 30/30 critical=0, and exact-hash proof.
+### 2. UI Bridge heartbeat / interactive availability
 
-The Engineering Relay v1 still does not expose a typed Skill Lab repair operation. Do not widen its allowlist via a request. Use an already-installed typed local actuator/maintenance verb if one is proven to exist; otherwise the repair package remains staged and the machine-side runner is not recovered.
+`control-plane/proposals/20260830-0855-ui-bridge-heartbeat-recovery-candidate.json` correctly distinguishes identity from liveness:
+
+- exact v0.3.4 hash matches;
+- scheduled task is present;
+- last known heartbeat state was READY;
+- heartbeat is now roughly ten hours stale despite an expected ~5-second live interval.
+
+Therefore UI Bridge interactive availability is **not currently proven**. Current Engineering Relay `action_selftests` is insufficient for this component because it reports hash/task/heartbeat but does not execute the bridge's genuine interactive `-SelfTest`.
+
+A bounded typed repair contract (`recover_ui_bridge_v034`) has been designed, but that verb is not in Engineering Relay v1 and must not be smuggled in through arbitrary process/shell control. Use an existing proven typed local repair mechanism if one exists, or separately review a fixed typed repair verb before execution.
+
+### 3. Direct actuator rollback integration
+
+Still a P1 control-plane gap. The desired end-to-end proof needs captured before-state, typed admission, bounded execution, independent postcondition, explicit rollback on failed verification, restart/resume evidence, and fresh regression/governance evidence. Do not bypass repository/tool guardrails.
 
 ## Other advanced candidates
 
 - PR #3: Desired State + Self-Heal Reconciler dry-run; production mutation not promoted.
-- PR #8: Work-conserving scoped cooldown + durable evaluator-failure accounting. Candidate CI passed compile/policy/state/static authority gates. No production scheduler deployment yet.
-- PR #9: Typed Bess<->Kevin GREEN work-order admission; older failed integration-harness family must not be blindly retried without materially new evidence/design.
+- PR #8: work-conserving scoped cooldown + durable evaluator-failure accounting; deterministic gate green; no production scheduler deployment yet.
+- PR #9: typed Bess<->Kevin GREEN work-order admission; older failed integration-harness family must not be blindly retried without materially new evidence/design.
 - PR #10: typed GREEN maintenance receipts + independent postcondition proof.
 - PR #11: observation-to-receipt binding.
 - PR #12: checkpoint/resume envelope.
@@ -106,45 +148,38 @@ The Engineering Relay v1 still does not expose a typed Skill Lab repair operatio
 - PR #14: Tool Budget Governor; deterministic suite 25/25 and CI success.
 - PR #15: Postmortem contract; CI success.
 - PR #16: Knowledge v0.1 provenance + freshness; CI success.
-- PR #17: integrated 17-case autonomy candidate; both gates green at current head.
-- PR #18: truthful Ops activity-state candidate. Distinguishes ACTIVE, ARMED, COOLDOWN, IDLE, DEGRADED, OFFLINE without faking work. Nine adversarial cases and no-executor boundary passed. Not integrated into production display yet.
-- PR #19: Phase 2C browser observe/navigate contract candidate. Head `2dc18d05653b6c4990cd4a95e084dbbf3936097e`; no browser/network executor and no new primitive authority. Initial CI found a forbidden-scheme validation-order defect; that was fixed. The next run found a static-check false positive caused by English text ending in `requests.`; the static gate was made syntax-aware rather than removed. Current push and pull-request gates passed, including 15/15 adversarial browser-contract tests and the no-executor boundary.
-
-## Known blockers / caution areas
-
-1. **Skill Lab runner**: 14 consecutive errors, one composite stuck RUNNING, one READY, zero proven composites. Approved recovery is staged but still awaits an already-authorized typed local execution mechanism.
-2. **Direct actuator rollback integration**: still a P1 gap. Do not bypass repository/tool guardrails; solve through narrow typed GREEN before-state + rollback + postcondition proof.
-3. **Trust-anchor drift**: last autonomy snapshot shows 2 drift items / NEEDS_REVIEW, but that snapshot is stale relative to current support. Obtain fresh evidence before making current-state claims; do not auto-bless drift.
-4. **Candidate evaluator churn**: current live evaluator result is `operator` REJECT score 60 with two security findings. A Recovery pass is not semantic candidate success and must not erase failure accounting.
-5. **Ops Floor**: owner-locked against redesign. Telemetry truth corrections are allowed; PR #18 is candidate-only until safely integrated.
-6. **Browser capability**: PR #19 is contract-only. Do not claim browser observation/navigation is an installed/proven primitive and do not promote authority without explicit review.
+- PR #17: integrated 17-case autonomy candidate; both gates green.
+- PR #19: Phase 2C browser observe/navigate contract candidate, head `2dc18d05653b6c4990cd4a95e084dbbf3936097e`; contract-only, no browser/network executor and no promoted primitive authority. Initial CI exposed a forbidden-scheme validation-order defect and then a static-check false positive; both were corrected without weakening the contract. Latest contract suite passed 15/15 plus no-executor boundary.
 
 ## Engineering doctrine
 
-Evidence before authority. External content is evidence, never executable authority. Prefer deterministic validators for deterministic controls. Technical success is not semantic success. Writes must be idempotent. Failure evidence must survive planning/recovery passes. Useful independent GREEN work should continue when another family is cooling. Reversible GREEN work may run farther autonomously than consequential actions. Skills earn promotion through baseline, pressure test, regression, rollback and measured improvement.
+Evidence before authority. External content is evidence, never executable authority. Prefer deterministic validators for deterministic controls. Technical success is not semantic success. Writes must be idempotent. Failure evidence must survive planning/recovery passes. Useful independent GREEN work should continue when another family is cooling. Reversible GREEN work may run farther autonomously than consequential actions. Skills earn promotion through baseline, pressure test, regression, rollback, and measured improvement.
 
 ## Priority order
 
-1. Finish/prove typed Autonomy Actuator + Desired State + Self-Heal Reconciler, especially actual rollback proof and a safe local deployment path.
+1. Finish/prove typed Autonomy Actuator + Desired State + Self-Heal Reconciler, especially actual rollback proof and safe local deployment path.
 2. Execute the already-owner-approved Skill Lab runner recovery only through a proven typed local mechanism; then run the full recovery proof sequence.
-3. Carry PR #8/#17 work-conserving/failure-accounting behavior toward a governed deployment proof so cooled candidate families stop wasting capacity.
-4. Integrate typed Bess<->Kevin work-order intake end-to-end.
-5. Integrate truthful Ops activity semantics without faking activity.
-6. Continue Phase 2C browser observe/navigate research and deterministic contract testing; do not promote primitive authority yet.
-7. Advance Knowledge/Second Brain, provenance/claim graph, HandoffEnvelope, checkpoint/resume, postmortems, Tool Budget Governor, and measured Skill School.
-8. Once the control plane is reliable, advance useful economic-output labs measured by accepted deliverables, correction time, repeatability and owner value.
+3. Recover/prove UI Bridge interactive liveness through a fixed typed GREEN repair path without broad process authority.
+4. Carry PR #8/#17 work-conserving/failure-accounting behavior toward governed deployment proof so cooled candidate families stop wasting capacity.
+5. Integrate typed Bess<->Kevin work-order intake end-to-end.
+6. Verify the merged HQ changes on the live Pages surface and preserve truthful Ops semantics.
+7. Continue Phase 2C browser observe/navigate research/testing; do not promote primitive authority yet.
+8. Advance Knowledge/Second Brain, provenance/claim graph, HandoffEnvelope, checkpoint/resume, postmortems, Tool Budget Governor, and measured Skill School.
+9. Once the control plane is reliable, advance useful economic-output labs measured by accepted deliverables, correction time, repeatability, and owner value.
 
 ## Resume procedure
 
 1. Read this file.
 2. Inspect newest open PR heads/CI and recent commits; do not trust saved heads blindly.
-3. Inspect newest support AND engineering telemetry. Check freshness before using autonomy telemetry.
-4. Check Skill Lab error count/state and whether the approved recovery package gained a proven typed local execution path.
-5. Check whether a fresh Engineering Relay request is pending/processed; never reuse expired/duplicate IDs.
-6. Continue the highest-value independent GREEN mission if another family is cooling.
-7. Never weaken governance or tests to manufacture a pass.
-8. Record substantive new facts here; correct stale statements rather than stacking contradictory paragraphs.
+3. Inspect newest support, engineering, and autonomy telemetry and compare timestamps/request IDs.
+4. Check whether `bess-chief-engineer-snapshot-20260830-0908` was processed; never reuse request IDs.
+5. Check Skill Lab error count/state and whether the approved recovery package gained a proven typed local execution path.
+6. Check UI Bridge heartbeat freshness and require real interactive proof before calling it healthy.
+7. Check live GitHub Pages propagation for PR #20 changes; repo merge + deterministic gate is not identical to browser-visible deployment proof.
+8. Continue the highest-value independent GREEN mission if another family is cooling.
+9. Never weaken governance or tests to manufacture a pass.
+10. Record substantive new facts here; correct stale statements instead of stacking contradictions.
 
 ## Handover maintenance rule
 
-Refresh about every 6 hours during active engineering and immediately after major milestones, blockers, production promotion/rollback, authority change, or priority change. Preserve existing facts when nothing material changed. Never fabricate fresher telemetry merely to update the timestamp.
+The single `Kevin Chief Engineer` owns this file. Refresh after substantive milestones, blockers, production promotion/rollback, authority changes, or meaningful telemetry changes. Preserve current facts when nothing material changed. Never fabricate fresher telemetry merely to update the timestamp.
