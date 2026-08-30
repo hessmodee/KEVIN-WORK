@@ -1,0 +1,30 @@
+name: Tool Budget Governor Candidate Gate
+on:
+  push:
+    branches: [kevin-tool-budget-governor-v0.1]
+  pull_request:
+    branches: [kevin-control-plane-v1.3-review-contract]
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile
+        run: python -m py_compile control-plane/governor/tool_budget_governor.py control-plane/governor/test_tool_budget_governor.py
+      - name: Deterministic tests
+        working-directory: control-plane/governor
+        run: python -m unittest -v test_tool_budget_governor.py
+      - name: Static authority boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('control-plane/governor/tool_budget_governor.py').read_text().lower()
+          forbidden=['subprocess','os.system','socket','requests','urllib','powershell','cmd.exe','shell=true','eval(','exec(']
+          found=[x for x in forbidden if x in p]
+          if found:
+              raise SystemExit('forbidden executor/network surface: '+','.join(found))
+          print('PASS no executor/network/shell surface')
+          PY
