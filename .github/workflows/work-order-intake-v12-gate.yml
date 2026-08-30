@@ -33,7 +33,7 @@ jobs:
       - name: Run policy tests
         shell: pwsh
         run: |
-          python -m unittest control-plane/intake/test_work_order_policy_v1_1.py -v
+          python control-plane/intake/test_work_order_policy_v1_1.py
           if($LASTEXITCODE -ne 0){throw 'Policy tests failed'}
       - name: Run candidate policy self-test
         shell: pwsh
