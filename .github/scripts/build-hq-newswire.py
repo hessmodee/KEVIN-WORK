@@ -29,6 +29,32 @@ def clean_text(value: str | None) -> str:
     return s
 
 
+def strip_duplicate_source(title: str, source: str) -> tuple[str, str]:
+    """Keep the publisher exactly once.
+
+    Google News can provide a real <source> element while also leaving the same
+    publisher appended to the title. Normalize that here so every consumer gets
+    clean data instead of relying on display-layer workarounds.
+    """
+    title = clean_text(title)
+    source = clean_text(source)
+    if source:
+        low_title = title.lower()
+        low_source = source.lower()
+        for sep in (' - ', ' — ', ' | ', ' · '):
+            suffix = (sep + low_source)
+            if low_title.endswith(suffix):
+                title = title[:len(title) - len(sep + source)].strip()
+                break
+        return title, source
+
+    if ' - ' in title:
+        candidate_title, candidate_source = title.rsplit(' - ', 1)
+        if len(candidate_source) <= 80:
+            return candidate_title.strip(), candidate_source.strip()
+    return title, source
+
+
 def rss(url: str, category: str, limit: int) -> list[dict]:
     root = ET.fromstring(fetch_bytes(url))
     rows = []
@@ -37,13 +63,9 @@ def rss(url: str, category: str, limit: int) -> list[dict]:
         link = clean_text(item.findtext('link'))
         pub = clean_text(item.findtext('pubDate'))
         source = clean_text(item.findtext('source'))
+        title, source = strip_duplicate_source(title, source)
         if not title:
             continue
-        # Google News often appends the publisher after the final separator.
-        if not source and ' - ' in title:
-            candidate_title, candidate_source = title.rsplit(' - ', 1)
-            if len(candidate_source) <= 80:
-                title, source = candidate_title.strip(), candidate_source.strip()
         published_at = ''
         if pub:
             try:
