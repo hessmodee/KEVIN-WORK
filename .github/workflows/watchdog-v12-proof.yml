@@ -1,0 +1,43 @@
+name: Self-Reliance Watchdog v1.2 Proof
+
+on:
+  push:
+    paths:
+      - 'control-plane/maintenance/kevin-self-reliance-watchdog-v1.2.ps1'
+      - '.github/workflows/watchdog-v12-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-runtime:
+    runs-on: windows-latest
+    steps:
+      - name: Pin LF checkout
+        shell: powershell
+        run: git config --global core.autocrlf false
+
+      - uses: actions/checkout@v4
+
+      - name: Hash and parser gate
+        shell: powershell
+        run: |
+          $p='control-plane/maintenance/kevin-self-reliance-watchdog-v1.2.ps1'
+          $txt=[IO.File]::ReadAllText($p)
+          if($txt.Contains("`r`n")){throw 'CRLF checkout detected'}
+          $h=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "WATCHDOG_SHA256=$h"
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw "parser failed: $($errors[0].Message)"}
+          if($txt -match '(?m)\breturn\$'){throw 'return-variable token adjacency regression'}
+          foreach($bad in @('Invoke-Expression','ScriptBlock]::Create','-EncodedCommand','DownloadString','WScript.Shell')){
+            if($txt -match [regex]::Escape($bad)){throw "forbidden execution primitive detected: $bad"}
+          }
+
+      - name: Windows PowerShell 5.1 runtime self-test
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/maintenance/kevin-self-reliance-watchdog-v1.2.ps1' -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'watchdog v1.2 self-test failed'}
