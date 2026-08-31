@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T11:43:47-06:00",
+  "generated_at": "2026-08-31T11:45:14.9588313-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -12,7 +12,14 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "benchmark",
+    "title": "Kevin Benchmark v1",
+    "category": "benchmark",
+    "phase": "Regression/capability fitness worker active.",
+    "started_at": "2026-08-31T11:44:14.9947904-06:00",
+    "source": "hq-live-ops"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -1377,7 +1384,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-31T11:43:47-06:00",
+    "last": "2026-08-31T11:45:14.9588313-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1414,7 +1421,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-31T11:42:58.6806344-06:00",
+    "generated_at": "2026-08-31T11:45:14.9588313-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1426,7 +1433,7 @@
       "title": "Kevin autonomous system armed",
       "category": "supervisor",
       "state": "ready",
-      "detail": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-08-31T11:40:33.3787748-06:00",
+      "detail": "Completed forge-v4 i269 evaluation=REJECT score=2 auto_staged=False",
       "what": "Waiting only for the next scheduled three-minute control cycle.",
       "engine": "Supervisor v1.4",
       "action": "Autonomous schedule armed"
@@ -1437,7 +1444,7 @@
         "name": "Supervisor",
         "role": "Goal-aware control plane",
         "state": "ready",
-        "detail": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-08-31T11:40:33.3787748-06:00",
+        "detail": "Completed forge-v4 i269 evaluation=REJECT score=2 auto_staged=False",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1467,7 +1474,7 @@
   "execution": {
     "running": false,
     "state": "ready",
-    "phase": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-08-31T11:40:33.3787748-06:00",
+    "phase": "Completed forge-v4 i269 evaluation=REJECT score=2 auto_staged=False",
     "worker": "Supervisor",
     "engine": "Supervisor v1.4",
     "action": "Autonomous schedule armed"
@@ -1475,7 +1482,7 @@
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-08-31T11:40:33.3787748-06:00",
+      "text": "Supervisor | READY | Completed forge-v4 i269 evaluation=REJECT score=2 auto_staged=False",
       "severity": "normal"
     }
   ]
