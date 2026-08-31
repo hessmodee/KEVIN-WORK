@@ -1,103 +1,74 @@
 # Kevin AI Engineering Handover
 
-Last updated: 2026-08-30 23:29 MDT / 2026-08-31 05:29 UTC
+Last updated: 2026-08-31 00:38 MDT / 2026-08-31 06:38 UTC
 
-Purpose: durable turnover sheet for Kevin engineering. Re-check current GitHub telemetry before acting; fresh timestamps, exact hashes, receipts, CI heads, request IDs, and independent postconditions outrank narrative.
+Purpose: canonical turnover sheet for Kevin engineering. Re-check fresh GitHub/Omen telemetry before acting; timestamps, exact hashes, request IDs, receipts, branch/CI heads, and independent postconditions outrank narrative.
 
-## Mission and authority
+## Mission and standing owner directive
 
-Make Kevin a persistent, proactive, evidence-driven local **Chief of Staff** on Matt's Omen while preserving human control at consequential boundaries. Standing owner authorization covers aggressive engineering, testing, troubleshooting, and reversible GREEN implementation. It does **not** authorize arbitrary remote shell/code execution, RED authority expansion, permission widening, credential/config exposure, money movement, purchases, owner-representing external communications, automatic promotion of genuinely novel primitive authority, silent trust-anchor adoption, safety weakening, or owner-locked-goal changes.
+Build Kevin into a persistent, proactive, evidence-driven local **Chief of Staff** on Matt's Omen. The owner has now explicitly directed Kevin to actively learn, exercise, combine, troubleshoot, repair, upgrade, measure, and repeatedly prove **ALL capabilities already classified GREEN**. Idle-without-reason is a defect; when one family blocks or cools, advance another authorized mission.
 
-Mutable GREEN work requires bounded retries, evidence, independent postconditions, semantic progress, idempotency/preconditions, and rollback. After three materially distinct failures in one family, cool/block that family until evidence changes and continue independent authorized work.
+The active owner campaign is `docs/engineering/OWNER-DIRECT-COMMS-AND-GREEN-MASTERY-CAMPAIGN-v1.md`. The current task is `inbox/CURRENT_TASK.md`. Standing authorization is `control-plane/OWNER-AUTHORIZATION-v1.md`.
 
-The active doctrine is `docs/engineering/FULL-STEAM-CONTINUOUS-IMPROVEMENT-DOCTRINE-v1.md`: every healthy cycle should execute useful approved work, improve/prove capability, diagnose/repair a blocker, preserve reusable learning, or prepare the next experiment. Idle-without-reason is a defect. Maintain a rolling three-steps-ahead queue and target one genuinely useful owner-visible accomplishment per day when useful work exists.
+The 2026-08-31 owner directive also explicitly authorizes development and proof of **private Matt<->Kevin communication** through Kevin HQ and repair/proof of the intended private Telegram channel. This is narrow owner-direct communication authority only. Natural-language message content is owner intent, not arbitrary executable shell; consequential downstream actions still require typed authority. No third-party/public owner-representing sends are authorized by this change.
 
-## Fresh live truth
+## Hard boundaries retained
 
-Fresh Support at **23:28:38 MDT** reports governance OK, all listed Kevin schedulers healthy with zero consecutive errors, and Maintenance runner SHA256 `0AC6C0F20DC33507159789A8A3B7767154A918E4E665CEAA90201E1ADA94FDA3`. Fresh Benchmark at **23:28:26 MDT** is PASS **30/30, critical=0**.
+Never create/use arbitrary shell or arbitrary remote code execution; weaken security/audit/rollback; expose credentials/config/private host data; silently bless trust-anchor drift; widen permissions, recipient scopes, RED authority, or novel primitive authority; move money; make purchases; live-trade/wallet-sign; alter owner-locked goals; or auto-promote novel YELLOW/RED code.
 
-The latest Engineering Relay snapshot at **23:25:07 MDT** remains useful passive state even though the requested remote snapshot itself was correctly rejected as `BUDGET_EXHAUSTED` after the daily engineering-request budget was reached. Operator queues were `ready=0`, `running=0`, `done=7`, `failed=1`; composite skills were `ready=0`, `running=0`, `done=2`, `failed=1`, `proven_count=2`. The fixed engineering budget fail-closed behavior is not a scheduler failure and must not be evaded with retries under new IDs.
+Mutable work requires bounded retries, semantic progress, exact preconditions, independent postconditions, idempotency, evidence, and rollback. After three materially distinct failures in one family, cool it until evidence materially changes and work elsewhere.
 
-The same Engineering Relay snapshot reported the UI Bridge task present and pinned hash matching, but interactive heartbeat age **15,607.5 seconds**. Therefore the interactive UI Bridge is still unhealthy. Generic HQ/dashboard `bridge=healthy`, a matching executable hash, task presence, or `reports/bridge-latest.json` transport pings are not proof of interactive-session health.
+## Freshest independently preserved production truth
 
-### HQ live-truth / Ops interaction
+- Last independently preserved Benchmark: PASS **30/30, critical=0**.
+- Maintenance v1.3.3 production SHA256: `0AC6C0F20DC33507159789A8A3B7767154A918E4E665CEAA90201E1ADA94FDA3`.
+- Work Order Intake v1.2.3 exact installed/source SHA256 independently proven: `0C1B36D56488AA850E4F2C2EFDAC01D89D14D75CF854CA347B65D18234AF2BC6`.
+- OS Awareness v0.1 is OWNER-AUTHORIZED + OMEN-PROVEN in its bounded read-only GREEN envelope. Installed observer SHA256 preserved as `192CF42D9403EDCE40D3540F3DDA632C96BBB132787ADCCE095B2D43A3F17D32`.
+- Skill Lab preserved baseline: two PROVEN composites; latest preserved Operator queue was done=7/failed=1 with no ready/running work.
+- Sanitized OS Awareness -> Support/HQ contract PR #29 exact head `f17f0f2e154fc12eff71fbba1f0f6031dcc146f4` is CI-PROVEN only; not yet production-integrated/OMEN-PROVEN.
+- Gmail adapter candidate exact preserved CI-proven head `eecbe799ea260d7506f6e58c61061ef1f159d4aa`; not yet INSTALLED/OMEN-PROVEN. Credentials must remain Omen-local; do not request secrets in chat/GitHub/HQ.
+- Interactive UI Bridge remains UNHEALTHY in latest preserved trustworthy evidence: scheduled task/hash presence did not equal health and heartbeat was many thousands of seconds stale versus expected ~5 seconds. Prior restart-only family is cooled; resume only with materially new diagnostic evidence.
+- Autonomy/Desired State previously remained `NEEDS_REVIEW` with owner-reserved trust-anchor drift. Do not silently repin.
+- One-14B-primary-worker discipline remains standing unless measurements and owner policy prove otherwise.
 
-The production HQ/Ops design remains frozen except for truthful telemetry fixes, real defects, and owner-requested changes. Earlier owner-requested Kevin/Ops improvements remain deployed: Kevin is presented as **Chief of Staff**, selectable/reselectable, worker status and activity are live-data driven, fake progress bars remain removed, READY blinking / WORKING-BUILDING gaze / success celebration are bounded to real state transitions, and top-shell/Ops telemetry polling does not invent work.
+## HQ / owner interaction truth
 
-The previously proven timestamp normalization fix remains important: PowerShell/.NET seven-fractional-digit timestamps must be normalized before browser age calculations so valid telemetry cannot become false OFFLINE state.
+Kevin is presented to Matt as **Chief of Staff**; stable internal Supervisor identifiers may remain unchanged.
 
-A later HQ freeze/liveness repair series landed on `main` around 23:26–23:27 MDT. The strengthened gate now checks that the owner-refinement observer does not self-loop over its own subtree mutations, text updates are idempotent, and dashboard-stale classification can fall to DEGRADED rather than falsely OFFLINE when Support is still fresh and the fixed `kevin-hq-live-pulse-v15` job is healthy. Treat these newer commits as production source changes but do not claim their final gate/deployment proof unless a fresh workflow run is independently checked.
+Production avatar/Ops Floor design is frozen except real defects, truthful telemetry improvements, and owner-requested UI changes. The new direct-chat and mobile-responsive work is owner-requested and may proceed under the current bounded authority.
 
-Branch-based GitHub Pages still rebuilds frequently on high-frequency `main` telemetry commits. This creates superseded/cancelled deploy churn even when docs do not materially change; solve only through a safe configuration path.
+Never call communications successful from UI code, a matching hash, a task, a mock transcript, or CI alone. Require genuine round-trip proof.
 
-### OS Awareness v0.1 — OWNER-AUTHORIZED + OMEN-PROVEN
+## Immediate P0 queue
 
-Installed observer SHA256 remains `192CF42D9403EDCE40D3540F3DDA632C96BBB132787ADCCE095B2D43A3F17D32`. Work order `bess-20260831-0342-os-awareness-proof` / idempotency key `bess-os-awareness-live-proof-20260831-0342` completed `SUCCESS` and emitted `OS_AWARENESS_PROVEN`. Evidence confirmed 34,270,429,184 bytes physical memory, one CPU package, one GPU, two memory modules, plus bounded process/service/task/software/event-health counts. The path remains GREEN, read-only, arbitrary-shell false, authority-expansion false.
+1. **Native Matt<->Kevin HQ conversation:** build mobile-friendly message composer/transcript and a typed owner-message/reply transport with correlation IDs, content hash/provenance, truthful states, idempotent retry, and no public secrets. Prove real Matt -> Kevin -> Matt round trip.
+2. **Telegram recovery:** diagnose current failure without exposing bot token/chat ID/private content. Distinguish configuration/token enrollment, channel registration, polling/webhook conflict, reachability, permissions/binding, stale process/task, and routing. Repair with bounded typed/local mechanisms. Stop only at a precise local secret/enrollment checkpoint if unavoidable. Prove private round trip.
+3. **Mobile HQ:** validate 360px/common phone widths, no horizontal page scroll, >=44px primary touch targets, readable cards, usable sticky nav/chat composer, one-handed chat usability, and no desktop regression.
+4. **GREEN mastery:** actively exercise all already-authorized GREEN primitives on meaningful tasks; move repeated useful sequences into declarative Skill Lab composites; record proof level, last success, first-pass success, retries, elapsed/queue time, owner intervention, resource pressure, regression, and recovery time.
 
-Do not spend another cycle merely re-proving OS Awareness unless evidence becomes stale or contradictory.
+## Parallel P1 queue
 
-### Sanitized OS Awareness -> Support/HQ contract — CI-PROVEN candidate
+- Production-integrate only PR #29's sanitized OS Awareness contract with provenance/freshness/privacy proof.
+- Build conservative advisory resource-state scheduling from sanitized CPU/RAM/GPU/disk/error evidence.
+- Diagnose UI Bridge using materially new session/process/task/event evidence rather than another blind restart.
+- Advance Gmail to READY FOR LOCAL CREDENTIAL ENROLLMENT, then stop at owner-local OAuth checkpoint.
+- Expand Skill Lab multi-step replay/idempotency, intentional failure, checkpoint/resume, recovery isolation, and measured promotion.
+- Continue bounded browser observe/semantic-navigation candidate work without auto-promoting new primitive authority.
+- Build transparent Markdown + SQLite FTS5 Second Brain with provenance/contradiction handling/handoff/checkpoints/postmortems.
+- Continue practical app/tiny game builder benchmarks, Opportunity Radar, and lawful economic-output labs from proven authority only.
 
-Draft PR **#29**, `Draft: Sanitized OS Awareness telemetry contract for Support/HQ`, exact head `f17f0f2e154fc12eff71fbba1f0f6031dcc146f4`, is now **CI-PROVEN** but not installed or wired into production. Workflow run `33360445943` completed SUCCESS. Its deterministic gate compiled the validator, passed the adversarial privacy/freshness suite, and passed an independent no-executor/no-network static boundary scan.
+## Morning scorecard contract
 
-The contract permits only aggregate public telemetry already derived by OS Awareness: process/service/task/software counts; 24h System/Application critical-or-error counts; total physical memory; CPU/GPU/memory-module counts; fixed source artifact; exact observer SHA256 provenance; source/checked timestamps; bounded 30..900 second freshness; and explicit FRESH/STALE truth. It recursively rejects host/user identifiers, paths, command lines/argv, environment, credentials/secrets/tokens, addresses, MAC/serial data, event messages, registry values, documents, and raw process/service/task/software/network lists.
+Report measured outcomes, not activity counts: HQ chat proof level and real round-trip result; Telegram root cause/repair/round-trip status; mobile widths validated and regressions fixed; GREEN primitives exercised/repeatedly-proven; composites promoted; performance and recovery metrics where enough evidence exists; new typed self-heal paths; exact cooled blockers; and any genuine owner-visible surprise accomplishment.
 
-Proof level is **CI-PROVEN only**. Next step is a separate reversible production integration into Support/HQ with independent postconditions; do not call it INSTALLED, OMEN-PROVEN, or SELF-RELIANT yet.
+Never conflate **DESIGNED**, **CI-PROVEN**, **INSTALLED**, **OMEN-PROVEN**, **REPEATEDLY-PROVEN**, **ROUND-TRIP-PROVEN**, and **SELF-RELIANT**.
 
-### Typed self-maintenance — production-proven
+## Three steps ahead
 
-Maintenance v1.3.3 remains live at exact SHA256 `0AC6C0F20DC33507159789A8A3B7767154A918E4E665CEAA90201E1ADA94FDA3`. It accepts only fixed typed aliases/operations, enforces GREEN / authority-delta NONE / production-effect NONE / owner policy / preauthorization, exact hashes, fixed self-tests, fresh Benchmark, bounded failure attempts, and rollback for mutation. No caller-selected command/argv/path is exposed.
-
-### Work Order Intake v1.2.3 — exact installed identity now independently PROVEN
-
-Qualified source `control-plane/intake/kevin-work-order-intake-v1.2.3.ps1` passed a fresh Windows PowerShell 5.1 parser + fixed self-test gate on branch head `4a21cf0f814125a7e21774c7424cb52be2cf961e`. The exact qualified source SHA256 is:
-
-`0C1B36D56488AA850E4F2C2EFDAC01D89D14D75CF854CA347B65D18234AF2BC6`
-
-A proof-only schema-3 Maintenance manifest `typed-woi-v123-identity-postproof-20260830-2328` set `source_sha256`, `expected_current_sha256`, and `expected_after_sha256` all to that same value. This construction cannot replace a mismatched local intake: Maintenance v1.3.3 returns idempotent success only when the local `before` hash already equals `after`; otherwise `expected-current` mismatches before staging/replacement. Fresh Support at 23:28:38 records this manifest as `APPLIED_PREAUTHORIZED_PROVEN`, and the fresh Benchmark generated by the proof passed 30/30 critical=0.
-
-Therefore exact Work Order Intake v1.2.3 local identity is now independently proven at SHA256 `0C1B36D56488AA850E4F2C2EFDAC01D89D14D75CF854CA347B65D18234AF2BC6`. This supersedes the old handover statement that behavior was live but exact installed identity was unproved.
-
-### Skill Lab — production-proven baseline
-
-Latest Engineering Relay reported Operator `ready=0`, `running=0`, `done=7`, `failed=1`; composite skills `ready=0`, `running=0`, `done=2`, `failed=1`, `proven_count=2`. Latest proven composite remains `skill-lab-recovery-isolation-create-text@1`, manifest SHA256 `63B34295BFA6EC4C432DE594AD2F5B1087C51748111BDB4CFE1C7BB24B8E37E6`, proof SHA256 `9E4412B8AAFD335D080597EB1C456213208DE0E17935320320A3D06BCF990198`.
-
-The stale `bess-stage-core-toolchain-proof-20260830-1638` request was correctly rejected as expired. The newer remote engineering `snapshot` request was correctly rejected as `BUDGET_EXHAUSTED`; both are fail-closed policy behavior rather than subsystem failure.
-
-### Interactive UI Bridge — cooled / unhealthy
-
-Latest trustworthy Engineering Relay heartbeat age is **15,607.5 seconds** with task present and pinned hash matching. That is not compatible with the expected ~5-second heartbeat cadence. The prior restart family exhausted its bounded attempt budget and remains cooled. Do not generate a fourth restart under a renamed request. Return only with materially new diagnostic evidence or a materially different recovery path. Current priority is to correct generic-vs-interactive health telemetry and use OS/process/task/error evidence to diagnose why an apparently present scheduled task does not sustain the interactive heartbeat.
-
-## Autonomy / governance
-
-Latest checked autonomy report remains `NEEDS_REVIEW` with three Desired State drifts. Safety reports GREEN-only, arbitrary shell false, authority expansion false, novel production promotion false. Do not silently repin owner-reserved trust anchors.
-
-One-14B-primary-worker discipline remains the standing invariant. Resource-aware scheduling may defer/throttle work using measured evidence but must not add a second 14B primary worker without measurement-backed owner-approved change.
-
-## Immediate priority queue
-
-1. **Production-integrate sanitized OS telemetry contract** into Support/HQ through a reversible GREEN path, preserving exact provenance, source timestamp, freshness, privacy tests, and fail-closed stale behavior. Exact Work Order Intake v1.2.3 identity proof is complete; do not redo it unless contradictory evidence appears.
-2. **Resource-aware scheduling/self-diagnosis:** derive conservative scheduling signals from sanitized RAM/CPU/GPU/disk/error state and current HQ pulse, preserving one 14B primary worker and avoiding overreaction to transient GPU spikes.
-3. **UI Bridge truth + diagnosis:** distinguish generic transport bridge, scheduled-task presence, executable hash, and interactive heartbeat as separate signals. Use materially new process/task/event evidence before any further restart attempt.
-4. **Maintenance v1.3.3 / Work Order polling:** validate freshness, idempotency, expired/duplicate handling, bounded failure accounting, downstream authority separation, and autonomous proof collection. The engineering-request daily budget is currently exhausted; do not evade it.
-5. **Skill Lab:** advance multi-step composite reliability with replay/idempotency, intentional failure, checkpoint/resume, recovery isolation, and measured promotion using already-PROVEN GREEN primitives only.
-6. **Browser candidate:** continue isolated observe/semantic-navigation research under strict HTTPS/host/redirect/public-IP/data-access controls; no automatic primitive promotion.
-7. **Second Brain / Knowledge:** build transparent Markdown + SQLite FTS5 baseline with provenance, contradiction handling, durable handoff, checkpoint/resume, and postmortems before heavier semantic-memory systems.
-8. **Proactive planning:** maintain a rolling three-steps-ahead queue, opportunity radar, dependency preparation, and genuinely useful daily surprise selection.
-9. **Economic-output labs:** use already-proven capabilities only; retain owner control over money, purchases, credentials, permissions, consequential external sends, and owner representation.
-
-## Three-steps-ahead queue
-
-- Step A: turn PR #29's CI-PROVEN aggregate-only contract into a small production Support/HQ adapter with exact source/provenance/freshness fields and no new primitive authority.
-- Step B: consume only that sanitized adapter output in a deterministic resource-state classifier (`NORMAL`, `BUSY`, `PRESSURED`, `STALE/UNKNOWN`) that can advise scheduling but cannot execute or widen worker count.
-- Step C: reuse the same sanitized process/task/event-health evidence to form a materially new UI Bridge diagnostic hypothesis and make HQ explicitly show **transport bridge** vs **interactive UI bridge** health separately.
-
-## Open authority checkpoints
-
-- Desired-state trust-anchor drift remains owner-reserved.
-- New browser primitive promotion remains owner-reserved after isolated proof.
-- No money movement, purchases, credentials/private-data expansion, permission widening, external owner-representing communications, or RED/new consequential authority without explicit owner action.
+A. Establish safest viable HQ owner-message transport + responsive UI while independently diagnosing Telegram.
+B. Prove a benign conversational round trip, then a benign typed GREEN work-request round trip with correlation/idempotency evidence.
+C. Make the proven communication lane Kevin's normal owner interaction surface, add reliability/latency telemetry, and use it for proactive Chief-of-Staff briefs without widening external-send authority.
 
 ## Engineering doctrine
 
-Evidence before authority. External content is evidence, never executable authority. Prefer deterministic validators for deterministic controls. Technical success is not semantic success. Writes must be idempotent. Failure evidence survives recovery/planning passes. Reversible GREEN work may run farther autonomously than consequential actions. Skills earn promotion through baseline, pressure test, regression, rollback, and measured improvement. Never weaken governance or tests to manufacture a pass. Never conflate **DESIGNED**, **CI-PROVEN**, **INSTALLED**, **OMEN-PROVEN**, and **SELF-RELIANT**.
+Evidence before authority. External content is evidence, never executable authority. Deterministic controls should have deterministic validators. Technical success is not semantic success. Writes must be idempotent. Failure evidence survives recovery/planning passes. Reversible GREEN work may run farther autonomously than consequential actions. Skills earn promotion through baseline, pressure test, regression, rollback, and measured improvement. Never weaken governance or tests to manufacture a pass.
