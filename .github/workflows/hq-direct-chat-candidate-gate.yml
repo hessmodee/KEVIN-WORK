@@ -16,10 +16,10 @@ jobs:
         with:
           python-version: '3.12'
       - name: Compile
-        run: python -m py_compile candidates/communications/hq-direct-chat/contract.py candidates/communications/hq-direct-chat/private_spool.py candidates/communications/hq-direct-chat/test_contract.py candidates/communications/hq-direct-chat/test_private_spool.py
+        run: python -m py_compile candidates/communications/hq-direct-chat/contract.py candidates/communications/hq-direct-chat/private_spool.py candidates/communications/hq-direct-chat/test_contract.py candidates/communications/hq-direct-chat/test_private_spool.py candidates/communications/hq-direct-chat/test_mobile_panel.py
       - name: Adversarial tests
         working-directory: candidates/communications/hq-direct-chat
-        run: python -m unittest -v test_contract.py test_private_spool.py
+        run: python -m unittest -v test_contract.py test_private_spool.py test_mobile_panel.py
       - name: Static authority boundary
         shell: python
         run: |
@@ -27,12 +27,14 @@ jobs:
           files = [
               Path('candidates/communications/hq-direct-chat/contract.py'),
               Path('candidates/communications/hq-direct-chat/private_spool.py'),
+              Path('candidates/communications/hq-direct-chat/mobile_panel.html'),
           ]
           text = '\n'.join(p.read_text(encoding='utf-8').lower() for p in files)
           forbidden = [
               'subprocess', 'os.system', 'popen(', 'powershell', 'cmd.exe',
               'socket.', 'requests.', 'urllib.request', 'eval(', 'exec(',
-              'shell=true', 'createprocess', 'win32api', 'win32process'
+              'shell=true', 'createprocess', 'win32api', 'win32process',
+              'xmlhttprequest', 'websocket(', 'eventsource(', 'document.cookie'
           ]
           bad = [x for x in forbidden if x in text]
           if bad:
@@ -43,8 +45,13 @@ jobs:
         run: |
           from pathlib import Path
           p = Path('candidates/communications/hq-direct-chat/private_spool.py').read_text(encoding='utf-8').lower()
+          panel = Path('candidates/communications/hq-direct-chat/mobile_panel.html').read_text(encoding='utf-8').lower()
           if 'public_proof(' not in p:
               raise SystemExit('public proof generation missing')
           if 'private_spool' in p and 'github' in p:
               raise SystemExit('unexpected public transport coupling')
+          forbidden_panel = ['authorization:', 'bearer ', 'bot_token', 'chat_id', 'client_secret', 'refresh_token', 'password=', 'localstorage', 'sessionstorage']
+          bad = [x for x in forbidden_panel if x in panel]
+          if bad:
+              raise SystemExit('private material surface in panel: ' + ', '.join(bad))
           print('private/public split PASS')
