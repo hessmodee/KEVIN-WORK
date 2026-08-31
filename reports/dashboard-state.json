@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T18:57:04.4473144-06:00",
+  "generated_at": "2026-08-30T18:58:26-06:00",
   "status": "degraded",
   "health": {
     "overall": "degraded",
@@ -15,34 +15,20 @@
   "current_task": null,
   "services": {
     "tick": "healthy",
-    "bridge": "degraded",
+    "bridge": "healthy",
     "ollama": "healthy",
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 29,
-    "cpu_pct": 14,
+    "memory_pct": 32,
+    "cpu_pct": 16,
     "gpu": "RTX 3060",
-    "gpu_pct": 13
+    "gpu_pct": 43
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T14:39:09-06:00",
-        "estimated": false,
-        "ram": 59,
-        "cpu": 8,
-        "gpu": 33
-      },
-      {
-        "at": "2026-08-30T14:39:41-06:00",
-        "estimated": false,
-        "ram": 59,
-        "cpu": 8,
-        "gpu": 33
-      },
       {
         "at": "2026-08-30T14:39:43-06:00",
         "estimated": false,
@@ -700,11 +686,23 @@
         "ram": 29,
         "cpu": 14,
         "gpu": 13
+      },
+      {
+        "at": "2026-08-30T18:58:05-06:00",
+        "estimated": false,
+        "ram": 32,
+        "cpu": 16,
+        "gpu": 43
+      },
+      {
+        "at": "2026-08-30T18:58:26-06:00",
+        "estimated": false,
+        "ram": 32,
+        "cpu": 16,
+        "gpu": 43
       }
     ],
     "ram": [
-      59,
-      59,
       59,
       63,
       63,
@@ -798,11 +796,11 @@
       29,
       34,
       29,
-      29
+      29,
+      32,
+      32
     ],
     "cpu": [
-      8,
-      8,
       8,
       9,
       9,
@@ -896,11 +894,11 @@
       12,
       15,
       14,
-      14
+      14,
+      16,
+      16
     ],
     "gpu": [
-      33,
-      33,
       33,
       39,
       39,
@@ -994,7 +992,9 @@
       42,
       26,
       13,
-      13
+      13,
+      43,
+      43
     ]
   },
   "weather": {
@@ -1147,6 +1147,25 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-30T18:58:26-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: knowledge",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 21000
+    },
+    {
+      "at": "2026-08-30T18:58:05-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: knowledge",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-30T18:55:47-06:00",
       "source": "forge",
@@ -1352,24 +1371,6 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 37000
-    },
-    {
-      "at": "2026-08-30T17:42:29-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: forge-v4",
-      "result": "",
-      "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-30T17:38:59-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Night Forge PASS 117635ms",
-      "result": "pass",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
@@ -1377,7 +1378,7 @@
     "state": "warning"
   },
   "sync": {
-    "last": "2026-08-30T18:57:04.4473144-06:00",
+    "last": "2026-08-30T18:58:26-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1387,9 +1388,9 @@
   "autonomy": {
     "mode": "hourly_design",
     "state": "pass",
-    "last_mission": "forge-v4",
-    "iteration": 161,
-    "updated_at": "2026-08-30T18:55:47.1004587-06:00",
+    "last_mission": "knowledge",
+    "iteration": 32,
+    "updated_at": "2026-08-30T18:58:26.1753555-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1404,10 +1405,10 @@
     "candidate_forge": {
       "result": "pass",
       "mode": "design-forge-v3",
-      "last_mission": "forge-v4",
-      "iteration": 161,
-      "updated_at": "2026-08-30T18:55:47.1004587-06:00",
-      "next_index": 0,
+      "last_mission": "knowledge",
+      "iteration": 32,
+      "updated_at": "2026-08-30T18:58:26.1753555-06:00",
+      "next_index": 4,
       "scheduled": true,
       "promotion": "blocked"
     }
