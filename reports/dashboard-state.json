@@ -1,10 +1,10 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T19:05:00.9143319-06:00",
-  "status": "degraded",
+  "generated_at": "2026-08-30T19:05:19-06:00",
+  "status": "ready",
   "health": {
-    "overall": "degraded",
-    "failed_checks": 1
+    "overall": "healthy",
+    "failed_checks": 0
   },
   "brain": {
     "name": "Qwen 2.5 14B",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 33,
+    "memory_pct": 34,
     "cpu_pct": 12,
     "gpu": "RTX 3060",
-    "gpu_pct": 35
+    "gpu_pct": 39
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T14:41:15-06:00",
-        "estimated": false,
-        "ram": 63,
-        "cpu": 9,
-        "gpu": 39
-      },
       {
         "at": "2026-08-30T14:49:43-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 33,
         "cpu": 12,
         "gpu": 35
+      },
+      {
+        "at": "2026-08-30T19:05:19-06:00",
+        "estimated": false,
+        "ram": 34,
+        "cpu": 12,
+        "gpu": 39
       }
     ],
     "ram": [
-      63,
       49,
       55,
       55,
@@ -798,10 +797,10 @@
       32,
       32,
       33,
-      33
+      33,
+      34
     ],
     "cpu": [
-      9,
       7,
       13,
       13,
@@ -896,10 +895,10 @@
       16,
       16,
       12,
+      12,
       12
     ],
     "gpu": [
-      39,
       36,
       98,
       98,
@@ -994,11 +993,12 @@
       43,
       43,
       35,
-      35
+      35,
+      39
     ]
   },
   "weather": {
-    "summary": "Tonight 45 | Wind 6 mph | Mostly Clear"
+    "summary": "Tonight 45 | Wind 3 mph | Mostly Clear"
   },
   "capabilities": [
     {
@@ -1093,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 93,
-      "total": 96
+      "done": 94,
+      "total": 97
     }
   ],
   "roadmap": {
@@ -1147,6 +1147,13 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-30T19:05:19-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
     {
       "at": "2026-08-30T19:04:33-06:00",
       "source": "forge",
@@ -1203,13 +1210,6 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-30T18:50:13-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "fail"
     },
     {
       "at": "2026-08-30T18:47:00-06:00",
@@ -1375,15 +1375,15 @@
   ],
   "owl": {
     "level": 1,
-    "state": "warning"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-30T19:05:00.9143319-06:00",
+    "last": "2026-08-30T19:05:19-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
-    "fails": 1,
-    "summary": "1 check(s) failed"
+    "fails": 0,
+    "summary": "All checks passed"
   },
   "autonomy": {
     "mode": "hourly_design",
