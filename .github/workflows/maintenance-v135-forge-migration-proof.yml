@@ -147,20 +147,34 @@ jobs:
       - name: Publish exact qualified bytes on main
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           $ErrorActionPreference = 'Stop'
           $src = '.\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.5.ps1'
-          $dst = '.\control-plane\maintenance\kevin-maintenance-runner-v1.3.5.ps1'
-          Copy-Item -LiteralPath $src -Destination $dst -Force
-          $expected = (Get-Content .\maintenance-v135-candidate-hash.json -Raw | ConvertFrom-Json).sha256
-          $actual = (Get-FileHash -LiteralPath $dst -Algorithm SHA256).Hash.ToUpperInvariant()
-          if ($actual -ne $expected) { throw "published byte mismatch expected=$expected actual=$actual" }
-          git config user.name 'Kevin CI'
-          git config user.email 'actions@users.noreply.github.com'
-          git add -- control-plane/maintenance/kevin-maintenance-runner-v1.3.5.ps1
-          if (git diff --cached --quiet) {
-            Write-Host 'Exact qualified v1.3.5 source already published.'
+          $repoPath = 'control-plane/maintenance/kevin-maintenance-runner-v1.3.5.ps1'
+          $expected = ([string](Get-Content .\maintenance-v135-candidate-hash.json -Raw | ConvertFrom-Json).sha256).ToUpperInvariant()
+          $actual = (Get-FileHash -LiteralPath $src -Algorithm SHA256).Hash.ToUpperInvariant()
+          if ($actual -ne $expected) { throw "qualified byte mismatch expected=$expected actual=$actual" }
+
+          $exists = $false
+          $oldPreference = $ErrorActionPreference
+          try {
+            $ErrorActionPreference = 'Continue'
+            $existingText = (& gh api "repos/$env:GITHUB_REPOSITORY/contents/$repoPath?ref=main" --jq .content 2>$null | Out-String).Trim()
+            $existingCode = [int]$LASTEXITCODE
+          } finally { $ErrorActionPreference = $oldPreference }
+          if ($existingCode -eq 0 -and $existingText) {
+            $existingBytes = [Convert]::FromBase64String(($existingText -replace '\s',''))
+            $sha = [Security.Cryptography.SHA256]::Create()
+            try { $existingHash = ([BitConverter]::ToString($sha.ComputeHash($existingBytes))).Replace('-','').ToUpperInvariant() } finally { $sha.Dispose() }
+            if ($existingHash -ne $expected) { throw "refusing to overwrite mismatched published v1.3.5 expected=$expected actual=$existingHash" }
+            Write-Host "Exact qualified v1.3.5 already published sha256=$expected"
             exit 0
           }
-          git commit -m "Publish exact CI-qualified Maintenance v1.3.5"
-          git push origin HEAD:main
+          if ($existingCode -ne 0 -and $existingText) { throw 'unexpected GitHub contents lookup failure' }
+
+          $content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($src))
+          & gh api --method PUT "repos/$env:GITHUB_REPOSITORY/contents/$repoPath" -f message='Publish exact CI-qualified Maintenance v1.3.5' -f content=$content -f branch=main | Out-Null
+          if ($LASTEXITCODE -ne 0) { throw 'GitHub Contents publication failed' }
+          Write-Host "PUBLISHED EXACT QUALIFIED V1.3.5 sha256=$expected"
