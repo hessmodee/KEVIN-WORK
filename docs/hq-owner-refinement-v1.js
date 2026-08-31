@@ -1,7 +1,7 @@
 (()=>{
 'use strict';
 const frame=document.getElementById('kevinCore');
-let core=null,doc=null,boundDoc=null,observer=null,refreshing=false,lastOpsState='READY';
+let core=null,doc=null,boundDoc=null,observer=null,refreshing=false,lastOpsStates=['READY'];
 const STATE_COLORS={READY:'#244f8f',ARMED:'#68d8ce',WORKING:'#79c56a',BUILDING:'#f06dbb',COOLDOWN:'#b38cff',DEGRADED:'#ff9a3d',OFFLINE:'#e46f61'};
 function installStyles(){
  if(!doc||doc.getElementById('ownerRefineStyle'))return;
@@ -18,55 +18,56 @@ function installStyles(){
 }
 function parseTimestamp(v){if(!v)return NaN;const s=String(v).trim().replace(/(\.\d{3})\d+(?=(?:Z|[+-]\d{2}:\d{2})$)/,'$1');const t=Date.parse(s);return Number.isFinite(t)?t:NaN}
 function ageSeconds(v){const t=parseTimestamp(v);return Number.isFinite(t)?Math.max(0,(Date.now()-t)/1000):Infinity}
-function taskActive(t){if(!t)return false;const p=String(t.phase||'').toLowerCase();return !/(yield|cooldown|wait|skip|queued|idle|armed|complete|done|failed)/.test(p)}
-function livePulseHealthy(s){const j=(s?.cron?.jobs||[]).find(x=>x.declaration_key==='kevin-hq-live-pulse-v15'),at=Number(j?.last_run_at_ms||0);return !!(j?.enabled&&j?.last_status==='ok'&&at>0&&Math.max(0,Date.now()-at)<=180000)}
-function classify(d,s){
- const da=ageSeconds(d?.generated_at),sa=ageSeconds(s?.generated_at);
- if(!d&&!s)return 'OFFLINE';
- if(da>180){if(sa<=480&&livePulseHealthy(s))return 'DEGRADED';return 'OFFLINE'}
- if(!s||sa>480)return 'DEGRADED';
- const health=String(d?.health?.overall||'').toLowerCase();if(health!=='healthy'||s?.governance?.ok===false)return 'DEGRADED';
- const t=d.current_task;if(taskActive(t)){const sig=`${t?.id||''} ${t?.title||''} ${t?.phase||''}`.toLowerCase();return /(forge|build lab|design|candidate|prototype)/.test(sig)?'BUILDING':'WORKING'}
- const lr=String(s?.supervisor?.last_result||'').toUpperCase();if(/THROTTLED|SATURATED|COOLDOWN/.test(lr))return 'COOLDOWN';
- const sj=(s?.cron?.jobs||[]).find(x=>x.declaration_key==='kevin-supervisor-v1');if(sj?.enabled&&sj?.last_status==='ok')return 'ARMED';return 'READY';
+function taskActive(t){if(!t)return false;const p=String(t.phase||'').toLowerCase();return !/(yield|cooldown|wait|skip|queued|idle|armed|complete|completed|done|stopped|failed)/.test(p)}
+function jobs(s){const c=s?.cron;return Array.isArray(c)?c:(c?.jobs||[])}
+function job(s,key){return jobs(s).find(x=>x?.declaration_key===key)||null}
+function livePulseHealthy(s){const j=job(s,'kevin-hq-live-pulse-v15'),at=Number(j?.last_run_at_ms||0);return !!(j?.enabled&&String(j?.last_status||'').toLowerCase()==='ok'&&String(j?.last_run_status||j?.last_status||'').toLowerCase()==='ok'&&Number(j?.consecutive_errors||0)===0&&at>0&&Math.max(0,Date.now()-at)<=180000)}
+function evidenceAgeMs(d,s){const vals=[parseTimestamp(d?.generated_at),parseTimestamp(s?.generated_at),Number(job(s,'kevin-hq-live-pulse-v15')?.last_run_at_ms||0)].filter(v=>Number.isFinite(v)&&v>0);return vals.length?Math.max(0,Date.now()-Math.max(...vals)):Infinity}
+function activeStates(d,s){
+ const out=new Set(),aw=s?.active_workers||{},t=d?.current_task||null,tt=`${String(t?.id||'').toLowerCase()} ${String(t?.title||'').toLowerCase()} ${String(t?.category||'').toLowerCase()} ${String(t?.phase||'').toLowerCase()} ${String(t?.source||'').toLowerCase()}`;
+ if(Number(aw?.design_forge||0)>0)out.add('BUILDING');
+ if(Number(aw?.night_forge||0)>0||Number(aw?.supervisor||0)>0||Number(aw?.benchmark||0)>0)out.add('WORKING');
+ if(taskActive(t)){if(/design[- ]forge|build lab|candidate|prototype|builder|mission factory/.test(tt))out.add('BUILDING');else out.add('WORKING')}
+ return ['BUILDING','WORKING'].filter(x=>out.has(x));
 }
-async function refreshTruth(){
- try{const b=Date.now(),base='https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/';const [dr,sr]=await Promise.all([fetch(`${base}dashboard-state.json?ts=${b}`,{cache:'no-store'}),fetch(`${base}support-latest.json?ts=${b}`,{cache:'no-store'})]);if(!dr.ok||!sr.ok)throw new Error('telemetry');syncHeader(classify(await dr.json(),await sr.json()))}catch(_e){}
+function classifyStates(d,s){
+ const active=activeStates(d,s);if(active.length)return active;
+ const offline=!(ageSeconds(s?.generated_at)<=600&&livePulseHealthy(s))&&evidenceAgeMs(d,s)>15*60*1000;if(offline)return ['OFFLINE'];
+ const health=String(d?.health?.overall||d?.status||'').toLowerCase();if((health&& !['healthy','ready'].includes(health))||s?.governance?.ok===false)return ['DEGRADED'];
+ if(['bridge','tick','ollama','gateway'].some(k=>d?.services?.[k]&&String(d.services[k]).toLowerCase()!=='healthy'))return ['DEGRADED'];
+ const lr=String(s?.supervisor?.last_result||'').toUpperCase();if(/THROTTLED|SATURATED|COOLDOWN|WAIT/.test(lr))return ['COOLDOWN'];
+ const sj=job(s,'kevin-supervisor-v1');if(sj?.enabled&&String(sj?.last_status||'').toLowerCase()==='ok')return ['ARMED'];
+ return ['READY'];
 }
+function normalizeStates(input){const arr=(Array.isArray(input)?input:[input]).map(x=>String(x||'').toUpperCase()).filter(x=>STATE_COLORS[x]);if(arr.includes('BUILDING')||arr.includes('WORKING'))return ['BUILDING','WORKING'].filter(x=>arr.includes(x));return [arr[0]||'READY']}
+function primaryState(states){for(const s of ['BUILDING','WORKING','ARMED','COOLDOWN','DEGRADED','OFFLINE','READY'])if(states.includes(s))return s;return 'READY'}
 function stateLabel(s){return s==='WORKING'?'working':s==='BUILDING'?'building':s==='ARMED'?'armed':s==='COOLDOWN'?'cooldown':s==='DEGRADED'?'degraded':s==='OFFLINE'?'offline':'ready'}
 function setText(el,text){if(el&&el.textContent!==text)el.textContent=text}
-function syncHeader(state){
- lastOpsState=STATE_COLORS[state]?state:'READY';if(!doc)return;const av=doc.querySelector('#headerKevin .kevin-avatar');if(!av)return;
- [...av.classList].filter(c=>c.startsWith('owner-sync-')).forEach(c=>av.classList.remove(c));av.classList.add('owner-sync-'+stateLabel(lastOpsState));
- const label=doc.getElementById('owlLabel');if(label){const lvl=av.dataset.level||'—';setText(label,`Evolution ${lvl}/5 · ${stateLabel(lastOpsState)}`)}
+function installCoreTimestampParser(){if(!core)return;core.parseAt=v=>{const t=parseTimestamp(v);return Number.isFinite(t)?new Date(t):null}}
+function syncHeader(states){
+ lastOpsStates=normalizeStates(states);if(!doc)return;const av=doc.querySelector('#headerKevin .kevin-avatar');if(!av)return;
+ const primary=primaryState(lastOpsStates);
+ [...av.classList].filter(c=>c.startsWith('owner-sync-')||c.startsWith('mode-')).forEach(c=>av.classList.remove(c));
+ av.classList.add('owner-sync-'+stateLabel(primary));
+ av.classList.add(primary==='OFFLINE'?'mode-disconnected':primary==='DEGRADED'?'mode-degraded':(primary==='BUILDING'||primary==='WORKING')?'mode-working':'mode-idle');
+ const label=doc.getElementById('owlLabel');if(label){const lvl=av.dataset.level||'—';setText(label,`Evolution ${lvl}/5 · ${lastOpsStates.map(stateLabel).join(' + ')}`)}
+}
+async function refreshTruth(){
+ try{const b=Date.now(),base='https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/';const [dr,sr]=await Promise.all([fetch(`${base}dashboard-state.json?ts=${b}`,{cache:'no-store'}),fetch(`${base}support-latest.json?ts=${b}`,{cache:'no-store'})]);if(!dr.ok||!sr.ok)throw new Error('telemetry');const [d,s]=await Promise.all([dr.json(),sr.json()]);syncHeader(classifyStates(d,s))}catch(_e){}
 }
 function streamlineNav(){if(!doc)return;doc.querySelectorAll('[data-tab="talk"]').forEach(x=>x.remove());if((core?.location?.hash||'').toLowerCase()==='#talk')core.location.hash='#overview'}
 function fixReaderLabel(){if(!doc)return;doc.querySelectorAll('.service-chip').forEach(chip=>{const b=chip.querySelector('b'),span=chip.querySelector('span');if(b?.textContent.trim()==='Reader'&&span?.textContent.trim().toUpperCase()==='GREEN')setText(span,'READY')})}
-function moveHandoverToTop(){
- if(!doc||!core)return;const overview=(core.location.hash||'#overview').slice(1)==='overview';if(!overview)return;const main=doc.getElementById('main'),hero=main?.querySelector('.hero'),card=doc.getElementById('hqHandoverCard');if(!main||!hero||!card)return;
- if(card.nextElementSibling!==hero)main.insertBefore(card,hero);setText(card.querySelector('.k'),'AI HANDOVER · SHARE KEVIN');setText(card.querySelector('.h'),'Always fetches the newest AI-HANDOVER.md so another AI can resume Kevin with goals, plans, proof state, blockers, and next actions.');setText(card.querySelector('#hqCopyHandover'),'COPY KEVIN HANDOVER')
-}
+function moveHandoverToTop(){if(!doc||!core)return;const overview=(core.location.hash||'#overview').slice(1)==='overview';if(!overview)return;const main=doc.getElementById('main'),hero=main?.querySelector('.hero'),card=doc.getElementById('hqHandoverCard');if(!main||!hero||!card)return;if(card.nextElementSibling!==hero)main.insertBefore(card,hero);setText(card.querySelector('.k'),'AI HANDOVER · SHARE KEVIN');setText(card.querySelector('.h'),'Always fetches the newest AI-HANDOVER.md so another AI can resume Kevin with goals, plans, proof state, blockers, and next actions.');setText(card.querySelector('#hqCopyHandover'),'COPY KEVIN HANDOVER')}
 function removeOverviewDuplicateChart(){if(!doc||!core||(core.location.hash||'#overview').slice(1)!=='overview')return;const chart=doc.getElementById('chartWrap'),card=chart?.closest('.card');if(card)card.remove()}
-function refine(){installStyles();streamlineNav();fixReaderLabel();moveHandoverToTop();removeOverviewDuplicateChart();syncHeader(lastOpsState)}
-function getRealCore(){
- try{
-  const nextCore=frame.contentWindow,nextDoc=frame.contentDocument;if(!nextCore||!nextDoc)return null;
-  const href=String(nextDoc.location?.href||'');if(!href||href==='about:blank'||!/(?:^|\/)hq-core-v7\.html(?:[?#]|$)/.test(href))return null;
-  return {core:nextCore,doc:nextDoc};
- }catch(_e){return null}
-}
+function refine(){installStyles();installCoreTimestampParser();streamlineNav();fixReaderLabel();moveHandoverToTop();removeOverviewDuplicateChart();syncHeader(lastOpsStates)}
+function getRealCore(){try{const nextCore=frame.contentWindow,nextDoc=frame.contentDocument;if(!nextCore||!nextDoc)return null;const href=String(nextDoc.location?.href||'');if(!href||href==='about:blank'||!/(?:^|\/)hq-core-v7\.html(?:[?#]|$)/.test(href))return null;return {core:nextCore,doc:nextDoc}}catch(_e){return null}}
 function hook(){
- const target=getRealCore();if(!target)return false;
- core=target.core;
- if(boundDoc!==target.doc){
-  if(observer){observer.disconnect();observer=null}
-  doc=target.doc;boundDoc=target.doc;installStyles();refine();
-  const main=doc.getElementById('main'),nav=doc.getElementById('nav'),rail=doc.getElementById('serviceRail');
-  if('MutationObserver'in window){observer=new MutationObserver(refine);[main,nav,rail].filter(Boolean).forEach(x=>observer.observe(x,{childList:true}))}
- }else{doc=target.doc;refine()}
+ const target=getRealCore();if(!target)return false;core=target.core;
+ if(boundDoc!==target.doc){if(observer){observer.disconnect();observer=null}doc=target.doc;boundDoc=target.doc;installStyles();installCoreTimestampParser();refine();const main=doc.getElementById('main'),nav=doc.getElementById('nav'),rail=doc.getElementById('serviceRail');if('MutationObserver'in window){observer=new MutationObserver(refine);[main,nav,rail].filter(Boolean).forEach(x=>observer.observe(x,{childList:true}))}}
+ else{doc=target.doc;installCoreTimestampParser();refine()}
  return true;
 }
-window.addEventListener('message',e=>{if(e.origin!==location.origin||e.data?.type!=='kevin-ops-state')return;syncHeader(String(e.data.state||'READY').toUpperCase())});
+window.addEventListener('message',e=>{if(e.origin!==location.origin||e.data?.type!=='kevin-ops-state')return;syncHeader(e.data.states||e.data.state||'READY')});
 frame.addEventListener('load',()=>{hook();refreshTruth()});
 setInterval(hook,650);
 setInterval(async()=>{if(!hook()||refreshing||!core||typeof core.load!=='function')return;refreshing=true;try{await core.load()}catch(_e){}finally{refreshing=false}},5000);
