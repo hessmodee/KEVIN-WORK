@@ -1,8 +1,47 @@
 {
-  "schema": 1,
-  "kind": "kevin-forge-r03-contract-public",
-  "generated_at": null,
-  "state": "NOT_RUN",
-  "safe_for_public_repo": true,
-  "truth_boundary": "Placeholder for fixed metadata-only Omen R03 contract diagnosis. No raw Benchmark source, paths, usernames, configuration values, credentials, prompts, or secrets are published."
+    "schema":  1,
+    "kind":  "kevin-forge-r03-contract-public",
+    "generated_at":  "2026-08-31T17:58:02.0078727-06:00",
+    "state":  "DIAGNOSIS_PROVEN",
+    "safe_for_public_repo":  true,
+    "benchmark_sha256":  "02447EE8F3302E3EA1EF00290DBA6804F30FAC9F46CAE8714F402EA2D013CC38",
+    "forge_sha256":  "4C83DF29E765D61F2B26D2029FE6C2C7ED68DA90E5A7A457A82BE769029E22CA",
+    "candidate_forge_sha256":  "433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A",
+    "r03":  {
+                "marker_present":  true,
+                "context_sha256":  "F26CAB74E8B9B3E6117B96AF82C550CB62021AF29C973F3144B21FD0886C4C86",
+                "current_forge_literal_count":  0,
+                "candidate_forge_literal_count":  0,
+                "sha64_literal_count":  0,
+                "current_forge_sha64_matches":  0,
+                "candidate_forge_sha64_matches":  0,
+                "identifier_hints":  [
+                                         "baselinePath",
+                                         "expected",
+                                         "forge",
+                                         "goal_change_policy",
+                                         "goalOs",
+                                         "hashes",
+                                         "policy",
+                                         "promotionPolicy",
+                                         "scorecardPath",
+                                         "specPath"
+                                     ],
+                "literal_hints":  [
+
+                                  ],
+                "operators":  {
+                                  "get_file_hash":  false,
+                                  "get_content":  true,
+                                  "json_parse":  true,
+                                  "test_path":  true,
+                                  "eq":  true,
+                                  "ne":  true,
+                                  "contains":  true,
+                                  "notcontains":  false,
+                                  "match":  true
+                              }
+            },
+    "source_contract":  "Fixed installed Benchmark + fixed installed Forge only; R03 marker selected internally. No caller-selected path, command, argv, hash, test, source, or context.",
+    "privacy":  "No raw Benchmark source, raw lines, absolute paths, usernames, arbitrary literals, configuration values, credentials, prompts, or secrets are published. Only allowlisted identifier/basename hints and structural counts/booleans."
 }
