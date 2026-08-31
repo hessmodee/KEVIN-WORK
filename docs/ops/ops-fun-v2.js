@@ -7,7 +7,8 @@ let selected='KEVIN',baseRefreshing=false,lastBusy=null,lastCelebrationProof='',
 function el(name,attrs={}){const n=document.createElementNS('http://www.w3.org/2000/svg',name);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,String(v));return n}
 function workerName(w){return w.querySelector('.worker-copy b')?.textContent?.trim()||'Worker'}
 function workerRole(w){return w.querySelector('.worker-copy small')?.textContent?.trim()||'Worker lane'}
-function stateOf(w){for(const s of ['building','working','degraded','offline','cooldown','ready'])if(w.classList.contains(s))return s.toUpperCase();return 'READY'}
+function stateOf(w){for(const s of ['building','working','active','degraded','offline','cooldown','ready'])if(w.classList.contains(s))return s.toUpperCase();return 'READY'}
+function shownState(w){return w.querySelector('.worker-copy .state')?.textContent?.trim().toUpperCase()||stateOf(w)}
 function replaceEyes(w,i){
  const svg=w.querySelector('svg.owl');if(!svg)return;const existing=svg.querySelector('.owl-eyes');
  w.style.setProperty('--blink-rate',`${BLINK_RATES[i%BLINK_RATES.length]}s`);w.style.setProperty('--blink-delay',`${BLINK_DELAYS[i%BLINK_DELAYS.length]}s`);
@@ -18,7 +19,8 @@ function ensureActiveDefinition(){const g=document.querySelector('.owner-status-
 function freshness(){const age=document.getElementById('age')?.textContent?.trim()||'—';return `Ops refresh ≤4s · source evidence age ${age}`}
 function detailFor(w){const name=workerName(w),state=stateOf(w);if(name==='Bridge')return `GitHub sync lane. ACTIVE means it recently participated in a sync cycle; WORKING means task execution is currently attributed to it. ${freshness()}.`;if(name==='Benchmark')return `${document.getElementById('benchmark')?.textContent||'Benchmark telemetry unavailable'}. ${freshness()}.`;return `${state} is taken from the current worker lane state. ${freshness()}.`}
 function paint(){document.getElementById('kevinHub')?.classList.toggle('owner-selected',selected==='KEVIN');document.querySelectorAll('.worker').forEach(w=>w.classList.toggle('owner-selected',workerName(w)===selected))}
-function selectKevin(){selected='KEVIN';const n=document.getElementById('selectedName'),s=document.getElementById('selectedStatus'),d=document.getElementById('selectedDetail'),k=document.getElementById('kevinState')?.textContent?.trim()||'READY';if(n)n.textContent='Kevin — Chief of Staff';if(s)s.textContent=k;if(d)d.textContent=`Kevin aggregate state from the live worker lanes. ${freshness()}. Click any worker to inspect it, then click Kevin to return here.`;paint()}
+function kevinStateText(){const states=[...document.querySelectorAll('#kevinState .loop')].map(x=>x.textContent.trim()).filter(Boolean);return states.length?states.join(' + '):'READY'}
+function selectKevin(){selected='KEVIN';const n=document.getElementById('selectedName'),s=document.getElementById('selectedStatus'),d=document.getElementById('selectedDetail');if(n)n.textContent='Kevin — Chief of Staff';if(s)s.textContent=kevinStateText();if(d)d.textContent=`Kevin aggregate state from the live worker lanes. ${freshness()}. Click any worker to inspect it, then click Kevin to return here.`;paint()}
 function selectWorker(w){selected=workerName(w);const n=document.getElementById('selectedName'),s=document.getElementById('selectedStatus'),d=document.getElementById('selectedDetail');if(n)n.textContent=`${selected} — ${workerRole(w)}`;if(s)s.textContent=stateOf(w);if(d)d.textContent=detailFor(w);paint()}
 function bindSelection(){
  const hub=document.getElementById('kevinHub');if(hub&&!hub.dataset.funSelectable){hub.dataset.funSelectable='1';hub.tabIndex=0;hub.setAttribute('role','button');hub.setAttribute('aria-label','Select Kevin, Chief of Staff');hub.addEventListener('click',selectKevin);hub.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();selectKevin()}})}
@@ -26,10 +28,18 @@ function bindSelection(){
 }
 function renderSelection(){if(selected==='KEVIN'){selectKevin();return}const w=[...document.querySelectorAll('.worker')].find(x=>workerName(x)===selected);if(w)selectWorker(w);else selectKevin()}
 function addFreshness(){const head=document.querySelector('.ops-head');if(!head)return;let x=head.querySelector('.owner-live-age');if(!x){x=document.createElement('div');x.className='helper owner-live-age';head.appendChild(x)}x.innerHTML=`<strong>LIVE</strong> · ${freshness()}`}
-function activeWorkers(){return [...document.querySelectorAll('.worker.working,.worker.building')].filter(w=>w.offsetParent!==null)}
+function activeWorkers(){return [...document.querySelectorAll('.worker')].filter(w=>w.offsetParent!==null&&['WORKING','BUILDING'].includes(stateOf(w))&&shownState(w)===stateOf(w))}
 function shuffled(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function gaze(x,y){document.querySelectorAll('#hubKevinProd .kv-eye,#hubKevinProd .kv-hi').forEach(e=>e.style.transform=`translate(${x.toFixed(2)}px,${y.toFixed(2)}px)`);try{window.top.postMessage({type:'kevin-ops-gaze',x,y},location.origin)}catch(_e){}}
-function gazeTick(){const a=activeWorkers(),sig=a.map(workerName).sort().join('|');if(!a.length){gazeQueue=[];gazeSignature='';gaze(0,0);return}if(sig!==gazeSignature||!gazeQueue.length){gazeSignature=sig;gazeQueue=[...shuffled([...a]),null]}const target=gazeQueue.shift();if(!target){gaze(0,0);return}const h=document.getElementById('kevinHub')?.getBoundingClientRect(),r=target.getBoundingClientRect();if(!h){gaze(0,0);return}const dx=r.left+r.width/2-(h.left+h.width/2),dy=r.top+r.height/2-(h.top+h.height/2),m=Math.hypot(dx,dy)||1;gaze(4.4*dx/m,3.2*dy/m)}
+function gazeTick(){
+ const current=activeWorkers(),names=current.map(workerName).sort(),sig=names.join('|');
+ if(!names.length){gazeQueue=[];gazeSignature='';gaze(0,0);return}
+ if(sig!==gazeSignature||!gazeQueue.length){gazeSignature=sig;gazeQueue=[...shuffled([...names]),null]}
+ const targetName=gazeQueue.shift();if(!targetName){gaze(0,0);return}
+ const target=activeWorkers().find(w=>workerName(w)===targetName);if(!target){gazeQueue=[];gazeSignature='';gaze(0,0);return}
+ const h=document.getElementById('kevinHub')?.getBoundingClientRect(),r=target.getBoundingClientRect();if(!h){gaze(0,0);return}
+ const dx=r.left+r.width/2-(h.left+h.width/2),dy=r.top+r.height/2-(h.top+h.height/2),m=Math.hypot(dx,dy)||1;gaze(4.4*dx/m,3.2*dy/m)
+}
 function successfulProof(){return `${document.getElementById('recent')?.textContent||''} ${document.getElementById('evidence')?.textContent||''} ${document.getElementById('kevinMeta')?.textContent||''}`.toUpperCase()}
 function celebrate(){const hub=document.getElementById('kevinHub'),av=document.querySelector('#hubKevinProd .kevin-avatar-prod');if(!hub||!av)return;hub.classList.remove('owner-celebrate');av.classList.remove('owner-victory');void av.offsetWidth;hub.classList.add('owner-celebrate');av.classList.add('owner-victory');try{window.top.postMessage({type:'kevin-ops-celebrate',duration:1700},location.origin)}catch(_e){};setTimeout(()=>{hub.classList.remove('owner-celebrate');av.classList.remove('owner-victory')},1750)}
 function checkCompletion(){const busy=activeWorkers().length,proof=successfulProof();if(lastBusy!==null&&lastBusy>0&&busy===0&&/(PASS|SUCCESS|PROVEN|DONE|COMPLETED|RECOVERY_PASS)/.test(proof)&&proof!==lastCelebrationProof){lastCelebrationProof=proof;celebrate()}lastBusy=busy}
