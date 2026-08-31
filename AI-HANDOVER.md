@@ -74,7 +74,7 @@ Do not delete or relabel the retained failed two-step UI composite.
 Fresh Support/Engineering evidence around 19:20-19:21 shows:
 - governance `ok=true`
 - Benchmark PASS 30/30, critical 0
-- Supervisor hash `63B8D9C27625E0FB6AFE62165BE376E7ED7EB416FEB318CD3D1AECC4A17910C7` must NOT be inferred from prose; authoritative current Support hash is `63B8D9C27625E0FB6AFE62165BE376E7ED7EB416E5DA15BB47C206BBF4AE4989`
+- Supervisor hash `63B8D9C27625E0FB6AFE62165BE376E7ED7EB416E5DA15BB47C206BBF4AE4989`
 - Forge hash `4C83DF29E765D61F2B26D2029FE6C2C7ED68DA90E5A7A457A82BE769029E22CA`
 - Maintenance v1.3.1 hash `837180...D6`
 - production schedulers listed by Support/Engineering are enabled/ok with 0 consecutive errors
