@@ -6,6 +6,7 @@
 <meta content="dark" name="color-scheme"/>
 <title>Kevin HQ — Ops Floor embedded</title>
 <link href="./ops-v11.css?v=16" rel="stylesheet"/>
+<link href="./ops-owner-refinement-v1.css?v=1" rel="stylesheet"/>
 <style>
 html,body{background:transparent!important}
 body{padding:0!important;background:none!important}
@@ -24,11 +25,20 @@ body{padding:0!important;background:none!important}
 <div class="rail" id="serviceRail"></div>
 <div class="nav"></div>
 <section class="card">
-<div class="ops-head"><div><div class="kicker">Operations Floor</div><div class="helper">Real topology · motion is telemetry-driven, never decorative busy-work</div></div><div class="helper">Kevin is the Chief of Staff · center badge = Kevin's current state</div></div>
+<div class="ops-head"><div><div class="kicker">Operations Floor</div><div class="helper">Real topology · motion reflects telemetry-backed status</div></div><div class="helper">Kevin is Chief of Staff · center status is the operational source of truth</div></div>
 <div class="topology" id="topology"><div class="gridline"></div>
-<div class="hub" id="kevinHub"><div class="hub-inner"><h2>Kevin</h2><div class="role">Chief of Staff</div><div id="hubKevinProd"></div><div class="kevin-states" id="kevinState" aria-live="polite"><span class="loop state-ready" style="--kstatec:#68d8ce">READY</span></div><div class="kevin-meta" id="kevinMeta"><div><b>Autonomy loop enabled</b></div><div>Waiting for telemetry…</div></div></div></div>
+<div class="hub" id="kevinHub"><div class="hub-inner"><h2>Kevin</h2><div class="role">Chief of Staff</div><div id="hubKevinProd"></div><div class="kevin-states" id="kevinState" aria-live="polite"><span class="loop state-ready" style="--kstatec:#244f8f">READY</span></div><div class="kevin-meta" id="kevinMeta"><div><b>Autonomy loop enabled</b></div><div>Waiting for telemetry…</div></div></div></div>
 </div>
-<div class="legend"><span><i style="background:#68d8ce"></i>Ready</span><span><i style="background:#68d8ce"></i>Armed</span><span><i style="background:#79c56a"></i>Working</span><span><i style="background:#f06dbb"></i>Building</span><span><i style="background:#b38cff"></i>Cooldown</span><span><i style="background:#ff9a3d"></i>Degraded</span><span><i style="background:#e46f61"></i>Offline</span><span class="note">ARMED = slow on-duty pulse between governed cycles · WORKING = active execution · BUILDING = active Forge work · colors are evidence-backed</span></div>
+<div class="legend owner-compact"><span><i style="background:#244f8f"></i>Ready</span><span><i style="background:#68d8ce"></i>Armed</span><span><i style="background:#79c56a"></i>Working</span><span><i style="background:#f06dbb"></i>Building</span><span><i style="background:#b38cff"></i>Cooldown</span><span><i style="background:#ff9a3d"></i>Degraded</span><span><i style="background:#e46f61"></i>Offline</span></div>
+<div class="owner-status-guide" aria-label="Kevin status definitions">
+<div class="owner-status-item"><i style="background:#244f8f;color:#244f8f"></i><b>READY</b><span>Available and healthy; no active job right now.</span></div>
+<div class="owner-status-item"><i style="background:#68d8ce;color:#68d8ce"></i><b>ARMED</b><span>Autonomy enabled; waiting between governed work cycles.</span></div>
+<div class="owner-status-item"><i style="background:#79c56a;color:#79c56a"></i><b>WORKING</b><span>A real task is executing now.</span></div>
+<div class="owner-status-item"><i style="background:#f06dbb;color:#f06dbb"></i><b>BUILDING</b><span>Build Lab / Forge is creating or testing a candidate.</span></div>
+<div class="owner-status-item"><i style="background:#b38cff;color:#b38cff"></i><b>COOLDOWN</b><span>Bounded pause after throttling, retry, or recovery.</span></div>
+<div class="owner-status-item"><i style="background:#ff9a3d;color:#ff9a3d"></i><b>DEGRADED</b><span>Online, but a health or evidence issue needs attention.</span></div>
+<div class="owner-status-item"><i style="background:#e46f61;color:#e46f61"></i><b>OFFLINE</b><span>Telemetry is stale or the component is unreachable.</span></div>
+</div>
 </section>
 <div class="strip">
 <div><div class="lbl">Active mission</div><div class="val" id="mission">—</div></div>
@@ -49,6 +59,7 @@ body{padding:0!important;background:none!important}
 </div>
 <script src="./ops-v11.js?v=16"></script>
 <script src="./ops-truth-patch-v1.js?v=1"></script>
+<script src="./ops-owner-refinement-v1.js?v=1"></script>
 <script>
 (()=>{
  const send=()=>{try{parent.postMessage({type:'kevin-ops-height',height:Math.ceil(document.documentElement.scrollHeight)},location.origin)}catch(_e){}};
