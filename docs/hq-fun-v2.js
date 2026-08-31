@@ -11,5 +11,6 @@ function markActive(){if(!doc)return;doc.querySelectorAll('.service-chip').forEa
 function applyGaze(x,y){lastGaze={x:Number(x)||0,y:Number(y)||0};if(!doc)return;doc.querySelectorAll('#headerKevin .kv-eye,#headerKevin .kv-hi').forEach(e=>e.style.transform=`translate(${lastGaze.x.toFixed(2)}px,${lastGaze.y.toFixed(2)}px)`)}
 function celebrate(ms=1700){if(!doc)return;const a=doc.querySelector('#headerKevin .kevin-avatar');if(!a)return;a.classList.remove('owner-header-victory');void a.offsetWidth;a.classList.add('owner-header-victory');setTimeout(()=>a.classList.remove('owner-header-victory'),Number(ms)||1700)}
 window.addEventListener('message',e=>{if(e.origin!==location.origin)return;if(e.data?.type==='kevin-ops-gaze')applyGaze(e.data.x,e.data.y);if(e.data?.type==='kevin-ops-celebrate')celebrate(e.data.duration)});
-frame.addEventListener('load',()=>{install();setTimeout(install,250);setTimeout(install,900)});setInterval(()=>{if(frame.contentDocument!==doc)install();else{markActive();applyGaze(lastGaze.x,lastGaze.y)}},700);
+frame.addEventListener('load',()=>{install();setTimeout(install,250);setTimeout(install,900)});
+setInterval(()=>{if(frame.contentDocument!==doc)install();else markActive()},2500);
 })();
