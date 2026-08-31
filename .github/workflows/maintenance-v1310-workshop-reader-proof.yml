@@ -1,0 +1,77 @@
+name: Maintenance v1.3.10 Workshop + Reader Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1310.py'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.9.ps1'
+      - '.github/workflows/maintenance-v1310-workshop-reader-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Generate candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          python .\tools\generate-maintenance-v1310.py
+          if($LASTEXITCODE -ne 0){throw 'generator failed'}
+      - name: Parse and deterministic self-test
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $p=Resolve-Path .\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.10.ps1
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count -gt 0){$errors|ForEach-Object{Write-Host $_.Message};throw 'parse failed'}
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1|Out-String
+          Write-Host $out
+          if($LASTEXITCODE -ne 0){throw 'selftest failed'}
+          foreach($m in @('KEVIN MAINTENANCE v1.3.10 SELFTEST PASS','workshop_dry_run_raw_string=true','reader_canary=2_trials','exact_tool_calls=1','privacy_gate=true')){if($out -notmatch [regex]::Escape($m)){throw "missing marker $m"}}
+      - name: Static compatibility and authority invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          t=Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.10.ps1').read_text(encoding='utf-8')
+          assert "@('config','set',$modePath,'propose','--dry-run')" in t
+          assert "@('config','set',$approvalPath,'pending','--dry-run')" in t
+          assert "@('config','set',$modePath,'propose','--dry-run','--json')" not in t
+          assert "@('config','set',$approvalPath,'pending','--dry-run','--json')" not in t
+          for x in [
+            'skills.workshop.autonomous.mode','skills.workshop.approvalPolicy',
+            'run_reader_status_canary','REPEATEDLY_PROVEN','kevin_system_status',
+            'Reader canary manifest must not supply','skill workshop guardrail manifest must not supply',
+            'Assert-Benchmark30',"production_effect must be NONE","authority_delta must be NONE",'$MaxAttempts = 3'
+          ]: assert x in t, x
+          for x in ['Invoke-Expression','DownloadString(','New-Object Net.WebClient','System.Net.WebClient']:
+              assert x.lower() not in t.lower(), x
+          print('V1310_STATIC_PASS workshop_raw_string_dryrun=true reader_preserved=true authority_delta=NONE')
+      - name: Emit exact candidate identity
+        shell: python
+        run: |
+          import hashlib,json
+          from pathlib import Path
+          c=Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.10.ps1')
+          b=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.9.ps1')
+          out={'schema':1,'kind':'kevin-maintenance-v1310-qualified-candidate','git_head':'${{ github.sha }}','candidate_path':str(c).replace('\\','/'),'sha256':hashlib.sha256(c.read_bytes()).hexdigest().upper(),'base_v139_sha256':hashlib.sha256(b.read_bytes()).hexdigest().upper()}
+          Path('maintenance-v1310-candidate-hash.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf-8')
+          print(Path('maintenance-v1310-candidate-hash.json').read_text())
+      - uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-v1310-qualified-candidate
+          path: |
+            control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.10.ps1
+            maintenance-v1310-candidate-hash.json
+          if-no-files-found: error
+          retention-days: 7
