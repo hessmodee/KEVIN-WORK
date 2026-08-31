@@ -1,7 +1,56 @@
 {
-  "schema": 1,
-  "kind": "kevin-runtime-capabilities-public",
-  "state": "WAITING_FOR_OMEN_AUDIT",
-  "safe_for_public_repo": true,
-  "truth_boundary": "Placeholder only. Installed OpenClaw capabilities, tool policy, learning mode, Task Flow, Lobster runtime registration, and Benchmark R03 structure are not proven until a fresh Omen audit receipt replaces this file."
+    "schema":  1,
+    "kind":  "kevin-runtime-capabilities-public",
+    "generated_at":  "2026-08-31T15:06:15.3312044-06:00",
+    "state":  "OMEN_AUDIT_PROVEN",
+    "safe_for_public_repo":  true,
+    "openclaw":  {
+                     "cli_present":  true,
+                     "version":  "UNKNOWN",
+                     "config_valid":  true,
+                     "gateway_deep_probe_ok":  true
+                 },
+    "orchestration":  {
+                          "task_flow_cli_available":  true,
+                          "task_flow_count":  1
+                      },
+    "tool_policy":  {
+                        "main_tools_path_present":  false,
+                        "default_tools_path_present":  false,
+                        "root_tools_path_present":  true,
+                        "main_tools_redacted_snapshot_sha256":  "954597CD958E17C65A7F6DFFB9746549089F54A25F1F08EB3AF4BEDFD1D05DD4",
+                        "skill_workshop_policy_issue_reported":  false,
+                        "skills_check_main_ok":  true,
+                        "truth_boundary":  "Presence/hashes classify installed policy surfaces without publishing redacted config values. Actual per-turn tool availability still requires a real agent-turn proof."
+                    },
+    "learning":  {
+                     "workshop_cli_available":  true,
+                     "workshop_pending_count":  0,
+                     "curator_status_available":  false,
+                     "autonomous_mode":  "UNSET_OR_UNKNOWN",
+                     "approval_policy":  "UNSET_OR_UNKNOWN"
+                 },
+    "lobster":  {
+                    "inventory_present":  false,
+                    "inventory_id_sha256":  "",
+                    "runtime_inspect_ok":  false,
+                    "runtime_registers_tool":  false,
+                    "plugins_doctor_ok":  false
+                },
+    "benchmark_r03":  {
+                          "benchmark_present":  true,
+                          "benchmark_sha256":  "02447EE8F3302E3EA1EF00290DBA6804F30FAC9F46CAE8714F402EA2D013CC38",
+                          "forge_sha256":  "4C83DF29E765D61F2B26D2029FE6C2C7ED68DA90E5A7A457A82BE769029E22CA",
+                          "current_forge_sha_literal_count":  0,
+                          "r03_marker_present":  true,
+                          "r03_context_sha256":  "5131967B3F61718E580F7314E0275CB83420CABDA1EA51F62017CDFCB6BF7B9F",
+                          "r03_mentions_desired_state":  false,
+                          "r03_mentions_file_hash":  true,
+                          "r03_mentions_forge":  true,
+                          "r03_mentions_support":  false,
+                          "r03_mentions_goal_os":  true,
+                          "diagnosis":  "Structural metadata only. No Benchmark source/context is published."
+                      },
+    "source_contract":  "Fixed read-only OpenClaw probes + fixed local Benchmark/Forge identity inspection only; no caller-selected command, path, config write, plugin enablement, or secret output.",
+    "truth_boundary":  "This proves installed CLI/config/plugin/audit observations at generated_at. It does not by itself prove long-horizon autonomy or semantic task success."
 }
