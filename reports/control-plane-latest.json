@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-08-31T07:50:00.2799493-06:00",
+    "generated_at":  "2026-08-31T07:52:00.2584227-06:00",
     "request":  {
-                    "id":  "bess-20260831-0555-dispatch-skill-evaluation",
+                    "id":  "bess-20260831-0750-checkpoint-resume",
                     "verb":  "dispatch_mission",
-                    "target":  "skill-evaluation"
+                    "target":  "checkpoint-resume"
                 },
-    "status":  "DUPLICATE_IGNORED",
-    "detail":  "Idempotency key already processed",
+    "status":  "SUCCESS",
+    "detail":  "MISSION_DISPATCHER_NOT_ELIGIBLE reasons=autonomy-stale-or-missing,autonomy-not-healthy",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
