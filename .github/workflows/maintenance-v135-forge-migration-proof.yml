@@ -1,0 +1,142 @@
+name: Maintenance v1.3.5 Coordinated Forge Migration Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v135.py'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.4.ps1'
+      - 'control-plane/forge/kevin-design-forge-v4.0.ps1'
+      - '.github/workflows/maintenance-v135-forge-migration-proof.yml'
+  pull_request:
+    paths:
+      - 'tools/generate-maintenance-v135.py'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.4.ps1'
+      - 'control-plane/forge/kevin-design-forge-v4.0.ps1'
+      - '.github/workflows/maintenance-v135-forge-migration-proof.yml'
+  workflow_dispatch:
+
+jobs:
+  windows-proof:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Generate candidate from qualified v1.3.4 base
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          python .\tools\generate-maintenance-v135.py
+          if ($LASTEXITCODE -ne 0) { throw 'generator failed' }
+          if (-not (Test-Path .\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.5.ps1)) { throw 'generated candidate missing' }
+
+      - name: Parse generated PowerShell 5.1 candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $p = Resolve-Path .\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.5.ps1
+          $tokens = $null
+          $errors = $null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p, [ref]$tokens, [ref]$errors)
+          if ($errors.Count -gt 0) {
+            $errors | ForEach-Object { Write-Host $_.Message }
+            throw 'PowerShell parser rejected generated v1.3.5'
+          }
+          Write-Host 'POWERSHELL PARSE PASS'
+
+      - name: Run deterministic self-test
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $out = & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.5.ps1 -SelfTest 2>&1 | Out-String
+          Write-Host $out
+          if ($LASTEXITCODE -ne 0) { throw 'v1.3.5 selftest exited nonzero' }
+          if ($out -notmatch 'KEVIN MAINTENANCE v1\.3\.5 SELFTEST PASS') { throw 'v1.3.5 selftest marker missing' }
+          if ($out -notmatch 'coordinated_forge_validator_migration=1') { throw 'migration selftest marker missing' }
+          if ($out -notmatch 'exact_literal_pin_patch=1') { throw 'exact pin patch selftest marker missing' }
+
+      - name: Static authority and migration invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.5.ps1')
+          text = p.read_text(encoding='utf-8')
+          required = [
+              "migrate_design_forge_v40",
+              "Assert-ForgeMigration",
+              "Get-ForgePinPatchedBenchmark",
+              "Migrate-DesignForgeV40",
+              "expected_forge_current_sha256",
+              "expected_forge_after_sha256",
+              "expected_benchmark_current_sha256",
+              "Benchmark must contain old Forge pin exactly once",
+              "coordinated Forge migration rollback completed",
+              "Assert-Benchmark30",
+              "rollback_available=$true",
+          ]
+          for marker in required:
+              assert marker in text, marker
+          assert text.count("migrate_design_forge_v40") >= 4
+          assert "$MaxAttempts = 3" in text
+          assert "production_effect must be NONE" in text
+          assert "authority_delta must be NONE" in text
+          forbidden = [
+              'Invoke-Expression',
+              'DownloadString(',
+              'New-Object Net.WebClient',
+              'System.Net.WebClient',
+          ]
+          lower = text.lower()
+          for token in forbidden:
+              assert token.lower() not in lower, token
+          assert "Get-RemoteBytes ([string]$m.source_path) 'design_forge_runner'" in text
+          assert "Copy-Item -LiteralPath $forgeBackup -Destination $forgeTarget -Force" in text
+          assert "Copy-Item -LiteralPath $benchBackup -Destination $benchTarget -Force" in text
+          print('STATIC MIGRATION / AUTHORITY PASS')
+
+      - name: Check Forge v4 demand-driven invariants remain qualified input
+        shell: python
+        run: |
+          from pathlib import Path
+          f = Path('control-plane/forge/kevin-design-forge-v4.0.ps1').read_text(encoding='utf-8')
+          assert '$missions' not in f
+          assert 'forge-demands' in f and 'CURRENT.json' in f
+          assert 'IDLE_NO_ELIGIBLE_DEMAND' in f
+          assert 'round_robin=$false' in f
+          assert 'max_attempts must equal 3' in f
+          assert 'downstream consumer not allowlisted' in f
+          assert 'Nothing was executed or promoted.' in f
+          print('FORGE V4 NO-SPIN INPUT PASS')
+
+      - name: Emit exact candidate SHA256
+        shell: python
+        run: |
+          import hashlib, json
+          from pathlib import Path
+          p = Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.5.ps1')
+          report = {
+              'schema': 1,
+              'kind': 'kevin-maintenance-v135-qualified-candidate',
+              'git_head': '${{ github.sha }}',
+              'candidate_path': str(p).replace('\\','/'),
+              'sha256': hashlib.sha256(p.read_bytes()).hexdigest().upper(),
+              'base_v134_sha256': hashlib.sha256(Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.4.ps1').read_bytes()).hexdigest().upper(),
+              'forge_v40_sha256': hashlib.sha256(Path('control-plane/forge/kevin-design-forge-v4.0.ps1').read_bytes()).hexdigest().upper(),
+          }
+          Path('maintenance-v135-candidate-hash.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
+          print(Path('maintenance-v135-candidate-hash.json').read_text())
+
+      - name: Upload qualified candidate and hash evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-v135-qualified-candidate
+          path: |
+            control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.5.ps1
+            maintenance-v135-candidate-hash.json
+          if-no-files-found: error
+          retention-days: 7
