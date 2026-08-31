@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T21:38:42.6302254-06:00",
+  "generated_at": "2026-08-30T21:39:02-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -14,13 +14,11 @@
   },
   "current_task": {
     "id": "design-forge",
-    "title": "Design Forge: reader-weather",
+    "title": "Design Forge | forge-v4 i178",
     "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-30T21:38:38-06:00",
-    "source": "forge"
+    "phase": "Building isolated candidate forge-v4 | iteration 178",
+    "started_at": "2026-08-30T21:38:42.6302254-06:00",
+    "source": "hq-live-ops"
   },
   "services": {
     "tick": "healthy",
@@ -38,13 +36,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T17:25:21-06:00",
-        "estimated": false,
-        "ram": 34,
-        "cpu": 12,
-        "gpu": 49
-      },
       {
         "at": "2026-08-30T17:33:22-06:00",
         "estimated": false,
@@ -709,10 +700,16 @@
         "ram": 33,
         "cpu": 19,
         "gpu": 11
+      },
+      {
+        "at": "2026-08-30T21:39:02-06:00",
+        "estimated": false,
+        "ram": 33,
+        "cpu": 19,
+        "gpu": 11
       }
     ],
     "ram": [
-      34,
       27,
       27,
       30,
@@ -807,10 +804,10 @@
       28,
       32,
       32,
+      33,
       33
     ],
     "cpu": [
-      12,
       14,
       14,
       2,
@@ -905,10 +902,10 @@
       4,
       5,
       2,
+      19,
       19
     ],
     "gpu": [
-      49,
       6,
       6,
       33,
@@ -1003,6 +1000,7 @@
       22,
       23,
       10,
+      11,
       11
     ]
   },
@@ -1156,6 +1154,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-30T21:39:02-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: reader-weather",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 24000
+    },
     {
       "at": "2026-08-30T21:38:38-06:00",
       "source": "forge",
@@ -1369,24 +1377,14 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-30T20:17:26-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: forge-v4",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 59000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-30T21:38:42.6302254-06:00",
+    "last": "2026-08-30T21:39:02-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1396,9 +1394,9 @@
   "autonomy": {
     "mode": "hourly_design",
     "state": "pass",
-    "last_mission": "forge-v4",
-    "iteration": 178,
-    "updated_at": "2026-08-30T21:29:22.6905948-06:00",
+    "last_mission": "reader-weather",
+    "iteration": 179,
+    "updated_at": "2026-08-30T21:39:02.1929744-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1413,10 +1411,10 @@
     "candidate_forge": {
       "result": "pass",
       "mode": "design-forge-v3",
-      "last_mission": "forge-v4",
-      "iteration": 178,
-      "updated_at": "2026-08-30T21:29:22.6905948-06:00",
-      "next_index": 0,
+      "last_mission": "reader-weather",
+      "iteration": 179,
+      "updated_at": "2026-08-30T21:39:02.1929744-06:00",
+      "next_index": 1,
       "scheduled": true,
       "promotion": "blocked"
     }
