@@ -1,0 +1,14 @@
+# Hash-pinned Kevin control-plane files must have identical bytes on Windows and via GitHub API.
+# Git stores text as LF; these rules also keep LF in Windows working trees so SHA256 pins are portable.
+* text=auto
+*.ps1 text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.md text eol=lf
+*.js text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf
