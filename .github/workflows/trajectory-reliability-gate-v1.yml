@@ -1,0 +1,41 @@
+name: Kevin Trajectory Reliability Gate v1
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'control-plane/staging/kevin-trajectory-gate-v1.py'
+      - '.github/workflows/trajectory-reliability-gate-v1.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: windows-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Compile and self-test
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          python -m py_compile .\control-plane\staging\kevin-trajectory-gate-v1.py
+          if($LASTEXITCODE -ne 0){throw 'compile failed'}
+          $out=python .\control-plane\staging\kevin-trajectory-gate-v1.py --selftest | Out-String
+          Write-Host $out
+          if($LASTEXITCODE -ne 0 -or $out -notmatch 'KEVIN TRAJECTORY GATE v1 SELFTEST PASS'){throw 'selftest failed'}
+      - name: Static authority and false-success invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          t=Path('control-plane/staging/kevin-trajectory-gate-v1.py').read_text(encoding='utf-8')
+          required=['REPEATEDLY_PROVEN','SEMANTIC_VERIFIER_FAILED','END_STATE_MISMATCH','REQUIRED_ACTION_MISSING','FORBIDDEN_ACTION_OBSERVED','authority_effect','NONE','MIN_TRIALS = 2','MAX_TRIALS = 10']
+          for x in required: assert x in t, x
+          for x in ['subprocess','os.system','Invoke-Expression','powershell.exe','cmd.exe']:
+              assert x not in t, x
+          print('TRAJECTORY_STATIC_PASS repeated=true semantic=true action_evidence=true arbitrary_execution=false')
