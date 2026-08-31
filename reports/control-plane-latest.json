@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-08-31T05:56:25.8855749-06:00",
+    "generated_at":  "2026-08-31T05:57:12.4677848-06:00",
     "request":  {
                     "id":  "bess-20260831-0555-dispatch-skill-evaluation",
                     "verb":  "dispatch_mission",
                     "target":  "skill-evaluation"
                 },
-    "status":  "FAILED",
-    "detail":  "Ack publish failed",
+    "status":  "DUPLICATE_IGNORED",
+    "detail":  "Idempotency key already processed",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
