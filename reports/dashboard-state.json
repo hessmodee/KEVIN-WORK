@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T18:36:53-06:00",
+  "generated_at": "2026-08-30T18:37:02-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,13 +13,13 @@
     "tools": false
   },
   "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: forge-v4",
+    "id": "night-forge",
+    "title": "Night Forge cycle",
     "category": "forge",
     "phase": "started",
     "completed": 0,
     "total": null,
-    "started_at": "2026-08-30T18:36:53-06:00",
+    "started_at": "2026-08-30T18:37:02-06:00",
     "source": "forge"
   },
   "services": {
@@ -38,13 +38,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T14:10:55-06:00",
-        "estimated": false,
-        "ram": 62,
-        "cpu": 8,
-        "gpu": 32
-      },
       {
         "at": "2026-08-30T14:19:32-06:00",
         "estimated": false,
@@ -709,10 +702,16 @@
         "ram": 26,
         "cpu": 9,
         "gpu": 38
+      },
+      {
+        "at": "2026-08-30T18:37:02-06:00",
+        "estimated": false,
+        "ram": 26,
+        "cpu": 9,
+        "gpu": 38
       }
     ],
     "ram": [
-      62,
       50,
       50,
       57,
@@ -807,10 +806,10 @@
       28,
       28,
       31,
+      26,
       26
     ],
     "cpu": [
-      8,
       4,
       4,
       8,
@@ -905,10 +904,10 @@
       8,
       8,
       10,
+      9,
       9
     ],
     "gpu": [
-      32,
       32,
       32,
       21,
@@ -1003,6 +1002,7 @@
       30,
       30,
       31,
+      38,
       38
     ]
   },
@@ -1156,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-30T18:37:02-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
     {
       "at": "2026-08-30T18:36:53-06:00",
       "source": "forge",
@@ -1370,15 +1379,6 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 23000
-    },
-    {
-      "at": "2026-08-30T17:21:22-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: knowledge",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
@@ -1386,7 +1386,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-08-30T18:36:53-06:00",
+    "last": "2026-08-30T18:37:02-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1423,30 +1423,30 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-30T18:36:53-06:00",
+    "generated_at": "2026-08-30T18:37:02-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "design-forge",
-      "name": "Build Lab",
-      "title": "Design Forge: forge-v4",
-      "category": "forge",
+      "id": "night-forge",
+      "name": "Night Forge",
+      "title": "Night Forge cycle",
+      "category": "qa",
       "state": "working",
       "detail": "started",
-      "what": "Generating and validating an isolated candidate.",
-      "engine": "Ollama | Qwen 2.5 14B",
-      "action": "Candidate engineering"
+      "what": "Running safety and regression checks.",
+      "engine": "Night Forge",
+      "action": "QA / regression"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "coordinating",
-        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
+        "state": "waiting",
+        "detail": "Supervisor is yielding while Night Forge owns the engineering lane.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1477,14 +1477,14 @@
     "running": true,
     "state": "working",
     "phase": "started",
-    "worker": "Build Lab",
-    "engine": "Ollama | Qwen 2.5 14B",
-    "action": "Candidate engineering"
+    "worker": "Night Forge",
+    "engine": "Night Forge",
+    "action": "QA / regression"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Build Lab | WORKING | started",
+      "text": "Night Forge | WORKING | started",
       "severity": "normal"
     }
   ]
