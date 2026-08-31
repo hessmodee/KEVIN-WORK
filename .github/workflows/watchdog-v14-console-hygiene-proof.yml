@@ -3,6 +3,7 @@ name: Watchdog v1.4 Console Hygiene Proof
 on:
   push:
     paths:
+      - 'control-plane/maintenance/kevin-self-reliance-watchdog-v1.3.ps1'
       - 'control-plane/maintenance/kevin-self-reliance-watchdog-v1.4.ps1'
       - '.github/workflows/watchdog-v14-console-hygiene-proof.yml'
   workflow_dispatch:
@@ -15,13 +16,15 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Parse PowerShell
+      - name: Parse and hash PowerShell
         shell: powershell
         run: |
-          $p = 'control-plane/maintenance/kevin-self-reliance-watchdog-v1.4.ps1'
-          $tokens=$null; $errors=$null
-          [void][Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
-          if($errors.Count -gt 0){ $errors | Format-List | Out-String | Write-Host; throw 'PowerShell parse failed' }
+          foreach($p in @('control-plane/maintenance/kevin-self-reliance-watchdog-v1.3.ps1','control-plane/maintenance/kevin-self-reliance-watchdog-v1.4.ps1')){
+            $tokens=$null; $errors=$null
+            [void][Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+            if($errors.Count -gt 0){ $errors | Format-List | Out-String | Write-Host; throw "PowerShell parse failed: $p" }
+            Write-Host ((Split-Path $p -Leaf).ToUpperInvariant().Replace('.','_').Replace('-','_') + '_SHA256=' + (Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant())
+          }
       - name: Deterministic selftest
         shell: powershell
         run: |
