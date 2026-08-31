@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-31T14:33:36.7223201-06:00",
+    "generated_at":  "2026-08-31T14:36:40.7569841-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788208232350,
-                                  "next_run_at_ms":  1788208412350
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788208153461,
-                                  "next_run_at_ms":  1788208453461
+                                  "last_run_at_ms":  1788208412366,
+                                  "next_run_at_ms":  1788208592366
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788208403503,
-                                  "next_run_at_ms":  1788208463503
+                                  "last_run_at_ms":  1788208583537,
+                                  "next_run_at_ms":  1788208643537
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -101,8 +89,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788208286169,
-                                  "next_run_at_ms":  1788208466169
+                                  "last_run_at_ms":  1788208466523,
+                                  "next_run_at_ms":  1788208646523
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788208453475,
+                                  "next_run_at_ms":  1788208753475
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -113,8 +113,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788207958530,
-                                  "next_run_at_ms":  1788208558530
+                                  "last_run_at_ms":  1788208558544,
+                                  "next_run_at_ms":  1788209158544
                               }
                           ],
                  "error":  ""
@@ -122,19 +122,19 @@
     "supervisor":  {
                        "cycle":  334,
                        "last_mission":  "forge-v4",
-                       "last_result":  "REJECT",
-                       "next_eligible_at":  "2026-08-31T14:32:21.4167464-06:00",
+                       "last_result":  "RECOVERY_PASS",
+                       "next_eligible_at":  "2026-08-31T14:34:58.7778034-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
     "recovery":  {
-                     "fingerprint":  "A004C0B81CB03B7DF33643CF200EECB06FC64F2FF84A29553067A2E7BC1C9255",
+                     "fingerprint":  "A1B54DE4850541E0F7460CA61BFC1DD237A2885F66F8999AA1F6A678F3A03A2B",
                      "round":  1,
-                     "last_at":  "2026-08-31T14:25:56.3279529-06:00",
-                     "last_brief":  "20260831-142556-round1.json"
+                     "last_at":  "2026-08-31T14:34:58.6538281-06:00",
+                     "last_brief":  "20260831-143458-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-08-31T14:26:07.8338314-06:00",
+                      "at":  "2026-08-31T14:36:07.3897430-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -161,7 +161,7 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-31T14:31:13.3449010-06:00",
+                        "at":  "2026-08-31T14:34:14.4376581-06:00",
                         "status":  "BLOCKED_FAILURE_BUDGET",
                         "manifest_id":  "migrate-forge-v40-validator-pin-20260831-1415",
                         "stage_path":  "",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "A656BEE780055C01ACFB3F538CF95A98EA0723AB7660A799719F2A2955D02D7C"
+    "semantic_hash":  "F097283B4AC58A798B808B1F0DF86EA3B000719390A2AEA2BA8FD4A188E5C135"
 }
