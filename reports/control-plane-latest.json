@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-08-31T02:54:00.2617928-06:00",
+    "generated_at":  "2026-08-31T02:56:00.2469438-06:00",
     "request":  {
-                    "id":  "bess-20260831-0659-refresh-autonomy",
-                    "verb":  "refresh_autonomy_telemetry",
-                    "target":  "autonomy-telemetry"
+                    "id":  "bess-20260831-0254-dispatch-telemetry-quality",
+                    "verb":  "dispatch_mission",
+                    "target":  "telemetry-quality"
                 },
-    "status":  "DUPLICATE_IGNORED",
-    "detail":  "Idempotency key already processed",
+    "status":  "SUCCESS",
+    "detail":  "MISSION_DISPATCHER_NOT_ELIGIBLE reasons=autonomy-stale-or-missing,autonomy-not-healthy",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
