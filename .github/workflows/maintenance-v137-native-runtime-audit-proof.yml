@@ -1,0 +1,153 @@
+name: Maintenance v1.3.7 Native Runtime Audit Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v137.py'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.6.ps1'
+      - '.github/workflows/maintenance-v137-native-runtime-audit-proof.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  windows-proof-and-publish:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Generate v1.3.7 candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          python .\tools\generate-maintenance-v137.py
+          if ($LASTEXITCODE -ne 0) { throw 'generator failed' }
+          if (-not (Test-Path .\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.7.ps1)) { throw 'candidate missing' }
+
+      - name: Parse and self-test on Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $p = Resolve-Path .\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.7.ps1
+          $tokens=$null; $errors=$null
+          [void][Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if ($errors.Count -gt 0) { $errors | ForEach-Object { Write-Host $_.Message }; throw 'PowerShell parse failed' }
+          $out = & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1 | Out-String
+          Write-Host $out
+          if ($LASTEXITCODE -ne 0 -or $out -notmatch 'KEVIN MAINTENANCE v1\.3\.7 SELFTEST PASS') { throw 'v1.3.7 selftest failed' }
+          if ($out -notmatch 'runtime_capability_audit=1') { throw 'runtime capability audit marker missing' }
+          if ($out -notmatch 'read_only_openclaw_probes=1') { throw 'read-only probe marker missing' }
+
+      - name: Static authority privacy and fixed-probe invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.7.ps1')
+          t = p.read_text(encoding='utf-8')
+          required = [
+              "publish_runtime_capabilities",
+              "function Publish-RuntimeCapabilities",
+              "function Invoke-OpenClawReadOnlyProbe",
+              "reports/runtime-capabilities-omen.json",
+              "tasks','flow','list','--json",
+              "skills','workshop','list','--json",
+              "skills','curator','status','--json",
+              "plugins','list','--json",
+              "plugins','doctor','--json",
+              "gateway','status','--deep','--require-rpc",
+              "skills.workshop.autonomous.mode",
+              "skills.workshop.approvalPolicy",
+              "Structural metadata only. No Benchmark source/context is published.",
+              "no caller-selected command, path, config write, plugin enablement, or secret output",
+              "$MaxAttempts = 3",
+          ]
+          for x in required:
+              assert x in t, x
+          assert t.count("reports/runtime-capabilities-omen.json") == 1
+          audit = t[t.index('function Invoke-OpenClawReadOnlyProbe'):t.index('function Install-RuntimePolicyBundle')]
+          for forbidden in [
+              'config set', 'config patch', 'config unset', 'plugins enable', 'plugins disable',
+              'plugins install', 'plugins update', 'plugins uninstall', 'gateway restart',
+              'Invoke-Expression', 'DownloadString(', 'New-Object Net.WebClient', 'System.Net.WebClient'
+          ]:
+              assert forbidden.lower() not in audit.lower(), forbidden
+          assert "Get-Command openclaw" in audit
+          assert "[string]$Probe" in audit
+          assert "runtime audit probe not allowlisted" in audit
+          assert "Safe-Text $doctor.output" not in audit
+          assert "Safe-Text $mainTools.output" not in audit
+          assert "benchmark_r03" in audit and "r03_context_sha256" in audit
+          print('V137_STATIC_PASS read_only=true fixed_probe_set=true metadata_only=true benchmark_source_public=false')
+
+      - name: Emit exact qualified SHA256
+        shell: python
+        run: |
+          import hashlib, json
+          from pathlib import Path
+          p=Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.7.ps1')
+          base=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.6.ps1')
+          out={
+            'schema':1,
+            'kind':'kevin-maintenance-v137-qualified-source',
+            'git_head':'${{ github.sha }}',
+            'sha256':hashlib.sha256(p.read_bytes()).hexdigest().upper(),
+            'base_v136_sha256':hashlib.sha256(base.read_bytes()).hexdigest().upper(),
+          }
+          Path('maintenance-v137-qualified.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf-8')
+          print(Path('maintenance-v137-qualified.json').read_text())
+
+      - name: Upload qualified evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-v137-qualified
+          path: |
+            control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.7.ps1
+            maintenance-v137-qualified.json
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish exact qualified v1.3.7 through bounded Git-object CAS
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference='Stop'
+          $repo=$env:GITHUB_REPOSITORY
+          $repoPath='control-plane/maintenance/kevin-maintenance-runner-v1.3.7.ps1'
+          $src='.\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.7.ps1'
+          $expected=([string](Get-Content .\maintenance-v137-qualified.json -Raw|ConvertFrom-Json).sha256).ToUpperInvariant()
+          $utf8=New-Object Text.UTF8Encoding($false)
+          function Invoke-GhJson([string]$Method,[string]$Endpoint,[object]$Body,[string]$Name){
+            $path=Join-Path $env:RUNNER_TEMP ($Name+'.json')
+            [IO.File]::WriteAllText($path,($Body|ConvertTo-Json -Depth 20 -Compress),$utf8)
+            $old=$ErrorActionPreference
+            try{$ErrorActionPreference='Continue';$out=(& gh api --method $Method $Endpoint --input $path 2>&1|Out-String).Trim();$code=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
+            if($code -ne 0){throw "$Name failed code=$code $out"}
+            if(-not$out){return $null};return($out|ConvertFrom-Json)
+          }
+          $blob=Invoke-GhJson 'POST' "repos/$repo/git/blobs" ([ordered]@{content=[Convert]::ToBase64String([IO.File]::ReadAllBytes($src));encoding='base64'}) 'v137-blob'
+          $published=$false
+          for($attempt=1;$attempt -le 3 -and -not$published;$attempt++){
+            $baseCommit=(& gh api "repos/$repo/git/ref/heads/main" --jq .object.sha|Out-String).Trim()
+            $baseTree=(& gh api "repos/$repo/git/commits/$baseCommit" --jq .tree.sha|Out-String).Trim()
+            $tree=Invoke-GhJson 'POST' "repos/$repo/git/trees" ([ordered]@{base_tree=$baseTree;tree=@([ordered]@{path=$repoPath;mode='100644';type='blob';sha=[string]$blob.sha})}) ("v137-tree-$attempt")
+            $commit=Invoke-GhJson 'POST' "repos/$repo/git/commits" ([ordered]@{message='Publish exact CI-qualified Maintenance v1.3.7';tree=[string]$tree.sha;parents=@($baseCommit)}) ("v137-commit-$attempt")
+            $refPath=Join-Path $env:RUNNER_TEMP ("v137-ref-$attempt.json")
+            [IO.File]::WriteAllText($refPath,(([ordered]@{sha=[string]$commit.sha;force=$false})|ConvertTo-Json -Compress),$utf8)
+            $old=$ErrorActionPreference
+            try{$ErrorActionPreference='Continue';$o=(& gh api --method PATCH "repos/$repo/git/refs/heads/main" --input $refPath 2>&1|Out-String).Trim();$c=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
+            if($c -eq 0){$published=$true;Write-Host "V137_CAS_PASS attempt=$attempt commit=$($commit.sha)"}else{Write-Host "V137_CAS_RACE attempt=$attempt $o";Start-Sleep -Milliseconds 700}
+          }
+          if(-not$published){throw 'v1.3.7 bounded publication race budget exhausted'}
+          $remote=(& gh api "repos/$repo/git/blobs/$($blob.sha)" --jq .content|Out-String).Trim()
+          $bytes=[Convert]::FromBase64String(($remote -replace '\s',''))
+          $sha=[Security.Cryptography.SHA256]::Create();try{$actual=([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','').ToUpperInvariant()}finally{$sha.Dispose()}
+          if($actual -ne $expected){throw "v1.3.7 remote byte mismatch expected=$expected actual=$actual"}
+          Write-Host "PUBLISHED_EXACT_V137 sha256=$actual"
