@@ -9,7 +9,10 @@ function workerName(w){return w.querySelector('.worker-copy b')?.textContent?.tr
 function workerRole(w){return w.querySelector('.worker-copy small')?.textContent?.trim()||'Worker lane'}
 function stateOf(w){for(const s of ['building','working','degraded','offline','cooldown','ready'])if(w.classList.contains(s))return s.toUpperCase();return 'READY'}
 function replaceEyes(w,i){
- const svg=w.querySelector('svg.owl');if(!svg)return;svg.querySelector('.owl-eyes')?.remove();const g=el('g',{class:'owl-eyes'});[[46,50],[74,50]].forEach(([x,y])=>g.appendChild(el('circle',{class:'owl-eye-outline',cx:x,cy:y,r:10.5,fill:'none'})));svg.appendChild(g);w.style.setProperty('--blink-rate',`${BLINK_RATES[i%BLINK_RATES.length]}s`);w.style.setProperty('--blink-delay',`${BLINK_DELAYS[i%BLINK_DELAYS.length]}s`)
+ const svg=w.querySelector('svg.owl');if(!svg)return;const existing=svg.querySelector('.owl-eyes');
+ w.style.setProperty('--blink-rate',`${BLINK_RATES[i%BLINK_RATES.length]}s`);w.style.setProperty('--blink-delay',`${BLINK_DELAYS[i%BLINK_DELAYS.length]}s`);
+ if(existing?.dataset?.funOutline==='1')return;
+ existing?.remove();const g=el('g',{class:'owl-eyes','data-fun-outline':'1'});[[46,50],[74,50]].forEach(([x,y])=>g.appendChild(el('circle',{class:'owl-eye-outline',cx:x,cy:y,r:10.5,fill:'none'})));svg.appendChild(g)
 }
 function ensureActiveDefinition(){const g=document.querySelector('.owner-status-guide');if(!g||g.querySelector('[data-owner-active="1"]'))return;const d=document.createElement('div');d.className='owner-status-item owner-active';d.dataset.ownerActive='1';d.innerHTML=`<i style="background:${ACTIVE};color:${ACTIVE}"></i><b>ACTIVE</b><span>A worker lane is awake and participating in the current cycle; ACTIVE is not the same as a task actively executing.</span>`;const armed=[...g.children].find(x=>x.querySelector('b')?.textContent==='ARMED');armed?.insertAdjacentElement('afterend',d)||g.appendChild(d)}
 function freshness(){const age=document.getElementById('age')?.textContent?.trim()||'—';return `Ops refresh ≤4s · source evidence age ${age}`}
