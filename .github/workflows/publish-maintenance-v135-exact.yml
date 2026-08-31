@@ -1,0 +1,70 @@
+name: Publish Maintenance v1.3.5 Exact Qualified Bytes
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-maintenance-v135-exact.yml'
+      - 'tools/generate-maintenance-v135.py'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.4.ps1'
+      - 'control-plane/forge/kevin-design-forge-v4.0.ps1'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Generate and verify exact candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          python .\tools\generate-maintenance-v135.py
+          if ($LASTEXITCODE -ne 0) { throw 'generator failed' }
+          $p = '.\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.5.ps1'
+          if (-not (Test-Path -LiteralPath $p)) { throw 'generated candidate missing' }
+          $actual = (Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          $expected = '81D2C58E3CFDD89D43FFD119F36D08C841AAB2F9059FA3947790103230C45221'
+          if ($actual -ne $expected) { throw "qualified hash mismatch expected=$expected actual=$actual" }
+          $out = & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1 | Out-String
+          Write-Host $out
+          if ($LASTEXITCODE -ne 0 -or $out -notmatch 'KEVIN MAINTENANCE v1\.3\.5 SELFTEST PASS') { throw 'candidate selftest failed' }
+          Write-Host "QUALIFIED_V135_SHA256=$actual"
+
+      - name: Create-or-verify exact source through Contents API
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $repoPath = 'control-plane/maintenance/kevin-maintenance-runner-v1.3.5.ps1'
+          $src = '.\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.5.ps1'
+          $expected = '81D2C58E3CFDD89D43FFD119F36D08C841AAB2F9059FA3947790103230C45221'
+          $content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($src))
+
+          $old = $ErrorActionPreference
+          try {
+            $ErrorActionPreference = 'Continue'
+            & gh api --method PUT "repos/$env:GITHUB_REPOSITORY/contents/$repoPath" -f message='Publish exact CI-qualified Maintenance v1.3.5' -f content=$content -f branch=main | Out-Null
+            $createCode = [int]$LASTEXITCODE
+          } finally { $ErrorActionPreference = $old }
+
+          if ($createCode -ne 0) {
+            Write-Host "Create returned $createCode; verifying whether an identical file already won the race."
+          }
+
+          $raw = (& gh api "repos/$env:GITHUB_REPOSITORY/contents/$repoPath?ref=main" --jq .content | Out-String).Trim()
+          if ($LASTEXITCODE -ne 0 -or -not $raw) { throw 'published source could not be fetched for verification' }
+          $bytes = [Convert]::FromBase64String(($raw -replace '\s',''))
+          $sha = [Security.Cryptography.SHA256]::Create()
+          try { $actual = ([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','').ToUpperInvariant() } finally { $sha.Dispose() }
+          if ($actual -ne $expected) { throw "published source hash mismatch expected=$expected actual=$actual" }
+          Write-Host "PUBLISHED_OR_ALREADY_PRESENT_EXACT_V135 sha256=$actual"
