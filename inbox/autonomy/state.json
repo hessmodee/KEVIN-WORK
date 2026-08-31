@@ -3,18 +3,19 @@
   "kind": "kevin-autonomy-wip-state",
   "safe_for_public_repo": true,
   "wip": {
-    "production": 0,
+    "production": 1,
     "staging": 0,
     "research": 0
   },
   "active": {
-    "production": null,
+    "production": "skill-workshop-runtime-capability-verification",
     "staging": null,
     "research": null
   },
   "blocked": {
     "production": [
-      "finish-forge-v40-runtime-convergence"
+      "finish-forge-v40-runtime-convergence",
+      "real-owner-task-reader-e2e"
     ]
   },
   "completed_today": [
@@ -23,16 +24,16 @@
   ],
   "preferred_observation_sequence": [
     "skill-workshop-self-learning-proof",
+    "hq-direct-chat-real-roundtrip",
     "real-owner-task-reader-e2e",
     "staging-trajectory-reliability-v1",
-    "hq-direct-chat-real-roundtrip",
     "native-task-flow-admission-controller",
     "finish-forge-v40-runtime-convergence"
   ],
   "observation_window": {
-    "purpose": "Give Kevin breathing room to execute real GREEN work under the now-live Autonomy OS v2 Standing Orders while legacy Forge remains quarantined as a diagnosis-only failure family.",
-    "success_condition": "Workshop learning is proposal-first; Reader completes repeated semantic tool-use proof; the next production lane closes HQ direct communication; then Kevin's durable selector/Task Flow—not legacy Supervisor rotation—chooses useful work. No demandless Forge iteration is credited as progress."
+    "purpose": "Verify the Skill Workshop authored guardrails with a fresh fixed runtime-capabilities receipt while the Reader gateway-deep-probe failure family is cooled instead of retried.",
+    "success_condition": "Fresh runtime capabilities proves autonomous_mode=propose, approval_policy=pending, config_valid=true and skills_check_main_ok=true. Reader remains blocked until materially new gateway evidence changes the failed deep-probe hypothesis."
   },
-  "truth_boundary": "Selection state only. WIP counts only evidence-backed running work; queued manifests, CI candidates and preferred work do not consume WIP. This file does not grant authority or prove Kevin independently selected the work.",
-  "note": "Autonomy OS v2 doctrine and native runtime audit are complete. Skill Workshop guardrail manifest is queued; Maintenance v1.3.9 Reader canary is CI-proven and exactly published. Forge remains blocked after three materially distinct migration/diagnosis attempts."
+  "truth_boundary": "Selection state only. WIP counts only evidence-backed active work; queued/CI items do not consume WIP. This file does not grant authority or prove autonomous selection.",
+  "note": "Fresh Support 2026-08-31T17:37:32-06:00 shows Reader canary manifest reader-status-canary-v1310-20260831-1732 APPLY_FAILED with detail Reader gateway deep probe failed and Maintenance Intake at 2 consecutive errors while Benchmark remains PASS 30/30. The failed Reader manifest was retired and replaced by a fixed read-only publish_runtime_capabilities verification manifest."
 }
