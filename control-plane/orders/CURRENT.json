@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "kind": "kevin-work-order",
-  "id": "bess-20260831-0840-telemetry-quality",
-  "idempotency_key": "bess-telemetry-quality-20260831-0840-a",
-  "created_at": "2026-08-31T08:40:00-06:00",
-  "expires_at": "2026-08-31T10:40:00-06:00",
+  "id": "bess-20260831-1033-runtime-convergence-maint",
+  "idempotency_key": "bess-runtime-convergence-maint-v134-20260831-1033-a",
+  "created_at": "2026-08-31T10:33:00-06:00",
+  "expires_at": "2026-08-31T12:33:00-06:00",
   "authority_class": "GREEN",
-  "verb": "dispatch_mission",
-  "target": "telemetry-quality",
-  "reason": "Daytime Production-Proof Sprint recovery after the previous order became DUPLICATE_IGNORED. Advance the already-catalogued Telemetry Quality mission with emphasis on detecting stale or contradictory state, duplicate-loop churn, zero-workers-plus-owner-backlog contradictions, stale heartbeat versus task presence, and false-success/busy claims. Candidate-only, single-14B-worker, no production mutation, no permission change, no arbitrary shell, no external owner messages, no authority expansion."
+  "verb": "run_typed_maintenance",
+  "target": "kevin-maintenance-v1",
+  "reason": "Wake the existing proven typed Maintenance path for the exact CI-proven Maintenance v1.3.4 runtime-convergence self-upgrade manifest on main. No caller command/path/argv/URL, no authority expansion, no arbitrary shell. Maintenance must independently validate exact current/source/after hashes, fixed selftest, rollback and fresh Benchmark 30/30 critical=0."
 }
