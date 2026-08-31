@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-08-30T21:44:51.5233513-06:00",
+    "generated_at":  "2026-08-30T21:46:00.2534889-06:00",
     "request":  {
                     "id":  "bess-20260831-0342-os-awareness-proof",
                     "verb":  "run_os_awareness",
                     "target":  "kevin-os-awareness-v1"
                 },
-    "status":  "SUCCESS",
-    "detail":  "OS_AWARENESS_PROVEN generated_at=2026-08-30T21:44:56.6557319-06:00 memory_bytes=34270429184 cpu_count=1 gpu_count=1 memory_modules=2 processes=150 services=295 tasks=307 software=90 system_errors_24h=3 application_errors_24h=2 runner=KEVIN OS OBSERVER DONE operation=snapshot Local evidence = C:\\Users\\hessm\\.openclaw\\workspace\\reports\\os-awareness\\latest-local.json Public summary = C:\\Users\\hessm\\.openclaw\\workspace\\reports\\os-awareness\\latest-public.json",
+    "status":  "DUPLICATE_IGNORED",
+    "detail":  "Idempotency key already processed",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
