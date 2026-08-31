@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-owner-review-hash-drift-proposal",
+  "generated_at": "2026-08-31T09:26:20-06:00",
+  "authority": {
+    "classification": "OWNER_REVIEW_REQUIRED",
+    "green_only": true,
+    "auto_apply": false,
+    "reason": "Live support now differs from owner-pinned desired state at exactly three core identities; this matches current autonomy drift_count=3 and must not be silently blessed."
+  },
+  "observed": {
+    "supervisor": "63B8D9C27625E0FB6AFE62165BE376E7ED7EB416E5DA15BB47C206BBF4AE4989",
+    "forge": "4C83DF29E765D61F2B26D2029FE6C2C7ED68DA90E5A7A457A82BE769029E22CA",
+    "maintenance_runner": "0AC6C0F20DC33507159789A8A3B7767154A918E4E665CEAA90201E1ADA94FDA3"
+  },
+  "pinned": {
+    "supervisor": "EA28600FDE1E7572F431710416238DA8A4AD6B80321C9A8F0687C1C8A92421F7",
+    "forge": "0ED50A9714B4B5E778844006CD24E57D25FFA0873261E5BF63F990FBB4D5643E",
+    "maintenance_runner": "B47714C91EFDCCD1FAE6C2CB0B97D72F799125A63C084956916A8BD5A07678C1"
+  },
+  "still_matching": {
+    "benchmark": "02447EE8F3302E3EA1EF00290DBA6804F30FAC9F46CAE8714F402EA2D013CC38",
+    "goal_os": "B20C7AC8EDC35C656ED544C4D13D3EB4FF4A79453AF0F49BD60B7DF31092AEF0",
+    "support_bridge": "E72A2A635326CF1AB036404E64E274D2F56CE79CA5CEB268DBF9B2EA4B67BEA5"
+  },
+  "live_context": {
+    "support_generated_at": "2026-08-31T09:26:20.4727821-06:00",
+    "benchmark_status": "PASS",
+    "benchmark_passed": 30,
+    "benchmark_total": 30,
+    "benchmark_critical_failures": 0,
+    "maintenance_state": "ALREADY_APPLIED_PROVEN",
+    "maintenance_manifest_id": "typed-watchdog-v14-console-hygiene-20260831-0038-r2",
+    "supervisor_name": "Kevin Supervisor v1.6 High Gear",
+    "desired_state_supervisor_name": "Kevin Supervisor v1.5.3b",
+    "current_autonomy_state": "NEEDS_REVIEW",
+    "current_autonomy_drift_count": 3
+  },
+  "review_questions": [
+    "Is the observed Supervisor identity the intended proven descendant of the pinned supervisor line, or should production be reconciled back to the owner-pinned identity?",
+    "Is the observed Forge identity the intended proven descendant, or should it be replaced/reconciled — especially given current round-robin forge-v4 spin?",
+    "Is Maintenance runner 0AC6... the intended production-proven v1.3.3 identity and therefore eligible for explicit owner adoption in desired state?"
+  ],
+  "recommended_process": [
+    "independently map each observed hash to source/proof/installation history",
+    "do not bulk-adopt all three merely to clear drift",
+    "prefer replacing/fixing Forge behavior if its observed identity is associated with current no-spin defect",
+    "only after evidence review, apply the smallest explicit owner-approved desired-state patch or reconcile production back to the trusted pin",
+    "rerun autonomy and require drift_count=0 only if the resulting identities are genuinely owner-approved and semantically healthy"
+  ],
+  "safety": {
+    "production_mutation": false,
+    "authority_expansion": false,
+    "automatic_adoption": false,
+    "arbitrary_shell": false,
+    "secrets": false
+  }
+}
