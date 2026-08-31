@@ -1,0 +1,66 @@
+name: Maintenance v1.3.1 Windows Runtime Proof
+
+on:
+  push:
+    paths:
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.1.ps1'
+      - '.github/workflows/maintenance-v131-runtime-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-runtime:
+    runs-on: windows-latest
+    steps:
+      - name: Pin LF checkout
+        shell: powershell
+        run: git config --global core.autocrlf false
+
+      - uses: actions/checkout@v4
+
+      - name: Hash parser and Windows token regression gate
+        shell: powershell
+        run: |
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.1.ps1'
+          $txt=[IO.File]::ReadAllText($p)
+          if($txt.Contains("`r`n")){throw 'CRLF checkout detected'}
+          $h=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "MAINTENANCE_V131_SHA256=$h"
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw "parser failed: $($errors[0].Message)"}
+          foreach($pattern in @('(?m)\breturn(?=\$|\[|@)','(?i)-Filter''')){
+            if($txt -match $pattern){throw "Windows PowerShell token adjacency regression: $pattern"}
+          }
+          foreach($bad in @('Invoke-Expression','ScriptBlock]::Create','-EncodedCommand','DownloadString','WScript.Shell')){
+            if($txt -match [regex]::Escape($bad)){throw "forbidden execution primitive detected: $bad"}
+          }
+          Write-Host 'TOKEN_GATE_PASS'
+
+      - name: Windows PowerShell 5.1 runtime self-test
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/maintenance/kevin-maintenance-runner-v1.3.1.ps1' -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'maintenance v1.3.1 self-test failed'}
+
+      - name: Fixed authority contract assertions
+        shell: powershell
+        run: |
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.1.ps1'
+          $txt=[IO.File]::ReadAllText($p)
+          foreach($required in @(
+            "authority_delta -ne 'NONE'",
+            "production_effect -ne 'NONE'",
+            "allow_arbitrary_shell",
+            "allow_authority_expansion",
+            "allow_novel_production_promotion",
+            "replace_pinned_component",
+            "restart_ui_bridge",
+            "New-InstallResult",
+            "New-RestartResult"
+          )){
+            if(-not $txt.Contains($required)){throw "missing authority/runtime invariant: $required"}
+          }
+          Write-Host 'AUTHORITY_CONTRACT_PASS arbitrary_shell=false authority_expansion=false'
