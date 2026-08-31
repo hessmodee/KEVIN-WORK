@@ -1,0 +1,61 @@
+name: Maintenance v1.3.2 OS Awareness Transport
+
+on:
+  push:
+    paths:
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.2.ps1'
+      - 'control-plane/os-awareness/kevin-os-observer-v0.1.ps1'
+      - '.github/workflows/maintenance-v132-os-awareness-transport.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-runtime:
+    runs-on: windows-latest
+    steps:
+      - name: Pin LF checkout
+        shell: powershell
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@v4
+      - name: Exact hashes parser and Windows token gates
+        shell: powershell
+        run: |
+          $m='control-plane/maintenance/kevin-maintenance-runner-v1.3.2.ps1'
+          $o='control-plane/os-awareness/kevin-os-observer-v0.1.ps1'
+          foreach($p in @($m,$o)){
+            $txt=[IO.File]::ReadAllText($p)
+            if($txt.Contains("`r`n")){throw "CRLF checkout detected $p"}
+            $tokens=$null;$errors=$null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+            if($errors.Count){throw "parser failed $p : $($errors[0].Message)"}
+            if($txt -match '(?m)\breturn(?=\$|\[|@)'){throw "Windows return-token adjacency regression in $p"}
+          }
+          $mh=(Get-FileHash $m -Algorithm SHA256).Hash.ToUpperInvariant()
+          $oh=(Get-FileHash $o -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "MAINTENANCE_V132_SHA256=$mh"
+          Write-Host "OS_OBSERVER_V01_SHA256=$oh"
+          if($oh -ne '192CF42D9403EDCE40D3540F3DDA632C96BBB132787ADCCE095B2D43A3F17D32'){throw 'OS observer differs from CI-qualified owner-approved candidate'}
+      - name: Windows PowerShell 5.1 runtime self-tests
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/maintenance/kevin-maintenance-runner-v1.3.2.ps1' -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'maintenance v1.3.2 self-test failed'}
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/os-awareness/kevin-os-observer-v0.1.ps1' -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'OS observer self-test failed'}
+      - name: Approved authority and transport assertions
+        shell: powershell
+        run: |
+          $m=[IO.File]::ReadAllText('control-plane/maintenance/kevin-maintenance-runner-v1.3.2.ps1')
+          $o=[IO.File]::ReadAllText('control-plane/os-awareness/kevin-os-observer-v0.1.ps1')
+          foreach($required in @('os_observer_runner','kevin-os-observer.ps1','AllowAbsent = $true','absent-current sentinel not allowed for alias','arbitrary_shell=false','authority_expansion=false')){
+            if(-not $m.Contains($required)){throw "missing maintenance invariant $required"}
+          }
+          foreach($required in @("ValidateSet('snapshot','hardware','processes','services','storage','tasks','network','software','event_health')",'read_only = $true','arbitrary_shell=false','caller_command=false','credentials=false','mutation=false')){
+            if(-not $o.Contains($required)){throw "missing observer invariant $required"}
+          }
+          foreach($forbidden in @('Invoke-Expression','Start-Process','Stop-Process','Restart-Service','Stop-Service','Start-Service','Set-Service','Set-Net','Disable-Net','Enable-Net','Clear-EventLog','Restart-Computer','Stop-Computer','Environment::GetEnvironmentVariables','CommandLine','IPAddress','MacAddress','SerialNumber')){
+            if($o -match [regex]::Escape($forbidden)){throw "forbidden observer capability $forbidden"}
+          }
+          Write-Host 'AUTHORITY_CONTRACT_PASS approved_os_awareness=true arbitrary_shell=false credentials=false mutation=false'
