@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "kind": "kevin-hq-truth-audit",
+  "generated_at": "2026-08-31T10:44:00-06:00",
+  "safe_for_public_repo": true,
+  "objective": "Make every important Kevin HQ claim traceable to a named source, timestamp, freshness rule, proof meaning, and decision-useful owner action.",
+  "architecture": "docs/engineering/HQ-TRUTH-ARCHITECTURE-v1.md",
+  "production_truth_layer": "docs/hq-truth-v1.js",
+  "source_classes": {
+    "periodic": ["reports/dashboard-state.json", "reports/support-latest.json", "reports/engineering/latest.json", "reports/autonomy-latest.json"],
+    "event_driven": ["reports/control-plane-latest.json", "maintenance latest receipt"],
+    "checkpoint": ["reports/responsibility-transfer-latest.json", "reports/autonomy-master-scorecard.json", "AI-HANDOVER.md", "inbox/CURRENT_TASK.md"]
+  },
+  "current_high_signal_findings": [
+    {"id":"platform-vs-autonomy","status":"OPEN","fact":"Platform Benchmark can be PASS 30/30 critical 0 while autonomy remains NEEDS_REVIEW/drift=3.","hq_action":"Show Platform health and Autonomy health as separate headline metrics."},
+    {"id":"forge-repeat","status":"OPEN","fact":"Fresh Support continues to show forge-v4 REJECT evaluations at high iteration count with a security finding even after no-spin policy was codified.","hq_action":"Treat Forge repetition as diagnostic/attention evidence, never as accomplishment."},
+    {"id":"relay-expired","status":"OPEN","fact":"Engineering scheduler can be healthy while its surfaced request is REJECTED because the request expired.","hq_action":"Separate scheduler health from queue/request usefulness."},
+    {"id":"ui-bridge-stale","status":"OPEN","fact":"UI Bridge task/hash presence coexists with a many-hours-stale heartbeat.","hq_action":"Do not show task/hash presence as live UI Bridge health."},
+    {"id":"public-mirror-boundary","status":"ADOPTED","fact":"GitHub Pages is a sanitized public mirror and cannot safely become the privileged OpenClaw admin surface.","hq_action":"Keep public HQ read-only/public-safe; future private owner control uses authenticated local/private Gateway transport."}
+  ],
+  "legacy_hq_elements": [
+    {"element":"Health","decision":"RELABEL","replacement":"Platform health; autonomy shown separately"},
+    {"element":"Status/current mission/current action duplicates","decision":"CONSOLIDATE","replacement":"Work now with active-task/worker evidence"},
+    {"element":"Evidence age","decision":"EXPAND","replacement":"Data quality plus per-source freshness ledger"},
+    {"element":"Hard-coded capability QA / roadmap completion","decision":"DEEMPHASIZE_REMOVE_FROM_HEADLINE","replacement":"Skill Lab proven records + master proof/transfer checkpoints"},
+    {"element":"Kevin evolution level","decision":"DECORATIVE_ONLY","replacement":"Never use as autonomy KPI"},
+    {"element":"Raw Forge/Supervisor cycle count","decision":"DIAGNOSTIC_ONLY","replacement":"Meaningful proof transitions, failure family, recovery and transfer impact"}
+  ],
+  "freshness_contract_seconds": {
+    "dashboard_state":{"fresh":120,"delayed":360},
+    "support_latest":{"fresh":360,"delayed":900},
+    "engineering_latest":{"fresh":300,"delayed":720},
+    "autonomy_latest":{"fresh":900,"delayed":1800}
+  },
+  "next": [
+    "verify GitHub Pages deployment and browser rendering of HQ Truth Console",
+    "build canonical Omen-generated reports/hq-truth-latest.json with deterministic contradiction/freshness tests",
+    "derive sanitized task/audit trace summaries from locally verified OpenClaw Tasks/Audit when available",
+    "make proof/transfer checkpoints update automatically from production evidence",
+    "migrate privileged chat/task controls to authenticated private owner HQ rather than public Pages"
+  ]
+}
