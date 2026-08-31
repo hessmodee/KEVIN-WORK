@@ -1,0 +1,46 @@
+name: Watchdog v1.4 Console Hygiene Proof
+
+on:
+  push:
+    paths:
+      - 'control-plane/maintenance/kevin-self-reliance-watchdog-v1.4.ps1'
+      - '.github/workflows/watchdog-v14-console-hygiene-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prove:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse PowerShell
+        shell: powershell
+        run: |
+          $p = 'control-plane/maintenance/kevin-self-reliance-watchdog-v1.4.ps1'
+          $tokens=$null; $errors=$null
+          [void][Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors.Count -gt 0){ $errors | Format-List | Out-String | Write-Host; throw 'PowerShell parse failed' }
+      - name: Deterministic selftest
+        shell: powershell
+        run: |
+          $out = & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/maintenance/kevin-self-reliance-watchdog-v1.4.ps1' -SelfTest 2>&1 | Out-String
+          Write-Host $out
+          if($LASTEXITCODE -ne 0){ throw 'watchdog selftest failed' }
+          if($out -notmatch 'KEVIN SELF-RELIANCE WATCHDOG v1\.3 SELFTEST PASS compatibility=v1\.4'){ throw 'v1.3 compatibility marker missing' }
+          if($out -notmatch 'KEVIN SELF-RELIANCE WATCHDOG v1\.4 SELFTEST PASS'){ throw 'v1.4 marker missing' }
+      - name: Console-hygiene boundary scan
+        shell: powershell
+        run: |
+          $t = Get-Content 'control-plane/maintenance/kevin-self-reliance-watchdog-v1.4.ps1' -Raw
+          foreach($name in @('Kevin Self-Reliance Watchdog v1','KevinGitHubBridge','KevinNightForge','Kevin UI Bridge v0.3')){
+            if(-not $t.Contains("'$name'")){ throw "missing fixed task allowlist entry: $name" }
+          }
+          if($t -notmatch 'Add-HiddenWindowStyle'){ throw 'hidden-window helper missing' }
+          if($t -notmatch 'Set-ScheduledTask -TaskName \$name -Action \$newAction'){ throw 'fixed task action update missing' }
+          if($t -match 'Get-ScheduledTask\s*\|\s*Where-Object'){ throw 'broad scheduled-task mutation scan detected' }
+          if($t -match 'Invoke-Expression|\biex\b'){ throw 'arbitrary expression execution detected' }
+          if($t -notmatch 'CreateNoWindow = \$true'){ throw 'child-process no-window invariant missing' }
+          if($t -notmatch "'-WindowStyle','Hidden'"){ throw 'fixed child PowerShell hidden-window flag missing' }
+          Write-Host 'WATCHDOG V1.4 CONSOLE HYGIENE BOUNDARY PASS'
