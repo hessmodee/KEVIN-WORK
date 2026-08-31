@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-08-31T17:44:00.2696161-06:00",
+    "generated_at":  "2026-08-31T17:47:12.7027071-06:00",
     "request":  {
-                    "id":  "hq-alert-flush-maintenance-slot-20260831-1742",
-                    "verb":  "run_typed_maintenance",
-                    "target":  "kevin-maintenance-v1"
+                    "id":  "hq-alert-refresh-autonomy-20260831-1746",
+                    "verb":  "refresh_autonomy_telemetry",
+                    "target":  "kevin-autonomy-v1"
                 },
-    "status":  "IDLE_TERMINAL",
-    "detail":  "Current work order is already terminal; awaiting replacement",
+    "status":  "FAILED",
+    "detail":  "refresh target mismatch.",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
