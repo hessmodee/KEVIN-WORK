@@ -53,32 +53,39 @@ jobs:
           css=Path('docs/ops/ops-owner-refinement-v1.css').read_text()
           over=Path('docs/hq-overrides-v1.js').read_text()
           assert 'hq-core-v7.html?v=9#overview' in idx
-          assert 'hq-overrides-v1.js?v=2' in idx and 'hq-owner-refinement-v1.js?v=6' in idx and 'hq-fun-v2.js?v=2' in idx
+          assert 'hq-overrides-v1.js?v=2' in idx and 'hq-owner-refinement-v1.js?v=7' in idx and 'hq-fun-v2.js?v=2' in idx
           assert "href==='about:blank'" in hq and 'boundDoc!==target.doc' in hq and 'setInterval(hook,650)' in hq
-          assert 'hooked=false' not in hq and 'if(hooked)' not in hq
+          assert 'function installCoreTimestampParser' in hq and 'core.parseAt=' in hq
+          assert "startsWith('owner-sync-')||c.startsWith('mode-')" in hq
+          assert "e.data.states||e.data.state||'READY'" in hq
+          assert 'activeStates(d,s)' in hq and "return ['BUILDING','WORKING'].filter" in hq
+          assert 'livePulseHealthy' in hq and "kevin-hq-live-pulse-v15" in hq
           assert 'observer.observe(x,{childList:true})' in hq and 'subtree:true' not in hq
           assert 'function setText' in hq and "setText(card.querySelector('.k')" in hq
-          assert 'livePulseHealthy' in hq and 'livePulseHealthy' in ops and 'livePulseHealthy' in truth
-          assert "kevin-hq-live-pulse-v15" in hq and "kevin-hq-live-pulse-v15" in ops and "kevin-hq-live-pulse-v15" in truth
-          assert "if(da>180){if(sa<=480&&livePulseHealthy(s))return 'DEGRADED';return 'OFFLINE'}" in hq
-          assert "if(da>180){if(sa<=480&&livePulseHealthy(s))return 'DEGRADED';return 'OFFLINE'}" in ops
-          assert 'parseTimestamp' in truth and "window.telemetryOffline=(d,s)=>" in truth and "window.telemetryAgeMs=(d,s)=>" in truth
-          assert "if(ageSeconds(s?.generated_at)<=480&&livePulseHealthy(s))return false" in truth
-          assert "return {state:'DEGRADED',active:false,evidence:'Dashboard publication delayed; live pulse healthy'}" in truth
-          assert 'ops-owner-refinement-v1.css?v=5' in emb and 'ops-truth-patch-v1.js?v=2' in emb and 'ops-owner-refinement-v1.js?v=5' in emb and 'ops-fun-v2.js?v=2' in emb
-          assert '#244f8f' in emb and '#68d8ce' in emb and '#ffd166' in emb
+          assert 'ops-owner-refinement-v1.css?v=6' in emb and 'ops-truth-patch-v1.js?v=3' in emb and 'ops-owner-refinement-v1.js?v=6' in emb and 'ops-fun-v2.js?v=3' in emb
           for status in ['READY','ARMED','ACTIVE','WORKING','BUILDING','COOLDOWN','DEGRADED','OFFLINE']:
               assert status in emb
+          assert 'function authoritativeStates' in truth and 'function explicitActiveStates' in truth
+          assert "if(explicitActiveStates(d,s).length)return false" in truth
+          assert 'A refresh failure is not evidence that Kevin is offline' in truth
+          assert "badge.innerHTML=clean.map" in truth and "states:[...clean]" in truth
+          assert 'new MutationObserver' in truth and 'ensureAuthority' in truth
+          assert "setInterval(refreshTruth,2500)" in truth
           assert 'worker-progress{display:none!important}' in css
+          assert '.worker .owl-beak{fill:var(--idc)' in css
+          assert '.worker.working .owl-beak,.worker.building .owl-beak,.worker.active .owl-beak{display:none!important}' in css
           assert '#kevinHub.owner-selected,#kevinHub:focus,#kevinHub:focus-visible{outline:none!important}' in css
           assert '#kevinHub .hub-inner{height:236px;min-height:236px;width:230px;justify-content:flex-start}' in css
           assert '#kevinHub .kevin-meta{min-height:62px' in css
           assert '#kevinHub.truth-armed .hub-inner{box-shadow:none!important}' in css
+          assert "class:'owl-beak-cutout'" in ops and "class:'owl-beak'" in ops
           assert "querySelectorAll('.worker-progress').forEach(x=>x.remove())" in ops
-          assert 'parseTimestamp' in ops and 'parseTimestamp' in hq and '>480' in ops and '>480' in hq
+          assert 'refreshTelemetry' not in ops and 'applyTruth' not in ops
           assert "class:'owl-eye-outline'" in opsfun and '--blink-rate' in opsfun and '--blink-delay' in opsfun
           assert "data-fun-outline" in opsfun and "existing?.dataset?.funOutline==='1'" in opsfun
           assert "selected='KEVIN'" in opsfun and 'Select Kevin, Chief of Staff' in opsfun
+          assert 'function shownState' in opsfun and "['WORKING','BUILDING'].includes(stateOf(w))" in opsfun
+          assert 'gazeQueue=[...shuffled([...names]),null]' in opsfun and "find(w=>workerName(w)===targetName)" in opsfun
           assert "type:'kevin-ops-gaze'" in opsfun and "type:'kevin-ops-celebrate'" in opsfun
           assert 'ownerVictoryFlip' in css and 'owner-header-victory' in hqfun
           assert "e.data?.type==='kevin-ops-gaze'" in hqfun and "e.data?.type==='kevin-ops-celebrate'" in hqfun
@@ -88,7 +95,6 @@ jobs:
           assert 'COPY KEVIN HANDOVER' in hq
           assert 'AI-HANDOVER.md' in over and "cache:'no-store'" in over
           assert 'setInterval(refreshTruth,3000)' in hq
-          assert 'setInterval(refreshTelemetry,3000)' in ops
           assert 'setInterval(refreshBase,4000)' in opsfun
-          assert "type:'kevin-ops-state'" in ops and "type!=='kevin-ops-state'" in hq
-          print('HQ_OWNER_REFINEMENT_PASS live_timestamp=true kevin_reselect=true owl_outline=true blink_stagger=true gaze=true celebration=true active_color=true refresh_near_real_time=true redraw_idempotent=true iframe_rebind=true no_observer_self_loop=true pulse_aware_liveness=true unified_ops_liveness=true hub_outline_removed=true hub_layout_stable=true')
+          assert "type:'kevin-ops-state'" in truth and "type!=='kevin-ops-state'" in hq
+          print('HQ_OWNER_REFINEMENT_PASS single_state_arbiter=true no_offline_flash=true active_outranks_offline=true aggregate_building_working=true header_avatar_sync=true timestamp_parser_override=true gaze_current_workers_only=true worker_beak_cutout=true hub_layout_stable=true')
