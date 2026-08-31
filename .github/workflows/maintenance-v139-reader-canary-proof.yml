@@ -1,0 +1,88 @@
+name: Maintenance v1.3.9 Reader Canary Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v139.py'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.8.ps1'
+      - '.github/workflows/maintenance-v139-reader-canary-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Generate candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          python .\tools\generate-maintenance-v139.py
+          if($LASTEXITCODE -ne 0){throw 'generator failed'}
+      - name: Parse PowerShell 5.1 candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $p=Resolve-Path .\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.9.ps1
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count -gt 0){$errors|ForEach-Object{Write-Host $_.Message};throw 'parse failed'}
+          Write-Host 'V139_PARSE_PASS'
+      - name: Deterministic self-test
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.9.ps1 -SelfTest 2>&1|Out-String
+          Write-Host $out
+          if($LASTEXITCODE -ne 0){throw 'selftest exited nonzero'}
+          foreach($m in @('KEVIN MAINTENANCE v1.3.9 SELFTEST PASS','reader_canary=2_trials','fixed_reader_prompt=true','exact_tool_calls=1','semantic_categories=6','privacy_gate=true')){if($out -notmatch [regex]::Escape($m)){throw "missing selftest marker $m"}}
+      - name: Static Reader authority and proof invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          t=Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.9.ps1').read_text(encoding='utf-8')
+          required=[
+            'run_reader_status_canary','Run-ReaderStatusCanary','Run-OneReaderTrial',
+            "--profile reader","--agent','kevin-reader","kevin_system_status",
+            'expected_tool_calls_per_trial=1','REPEATEDLY_PROVEN','pass_k',
+            'required_categories','privacy_ok','visible_tool_boundary_ok',
+            'reports/reader-canary-omen.json','Assert-Benchmark30',
+            'Reader canary manifest must not supply','caller-selected Reader prompt accepted',
+            "production_effect must be NONE","authority_delta must be NONE",'$MaxAttempts = 3'
+          ]
+          for x in required: assert x in t, x
+          # No caller-selected Reader execution surface.
+          assert "@('prompt','message','path','agent','profile','tool','command','args','question','trials')" in t
+          # Fixed question requests all six sanitized health categories and one tool call.
+          q='How is this computer doing right now? Use your one allowed system-status tool exactly once.'
+          assert q in t
+          forbidden=['Invoke-Expression','DownloadString(','New-Object Net.WebClient','System.Net.WebClient']
+          lo=t.lower()
+          for x in forbidden: assert x.lower() not in lo, x
+          print('V139_STATIC_PASS fixed_reader=true two_trials=true semantic=true privacy=true authority_delta=NONE')
+      - name: Emit exact candidate identity
+        shell: python
+        run: |
+          import hashlib,json
+          from pathlib import Path
+          c=Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.9.ps1')
+          b=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.8.ps1')
+          out={'schema':1,'kind':'kevin-maintenance-v139-qualified-candidate','git_head':'${{ github.sha }}','candidate_path':str(c).replace('\\','/'),'sha256':hashlib.sha256(c.read_bytes()).hexdigest().upper(),'base_v138_sha256':hashlib.sha256(b.read_bytes()).hexdigest().upper()}
+          Path('maintenance-v139-candidate-hash.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf-8')
+          print(Path('maintenance-v139-candidate-hash.json').read_text())
+      - uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-v139-qualified-candidate
+          path: |
+            control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.9.ps1
+            maintenance-v139-candidate-hash.json
+          if-no-files-found: error
+          retention-days: 7
