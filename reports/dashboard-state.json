@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T04:25:08.0801885-06:00",
+  "generated_at": "2026-08-31T04:25:10-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,12 +13,14 @@
     "tools": false
   },
   "current_task": {
-    "id": "supervisor",
-    "title": "Supervisor autonomous cycle",
-    "category": "supervisor",
-    "phase": "Goal-aware Supervisor cycle active.",
-    "started_at": "2026-08-31T04:25:08.0801885-06:00",
-    "source": "hq-live-ops"
+    "id": "design-forge",
+    "title": "Design Forge: forge-v4",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-31T04:25:10-06:00",
+    "source": "forge"
   },
   "services": {
     "tick": "healthy",
@@ -27,22 +29,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 33,
-    "cpu_pct": 6,
+    "memory_pct": 31,
+    "cpu_pct": 38,
     "gpu": "RTX 3060",
-    "gpu_pct": 31
+    "gpu_pct": 28
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-31T00:20:32-06:00",
-        "estimated": false,
-        "ram": 35,
-        "cpu": 1,
-        "gpu": 44
-      },
       {
         "at": "2026-08-31T00:20:59-06:00",
         "estimated": false,
@@ -707,10 +702,16 @@
         "ram": 33,
         "cpu": 6,
         "gpu": 31
+      },
+      {
+        "at": "2026-08-31T04:25:10-06:00",
+        "estimated": false,
+        "ram": 31,
+        "cpu": 38,
+        "gpu": 28
       }
     ],
     "ram": [
-      35,
       35,
       33,
       33,
@@ -805,10 +806,10 @@
       29,
       29,
       29,
-      33
+      33,
+      31
     ],
     "cpu": [
-      1,
       1,
       9,
       9,
@@ -903,10 +904,10 @@
       6,
       4,
       4,
-      6
+      6,
+      38
     ],
     "gpu": [
-      44,
       44,
       36,
       36,
@@ -1001,7 +1002,8 @@
       41,
       32,
       32,
-      31
+      31,
+      28
     ]
   },
   "weather": {
@@ -1100,8 +1102,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 93,
-      "total": 97
+      "done": 92,
+      "total": 96
     }
   ],
   "roadmap": {
@@ -1154,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-31T04:25:10-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: forge-v4",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-31T04:20:13-06:00",
       "component": "tick",
@@ -1368,24 +1379,14 @@
       "detail": "Design Forge: knowledge",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-31T03:01:16-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: forge-v4",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 32000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-31T04:25:08.0801885-06:00",
+    "last": "2026-08-31T04:25:10-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1415,29 +1416,29 @@
       "last_mission": "forge-v4",
       "iteration": 222,
       "updated_at": "2026-08-31T04:16:37.8423400-06:00",
-      "next_index": 0,
+      "next_index": 5,
       "scheduled": true,
       "promotion": "blocked"
     }
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-31T04:25:08.0801885-06:00",
+    "generated_at": "2026-08-31T04:25:10-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": true,
     "benchmark_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Supervisor autonomous cycle",
-      "category": "supervisor",
-      "state": "coordinating",
-      "detail": "Goal-aware Supervisor cycle active.",
-      "what": "Selecting and advancing the highest-value authorized mission.",
-      "engine": "Supervisor v1.4",
-      "action": "Mission coordination"
+      "id": "design-forge",
+      "name": "Build Lab",
+      "title": "Design Forge: forge-v4",
+      "category": "forge",
+      "state": "working",
+      "detail": "started",
+      "what": "Generating and validating an isolated candidate.",
+      "engine": "Ollama | Qwen 2.5 14B",
+      "action": "Candidate engineering"
     },
     "lanes": [
       {
@@ -1445,7 +1446,7 @@
         "name": "Supervisor",
         "role": "Goal-aware control plane",
         "state": "coordinating",
-        "detail": "Selecting, evaluating, staging, or recording autonomous work.",
+        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Autonomous coordination"
@@ -1474,16 +1475,16 @@
   },
   "execution": {
     "running": true,
-    "state": "coordinating",
-    "phase": "Goal-aware Supervisor cycle active.",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Mission coordination"
+    "state": "working",
+    "phase": "started",
+    "worker": "Build Lab",
+    "engine": "Ollama | Qwen 2.5 14B",
+    "action": "Candidate engineering"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | COORDINATING | Goal-aware Supervisor cycle active.",
+      "text": "Build Lab | WORKING | started",
       "severity": "normal"
     }
   ]
