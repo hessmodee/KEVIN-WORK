@@ -1,0 +1,49 @@
+name: Work Order Intake v1.2.3 OS Awareness
+
+on:
+  push:
+    paths:
+      - 'control-plane/intake/kevin-work-order-intake-v1.2.3.ps1'
+      - '.github/workflows/work-order-intake-v123-os-awareness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-runtime:
+    runs-on: windows-latest
+    steps:
+      - name: Pin LF checkout
+        shell: powershell
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@v4
+      - name: Parser hash and Windows token gate
+        shell: powershell
+        run: |
+          $p='control-plane/intake/kevin-work-order-intake-v1.2.3.ps1'
+          $txt=[IO.File]::ReadAllText($p)
+          if($txt.Contains("`r`n")){throw 'CRLF checkout detected'}
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw "parser failed: $($errors[0].Message)"}
+          if($txt -match '(?m)\breturn(?=\$|\[|@)'){throw 'Windows return-token adjacency regression'}
+          $h=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "WORK_ORDER_INTAKE_V123_SHA256=$h"
+      - name: Windows PowerShell 5.1 self-test
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/intake/kevin-work-order-intake-v1.2.3.ps1' -Mode SelfTest
+          if($LASTEXITCODE -ne 0){throw 'intake v1.2.3 self-test failed'}
+      - name: Fixed OS Awareness authority assertions
+        shell: powershell
+        run: |
+          $txt=[IO.File]::ReadAllText('control-plane/intake/kevin-work-order-intake-v1.2.3.ps1')
+          foreach($required in @("'run_os_awareness'","'kevin-os-awareness-v1'","@('-Operation','snapshot')",'kevin-os-observer.ps1','OS_AWARENESS_PROVEN','caller_argv=false','caller_path=false')){
+            if(-not $txt.Contains($required)){throw "missing fixed OS awareness invariant: $required"}
+          }
+          foreach($forbidden in @('Invoke-Expression','ScriptBlock]::Create','-EncodedCommand','DownloadString')){
+            if($txt -match [regex]::Escape($forbidden)){throw "forbidden execution primitive: $forbidden"}
+          }
+          if($txt -match "run_os_awareness'.*\[string\]\$o\.(command|args|argv|path|operation)"){throw 'caller-controlled OS execution payload detected'}
+          Write-Host 'OS_AWARENESS_TRIGGER_PASS snapshot=fixed arbitrary_shell=false caller_argv=false caller_path=false'
