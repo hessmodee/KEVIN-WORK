@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-31T11:42:09.4074178-06:00",
+    "generated_at":  "2026-08-31T11:45:09.3465446-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788197944927,
-                                  "next_run_at_ms":  1788198124927
+                                  "last_run_at_ms":  1788198124942,
+                                  "next_run_at_ms":  1788198304942
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -74,11 +74,11 @@
                                   "name":  "Kevin HQ Live Pulse v1.5",
                                   "enabled":  true,
                                   "every_ms":  60000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788198118393,
-                                  "next_run_at_ms":  1788198178393
+                                  "last_status":  "error",
+                                  "last_run_status":  "error",
+                                  "consecutive_errors":  1,
+                                  "last_run_at_ms":  1788198254663,
+                                  "next_run_at_ms":  1788198314663
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -89,20 +89,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788198003520,
-                                  "next_run_at_ms":  1788198183520
-                              },
-                              {
-                                  "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
-                                  "declaration_key":  "kevin-benchmark-v1",
-                                  "name":  "Kevin Benchmark v1.1c",
-                                  "enabled":  true,
-                                  "every_ms":  600000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788197607864,
-                                  "next_run_at_ms":  1788198207864
+                                  "last_run_at_ms":  1788198183536,
+                                  "next_run_at_ms":  1788198363536
                               },
                               {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
@@ -113,17 +101,29 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788197988562,
-                                  "next_run_at_ms":  1788198288562
+                                  "last_run_at_ms":  1788198288577,
+                                  "next_run_at_ms":  1788198588577
+                              },
+                              {
+                                  "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
+                                  "declaration_key":  "kevin-benchmark-v1",
+                                  "name":  "Kevin Benchmark v1.1c",
+                                  "enabled":  true,
+                                  "every_ms":  600000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788198254657,
+                                  "next_run_at_ms":  1788198854657
                               }
                           ],
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  315,
+                       "cycle":  316,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-08-31T11:40:05.1033761-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-08-31T11:44:12.5938596-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -134,7 +134,7 @@
                      "last_brief":  "20260831-113726-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-08-31T11:33:36.5427953-06:00",
+                      "at":  "2026-08-31T11:44:23.6429793-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -148,20 +148,20 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260831-113355-forge-v4-i268-evaluation.json",
-                              "at":  "2026-08-31T11:34:46.3497819-06:00",
+                              "file":  "20260831-114305-forge-v4-i269-evaluation.json",
+                              "at":  "2026-08-31T11:44:12.4773781-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  268,
+                              "iteration":  269,
                               "verdict":  "REJECT",
                               "score":  2,
                               "result":  "",
-                              "failure_count":  8,
-                              "security_finding_count":  4,
+                              "failure_count":  6,
+                              "security_finding_count":  2,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-31T11:39:49.4712335-06:00",
+                        "at":  "2026-08-31T11:44:49.4714412-06:00",
                         "status":  "ALREADY_APPLIED_PROVEN",
                         "manifest_id":  "runtime-convergence-post-forge-fail-audit-20260831-1124",
                         "stage_path":  "",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "F0A8243A18E26BA941670734BFE4E607198F7FE55A2148ACD6C88EA2E804CAC3"
+    "semantic_hash":  "6E7E866F45656ED95A36DDAE222D281B6B547783E22C3FDCF51BF2FCF138B13F"
 }
