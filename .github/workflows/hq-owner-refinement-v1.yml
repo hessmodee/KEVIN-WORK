@@ -8,6 +8,7 @@ on:
       - 'docs/hq-fun-v2.js'
       - 'docs/hq-overrides-v1.js'
       - 'docs/ops/embed.html'
+      - 'docs/ops/ops-truth-patch-v1.js'
       - 'docs/ops/ops-owner-refinement-v1.js'
       - 'docs/ops/ops-owner-refinement-v1.css'
       - 'docs/ops/ops-fun-v2.js'
@@ -26,6 +27,7 @@ jobs:
         run: |
           node --check docs/hq-owner-refinement-v1.js
           node --check docs/hq-fun-v2.js
+          node --check docs/ops/ops-truth-patch-v1.js
           node --check docs/ops/ops-owner-refinement-v1.js
           node --check docs/ops/ops-fun-v2.js
           node --check docs/hq-overrides-v1.js
@@ -45,6 +47,7 @@ jobs:
           hq=Path('docs/hq-owner-refinement-v1.js').read_text()
           hqfun=Path('docs/hq-fun-v2.js').read_text()
           emb=Path('docs/ops/embed.html').read_text()
+          truth=Path('docs/ops/ops-truth-patch-v1.js').read_text()
           ops=Path('docs/ops/ops-owner-refinement-v1.js').read_text()
           opsfun=Path('docs/ops/ops-fun-v2.js').read_text()
           css=Path('docs/ops/ops-owner-refinement-v1.css').read_text()
@@ -55,15 +58,22 @@ jobs:
           assert 'hooked=false' not in hq and 'if(hooked)' not in hq
           assert 'observer.observe(x,{childList:true})' in hq and 'subtree:true' not in hq
           assert 'function setText' in hq and "setText(card.querySelector('.k')" in hq
-          assert 'livePulseHealthy' in hq and 'livePulseHealthy' in ops
-          assert "kevin-hq-live-pulse-v15" in hq and "kevin-hq-live-pulse-v15" in ops
+          assert 'livePulseHealthy' in hq and 'livePulseHealthy' in ops and 'livePulseHealthy' in truth
+          assert "kevin-hq-live-pulse-v15" in hq and "kevin-hq-live-pulse-v15" in ops and "kevin-hq-live-pulse-v15" in truth
           assert "if(da>180){if(sa<=480&&livePulseHealthy(s))return 'DEGRADED';return 'OFFLINE'}" in hq
           assert "if(da>180){if(sa<=480&&livePulseHealthy(s))return 'DEGRADED';return 'OFFLINE'}" in ops
-          assert 'ops-owner-refinement-v1.css?v=4' in emb and 'ops-owner-refinement-v1.js?v=5' in emb and 'ops-fun-v2.js?v=2' in emb
+          assert 'parseTimestamp' in truth and "window.telemetryOffline=(d,s)=>" in truth and "window.telemetryAgeMs=(d,s)=>" in truth
+          assert "if(ageSeconds(s?.generated_at)<=480&&livePulseHealthy(s))return false" in truth
+          assert "return {state:'DEGRADED',active:false,evidence:'Dashboard publication delayed; live pulse healthy'}" in truth
+          assert 'ops-owner-refinement-v1.css?v=5' in emb and 'ops-truth-patch-v1.js?v=2' in emb and 'ops-owner-refinement-v1.js?v=5' in emb and 'ops-fun-v2.js?v=2' in emb
           assert '#244f8f' in emb and '#68d8ce' in emb and '#ffd166' in emb
           for status in ['READY','ARMED','ACTIVE','WORKING','BUILDING','COOLDOWN','DEGRADED','OFFLINE']:
               assert status in emb
           assert 'worker-progress{display:none!important}' in css
+          assert '#kevinHub.owner-selected,#kevinHub:focus,#kevinHub:focus-visible{outline:none!important}' in css
+          assert '#kevinHub .hub-inner{height:236px;min-height:236px;width:230px;justify-content:flex-start}' in css
+          assert '#kevinHub .kevin-meta{min-height:62px' in css
+          assert '#kevinHub.truth-armed .hub-inner{box-shadow:none!important}' in css
           assert "querySelectorAll('.worker-progress').forEach(x=>x.remove())" in ops
           assert 'parseTimestamp' in ops and 'parseTimestamp' in hq and '>480' in ops and '>480' in hq
           assert "class:'owl-eye-outline'" in opsfun and '--blink-rate' in opsfun and '--blink-delay' in opsfun
@@ -81,4 +91,4 @@ jobs:
           assert 'setInterval(refreshTelemetry,3000)' in ops
           assert 'setInterval(refreshBase,4000)' in opsfun
           assert "type:'kevin-ops-state'" in ops and "type!=='kevin-ops-state'" in hq
-          print('HQ_OWNER_REFINEMENT_PASS live_timestamp=true kevin_reselect=true owl_outline=true blink_stagger=true gaze=true celebration=true active_color=true refresh_near_real_time=true redraw_idempotent=true iframe_rebind=true no_observer_self_loop=true pulse_aware_liveness=true')
+          print('HQ_OWNER_REFINEMENT_PASS live_timestamp=true kevin_reselect=true owl_outline=true blink_stagger=true gaze=true celebration=true active_color=true refresh_near_real_time=true redraw_idempotent=true iframe_rebind=true no_observer_self_loop=true pulse_aware_liveness=true unified_ops_liveness=true hub_outline_removed=true hub_layout_stable=true')
