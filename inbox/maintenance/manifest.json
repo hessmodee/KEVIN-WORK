@@ -1,18 +1,16 @@
 {
-  "schema": 1,
-  "kind": "kevin-maintenance-manifest",
-  "id": "maintenance-bootstrap-v13-20260830-1735",
+  "schema": 2,
+  "kind": "kevin-typed-maintenance-manifest",
+  "id": "typed-ui-bridge-restart-v034-20260830-1811",
   "authority_class": "GREEN",
-  "production_effect": "NONE",
   "authority_delta": "NONE",
-  "requires_owner_approval": true,
-  "payload_path": "inbox/maintenance/packages/bootstrap-maintenance-v13-20260830.ps1",
-  "payload_sha256": "89F36888876D61322671DC9A0D188F3EAE8995DA68FB2EB4D2B3AD313DF131B6",
-  "expires_at": "2026-08-31T18:00:00-06:00",
-  "expected_current": {
-    "kevin-maintenance-runner.ps1": "3B9D5B235E593C1CFF8CC9B7DED9E82FB958C2F7CD1F29FC813ECFA87E5C5483"
-  },
-  "expected_after": {
-    "kevin-maintenance-runner.ps1": "5C3B170FAF996FFE0890C028ABE1DD16D8A14258E5A1CAE2653E39F857AB324A"
-  }
+  "production_effect": "NONE",
+  "owner_policy": "Kevin Owner Authorization v1",
+  "preauthorized": true,
+  "operation": "restart_ui_bridge",
+  "target_alias": "ui_bridge_runner",
+  "expected_current_sha256": "5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42",
+  "task_name": "Kevin UI Bridge v0.3",
+  "heartbeat_timeout_seconds": 15,
+  "expires_at": "2026-09-02T12:00:00-06:00"
 }
