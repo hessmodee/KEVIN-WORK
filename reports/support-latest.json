@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-31T16:09:51.7618531-06:00",
+    "generated_at":  "2026-08-31T16:12:51.8516925-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788214007548,
-                                  "next_run_at_ms":  1788214187548
+                                  "last_run_at_ms":  1788214187562,
+                                  "next_run_at_ms":  1788214367562
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788214141964,
-                                  "next_run_at_ms":  1788214201964
+                                  "last_run_at_ms":  1788214339014,
+                                  "next_run_at_ms":  1788214399014
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -89,8 +89,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788214062610,
-                                  "next_run_at_ms":  1788214242610
+                                  "last_run_at_ms":  1788214242629,
+                                  "next_run_at_ms":  1788214422629
                               },
                               {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
@@ -98,11 +98,11 @@
                                   "name":  "Kevin Maintenance Intake v1.1d",
                                   "enabled":  true,
                                   "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788213953785,
-                                  "next_run_at_ms":  1788214253785
+                                  "last_status":  "error",
+                                  "last_run_status":  "error",
+                                  "consecutive_errors":  1,
+                                  "last_run_at_ms":  1788214279005,
+                                  "next_run_at_ms":  1788214579005
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -122,16 +122,16 @@
     "supervisor":  {
                        "cycle":  345,
                        "last_mission":  "forge-v4",
-                       "last_result":  "REJECT",
-                       "next_eligible_at":  "2026-08-31T16:08:59.8863782-06:00",
+                       "last_result":  "RECOVERY_PASS",
+                       "next_eligible_at":  "2026-08-31T16:11:16.9212879-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
     "recovery":  {
-                     "fingerprint":  "3357033A66E1F1924E8F8419DE9C74F7A68E6A390597F60B749847975FB6B26D",
+                     "fingerprint":  "2DA06330F6181FF123085A4121617AF102FD03840555EA7826319CDBBB37E978",
                      "round":  1,
-                     "last_at":  "2026-08-31T16:02:07.5957363-06:00",
-                     "last_brief":  "20260831-160207-round1.json"
+                     "last_at":  "2026-08-31T16:11:16.7960699-06:00",
+                     "last_brief":  "20260831-161116-round1.json"
                  },
     "benchmark":  {
                       "at":  "2026-08-31T16:06:45.4562340-06:00",
@@ -161,11 +161,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-31T16:07:14.9283138-06:00",
-                        "status":  "ALREADY_APPLIED_PROVEN",
-                        "manifest_id":  "install-maintenance-v138-workshop-guardrails-20260831-1602",
+                        "at":  "2026-08-31T16:11:34.0739958-06:00",
+                        "status":  "APPLY_FAILED",
+                        "manifest_id":  "configure-skill-workshop-propose-pending-20260831-1610",
                         "stage_path":  "",
-                        "detail":  "Maintenance previously proven."
+                        "detail":  "Workshop propose dry-run rejected"
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "93CC8AAC24B8A0425765F437B55961AEDE80A126B9F513AAEAD9B2972036810A"
+    "semantic_hash":  "91EA28D6418986575B8E886CE3D12CC9AB76CD1859E578C89FD6A819A6FF893E"
 }
