@@ -32,24 +32,24 @@ jobs:
           files = {
             'maintenance': Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1').read_text(),
             'intake': Path('control-plane/intake/kevin-work-order-intake-v1.2.2.ps1').read_text(),
-            'watchdog': Path('control-plane/maintenance/kevin-gateway-watchdog-v1.ps1').read_text(),
+            'watchdog': Path('control-plane/maintenance/kevin-self-reliance-watchdog-v1.1.ps1').read_text(),
           }
           forbidden = ['invoke-expression','scriptblock::create','invoke-command','-encodedcommand','downloadstring','wscript.shell']
           for name,text in files.items():
               low=text.lower()
               bad=[x for x in forbidden if x in low]
               assert not bad,(name,bad)
-          m=files['maintenance']
-          i=files['intake']
-          w=files['watchdog']
+          m=files['maintenance']; i=files['intake']; w=files['watchdog']
           assert "@('replace_pinned_component','restart_ui_bridge')" in m
           for alias in ["'maintenance_runner'","'work_order_intake'","'skill_lab_runner'"]:
               assert alias in m
           assert 'run_typed_maintenance' in i and 'kevin-maintenance-v1' in i
           assert "return Invoke-FixedPowerShell $MaintenancePath @('-CheckOnly') 600" in i
-          assert "gateway','status','--require-rpc','--json" in w
-          assert "gateway','restart','--wait','30s','--json" in w
-          assert '$MaxAttempts=3' in w and '$CooldownMinutes=15' in w
+          assert "@('gateway','status','--require-rpc','--json')" in w
+          assert "@('gateway','restart','--wait','30s','--json')" in w
+          assert "@('-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',$MaintenancePath,'-CheckOnly')" in w
+          assert '$MaxAttempts=3' in w and '$CooldownMinutes=15' in w and '$MaintenanceIntervalMinutes=5' in w
+          assert 'caller_argv=false' in w and 'remote_payload=false' in w
           print('PASS fixed authority boundary')
           PY
 
@@ -66,7 +66,7 @@ jobs:
           $files=@(
             'control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1',
             'control-plane/intake/kevin-work-order-intake-v1.2.2.ps1',
-            'control-plane/maintenance/kevin-gateway-watchdog-v1.ps1'
+            'control-plane/maintenance/kevin-self-reliance-watchdog-v1.1.ps1'
           )
           foreach($p in $files){
             $txt=[IO.File]::ReadAllText($p)
@@ -79,7 +79,7 @@ jobs:
           if($LASTEXITCODE -ne 0){throw 'Maintenance self-test failed'}
           & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/intake/kevin-work-order-intake-v1.2.2.ps1' -Mode SelfTest
           if($LASTEXITCODE -ne 0){throw 'Intake self-test failed'}
-          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/maintenance/kevin-gateway-watchdog-v1.ps1' -SelfTest
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/maintenance/kevin-self-reliance-watchdog-v1.1.ps1' -SelfTest
           if($LASTEXITCODE -ne 0){throw 'Watchdog self-test failed'}
       - name: Canonical SHA256 identities
         shell: powershell
@@ -87,7 +87,7 @@ jobs:
           foreach($p in @(
             'control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1',
             'control-plane/intake/kevin-work-order-intake-v1.2.2.ps1',
-            'control-plane/maintenance/kevin-gateway-watchdog-v1.ps1'
+            'control-plane/maintenance/kevin-self-reliance-watchdog-v1.1.ps1'
           )){
             $h=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
             Write-Host ("CANONICAL_SHA256 {0} {1}" -f $h,$p)
