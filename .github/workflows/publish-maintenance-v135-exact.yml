@@ -50,15 +50,24 @@ jobs:
           $expected = '81D2C58E3CFDD89D43FFD119F36D08C841AAB2F9059FA3947790103230C45221'
           $content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($src))
 
+          # Use an input JSON file so the base64 payload is never placed on the Windows command line.
+          $requestPath = Join-Path $env:RUNNER_TEMP 'publish-v135-request.json'
+          $request = [ordered]@{
+            message = 'Publish exact CI-qualified Maintenance v1.3.5'
+            content = $content
+            branch = 'main'
+          }
+          [IO.File]::WriteAllText($requestPath, ($request | ConvertTo-Json -Compress), (New-Object Text.UTF8Encoding($false)))
+
           $old = $ErrorActionPreference
           try {
             $ErrorActionPreference = 'Continue'
-            & gh api --method PUT "repos/$env:GITHUB_REPOSITORY/contents/$repoPath" -f message='Publish exact CI-qualified Maintenance v1.3.5' -f content=$content -f branch=main | Out-Null
+            & gh api --method PUT "repos/$env:GITHUB_REPOSITORY/contents/$repoPath" --input $requestPath | Out-Null
             $createCode = [int]$LASTEXITCODE
           } finally { $ErrorActionPreference = $old }
 
           if ($createCode -ne 0) {
-            Write-Host "Create returned $createCode; verifying whether an identical file already won the race."
+            Write-Host "Create returned $createCode; verifying whether identical bytes already won the race."
           }
 
           $raw = (& gh api "repos/$env:GITHUB_REPOSITORY/contents/$repoPath?ref=main" --jq .content | Out-String).Trim()
