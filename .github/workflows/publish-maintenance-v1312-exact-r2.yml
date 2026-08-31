@@ -1,0 +1,38 @@
+name: Publish Maintenance v1.3.12 Exact r2
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1312-r03-contract.py'
+      - '.github/workflows/publish-maintenance-v1312-exact-r2.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.13'}
+      - name: Regenerate exact qualified candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop';python .\tools\generate-maintenance-v1312-r03-contract.py
+          $p='.\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.12.ps1';$expected='2CA0EA73E5F43EB1FA7F004288193EE18C450029C403C9A80BE7D3931565E629';$actual=(Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToUpperInvariant();if($actual-ne$expected){throw "candidate identity drift $actual"}
+          $tokens=$null;$errors=$null;[void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors);if($errors.Count-gt0){throw 'parse failed'}
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1|Out-String;if($LASTEXITCODE-ne0-or$out-notmatch'KEVIN MAINTENANCE v1\.3\.12 SELFTEST PASS'){throw 'selftest failed'}
+      - name: Publish exact bytes through JSON input file
+        shell: powershell
+        env: {GH_TOKEN: '${{ github.token }}'}
+        run: |
+          $ErrorActionPreference='Stop';$repo=$env:GITHUB_REPOSITORY;$path='control-plane/maintenance/kevin-maintenance-runner-v1.3.12.ps1';$src='.\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.12.ps1';$expected='2CA0EA73E5F43EB1FA7F004288193EE18C450029C403C9A80BE7D3931565E629';$utf8=New-Object Text.UTF8Encoding($false)
+          $old=$ErrorActionPreference;try{$ErrorActionPreference='Continue';$existing=(& gh api "repos/$repo/contents/$path?ref=main" 2>$null|Out-String).Trim();$code=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
+          if($code-eq0-and$existing){$obj=$existing|ConvertFrom-Json;$bytes=[Convert]::FromBase64String(([string]$obj.content-replace'\s',''));$sha=[Security.Cryptography.SHA256]::Create();try{$h=([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','').ToUpperInvariant()}finally{$sha.Dispose()};if($h-ne$expected){throw "existing mismatch $h"};Write-Host "V1312_ALREADY_PUBLISHED_EXACT sha256=$h";exit 0}
+          $body=[ordered]@{message='Publish exact CI-qualified Maintenance v1.3.12';content=[Convert]::ToBase64String([IO.File]::ReadAllBytes($src));branch='main'}|ConvertTo-Json -Compress;$input=Join-Path $env:RUNNER_TEMP 'publish-v1312.json';[IO.File]::WriteAllText($input,$body,$utf8)
+          & gh api --method PUT "repos/$repo/contents/$path" --input $input --silent;if($LASTEXITCODE-ne0){throw 'publication failed'}
+          Start-Sleep -Seconds 1;$remote=(& gh api "repos/$repo/contents/$path?ref=main"|ConvertFrom-Json);$bytes=[Convert]::FromBase64String(([string]$remote.content-replace'\s',''));$sha=[Security.Cryptography.SHA256]::Create();try{$h=([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','').ToUpperInvariant()}finally{$sha.Dispose()};if($h-ne$expected){throw "post-publish mismatch $h"};Write-Host "V1312_PUBLISHED_EXACT sha256=$h"
