@@ -1,10 +1,10 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T01:48:55.7157936-06:00",
-  "status": "degraded",
+  "generated_at": "2026-08-31T01:50:13-06:00",
+  "status": "ready",
   "health": {
-    "overall": "degraded",
-    "failed_checks": 1
+    "overall": "healthy",
+    "failed_checks": 0
   },
   "brain": {
     "name": "Qwen 2.5 14B",
@@ -15,27 +15,20 @@
   "current_task": null,
   "services": {
     "tick": "healthy",
-    "bridge": "degraded",
+    "bridge": "healthy",
     "ollama": "healthy",
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 35,
+    "memory_pct": 33,
     "cpu_pct": 7,
     "gpu": "RTX 3060",
-    "gpu_pct": 36
+    "gpu_pct": 32
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T21:43:57-06:00",
-        "estimated": false,
-        "ram": 34,
-        "cpu": 16,
-        "gpu": 35
-      },
       {
         "at": "2026-08-30T21:44:36-06:00",
         "estimated": false,
@@ -700,11 +693,17 @@
         "ram": 35,
         "cpu": 7,
         "gpu": 36
+      },
+      {
+        "at": "2026-08-31T01:50:13-06:00",
+        "estimated": false,
+        "ram": 33,
+        "cpu": 7,
+        "gpu": 32
       }
     ],
     "ram": [
       34,
-      34,
       35,
       35,
       38,
@@ -798,10 +797,10 @@
       34,
       34,
       35,
-      35
+      35,
+      33
     ],
     "cpu": [
-      16,
       16,
       9,
       9,
@@ -896,10 +895,10 @@
       13,
       13,
       7,
+      7,
       7
     ],
     "gpu": [
-      35,
       35,
       39,
       39,
@@ -994,11 +993,12 @@
       9,
       9,
       36,
-      36
+      36,
+      32
     ]
   },
   "weather": {
-    "summary": "Tonight 45 | Wind 3 mph | Mostly Clear"
+    "summary": "Overnight 45 | Wind 5 mph | Mostly Clear"
   },
   "capabilities": [
     {
@@ -1093,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 92,
-      "total": 96
+      "done": 93,
+      "total": 97
     }
   ],
   "roadmap": {
@@ -1147,6 +1147,13 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-31T01:50:13-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
     {
       "at": "2026-08-31T01:42:36-06:00",
       "source": "forge",
@@ -1202,13 +1209,6 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-31T01:35:13-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "fail"
     },
     {
       "at": "2026-08-31T01:33:26-06:00",
@@ -1375,15 +1375,15 @@
   ],
   "owl": {
     "level": 1,
-    "state": "warning"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-31T01:48:55.7157936-06:00",
+    "last": "2026-08-31T01:50:13-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
-    "fails": 1,
-    "summary": "1 check(s) failed"
+    "fails": 0,
+    "summary": "All checks passed"
   },
   "autonomy": {
     "mode": "hourly_design",
@@ -1415,7 +1415,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-31T01:48:55.7157936-06:00",
+    "generated_at": "2026-08-31T01:49:55.7296015-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
