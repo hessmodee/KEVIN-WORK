@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-30T18:59:31.2809227-06:00",
+    "generated_at":  "2026-08-30T19:02:31.1944465-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788137786917,
-                                  "next_run_at_ms":  1788137966917
+                                  "last_run_at_ms":  1788137966930,
+                                  "next_run_at_ms":  1788138146930
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,20 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788137919582,
-                                  "next_run_at_ms":  1788137979582
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788137697506,
-                                  "next_run_at_ms":  1788137997506
+                                  "last_run_at_ms":  1788138109399,
+                                  "next_run_at_ms":  1788138169399
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -101,8 +89,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788137882957,
-                                  "next_run_at_ms":  1788138062957
+                                  "last_run_at_ms":  1788138062971,
+                                  "next_run_at_ms":  1788138242971
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -115,6 +103,18 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788137660013,
                                   "next_run_at_ms":  1788138260013
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "error",
+                                  "last_run_status":  "error",
+                                  "consecutive_errors":  1,
+                                  "last_run_at_ms":  1788137997517,
+                                  "next_run_at_ms":  1788138297517
                               }
                           ],
                  "error":  ""
@@ -122,19 +122,19 @@
     "supervisor":  {
                        "cycle":  197,
                        "last_mission":  "knowledge",
-                       "last_result":  "REJECT",
-                       "next_eligible_at":  "2026-08-30T18:58:37.5090195-06:00",
+                       "last_result":  "RECOVERY_PASS",
+                       "next_eligible_at":  "2026-08-30T19:01:34.0701805-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
     "recovery":  {
-                     "fingerprint":  "DDAD78B460173478E5E82EA4BF600B8328D98CC51B0622A86FBD54D1618B7A01",
+                     "fingerprint":  "0B3B3A218712D3C523FB0729CFA6B10D03D027C9538F381C5FBBADEF6F3A782B",
                      "round":  1,
-                     "last_at":  "2026-08-30T18:49:45.4436387-06:00",
-                     "last_brief":  "20260830-184945-round1.json"
+                     "last_at":  "2026-08-30T19:01:33.9496928-06:00",
+                     "last_brief":  "20260830-190133-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-08-30T18:54:22.5039998-06:00",
+                      "at":  "2026-08-30T19:01:21.9662640-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -161,11 +161,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-30T18:54:58.3713578-06:00",
-                        "status":  "SCHEMA2_NEEDS_MIGRATION",
-                        "manifest_id":  "typed-ui-bridge-restart-v034-20260830-1811",
+                        "at":  "2026-08-30T19:01:22.1051681-06:00",
+                        "status":  "APPLY_FAILED",
+                        "manifest_id":  "typed-ui-bridge-restart-v034-schema3-20260830-1858",
                         "stage_path":  "",
-                        "detail":  "v1.3 requires schema-3 aliases for self-maintenance transport."
+                        "detail":  "The term \u0027return[ordered]@\u0027 is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again."
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "19AF3176666D135D41B09B018CE31F5D077C479121B6F90359C9FCB966E26469"
+    "semantic_hash":  "E5BE227C3257014632242EA8DBA6992E99172BD16718AAD3AC89AB8A09C1FD93"
 }
