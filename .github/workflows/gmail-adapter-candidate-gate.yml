@@ -23,19 +23,22 @@ jobs:
         run: python -m pip install --disable-pip-version-check -r requirements.txt
       - name: Syntax
         working-directory: candidates/communications/gmail
-        run: python -m py_compile kevin_gmail_adapter.py test_kevin_gmail_adapter.py
-      - name: Unit tests
+        run: python -m py_compile kevin_gmail_adapter.py kevin_gmail_adapter_v0_2.py test_kevin_gmail_adapter.py
+      - name: Existing v0.1 unit tests
         working-directory: candidates/communications/gmail
         run: pytest -q
-      - name: Deterministic selftest
+      - name: Deterministic v0.1 selftest
         working-directory: candidates/communications/gmail
         run: python kevin_gmail_adapter.py selftest
-      - name: Secret and authority static boundary
+      - name: Deterministic v0.2 threaded-reply selftest
+        working-directory: candidates/communications/gmail
+        run: python kevin_gmail_adapter_v0_2.py selftest
+      - name: Secret, threading and authority static boundary
         shell: python
         run: |
           from pathlib import Path
           root=Path('candidates/communications/gmail')
-          code=(root/'kevin_gmail_adapter.py').read_text(encoding='utf-8')
+          code=(root/'kevin_gmail_adapter_v0_2.py').read_text(encoding='utf-8')
           readme=(root/'README.md').read_text(encoding='utf-8')
           assert 'hessmodee@gmail.com' in code
           assert 'ALLOWED_TO' in code and 'recipient_not_allowlisted' in code
@@ -46,10 +49,12 @@ jobs:
           assert 'keyring.set_password' in code and 'keyring.get_password' in code
           assert 'InstalledAppFlow.from_client_secrets_file' in code
           assert 'flow.run_local_server' in code
-          assert 'normal_password_supported' in code
+          assert 'In-Reply-To' in code and 'References' in code and 'threadId' in code
+          assert 'reply-from-file' in code and 'gmail-outbox' in code
+          assert 'reply_body_command_line' in code
           assert 'body_emitted_publicly' in code
           assert 'credential_material_emitted' in code
           assert 'Do **not** ask Matt to paste a password' in readme
           forbidden_files={'credentials.json','token.json','.env'}
           assert not any(p.name in forbidden_files for p in root.rglob('*') if p.is_file())
-          print('GMAIL_CANDIDATE_BOUNDARY_PASS recipient_allowlist=owner_only scopes=send+readonly secret_store=keyring body_public=false')
+          print('GMAIL_V02_BOUNDARY_PASS recipient=owner_only scopes=send+readonly threaded_reply=true reply_body_cli=false secret_store=keyring')
