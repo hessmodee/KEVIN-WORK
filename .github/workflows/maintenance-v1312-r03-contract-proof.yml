@@ -1,0 +1,78 @@
+name: Maintenance v1.3.12 R03 Contract Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1312-r03-contract.py'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.10.ps1'
+      - '.github/workflows/maintenance-v1312-r03-contract-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Generate candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          python .\tools\generate-maintenance-v1312-r03-contract.py
+          if($LASTEXITCODE-ne0){throw 'generator failed'}
+      - name: Parse and deterministic self-test
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $p=Resolve-Path .\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.12.ps1
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count-gt0){$errors|ForEach-Object{Write-Host $_.Message};throw 'PowerShell parse failed'}
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1|Out-String
+          Write-Host $out
+          if($LASTEXITCODE-ne0){throw 'selftest failed'}
+          foreach($m in @('KEVIN MAINTENANCE v1.3.12 SELFTEST PASS','r03_contract_diagnosis=fixed','metadata_only=true','bounded_publish_retries=3','arbitrary_shell=false')){if($out-notmatch[regex]::Escape($m)){throw "missing marker $m"}}
+      - name: Static diagnosis and authority invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          t=Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.12.ps1').read_text(encoding='utf-8')
+          for x in [
+            'diagnose_forge_r03_contract','Assert-ForgeR03ContractDiagnosis','Diagnose-ForgeR03Contract',
+            'reports/forge-r03-contract.json','DIAGNOSIS_PROVEN',
+            "foreach($name in @('path','command','args','target','source_path','source_sha256','hash','test_id','context','file'))",
+            "for($attempt=1;$attempt-le3;$attempt++)",'R03 contract receipt bounded publish retries exhausted',
+            'current_forge_literal_count','identifier_hints','literal_hints','operators',
+            'No raw Benchmark source','Assert-Benchmark30',
+            'production_effect must be NONE','authority_delta must be NONE','$MaxAttempts = 3'
+          ]: assert x in t, x
+          for x in ['Invoke-Expression','DownloadString(','New-Object Net.WebClient','System.Net.WebClient']:
+              assert x.lower() not in t.lower(), x
+          assert "'diagnose_forge_r03_contract' { Assert-ForgeR03ContractDiagnosis $m }" in t
+          assert "'diagnose_forge_r03_contract' { Diagnose-ForgeR03Contract; break }" in t
+          print('V1312_STATIC_PASS fixed_r03=true metadata_only=true caller_selected=false authority_delta=NONE')
+      - name: Emit exact candidate identity
+        shell: python
+        run: |
+          import hashlib,json
+          from pathlib import Path
+          c=Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.12.ps1')
+          b=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.10.ps1')
+          out={'schema':1,'kind':'kevin-maintenance-v1312-qualified-candidate','git_head':'${{ github.sha }}','candidate_path':str(c).replace('\\','/'),'sha256':hashlib.sha256(c.read_bytes()).hexdigest().upper(),'base_v1310_sha256':hashlib.sha256(b.read_bytes()).hexdigest().upper()}
+          Path('maintenance-v1312-candidate-hash.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf-8')
+          print(Path('maintenance-v1312-candidate-hash.json').read_text())
+      - uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-v1312-qualified-candidate
+          path: |
+            control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.12.ps1
+            maintenance-v1312-candidate-hash.json
+          if-no-files-found: error
+          retention-days: 7
