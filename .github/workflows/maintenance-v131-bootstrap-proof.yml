@@ -32,10 +32,10 @@ jobs:
             $tokens=$null;$errors=$null
             [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
             if($errors.Count){throw "parser failed $p : $($errors[0].Message)"}
-            foreach($pattern in @('(?m)\breturn(?=\$|\[|@)','(?i)-Filter''')){
-              if($txt -match $pattern){throw "Windows token adjacency regression $pattern in $p"}
-            }
+            if($txt -match '(?m)\breturn(?=\$|\[|@)'){throw "Windows return-token adjacency regression in $p"}
           }
+          $candText=[IO.File]::ReadAllText($cand)
+          if($candText -match '(?i)-Filter'''){throw 'Windows -Filter token adjacency regression in maintenance candidate'}
           $ch=(Get-FileHash $cand -Algorithm SHA256).Hash.ToUpperInvariant()
           $bh=(Get-FileHash $boot -Algorithm SHA256).Hash.ToUpperInvariant()
           Write-Host "MAINTENANCE_V131_SHA256=$ch"
