@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "kind": "kevin-chat-handoff-checkpoint",
-  "generated_at": "2026-08-31T14:47:49Z",
-  "current_sprint": "2026-08-31 Daytime Production-Proof Sprint",
+  "generated_at": "2026-08-31T15:15:43-06:00",
+  "current_sprint": "2026-08-31 Autonomy Consolidation + Production-Proof Sprint",
   "start_here_path": "KEVIN-START-HERE.md",
   "handover_path": "AI-HANDOVER.md",
   "current_task_path": "inbox/CURRENT_TASK.md",
@@ -20,22 +20,42 @@
   "production_proven": [
     "Work Order Intake v1.2.3",
     "OS Awareness v0.1 bounded read-only GREEN",
-    "Typed Maintenance v1.3.3",
+    "Typed Maintenance v1.3.7 observed installed SHA256 C044FC68CACF82A10F8E1092CCCCDEB8D1827F17440A8A9EA49744DD512819EA",
     "Benchmark baseline 30/30 critical=0",
-    "Skill Lab composite count 3 including business-budget-starter-pack@1"
+    "Skill Lab composite count 3 including business-budget-starter-pack@1",
+    "Fixed Omen native runtime capability audit at 15:06 MDT"
   ],
+  "runtime_convergence": {
+    "openclaw_cli_present": true,
+    "openclaw_version": "UNKNOWN",
+    "gateway_deep_probe_ok": true,
+    "task_flow_cli_available": true,
+    "task_flow_count": 1,
+    "skill_workshop_cli_available": true,
+    "skill_workshop_pending_count": 0,
+    "skill_workshop_policy": "UNSET_OR_UNKNOWN",
+    "lobster_runtime_proven": false,
+    "workspace_bootstrap_consumption_proven": false,
+    "forge_spin_live": "forge-v4 iteration 291 REJECT at 15:12 MDT, failure_count 5, security_findings 2"
+  },
   "p0": [
+    {
+      "name": "Runtime convergence / work selection",
+      "proof_level": "native runtime audit OMEN-PROVEN; behavioral convergence NOT PROVEN",
+      "next_boundary": "prove exact local bootstrap-byte consumption, stop demandless Forge admission, retire stale Engineering Relay request, then prove Kevin-selected useful work without Bess dispatch",
+      "blocker": "fresh autonomy still reports zero active engineering workers + NO_DISPATCH_NEEDED while explicit backlog exists; Forge churn remains live"
+    },
     {
       "name": "HQ direct chat",
       "proof_level": "CI-PROVEN source published on main",
       "next_boundary": "minimum typed Maintenance/Work-Order production crossing, then Omen install and real Matt-Kevin round trip",
-      "blocker": "current Maintenance v1.3.3 has no HQ-chat fixed install operation"
+      "blocker": "deferred behind runtime convergence"
     },
     {
       "name": "Reader",
       "proof_level": "not yet E2E-proven for requested real status question",
-      "next_boundary": "typed Reader E2E proof and reader-weather validation/promotion",
-      "blocker": "fresh proof receipt still required"
+      "next_boundary": "typed Reader E2E proof",
+      "blocker": "fresh semantic proof receipt still required"
     },
     {
       "name": "Gmail",
@@ -46,18 +66,12 @@
     {
       "name": "Telegram",
       "proof_level": "root cause unproven",
-      "next_boundary": "fresh sanitized local diagnosis then private round trip",
+      "next_boundary": "fresh sanitized native diagnosis then private round trip",
       "blocker": "trustworthy current local root-cause evidence missing"
-    },
-    {
-      "name": "Tick/autonomy work conservation",
-      "proof_level": "defect confirmed",
-      "next_boundary": "candidate-first detection/repair for backlog-vs-NO_DISPATCH_NEEDED and stale/duplicate states",
-      "blocker": "autonomy currently reports 0 workers/NO_DISPATCH_NEEDED despite explicit P0 backlog"
     }
   ],
   "cooled": [
-    "UI Bridge blind-restart family; require materially new process/task/event/session evidence or genuine executable selftest"
+    "Forge migration/replacement retry family until demand/admission semantics materially change; do not rename and retry the same hypothesis"
   ],
   "owner_checkpoints": [
     "Gmail OAuth enrollment only when local adapter reaches that exact boundary"
@@ -68,7 +82,9 @@
     "reports/control-plane-latest.json",
     "reports/engineering/latest.json",
     "reports/autonomy-latest.json",
-    "reports/skills.json"
+    "reports/skills.json",
+    "reports/runtime-capabilities-omen.json",
+    "reports/autonomy-master-scorecard.json"
   ],
   "privacy": {
     "contains_secrets": false,
