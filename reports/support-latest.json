@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-31T13:30:36.5078762-06:00",
+    "generated_at":  "2026-08-31T13:33:36.3309433-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -11,7 +11,7 @@
                    "goal_os":  "B20C7AC8EDC35C656ED544C4D13D3EB4FF4A79453AF0F49BD60B7DF31092AEF0",
                    "promotion_policy":  "0A10B3C1F379EDAEC7D0AA1C227A46990C8CE80D6FDC5D9C04B67EB8AA26952E",
                    "support_bridge":  "E72A2A635326CF1AB036404E64E274D2F56CE79CA5CEB268DBF9B2EA4B67BEA5",
-                   "maintenance_runner":  "81D2C58E3CFDD89D43FFD119F36D08C841AAB2F9059FA3947790103230C45221"
+                   "maintenance_runner":  "C26D7D095097CC9E8357B747A88B3A8051576B1548555E15F8B140328B3BF4A8"
                },
     "governance":  {
                        "ok":  true,
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788204452041,
-                                  "next_run_at_ms":  1788204632041
+                                  "last_run_at_ms":  1788204632057,
+                                  "next_run_at_ms":  1788204812057
                               },
                               {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
@@ -76,21 +76,9 @@
                                   "every_ms":  300000,
                                   "last_status":  "error",
                                   "last_run_status":  "error",
-                                  "consecutive_errors":  1,
-                                  "last_run_at_ms":  1788204373135,
-                                  "next_run_at_ms":  1788204673135
-                              },
-                              {
-                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
-                                  "declaration_key":  "kevin-hq-live-pulse-v15",
-                                  "name":  "Kevin HQ Live Pulse v1.5",
-                                  "enabled":  true,
-                                  "every_ms":  60000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788204613179,
-                                  "next_run_at_ms":  1788204673179
+                                  "consecutive_errors":  2,
+                                  "last_run_at_ms":  1788204673145,
+                                  "next_run_at_ms":  1788204853447
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -101,8 +89,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788204496164,
-                                  "next_run_at_ms":  1788204676164
+                                  "last_run_at_ms":  1788204678331,
+                                  "next_run_at_ms":  1788204858331
+                              },
+                              {
+                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
+                                  "declaration_key":  "kevin-hq-live-pulse-v15",
+                                  "name":  "Kevin HQ Live Pulse v1.5",
+                                  "enabled":  true,
+                                  "every_ms":  60000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788204798373,
+                                  "next_run_at_ms":  1788204858373
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -134,7 +134,7 @@
                      "last_brief":  "20260831-132854-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-08-31T13:24:52.7749102-06:00",
+                      "at":  "2026-08-31T13:31:24.9470882-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -161,11 +161,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-31T13:26:15.3982628-06:00",
-                        "status":  "APPLY_FAILED",
-                        "manifest_id":  "migrate-forge-v40-validator-pin-20260831-1322",
+                        "at":  "2026-08-31T13:31:25.1385789-06:00",
+                        "status":  "APPLIED_PREAUTHORIZED_PROVEN",
+                        "manifest_id":  "install-maintenance-v136-20260831-1328",
                         "stage_path":  "",
-                        "detail":  "Benchmark must contain old Forge pin exactly once; count=0"
+                        "detail":  "Applied/audited and independently verified."
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "A759ED4C55DEF4A0E1C421C29116FC041D69D7E8D3E62E7979430490E19048F3"
+    "semantic_hash":  "2AA06F6550ECC6D956EE26112F31C8062501B8BE55FD59C8479ED05F2B27B694"
 }
