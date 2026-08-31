@@ -46,7 +46,7 @@ jobs:
           Write-Host $out
           if ($LASTEXITCODE -ne 0 -or $out -notmatch 'KEVIN WORK SELECTOR v1 SELFTEST PASS') { throw 'selector selftest failed' }
 
-      - name: Prove current WIP selects useful independent work rather than spin
+      - name: Prove blocked work frees WIP and useful independent work wins
         shell: powershell
         run: |
           $ErrorActionPreference = 'Stop'
@@ -59,9 +59,14 @@ jobs:
           $r = Get-Content .\work-selection-proof.json -Raw | ConvertFrom-Json
           if ($r.status -ne 'SELECTED') { throw 'no useful work selected' }
           if ($r.selection.id -ne 'runtime-owner-doctrine-v2') { throw "unexpected selected work: $($r.selection.id)" }
+          if ([int]$r.wip.production -ne 0) { throw 'blocked production family incorrectly consumes WIP' }
           $forge = @($r.blocked | Where-Object { $_.id -eq 'finish-forge-v40-runtime-convergence' })
-          if ($forge.Count -ne 1 -or -not (@($forge[0].reasons) -contains 'WIP_PRODUCTION_FULL')) { throw 'active production WIP was not protected' }
-          Write-Host "WORK_SELECTION_PASS selected=$($r.selection.id) production_wip_protected=true"
+          if ($forge.Count -ne 1) { throw 'blocked Forge family missing from selector evidence' }
+          $reasons = @($forge[0].reasons)
+          foreach ($required in @('DEPENDENCY_BLOCKED','EXPLICITLY_BLOCKED','COOLING_DOWN','FAILURE_BUDGET_EXHAUSTED')) {
+            if (-not ($reasons -contains $required)) { throw "Forge quarantine reason missing: $required" }
+          }
+          Write-Host "WORK_SELECTION_PASS selected=$($r.selection.id) blocked_work_consumes_wip=false forge_quarantined=true"
 
       - name: Validate permanent GREEN authority is broad but cannot self-widen
         shell: python
@@ -69,7 +74,6 @@ jobs:
           import re
           from pathlib import Path
           auth = Path('control-plane/OWNER-GREEN-STANDING-AUTHORIZATION-v2.md').read_text(encoding='utf-8')
-          # Normalize Markdown punctuation/formatting so policy proof checks meaning-bearing text, not decoration.
           normalized = re.sub(r'[^a-z0-9]+', ' ', auth.lower()).strip()
           required = [
               'permanent owner authorization',
