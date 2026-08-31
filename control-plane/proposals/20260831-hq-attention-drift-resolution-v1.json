@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "kind": "kevin-owner-directed-drift-resolution",
+  "generated_at": "2026-08-31T16:55:00-06:00",
+  "owner_directive": "Fix the HQ Truth attention items ASAP, implement the real repairs, verify them, and teach Kevin to repair/prevent recurrence.",
+  "authority": {
+    "classification": "EXPLICIT_OWNER_DIRECTED_REPAIR",
+    "green_only": true,
+    "authority_delta": "NONE",
+    "automatic_bulk_adoption": false
+  },
+  "decisions": [
+    {
+      "component": "supervisor",
+      "decision": "ADOPT_CURRENT_PROVEN_IDENTITY",
+      "desired_sha256": "63B8D9C27625E0FB6AFE62165BE376E7ED7EB416E5DA15BB47C206BBF4AE4989",
+      "desired_name": "Kevin Supervisor v1.6 High Gear",
+      "evidence": [
+        "This exact identity was explicitly corrected as the authoritative production Supervisor identity in repository handover history on 2026-08-30.",
+        "Fresh Support continues to report this exact identity with the Supervisor scheduler enabled/ok and zero consecutive errors.",
+        "Fresh platform Benchmark remains PASS 30/30 critical=0."
+      ],
+      "reason": "The hash drift is stale desired-state metadata, not evidence that the stable current Supervisor is untrusted. Forge behavior is repaired separately rather than blaming the Supervisor identity."
+    },
+    {
+      "component": "maintenance_runner",
+      "decision": "ADOPT_CURRENT_PROVEN_IDENTITY",
+      "desired_sha256": "0D3363D5DFDA8025F4B7BEF4A178A65615D5BD11537C7E577868536B4FC1E3C1",
+      "evidence": [
+        "Maintenance v1.3.9 was installed through exact-hash typed replacement from the previously proven runner.",
+        "The installed identity has repeatedly executed fail-closed typed manifests and preserved rollback behavior.",
+        "Fresh Support reports the exact identity and Benchmark PASS 30/30 critical=0."
+      ],
+      "reason": "The old desired-state Maintenance pin predates multiple exact-hash proven upgrades and is stale."
+    },
+    {
+      "component": "forge",
+      "decision": "DO_NOT_ADOPT_YET",
+      "current_sha256": "4C83DF29E765D61F2B26D2029FE6C2C7ED68DA90E5A7A457A82BE769029E22CA",
+      "candidate_sha256": "433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A",
+      "reason": "Legacy Forge is actively associated with repeated rejected work. Demand-driven v4.0 failed the unchanged Benchmark during its first generic replacement attempt and was rolled back. Keep the owner trust pin unresolved until the exact Benchmark contract is diagnosed and a replacement passes all postconditions."
+    }
+  ],
+  "required_postconditions": [
+    "Desired State adopts only Supervisor and Maintenance in this step.",
+    "Autonomy refresh should reduce drift_count from 3 to 1, not cosmetically force 0.",
+    "Forge remains a visible attention item until a replacement is actually proven.",
+    "No safety, authority, recipient, shell, or external-send boundary changes."
+  ]
+}
