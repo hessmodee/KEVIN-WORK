@@ -1,0 +1,38 @@
+name: OS Awareness v0.2 RAM Type Proof
+
+on:
+  push:
+    paths:
+      - 'control-plane/os-awareness/kevin-os-observer-v0.2.ps1'
+      - '.github/workflows/os-awareness-v02-ram-type-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prove:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse, hash, selftest
+        shell: powershell
+        run: |
+          $p='control-plane/os-awareness/kevin-os-observer-v0.2.ps1'
+          $tokens=$null;$errors=$null
+          [void][Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors.Count){$errors|Format-List|Out-String|Write-Host;throw 'parse failed'}
+          Write-Host ('OS_OBSERVER_V02_SHA256='+(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant())
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1|Out-String
+          Write-Host $out
+          if($LASTEXITCODE-ne0){throw 'selftest failed'}
+          if($out-notmatch 'KEVIN OS OBSERVER v0\.1 SELFTEST PASS compatibility=v0\.2'){throw 'v0.1 compatibility marker missing'}
+          if($out-notmatch 'KEVIN OS OBSERVER v0\.2 SELFTEST PASS'){throw 'v0.2 marker missing'}
+      - name: Privacy boundary
+        shell: powershell
+        run: |
+          $t=[IO.File]::ReadAllText('control-plane/os-awareness/kevin-os-observer-v0.2.ps1')
+          foreach($x in @('SMBIOSMemoryType','MemoryType','FormFactor')){if(-not$t.Contains($x)){throw "missing local field $x"}}
+          if($t -match 'hardware_summary=\[ordered\]@\{[^\}]*SMBIOSMemoryType'){throw 'RAM type exposed in public summary'}
+          foreach($bad in @('Invoke-Expression','-EncodedCommand','DownloadString')){if($t.Contains($bad)){throw "forbidden primitive $bad"}}
+          Write-Host 'OS_AWARENESS_V02_BOUNDARY_PASS ram_type=local_only public=aggregate read_only=true'
