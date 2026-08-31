@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-31T10:57:09.1607958-06:00",
+    "generated_at":  "2026-08-31T11:00:08.9197275-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788195244727,
-                                  "next_run_at_ms":  1788195424727
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788195139644,
-                                  "next_run_at_ms":  1788195439644
+                                  "last_run_at_ms":  1788195424741,
+                                  "next_run_at_ms":  1788195604741
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788195379691,
-                                  "next_run_at_ms":  1788195439691
+                                  "last_run_at_ms":  1788195569104,
+                                  "next_run_at_ms":  1788195629104
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -101,8 +89,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788195277824,
-                                  "next_run_at_ms":  1788195457824
+                                  "last_run_at_ms":  1788195457840,
+                                  "next_run_at_ms":  1788195637840
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788195439655,
+                                  "next_run_at_ms":  1788195739655
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -120,10 +120,10 @@
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  310,
+                       "cycle":  311,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-08-31T10:54:39.3144791-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-08-31T10:58:27.0140165-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -148,20 +148,20 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260831-104839-forge-v4-i263-evaluation.json",
-                              "at":  "2026-08-31T10:49:46.0872108-06:00",
+                              "file":  "20260831-105739-forge-v4-i264-evaluation.json",
+                              "at":  "2026-08-31T10:58:26.9050649-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  263,
+                              "iteration":  264,
                               "verdict":  "REJECT",
-                              "score":  0,
+                              "score":  2,
                               "result":  "",
-                              "failure_count":  8,
-                              "security_finding_count":  1,
+                              "failure_count":  4,
+                              "security_finding_count":  2,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-31T10:55:12.7109551-06:00",
+                        "at":  "2026-08-31T10:57:20.6121644-06:00",
                         "status":  "ALREADY_APPLIED_PROVEN",
                         "manifest_id":  "runtime-convergence-audit-20260831-1035",
                         "stage_path":  "",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "9BA4F7EEE44E282BE8312C6D39E75F96BFBC3FCA5593526B5B344EC0BEA84A35"
+    "semantic_hash":  "1A103B38180837F0FD8C556E1481E338B38AA40D175BC1891BA07ACA9069026F"
 }
