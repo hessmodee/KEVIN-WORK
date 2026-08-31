@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-31T09:17:20.3448603-06:00",
+    "generated_at":  "2026-08-31T09:20:20.5240556-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788189256071,
-                                  "next_run_at_ms":  1788189436071
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788189144591,
-                                  "next_run_at_ms":  1788189444591
+                                  "last_run_at_ms":  1788189436083,
+                                  "next_run_at_ms":  1788189616083
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788189417475,
-                                  "next_run_at_ms":  1788189477475
+                                  "last_run_at_ms":  1788189579674,
+                                  "next_run_at_ms":  1788189639674
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -101,8 +89,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788189324598,
-                                  "next_run_at_ms":  1788189504598
+                                  "last_run_at_ms":  1788189504617,
+                                  "next_run_at_ms":  1788189684617
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -115,15 +103,27 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788189133878,
                                   "next_run_at_ms":  1788189733878
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788189444604,
+                                  "next_run_at_ms":  1788189744604
                               }
                           ],
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  297,
+                       "cycle":  298,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-08-31T09:15:26.1075653-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-08-31T09:19:37.6006944-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -148,20 +148,20 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260831-090917-forge-v4-i252-evaluation.json",
-                              "at":  "2026-08-31T09:10:17.7351379-06:00",
+                              "file":  "20260831-091826-forge-v4-i253-evaluation.json",
+                              "at":  "2026-08-31T09:19:37.4852959-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  252,
+                              "iteration":  253,
                               "verdict":  "REJECT",
-                              "score":  2,
+                              "score":  55,
                               "result":  "",
-                              "failure_count":  6,
+                              "failure_count":  7,
                               "security_finding_count":  1,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-31T09:13:16.4995530-06:00",
+                        "at":  "2026-08-31T09:19:13.7750365-06:00",
                         "status":  "ALREADY_APPLIED_PROVEN",
                         "manifest_id":  "typed-watchdog-v14-console-hygiene-20260831-0038-r2",
                         "stage_path":  "",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "5E25E5B49DF08969E4C9CE2BF804E23398D6FC0884D296C2168097E2024519E8"
+    "semantic_hash":  "D45EE3809693788CE746524972DFF8A89D644E64F0C0A5C217678D68E24949FC"
 }
