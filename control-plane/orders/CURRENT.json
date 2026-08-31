@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "kind": "kevin-work-order",
-  "id": "hq-attention-postrollback-benchmark-20260831-1700",
-  "idempotency_key": "hq-attention-postrollback-benchmark-20260831-1700-a",
-  "created_at": "2026-08-31T17:00:00-06:00",
-  "expires_at": "2026-08-31T18:00:00-06:00",
+  "id": "hq-attention-intake-v126-install-20260831-1705",
+  "idempotency_key": "hq-attention-intake-v126-install-20260831-1705-a",
+  "created_at": "2026-08-31T17:05:00-06:00",
+  "expires_at": "2026-08-31T18:05:00-06:00",
   "authority_class": "GREEN",
-  "verb": "run_benchmark",
-  "target": "kevin-benchmark-v1",
-  "reason": "Refresh platform evidence after the failed demand-driven Forge replacement rolled back to the known-good legacy identity. Require the fixed Benchmark cron to terminate successfully and republish a fresh PASS 30/30 critical=0 before any further mutation."
+  "verb": "run_typed_maintenance",
+  "target": "kevin-maintenance-v1",
+  "reason": "Install exact CI-qualified Work Order Intake v1.2.6 through fixed typed Maintenance. Require exact-current v1.2.4 identity, exact v1.2.6 SHA, parse/selftest, fresh Benchmark PASS 30/30 critical=0, rollback on failure. v1.2.6 permanently adds stale-slot retirement, terminal-idle handling, semantic ack de-duplication, bounded 3-attempt GitHub ack CAS recovery, and semantic/fresh Maintenance postcondition verification. No arbitrary command/path/URL/argv and no authority expansion."
 }
