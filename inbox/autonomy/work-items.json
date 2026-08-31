@@ -7,7 +7,7 @@
       "id": "finish-forge-v40-runtime-convergence",
       "program": "platform-reliability",
       "authority_class": "GREEN",
-      "status": "OPEN",
+      "status": "BLOCKED",
       "lane": "production",
       "work_type": "execution",
       "severity": "high",
@@ -27,13 +27,13 @@
       "failure_attempts": 3,
       "material_new_evidence": true,
       "cooldown_until": "2026-08-31T17:00:00-06:00",
-      "next_action": "READ-ONLY diagnosis only: use the proven R03 metadata to identify the actual Benchmark/Goal-OS/Forge trust relationship and installed Supervisor admission path. The old literal-Forge-SHA migration hypothesis is disproven. Do not retry it under a new id."
+      "next_action": "READ-ONLY diagnosis only. R03 is proven to reference Forge + Goal OS + hash semantics while the current Forge SHA occurs zero times literally. Identify the real Benchmark/Goal-OS/Forge trust relationship and installed Supervisor admission path before any new migration. Do not retry the disproven literal-SHA migration."
     },
     {
       "id": "runtime-owner-doctrine-v2",
       "program": "autonomy-debt",
       "authority_class": "GREEN",
-      "status": "WAITING_EVIDENCE",
+      "status": "COMPLETE",
       "lane": "staging",
       "work_type": "execution",
       "severity": "high",
@@ -50,7 +50,8 @@
       ],
       "dependencies_ready": true,
       "failure_attempts": 0,
-      "next_action": "Exact-current and exact-target hashes are already proven. Typed five-file Maintenance manifest runtime-owner-doctrine-v2-install-20260831-1554 is queued. Wait for Omen application, then run publish_runtime_convergence and verify all five after-hashes before marking COMPLETE."
+      "completion_evidence": "reports/runtime-convergence-omen.json generated 2026-08-31T16:00:54.7090961-06:00 state=OMEN_AUDIT_PROVEN. All five installed policy SHA256 identities exactly match the reviewed Autonomy OS v2 target identities. Fresh Support/Benchmark remained PASS 30/30 critical=0 after the crossing.",
+      "next_action": "No more doctrine-building for this item. Measure whether the live Standing Orders change Kevin behavior; behavioral work selection remains a separate proof gap."
     },
     {
       "id": "native-runtime-capability-audit-v1",
@@ -75,8 +76,8 @@
       "dependencies_ready": true,
       "downstream_consumer": "AUTONOMY_CONTROLLER_V2_AND_FORGE_R03_REPAIR",
       "failure_attempts": 0,
-      "completion_evidence": "reports/runtime-capabilities-omen.json state=OMEN_AUDIT_PROVEN generated 2026-08-31T15:06:15-06:00; Task Flow CLI and Skill Workshop available; Lobster not registered; R03 mentions Forge+Goal OS+hash and not Desired State; current Forge SHA literal count=0.",
-      "next_action": "No further audit work until installed state materially changes. Consumers must use this receipt rather than rerun the same probes."
+      "completion_evidence": "reports/runtime-capabilities-omen.json state=OMEN_AUDIT_PROVEN generated 2026-08-31T15:06:15-06:00; Task Flow CLI and Skill Workshop are installed; Lobster is not registered; R03 references Forge + Goal OS + file/hash and not Desired State; current Forge SHA literal count=0.",
+      "next_action": "Do not rerun unchanged probes. Consumers should use this receipt until installed runtime/config materially changes."
     },
     {
       "id": "real-owner-task-reader-e2e",
@@ -84,29 +85,30 @@
       "authority_class": "GREEN",
       "status": "READY",
       "lane": "research",
-      "work_type": "research",
+      "work_type": "execution",
       "severity": "high",
       "owner_value": 5,
       "reuses_proven_capability": true,
       "produces_owner_deliverable": true,
       "acceptance_criteria": [
-        "Kevin answers one useful current owner question through the actual Reader path.",
-        "Evidence includes provenance/freshness and contradiction handling.",
-        "The owner outcome record captures semantic result, elapsed time, retries and Bess intervention.",
-        "The result is evaluated for correctness/usefulness rather than merely command success.",
-        "The trajectory is eligible for repeated-run Staging evaluation and Skill Workshop learning only if it is genuinely reusable."
+        "Kevin executes two real Omen Reader turns through the isolated reader profile/kevin-reader agent.",
+        "Each turn exposes exactly one visible tool, kevin_system_status, and invokes it exactly once.",
+        "Each semantic answer covers RAM, CPU, GPU, disk free space, Ollama, and gateway status without private paths, usernames, ports, configuration, prompts, or secrets.",
+        "Both trials pass before state can become REPEATEDLY_PROVEN.",
+        "Fresh Benchmark remains PASS 30/30 critical=0 and the public receipt contains metadata/output hashes only.",
+        "The result is recorded separately from T-level autonomy because Bess initiated the canary."
       ],
       "dependencies_ready": true,
-      "downstream_consumer": "OWNER_OUTCOME_SCORECARD_AND_TRAJECTORY_GATE",
+      "downstream_consumer": "OWNER_OUTCOME_SCORECARD_AND_TRAJECTORY_RELIABILITY",
       "failure_attempts": 0,
       "near_acceptance": true,
-      "next_action": "Use as the next real owner-value canary after the current doctrine production crossing settles. Prefer a current Kevin/Omen status or evidence question requiring acquisition, provenance, interpretation and verification."
+      "next_action": "Maintenance v1.3.9 fixed Reader canary passed Windows CI and exact publication. After Workshop guardrails finish and v1.3.9 is Omen-installed, run fixed run_reader_status_canary and require reports/reader-canary-omen.json state=REPEATEDLY_PROVEN pass_k=2/2."
     },
     {
       "id": "hq-direct-chat-real-roundtrip",
       "program": "owner-communications",
       "authority_class": "GREEN",
-      "status": "OPEN",
+      "status": "READY",
       "lane": "production",
       "work_type": "execution",
       "severity": "high",
@@ -120,16 +122,16 @@
         "Restart/replay proves no duplicate execution/reply.",
         "Kevin can detect/report common health failures on the private communication path."
       ],
-      "dependencies_ready": false,
-      "blocked": true,
+      "dependencies_ready": true,
+      "blocked": false,
       "failure_attempts": 0,
-      "next_action": "Unblock after the runtime doctrine crossing is proven and the production lane is free. Use the existing merged exact candidate; do not redesign the chat contract again."
+      "next_action": "Production prerequisite doctrine is now proven. Wait only for the current Maintenance/Reader proof crossing to free the single production lane, then use the existing CI-proven typed HQ-chat package. Do not redesign the contract again."
     },
     {
       "id": "skill-workshop-self-learning-proof",
       "program": "skill-learning",
       "authority_class": "GREEN",
-      "status": "WAITING_EVIDENCE",
+      "status": "RUNNING",
       "lane": "staging",
       "work_type": "execution",
       "severity": "medium",
@@ -146,7 +148,7 @@
       ],
       "dependencies_ready": true,
       "failure_attempts": 0,
-      "next_action": "Maintenance v1.3.8 fixed-path Workshop guardrail candidate is in CI qualification. Do not mutate config until exact candidate is CI-proven, installed via typed Maintenance, then configure_skill_workshop_guardrails is proven and runtime capabilities re-audit confirms propose/pending."
+      "next_action": "Maintenance v1.3.8 exact controller is Omen-installed. Manifest configure-skill-workshop-propose-pending-20260831-1610 is queued. Require APPLIED_PREAUTHORIZED_PROVEN + Benchmark 30/30, then publish_runtime_capabilities and verify autonomous_mode=propose, approval_policy=pending, config_valid=true, skills_check_main_ok=true."
     },
     {
       "id": "staging-trajectory-reliability-v1",
@@ -161,14 +163,14 @@
       "reduces_bess_intervention": true,
       "acceptance_criteria": [
         "The CI-proven trajectory gate is connected to sanitized real capability evidence without gaining execution authority.",
-        "At least two real trials must independently satisfy semantic verification, required actions, zero forbidden actions, and expected end state before REPEATEDLY_PROVEN.",
+        "At least two real trials independently satisfy semantic verification, required actions, zero forbidden actions, and expected end state before REPEATEDLY_PROVEN.",
         "A false-DONE/semantic failure fixture is rejected.",
         "Promotion/reliability evidence remains separate from primitive authority."
       ],
       "dependencies_ready": true,
       "failure_attempts": 0,
       "downstream_consumer": "READER_AND_SKILL_REUSE_RELIABILITY",
-      "next_action": "Use the next real Reader/owner-value trajectory as the first production-like evidence set; do not manufacture synthetic trials merely to increase promotion count."
+      "next_action": "Use the real two-run Reader canary as the first production-like repeated trajectory. Do not manufacture synthetic trials merely to increase promotion count."
     }
   ]
 }
