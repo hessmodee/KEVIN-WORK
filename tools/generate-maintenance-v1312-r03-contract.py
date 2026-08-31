@@ -34,12 +34,9 @@ function Get-SafeR03IdentifierHints([string]$Context) {
 }
 function Get-SafeR03LiteralHints([string]$Context) {
     $set=New-Object 'System.Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
-    foreach($m in [regex]::Matches($Context,"['\"]([^'\"\r\n]{1,160})['\"]")){
-        $raw=[string]$m.Groups[1].Value
-        if($raw -match '(?i)forge|goal|benchmark|support|desired|state'){
-            $v=[IO.Path]::GetFileName(($raw -replace '\\','/'))
-            if($v -and $v.Length -le 100 -and $v -match '^[A-Za-z0-9._ -]+$'){[void]$set.Add($v)}
-        }
+    foreach($m in [regex]::Matches($Context,'(?i)\b[A-Za-z0-9._-]*(?:forge|goal|benchmark|support|desired|state)[A-Za-z0-9._-]*\.(?:ps1|json|md|txt)\b')){
+        $v=[string]$m.Value
+        if($v.Length -le 100 -and $v -match '^[A-Za-z0-9._-]+$'){[void]$set.Add($v)}
     }
     return @($set|Sort-Object|Select-Object -First 30)
 }
