@@ -62,7 +62,7 @@ jobs:
           assert 'livePulseHealthy' in hq and "kevin-hq-live-pulse-v15" in hq
           assert 'observer.observe(x,{childList:true})' in hq and 'subtree:true' not in hq
           assert 'function setText' in hq and "setText(card.querySelector('.k')" in hq
-          assert 'ops-owner-refinement-v1.css?v=6' in emb and 'ops-truth-patch-v1.js?v=3' in emb and 'ops-owner-refinement-v1.js?v=6' in emb and 'ops-fun-v2.js?v=3' in emb
+          assert 'ops-owner-refinement-v1.css?v=6' in emb and 'ops-truth-patch-v1.js?v=4' in emb and 'ops-owner-refinement-v1.js?v=6' in emb and 'ops-fun-v2.js?v=3' in emb
           for status in ['READY','ARMED','ACTIVE','WORKING','BUILDING','COOLDOWN','DEGRADED','OFFLINE']:
               assert status in emb
           assert 'function authoritativeStates' in truth and 'function explicitActiveStates' in truth
@@ -70,6 +70,9 @@ jobs:
           assert 'A refresh failure is not evidence that Kevin is offline' in truth
           assert "badge.innerHTML=clean.map" in truth and "states:[...clean]" in truth
           assert 'new MutationObserver' in truth and 'ensureAuthority' in truth
+          assert 'statusObserver' in truth and "statusObserver.observe(status" in truth
+          assert "const wanted=clean.join(' + ')" in truth
+          assert "cycle=s?.supervisor?.cycle" not in truth
           assert "setInterval(refreshTruth,2500)" in truth
           assert 'worker-progress{display:none!important}' in css
           assert '.worker .owl-beak{fill:var(--idc)' in css
@@ -97,4 +100,4 @@ jobs:
           assert 'setInterval(refreshTruth,3000)' in hq
           assert 'setInterval(refreshBase,4000)' in opsfun
           assert "type:'kevin-ops-state'" in truth and "type!=='kevin-ops-state'" in hq
-          print('HQ_OWNER_REFINEMENT_PASS single_state_arbiter=true no_offline_flash=true active_outranks_offline=true aggregate_building_working=true header_avatar_sync=true timestamp_parser_override=true gaze_current_workers_only=true worker_beak_cutout=true hub_layout_stable=true')
+          print('HQ_OWNER_REFINEMENT_PASS single_state_arbiter=true selected_status_stable=true no_cycle_flash=true no_offline_flash=true active_outranks_offline=true aggregate_building_working=true header_avatar_sync=true timestamp_parser_override=true gaze_current_workers_only=true worker_beak_cutout=true hub_layout_stable=true')
