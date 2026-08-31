@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "business-budget-starter-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Business Budget Starter Pack",
+  "description": "Creates a practical two-file business budgeting starter pack using only already-proven GREEN spreadsheet and text primitives.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin Business Budget Starter.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Monthly Budget",
+              "rows": [
+                ["Category", "Budgeted", "Actual", "Variance", "Notes"],
+                ["Revenue", "", "", "", ""],
+                ["Payroll", "", "", "", ""],
+                ["Rent / Facility", "", "", "", ""],
+                ["Utilities", "", "", "", ""],
+                ["Advertising", "", "", "", ""],
+                ["Insurance", "", "", "", ""],
+                ["Vehicle / Fuel", "", "", "", ""],
+                ["Software / Subscriptions", "", "", "", ""],
+                ["Supplies", "", "", "", ""],
+                ["Other", "", "", "", ""],
+                ["TOTAL", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Transactions",
+              "rows": [
+                ["Date", "Type", "Category", "Vendor / Customer", "Description", "Amount", "Reference"],
+                ["", "", "", "", "", "", ""]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Business Budget Starter - README.md",
+        "content": "# Kevin Business Budget Starter Pack\n\nKevin created this starter pack through a governed multi-step GREEN composite skill.\n\n## Files\n\n- `Kevin Business Budget Starter.xlsx` contains a monthly budget sheet and a transaction log.\n- This README explains the workflow.\n\n## Suggested use\n\n1. Enter planned monthly amounts in the Budgeted column.\n2. Record real transactions in the Transactions sheet.\n3. Roll actual totals into the Monthly Budget sheet and compare Actual versus Budgeted.\n4. Add business-specific categories as needed in a later owner-reviewed refinement.\n\nThis proof intentionally uses only Kevin's already-proven `create_spreadsheet` and `create_text` primitives. It grants no new authority.\n"
+      }
+    }
+  ]
+}
