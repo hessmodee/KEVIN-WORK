@@ -1,0 +1,49 @@
+name: Publish Maintenance v1.3.11 Exact
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1311-forge-diagnosis.py'
+      - '.github/workflows/publish-maintenance-v1311-exact.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Regenerate exact qualified candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          python .\tools\generate-maintenance-v1311-forge-diagnosis.py
+          if($LASTEXITCODE -ne 0){throw 'generator failed'}
+          $p='.\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.11.ps1'
+          $expected='7027E870F558EAA8E163CCFFD45525B722C46841FBF3931B4357A621918534C5'
+          $actual=(Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          if($actual -ne $expected){throw "candidate identity drift expected=$expected actual=$actual"}
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors.Count -gt 0){throw 'candidate parse failed'}
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1|Out-String
+          if($LASTEXITCODE -ne 0 -or $out -notmatch 'KEVIN MAINTENANCE v1\.3\.11 SELFTEST PASS'){throw 'candidate selftest failed'}
+          Write-Host "EXACT_QUALIFIED_V1311 sha256=$actual"
+      - name: Publish exact bytes with bounded Git-object CAS
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference='Stop';$repo=$env:GITHUB_REPOSITORY;$path='control-plane/maintenance/kevin-maintenance-runner-v1.3.11.ps1';$src='.\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.11.ps1';$expected='7027E870F558EAA8E163CCFFD45525B722C46841FBF3931B4357A621918534C5'
+          function H([string]$s){$b=(& gh api "repos/$repo/git/blobs/$s"|ConvertFrom-Json);$bytes=[Convert]::FromBase64String(([string]$b.content-replace'\s',''));$x=[Security.Cryptography.SHA256]::Create();try{return([BitConverter]::ToString($x.ComputeHash($bytes))).Replace('-','').ToUpperInvariant()}finally{$x.Dispose()}}
+          $old=$ErrorActionPreference;try{$ErrorActionPreference='Continue';$e=(& gh api "repos/$repo/contents/$path?ref=main" 2>$null|Out-String).Trim();$ec=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
+          if($ec-eq0-and$e){$o=$e|ConvertFrom-Json;$h=H([string]$o.sha);if($h-ne$expected){throw "existing v1.3.11 mismatch $h"};Write-Host "V1311_ALREADY_PUBLISHED_EXACT sha256=$h";exit 0}
+          $p=[ordered]@{content=[Convert]::ToBase64String([IO.File]::ReadAllBytes($src));encoding='base64'}|ConvertTo-Json -Compress;$bf=Join-Path $env:RUNNER_TEMP 'v1311-blob.json';[IO.File]::WriteAllText($bf,$p,(New-Object Text.UTF8Encoding($false)));$blob=(& gh api --method POST "repos/$repo/git/blobs" --input $bf --jq .sha).Trim();if((H $blob)-ne$expected){throw 'blob identity mismatch'}
+          for($a=1;$a-le3;$a++){$head=(& gh api "repos/$repo/git/ref/heads/main" --jq .object.sha).Trim();$tree=(& gh api "repos/$repo/git/commits/$head" --jq .tree.sha).Trim();$tp=[ordered]@{base_tree=$tree;tree=@([ordered]@{path=$path;mode='100644';type='blob';sha=$blob})}|ConvertTo-Json -Depth 5 -Compress;$tf=Join-Path $env:RUNNER_TEMP "t$a.json";[IO.File]::WriteAllText($tf,$tp,(New-Object Text.UTF8Encoding($false)));$nt=(& gh api --method POST "repos/$repo/git/trees" --input $tf --jq .sha).Trim();$cp=[ordered]@{message='Publish exact CI-qualified Maintenance v1.3.11';tree=$nt;parents=@($head)}|ConvertTo-Json -Depth 4 -Compress;$cf=Join-Path $env:RUNNER_TEMP "c$a.json";[IO.File]::WriteAllText($cf,$cp,(New-Object Text.UTF8Encoding($false)));$nc=(& gh api --method POST "repos/$repo/git/commits" --input $cf --jq .sha).Trim();$rp=[ordered]@{sha=$nc;force=$false}|ConvertTo-Json -Compress;$rf=Join-Path $env:RUNNER_TEMP "r$a.json";[IO.File]::WriteAllText($rf,$rp,(New-Object Text.UTF8Encoding($false)));$old=$ErrorActionPreference;try{$ErrorActionPreference='Continue';& gh api --method PATCH "repos/$repo/git/refs/heads/main" --input $rf --silent 2>$null;$rc=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old};if($rc-eq0){if((H $blob)-ne$expected){throw 'post-publish mismatch'};Write-Host "V1311_PUBLISHED_EXACT sha256=$expected attempt=$a";exit 0};Start-Sleep 1};throw 'bounded v1.3.11 publication CAS exhausted'
