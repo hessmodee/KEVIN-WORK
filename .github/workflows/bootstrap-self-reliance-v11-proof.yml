@@ -1,0 +1,60 @@
+name: Self-Reliance Bootstrap v1.1 Proof
+
+on:
+  push:
+    paths:
+      - inbox/maintenance/packages/bootstrap-self-reliance-v1.1.ps1
+      - .github/workflows/bootstrap-self-reliance-v11-proof.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-runtime-preflight:
+    runs-on: windows-latest
+    steps:
+      - name: Pin Git checkout bytes
+        shell: powershell
+        run: git config --global core.autocrlf false
+
+      - uses: actions/checkout@v4
+
+      - name: Verify canonical bootstrap identity
+        shell: powershell
+        run: |
+          $p='inbox/maintenance/packages/bootstrap-self-reliance-v1.1.ps1'
+          $expected='DAA0046E9E9AC38AB03608EBF4D0A625D7FC783401259FE8D0D401F53161256C'
+          $txt=[IO.File]::ReadAllText($p)
+          if($txt.Contains("`r`n")){throw 'CRLF checkout detected'}
+          $h=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          if($h -ne $expected){throw "bootstrap SHA mismatch actual=$h"}
+          Write-Host "BOOTSTRAP_SHA256_PASS $h"
+
+      - name: Parser and dangerous token regression gate
+        shell: powershell
+        run: |
+          $p='inbox/maintenance/packages/bootstrap-self-reliance-v1.1.ps1'
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw "parser failed: $($errors[0].Message)"}
+          $txt=[IO.File]::ReadAllText($p)
+          if($txt -match '(?m)\breturn\$'){throw 'PowerShell return-variable token adjacency regression detected'}
+          foreach($bad in @('Invoke-Expression','ScriptBlock]::Create','-EncodedCommand','DownloadString','WScript.Shell')){
+            if($txt -match [regex]::Escape($bad)){throw "forbidden execution primitive detected: $bad"}
+          }
+          Write-Host 'PARSER_TOKEN_GATE_PASS'
+
+      - name: Runtime self-test
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'inbox/maintenance/packages/bootstrap-self-reliance-v1.1.ps1' -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'bootstrap v1.1 self-test failed'}
+
+      - name: Deep read-only preflight through real GitHub API
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'inbox/maintenance/packages/bootstrap-self-reliance-v1.1.ps1' -Preflight
+          if($LASTEXITCODE -ne 0){throw 'bootstrap v1.1 preflight failed'}
