@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-30T22:34:33.9250293-06:00",
+    "generated_at":  "2026-08-30T22:37:34.2152551-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788150689744,
-                                  "next_run_at_ms":  1788150869744
-                              },
-                              {
-                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
-                                  "declaration_key":  "kevin-supervisor-v1",
-                                  "name":  "Kevin Supervisor v1.6 High Gear",
-                                  "enabled":  true,
-                                  "every_ms":  180000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788150736720,
-                                  "next_run_at_ms":  1788150916720
+                                  "last_run_at_ms":  1788150869760,
+                                  "next_run_at_ms":  1788151049760
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,20 +77,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788150859913,
-                                  "next_run_at_ms":  1788150919913
+                                  "last_run_at_ms":  1788151019163,
+                                  "next_run_at_ms":  1788151079163
                               },
                               {
-                                  "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
-                                  "declaration_key":  "kevin-benchmark-v1",
-                                  "name":  "Kevin Benchmark v1.1c",
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.6 High Gear",
                                   "enabled":  true,
-                                  "every_ms":  600000,
+                                  "every_ms":  180000,
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788150408514,
-                                  "next_run_at_ms":  1788151008514
+                                  "last_run_at_ms":  1788150916733,
+                                  "next_run_at_ms":  1788151096733
                               },
                               {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
@@ -113,8 +101,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788150730206,
-                                  "next_run_at_ms":  1788151030206
+                                  "last_run_at_ms":  1788151030218,
+                                  "next_run_at_ms":  1788151330218
+                              },
+                              {
+                                  "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
+                                  "declaration_key":  "kevin-benchmark-v1",
+                                  "name":  "Kevin Benchmark v1.1c",
+                                  "enabled":  true,
+                                  "every_ms":  600000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788151008531,
+                                  "next_run_at_ms":  1788151608531
                               }
                           ],
                  "error":  ""
@@ -122,19 +122,19 @@
     "supervisor":  {
                        "cycle":  225,
                        "last_mission":  "forge-v4",
-                       "last_result":  "REJECT",
-                       "next_eligible_at":  "2026-08-30T22:33:17.8207023-06:00",
+                       "last_result":  "RECOVERY_PASS",
+                       "next_eligible_at":  "2026-08-30T22:35:52.2855743-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
     "recovery":  {
-                     "fingerprint":  "F2FB3A113BFE811AB7E014E8278A9B1DE917C5B0BBDCBC6E1BB129156BBCDD6C",
+                     "fingerprint":  "272F0306174A03B9445DBF8D4F3F4DD19173728F65240AB238BE6CA9EC573042",
                      "round":  1,
-                     "last_at":  "2026-08-30T22:26:46.3165610-06:00",
-                     "last_brief":  "20260830-222646-round1.json"
+                     "last_at":  "2026-08-30T22:35:52.1748864-06:00",
+                     "last_brief":  "20260830-223552-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-08-30T22:26:57.9698095-06:00",
+                      "at":  "2026-08-30T22:36:57.0785767-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -161,7 +161,7 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-30T22:32:11.0990834-06:00",
+                        "at":  "2026-08-30T22:37:11.0832552-06:00",
                         "status":  "ALREADY_APPLIED_PROVEN",
                         "manifest_id":  "typed-maintenance-v133-workorder-poller-transport-20260830-2022",
                         "stage_path":  "",
@@ -169,9 +169,9 @@
                     },
     "active_workers":  {
                            "design_forge":  0,
-                           "night_forge":  0,
+                           "night_forge":  1,
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "FF9B4256B6D8912AA4C01A2432D103AFBCFD319C31E0043193B96EDD134087CB"
+    "semantic_hash":  "F518FD5F652532AA96A8D0B1DDC2FF9F15335F8ED03EC831E29BE860DF4C6BE3"
 }
