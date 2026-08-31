@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T02:39:19-06:00",
+  "generated_at": "2026-08-31T02:39:40-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -14,11 +14,13 @@
   },
   "current_task": {
     "id": "design-forge",
-    "title": "Design Forge | forge-v4 i211",
+    "title": "Design Forge: operator",
     "category": "forge",
-    "phase": "Building isolated candidate forge-v4 | iteration 211",
-    "started_at": "2026-08-31T02:38:40.0858618-06:00",
-    "source": "hq-live-ops"
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-31T02:39:40-06:00",
+    "source": "forge"
   },
   "services": {
     "tick": "healthy",
@@ -27,22 +29,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 33,
-    "cpu_pct": 25,
+    "memory_pct": 34,
+    "cpu_pct": 11,
     "gpu": "RTX 3060",
-    "gpu_pct": 98
+    "gpu_pct": 37
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T22:39:14-06:00",
-        "estimated": false,
-        "ram": 33,
-        "cpu": 21,
-        "gpu": 10
-      },
       {
         "at": "2026-08-30T22:39:16-06:00",
         "estimated": false,
@@ -707,10 +702,16 @@
         "ram": 33,
         "cpu": 25,
         "gpu": 98
+      },
+      {
+        "at": "2026-08-31T02:39:40-06:00",
+        "estimated": false,
+        "ram": 34,
+        "cpu": 11,
+        "gpu": 37
       }
     ],
     "ram": [
-      33,
       33,
       35,
       35,
@@ -805,10 +806,10 @@
       33,
       33,
       33,
-      33
+      33,
+      34
     ],
     "cpu": [
-      21,
       21,
       12,
       12,
@@ -903,10 +904,10 @@
       25,
       25,
       25,
-      25
+      25,
+      11
     ],
     "gpu": [
-      10,
       10,
       39,
       39,
@@ -1001,7 +1002,8 @@
       98,
       98,
       98,
-      98
+      98,
+      37
     ]
   },
   "weather": {
@@ -1154,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-31T02:39:40-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: operator",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-31T02:39:19-06:00",
       "source": "forge",
@@ -1368,23 +1379,14 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 24000
-    },
-    {
-      "at": "2026-08-31T01:38:35-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: reader-weather",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-31T02:39:19-06:00",
+    "last": "2026-08-31T02:39:40-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1414,14 +1416,14 @@
       "last_mission": "reader-weather",
       "iteration": 212,
       "updated_at": "2026-08-31T02:39:16.7765414-06:00",
-      "next_index": 1,
+      "next_index": 4,
       "scheduled": true,
       "promotion": "blocked"
     }
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-31T02:38:40.0858618-06:00",
+    "generated_at": "2026-08-31T02:39:40-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": true,
@@ -1430,10 +1432,10 @@
     "primary": {
       "id": "design-forge",
       "name": "Build Lab",
-      "title": "Design Forge | forge-v4 i211",
+      "title": "Design Forge: operator",
       "category": "forge",
       "state": "working",
-      "detail": "Building isolated candidate forge-v4 | iteration 211",
+      "detail": "started",
       "what": "Generating and validating an isolated candidate.",
       "engine": "Ollama | Qwen 2.5 14B",
       "action": "Candidate engineering"
@@ -1443,8 +1445,8 @@
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "Completed forge-v4 i211 evaluation=REJECT score=2 auto_staged=False",
+        "state": "coordinating",
+        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1474,7 +1476,7 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "Building isolated candidate forge-v4 | iteration 211",
+    "phase": "started",
     "worker": "Build Lab",
     "engine": "Ollama | Qwen 2.5 14B",
     "action": "Candidate engineering"
@@ -1482,7 +1484,7 @@
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Build Lab | WORKING | Building isolated candidate forge-v4 | iteration 211",
+      "text": "Build Lab | WORKING | started",
       "severity": "normal"
     }
   ]
