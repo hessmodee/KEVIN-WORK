@@ -1,0 +1,59 @@
+name: Self-Reliance Bootstrap Final Proof
+
+on:
+  push:
+    paths:
+      - .github/workflows/bootstrap-self-reliance-proof.yml
+      - inbox/maintenance/packages/bootstrap-self-reliance-v1.ps1
+      - control-plane/maintenance/kevin-self-reliance-watchdog-v1.1.ps1
+      - .gitattributes
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  final-bootstrap-proof:
+    runs-on: windows-latest
+    steps:
+      - name: Pin Git checkout bytes
+        shell: powershell
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@v4
+      - name: Verify immutable bootstrap API bytes and WinPS 5.1
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ref='50a46ac8e3f28cc7df069e401b77198b0b55b336'
+          $path='inbox/maintenance/packages/bootstrap-self-reliance-v1.ps1'
+          $expected='B009A3B9BF9B26C8EBF749A265411DC9E718610B8BDEF5FDB9A0F79D20C58F74'
+          $b64=gh api ("repos/hessmodee/KEVIN-WORK/contents/{0}?ref={1}" -f $path,$ref) --jq '.content'
+          $tmp=Join-Path $env:RUNNER_TEMP 'bootstrap-self-reliance-v1.ps1'
+          [IO.File]::WriteAllBytes($tmp,[Convert]::FromBase64String(($b64 -replace '\s','')))
+          $actual=(Get-FileHash $tmp -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "IMMUTABLE_BOOTSTRAP_SHA256=$actual"
+          if($actual -ne $expected){throw 'immutable bootstrap API-byte SHA mismatch'}
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($tmp,[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw "bootstrap parser failure $($errors[0].Message)"}
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $tmp -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'bootstrap self-test failed'}
+      - name: Prove Scheduled Task object contract without registering
+        shell: powershell
+        run: |
+          $workspace=Join-Path $env:USERPROFILE '.openclaw\workspace'
+          $watchdog=Join-Path $workspace 'kevin-self-reliance-watchdog.ps1'
+          $psExe=(Get-Command powershell.exe -ErrorAction Stop).Source
+          $arg='-NoProfile -NonInteractive -ExecutionPolicy Bypass -File "'+$watchdog+'"'
+          $action=New-ScheduledTaskAction -Execute $psExe -Argument $arg -WorkingDirectory $workspace
+          $repeat=New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) -RepetitionInterval (New-TimeSpan -Minutes 2) -RepetitionDuration (New-TimeSpan -Days 3650)
+          $logon=New-ScheduledTaskTrigger -AtLogOn -User ([Security.Principal.WindowsIdentity]::GetCurrent().Name)
+          $settings=New-ScheduledTaskSettingsSet -MultipleInstances IgnoreNew -StartWhenAvailable -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 1) -ExecutionTimeLimit (New-TimeSpan -Minutes 12) -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
+          $principal=New-ScheduledTaskPrincipal -UserId ([Security.Principal.WindowsIdentity]::GetCurrent().Name) -LogonType Interactive -RunLevel Limited
+          if([string]$settings.MultipleInstances -ne 'IgnoreNew'){throw 'IgnoreNew setting mismatch'}
+          if([int]$settings.RestartCount -ne 3){throw 'restart count mismatch'}
+          if([string]$principal.RunLevel -ne 'Limited'){throw 'principal not Limited'}
+          if(@($repeat,$logon).Count -ne 2){throw 'trigger count mismatch'}
+          if([string]$action.Arguments -notmatch 'kevin-self-reliance-watchdog\.ps1'){throw 'task argv mismatch'}
+          Write-Host 'TASK_CONTRACT_PASS limited=true ignore_new=true restart_count=3 repeat=2m at_logon=true'
