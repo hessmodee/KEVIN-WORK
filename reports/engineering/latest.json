@@ -1,21 +1,17 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-08-31T08:01:48.8022779-06:00",
+    "generated_at":  "2026-08-31T08:04:10.9671879-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
                     "id":  "bess-stage-business-budget-20260831-0800",
                     "operation":  "stage_composite_skill",
-                    "status":  "STAGED",
-                    "detail":  "Composite skill staged for Skill Lab."
+                    "status":  "DUPLICATE_IGNORED",
+                    "detail":  "Request id already processed."
                 },
     "result":  {
-                   "skill_id":  "business-budget-starter-pack",
-                   "version":  "1",
-                   "local_name":  "business-budget-starter-pack--1.json",
-                   "step_count":  2,
-                   "skill_sha256":  "642D89BE393B472577FE50A476AB02E978B37B9FB4533E7B1765FF26FA6E1CF9"
+
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -31,17 +27,17 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  46609
+                                     "heartbeat_age_seconds":  46751.2
                                  },
                    "queues":  {
-                                  "ready":  0,
+                                  "ready":  1,
                                   "running":  0,
                                   "done":  8,
                                   "failed":  1
                               },
                    "composite_skills":  {
-                                            "ready":  1,
-                                            "running":  0,
+                                            "ready":  0,
+                                            "running":  1,
                                             "done":  2,
                                             "failed":  1,
                                             "proven_count":  2,
@@ -64,6 +60,13 @@
                                  },
                    "cron":  [
                                 {
+                                    "declaration_key":  "kevin-skill-lab-v1",
+                                    "enabled":  true,
+                                    "every_ms":  120000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
                                     "declaration_key":  "kevin-engineering-relay-v1",
                                     "enabled":  true,
                                     "every_ms":  120000,
@@ -81,13 +84,6 @@
                                     "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-skill-lab-v1",
-                                    "enabled":  true,
-                                    "every_ms":  120000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
