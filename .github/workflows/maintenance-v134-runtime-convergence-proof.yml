@@ -1,0 +1,99 @@
+name: Maintenance v1.3.4 Runtime Convergence Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.4.ps1'
+      - 'control-plane/forge/kevin-design-forge-v4.0.ps1'
+      - 'workspace/AGENTS.md'
+      - 'workspace/HEARTBEAT.md'
+      - 'workspace/MEMORY.md'
+      - 'workspace/SOUL.md'
+      - 'workspace/TOOLS.md'
+      - '.github/workflows/maintenance-v134-runtime-convergence-proof.yml'
+  pull_request:
+    paths:
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.4.ps1'
+      - 'control-plane/forge/kevin-design-forge-v4.0.ps1'
+      - 'workspace/AGENTS.md'
+      - 'workspace/HEARTBEAT.md'
+      - 'workspace/MEMORY.md'
+      - 'workspace/SOUL.md'
+      - 'workspace/TOOLS.md'
+      - '.github/workflows/maintenance-v134-runtime-convergence-proof.yml'
+  workflow_dispatch:
+
+jobs:
+  windows-proof:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse PowerShell 5.1 candidates
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          foreach ($p in @(
+            'control-plane/maintenance/kevin-maintenance-runner-v1.3.4.ps1',
+            'control-plane/forge/kevin-design-forge-v4.0.ps1'
+          )) {
+            $tokens = $null
+            $errors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p), [ref]$tokens, [ref]$errors)
+            if ($errors.Count -gt 0) {
+              $errors | ForEach-Object { Write-Host $_.Message }
+              throw "PowerShell parser rejected $p"
+            }
+          }
+          Write-Host 'POWERSHELL PARSE PASS'
+
+      - name: Run deterministic self-tests
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $m = & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\maintenance\kevin-maintenance-runner-v1.3.4.ps1 -SelfTest 2>&1 | Out-String
+          if ($LASTEXITCODE -ne 0 -or $m -notmatch 'KEVIN MAINTENANCE v1\.3\.4 SELFTEST PASS') { throw "Maintenance selftest failed: $m" }
+          $f = & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\forge\kevin-design-forge-v4.0.ps1 -SelfTest 2>&1 | Out-String
+          if ($LASTEXITCODE -ne 0 -or $f -notmatch 'KEVIN DESIGN FORGE v4\.0 SELFTEST PASS') { throw "Forge selftest failed: $f" }
+          Write-Host $m
+          Write-Host $f
+
+      - name: Static authority and no-spin invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          m = Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.4.ps1').read_text(encoding='utf-8')
+          f = Path('control-plane/forge/kevin-design-forge-v4.0.ps1').read_text(encoding='utf-8')
+          policies = {
+              'workspace/AGENTS.md': 'Standing Order 1',
+              'workspace/HEARTBEAT.md': 'ambient monitor',
+              'workspace/MEMORY.md': 'durable',
+              'workspace/SOUL.md': 'Chief of Staff',
+              'workspace/TOOLS.md': 'typed',
+          }
+          for p, marker in policies.items():
+              text = Path(p).read_text(encoding='utf-8')
+              assert marker in text, (p, marker)
+              assert 32 <= len(text.encode('utf-8')) <= 65536
+          assert "replace_runtime_policy_bundle" in m
+          assert "audit_runtime_convergence" in m
+          assert "design_forge_runner" in m
+          assert "runtime policy bundle must contain exactly five components" in m
+          assert "target alias not allowlisted" in m
+          assert "operation not allowlisted" in m
+          assert "arbitrary_shell=false" in m
+          assert "authority_expansion=false" in m
+          assert "$missions" not in f
+          assert "forge-demands" in f and "CURRENT.json" in f
+          assert "IDLE_NO_ELIGIBLE_DEMAND" in f
+          assert "round_robin=$false" in f
+          assert "max_attempts must equal 3" in f
+          assert "downstream consumer not allowlisted" in f
+          assert "Nothing was executed or promoted." in f
+          forbidden = ['Invoke-Expression', 'iex ', 'DownloadString(', 'WebClient']
+          for token in forbidden:
+              assert token.lower() not in m.lower()
+              assert token.lower() not in f.lower()
+          print('STATIC AUTHORITY / NO-SPIN PASS')
