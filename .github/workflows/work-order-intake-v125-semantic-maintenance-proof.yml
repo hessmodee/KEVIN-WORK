@@ -1,0 +1,74 @@
+name: Work Order Intake v1.2.5 Semantic Maintenance Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-work-order-intake-v125.py'
+      - 'control-plane/intake/kevin-work-order-intake-v1.2.4.ps1'
+      - '.github/workflows/work-order-intake-v125-semantic-maintenance-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Generate candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          python .\tools\generate-work-order-intake-v125.py
+          if($LASTEXITCODE-ne0){throw 'generator failed'}
+      - name: Parse and deterministic self-test
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $p=Resolve-Path .\control-plane\intake\generated\kevin-work-order-intake-v1.2.5.ps1
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count-gt0){$errors|ForEach-Object{Write-Host $_.Message};throw 'parse failed'}
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -Mode SelfTest 2>&1|Out-String
+          Write-Host $out
+          if($LASTEXITCODE-ne0){throw 'selftest failed'}
+          foreach($m in @('KEVIN WORK ORDER INTAKE v1.2.5 SELFTEST PASS','maintenance_semantic_postcondition=true','maintenance_freshness=true','false_success_blocked=true','stale_order_retirement=true','semantic_ack_dedupe=true')){if($out-notmatch[regex]::Escape($m)){throw "missing marker $m"}}
+      - name: Static semantic postcondition invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          t=Path('control-plane/intake/generated/kevin-work-order-intake-v1.2.5.ps1').read_text(encoding='utf-8')
+          for x in [
+            'Assert-MaintenanceTerminalProven','Invoke-MaintenanceVerified',
+            "@('APPLIED_PREAUTHORIZED_PROVEN','ALREADY_APPLIED_PROVEN')",
+            'Maintenance terminal state not proven: ','Maintenance evidence is not fresh for this execution',
+            "'run_typed_maintenance'{return Invoke-MaintenanceVerified}",
+            'blocked Maintenance state accepted as success','stale Maintenance evidence accepted as fresh success',
+            "status='STALE_RETIRED'","status='IDLE_TERMINAL'",
+          ]: assert x in t, x
+          assert "'run_typed_maintenance'{return Invoke-FixedPowerShell $MaintenancePath @('-CheckOnly') 600}" not in t
+          for x in ['Invoke-Expression','DownloadString(','New-Object Net.WebClient','System.Net.WebClient']:
+              assert x.lower() not in t.lower(), x
+          print('INTAKE_V125_STATIC_PASS maintenance_semantic=true freshness=true terminal_retirement=true authority_delta=NONE')
+      - name: Emit exact candidate identity
+        shell: python
+        run: |
+          import hashlib,json
+          from pathlib import Path
+          c=Path('control-plane/intake/generated/kevin-work-order-intake-v1.2.5.ps1');b=Path('control-plane/intake/kevin-work-order-intake-v1.2.4.ps1')
+          out={'schema':1,'kind':'kevin-work-order-intake-v125-qualified-candidate','git_head':'${{ github.sha }}','candidate_path':str(c).replace('\\','/'),'sha256':hashlib.sha256(c.read_bytes()).hexdigest().upper(),'base_v124_sha256':hashlib.sha256(b.read_bytes()).hexdigest().upper()}
+          Path('work-order-intake-v125-candidate-hash.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf-8');print(Path('work-order-intake-v125-candidate-hash.json').read_text())
+      - uses: actions/upload-artifact@v4
+        with:
+          name: work-order-intake-v125-qualified-candidate
+          path: |
+            control-plane/intake/generated/kevin-work-order-intake-v1.2.5.ps1
+            work-order-intake-v125-candidate-hash.json
+          retention-days: 7
+          if-no-files-found: error
