@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-08-30T23:41:16.3987023-06:00",
+    "generated_at":  "2026-08-30T23:43:26.6288516-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
                     "id":  "bess-engineering-snapshot-20260830-2323",
                     "operation":  "snapshot",
-                    "status":  "BUDGET_EXHAUSTED",
-                    "detail":  "Daily remote engineering request budget reached."
+                    "status":  "REJECTED",
+                    "detail":  "request expired"
                 },
     "result":  {
 
@@ -27,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  16576.6
+                                     "heartbeat_age_seconds":  16706.8
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -60,21 +60,14 @@
                                  },
                    "cron":  [
                                 {
-                                    "declaration_key":  "kevin-engineering-relay-v1",
+                                    "declaration_key":  "kevin-skill-lab-v1",
                                     "enabled":  true,
                                     "every_ms":  120000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-supervisor-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-skill-lab-v1",
+                                    "declaration_key":  "kevin-engineering-relay-v1",
                                     "enabled":  true,
                                     "every_ms":  120000,
                                     "last_status":  "ok",
@@ -89,6 +82,13 @@
                                 },
                                 {
                                     "declaration_key":  "kevin-support-bridge-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  180000,
                                     "last_status":  "ok",
