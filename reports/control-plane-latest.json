@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-08-31T00:57:12.7884187-06:00",
+    "generated_at":  "2026-08-31T01:01:12.6823254-06:00",
     "request":  {
-                    "id":  "bess-20260831-0652-autonomy-reconcile",
-                    "verb":  "run_reconcile",
-                    "target":  "autonomy"
+                    "id":  "bess-20260831-0659-refresh-autonomy",
+                    "verb":  "refresh_autonomy_telemetry",
+                    "target":  "autonomy-telemetry"
                 },
-    "status":  "FAILED",
-    "detail":  "Fixed local action failed: KEVIN AUTONOMY v0.1 :: NEEDS_REVIEW :: drift=3 :: action=",
+    "status":  "SUCCESS",
+    "detail":  "AUTONOMY_AUTH mode=stored inherited_token_env=removed AUTONOMY_UNCHANGED",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
