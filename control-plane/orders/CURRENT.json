@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "kind": "kevin-work-order",
-  "id": "hq-alert-refresh-autonomy-20260831-1749",
-  "idempotency_key": "hq-alert-refresh-autonomy-20260831-1749-a",
-  "created_at": "2026-08-31T17:49:00-06:00",
-  "expires_at": "2026-08-31T18:35:00-06:00",
+  "id": "hq-alert-install-v1312-20260831-1754",
+  "idempotency_key": "hq-alert-install-v1312-20260831-1754-a",
+  "created_at": "2026-08-31T17:54:00-06:00",
+  "expires_at": "2026-08-31T18:45:00-06:00",
   "authority_class": "GREEN",
-  "verb": "refresh_autonomy_telemetry",
-  "target": "autonomy-telemetry",
-  "reason": "Recompute autonomy against current live Support identities after adopting the exact proven Maintenance v1.3.10 identity. Expose the remaining real Forge mismatch instead of stale drift_count=3 evidence. No authority expansion or arbitrary shell."
+  "verb": "run_typed_maintenance",
+  "target": "kevin-maintenance-v1",
+  "reason": "Install exact CI-qualified Maintenance v1.3.12 from exact proven v1.3.10. v1.3.12 only adds a fixed metadata-only R03 contract diagnosis with no caller-selected paths/commands/args/hashes/tests, preserves v1.3.10 behavior, and must pass selftest plus fresh Benchmark 30/30 critical=0 or roll back."
 }
