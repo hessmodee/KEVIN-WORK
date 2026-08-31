@@ -1,17 +1,18 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "install-maintenance-v136-20260831-1328",
+  "id": "migrate-forge-v40-validator-pin-20260831-1415",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "replace_pinned_component",
-  "target_alias": "maintenance_runner",
-  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.6.ps1",
-  "source_sha256": "C26D7D095097CC9E8357B747A88B3A8051576B1548555E15F8B140328B3BF4A8",
-  "expected_current_sha256": "81D2C58E3CFDD89D43FFD119F36D08C841AAB2F9059FA3947790103230C45221",
-  "expected_after_sha256": "C26D7D095097CC9E8357B747A88B3A8051576B1548555E15F8B140328B3BF4A8",
-  "expires_at": "2026-08-31T15:30:00-06:00"
+  "operation": "migrate_design_forge_v40",
+  "target_alias": "design_forge_runner",
+  "source_path": "control-plane/forge/kevin-design-forge-v4.0.ps1",
+  "source_sha256": "433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A",
+  "expected_forge_current_sha256": "4C83DF29E765D61F2B26D2029FE6C2C7ED68DA90E5A7A457A82BE769029E22CA",
+  "expected_forge_after_sha256": "433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A",
+  "expected_benchmark_current_sha256": "02447EE8F3302E3EA1EF00290DBA6804F30FAC9F46CAE8714F402EA2D013CC38",
+  "expires_at": "2026-08-31T15:15:00-06:00"
 }
