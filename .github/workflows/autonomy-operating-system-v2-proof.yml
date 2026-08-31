@@ -1,0 +1,138 @@
+name: Kevin Autonomy Operating System v2 Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'control-plane/autonomy/**'
+      - 'inbox/autonomy/**'
+      - 'workspace/AGENTS.md'
+      - 'workspace/HEARTBEAT.md'
+      - 'workspace/MEMORY.md'
+      - 'workspace/SOUL.md'
+      - 'workspace/TOOLS.md'
+      - 'control-plane/OWNER-GREEN-STANDING-AUTHORIZATION-v2.md'
+      - '.github/workflows/autonomy-operating-system-v2-proof.yml'
+  pull_request:
+    paths:
+      - 'control-plane/autonomy/**'
+      - 'inbox/autonomy/**'
+      - 'workspace/AGENTS.md'
+      - 'workspace/HEARTBEAT.md'
+      - 'workspace/MEMORY.md'
+      - 'workspace/SOUL.md'
+      - 'workspace/TOOLS.md'
+      - 'control-plane/OWNER-GREEN-STANDING-AUTHORIZATION-v2.md'
+      - '.github/workflows/autonomy-operating-system-v2-proof.yml'
+  workflow_dispatch:
+
+jobs:
+  proof:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Compile and self-test work selector
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          python -m py_compile .\control-plane\autonomy\kevin-work-selector-v1.py
+          if ($LASTEXITCODE -ne 0) { throw 'selector compile failed' }
+          $out = python .\control-plane\autonomy\kevin-work-selector-v1.py --selftest | Out-String
+          Write-Host $out
+          if ($LASTEXITCODE -ne 0 -or $out -notmatch 'KEVIN WORK SELECTOR v1 SELFTEST PASS') { throw 'selector selftest failed' }
+
+      - name: Prove current WIP selects useful independent work rather than spin
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          python .\control-plane\autonomy\kevin-work-selector-v1.py `
+            --programs .\control-plane\autonomy\standing-programs-v1.json `
+            --items .\inbox\autonomy\work-items.json `
+            --state .\inbox\autonomy\state.json `
+            --now 2026-08-31T19:10:00Z | Set-Content -LiteralPath .\work-selection-proof.json -Encoding utf8
+          if ($LASTEXITCODE -ne 0) { throw 'selector execution failed' }
+          $r = Get-Content .\work-selection-proof.json -Raw | ConvertFrom-Json
+          if ($r.status -ne 'SELECTED') { throw 'no useful work selected' }
+          if ($r.selection.id -ne 'runtime-owner-doctrine-v2') { throw "unexpected selected work: $($r.selection.id)" }
+          $forge = @($r.blocked | Where-Object { $_.id -eq 'finish-forge-v40-runtime-convergence' })
+          if ($forge.Count -ne 1 -or -not (@($forge[0].reasons) -contains 'WIP_PRODUCTION_FULL')) { throw 'active production WIP was not protected' }
+          Write-Host "WORK_SELECTION_PASS selected=$($r.selection.id) production_wip_protected=true"
+
+      - name: Validate permanent GREEN authority is broad but cannot self-widen
+        shell: python
+        run: |
+          from pathlib import Path
+          auth = Path('control-plane/OWNER-GREEN-STANDING-AUTHORIZATION-v2.md').read_text(encoding='utf-8')
+          required = [
+              'PERMANENT OWNER AUTHORIZATION',
+              'all legitimately GREEN work',
+              'does not expire',
+              'may not widen authority by changing a label',
+              'Always improve.',
+              'Only an explicit later owner instruction may revoke',
+          ]
+          for marker in required:
+              assert marker.lower() in auth.lower(), marker
+          assert 'unrestricted arbitrary shell' in auth.lower()
+          assert 'money movement' in auth.lower()
+          assert 'automatic production promotion' in auth.lower()
+          print('OWNER_GREEN_AUTH_V2_PASS permanent=true self_widen=false')
+
+      - name: Validate always-loaded runtime doctrine
+        shell: python
+        run: |
+          from pathlib import Path
+          files = {
+              'AGENTS.md': Path('workspace/AGENTS.md').read_text(encoding='utf-8'),
+              'HEARTBEAT.md': Path('workspace/HEARTBEAT.md').read_text(encoding='utf-8'),
+              'MEMORY.md': Path('workspace/MEMORY.md').read_text(encoding='utf-8'),
+              'SOUL.md': Path('workspace/SOUL.md').read_text(encoding='utf-8'),
+              'TOOLS.md': Path('workspace/TOOLS.md').read_text(encoding='utf-8'),
+          }
+          assert 'Permanent GREEN authority' in files['AGENTS.md']
+          assert 'Real-World Outcomes' in files['AGENTS.md']
+          assert 'Work Conservation / No Spin' in files['AGENTS.md']
+          assert 'Task Flow' in files['AGENTS.md']
+          assert 'Skill Workshop' in files['AGENTS.md']
+          assert 'ambient monitor' in files['HEARTBEAT.md']
+          assert 'Permanent owner GREEN authorization' in files['MEMORY.md']
+          assert 'NOTICE -> UNDERSTAND -> PLAN -> EXECUTE -> VERIFY -> RECOVER -> RECORD -> LEARN -> CONTINUE' in files['SOUL.md']
+          assert 'Reasoning vs deterministic enforcement' in files['TOOLS.md']
+          joined = '\n'.join(files.values()).lower()
+          assert 'do not invent authority' in joined or 'never from self-granted authority' in joined
+          assert 'arbitrary remote shell/code execution' in joined or 'arbitrary executable shell' in joined
+          print('RUNTIME_DOCTRINE_PASS native_durable=true no_spin=true outcomes=true')
+
+      - name: Emit exact runtime policy SHA256 identities
+        shell: python
+        run: |
+          import hashlib, json
+          from pathlib import Path
+          names = ['AGENTS.md','HEARTBEAT.md','MEMORY.md','SOUL.md','TOOLS.md']
+          hashes = {}
+          for name in names:
+              b = Path('workspace', name).read_bytes()
+              hashes[name] = hashlib.sha256(b).hexdigest().upper()
+          out = {
+              'schema': 1,
+              'kind': 'kevin-runtime-policy-v2-source-hashes',
+              'git_head': '${{ github.sha }}',
+              'sha256': hashes,
+          }
+          Path('runtime-policy-v2-source-hashes.json').write_text(json.dumps(out, indent=2) + '\n', encoding='utf-8')
+          print(Path('runtime-policy-v2-source-hashes.json').read_text())
+
+      - name: Upload proof evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: kevin-autonomy-os-v2-proof
+          path: |
+            work-selection-proof.json
+            runtime-policy-v2-source-hashes.json
+          if-no-files-found: error
+          retention-days: 14
