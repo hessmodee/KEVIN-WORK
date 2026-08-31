@@ -1,16 +1,17 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "typed-ui-bridge-restart-v034-v131-postproof-20260830-1920",
+  "id": "typed-maintenance-v131-idempotent-postproof-20260830-1922",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "restart_ui_bridge",
-  "target_alias": "ui_bridge_runner",
-  "expected_current_sha256": "5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42",
-  "task_name": "Kevin UI Bridge v0.3",
-  "heartbeat_timeout_seconds": 15,
+  "operation": "replace_pinned_component",
+  "target_alias": "maintenance_runner",
+  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.1.ps1",
+  "source_sha256": "8371806430518E00E67E7592C9C309B8F03075091C13FDA529CADD34B2CED9D6",
+  "expected_current_sha256": "8371806430518E00E67E7592C9C309B8F03075091C13FDA529CADD34B2CED9D6",
+  "expected_after_sha256": "8371806430518E00E67E7592C9C309B8F03075091C13FDA529CADD34B2CED9D6",
   "expires_at": "2026-09-01T12:00:00-06:00"
 }
