@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-30T23:34:39.1487641-06:00",
+    "generated_at":  "2026-08-30T23:37:39.5892367-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788154294645,
-                                  "next_run_at_ms":  1788154474645
-                              },
-                              {
-                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
-                                  "declaration_key":  "kevin-hq-live-pulse-v15",
-                                  "name":  "Kevin HQ Live Pulse v1.5",
-                                  "enabled":  true,
-                                  "every_ms":  60000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788154432461,
-                                  "next_run_at_ms":  1788154492461
+                                  "last_run_at_ms":  1788154474657,
+                                  "next_run_at_ms":  1788154654657
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -89,20 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788154344886,
-                                  "next_run_at_ms":  1788154524886
-                              },
-                              {
-                                  "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
-                                  "declaration_key":  "kevin-benchmark-v1",
-                                  "name":  "Kevin Benchmark v1.1c",
-                                  "enabled":  true,
-                                  "every_ms":  600000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788154024150,
-                                  "next_run_at_ms":  1788154624150
+                                  "last_run_at_ms":  1788154524899,
+                                  "next_run_at_ms":  1788154704899
                               },
                               {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
@@ -115,15 +91,39 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788154405198,
                                   "next_run_at_ms":  1788154705198
+                              },
+                              {
+                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
+                                  "declaration_key":  "kevin-hq-live-pulse-v15",
+                                  "name":  "Kevin HQ Live Pulse v1.5",
+                                  "enabled":  true,
+                                  "every_ms":  60000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788154645883,
+                                  "next_run_at_ms":  1788154705883
+                              },
+                              {
+                                  "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
+                                  "declaration_key":  "kevin-benchmark-v1",
+                                  "name":  "Kevin Benchmark v1.1c",
+                                  "enabled":  true,
+                                  "every_ms":  600000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788154624163,
+                                  "next_run_at_ms":  1788155224163
                               }
                           ],
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  231,
+                       "cycle":  232,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-08-30T23:32:26.4325963-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-08-30T23:36:15.7769036-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -148,20 +148,20 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260830-232623-forge-v4-i191-evaluation.json",
-                              "at":  "2026-08-30T23:27:01.9699264-06:00",
+                              "file":  "20260830-233526-forge-v4-i192-evaluation.json",
+                              "at":  "2026-08-30T23:36:15.6642143-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  191,
+                              "iteration":  192,
                               "verdict":  "REJECT",
                               "score":  2,
                               "result":  "",
-                              "failure_count":  6,
+                              "failure_count":  7,
                               "security_finding_count":  3,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-30T23:33:26.0352727-06:00",
+                        "at":  "2026-08-30T23:37:11.5418306-06:00",
                         "status":  "ALREADY_APPLIED_PROVEN",
                         "manifest_id":  "typed-woi-v123-identity-postproof-20260830-2328",
                         "stage_path":  "",
@@ -169,9 +169,9 @@
                     },
     "active_workers":  {
                            "design_forge":  0,
-                           "night_forge":  0,
+                           "night_forge":  1,
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "B96C22BDD6D5D22F12C61363DE50CDC4171B633C2935557926AD24E1D959D848"
+    "semantic_hash":  "EABA36E975DEC0DDA89C6AB328393273F2EBC539F199B08FC186FD329BE0ED79"
 }
