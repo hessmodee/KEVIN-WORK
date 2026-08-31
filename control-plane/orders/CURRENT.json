@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "kind": "kevin-work-order",
-  "id": "bess-20260831-0652-autonomy-reconcile",
-  "idempotency_key": "bess-autonomy-reconcile-20260831-0652",
-  "created_at": "2026-08-31T06:52:00Z",
-  "expires_at": "2026-08-31T10:52:00Z",
+  "id": "bess-20260831-0659-refresh-autonomy",
+  "idempotency_key": "bess-refresh-autonomy-20260831-0659",
+  "created_at": "2026-08-31T06:59:00Z",
+  "expires_at": "2026-08-31T10:59:00Z",
   "authority_class": "GREEN",
-  "verb": "run_reconcile",
-  "target": "autonomy",
-  "reason": "Owner-directed overnight full-steam campaign: correct the observed zero-worker/no-dispatch state and reconcile only already-authorized GREEN autonomy drift. Preserve typed boundaries, bounded retries, no arbitrary shell, no authority expansion, and continue useful work when one family is blocked or cooling. Prioritize measured progress toward native owner communications, mobile HQ, Telegram diagnosis, Reader mastery, Chat evolution, Staging validation, Tick work-conservation, Skill Lab composites, and Gmail readiness without widening permissions."
+  "verb": "refresh_autonomy_telemetry",
+  "target": "autonomy-telemetry",
+  "reason": "Owner-directed overnight full-steam campaign: publish a fresh sanitized autonomy snapshot after the reconcile returned NEEDS_REVIEW drift=3. Preserve GREEN-only authority and expose enough bounded state to distinguish stale telemetry, resolver drift, and work-conserving dispatch defects before the next materially different action."
 }
