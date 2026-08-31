@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-08-31T12:11:26.5316389-06:00",
+    "generated_at":  "2026-08-31T12:13:52.3684019-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
                     "id":  "bess-runtime-convergence-snapshot-20260831-1113",
                     "operation":  "snapshot",
-                    "status":  "DUPLICATE_IGNORED",
-                    "detail":  "Request id already processed."
+                    "status":  "REJECTED",
+                    "detail":  "request expired"
                 },
     "result":  {
 
@@ -27,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  61586.7
+                                     "heartbeat_age_seconds":  61732.6
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -53,11 +53,11 @@
                                                               }
                                         },
                    "benchmark":  {
-                                     "status":  "PASS",
-                                     "passed":  30,
+                                     "status":  "FAIL_CRITICAL_REGRESSION",
+                                     "passed":  29,
                                      "total":  30,
-                                     "critical":  0,
-                                     "at":  "2026-08-31T12:04:52.6256229-06:00"
+                                     "critical":  1,
+                                     "at":  "2026-08-31T12:13:26.7080431-06:00"
                                  },
                    "cron":  [
                                 {
@@ -75,20 +75,6 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-support-bridge-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-supervisor-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-benchmark-v1",
                                     "enabled":  true,
                                     "every_ms":  600000,
@@ -99,6 +85,20 @@
                                     "declaration_key":  "kevin-maintenance-intake-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-supervisor-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 }
