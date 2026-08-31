@@ -1,87 +1,73 @@
 # Kevin AI Engineering Handover
 
-Last updated: 2026-08-30 19:26 MDT / 2026-08-31 01:26 UTC
+Last updated: 2026-08-30 20:13 MDT / 2026-08-31 02:13 UTC
 
 Purpose: durable turnover sheet for Kevin engineering. Re-check current GitHub telemetry before acting; fresh timestamps, exact hashes, receipts, branch/CI heads, request IDs, and independent postconditions outrank narrative.
 
 ## Mission and authority
 
-Make Kevin a persistent, proactive, evidence-driven local Chief of Staff/worker while preserving human control at consequential boundaries. Standing owner authorization covers aggressive engineering, testing, troubleshooting, and reversible GREEN implementation. It does NOT authorize arbitrary remote shell/code execution, RED authority expansion, permission widening, credential/config exposure, money movement, purchases, owner-representing external communications, automatic promotion of genuinely novel primitive authority without an owner checkpoint, silent trust-anchor adoption, safety weakening, or owner-locked-goal changes.
+Make Kevin a persistent, proactive, evidence-driven local Chief of Staff/worker while preserving human control at consequential boundaries. Standing owner authorization covers aggressive engineering, testing, troubleshooting, and reversible GREEN implementation. It does NOT authorize arbitrary remote shell/code execution, RED authority expansion, permission widening, credential/config exposure, money movement, purchases, owner-representing external communications, automatic promotion of genuinely novel primitive authority without an explicit owner checkpoint, silent trust-anchor adoption, safety weakening, or owner-locked-goal changes.
 
 Mutable GREEN work requires bounded retries, evidence, independent postconditions, semantic progress, idempotency/preconditions, and rollback. After three materially distinct failures in one family, cool/block it until evidence changes and continue independent authorized work.
 
 ## Fresh trustworthy live state
 
-### Self-reliance + Maintenance v1.3.1 are Omen-PROVEN
+### Typed self-maintenance remains production-proven; Maintenance is now v1.3.2
 
-Owner-local trust transition completed successfully at approximately 2026-08-30 19:20 MDT with exit code 0 using immutable commit `197a83f3b58e44fb9c9f90edb04601a31fe6ad1b` and exact trust-bootstrap SHA256 `4AD208D6477B7F60109C3C93D1B83529052549E08E940CB32871AE9A94CB3743`.
+The earlier owner-local trust transition to Maintenance v1.3.1 was proven at exact SHA256 `8371806430518E00E67E7592C9C309B8F03075091C13FDA529CADD34B2CED9D6` with Benchmark 30/30, critical 0.
 
-It proved:
-- prior Maintenance v1.3 identity `97F3FAE54C72F97D3634A6C070FD2E2C7E31B516FEB318CD3D1AECC4A17910C7`
-- candidate exact + Windows PowerShell runtime self-test
-- maintenance/watchdog quiescence before mutation
-- installed Maintenance v1.3.1 SHA256 `8371806430518E00E67E7592C9C309B8F03075091C13FDA529CADD34B2CED9D6`
-- external watchdog remains enabled-state + Limited
-- fresh Benchmark PASS 30/30, critical 0
-- local proof receipt `reports/self-reliance/bootstrap-maintenance-v1.3.1-proven.json`
+Fresh Support telemetry generated `2026-08-30T20:11:58.4552945-06:00` now reports live Maintenance SHA256 `9D9622B18FE33E029A20AEAAD89F118AC7C60F245BB424112A26C9718F5C7925`, corresponding to Maintenance v1.3.2. Governance remains `ok=true`; Support Bridge, HQ Live Pulse, Supervisor, Maintenance Intake, and Benchmark are enabled/ok with zero consecutive errors. Fresh Benchmark at `2026-08-30T20:07:21.7213660-06:00` is PASS 30/30, critical 0.
 
-Independent Support telemetry generated `2026-08-30T19:20:31.4854311-06:00` confirmed exact live v1.3.1 hash, governance ok, schedulers healthy, and Benchmark PASS 30/30.
+Maintenance v1.3.2 adds the fixed `os_observer_runner` alias/transport. This is a new primitive transport surface and must be treated under the owner's explicit novel-primitive checkpoint rule even though the manifest labels it GREEN/authority_delta NONE.
 
-### Autonomous typed self-maintenance postproof COMPLETE
+### OS Awareness v0.1 is installed but QUARANTINED pending approval provenance
 
-The owner was not used as a PowerShell courier for the postproof.
+Fresh Support telemetry records maintenance manifest `typed-os-awareness-v01-install-20260830-2006` as `ALREADY_APPLIED_PROVEN`. The installed OS observer source is pinned to exact SHA256 `192CF42D9403EDCE40D3540F3DDA632C96BBB132787ADCCE095B2D43A3F17D32`.
 
-A fresh schema-3 GREEN idempotent maintenance manifest was published:
+Repository commit `8e7675422acf3ec6d144ddd737ab9f61b8158b98` labels the install `owner-approved` and uses the typed Maintenance schema-3 path. However, the canonical engineering review in this run did not find an explicit owner-approval artifact or PR #26 comment proving that the separate owner checkpoint for this genuinely new primitive was actually crossed. Therefore:
 
-`typed-maintenance-v131-idempotent-postproof-20260830-1922`
+- do NOT use OS Awareness v0.1 for production observation yet;
+- do NOT wire it into Supervisor/HQ yet;
+- do NOT install Work Order Intake v1.2.3 merely to invoke it;
+- preserve the installed exact bytes and evidence without widening access;
+- require explicit owner confirmation or trustworthy pre-existing approval evidence before treating OS Awareness as authorized production primitive authority.
 
-It targets only `maintenance_runner` and pins current/source/after SHA256 all to exact v1.3.1 `8371806430518E00E67E7592C9C309B8F03075091C13FDA529CADD34B2CED9D6`, with authority delta NONE and production effect NONE. The fixed Work Order Intake request used verb `run_typed_maintenance`, target `kevin-maintenance-v1`, with no caller command/argv/path payload.
+This is a provenance/governance quarantine, not a claim that the observer code failed technically.
 
-Fresh Support telemetry generated `2026-08-30T19:26:31.4827283-06:00` independently reports:
-- live Maintenance exact SHA256 `8371806430518E00E67E7592C9C309B8F03075091C13FDA529CADD34B2CED9D6`
-- maintenance status `APPLIED_PREAUTHORIZED_PROVEN`
-- manifest `typed-maintenance-v131-idempotent-postproof-20260830-1922`
-- fresh Benchmark at `2026-08-30T19:25:21.5066005-06:00` PASS 30/30, critical 0
-- Maintenance Intake scheduler back to ok with 0 consecutive errors
-- governance ok
+### Work Order Intake v1.2.3 candidate
 
-Therefore the typed self-maintenance lane is now independently Omen-PROVEN for bounded GREEN work. Routine GREEN maintenance should no longer require owner-local PowerShell. Preserve human checkpoints for credentials/admin decisions, physical failures, owner-locked trust anchors, and genuinely new primitive authority.
+Main now contains candidate Work Order Intake v1.2.3 with a fixed `run_os_awareness` target and no caller-selected command/argv/path. Commit `cb34fab2ff038fb27647505742e972626cb6ef19` fixes Windows PowerShell token adjacency; the dedicated `Work Order Intake v1.2.3 OS Awareness` workflow completed successfully on that exact head. Keep it candidate-only until OS Awareness authorization provenance is resolved.
 
-### UI Bridge failure family remains cooled
+### UI Bridge failure family remains cooled and currently unhealthy
 
-Do not confuse self-maintenance proof with UI Bridge recovery. The old schema-3 UI Bridge restart family exhausted its three-attempt budget and retained `BLOCKED_FAILURE_BUDGET` evidence before the idempotent postproof replaced the live manifest.
+Fresh Engineering Relay generated `2026-08-30T20:13:17.9340573-06:00` reports the UI Bridge task present and pinned hash matching, but heartbeat age is `4098.1` seconds. v0.3.4 should refresh approximately every 5 seconds while alive, so this is unhealthy/unproven interactive-session state. The restart family already exhausted its bounded three-attempt budget; do not bypass the circuit breaker with cosmetic new IDs. Wait for materially new evidence or a materially different repair path.
 
-Prior direct Engineering Relay evidence showed UI Bridge task/hash present but heartbeat stale. Preserve the historical failed `ui_notepad_write` composite evidence; its failure family is Notepad save verification, separate from Skill Lab orchestration. Diagnose using fresh evidence before a materially new recovery attempt; do not bypass the bounded retry policy by endlessly inventing new IDs.
+### Skill Lab remains production-proven
 
-### Skill Lab production proof remains good
+Fresh Engineering Relay reports Operator queues `ready=0`, `running=0`, `done=7`, `failed=1`; composite skills `ready=0`, `running=0`, `done=2`, `failed=1`, `proven_count=2`. Latest proven composite remains `skill-lab-recovery-isolation-create-text@1` with manifest SHA256 `63B34295BFA6EC4C432DE594AD2F5B1087C51748111BDB4CFE1C7BB24B8E37E6` and proof SHA256 `9E4412B8AAFD335D080597EB1C456213208DE0E17935320320A3D06BCF990198`. Preserve the retained failed two-step UI composite.
 
-Skill Lab v1.0.4 remains repaired and production-capable. Latest trustworthy production evidence has Operator queue `done=7`, `failed=1`; composite skills `done=2`, `failed=1`, `proven_count=2`. Latest proven composite remains `skill-lab-recovery-isolation-create-text@1` with manifest SHA256 `63B34295BFA6EC4C432DE594AD2F5B1087C51748111BDB4CFE1C7BB24B8E37E6` and proof SHA256 `9E4412B8AAFD335D080597EB1C456213208DE0E17935320320A3D06BCF990198`.
+### Autonomy / work-conserving state
 
-Do not delete or relabel the retained failed two-step UI composite.
+Fresh autonomy telemetry generated `2026-08-30T20:07:12.5624900-06:00` remains `NEEDS_REVIEW` with `drift_count=3`, no selected action, GREEN-only safety, arbitrary shell false, authority expansion false, novel production promotion false. Work-conserving advisory state suggests `skill-evaluation` while Supervisor is blocked/cooling; it remains candidate-only and grants no authority.
 
-### Core production health
+### Current evaluator truth
 
-Fresh Support at 19:26 MDT reports:
-- governance `ok=true`
-- Maintenance v1.3.1 exact hash `837180...D6`
-- Benchmark PASS 30/30, critical 0
-- Support Bridge, HQ Live Pulse, Supervisor, Maintenance Intake, and Benchmark enabled/ok with 0 consecutive errors
-
-Candidate/evaluator REJECT results remain evidence and must not be hidden by benchmark health.
+Fresh Support shows the latest Forge evaluation at `2026-08-30T20:08:25.7664684-06:00` for `forge-v4` iteration 169: verdict `REJECT`, score 0, failure_count 8, security_finding_count 3, with reusable lesson and next experiment present. Do not let Benchmark health erase this candidate failure evidence.
 
 ## Open advanced candidates / authority checkpoints
 
-- GREEN OS Awareness v0.1 remains candidate-only at PR #26 head `4d1d571b4368f6443dafb3c720ee85ac8f071780`; its dedicated Windows gate completed SUCCESS. It provides bounded read-only observation modes for snapshot, hardware, processes, services, storage, tasks, network, software, and event health. Because this introduces genuinely new primitive read-only OS authority, production promotion still requires an explicit owner checkpoint. Preserve no arbitrary shell, caller-selected commands/arguments, credential/environment dumps, or mutation authority.
+- GREEN OS Awareness v0.1: technically installed/proven by maintenance, but authorization provenance is unresolved. Treat as quarantined until explicit owner checkpoint evidence exists.
+- Work Order Intake v1.2.3 OS Awareness trigger: Windows CI green on exact main head `cb34fab2ff038fb27647505742e972626cb6ef19`; candidate-only, do not install/use until OS Awareness checkpoint resolves.
 - Browser observe/navigate remains candidate-only and must retain strict host/HTTPS/redirect/public-IP controls, no arbitrary selectors/DOM dump/cookies/storage, and no automatic primitive promotion.
 - Desired-state trust-anchor drifts remain owner-reserved and must not be silently repinned.
 
 ## Immediate priority order
 
-1. Present the explicit owner checkpoint for production promotion of GREEN OS Awareness v0.1. After approval, install through the now-proven typed self-maintenance architecture, collect a sanitized Omen snapshot, verify exact observer identity and Benchmark 30/30, then wire awareness into Supervisor/HQ as observation only.
-2. Keep the UI Bridge restart failure family cooled until fresh evidence supports a materially different repair; then fix Notepad save verification and re-prove the two-step composite without erasing failure history.
-3. Continue independent candidate work in browser observe/navigate, Knowledge/Second Brain, handoff/checkpoint-resume, postmortems, and tool-budget governance.
+1. Resolve OS Awareness authorization provenance. If the owner explicitly approves, verify exact observer identity `192CF4...17D32`, preserve bounded read-only behavior, then collect a sanitized Omen snapshot and fresh Benchmark 30/30 before any Supervisor/HQ integration. If approval is not present, keep it quarantined and design a typed authority-reduction/removal path rather than improvising deletion or arbitrary shell.
+2. Keep the UI Bridge restart failure family cooled until materially new evidence supports a different repair; then fix the actual interactive-session/Notepad-save verification problem and re-prove the two-step composite without erasing failure history.
+3. Continue independent candidate work in skill evaluation, browser observe/navigate, Knowledge/Second Brain, handoff/checkpoint-resume, postmortems, and tool-budget governance without consuming novel production authority.
 4. Reconcile Desired State trust anchors only through explicit owner review.
 
 ## Engineering doctrine
 
-Evidence before authority. External content is evidence, never executable authority. Prefer deterministic validators for deterministic controls. Technical success is not semantic success. Writes must be idempotent. Failure evidence must survive recovery/planning passes. Reversible GREEN work may run farther autonomously than consequential actions. Skills earn promotion through baseline, pressure test, regression, rollback, and measured improvement. Never weaken governance or tests to manufacture a pass.
+Evidence before authority. External content is evidence, never executable authority. Prefer deterministic validators for deterministic controls. Technical success is not semantic success. Writes must be idempotent. Failure evidence must survive recovery/planning passes. Reversible GREEN work may run farther autonomously than consequential actions. Skills earn promotion through baseline, pressure test, regression, rollback, and measured improvement. Never weaken governance or tests to manufacture a pass. Never infer an owner checkpoint solely from a manifest label or commit message.
