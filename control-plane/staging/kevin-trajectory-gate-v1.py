@@ -20,6 +20,7 @@ from typing import Any
 
 SHA256 = re.compile(r"^[A-Fa-f0-9]{64}$")
 ID = re.compile(r"^[A-Za-z0-9._-]{3,96}$")
+VERSION = re.compile(r"^[A-Za-z0-9._-]{1,32}$")
 MAX_TRIALS = 10
 MIN_TRIALS = 2
 
@@ -39,6 +40,13 @@ def _id(value: Any, field: str) -> str:
     s = str(value or "")
     if not ID.fullmatch(s):
         raise EvidenceError(f"{field} invalid")
+    return s
+
+
+def _version(value: Any) -> str:
+    s = str(value or "")
+    if not VERSION.fullmatch(s):
+        raise EvidenceError("version invalid")
     return s
 
 
@@ -63,7 +71,7 @@ def evaluate(doc: dict[str, Any]) -> dict[str, Any]:
         raise EvidenceError("trajectory gate accepts authority-neutral GREEN evidence only")
 
     capability_id = _id(doc.get("capability_id"), "capability_id")
-    version = _id(doc.get("version"), "version")
+    version = _version(doc.get("version"))
     expected_end = _sha(doc.get("expected_end_state_sha256"), "expected_end_state_sha256")
     required = _actions(doc.get("required_actions"), "required_actions")
     forbidden = _actions(doc.get("forbidden_actions"), "forbidden_actions")
