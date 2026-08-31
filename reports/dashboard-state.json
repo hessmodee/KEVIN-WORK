@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T00:39:10-06:00",
+  "generated_at": "2026-08-31T00:39:13.2345047-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -36,13 +36,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T20:34:30-06:00",
-        "estimated": false,
-        "ram": 28,
-        "cpu": 11,
-        "gpu": 38
-      },
       {
         "at": "2026-08-30T20:35:14-06:00",
         "estimated": false,
@@ -707,10 +700,16 @@
         "ram": 38,
         "cpu": 21,
         "gpu": 13
+      },
+      {
+        "at": "2026-08-31T00:39:13-06:00",
+        "estimated": false,
+        "ram": 38,
+        "cpu": 21,
+        "gpu": 13
       }
     ],
     "ram": [
-      28,
       31,
       31,
       32,
@@ -805,10 +804,10 @@
       37,
       38,
       38,
+      38,
       38
     ],
     "cpu": [
-      11,
       15,
       15,
       12,
@@ -903,10 +902,10 @@
       10,
       7,
       21,
+      21,
       21
     ],
     "gpu": [
-      38,
       99,
       99,
       37,
@@ -1000,6 +999,7 @@
       36,
       28,
       34,
+      13,
       13,
       13
     ]
@@ -1154,6 +1154,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-31T00:39:13-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 130763ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
     {
       "at": "2026-08-31T00:39:10-06:00",
       "source": "forge",
@@ -1368,15 +1377,6 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 32000
-    },
-    {
-      "at": "2026-08-30T23:35:27-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: forge-v4",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
@@ -1384,7 +1384,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-31T00:39:10-06:00",
+    "last": "2026-08-31T00:39:13.2345047-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1421,7 +1421,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-31T00:38:10.8703586-06:00",
+    "generated_at": "2026-08-31T00:39:13.2345047-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1444,7 +1444,7 @@
         "name": "Supervisor",
         "role": "Goal-aware control plane",
         "state": "ready",
-        "detail": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-08-31T00:36:22.4047482-06:00",
+        "detail": "Another Kevin engineering worker is active.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
