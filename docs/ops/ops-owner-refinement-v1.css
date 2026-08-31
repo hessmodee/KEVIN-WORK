@@ -1,22 +1,31 @@
-:root{--ready:#244f8f;--armed:#68d8ce}
+:root{--ready:#244f8f;--armed:#68d8ce;--active:#ffd166}
 .worker-progress{display:none!important}
 .worker.ready{--statec:#244f8f!important}.line.state-ready{--statec:#244f8f!important}
-.worker .owl-eye-white{fill:#f8f5ed;stroke:var(--idc);stroke-width:1.6}.worker .owl-eye{fill:#0b0e0b}.worker .owl-eye-hi{fill:#fff}.worker .owl-feet-kevin{fill:var(--idc);stroke:none}
+.worker .owl-eye-white,.worker .owl-eye,.worker .owl-eye-hi{display:none!important}.worker .owl-eye-outline{fill:none!important;stroke:var(--idc);stroke-width:2.3;vector-effect:non-scaling-stroke}.worker .owl-feet-kevin{fill:var(--idc);stroke:none}
 .worker .owl-eyes{transform-box:fill-box;transform-origin:center}
-.worker.ready .owl{animation:ownerReadyBreath 4.8s ease-in-out infinite}
-.worker.working .owl{animation:ownerWorkBob 1.15s ease-in-out infinite}.worker.working .owl-eyes{animation:ownerBlink 3.4s ease-in-out infinite}
-.worker.building .owl{animation:ownerBuildWiggle 1.05s ease-in-out infinite}.worker.building .owl-eyes{animation:ownerBlink 2.9s ease-in-out infinite}
+.worker.ready .owl{animation:ownerReadyBreath 4.8s ease-in-out infinite}.worker.ready .owl-eyes{animation:ownerBlink var(--blink-rate,5.9s) ease-in-out infinite;animation-delay:var(--blink-delay,-1s)}
+.worker.working .owl{animation:ownerWorkBob 1.15s ease-in-out infinite}.worker.working .owl-eyes{animation:ownerBlink var(--blink-rate,3.4s) ease-in-out infinite;animation-delay:var(--blink-delay,-.7s)}
+.worker.building .owl{animation:ownerBuildWiggle 1.05s ease-in-out infinite}.worker.building .owl-eyes{animation:ownerBlink var(--blink-rate,2.9s) ease-in-out infinite;animation-delay:var(--blink-delay,-.4s)}
 .worker.degraded .owl{animation:ownerDegraded 2.2s ease-in-out infinite}.worker.offline .owl{animation:none!important;filter:grayscale(.6);opacity:.55}
+.worker{cursor:pointer}.worker.owner-selected .box{outline:1px solid rgba(255,255,255,.34);box-shadow:0 0 0 3px rgba(36,79,143,.18),0 10px 28px rgba(0,0,0,.2)}
+#kevinHub{cursor:pointer}#kevinHub.owner-selected{outline:1px solid rgba(255,255,255,.26);box-shadow:0 0 0 4px rgba(36,79,143,.15),0 18px 40px rgba(0,0,0,.24)}
 #kevinHub.truth-active .kevin-avatar-prod .kv-eyes,#kevinHub.truth-working .kevin-avatar-prod .kv-eyes{transform-origin:60px 48px;animation:ownerKevinBlink 3.8s ease-in-out infinite}
 #kevinHub.truth-armed .kevin-avatar-prod .kv-eyes{transform-origin:60px 48px;animation:ownerKevinBlink 6.2s ease-in-out infinite}
+#kevinHub .kevin-avatar-prod.owner-victory{transform-origin:50% 82%;animation:ownerVictoryFlip 1.55s cubic-bezier(.22,.8,.28,1) 1!important}
+#kevinHub.owner-celebrate:before,#kevinHub.owner-celebrate:after{content:'✦';position:absolute;z-index:8;color:#ffd166;font-size:23px;animation:ownerSpark 1.2s ease-out 1;pointer-events:none}#kevinHub.owner-celebrate:before{left:14%;top:12%}#kevinHub.owner-celebrate:after{right:14%;top:18%;animation-delay:.12s}
 .owner-status-guide{margin-top:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
 .owner-status-item{display:grid;grid-template-columns:11px 76px 1fr;gap:7px;align-items:center;padding:7px 9px;border:1px solid var(--line);border-radius:11px;background:rgba(12,18,12,.72);font-size:9.5px;color:var(--muted)}
 .owner-status-item i{width:10px;height:10px;border-radius:50%;box-shadow:0 0 9px color-mix(in srgb,currentColor 35%,transparent)}.owner-status-item b{font-size:9px;letter-spacing:.08em;color:var(--fg)}
+.owner-status-item.owner-active i{background:var(--active)!important;color:var(--active)!important}.owner-status-item.owner-active b{color:#ffe5a3}
+.owner-live-age{color:#9ca7a0!important;font-variant-numeric:tabular-nums;white-space:nowrap}.owner-live-age strong{color:#f2efe7}
+.svc .dot.active{background:var(--active)!important;box-shadow:0 0 12px rgba(255,209,102,.5)!important}.svc:has(.dot.active) span{color:#ffe39a!important}
 .legend.owner-compact{display:none!important}
 @media(min-width:850px){.owner-status-guide{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@keyframes ownerBlink{0%,88%,92%,100%{transform:scaleY(1)}90%{transform:scaleY(.06)}}
+@keyframes ownerBlink{0%,88%,92%,100%{transform:scaleY(1)}90%{transform:scaleY(.05)}}
 @keyframes ownerKevinBlink{0%,89%,93%,100%{transform:scaleY(1)}91%{transform:scaleY(.06)}}
 @keyframes ownerReadyBreath{0%,100%{transform:translateY(0);filter:drop-shadow(0 0 4px var(--idc))}50%{transform:translateY(-1px);filter:drop-shadow(0 0 8px var(--idc))}}
 @keyframes ownerWorkBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-5px) rotate(-1deg)}}
 @keyframes ownerBuildWiggle{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-5px) rotate(2deg)}}
 @keyframes ownerDegraded{0%,90%,100%{transform:translateX(0)}93%{transform:translateX(-2px)}96%{transform:translateX(2px)}}
+@keyframes ownerVictoryFlip{0%{transform:translateY(0) rotate(0) scale(1)}18%{transform:translateY(-9px) rotate(-8deg) scale(1.04)}45%{transform:translateY(-16px) rotate(185deg) scale(1.06)}72%{transform:translateY(-8px) rotate(360deg) scale(1.03)}88%{transform:translateY(2px) rotate(367deg) scale(.98)}100%{transform:translateY(0) rotate(360deg) scale(1)}}
+@keyframes ownerSpark{0%{transform:translateY(8px) scale(.4) rotate(0);opacity:0}25%{opacity:1}100%{transform:translateY(-22px) scale(1.25) rotate(120deg);opacity:0}}
