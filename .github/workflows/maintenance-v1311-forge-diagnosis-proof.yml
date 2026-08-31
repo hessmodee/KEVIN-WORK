@@ -1,0 +1,79 @@
+name: Maintenance v1.3.11 Forge Diagnosis Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1311-forge-diagnosis.py'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.9.ps1'
+      - '.github/workflows/maintenance-v1311-forge-diagnosis-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Generate candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          python .\tools\generate-maintenance-v1311-forge-diagnosis.py
+          if($LASTEXITCODE -ne 0){throw 'generator failed'}
+      - name: Parse and deterministic self-test
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $p=Resolve-Path .\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.11.ps1
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count -gt 0){$errors|ForEach-Object{Write-Host $_.Message};throw 'parse failed'}
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1|Out-String
+          Write-Host $out
+          if($LASTEXITCODE -ne 0){throw 'selftest failed'}
+          foreach($m in @('KEVIN MAINTENANCE v1.3.11 SELFTEST PASS','forge_diagnosis=fixed_reversible','metadata_only=true','rollback=true','benchmark_restore=30of30')){if($out -notmatch [regex]::Escape($m)){throw "missing marker $m"}}
+      - name: Static diagnostic authority invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          t=Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.11.ps1').read_text(encoding='utf-8')
+          for x in [
+            'diagnose_forge_v40_benchmark','Diagnose-ForgeV40Benchmark',
+            '433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A',
+            '4C83DF29E765D61F2B26D2029FE6C2C7ED68DA90E5A7A457A82BE769029E22CA',
+            'reports/forge-v40-benchmark-diagnosis.json','DIAGNOSIS_PROVEN',
+            'restored_legacy_identity','post_rollback_benchmark','Assert-Benchmark30',
+            'Forge diagnosis manifest must not supply','caller-selected Forge diagnosis command accepted',
+            "production_effect must be NONE","authority_delta must be NONE",'$MaxAttempts = 3'
+          ]: assert x in t, x
+          assert "@('path','command','args','target','source_path','source_sha256','expected_current_sha256','expected_after_sha256','benchmark','test_id')" in t
+          # The diagnostic always restores legacy bytes in finally before accepting success.
+          assert 'finally{' in t and 'Copy-Item -LiteralPath $backup -Destination $target -Force' in t
+          for x in ['Invoke-Expression','DownloadString(','New-Object Net.WebClient','System.Net.WebClient']:
+              assert x.lower() not in t.lower(), x
+          print('V1311_STATIC_PASS fixed_candidate=true reversible=true metadata_only=true authority_delta=NONE')
+      - name: Emit exact candidate identity
+        shell: python
+        run: |
+          import hashlib,json
+          from pathlib import Path
+          c=Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.11.ps1')
+          b=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.9.ps1')
+          out={'schema':1,'kind':'kevin-maintenance-v1311-qualified-candidate','git_head':'${{ github.sha }}','candidate_path':str(c).replace('\\','/'),'sha256':hashlib.sha256(c.read_bytes()).hexdigest().upper(),'base_v139_sha256':hashlib.sha256(b.read_bytes()).hexdigest().upper()}
+          Path('maintenance-v1311-candidate-hash.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf-8')
+          print(Path('maintenance-v1311-candidate-hash.json').read_text())
+      - uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-v1311-qualified-candidate
+          path: |
+            control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.11.ps1
+            maintenance-v1311-candidate-hash.json
+          if-no-files-found: error
+          retention-days: 7
