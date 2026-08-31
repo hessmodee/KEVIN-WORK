@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "kind": "kevin-work-order",
-  "id": "bess-20260831-0055-support-refresh",
-  "idempotency_key": "bess-support-refresh-after-self-reliance-20260831-0055",
-  "created_at": "2026-08-31T00:55:00Z",
-  "expires_at": "2026-08-31T01:55:00Z",
+  "id": "bess-20260831-0122-maint-v131-postproof",
+  "idempotency_key": "bess-maint-v131-idempotent-postproof-20260831-0122",
+  "created_at": "2026-08-31T01:22:00Z",
+  "expires_at": "2026-08-31T02:22:00Z",
   "authority_class": "GREEN",
-  "verb": "run_support_bridge",
-  "target": "kevin-support-bridge-v1",
-  "reason": "Refresh live support telemetry after the owner-proven self-reliance bootstrap so Bess can independently verify installed maintenance, governance, scheduler health, and benchmark state without asking the owner for another diagnostic command."
+  "verb": "run_typed_maintenance",
+  "target": "kevin-maintenance-v1",
+  "reason": "Independently prove the newly installed exact Maintenance v1.3.1 typed GREEN lane using an idempotent self-check plus fresh benchmark, without touching the cooled UI Bridge failure family."
 }
