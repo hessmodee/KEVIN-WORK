@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "kind": "kevin-work-order",
-  "id": "hq-alert-flush-maintenance-slot-20260831-1742",
-  "idempotency_key": "hq-alert-flush-maintenance-slot-20260831-1742-a",
-  "created_at": "2026-08-31T17:42:00-06:00",
+  "id": "hq-alert-refresh-autonomy-20260831-1746",
+  "idempotency_key": "hq-alert-refresh-autonomy-20260831-1746-a",
+  "created_at": "2026-08-31T17:46:00-06:00",
   "expires_at": "2026-08-31T18:30:00-06:00",
   "authority_class": "GREEN",
-  "verb": "run_typed_maintenance",
-  "target": "kevin-maintenance-v1",
-  "reason": "Consume and settle the already-present bounded GREEN maintenance manifest so the maintenance lane is not overwritten while fresh. Preserve semantic Maintenance postcondition verification and no arbitrary shell/authority expansion."
+  "verb": "refresh_autonomy_telemetry",
+  "target": "kevin-autonomy-v1",
+  "reason": "Recompute autonomy against current live Support identities after adopting the exact proven Maintenance v1.3.10 identity. This must expose the remaining real Forge mismatch rather than continuing to display the stale 17:12 drift_count=3 snapshot. No authority expansion or arbitrary shell."
 }
