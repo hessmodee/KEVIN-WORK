@@ -49,7 +49,10 @@ jobs:
           opsfun=Path('docs/ops/ops-fun-v2.js').read_text()
           css=Path('docs/ops/ops-owner-refinement-v1.css').read_text()
           over=Path('docs/hq-overrides-v1.js').read_text()
-          assert 'hq-owner-refinement-v1.js?v=4' in idx and 'hq-fun-v2.js?v=1' in idx
+          assert 'hq-core-v7.html?v=8#overview' in idx
+          assert 'hq-overrides-v1.js?v=2' in idx and 'hq-owner-refinement-v1.js?v=5' in idx and 'hq-fun-v2.js?v=2' in idx
+          assert "href==='about:blank'" in hq and 'boundDoc!==target.doc' in hq and 'setInterval(hook,650)' in hq
+          assert 'hooked=false' not in hq and 'if(hooked)' not in hq
           assert 'ops-owner-refinement-v1.css?v=4' in emb and 'ops-owner-refinement-v1.js?v=4' in emb and 'ops-fun-v2.js?v=2' in emb
           assert '#244f8f' in emb and '#68d8ce' in emb and '#ffd166' in emb
           for status in ['READY','ARMED','ACTIVE','WORKING','BUILDING','COOLDOWN','DEGRADED','OFFLINE']:
@@ -72,4 +75,4 @@ jobs:
           assert 'setInterval(refreshTelemetry,3000)' in ops
           assert 'setInterval(refreshBase,4000)' in opsfun
           assert "type:'kevin-ops-state'" in ops and "type!=='kevin-ops-state'" in hq
-          print('HQ_OWNER_REFINEMENT_PASS live_timestamp=true kevin_reselect=true owl_outline=true blink_stagger=true gaze=true celebration=true active_color=true refresh_near_real_time=true redraw_idempotent=true')
+          print('HQ_OWNER_REFINEMENT_PASS live_timestamp=true kevin_reselect=true owl_outline=true blink_stagger=true gaze=true celebration=true active_color=true refresh_near_real_time=true redraw_idempotent=true iframe_rebind=true')
