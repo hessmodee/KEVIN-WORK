@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "kind": "kevin-owner-outcome-scorecard",
+  "generated_at": "2026-08-31T12:18:00-06:00",
+  "safe_for_public_repo": true,
+  "measurement_contract": "docs/engineering/REAL-WORLD-OWNER-OUTCOME-PROTOCOL-v1.md",
+  "today": {
+    "verified_owner_outcomes": 0,
+    "owner_accepted_outcomes": 0,
+    "bess_interventions_per_verified_outcome": null,
+    "first_pass_success_rate": null,
+    "known_failure_self_recovery_rate": null,
+    "note": "Do not infer owner outcomes from component/Skill Lab proof. No new owner-accepted E2E result has been independently recorded in this scorecard yet."
+  },
+  "real_capability_evidence_not_yet_counted_as_owner_outcome": [
+    {
+      "capability": "business-budget-starter-pack@1",
+      "proof": "OMEN-PROVEN Skill Lab composite",
+      "proven_at": "2026-08-31T08:10:29.3271378-06:00",
+      "why_not_counted": "Executable capability proof exists, but a real owner-requested deliverable produced through this composite has not yet been recorded as accepted."
+    }
+  ],
+  "active_operational_incidents": [
+    {
+      "id": "forge-round-robin-spin",
+      "state": "ACTIVE_BLOCKER",
+      "latest_observed_iteration": 272,
+      "symptom": "Legacy Forge continues demandless/repeated candidate execution.",
+      "remediation_state": "Demand-driven Forge v4.0 is CI-qualified, but typed install rolled back because Benchmark R03 pins the previous Forge identity. A coordinated validator/component migration is required."
+    },
+    {
+      "id": "ui-bridge-stale-heartbeat",
+      "state": "REPAIR_QUEUED",
+      "symptom": "Interactive UI Bridge task/hash present but heartbeat is ~17h stale.",
+      "remediation_state": "Fresh exact-hash typed restart manifest queued through Maintenance v1.3.4."
+    },
+    {
+      "id": "autonomy-work-selection",
+      "state": "NEEDS_REVIEW",
+      "symptom": "Autonomy can report NO_DISPATCH_NEEDED despite explicit useful owner backlog.",
+      "remediation_state": "Must be retested after runtime convergence; do not claim work-selection transfer until Kevin self-selects and verifies useful work."
+    }
+  ],
+  "next_real_world_test": {
+    "target": "Complete one useful owner task E2E through Kevin's actual runtime and record acceptance, time, retries, evidence and Bess intervention.",
+    "preferred_examples": [
+      "Reader answers a useful current status/research question with provenance",
+      "Kevin uses a proven file/spreadsheet composite on a real owner deliverable",
+      "HQ direct chat completes a genuine Matt->Kevin->Matt correlated round trip"
+    ]
+  }
+}
