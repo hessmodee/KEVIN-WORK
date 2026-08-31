@@ -16,23 +16,24 @@
       "reduces_bess_intervention": true,
       "repairs_false_success": true,
       "acceptance_criteria": [
-        "Demand-driven Forge v4.0 is installed through typed Maintenance with exact source identity and rollback.",
-        "Benchmark returns PASS 30/30 critical=0 against the intentional new Forge identity.",
-        "With no valid CURRENT demand, Forge records IDLE_NO_ELIGIBLE_DEMAND and does not create a new candidate iteration.",
-        "A valid bounded demand is consumed exactly once and archived."
+        "Demand-driven Forge v4.0 is installed through a typed, reversible production path with the real integrity dependency migrated correctly.",
+        "Benchmark returns PASS 30/30 critical=0 against the intentional new Forge/Goal-OS trust relationship.",
+        "With no valid current demand, Forge records IDLE_NO_ELIGIBLE_DEMAND and does not create another candidate iteration.",
+        "A valid bounded demand is consumed exactly once and archived.",
+        "Legacy Supervisor no longer generates demandless Forge work."
       ],
       "dependencies_ready": false,
       "blocked": true,
       "failure_attempts": 3,
-      "material_new_evidence": false,
-      "cooldown_until": "2026-08-31T16:00:00-06:00",
-      "next_action": "READ-ONLY ONLY: identify the actual Benchmark R03/Forge trust dependency and Supervisor admission mechanism. Do not mutate, repin, rename, or retry this family until new evidence changes the failed literal-pin hypothesis."
+      "material_new_evidence": true,
+      "cooldown_until": "2026-08-31T17:00:00-06:00",
+      "next_action": "READ-ONLY diagnosis only: use the proven R03 metadata to identify the actual Benchmark/Goal-OS/Forge trust relationship and installed Supervisor admission path. The old literal-Forge-SHA migration hypothesis is disproven. Do not retry it under a new id."
     },
     {
       "id": "runtime-owner-doctrine-v2",
       "program": "autonomy-debt",
       "authority_class": "GREEN",
-      "status": "READY",
+      "status": "WAITING_EVIDENCE",
       "lane": "staging",
       "work_type": "execution",
       "severity": "high",
@@ -49,13 +50,13 @@
       ],
       "dependencies_ready": true,
       "failure_attempts": 0,
-      "next_action": "Use Maintenance v1.3.6 publish_runtime_convergence to obtain exact Omen current policy hashes, then execute the typed five-file bundle install and re-audit."
+      "next_action": "Exact-current and exact-target hashes are already proven. Typed five-file Maintenance manifest runtime-owner-doctrine-v2-install-20260831-1554 is queued. Wait for Omen application, then run publish_runtime_convergence and verify all five after-hashes before marking COMPLETE."
     },
     {
       "id": "native-runtime-capability-audit-v1",
       "program": "platform-reliability",
       "authority_class": "GREEN",
-      "status": "READY",
+      "status": "COMPLETE",
       "lane": "research",
       "work_type": "research",
       "severity": "high",
@@ -63,18 +64,19 @@
       "closes_proof_gap": true,
       "reduces_bess_intervention": true,
       "acceptance_criteria": [
-        "Installed OpenClaw version and strict config validity are reported without secrets.",
-        "Task Flow availability is proven from the installed runtime, not assumed from documentation.",
-        "Main-agent tool-policy availability is determined so dashboard tools=false can be confirmed or disproven.",
-        "Skill Workshop/self-learning availability and current mode are reported without changing configuration.",
-        "Lobster/plugin availability and runtime enablement are reported without enabling anything.",
-        "Benchmark R03 Forge-trust mechanism is classified from fixed local metadata/structure without publishing private code or configuration.",
-        "The result is a fixed metadata-only public receipt with no arbitrary command/path surface."
+        "Installed OpenClaw/config/gateway state is reported without secrets.",
+        "Task Flow availability is proven from installed runtime.",
+        "Main-agent tool-policy surfaces are classified.",
+        "Skill Workshop availability and current authored mode are reported without changing configuration.",
+        "Lobster/plugin availability is reported without enabling anything.",
+        "Benchmark R03 Forge-trust mechanism is structurally classified without publishing private code/configuration.",
+        "Result is a fixed metadata-only public receipt."
       ],
       "dependencies_ready": true,
       "downstream_consumer": "AUTONOMY_CONTROLLER_V2_AND_FORGE_R03_REPAIR",
       "failure_attempts": 0,
-      "next_action": "Qualify a fixed read-only Maintenance operation against the installed OpenClaw CLI and local Benchmark structure; publish only sanitized booleans/counts/modes/hashes."
+      "completion_evidence": "reports/runtime-capabilities-omen.json state=OMEN_AUDIT_PROVEN generated 2026-08-31T15:06:15-06:00; Task Flow CLI and Skill Workshop available; Lobster not registered; R03 mentions Forge+Goal OS+hash and not Desired State; current Forge SHA literal count=0.",
+      "next_action": "No further audit work until installed state materially changes. Consumers must use this receipt rather than rerun the same probes."
     },
     {
       "id": "real-owner-task-reader-e2e",
@@ -83,7 +85,7 @@
       "status": "READY",
       "lane": "research",
       "work_type": "research",
-      "severity": "medium",
+      "severity": "high",
       "owner_value": 5,
       "reuses_proven_capability": true,
       "produces_owner_deliverable": true,
@@ -91,12 +93,14 @@
         "Kevin answers one useful current owner question through the actual Reader path.",
         "Evidence includes provenance/freshness and contradiction handling.",
         "The owner outcome record captures semantic result, elapsed time, retries and Bess intervention.",
-        "The result is evaluated for correctness/usefulness rather than merely command success."
+        "The result is evaluated for correctness/usefulness rather than merely command success.",
+        "The trajectory is eligible for repeated-run Staging evaluation and Skill Workshop learning only if it is genuinely reusable."
       ],
       "dependencies_ready": true,
-      "downstream_consumer": "OWNER_OUTCOME_SCORECARD",
+      "downstream_consumer": "OWNER_OUTCOME_SCORECARD_AND_TRAJECTORY_GATE",
       "failure_attempts": 0,
-      "next_action": "Run immediately after the native-runtime audit frees research WIP; use this as a canary for Kevin notice->acquire->interpret->verify behavior."
+      "near_acceptance": true,
+      "next_action": "Use as the next real owner-value canary after the current doctrine production crossing settles. Prefer a current Kevin/Omen status or evidence question requiring acquisition, provenance, interpretation and verification."
     },
     {
       "id": "hq-direct-chat-real-roundtrip",
@@ -105,7 +109,7 @@
       "status": "OPEN",
       "lane": "production",
       "work_type": "execution",
-      "severity": "medium",
+      "severity": "high",
       "owner_value": 5,
       "closes_proof_gap": true,
       "reduces_bess_intervention": true,
@@ -113,34 +117,58 @@
       "acceptance_criteria": [
         "HQ private transport is installed and reports truthful READY only after local readiness.",
         "Matt sends one real message through HQ and Kevin returns the correlated reply.",
-        "Restart/replay proves no duplicate execution/reply."
+        "Restart/replay proves no duplicate execution/reply.",
+        "Kevin can detect/report common health failures on the private communication path."
       ],
       "dependencies_ready": false,
       "blocked": true,
       "failure_attempts": 0,
-      "next_action": "Finish its typed production crossing after runtime convergence and admission-control truth are stable."
+      "next_action": "Unblock after the runtime doctrine crossing is proven and the production lane is free. Use the existing merged exact candidate; do not redesign the chat contract again."
     },
     {
       "id": "skill-workshop-self-learning-proof",
       "program": "skill-learning",
       "authority_class": "GREEN",
-      "status": "OPEN",
+      "status": "WAITING_EVIDENCE",
       "lane": "staging",
       "work_type": "execution",
       "severity": "medium",
       "owner_value": 4,
       "reduces_bess_intervention": true,
       "acceptance_criteria": [
-        "Installed OpenClaw runtime/tool policy is verified to expose Skill Workshop/self-learning.",
-        "Self-learning is held in proposal-first mode during observation unless installed runtime evidence proves an equivalent safer setting.",
+        "Installed OpenClaw runtime/tool policy exposes Skill Workshop/self-learning.",
+        "Self-learning is explicitly authored as autonomous.mode=propose during observation.",
+        "Agent-initiated lifecycle actions are explicitly held at approvalPolicy=pending during observation.",
+        "OpenClaw full config validates and main-agent skills check passes after the fixed change.",
         "One substantial real successful/corrected trajectory produces a scanner-governed reusable procedure proposal or abstains with evidence.",
         "No learned skill creates new primitive authority.",
         "The learned procedure is replayed on a second task before any T4 credit."
       ],
-      "dependencies_ready": false,
-      "blocked": true,
+      "dependencies_ready": true,
       "failure_attempts": 0,
-      "next_action": "Unblock only after the native-runtime audit proves installed availability/config and a typed configuration path exists."
+      "next_action": "Maintenance v1.3.8 fixed-path Workshop guardrail candidate is in CI qualification. Do not mutate config until exact candidate is CI-proven, installed via typed Maintenance, then configure_skill_workshop_guardrails is proven and runtime capabilities re-audit confirms propose/pending."
+    },
+    {
+      "id": "staging-trajectory-reliability-v1",
+      "program": "skill-learning",
+      "authority_class": "GREEN",
+      "status": "READY",
+      "lane": "staging",
+      "work_type": "execution",
+      "severity": "medium",
+      "owner_value": 4,
+      "closes_proof_gap": true,
+      "reduces_bess_intervention": true,
+      "acceptance_criteria": [
+        "The CI-proven trajectory gate is connected to sanitized real capability evidence without gaining execution authority.",
+        "At least two real trials must independently satisfy semantic verification, required actions, zero forbidden actions, and expected end state before REPEATEDLY_PROVEN.",
+        "A false-DONE/semantic failure fixture is rejected.",
+        "Promotion/reliability evidence remains separate from primitive authority."
+      ],
+      "dependencies_ready": true,
+      "failure_attempts": 0,
+      "downstream_consumer": "READER_AND_SKILL_REUSE_RELIABILITY",
+      "next_action": "Use the next real Reader/owner-value trajectory as the first production-like evidence set; do not manufacture synthetic trials merely to increase promotion count."
     }
   ]
 }
