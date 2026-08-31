@@ -8,7 +8,10 @@
 .worker.building .owl{animation:ownerBuildWiggle 1.05s ease-in-out infinite}.worker.building .owl-eyes{animation:ownerBlink var(--blink-rate,2.9s) ease-in-out infinite;animation-delay:var(--blink-delay,-.4s)}
 .worker.degraded .owl{animation:ownerDegraded 2.2s ease-in-out infinite}.worker.offline .owl{animation:none!important;filter:grayscale(.6);opacity:.55}
 .worker{cursor:pointer}.worker.owner-selected .box{outline:1px solid rgba(255,255,255,.34);box-shadow:0 0 0 3px rgba(36,79,143,.18),0 10px 28px rgba(0,0,0,.2)}
-#kevinHub{cursor:pointer}#kevinHub.owner-selected{outline:1px solid rgba(255,255,255,.26);box-shadow:0 0 0 4px rgba(36,79,143,.15),0 18px 40px rgba(0,0,0,.24)}
+#kevinHub{cursor:pointer}#kevinHub.owner-selected,#kevinHub:focus,#kevinHub:focus-visible{outline:none!important}#kevinHub.owner-selected{box-shadow:0 0 55px rgba(240,183,78,.08)!important}
+#kevinHub .hub-inner{height:236px;min-height:236px;width:230px;justify-content:flex-start}
+#kevinHub .kevin-meta{min-height:62px;margin-top:7px}
+#kevinHub.truth-armed .hub-inner{box-shadow:none!important}
 #kevinHub.truth-active .kevin-avatar-prod .kv-eyes,#kevinHub.truth-working .kevin-avatar-prod .kv-eyes{transform-origin:60px 48px;animation:ownerKevinBlink 3.8s ease-in-out infinite}
 #kevinHub.truth-armed .kevin-avatar-prod .kv-eyes{transform-origin:60px 48px;animation:ownerKevinBlink 6.2s ease-in-out infinite}
 #kevinHub .kevin-avatar-prod.owner-victory{transform-origin:50% 82%;animation:ownerVictoryFlip 1.55s cubic-bezier(.22,.8,.28,1) 1!important}
@@ -21,6 +24,7 @@
 .svc .dot.active{background:var(--active)!important;box-shadow:0 0 12px rgba(255,209,102,.5)!important}.svc:has(.dot.active) span{color:#ffe39a!important}
 .legend.owner-compact{display:none!important}
 @media(min-width:850px){.owner-status-guide{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:900px){#kevinHub .hub-inner{height:202px;min-height:202px;width:190px}#kevinHub .kevin-meta{min-height:52px}}
 @keyframes ownerBlink{0%,88%,92%,100%{transform:scaleY(1)}90%{transform:scaleY(.05)}}
 @keyframes ownerKevinBlink{0%,89%,93%,100%{transform:scaleY(1)}91%{transform:scaleY(.06)}}
 @keyframes ownerReadyBreath{0%,100%{transform:translateY(0);filter:drop-shadow(0 0 4px var(--idc))}50%{transform:translateY(-1px);filter:drop-shadow(0 0 8px var(--idc))}}
