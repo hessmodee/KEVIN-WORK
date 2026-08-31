@@ -39,41 +39,84 @@ jobs:
           if ($LASTEXITCODE -ne 0 -or $out -notmatch 'KEVIN MAINTENANCE v1\.3\.5 SELFTEST PASS') { throw 'candidate selftest failed' }
           Write-Host "QUALIFIED_V135_SHA256=$actual"
 
-      - name: Create-or-verify exact source through Contents API
+      - name: Publish exact source through bounded Git-object CAS
         shell: powershell
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           $ErrorActionPreference = 'Stop'
+          $repo = $env:GITHUB_REPOSITORY
           $repoPath = 'control-plane/maintenance/kevin-maintenance-runner-v1.3.5.ps1'
           $src = '.\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.5.ps1'
           $expected = '81D2C58E3CFDD89D43FFD119F36D08C841AAB2F9059FA3947790103230C45221'
-          $content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($src))
+          $utf8 = New-Object Text.UTF8Encoding($false)
 
-          # Use an input JSON file so the base64 payload is never placed on the Windows command line.
-          $requestPath = Join-Path $env:RUNNER_TEMP 'publish-v135-request.json'
-          $request = [ordered]@{
-            message = 'Publish exact CI-qualified Maintenance v1.3.5'
-            content = $content
-            branch = 'main'
-          }
-          [IO.File]::WriteAllText($requestPath, ($request | ConvertTo-Json -Compress), (New-Object Text.UTF8Encoding($false)))
-
-          $old = $ErrorActionPreference
-          try {
-            $ErrorActionPreference = 'Continue'
-            & gh api --method PUT "repos/$env:GITHUB_REPOSITORY/contents/$repoPath" --input $requestPath | Out-Null
-            $createCode = [int]$LASTEXITCODE
-          } finally { $ErrorActionPreference = $old }
-
-          if ($createCode -ne 0) {
-            Write-Host "Create returned $createCode; verifying whether identical bytes already won the race."
+          function Invoke-GhJson([string]$Method,[string]$Endpoint,[object]$Body,[string]$Name) {
+            $path = Join-Path $env:RUNNER_TEMP ($Name + '.json')
+            [IO.File]::WriteAllText($path, ($Body | ConvertTo-Json -Depth 20 -Compress), $utf8)
+            $old = $ErrorActionPreference
+            try {
+              $ErrorActionPreference = 'Continue'
+              $out = (& gh api --method $Method $Endpoint --input $path 2>&1 | Out-String).Trim()
+              $code = [int]$LASTEXITCODE
+            } finally { $ErrorActionPreference = $old }
+            if ($code -ne 0) { throw "$Name failed code=$code $out" }
+            if (-not $out) { return $null }
+            return ($out | ConvertFrom-Json)
           }
 
-          $raw = (& gh api "repos/$env:GITHUB_REPOSITORY/contents/$repoPath?ref=main" --jq .content | Out-String).Trim()
-          if ($LASTEXITCODE -ne 0 -or -not $raw) { throw 'published source could not be fetched for verification' }
-          $bytes = [Convert]::FromBase64String(($raw -replace '\s',''))
-          $sha = [Security.Cryptography.SHA256]::Create()
-          try { $actual = ([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','').ToUpperInvariant() } finally { $sha.Dispose() }
-          if ($actual -ne $expected) { throw "published source hash mismatch expected=$expected actual=$actual" }
-          Write-Host "PUBLISHED_OR_ALREADY_PRESENT_EXACT_V135 sha256=$actual"
+          # Create the immutable blob once. Base64 lives in a JSON body file, never argv.
+          $blobBody = [ordered]@{
+            content = [Convert]::ToBase64String([IO.File]::ReadAllBytes($src))
+            encoding = 'base64'
+          }
+          $blob = Invoke-GhJson 'POST' "repos/$repo/git/blobs" $blobBody 'create-blob'
+          if (-not $blob.sha) { throw 'blob SHA missing' }
+          Write-Host "IMMUTABLE_BLOB=$($blob.sha)"
+
+          $published = $false
+          for ($attempt = 1; $attempt -le 3 -and -not $published; $attempt++) {
+            $baseCommit = (& gh api "repos/$repo/git/ref/heads/main" --jq .object.sha | Out-String).Trim()
+            if ($LASTEXITCODE -ne 0 -or -not $baseCommit) { throw 'could not read latest main ref' }
+            $baseTree = (& gh api "repos/$repo/git/commits/$baseCommit" --jq .tree.sha | Out-String).Trim()
+            if ($LASTEXITCODE -ne 0 -or -not $baseTree) { throw 'could not read latest main tree' }
+
+            $treeBody = [ordered]@{
+              base_tree = $baseTree
+              tree = @([ordered]@{ path=$repoPath; mode='100644'; type='blob'; sha=[string]$blob.sha })
+            }
+            $tree = Invoke-GhJson 'POST' "repos/$repo/git/trees" $treeBody ("create-tree-$attempt")
+            $commitBody = [ordered]@{
+              message = 'Publish exact CI-qualified Maintenance v1.3.5'
+              tree = [string]$tree.sha
+              parents = @($baseCommit)
+            }
+            $commit = Invoke-GhJson 'POST' "repos/$repo/git/commits" $commitBody ("create-commit-$attempt")
+
+            $refBody = [ordered]@{ sha=[string]$commit.sha; force=$false }
+            $refPath = Join-Path $env:RUNNER_TEMP ("update-ref-$attempt.json")
+            [IO.File]::WriteAllText($refPath, ($refBody | ConvertTo-Json -Compress), $utf8)
+            $old = $ErrorActionPreference
+            try {
+              $ErrorActionPreference = 'Continue'
+              $refOut = (& gh api --method PATCH "repos/$repo/git/refs/heads/main" --input $refPath 2>&1 | Out-String).Trim()
+              $refCode = [int]$LASTEXITCODE
+            } finally { $ErrorActionPreference = $old }
+            if ($refCode -eq 0) {
+              Write-Host "CAS_PUBLISH_PASS attempt=$attempt commit=$($commit.sha)"
+              $published = $true
+            } else {
+              Write-Host "CAS_RACE attempt=$attempt detail=$refOut"
+              Start-Sleep -Milliseconds 700
+            }
+          }
+          if (-not $published) { throw 'bounded publication race budget exhausted after 3 materially fresh main refs' }
+
+          # Verify exact bytes from the committed blob rather than relying on local working tree.
+          $remote = (& gh api "repos/$repo/git/blobs/$($blob.sha)" --jq .content | Out-String).Trim()
+          if ($LASTEXITCODE -ne 0 -or -not $remote) { throw 'remote blob could not be fetched for verification' }
+          $bytes = [Convert]::FromBase64String(($remote -replace '\s',''))
+          $sha256 = [Security.Cryptography.SHA256]::Create()
+          try { $actual = ([BitConverter]::ToString($sha256.ComputeHash($bytes))).Replace('-','').ToUpperInvariant() } finally { $sha256.Dispose() }
+          if ($actual -ne $expected) { throw "remote blob hash mismatch expected=$expected actual=$actual" }
+          Write-Host "PUBLISHED_EXACT_V135 sha256=$actual"
