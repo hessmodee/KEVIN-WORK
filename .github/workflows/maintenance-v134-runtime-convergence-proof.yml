@@ -68,7 +68,7 @@ jobs:
           f = Path('control-plane/forge/kevin-design-forge-v4.0.ps1').read_text(encoding='utf-8')
           policies = {
               'workspace/AGENTS.md': 'Standing Order 1',
-              'workspace/HEARTBEAT.md': 'ambient monitor',
+              'workspace/HEARTBEAT.md': 'Heartbeat',
               'workspace/MEMORY.md': 'durable',
               'workspace/SOUL.md': 'Chief of Staff',
               'workspace/TOOLS.md': 'typed',
@@ -97,3 +97,37 @@ jobs:
               assert token.lower() not in m.lower()
               assert token.lower() not in f.lower()
           print('STATIC AUTHORITY / NO-SPIN PASS')
+
+      - name: Emit exact qualified source SHA256 manifest
+        shell: python
+        run: |
+          import hashlib, json
+          from pathlib import Path
+          paths = [
+              'workspace/AGENTS.md',
+              'workspace/HEARTBEAT.md',
+              'workspace/MEMORY.md',
+              'workspace/SOUL.md',
+              'workspace/TOOLS.md',
+              'control-plane/forge/kevin-design-forge-v4.0.ps1',
+              'control-plane/maintenance/kevin-maintenance-runner-v1.3.4.ps1',
+          ]
+          report = {
+              'schema': 1,
+              'kind': 'kevin-runtime-convergence-qualified-source-hashes',
+              'git_head': '${{ github.sha }}',
+              'sha256': {
+                  p: hashlib.sha256(Path(p).read_bytes()).hexdigest().upper()
+                  for p in paths
+              },
+          }
+          Path('runtime-source-hashes.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
+          print(Path('runtime-source-hashes.json').read_text())
+
+      - name: Upload exact source-hash evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: runtime-convergence-source-hashes
+          path: runtime-source-hashes.json
+          if-no-files-found: error
+          retention-days: 7
