@@ -1,0 +1,41 @@
+name: Runtime Policy Source Hashes
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'workspace/AGENTS.md'
+      - 'workspace/HEARTBEAT.md'
+      - 'workspace/MEMORY.md'
+      - 'workspace/SOUL.md'
+      - 'workspace/TOOLS.md'
+      - '.github/workflows/runtime-policy-source-hashes.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  hashes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Emit SHA256 report
+        shell: python
+        run: |
+          import hashlib, json
+          from pathlib import Path
+          names=['AGENTS.md','HEARTBEAT.md','MEMORY.md','SOUL.md','TOOLS.md']
+          out={'schema':1,'kind':'kevin-runtime-policy-source-hashes','git_head':'${{ github.sha }}','sha256':{}}
+          for name in names:
+              p=Path('workspace')/name
+              out['sha256'][name]=hashlib.sha256(p.read_bytes()).hexdigest().upper()
+          Path('runtime-policy-source-hashes.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf-8')
+          print(Path('runtime-policy-source-hashes.json').read_text())
+      - uses: actions/upload-artifact@v4
+        with:
+          name: runtime-policy-source-hashes
+          path: runtime-policy-source-hashes.json
+          if-no-files-found: error
+          retention-days: 7
