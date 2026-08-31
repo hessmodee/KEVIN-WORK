@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T03:09:43.0225159-06:00",
+  "generated_at": "2026-08-31T03:10:14-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -27,29 +27,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 34,
-    "cpu_pct": 8,
+    "memory_pct": 30,
+    "cpu_pct": 13,
     "gpu": "RTX 3060",
-    "gpu_pct": 34
+    "gpu_pct": 45
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T23:08:23-06:00",
-        "estimated": false,
-        "ram": 30,
-        "cpu": 11,
-        "gpu": 19
-      },
-      {
-        "at": "2026-08-30T23:08:49-06:00",
-        "estimated": false,
-        "ram": 30,
-        "cpu": 11,
-        "gpu": 19
-      },
       {
         "at": "2026-08-30T23:17:23-06:00",
         "estimated": false,
@@ -707,11 +693,23 @@
         "ram": 34,
         "cpu": 8,
         "gpu": 34
+      },
+      {
+        "at": "2026-08-31T03:09:44-06:00",
+        "estimated": false,
+        "ram": 30,
+        "cpu": 13,
+        "gpu": 45
+      },
+      {
+        "at": "2026-08-31T03:10:14-06:00",
+        "estimated": false,
+        "ram": 30,
+        "cpu": 13,
+        "gpu": 45
       }
     ],
     "ram": [
-      30,
-      30,
       30,
       30,
       31,
@@ -805,11 +803,11 @@
       29,
       30,
       30,
-      34
+      34,
+      30,
+      30
     ],
     "cpu": [
-      11,
-      11,
       11,
       11,
       4,
@@ -903,11 +901,11 @@
       5,
       5,
       5,
-      8
+      8,
+      13,
+      13
     ],
     "gpu": [
-      19,
-      19,
       28,
       28,
       38,
@@ -1001,7 +999,9 @@
       52,
       24,
       24,
-      34
+      34,
+      45,
+      45
     ]
   },
   "weather": {
@@ -1100,8 +1100,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 93,
-      "total": 97
+      "done": 92,
+      "total": 96
     }
   ],
   "roadmap": {
@@ -1154,6 +1154,25 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-31T03:10:14-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: knowledge",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 30000
+    },
+    {
+      "at": "2026-08-31T03:09:44-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: knowledge",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-31T03:05:13-06:00",
       "component": "tick",
@@ -1359,25 +1378,6 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 31000
-    },
-    {
-      "at": "2026-08-31T02:09:21-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: forge-v4",
-      "result": "",
-      "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-31T02:00:46-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: forge-v4",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 30000
     }
   ],
   "owl": {
@@ -1385,7 +1385,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-31T03:09:43.0225159-06:00",
+    "last": "2026-08-31T03:10:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1395,9 +1395,9 @@
   "autonomy": {
     "mode": "hourly_design",
     "state": "pass",
-    "last_mission": "forge-v4",
-    "iteration": 214,
-    "updated_at": "2026-08-31T03:01:16.3349393-06:00",
+    "last_mission": "knowledge",
+    "iteration": 37,
+    "updated_at": "2026-08-31T03:10:13.9269974-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1412,10 +1412,10 @@
     "candidate_forge": {
       "result": "pass",
       "mode": "design-forge-v3",
-      "last_mission": "forge-v4",
-      "iteration": 214,
-      "updated_at": "2026-08-31T03:01:16.3349393-06:00",
-      "next_index": 0,
+      "last_mission": "knowledge",
+      "iteration": 37,
+      "updated_at": "2026-08-31T03:10:13.9269974-06:00",
+      "next_index": 4,
       "scheduled": true,
       "promotion": "blocked"
     }
