@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-08-31T12:34:00.2464627-06:00",
+    "generated_at":  "2026-08-31T12:36:00.2553760-06:00",
     "request":  {
                     "id":  "bess-20260831-1035-runtime-convergence-audit",
                     "verb":  "run_typed_maintenance",
                     "target":  "kevin-maintenance-v1"
                 },
-    "status":  "DUPLICATE_IGNORED",
-    "detail":  "Idempotency key already processed",
+    "status":  "FAILED",
+    "detail":  "Work order is expired.",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
