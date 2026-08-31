@@ -10,12 +10,16 @@ def sha(text):
     return hashlib.sha256(text.encode("utf-8")).hexdigest().upper()
 
 
-def owner(content="Kevin, status please"):
+def file_key(request_id):
+    return hashlib.sha256(request_id.encode("utf-8")).hexdigest().upper()
+
+
+def owner(content="Kevin, status please", request_id="owner-12345678-abcd"):
     return {
         "schema": 1,
         "kind": "kevin-owner-message",
-        "request_id": "owner-12345678-abcd",
-        "idempotency_key": "owner-12345678-abcd",
+        "request_id": request_id,
+        "idempotency_key": request_id,
         "created_at": "2026-08-31T01:20:00-06:00",
         "channel": "hq-private",
         "sender": "owner",
@@ -25,11 +29,11 @@ def owner(content="Kevin, status please"):
     }
 
 
-def reply(content="All systems checked"):
+def reply(content="All systems checked", request_id="owner-12345678-abcd"):
     return {
         "schema": 1,
         "kind": "kevin-owner-reply",
-        "request_id": "owner-12345678-abcd",
+        "request_id": request_id,
         "reply_id": "kevin-12345678-abcd",
         "created_at": "2026-08-31T01:20:03-06:00",
         "channel": "hq-private",
@@ -94,18 +98,27 @@ class PrivateSpoolTests(unittest.TestCase):
 
     def test_unsafe_identifier_rejected(self):
         with tempfile.TemporaryDirectory() as td:
-            bad = owner()
-            bad["request_id"] = "owner-../../escape"
-            bad["idempotency_key"] = bad["request_id"]
+            bad = owner(request_id="owner-../../escape")
             with self.assertRaises(SpoolError):
                 enqueue_owner_message(Path(td), bad)
+
+    def test_windows_illegal_colon_never_reaches_filename(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            request_id = "owner-12345678:abcd"
+            enqueue_owner_message(root, owner(request_id=request_id))
+            files = list((root / "inbox").glob("*.json"))
+            self.assertEqual(len(files), 1)
+            self.assertEqual(files[0].name, file_key(request_id) + ".json")
+            self.assertNotIn(":", files[0].name)
 
     def test_public_proof_contains_no_body(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
+            request_id = owner()["request_id"]
             enqueue_owner_message(root, owner("private owner text"))
             store_kevin_reply(root, reply("private Kevin reply"), elapsed_ms=42)
-            proof_text = (root / "public-proof" / "owner-12345678-abcd.json").read_text(encoding="utf-8")
+            proof_text = (root / "public-proof" / (file_key(request_id) + ".json")).read_text(encoding="utf-8")
             self.assertNotIn("private owner text", proof_text)
             self.assertNotIn("private Kevin reply", proof_text)
             self.assertNotIn('"content"', proof_text)
