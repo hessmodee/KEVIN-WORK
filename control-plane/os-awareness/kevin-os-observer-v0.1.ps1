@@ -5,8 +5,7 @@ param(
 )
 
 # Kevin OS Observer v0.1
-# GREEN / READ-ONLY observation primitive.
-# Owner approved 2026-08-30 MDT for production promotion.
+# GREEN / READ-ONLY observation primitive candidate.
 # No arbitrary shell, no caller-selected command/argv/path, no mutation of OS state.
 # Detailed evidence stays local. A sanitized summary is written separately for safe telemetry use.
 
