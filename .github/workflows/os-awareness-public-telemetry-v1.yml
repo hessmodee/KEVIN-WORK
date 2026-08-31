@@ -1,0 +1,43 @@
+name: OS Awareness Public Telemetry v1 Gate
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/os-awareness/public_telemetry_contract_v1.py'
+      - 'control-plane/os-awareness/test_public_telemetry_contract_v1.py'
+      - '.github/workflows/os-awareness-public-telemetry-v1.yml'
+  push:
+    branches:
+      - kevin-os-telemetry-public-contract-v0.1
+    paths:
+      - 'control-plane/os-awareness/public_telemetry_contract_v1.py'
+      - 'control-plane/os-awareness/test_public_telemetry_contract_v1.py'
+      - '.github/workflows/os-awareness-public-telemetry-v1.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile candidate
+        run: python -m py_compile control-plane/os-awareness/public_telemetry_contract_v1.py control-plane/os-awareness/test_public_telemetry_contract_v1.py
+      - name: Run adversarial contract tests
+        working-directory: control-plane/os-awareness
+        run: python -m unittest -v test_public_telemetry_contract_v1.py
+      - name: Static no-executor/no-network boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('control-plane/os-awareness/public_telemetry_contract_v1.py').read_text(encoding='utf-8').lower()
+          forbidden = ['subprocess', 'os.system', 'powershell', 'cmd.exe', 'socket.', 'requests.', 'urllib.request', 'http.client', 'paramiko', 'winrm']
+          bad = [x for x in forbidden if x in p]
+          if bad:
+              raise SystemExit('forbidden execution/network surface: ' + ', '.join(bad))
+          print('authority boundary scan PASS')
+          PY
