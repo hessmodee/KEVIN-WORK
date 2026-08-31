@@ -1,0 +1,109 @@
+name: Work Order Intake v1.2.4 Terminal Retirement Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-work-order-intake-v124.py'
+      - 'control-plane/intake/kevin-work-order-intake-v1.2.3.ps1'
+      - '.github/workflows/work-order-intake-v124-terminal-retirement-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Generate candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          python .\tools\generate-work-order-intake-v124.py
+          if($LASTEXITCODE -ne 0){throw 'generator failed'}
+          if(-not(Test-Path .\control-plane\intake\generated\kevin-work-order-intake-v1.2.4.ps1)){throw 'candidate missing'}
+
+      - name: Parse PowerShell 5.1 candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $p=Resolve-Path .\control-plane\intake\generated\kevin-work-order-intake-v1.2.4.ps1
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count -gt 0){$errors|ForEach-Object{Write-Host $_.Message};throw 'PowerShell parse failed'}
+          Write-Host 'INTAKE_V124_PARSE_PASS'
+
+      - name: Deterministic self-test
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\intake\generated\kevin-work-order-intake-v1.2.4.ps1 -Mode SelfTest 2>&1 | Out-String
+          Write-Host $out
+          if($LASTEXITCODE -ne 0){throw 'v1.2.4 selftest exited nonzero'}
+          foreach($m in @('KEVIN WORK ORDER INTAKE v1.2.4 SELFTEST PASS','stale_order_retirement=true','terminal_idle=true','semantic_ack_dedupe=true','arbitrary_shell=false')){if($out -notmatch [regex]::Escape($m)){throw "missing selftest marker $m"}}
+
+      - name: Static self-repair and authority invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('control-plane/intake/generated/kevin-work-order-intake-v1.2.4.ps1')
+          t=p.read_text(encoding='utf-8')
+          required=[
+            "status='STALE_RETIRED'",
+            "status='EXPIRED_RETIRED'",
+            "status='IDLE_TERMINAL'",
+            "status='IDLE_NO_ORDER'",
+            "Current work order is already terminal; awaiting replacement",
+            "Expired work order retired; awaiting replacement",
+            "if($prevId-eq$nextId -and [string]$prev.status-eq[string]$Ack.status -and [string]$prev.detail-eq[string]$Ack.detail){return $false}",
+            "if($reason-eq'Work order is expired.' -and $safeId -and $safeKey)",
+            "run_typed_maintenance",
+            "run_os_awareness",
+            "authority_class-ne'GREEN'",
+            "Unknown work-order property",
+          ]
+          for x in required: assert x in t, x
+          # Expired retirement is tightly gated by validated identity syntax and does not execute the order.
+          retire=t.index("if($reason-eq'Work order is expired.' -and $safeId -and $safeKey)")
+          execute=t.index('$result=Execute-Order $o')
+          assert retire < execute
+          # Preserve typed-only execution boundary.
+          forbidden=['Invoke-Expression','DownloadString(','New-Object Net.WebClient','System.Net.WebClient']
+          lo=t.lower()
+          for x in forbidden: assert x.lower() not in lo, x
+          assert "Add-Member command 'whoami'" in t  # negative selftest retained
+          print('INTAKE_V124_STATIC_PASS retire_once=true semantic_ack_dedupe=true execute_after_validate=true authority_delta=NONE')
+
+      - name: Emit exact candidate identity
+        shell: python
+        run: |
+          import hashlib,json
+          from pathlib import Path
+          c=Path('control-plane/intake/generated/kevin-work-order-intake-v1.2.4.ps1')
+          b=Path('control-plane/intake/kevin-work-order-intake-v1.2.3.ps1')
+          out={
+            'schema':1,
+            'kind':'kevin-work-order-intake-v124-qualified-candidate',
+            'git_head':'${{ github.sha }}',
+            'candidate_path':str(c).replace('\\','/'),
+            'sha256':hashlib.sha256(c.read_bytes()).hexdigest().upper(),
+            'base_v123_sha256':hashlib.sha256(b.read_bytes()).hexdigest().upper(),
+          }
+          Path('work-order-intake-v124-candidate-hash.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf-8')
+          print(Path('work-order-intake-v124-candidate-hash.json').read_text())
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: work-order-intake-v124-qualified-candidate
+          path: |
+            control-plane/intake/generated/kevin-work-order-intake-v1.2.4.ps1
+            work-order-intake-v124-candidate-hash.json
+          if-no-files-found: error
+          retention-days: 7
