@@ -1,0 +1,55 @@
+name: Gmail Adapter Candidate Gate
+
+on:
+  push:
+    paths:
+      - 'candidates/communications/gmail/**'
+      - '.github/workflows/gmail-adapter-candidate-gate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  candidate-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install candidate dependencies
+        working-directory: candidates/communications/gmail
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - name: Syntax
+        working-directory: candidates/communications/gmail
+        run: python -m py_compile kevin_gmail_adapter.py test_kevin_gmail_adapter.py
+      - name: Unit tests
+        working-directory: candidates/communications/gmail
+        run: pytest -q
+      - name: Deterministic selftest
+        working-directory: candidates/communications/gmail
+        run: python kevin_gmail_adapter.py selftest
+      - name: Secret and authority static boundary
+        shell: python
+        run: |
+          from pathlib import Path
+          root=Path('candidates/communications/gmail')
+          code=(root/'kevin_gmail_adapter.py').read_text(encoding='utf-8')
+          readme=(root/'README.md').read_text(encoding='utf-8')
+          assert 'hessmodee@gmail.com' in code
+          assert 'ALLOWED_TO' in code and 'recipient_not_allowlisted' in code
+          assert 'gmail.send' in code and 'gmail.readonly' in code
+          assert 'mail.google.com/' not in code
+          assert 'gmail.modify' not in code
+          assert 'gmail.settings' not in code
+          assert 'keyring.set_password' in code and 'keyring.get_password' in code
+          assert 'InstalledAppFlow.from_client_secrets_file' in code
+          assert 'flow.run_local_server' in code
+          assert 'normal_password_supported' in code
+          assert 'body_emitted_publicly' in code
+          assert 'credential_material_emitted' in code
+          assert 'Do **not** ask Matt to paste a password' in readme
+          forbidden_files={'credentials.json','token.json','.env'}
+          assert not any(p.name in forbidden_files for p in root.rglob('*') if p.is_file())
+          print('GMAIL_CANDIDATE_BOUNDARY_PASS recipient_allowlist=owner_only scopes=send+readonly secret_store=keyring body_public=false')
