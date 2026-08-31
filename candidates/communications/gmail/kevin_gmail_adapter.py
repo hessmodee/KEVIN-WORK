@@ -58,6 +58,7 @@ def b64url_decode(data: str) -> bytes:
 
 
 def extract_text_plain(payload: dict[str, Any] | None) -> str:
+    """Return a real text/plain MIME part; never substitute HTML as task text."""
     if not payload:
         return ""
     mime = str(payload.get("mimeType") or "").lower()
@@ -68,8 +69,6 @@ def extract_text_plain(payload: dict[str, Any] | None) -> str:
         text = extract_text_plain(part)
         if text:
             return text
-    if body.get("data") and mime.startswith("text/"):
-        return b64url_decode(str(body["data"])).decode("utf-8", errors="replace").strip()
     return ""
 
 
