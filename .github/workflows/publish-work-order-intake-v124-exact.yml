@@ -1,0 +1,67 @@
+name: Publish Work Order Intake v1.2.4 Exact
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-work-order-intake-v124.py'
+      - '.github/workflows/publish-work-order-intake-v124-exact.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Regenerate exact qualified candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          python .\tools\generate-work-order-intake-v124.py
+          if($LASTEXITCODE -ne 0){throw 'generator failed'}
+          $p='.\control-plane\intake\generated\kevin-work-order-intake-v1.2.4.ps1'
+          $expected='E37D513281AE74F878FEA4F34643EB81B440E7341FB0C7988AF4148D234B3400'
+          $actual=(Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          if($actual -ne $expected){throw "candidate identity drift expected=$expected actual=$actual"}
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors.Count -gt 0){throw 'candidate parse failed'}
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -Mode SelfTest 2>&1|Out-String
+          if($LASTEXITCODE -ne 0 -or $out -notmatch 'KEVIN WORK ORDER INTAKE v1\.2\.4 SELFTEST PASS'){throw 'candidate selftest failed'}
+          Write-Host "EXACT_QUALIFIED_INTAKE_V124 sha256=$actual"
+
+      - name: Publish exact bytes with bounded Git-object CAS
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference='Stop'
+          $repo=$env:GITHUB_REPOSITORY
+          $path='control-plane/intake/kevin-work-order-intake-v1.2.4.ps1'
+          $src='.\control-plane\intake\generated\kevin-work-order-intake-v1.2.4.ps1'
+          $expected='E37D513281AE74F878FEA4F34643EB81B440E7341FB0C7988AF4148D234B3400'
+          function Get-BlobSha256([string]$BlobSha){$b=(& gh api "repos/$repo/git/blobs/$BlobSha"|ConvertFrom-Json);if($LASTEXITCODE -ne 0 -or -not$b.content){throw 'blob verification fetch failed'};$bytes=[Convert]::FromBase64String(([string]$b.content -replace '\s',''));$sha=[Security.Cryptography.SHA256]::Create();try{return([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','').ToUpperInvariant()}finally{$sha.Dispose()}}
+          $old=$ErrorActionPreference
+          try{$ErrorActionPreference='Continue';$existing=(& gh api "repos/$repo/contents/$path?ref=main" 2>$null|Out-String).Trim();$code=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
+          if($code -eq 0 -and $existing){$obj=$existing|ConvertFrom-Json;$h=Get-BlobSha256 ([string]$obj.sha);if($h -ne $expected){throw "refusing mismatched existing intake v1.2.4 expected=$expected actual=$h"};Write-Host "INTAKE_V124_ALREADY_PUBLISHED_EXACT sha256=$h";exit 0}
+          $payload=[ordered]@{content=[Convert]::ToBase64String([IO.File]::ReadAllBytes($src));encoding='base64'}|ConvertTo-Json -Compress
+          $bf=Join-Path $env:RUNNER_TEMP 'intake-v124-blob.json';[IO.File]::WriteAllText($bf,$payload,(New-Object Text.UTF8Encoding($false)))
+          $blob=(& gh api --method POST "repos/$repo/git/blobs" --input $bf --jq .sha).Trim();if(-not$blob){throw 'blob create failed'}
+          if((Get-BlobSha256 $blob) -ne $expected){throw 'immutable blob identity mismatch'}
+          for($attempt=1;$attempt -le 3;$attempt++){
+            $head=(& gh api "repos/$repo/git/ref/heads/main" --jq .object.sha).Trim();$tree=(& gh api "repos/$repo/git/commits/$head" --jq .tree.sha).Trim()
+            $tp=[ordered]@{base_tree=$tree;tree=@([ordered]@{path=$path;mode='100644';type='blob';sha=$blob})}|ConvertTo-Json -Depth 5 -Compress;$tf=Join-Path $env:RUNNER_TEMP "intake-v124-tree-$attempt.json";[IO.File]::WriteAllText($tf,$tp,(New-Object Text.UTF8Encoding($false)));$nt=(& gh api --method POST "repos/$repo/git/trees" --input $tf --jq .sha).Trim()
+            $cp=[ordered]@{message='Publish exact CI-qualified Work Order Intake v1.2.4';tree=$nt;parents=@($head)}|ConvertTo-Json -Depth 4 -Compress;$cf=Join-Path $env:RUNNER_TEMP "intake-v124-commit-$attempt.json";[IO.File]::WriteAllText($cf,$cp,(New-Object Text.UTF8Encoding($false)));$nc=(& gh api --method POST "repos/$repo/git/commits" --input $cf --jq .sha).Trim()
+            $rp=[ordered]@{sha=$nc;force=$false}|ConvertTo-Json -Compress;$rf=Join-Path $env:RUNNER_TEMP "intake-v124-ref-$attempt.json";[IO.File]::WriteAllText($rf,$rp,(New-Object Text.UTF8Encoding($false)))
+            $old=$ErrorActionPreference;try{$ErrorActionPreference='Continue';& gh api --method PATCH "repos/$repo/git/refs/heads/main" --input $rf --silent 2>$null;$rc=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
+            if($rc -eq 0){if((Get-BlobSha256 $blob) -ne $expected){throw 'post-publish blob mismatch'};Write-Host "INTAKE_V124_PUBLISHED_EXACT sha256=$expected attempt=$attempt";exit 0}
+            Start-Sleep -Seconds 1
+          }
+          throw 'bounded intake v1.2.4 publication CAS attempts exhausted'
