@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-31T14:51:43.5963561-06:00",
+    "generated_at":  "2026-08-31T14:54:43.6101197-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788209319262,
-                                  "next_run_at_ms":  1788209499262
+                                  "last_run_at_ms":  1788209499274,
+                                  "next_run_at_ms":  1788209679274
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788209452584,
-                                  "next_run_at_ms":  1788209512584
+                                  "last_run_at_ms":  1788209646670,
+                                  "next_run_at_ms":  1788209706670
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -89,20 +89,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788209371253,
-                                  "next_run_at_ms":  1788209551253
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788209362785,
-                                  "next_run_at_ms":  1788209662785
+                                  "last_run_at_ms":  1788209551266,
+                                  "next_run_at_ms":  1788209731266
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -115,6 +103,18 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788209158557,
                                   "next_run_at_ms":  1788209758557
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788209662800,
+                                  "next_run_at_ms":  1788209962800
                               }
                           ],
                  "error":  ""
@@ -122,16 +122,16 @@
     "supervisor":  {
                        "cycle":  336,
                        "last_mission":  "forge-v4",
-                       "last_result":  "REJECT",
-                       "next_eligible_at":  "2026-08-31T14:50:50.5130616-06:00",
+                       "last_result":  "RECOVERY_PASS",
+                       "next_eligible_at":  "2026-08-31T14:53:04.5616573-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
     "recovery":  {
-                     "fingerprint":  "0059DDA1DDB25443A1C66C4EEDB9FF140B2663FC5B938507C4730B6C3A63DF79",
+                     "fingerprint":  "2A23E18AFEEF0B51A77CFAD64D99F1DEF8A76DDBAA71AA7FEA1C6764C684B2A0",
                      "round":  1,
-                     "last_at":  "2026-08-31T14:44:07.7994082-06:00",
-                     "last_brief":  "20260831-144407-round1.json"
+                     "last_at":  "2026-08-31T14:53:04.4088132-06:00",
+                     "last_brief":  "20260831-145304-round1.json"
                  },
     "benchmark":  {
                       "at":  "2026-08-31T14:46:07.3191314-06:00",
@@ -161,7 +161,7 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-31T14:49:23.6312225-06:00",
+                        "at":  "2026-08-31T14:54:23.7004529-06:00",
                         "status":  "ALREADY_APPLIED_PROVEN",
                         "manifest_id":  "publish-runtime-convergence-20260831-1444",
                         "stage_path":  "",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "05C89A91B635A862F6D2610057AFD752F830C28CAB52122357D77AC9A4A66B83"
+    "semantic_hash":  "54CB8CEB90B32B0C03911271C8C28730D97156D25D8A14B9B989DFE0A140CEC0"
 }
