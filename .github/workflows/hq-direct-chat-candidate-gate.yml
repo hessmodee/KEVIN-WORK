@@ -1,0 +1,32 @@
+name: HQ Direct Chat Candidate Gate
+
+on:
+  pull_request:
+    paths:
+      - 'candidates/communications/hq-direct-chat/**'
+      - '.github/workflows/hq-direct-chat-candidate-gate.yml'
+  workflow_dispatch:
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile
+        run: python -m py_compile candidates/communications/hq-direct-chat/contract.py candidates/communications/hq-direct-chat/test_contract.py
+      - name: Adversarial tests
+        working-directory: candidates/communications/hq-direct-chat
+        run: python -m unittest -v test_contract.py
+      - name: Static authority boundary
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('candidates/communications/hq-direct-chat/contract.py').read_text(encoding='utf-8').lower()
+          forbidden = ['subprocess', 'os.system', 'popen(', 'powershell', 'cmd.exe', 'socket.', 'requests.', 'urllib.request', 'eval(', 'exec(']
+          bad = [x for x in forbidden if x in p]
+          if bad:
+              raise SystemExit('forbidden authority surface: ' + ', '.join(bad))
+          print('authority boundary PASS')
