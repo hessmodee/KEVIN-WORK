@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "kind": "kevin-work-order",
-  "id": "bess-20260831-0659-refresh-autonomy",
-  "idempotency_key": "bess-refresh-autonomy-20260831-0659",
-  "created_at": "2026-08-31T06:59:00Z",
-  "expires_at": "2026-08-31T10:59:00Z",
+  "id": "bess-20260831-0254-dispatch-telemetry-quality",
+  "idempotency_key": "bess-dispatch-telemetry-quality-20260831-0254",
+  "created_at": "2026-08-31T02:54:00-06:00",
+  "expires_at": "2026-08-31T06:54:00-06:00",
   "authority_class": "GREEN",
-  "verb": "refresh_autonomy_telemetry",
-  "target": "autonomy-telemetry",
-  "reason": "Owner-directed overnight full-steam campaign: publish a fresh sanitized autonomy snapshot after the reconcile returned NEEDS_REVIEW drift=3. Preserve GREEN-only authority and expose enough bounded state to distinguish stale telemetry, resolver drift, and work-conserving dispatch defects before the next materially different action."
+  "verb": "dispatch_mission",
+  "target": "telemetry-quality",
+  "reason": "Owner-directed overnight full-steam campaign: break the duplicate/no-op loop by dispatching the already-catalogued candidate-only GREEN Telemetry Quality mission. Focus candidate work on stale/contradictory activity states, duplicate processed requests, zero-worker/no-dispatch visibility, work-conserving defects, and truthful progress signals relevant to Tick and HQ. Preserve single-14B-worker policy, no production mutation, no arbitrary shell, no permission changes, no external owner messages, and no authority expansion."
 }
