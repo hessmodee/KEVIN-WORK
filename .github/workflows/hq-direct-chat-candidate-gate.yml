@@ -16,10 +16,13 @@ jobs:
         with:
           python-version: '3.12'
       - name: Compile
-        run: python -m py_compile candidates/communications/hq-direct-chat/contract.py candidates/communications/hq-direct-chat/private_spool.py candidates/communications/hq-direct-chat/test_contract.py candidates/communications/hq-direct-chat/test_private_spool.py candidates/communications/hq-direct-chat/test_mobile_panel.py
+        run: python -m py_compile candidates/communications/hq-direct-chat/contract.py candidates/communications/hq-direct-chat/private_spool.py candidates/communications/hq-direct-chat/private_http_adapter.py candidates/communications/hq-direct-chat/test_contract.py candidates/communications/hq-direct-chat/test_private_spool.py candidates/communications/hq-direct-chat/test_private_http_adapter.py candidates/communications/hq-direct-chat/test_mobile_panel.py
       - name: Adversarial tests
         working-directory: candidates/communications/hq-direct-chat
-        run: python -m unittest -v test_contract.py test_private_spool.py test_mobile_panel.py
+        run: python -m unittest -v test_contract.py test_private_spool.py test_private_http_adapter.py test_mobile_panel.py
+      - name: Deterministic private adapter selftest
+        working-directory: candidates/communications/hq-direct-chat
+        run: python private_http_adapter.py
       - name: Static authority boundary
         shell: python
         run: |
@@ -27,24 +30,33 @@ jobs:
           files = [
               Path('candidates/communications/hq-direct-chat/contract.py'),
               Path('candidates/communications/hq-direct-chat/private_spool.py'),
+              Path('candidates/communications/hq-direct-chat/private_http_adapter.py'),
               Path('candidates/communications/hq-direct-chat/mobile_panel.html'),
           ]
           text = '\n'.join(p.read_text(encoding='utf-8').lower() for p in files)
           forbidden = [
               'subprocess', 'os.system', 'popen(', 'powershell', 'cmd.exe',
-              'socket.', 'requests.', 'urllib.request', 'eval(', 'exec(',
+              'requests.', 'urllib.request', 'eval(', 'exec(',
               'shell=true', 'createprocess', 'win32api', 'win32process',
               'xmlhttprequest', 'websocket(', 'eventsource(', 'document.cookie'
           ]
           bad = [x for x in forbidden if x in text]
           if bad:
               raise SystemExit('forbidden authority surface: ' + ', '.join(bad))
+          adapter = Path('candidates/communications/hq-direct-chat/private_http_adapter.py').read_text(encoding='utf-8').lower()
+          required = ['127.0.0.1', 'loopback only', 'threadinghttpserver']
+          missing = [x for x in required if x not in adapter]
+          if missing:
+              raise SystemExit('private adapter loopback invariant missing: ' + ', '.join(missing))
+          if '0.0.0.0' in adapter and 'assert_loopback_host("0.0.0.0")' not in adapter:
+              raise SystemExit('wildcard bind surface detected')
           print('authority boundary PASS')
       - name: Public proof privacy boundary
         shell: python
         run: |
           from pathlib import Path
           p = Path('candidates/communications/hq-direct-chat/private_spool.py').read_text(encoding='utf-8').lower()
+          adapter = Path('candidates/communications/hq-direct-chat/private_http_adapter.py').read_text(encoding='utf-8').lower()
           panel = Path('candidates/communications/hq-direct-chat/mobile_panel.html').read_text(encoding='utf-8').lower()
           if 'public_proof(' not in p:
               raise SystemExit('public proof generation missing')
@@ -54,4 +66,8 @@ jobs:
           bad = [x for x in forbidden_panel if x in panel]
           if bad:
               raise SystemExit('private material surface in panel: ' + ', '.join(bad))
+          forbidden_adapter = ['bot_token', 'chat_id', 'client_secret', 'refresh_token', 'password=', 'github.com', 'api.github.com']
+          bad_adapter = [x for x in forbidden_adapter if x in adapter]
+          if bad_adapter:
+              raise SystemExit('private adapter contains forbidden public/secret surface: ' + ', '.join(bad_adapter))
           print('private/public split PASS')
