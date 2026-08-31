@@ -1,0 +1,94 @@
+name: Publish Maintenance v1.3.8 Exact
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v138.py'
+      - '.github/workflows/publish-maintenance-v138-exact.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Regenerate and require qualified identity
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          python .\tools\generate-maintenance-v138.py
+          if($LASTEXITCODE -ne 0){throw 'generator failed'}
+          $p='.\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.8.ps1'
+          $actual=(Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          $expected='9617CB25CB982B2D48540EDFA3B3C3C7AF4CAD3909B8ACFAFD51AD26EF1063C7'
+          if($actual -ne $expected){throw "candidate identity drift expected=$expected actual=$actual"}
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors.Count -gt 0){throw 'candidate parse failed'}
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1|Out-String
+          if($LASTEXITCODE -ne 0 -or $out -notmatch 'KEVIN MAINTENANCE v1\.3\.8 SELFTEST PASS'){throw 'candidate selftest failed'}
+          Write-Host "EXACT_QUALIFIED_V138 sha256=$actual"
+
+      - name: Publish exact bytes with bounded Git-object CAS
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference='Stop'
+          $repo=$env:GITHUB_REPOSITORY
+          $path='control-plane/maintenance/kevin-maintenance-runner-v1.3.8.ps1'
+          $src='.\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.8.ps1'
+          $expected='9617CB25CB982B2D48540EDFA3B3C3C7AF4CAD3909B8ACFAFD51AD26EF1063C7'
+
+          # Refuse to overwrite a different published file. Idempotently accept exact bytes.
+          $old=$ErrorActionPreference
+          try{$ErrorActionPreference='Continue';$existing=(& gh api "repos/$repo/contents/$path?ref=main" 2>$null|Out-String).Trim();$code=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
+          if($code -eq 0 -and $existing){
+            $obj=$existing|ConvertFrom-Json
+            $blob=(& gh api "repos/$repo/git/blobs/$($obj.sha)"|ConvertFrom-Json)
+            $bytes=[Convert]::FromBase64String(([string]$blob.content -replace '\s',''))
+            $sha=[Security.Cryptography.SHA256]::Create();try{$h=([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','').ToUpperInvariant()}finally{$sha.Dispose()}
+            if($h -ne $expected){throw "refusing overwrite of mismatched v1.3.8 expected=$expected actual=$h"}
+            Write-Host "V138_ALREADY_PUBLISHED_EXACT sha256=$h"
+            exit 0
+          }
+
+          $blobPayload=[ordered]@{content=[Convert]::ToBase64String([IO.File]::ReadAllBytes($src));encoding='base64'}|ConvertTo-Json -Compress
+          $blobFile=Join-Path $env:RUNNER_TEMP 'v138-blob.json';[IO.File]::WriteAllText($blobFile,$blobPayload,(New-Object Text.UTF8Encoding($false)))
+          $blobSha=(& gh api --method POST "repos/$repo/git/blobs" --input $blobFile --jq .sha).Trim()
+          if($LASTEXITCODE -ne 0 -or -not$blobSha){throw 'blob create failed'}
+
+          for($attempt=1;$attempt -le 3;$attempt++){
+            $head=(& gh api "repos/$repo/git/ref/heads/main" --jq .object.sha).Trim();if(-not$head){throw 'main ref lookup failed'}
+            $tree=(& gh api "repos/$repo/git/commits/$head" --jq .tree.sha).Trim();if(-not$tree){throw 'base tree lookup failed'}
+            $treePayload=[ordered]@{base_tree=$tree;tree=@([ordered]@{path=$path;mode='100644';type='blob';sha=$blobSha})}|ConvertTo-Json -Depth 5 -Compress
+            $treeFile=Join-Path $env:RUNNER_TEMP "v138-tree-$attempt.json";[IO.File]::WriteAllText($treeFile,$treePayload,(New-Object Text.UTF8Encoding($false)))
+            $newTree=(& gh api --method POST "repos/$repo/git/trees" --input $treeFile --jq .sha).Trim();if(-not$newTree){throw 'tree create failed'}
+            $commitPayload=[ordered]@{message='Publish exact CI-qualified Maintenance v1.3.8';tree=$newTree;parents=@($head)}|ConvertTo-Json -Depth 4 -Compress
+            $commitFile=Join-Path $env:RUNNER_TEMP "v138-commit-$attempt.json";[IO.File]::WriteAllText($commitFile,$commitPayload,(New-Object Text.UTF8Encoding($false)))
+            $newCommit=(& gh api --method POST "repos/$repo/git/commits" --input $commitFile --jq .sha).Trim();if(-not$newCommit){throw 'commit create failed'}
+            $refPayload=[ordered]@{sha=$newCommit;force=$false}|ConvertTo-Json -Compress
+            $refFile=Join-Path $env:RUNNER_TEMP "v138-ref-$attempt.json";[IO.File]::WriteAllText($refFile,$refPayload,(New-Object Text.UTF8Encoding($false)))
+            $old=$ErrorActionPreference
+            try{$ErrorActionPreference='Continue';& gh api --method PATCH "repos/$repo/git/refs/heads/main" --input $refFile --silent 2>$null;$rc=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
+            if($rc -eq 0){
+              $remote=(& gh api "repos/$repo/contents/$path?ref=main"|ConvertFrom-Json)
+              $b=(& gh api "repos/$repo/git/blobs/$($remote.sha)"|ConvertFrom-Json)
+              $bytes=[Convert]::FromBase64String(([string]$b.content -replace '\s',''))
+              $sha=[Security.Cryptography.SHA256]::Create();try{$h=([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','').ToUpperInvariant()}finally{$sha.Dispose()}
+              if($h -ne $expected){throw "post-publish identity mismatch expected=$expected actual=$h"}
+              Write-Host "V138_PUBLISHED_EXACT sha256=$h attempt=$attempt"
+              exit 0
+            }
+            Write-Host "main advanced during publish; retrying fresh base attempt=$attempt"
+            Start-Sleep -Seconds 1
+          }
+          throw 'bounded v1.3.8 publication CAS attempts exhausted'
