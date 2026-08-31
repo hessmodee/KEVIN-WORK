@@ -1,12 +1,17 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "audit-runtime-after-workshop-guardrail-block-20260831-1718",
+  "id": "install-maintenance-v1310-workshop-rawstring-20260831-1723",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "publish_runtime_capabilities",
+  "operation": "replace_pinned_component",
+  "target_alias": "maintenance_runner",
+  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.10.ps1",
+  "source_sha256": "9E93D0CAB76615EA28A9C9A4C56B7C98FBF105C9678B2BE79200DF3686337776",
+  "expected_current_sha256": "0D3363D5DFDA8025F4B7BEF4A178A65615D5BD11537C7E577868536B4FC1E3C1",
+  "expected_after_sha256": "9E93D0CAB76615EA28A9C9A4C56B7C98FBF105C9678B2BE79200DF3686337776",
   "expires_at": "2026-08-31T18:45:00-06:00"
 }
