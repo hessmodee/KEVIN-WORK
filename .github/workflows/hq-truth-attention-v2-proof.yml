@@ -1,0 +1,64 @@
+name: HQ Truth Attention v2 Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/patch-hq-truth-attention-v2.py'
+      - 'docs/hq-truth-v1.js'
+      - '.github/workflows/hq-truth-attention-v2-proof.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.13'}
+      - name: Generate candidate
+        run: python tools/patch-hq-truth-attention-v2.py
+      - name: Syntax check
+        run: node --check docs/generated/hq-truth-v2.js
+      - name: Behavioral issue regression fixtures
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          t=Path('docs/generated/hq-truth-v2.js').read_text()
+          assert "forgeEpoch:{label:'Forge runtime epoch'" in t
+          assert "epochState==='OMEN_PROVEN'" in t
+          assert "evAt>=activated" in t
+          assert "autonomyState.state==='FRESH'" in t
+          assert "Number(a?.drift_count||0)>0" in t
+          assert "if(Number(a?.drift_count||0)>0)" not in t
+          # Historical/superseded Forge evidence must not be asserted as current after a matching proven epoch.
+          f=re.search(r'function issues\(\)\{.*?\n\}',t,re.S)
+          assert f, 'issues function missing'
+          body=f.group(0)
+          assert 'evalCurrent' in body and 'reject&&evalCurrent' in body
+          assert "sourceState('autonomy',a)" in body
+          print('HQ_TRUTH_ATTENTION_V2_PASS forge_epoch=true stale_drift_not_current=true')
+      - name: Publish exact generated HQ truth
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          src=docs/generated/hq-truth-v2.js
+          dst=docs/hq-truth-v1.js
+          cp "$src" "$dst"
+          git config user.name "Kevin CI"
+          git config user.email "actions@users.noreply.github.com"
+          git add "$dst"
+          git diff --cached --quiet && exit 0
+          git commit -m "Harden HQ Truth for Forge epochs and fresh drift evidence"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep "$i"
+          done
+          exit 1
