@@ -1,6 +1,6 @@
 # Kevin AI Engineering Handover
 
-Last updated: 2026-08-31 03:13 MDT / 2026-08-31 09:13 UTC
+Last updated: 2026-08-31 04:07 MDT / 2026-08-31 10:07 UTC
 
 Purpose: canonical turnover sheet for Kevin engineering. Re-check fresh GitHub/Omen telemetry before acting; timestamps, exact hashes, request IDs, receipts, branch/CI heads, and independent postconditions outrank narrative.
 
@@ -9,14 +9,13 @@ Purpose: canonical turnover sheet for Kevin engineering. Re-check fresh GitHub/O
 Build Kevin into a persistent, proactive, evidence-driven local **Chief of Staff** on Matt's Omen. The owner explicitly directs Kevin to actively learn, exercise, combine, troubleshoot, repair, upgrade, measure, and repeatedly prove **ALL capabilities already classified GREEN**. Idle-without-reason is a defect; when one family blocks or cools, advance another authorized mission.
 
 Active governing artifacts:
-
 - `docs/engineering/FULL-STEAM-CONTINUOUS-IMPROVEMENT-DOCTRINE-v1.md`
 - `docs/engineering/OWNER-CAPABILITY-ROADMAP-v1.md`
 - `docs/engineering/OWNER-DIRECT-COMMS-AND-GREEN-MASTERY-CAMPAIGN-v1.md`
 - `inbox/CURRENT_TASK.md`
 - `control-plane/OWNER-AUTHORIZATION-v1.md`
 
-The 2026-08-31 owner directive explicitly authorizes development and proof of **private Matt<->Kevin communication** through Kevin HQ and repair/proof of the intended private Telegram channel. Natural-language content is owner intent, never arbitrary executable shell; consequential downstream actions still require typed authority. No third-party/public owner-representing sends are authorized.
+The owner explicitly authorizes development and proof of **private Matt<->Kevin communication** through Kevin HQ and repair/proof of the intended private Telegram channel. Natural-language content is owner intent, never arbitrary executable shell; consequential downstream actions still require typed authority. No third-party/public owner-representing sends are authorized.
 
 ## Hard boundaries retained
 
@@ -24,15 +23,13 @@ Never create/use arbitrary shell or arbitrary remote code execution; weaken secu
 
 Mutable work requires bounded retries, semantic progress, exact preconditions, independent postconditions, idempotency, evidence, and rollback. After three materially distinct failures in one family, cool it until evidence materially changes and work elsewhere.
 
-## Fresh live truth — 03:07–03:10 MDT
+## Fresh live truth — 04:06 MDT
 
-Fresh Support generated **03:09:09 MDT** reports governance OK and all listed core schedulers healthy with zero consecutive errors. The previously observed single HQ Live Pulse error has self-cleared; do not treat that old transient as a current defect. Maintenance runner remains exact SHA256 `0AC6C0F20DC33507159789A8A3B7767154A918E4E665CEAA90201E1ADA94FDA3`. Fresh Benchmark at **03:07:40 MDT** is PASS **30/30, critical=0**.
+Fresh Support generated **04:06:12 MDT** reports governance OK and all listed core schedulers healthy with zero consecutive errors. Maintenance runner remains exact SHA256 `0AC6C0F20DC33507159789A8A3B7767154A918E4E665CEAA90201E1ADA94FDA3`. Latest Benchmark remains PASS **30/30, critical=0** at 03:58:51 MDT. Supervisor cycle 263 is `RECOVERY_THROTTLED` with zero consecutive failures; current strategic forge work is cooling/pacing rather than globally unhealthy.
 
-Supervisor cycle 256 last result is `RECOVERY_THROTTLED` with zero consecutive failures. Latest `forge-v4` evaluation remains REJECT score 2 with failure_count 4 and one security finding; preserve rejection/failure evidence rather than smoothing it into progress.
+Do not smooth failure evidence: latest forge-v4 evaluation remains REJECT score 55, failure_count 5, one security finding, with reusable lesson + next experiment present.
 
-Fresh Engineering Relay generated **03:10:30 MDT** from duplicate request `bess-action-selftests-20260831-0209b`. `DUPLICATE_IGNORED` is correct replay behavior; passive action state remains useful: Operator `ready=0`, `running=0`, `done=8`, `failed=1`; composites `ready=0`, `running=0`, `done=2`, `failed=1`, `proven_count=2`; Benchmark PASS 30/30 critical=0; relevant schedulers zero consecutive errors.
-
-Interactive UI Bridge remains genuinely **UNHEALTHY**: task present and pinned hash match, but heartbeat age is about **29,130.9 seconds**. The old restart-only family remains cooled. Matching hash/task presence is not interactive health; return only with materially new session/process/task/event evidence or a genuine executable bridge self-test.
+Interactive UI Bridge remains **UNHEALTHY** until fresh interactive heartbeat or genuine executable self-test says otherwise. The previous trustworthy relay showed task/hash present but heartbeat hours stale. The old blind-restart family remains cooled; do not create a renamed fourth retry.
 
 ## Completed/proven production foundations
 
@@ -42,43 +39,41 @@ Interactive UI Bridge remains genuinely **UNHEALTHY**: task present and pinned h
 - Skill Lab production baseline remains two PROVEN composites; latest proven composite is `skill-lab-recovery-isolation-create-text@1`.
 - One-14B-primary-worker discipline remains standing.
 
-## Native HQ direct chat — PR #30 CI-PROVEN through mobile panel layer
+## Native HQ direct chat — PR #30 CI-PROVEN through private adapter layer
 
-Draft PR **#30**, `Draft: Native HQ owner↔Kevin direct chat contract v0.1`, branch `kevin-hq-direct-chat-v0.1`, exact current head **`abbc68e9919cd35ca8f649174395cb9968f8a916`**, remains candidate-only and **CI-PROVEN**.
+Draft PR **#30**, `Draft: Native HQ owner↔Kevin direct chat contract v0.1`, branch `kevin-hq-direct-chat-v0.1`, exact current head **`eb8dfe342907e22f0b15c69f9321949cab697471`**, remains candidate-only and **CI-PROVEN**. HQ Direct Chat Candidate Gate run **`33380882599` completed SUCCESS** on that exact head.
 
-The candidate now has three CI-proven layers:
+The candidate now has four CI-proven layers:
 
-1. **Typed conversation contract** — `kevin-owner-message` / `kevin-owner-reply`, request/reply correlation, exact content SHA256 binding, timezone-aware timestamps, fixed `QUEUED / RECEIVED / THINKING / REPLIED / FAILED` states, owner-only `hq-private` routing, replay mismatch rejection, metadata-only public proof, unknown command-field rejection.
-2. **Omen-private filesystem spool core** — validates before persistence, atomic JSON replacement, same-content request/reply idempotency, mismatched replay fail-closed, correlated replies, metadata-only public proof, no shell/process/network execution, deterministic SHA256 filenames so contract-valid `:` characters cannot create illegal Windows paths.
-3. **Mobile-first truthful HQ panel candidate** — 360px/430px breakpoints, explicit horizontal-overflow containment, 48px primary button height, 16px text entry, sticky/safe-area-aware composer, long-text wrapping, fixed lifecycle display, no fetch/XHR/WebSocket/EventSource network surface, no credentials/chat IDs/private endpoint material/persistent browser secret storage. The panel defaults to `NOT INSTALLED` with **Send disabled** until an owner-private adapter explicitly marks transport READY.
+1. **Typed conversation contract** — fixed owner/reply envelopes; request/reply correlation; SHA256 content binding; timezone-aware timestamps; only `QUEUED / RECEIVED / THINKING / REPLIED / FAILED`; owner-only `hq-private` routing; unknown command-field rejection; metadata-only public proof.
+2. **Omen-private filesystem spool** — atomic JSON replacement; Windows-safe deterministic hashed filenames; same-content request/reply idempotency; mismatched replay fail-closed; correlated replies; no shell/process/network execution.
+3. **Truthful mobile-first HQ panel** — 360/430px breakpoints; horizontal-overflow containment; 48px primary controls; 16px text entry; sticky/safe-area composer; fixed lifecycle display; no public fetch/XHR/WebSocket/EventSource or browser secret storage; defaults to `NOT INSTALLED` and Send disabled until private transport is proven READY.
+4. **Omen-private browser-facing adapter candidate** — `private_http_adapter.py` binds only loopback (`127.0.0.1`, `::1`, localhost); rejects wildcard/LAN host binding; accepts only the typed owner message envelope; feeds the existing idempotent spool; returns correlated private reply state/body; suppresses HTTP request logging; bounds body size and port range; exposes no subprocess/shell/PowerShell/cmd/eval/exec/outbound HTTP client surface. Deterministic self-test proves enqueue, same-content duplicate idempotency, and non-loopback rejection.
 
-Important failed-then-repaired evidence remains preserved: workflow run `33372186118` failed after hashed Windows-safe spool filenames were introduced because a test still expected the old raw-ID filename; the test was corrected, and repaired head `0d31554782c0bf47e9686d3b2464b9607221c758` passed run `33372211258`.
+The current adapter is deliberately **loopback-only**. That is appropriate for first Omen-local proof and must not be weakened to `0.0.0.0` merely to make phone access easy. Mobile/phone reachability requires a separately proven private authenticated transport boundary (for example an owner-approved Tailscale/private-LAN/TLS design) while endpoint/auth material remains local/private.
 
-The new mobile layer exact head `abbc68e9919cd35ca8f649174395cb9968f8a916` passed **HQ Direct Chat Candidate Gate run `33376517840` SUCCESS**. A prior intermediate commit `33b1c3b5cd88786c833102eb6905ad6c51f114b8` also passed run 8 before the gate itself was expanded to include the mobile acceptance/privacy checks.
+Preserved failed-then-repaired evidence: run `33372186118` failed after Windows-safe hashed spool filenames because a test still expected raw-ID filenames; the test was corrected and repaired head `0d31554782c0bf47e9686d3b2464b9607221c758` passed run `33372211258`.
 
-**Do not overclaim:** PR #30 remains CI-PROVEN, not INSTALLED, OMEN-PROVEN, mobile-reachable, ROUND-TRIP-PROVEN, REPEATEDLY-PROVEN, or SELF-RELIANT. Public GitHub Pages remains read-only. A textbox, queued file, mock transcript, CI test, matching hash, or disabled mobile panel is not a Matt->Kevin->Matt proof.
+**Do not overclaim:** PR #30 is not INSTALLED, OMEN-PROVEN, mobile-reachable, ROUND-TRIP-PROVEN, REPEATEDLY-PROVEN, or SELF-RELIANT. A rendered textbox, loopback code, queued file, mock transcript, CI pass, matching hash, or local transport ping is not a Matt->Kevin->Matt proof.
 
-Next direct-chat boundary is an exact Omen-local installation/self-test of the private spool core and private browser-facing adapter, with endpoint/auth material remaining local/private. Then integrate the truthful mobile panel into owner HQ only when private transport readiness can be independently proven. Genuine ROUND-TRIP-PROVEN requires correlated Matt -> Kevin -> Matt timestamps and reply evidence.
+### Installation boundary discovered this run
+
+Maintenance v1.3.3 cannot currently install the HQ-chat component because its fixed alias allowlist contains only `maintenance_runner`, `work_order_intake`, `skill_lab_runner`, `os_observer_runner`, `self_reliance_watchdog`, and `ui_bridge_runner`. Do **not** bypass that allowlist with ad-hoc copy/shell. The correct next production path is to extend the typed maintenance transport through an isolated, deterministic candidate (or another equivalently narrow already-authorized typed mechanism), prove that extension, then use exact hashes + self-test + Benchmark + rollback for installation.
 
 ## Other active candidate truth
 
 - Sanitized OS Awareness -> Support/HQ contract PR #29 exact head `f17f0f2e154fc12eff71fbba1f0f6031dcc146f4` remains CI-PROVEN only; not yet production-integrated/OMEN-PROVEN.
 - Gmail adapter candidate preserved CI-proven head `eecbe799ea260d7506f6e58c61061ef1f159d4aa`; not yet INSTALLED/OMEN-PROVEN. Credentials stay Omen-local.
-- Telegram: no trustworthy current public-repo evidence establishes root cause or repair. Do not guess from absence; continue with fresh Omen-local channel/task/process/config-presence evidence while keeping token/chat ID/private content out of public telemetry.
-
-## HQ / owner interaction truth
-
-Kevin is presented to Matt as **Chief of Staff**; stable internal Supervisor identifiers may remain unchanged. Production avatar/Ops Floor design is frozen except real defects, truthful telemetry improvements, and owner-requested UI changes. Direct-chat and mobile-responsive work is owner-requested.
-
-Never call communications successful from UI code, matching hash, task, mock transcript, or CI alone. Require genuine round-trip proof.
+- Telegram: no trustworthy current public-repo evidence establishes root cause or repair. Continue with fresh Omen-local channel/task/process/config-presence evidence while keeping token/chat ID/private content out of public telemetry.
 
 ## Immediate P0 queue
 
-1. Advance PR #30 from CI-PROVEN private spool/mobile panel to exact Omen-local **INSTALLED + OMEN-PROVEN** through an authorized reversible GREEN path, with local-only bodies and independent privacy/idempotency postconditions.
-2. Build/prove the private browser-facing adapter and integrate the mobile panel only when transport readiness can be independently established; validate 360/390/430px and desktop with no horizontal scroll, >=44px controls, readable transcript, software-keyboard-safe composer, and no desktop regression.
-3. Prove one benign genuine Matt -> Kevin -> Matt round trip, then retry/restart idempotency before claiming REPEATEDLY-PROVEN.
-4. Diagnose/repair Telegram using fresh local evidence; separate credential/config presence, channel registration, polling/webhook conflict, reachability, binding/permissions, stale process/task and routing. Stop only at a precise local secret/enrollment checkpoint if unavoidable.
-5. Exercise already-authorized GREEN primitives on meaningful tasks; convert repeated useful sequences into declarative Skill Lab composites; measure first-pass success, retries, elapsed/queue time, intervention, resource pressure, regression and recovery.
+1. Build and CI-prove the **narrow typed installation path** for PR #30 without arbitrary file copy or command execution; preserve exact component path/hash, fixed self-test, absent/current preconditions, rollback, fresh Benchmark and bounded attempts.
+2. Advance the loopback private adapter to exact Omen-local INSTALLED + OMEN-PROVEN through that typed path; independently prove privacy/idempotency and no public body leakage.
+3. Wire the truthful mobile panel only after private transport readiness is independently established; validate 360/390/430px and desktop with no horizontal scroll, >=44px controls, readable transcript, keyboard-safe composer, and no desktop regression.
+4. Prove one benign genuine Matt -> Kevin -> Matt round trip, then retry/restart idempotency before claiming REPEATEDLY-PROVEN.
+5. Diagnose/repair Telegram using fresh local evidence; separate credential/config presence, channel registration, polling/webhook conflict, reachability, binding/permissions, stale process/task and routing. Stop only at a precise local secret/enrollment checkpoint if unavoidable.
+6. Exercise already-authorized GREEN primitives on meaningful tasks; convert repeated useful sequences into declarative Skill Lab composites; measure first-pass success, retries, elapsed/queue time, intervention, resource pressure, regression and recovery.
 
 ## Parallel P1 queue
 
@@ -99,8 +94,8 @@ Never conflate **DESIGNED**, **CI-PROVEN**, **INSTALLED**, **OMEN-PROVEN**, **RE
 
 ## Three steps ahead
 
-A. Install and Omen-prove the private spool/browser-adapter layer while independently diagnosing Telegram.
-B. Integrate the truthful mobile HQ panel over that private transport and prove one benign correlated Matt->Kevin->Matt round trip.
+A. CI-prove the narrow typed HQ-chat installation transport and Omen-prove the loopback adapter/spool without widening network exposure.
+B. Add a separately authenticated private mobile reachability boundary and integrate the truthful HQ mobile panel; prove one benign correlated Matt->Kevin->Matt round trip.
 C. Prove retry/restart idempotency plus a benign typed GREEN work-request round trip, add latency/reliability telemetry, and make the proven communication lane Kevin's normal owner interaction surface without widening third-party/external-send authority.
 
 ## Engineering doctrine
