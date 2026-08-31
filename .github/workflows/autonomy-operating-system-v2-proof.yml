@@ -66,21 +66,24 @@ jobs:
       - name: Validate permanent GREEN authority is broad but cannot self-widen
         shell: python
         run: |
+          import re
           from pathlib import Path
           auth = Path('control-plane/OWNER-GREEN-STANDING-AUTHORIZATION-v2.md').read_text(encoding='utf-8')
+          # Normalize Markdown punctuation/formatting so policy proof checks meaning-bearing text, not decoration.
+          normalized = re.sub(r'[^a-z0-9]+', ' ', auth.lower()).strip()
           required = [
-              'PERMANENT OWNER AUTHORIZATION',
-              'all legitimately GREEN work',
+              'permanent owner authorization',
+              'legitimately classified green',
               'does not expire',
               'may not widen authority by changing a label',
-              'Always improve.',
-              'Only an explicit later owner instruction may revoke',
+              'always improve',
+              'only an explicit later owner instruction may revoke',
           ]
           for marker in required:
-              assert marker.lower() in auth.lower(), marker
-          assert 'unrestricted arbitrary shell' in auth.lower()
-          assert 'money movement' in auth.lower()
-          assert 'automatic production promotion' in auth.lower()
+              assert marker in normalized, marker
+          assert 'unrestricted arbitrary shell' in normalized
+          assert 'money movement' in normalized
+          assert 'automatic production promotion' in normalized
           print('OWNER_GREEN_AUTH_V2_PASS permanent=true self_widen=false')
 
       - name: Validate always-loaded runtime doctrine
