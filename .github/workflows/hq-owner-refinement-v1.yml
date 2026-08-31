@@ -1,0 +1,54 @@
+name: HQ Owner Refinement v1 Gate
+
+on:
+  push:
+    paths:
+      - 'docs/index.html'
+      - 'docs/hq-owner-refinement-v1.js'
+      - 'docs/hq-overrides-v1.js'
+      - 'docs/ops/embed.html'
+      - 'docs/ops/ops-owner-refinement-v1.js'
+      - 'docs/ops/ops-owner-refinement-v1.css'
+      - '.github/workflows/hq-owner-refinement-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-ui-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: JavaScript syntax
+        run: |
+          node --check docs/hq-owner-refinement-v1.js
+          node --check docs/ops/ops-owner-refinement-v1.js
+          node --check docs/hq-overrides-v1.js
+      - name: Owner UI invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          idx=Path('docs/index.html').read_text()
+          hq=Path('docs/hq-owner-refinement-v1.js').read_text()
+          emb=Path('docs/ops/embed.html').read_text()
+          ops=Path('docs/ops/ops-owner-refinement-v1.js').read_text()
+          css=Path('docs/ops/ops-owner-refinement-v1.css').read_text()
+          over=Path('docs/hq-overrides-v1.js').read_text()
+          assert 'hq-owner-refinement-v1.js' in idx
+          assert 'ops-owner-refinement-v1.css' in emb and 'ops-owner-refinement-v1.js' in emb
+          assert '#244f8f' in emb and '#68d8ce' in emb
+          for status in ['READY','ARMED','WORKING','BUILDING','COOLDOWN','DEGRADED','OFFLINE']:
+              assert status in emb
+          assert 'worker-progress{display:none!important}' in css
+          assert "querySelectorAll('.worker-progress').forEach(x=>x.remove())" in ops
+          assert "r:12.5" in ops and "class:'owl-feet-kevin'" in ops
+          assert "[data-tab=\"talk\"]" in hq
+          assert "span.textContent='READY'" in hq
+          assert "main.insertBefore(card,hero)" in hq
+          assert 'COPY KEVIN HANDOVER' in hq
+          assert 'AI-HANDOVER.md' in over and "cache:'no-store'" in over
+          assert 'setInterval(refreshTruth,5000)' in hq
+          assert 'setInterval(refreshTelemetry,5000)' in ops
+          assert "type:'kevin-ops-state'" in ops and "type!=='kevin-ops-state'" in hq
+          print('HQ_OWNER_REFINEMENT_PASS streamlined=true handover_top=true reader_ready=true ready_dark_blue=true progress_truthful=true owl_refined=true state_sync=true refresh_5s=true')
