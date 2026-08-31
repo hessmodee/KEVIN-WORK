@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "kind": "kevin-work-order",
-  "id": "hq-attention-forge-repair-20260831-1645",
-  "idempotency_key": "hq-attention-forge-repair-20260831-1645-a",
-  "created_at": "2026-08-31T16:45:00-06:00",
-  "expires_at": "2026-08-31T17:45:00-06:00",
+  "id": "hq-attention-intake-selfrepair-20260831-1657",
+  "idempotency_key": "hq-attention-intake-selfrepair-20260831-1657-a",
+  "created_at": "2026-08-31T16:57:00-06:00",
+  "expires_at": "2026-08-31T17:57:00-06:00",
   "authority_class": "GREEN",
   "verb": "run_typed_maintenance",
   "target": "kevin-maintenance-v1",
-  "reason": "Resolve HQ attention defect: run the fixed typed Maintenance controller against the exact manifest that replaces legacy spinning Forge with the already CI-proven demand-driven Forge v4.0. Require candidate selftest, exact SHA install, unchanged Benchmark PASS 30/30 critical=0, and automatic rollback on any failed postcondition. No arbitrary command/path/URL/argv and no authority expansion."
+  "reason": "Install exact CI-qualified Work Order Intake v1.2.4 through fixed typed Maintenance. Require exact-current v1.2.3 identity, v1.2.4 parse/selftest, installed exact SHA, fresh Benchmark PASS 30/30 critical=0, and rollback on any failure. This version retires expired slots once, reports terminal current orders as idle, and suppresses semantically identical ack republishes. No arbitrary command/path/URL/argv and no authority expansion."
 }
