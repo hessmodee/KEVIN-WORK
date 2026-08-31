@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-08-31T16:59:12.8731000-06:00",
+    "generated_at":  "2026-08-31T17:00:35.1969829-06:00",
     "request":  {
                     "id":  "hq-attention-postrollback-benchmark-20260831-1700",
                     "verb":  "run_benchmark",
                     "target":  "kevin-benchmark-v1"
                 },
-    "status":  "FAILED",
-    "detail":  "Ack publish failed",
+    "status":  "DUPLICATE_IGNORED",
+    "detail":  "Idempotency key already processed",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
