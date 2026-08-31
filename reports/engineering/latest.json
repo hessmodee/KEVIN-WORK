@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-08-31T08:08:29.8617577-06:00",
+    "generated_at":  "2026-08-31T08:10:29.7919018-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
@@ -27,26 +27,27 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  47010.1
+                                     "heartbeat_age_seconds":  47130
                                  },
                    "queues":  {
-                                  "ready":  1,
+                                  "ready":  0,
                                   "running":  0,
-                                  "done":  9,
+                                  "done":  10,
                                   "failed":  1
                               },
                    "composite_skills":  {
                                             "ready":  0,
-                                            "running":  1,
-                                            "done":  2,
+                                            "running":  0,
+                                            "done":  3,
                                             "failed":  1,
-                                            "proven_count":  2,
+                                            "proven_count":  3,
                                             "latest_proven":  {
-                                                                  "key":  "skill-lab-recovery-isolation-create-text@1",
-                                                                  "proven_at":  "2026-08-30T17:32:09.4586325-06:00",
-                                                                  "manifest_sha256":  "63B34295BFA6EC4C432DE594AD2F5B1087C51748111BDB4CFE1C7BB24B8E37E6",
-                                                                  "proof_sha256":  "9E4412B8AAFD335D080597EB1C456213208DE0E17935320320A3D06BCF990198",
+                                                                  "key":  "business-budget-starter-pack@1",
+                                                                  "proven_at":  "2026-08-31T08:10:29.3271378-06:00",
+                                                                  "manifest_sha256":  "518B877322137215172E2A4F8AE52EF6E962C41A98E80B7ABEA26EBA94ED2174",
+                                                                  "proof_sha256":  "9DFB9C84A16AE8FEE914BE5CAC75D1093185C4D69FC38775AC452CA7B151B915",
                                                                   "primitive_steps":  [
+                                                                                          "create_spreadsheet",
                                                                                           "create_text"
                                                                                       ]
                                                               }
@@ -74,13 +75,6 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-supervisor-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-support-bridge-v1",
                                     "enabled":  true,
                                     "every_ms":  180000,
@@ -98,6 +92,13 @@
                                     "declaration_key":  "kevin-maintenance-intake-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-supervisor-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 }
