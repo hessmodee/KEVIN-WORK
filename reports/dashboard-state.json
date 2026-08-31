@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T01:36:42.9303560-06:00",
-  "status": "degraded",
+  "generated_at": "2026-08-31T01:37:02-06:00",
+  "status": "working",
   "health": {
     "overall": "degraded",
     "failed_checks": 1
@@ -12,7 +12,16 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "night-forge",
+    "title": "Night Forge cycle",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-31T01:37:02-06:00",
+    "source": "forge"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "degraded",
@@ -20,22 +29,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 32,
-    "cpu_pct": 6,
+    "memory_pct": 33,
+    "cpu_pct": 19,
     "gpu": "RTX 3060",
-    "gpu_pct": 31
+    "gpu_pct": 33
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T21:37:02-06:00",
-        "estimated": false,
-        "ram": 32,
-        "cpu": 2,
-        "gpu": 10
-      },
       {
         "at": "2026-08-30T21:38:38-06:00",
         "estimated": false,
@@ -700,10 +702,16 @@
         "ram": 32,
         "cpu": 6,
         "gpu": 31
+      },
+      {
+        "at": "2026-08-31T01:37:02-06:00",
+        "estimated": false,
+        "ram": 33,
+        "cpu": 19,
+        "gpu": 33
       }
     ],
     "ram": [
-      32,
       33,
       33,
       33,
@@ -798,10 +806,10 @@
       29,
       29,
       29,
-      32
+      32,
+      33
     ],
     "cpu": [
-      2,
       19,
       19,
       19,
@@ -896,10 +904,10 @@
       3,
       10,
       10,
-      6
+      6,
+      19
     ],
     "gpu": [
-      10,
       11,
       11,
       11,
@@ -994,7 +1002,8 @@
       23,
       33,
       33,
-      31
+      31,
+      33
     ]
   },
   "weather": {
@@ -1147,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-31T01:37:02-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
     {
       "at": "2026-08-31T01:35:13-06:00",
       "component": "tick",
@@ -1361,16 +1379,6 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-31T00:30:19-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: forge-v4",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 47000
     }
   ],
   "owl": {
@@ -1378,7 +1386,7 @@
     "state": "warning"
   },
   "sync": {
-    "last": "2026-08-31T01:36:42.9303560-06:00",
+    "last": "2026-08-31T01:37:02-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1415,30 +1423,30 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-31T01:36:42.9303560-06:00",
+    "generated_at": "2026-08-31T01:37:02-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
+      "id": "night-forge",
+      "name": "Night Forge",
+      "title": "Night Forge cycle",
+      "category": "qa",
+      "state": "working",
+      "detail": "started",
+      "what": "Running safety and regression checks.",
+      "engine": "Night Forge",
+      "action": "QA / regression"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
+        "state": "waiting",
+        "detail": "Supervisor is yielding while Night Forge owns the engineering lane.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1466,17 +1474,17 @@
     ]
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "running": true,
+    "state": "working",
+    "phase": "started",
+    "worker": "Night Forge",
+    "engine": "Night Forge",
+    "action": "QA / regression"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
+      "text": "Night Forge | WORKING | started",
       "severity": "normal"
     }
   ]
