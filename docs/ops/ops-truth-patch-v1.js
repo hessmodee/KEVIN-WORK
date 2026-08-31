@@ -4,7 +4,7 @@ const RAW='https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/'
 const WAIT=/yield|cooldown|wait|skip|queued|idle|armed|complete|completed|done|stopped|failed/i;
 const COOL=/THROTTLED|SATURATED|WAIT|COOL/i;
 const COLORS={READY:'#244f8f',ARMED:'#68d8ce',WORKING:'#79c56a',BUILDING:'#f06dbb',COOLDOWN:'#b38cff',DEGRADED:'#ff9a3d',OFFLINE:'#e46f61'};
-let lastGood=null,lastStates=['READY'],refreshing=false,guarding=false,observer=null;
+let lastGood=null,lastStates=['READY'],refreshing=false,guarding=false,observer=null,statusObserver=null;
 function norm(v){return String(v??'').toLowerCase()}
 function ms(v){const n=Number(v);return Number.isFinite(n)?n:0}
 function parseTimestamp(v){if(!v)return NaN;const s=String(v).trim().replace(/(\.\d{3})\d+(?=(?:Z|[+-]\d{2}:\d{2})$)/,'$1');const t=Date.parse(s);return Number.isFinite(t)?t:NaN}
@@ -79,8 +79,8 @@ function renderAuthoritative(states,d,s){
    }
    const selected=document.getElementById('selectedName')?.textContent||'';
    if(/^Kevin\b/i.test(selected)){
-     const status=document.getElementById('selectedStatus'),cycle=s?.supervisor?.cycle??'—';
-     if(status)status.textContent=`${clean.join(' + ')} · cycle ${cycle}`;
+     const status=document.getElementById('selectedStatus');
+     if(status){const wanted=clean.join(' + ');if(status.textContent!==wanted)status.textContent=wanted;}
    }
    window.__kevinTruth={states:[...clean],primary:primaryState(clean),at:Date.now(),data:lastGood};
    try{window.top.postMessage({type:'kevin-ops-state',state:primaryState(clean),states:[...clean],color:COLORS[primaryState(clean)]},location.origin)}catch(_e){}
@@ -88,9 +88,10 @@ function renderAuthoritative(states,d,s){
 }
 function ensureAuthority(){if(guarding||!lastGood)return;renderAuthoritative(lastStates,lastGood.d,lastGood.s)}
 function installGuard(){
- const badge=document.getElementById('kevinState');if(!badge||observer)return;
- observer=new MutationObserver(()=>{if(!guarding&&lastGood)queueMicrotask(ensureAuthority)});
- observer.observe(badge,{childList:true,subtree:true,characterData:true});
+ const badge=document.getElementById('kevinState');
+ if(badge&&!observer){observer=new MutationObserver(()=>{if(!guarding&&lastGood)queueMicrotask(ensureAuthority)});observer.observe(badge,{childList:true,subtree:true,characterData:true});}
+ const status=document.getElementById('selectedStatus');
+ if(status&&!statusObserver){statusObserver=new MutationObserver(()=>{if(!guarding&&lastGood&&/^Kevin\b/i.test(document.getElementById('selectedName')?.textContent||''))queueMicrotask(ensureAuthority)});statusObserver.observe(status,{childList:true,subtree:true,characterData:true});}
 }
 async function refreshTruth(){
  if(refreshing)return;refreshing=true;
