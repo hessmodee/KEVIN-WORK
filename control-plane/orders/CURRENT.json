@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "kind": "kevin-work-order",
-  "id": "hq-attention-intake-selfrepair-20260831-1657",
-  "idempotency_key": "hq-attention-intake-selfrepair-20260831-1657-a",
-  "created_at": "2026-08-31T16:57:00-06:00",
-  "expires_at": "2026-08-31T17:57:00-06:00",
+  "id": "hq-attention-postrollback-benchmark-20260831-1700",
+  "idempotency_key": "hq-attention-postrollback-benchmark-20260831-1700-a",
+  "created_at": "2026-08-31T17:00:00-06:00",
+  "expires_at": "2026-08-31T18:00:00-06:00",
   "authority_class": "GREEN",
-  "verb": "run_typed_maintenance",
-  "target": "kevin-maintenance-v1",
-  "reason": "Install exact CI-qualified Work Order Intake v1.2.4 through fixed typed Maintenance. Require exact-current v1.2.3 identity, v1.2.4 parse/selftest, installed exact SHA, fresh Benchmark PASS 30/30 critical=0, and rollback on any failure. This version retires expired slots once, reports terminal current orders as idle, and suppresses semantically identical ack republishes. No arbitrary command/path/URL/argv and no authority expansion."
+  "verb": "run_benchmark",
+  "target": "kevin-benchmark-v1",
+  "reason": "Refresh platform evidence after the failed demand-driven Forge replacement rolled back to the known-good legacy identity. Require the fixed Benchmark cron to terminate successfully and republish a fresh PASS 30/30 critical=0 before any further mutation."
 }
