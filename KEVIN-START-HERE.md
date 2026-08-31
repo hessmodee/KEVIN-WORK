@@ -6,7 +6,7 @@ If you are a fresh AI helping Matt with Kevin, do **not** ask Matt to reconstruc
 
 ## North star — train Kevin to replace Bess operationally
 
-Read `docs/engineering/BESS-TO-KEVIN-AUTONOMY-TRANSFER-DOCTRINE-v1.md` and `docs/engineering/RESPONSIBILITY-TRANSFER-LEDGER-v1.md` as first-class project doctrine.
+Read `docs/engineering/KEVIN-AUTONOMY-MASTER-PLAN-v1.md`, `docs/engineering/BESS-TO-KEVIN-AUTONOMY-TRANSFER-DOCTRINE-v1.md`, and `docs/engineering/RESPONSIBILITY-TRANSFER-LEDGER-v1.md` as first-class project doctrine.
 
 The long-term goal is not for Bess/ChatGPT to remain Kevin's remote operator. The goal is to progressively transfer routine planning, execution, verification, monitoring, repair, learning, communication, handoff, and work-selection responsibilities from Bess to Kevin until Bess is unnecessary in Kevin's normal authorized operating loop.
 
@@ -19,11 +19,12 @@ Whenever Bess repeatedly performs a useful action, treat that recurring action a
 ## Mandatory startup sequence
 
 1. Read this file completely.
-2. Read `AI-HANDOVER.md` for the current engineering narrative, proof levels, blockers, exact hashes/PRs, and immediate queue.
-3. Read `inbox/CURRENT_TASK.md` for the owner's current execution contract and priority order.
-4. Read `docs/engineering/BESS-TO-KEVIN-AUTONOMY-TRANSFER-DOCTRINE-v1.md`, `docs/engineering/RESPONSIBILITY-TRANSFER-LEDGER-v1.md`, and `reports/responsibility-transfer-latest.json` for current Bess-dependency/transfer state.
-5. Read `control-plane/OWNER-AUTHORIZATION-v1.md` plus any narrowly applicable authorization file before consequential work.
-6. Inspect the newest trustworthy live evidence before acting:
+2. Read `docs/engineering/KEVIN-AUTONOMY-MASTER-PLAN-v1.md` for the research-backed target architecture, no-spin/WIP rules and phased execution plan.
+3. Read `AI-HANDOVER.md` for the current engineering narrative, proof levels, blockers, exact hashes/PRs, and immediate queue.
+4. Read `inbox/CURRENT_TASK.md` for the owner's current execution contract and priority order.
+5. Read `docs/engineering/BESS-TO-KEVIN-AUTONOMY-TRANSFER-DOCTRINE-v1.md`, `docs/engineering/RESPONSIBILITY-TRANSFER-LEDGER-v1.md`, `reports/responsibility-transfer-latest.json`, and `reports/autonomy-master-scorecard.json` for current Bess-dependency/transfer and master-lane state.
+6. Read `control-plane/OWNER-AUTHORIZATION-v1.md` plus any narrowly applicable authorization file before consequential work.
+7. Inspect the newest trustworthy live evidence before acting:
    - `reports/support-latest.json`
    - `reports/dashboard-state.json`
    - `reports/control-plane-latest.json`
@@ -32,9 +33,36 @@ Whenever Bess repeatedly performs a useful action, treat that recurring action a
    - `reports/skills.json`
    - current maintenance/Benchmark evidence when relevant
    - open PR/CI state when a candidate or production crossing is relevant
-7. Compare timestamps, request IDs, idempotency keys, hashes, PR heads, CI conclusions, active-worker state, and postconditions. **Fresh evidence outranks handover prose.**
-8. State internally what is current, what is stale, what is blocked, what routine Bess responsibility can be transferred next, and the single highest-value safe next action before mutating anything.
-9. Preserve the scheduled single-writer rule: **Kevin Chief Engineer is the only scheduled automation allowed to steer/mutate Kevin execution state.** Read-only scorecards may observe but must not steer.
+8. Compare timestamps, request IDs, idempotency keys, hashes, PR heads, CI conclusions, active-worker state, and postconditions. **Fresh evidence outranks handover prose.**
+9. State internally what is current, what is stale, what is blocked, what WIP slots are occupied, what routine Bess responsibility can be transferred next, and the single highest-value safe next action before mutating anything.
+10. Preserve the scheduled single-writer rule: **Kevin Chief Engineer is the only scheduled automation allowed to steer/mutate Kevin execution state.** Read-only scorecards may observe but must not steer.
+
+## Architecture convergence rules
+
+Prefer native OpenClaw durability where it cleanly replaces bespoke orchestration:
+
+- Standing Orders for permanent programs;
+- Automations for recurring scheduled work;
+- Heartbeat for ambient monitoring only;
+- Task Flow for durable multi-step work;
+- Lobster for constrained deterministic pipelines/approval-resume flows;
+- Skill Workshop/self-learning for governed procedural learning;
+- Kevin Skill Lab for executable composites composed only from proven GREEN primitives;
+- native workspace memory + pre-compaction memory flush for always-loaded continuity;
+- GitHub for source, doctrine, PR/CI and sanitized durable evidence rather than the long-term primary live task queue.
+
+Do not rip out proven components merely to use a native feature. Migrate only with evidence and rollback.
+
+## No-spin / WIP rule
+
+Default global WIP:
+- 1 ACTIVE production/proof crossing;
+- 1 STAGING/EVAL item;
+- 1 RESEARCH/DESIGN item with a named downstream consumer.
+
+Do not count heartbeat/pulse/dashboard churn, raw cycle count, PONG/model smoke checks, duplicate requests, uninstalled candidates, or task/hash presence as owner-visible progress.
+
+Round-robin Forge design without demand is not useful work. Any design/forge mission needs a current owner objective, explicit missing capability/hypothesis, acceptance tests, downstream consumer, WIP capacity and a non-cooled failure family.
 
 ## Proof language is mandatory
 
@@ -56,6 +84,7 @@ After reconstructing state, respond with a compact checkpoint:
 - latest proven production capabilities;
 - current P0 work and exact proof level;
 - current responsibility-transfer level for the major P0 lanes;
+- WIP slots and no-spin concerns;
 - live blockers/cooldowns;
 - what is actively in flight;
 - what Bess responsibility is being retired next;
@@ -65,18 +94,20 @@ Then continue the work.
 
 ## Before a long chat ends
 
-When context is getting crowded, or after any substantive proof transition, repair, owner decision, blocker, production promotion/rollback, new authority boundary, or responsibility-transfer promotion/demotion:
+When context is getting crowded, or after any substantive proof transition, repair, owner decision, blocker, production promotion/rollback, new authority boundary, responsibility-transfer promotion/demotion, or master-plan/WIP change:
 
 1. Re-check fresh evidence.
 2. Update `AI-HANDOVER.md` by **reconciling** current truth, not appending contradictory history.
 3. Ensure `inbox/CURRENT_TASK.md` still reflects the active owner objective.
 4. Refresh `reports/handoff-latest.json` with compact pointers/status if available.
-5. Reconcile `docs/engineering/RESPONSIBILITY-TRANSFER-LEDGER-v1.md` and `reports/responsibility-transfer-latest.json` when evidence shows a Bess responsibility was transferred or regressed.
-6. Record exact hashes, request IDs, PR/CI heads, proof levels, transfer levels, and owner-required checkpoints needed by the next AI.
+5. Reconcile `docs/engineering/RESPONSIBILITY-TRANSFER-LEDGER-v1.md`, `reports/responsibility-transfer-latest.json`, and `reports/autonomy-master-scorecard.json` when evidence changes responsibility or master-lane truth.
+6. Record exact hashes, request IDs, PR/CI heads, proof levels, transfer levels, WIP state and owner-required checkpoints needed by the next AI.
 7. Never store secrets/private message bodies in handoff artifacts.
 
 ## Durable project sources
 
+- Master architecture: `docs/engineering/KEVIN-AUTONOMY-MASTER-PLAN-v1.md`
+- Master scorecard: `reports/autonomy-master-scorecard.json`
 - Canonical narrative handoff: `AI-HANDOVER.md`
 - Current execution contract: `inbox/CURRENT_TASK.md`
 - Stable owner authority: `control-plane/OWNER-AUTHORIZATION-v1.md`
@@ -94,4 +125,4 @@ No arbitrary shell or arbitrary remote-code authority; no secret/private-data ex
 
 Greater autonomy comes from better proven capability inside owner-approved boundaries, never from Kevin granting himself new authority.
 
-The goal of this file is simple: **a new AI should be able to resume Kevin Build in minutes without losing project direction, inventing stale facts, making Matt retell the story, or forgetting that Bess is supposed to make itself unnecessary.**
+The goal of this file is simple: **a new AI should be able to resume Kevin Build in minutes without losing project direction, inventing stale facts, making Matt retell the story, forgetting the no-spin architecture, or forgetting that Bess is supposed to make itself unnecessary.**
