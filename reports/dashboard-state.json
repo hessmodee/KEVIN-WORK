@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T06:50:07-06:00",
+  "generated_at": "2026-08-31T06:50:13-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -29,22 +29,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 30,
-    "cpu_pct": 12,
+    "memory_pct": 33,
+    "cpu_pct": 18,
     "gpu": "RTX 3060",
-    "gpu_pct": 25
+    "gpu_pct": 80
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-31T02:42:00-06:00",
-        "estimated": false,
-        "ram": 34,
-        "cpu": 11,
-        "gpu": 37
-      },
       {
         "at": "2026-08-31T02:43:16-06:00",
         "estimated": false,
@@ -709,12 +702,18 @@
         "ram": 30,
         "cpu": 12,
         "gpu": 25
+      },
+      {
+        "at": "2026-08-31T06:50:13-06:00",
+        "estimated": false,
+        "ram": 33,
+        "cpu": 18,
+        "gpu": 80
       }
     ],
     "ram": [
       34,
       34,
-      34,
       36,
       29,
       29,
@@ -807,10 +806,10 @@
       34,
       35,
       35,
-      30
+      30,
+      33
     ],
     "cpu": [
-      11,
       7,
       7,
       20,
@@ -905,10 +904,10 @@
       31,
       18,
       18,
-      12
+      12,
+      18
     ],
     "gpu": [
-      37,
       37,
       37,
       30,
@@ -1003,11 +1002,12 @@
       23,
       38,
       38,
-      25
+      25,
+      80
     ]
   },
   "weather": {
-    "summary": "Overnight 45 | Wind 5 mph | Mostly Clear"
+    "summary": "Today 81 | Wind 2 to 8 mph | Sunny"
   },
   "capabilities": [
     {
@@ -1102,8 +1102,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 92,
-      "total": 96
+      "done": 93,
+      "total": 97
     }
   ],
   "roadmap": {
@@ -1156,6 +1156,13 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-31T06:50:13-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
     {
       "at": "2026-08-31T06:50:06-06:00",
       "source": "forge",
@@ -1220,13 +1227,6 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-31T06:35:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-31T06:32:30-06:00",
@@ -1385,7 +1385,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-08-31T06:50:07-06:00",
+    "last": "2026-08-31T06:50:13-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
