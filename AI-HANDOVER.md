@@ -1,6 +1,6 @@
 # Kevin AI Engineering Handover
 
-Last updated: 2026-08-30 23:03 MDT / 2026-08-31 05:03 UTC
+Last updated: 2026-08-30 23:18 MDT / 2026-08-31 05:18 UTC
 
 Purpose: durable turnover sheet for Kevin engineering. Re-check current GitHub telemetry before acting; fresh timestamps, exact hashes, receipts, CI heads, request IDs, and independent postconditions outrank narrative.
 
@@ -14,12 +14,11 @@ The active doctrine is `docs/engineering/FULL-STEAM-CONTINUOUS-IMPROVEMENT-DOCTR
 
 ## Fresh live truth
 
-At 23:00–23:01 MDT, `dashboard-state.json`, `support-latest.json`, and `reports/engineering/latest.json` were fresh.
+At 23:16–23:17 MDT, `dashboard-state.json` and `support-latest.json` were fresh.
 
-- Dashboard schema 5 reports `status=ready`, overall health `healthy`, failed checks `0`, no current task, and tick/bridge/ollama/gateway all healthy. Current sampled load was about RAM 30%, CPU 20%, GPU 5% on RTX 3060.
-- Support reports governance OK; all listed core cron jobs enabled/OK with zero consecutive errors; Maintenance `ALREADY_APPLIED_PROVEN`; Benchmark **PASS 30/30, critical 0** at 22:56:58 MDT.
-- Supervisor cycle 228 last mission `forge-v4`, last result `REJECT`, consecutive failures `0`. Latest forge-v4 evaluation at 23:00:01 MDT was `REJECT`, score 2, failure_count 4, security_finding_count 1, with reusable lesson and next experiment present. Treat this as candidate/evaluator evidence, not a platform outage.
-- Engineering Relay at 23:01:04 MDT reports the stale `bess-stage-core-toolchain-proof-20260830-1638` request correctly `REJECTED: request expired`; Operator queues `ready=0`, `running=0`, `done=7`, `failed=1`; composite skills `done=2`, `failed=1`, `proven_count=2`; all listed engineering/support/supervisor/maintenance/benchmark cron lanes enabled/OK.
+- Dashboard schema 5 reports `status=ready`, overall health `healthy`, failed checks `0`, no current task, and tick/bridge/ollama/gateway all healthy. Current sampled load was about RAM 30%, CPU 11%, GPU 28% on RTX 3060.
+- Support at 23:16:38 MDT reports governance OK and retains the expected production hashes/policies. The fresh dashboard proves the owner-visible HQ `OFFLINE` report was not an actual Kevin/Omen outage.
+- The latest previously checked Engineering Relay state remains the authoritative source for the distinct interactive UI Bridge failure surface unless superseded by fresher engineering telemetry; generic dashboard `bridge=healthy` must not be treated as proof of interactive-session health.
 
 ### HQ live-truth / Ops interaction milestone — DEPLOYED + CI-PROVEN
 
@@ -38,7 +37,24 @@ Current HQ interaction changes:
 - Fake worker progress bars remain removed.
 - Overview keeps the current `AI-HANDOVER.md` control at the top with **COPY KEVIN HANDOVER** and view actions; Talk · Exp remains hidden from primary navigation until it becomes a proven operational conversation channel.
 
-Dedicated workflow `HQ Owner Refinement v1 Gate` run **33358374558** completed **SUCCESS** on code head `70bc4c3a7b0b8dfaccaed789869676c607a37735`. JavaScript syntax, seven-digit PowerShell timestamp compatibility, and all owner UI invariants passed. GitHub Pages deployment run **33358373855** for that head completed **SUCCESS**. Canonical engineering record: `docs/engineering/HQ-OWNER-REFINEMENT-v1.md`.
+Original dedicated workflow `HQ Owner Refinement v1 Gate` run **33358374558** completed **SUCCESS** on code head `70bc4c3a7b0b8dfaccaed789869676c607a37735`. JavaScript syntax, seven-digit PowerShell timestamp compatibility, and all owner UI invariants passed. GitHub Pages deployment run **33358373855** for that head completed **SUCCESS**. Canonical engineering record: `docs/engineering/HQ-OWNER-REFINEMENT-v1.md`.
+
+### HQ startup/load recovery — DEPLOYED + STRENGTHENED-GATE-PROVEN
+
+Immediately after the owner-refinement work, Matt reported that Kevin HQ had stopped loading. The deployed Pages artifact showed a brittle outer-wrapper startup latch in `docs/hq-owner-refinement-v1.js`: `hook()` could set a permanent `hooked=true` while the iframe still exposed its transient `about:blank` document. When the real `hq-core-v7.html` document loaded, the refinement layer could then refuse to bind to it. This was an actual initialization race even though the JavaScript syntax and prior UI invariants were valid.
+
+Recovery performed:
+
+- Commit `6b45ec37b4d838885b434534147697f5fb3e1241` replaced the one-shot `hooked` latch with real-document identity binding. The wrapper explicitly rejects `about:blank`, requires `hq-core-v7.html`, disconnects stale observers when the document changes, and can rebind safely on a real iframe load.
+- Commit `babc63f7de3f37a2d7274bec7f066736bf729b43` cache-busted the entry bundle: core `v=8`, overrides `v=2`, owner refinement `v=5`, fun layer `v=2`, forcing browsers off stale cached wrapper code.
+- The first post-repair gate correctly failed only because the gate itself was hard-coded to the older cache-version strings. The gate was not bypassed or weakened.
+- Commit `fb3f0a3fc767df9ac98e2a522a83f472136286a1` updated and **strengthened** the gate: it now checks the new version pins plus explicit `about:blank` rejection, document rebinding, and removal of the one-shot `hooked` latch while preserving every prior owner UI invariant.
+- Strengthened `HQ Owner Refinement v1 Gate` run **33359970346** completed **SUCCESS** on `fb3f0a3fc767df9ac98e2a522a83f472136286a1`.
+- GitHub Pages deployment run **33359928542** completed **SUCCESS** on repaired docs head `babc63f7de3f37a2d7274bec7f066736bf729b43`.
+- Deployed Pages artifact **9746339157**, SHA256 `2d4bfc3b183e1e9f5e8cb3cdfa21b1cbd2e69d378e2fdb30cb8471a8e0cb5a99`, was independently unpacked and checked. It contains the repaired startup guards, cache-busted entry page, Kevin re-selection, transparent outline eyes, staggered READY blinking, WORKING/BUILDING-only gaze, success celebration event, ACTIVE gold/definition, and valid JavaScript syntax.
+- Fresh dashboard telemetry at 23:17:51 MDT reports Kevin `ready` / `healthy` / failed checks `0`; therefore an owner-visible OFFLINE state at that time would be a UI/freshness defect, not a true Kevin outage.
+
+Known infrastructure nuisance: branch-based GitHub Pages currently rebuilds/deploys on frequent `main` telemetry commits, causing many superseded/cancelled deployment runs even when no `docs/` source changed. Successful deployments do complete, but decoupling Pages deployment from high-frequency telemetry commits is worthwhile reliability work when a safe configuration path is available.
 
 ### OS Awareness v0.1 — OWNER-AUTHORIZED + OMEN-PROVEN within bounded read-only envelope
 
@@ -56,20 +72,20 @@ Main contains Work Order Intake v1.2.3 with fixed `run_os_awareness` target and 
 
 ### Skill Lab — production-proven
 
-Fresh Engineering Relay at 23:01 MDT reports Operator queues `ready=0`, `running=0`, `done=7`, `failed=1`; composite skills `ready=0`, `running=0`, `done=2`, `failed=1`, `proven_count=2`. Latest proven composite remains `skill-lab-recovery-isolation-create-text@1`, manifest SHA256 `63B34295BFA6EC4C432DE594AD2F5B1087C51748111BDB4CFE1C7BB24B8E37E6`, proof SHA256 `9E4412B8AAFD335D080597EB1C456213208DE0E17935320320A3D06BCF990198`. Benchmark remains PASS 30/30, critical 0.
+Latest checked Engineering Relay reported Operator queues `ready=0`, `running=0`, `done=7`, `failed=1`; composite skills `ready=0`, `running=0`, `done=2`, `failed=1`, `proven_count=2`. Latest proven composite remains `skill-lab-recovery-isolation-create-text@1`, manifest SHA256 `63B34295BFA6EC4C432DE594AD2F5B1087C51748111BDB4CFE1C7BB24B8E37E6`, proof SHA256 `9E4412B8AAFD335D080597EB1C456213208DE0E17935320320A3D06BCF990198`. Benchmark remains PASS 30/30, critical 0 unless fresher telemetry supersedes it.
 
-The stale `bess-stage-core-toolchain-proof-20260830-1638` request remains `REJECTED: request expired`; that is correct stale-request handling, not a live scheduler failure.
+The stale `bess-stage-core-toolchain-proof-20260830-1638` request was `REJECTED: request expired`; that is correct stale-request handling, not a live scheduler failure.
 
-### Interactive UI Bridge — still cooled/unhealthy
+### Interactive UI Bridge — still a distinct cooled/unhealthy lane unless fresh evidence supersedes
 
-Engineering Relay at 23:01 MDT reports UI Bridge task present and pinned hash matching, but interactive heartbeat age about **14,165 seconds**. Do not let coarse generic `bridge=healthy` hide this distinct interactive-session failure surface. The restart family exhausted its bounded attempt budget; the next attempt requires materially new diagnostic evidence or a materially different repair path.
+Latest checked Engineering Relay reported UI Bridge task present and pinned hash matching, but interactive heartbeat age about **14,165 seconds**. Do not let coarse generic `bridge=healthy` hide this distinct interactive-session failure surface. The restart family exhausted its bounded attempt budget; the next attempt requires materially new diagnostic evidence or a materially different repair path.
 
 ## Automation / owner-control status
 
-- **Kevin Chief Engineer** is the single canonical hourly continuous-improvement governor and remains enabled. Its prompt was reconciled at 23:03 MDT so OS Awareness Omen proof is treated as completed; priority now begins with sanitized OS telemetry integration / exact Work Order Intake identity proof, then resource-aware scheduling, truthful UI Bridge diagnosis, maintenance/work-order reliability, Skill Lab, browser candidate, Second Brain, proactive planning, and economic-output labs.
+- **Kevin Chief Engineer** is the single canonical hourly continuous-improvement governor and remains enabled. Its prompt was reconciled so OS Awareness Omen proof is treated as completed; priority now begins with sanitized OS telemetry integration / exact Work Order Intake identity proof, then resource-aware scheduling, truthful UI Bridge diagnosis, maintenance/work-order reliability, Skill Lab, browser candidate, Second Brain, proactive planning, and economic-output labs.
 - **Kevin Daily Surprise** remains enabled daily. It must report a genuinely useful proven/proactive accomplishment or the strongest material progress/blocker; it may not manufacture novelty.
 - Older duplicate `Kevin Engineering Loop`, `Kevin Handover Refresh`, and `Kevin Watchtower` automations remain disabled so they do not compete with the canonical Chief Engineer loop.
-- `inbox/CURRENT_TASK.md` was reconciled at 23:02 MDT so future sessions start at the real unfinished queue rather than re-running the already-completed OS Awareness proof.
+- `inbox/CURRENT_TASK.md` was reconciled so future sessions start at the real unfinished queue rather than re-running the already-completed OS Awareness proof.
 
 ## Open authority / engineering checkpoints
 
@@ -79,15 +95,16 @@ Engineering Relay at 23:01 MDT reports UI Bridge task present and pinned hash ma
 
 ## Immediate priority queue
 
-1. Integrate only sanitized OS Awareness machine-state fields into Support/HQ with explicit source timestamp, freshness, provenance, and privacy/sanitization tests; independently prove exact Work Order Intake local identity against qualified v1.2.3 source.
-2. Build conservative resource-aware scheduling/self-diagnosis from sanitized RAM/CPU/GPU/disk/error state while preserving one 14B primary worker unless measurements prove otherwise.
-3. Correct the generic-vs-interactive UI Bridge health signal and diagnose the stale heartbeat with materially new evidence before any further restart attempt.
-4. Continue validating Maintenance v1.3.3 Work Order polling for freshness, idempotency, bounded failure accounting, downstream authority separation, and proof collection.
-5. Continue measured multi-step Skill Lab work from already-PROVEN GREEN primitives, adding replay/idempotency, intentional failure, checkpoint/resume, recovery isolation, and measured promotion.
-6. Advance browser observation/navigation and other isolated candidates only through their proper authority checkpoints.
-7. Build the local Second Brain / Knowledge baseline with transparent Markdown + SQLite FTS5, explicit provenance/contradiction handling, durable handoff, checkpoint/resume, and postmortems before evaluating heavier semantic-memory systems.
-8. Maintain opportunity radar and three-steps-ahead planning; produce at least one genuinely useful owner-visible surprise accomplishment per day when useful work exists.
-9. Build lawful economic-output labs only from already-proven capabilities, retaining owner control over money, purchases, external sends, credentials, permissions, and consequential production actions.
+1. Keep HQ load/truth stable; preserve the repaired iframe rebinding/cache-bust invariants and, when a safe configuration path is available, reduce needless Pages deployment churn from high-frequency telemetry-only commits.
+2. Integrate only sanitized OS Awareness machine-state fields into Support/HQ with explicit source timestamp, freshness, provenance, and privacy/sanitization tests; independently prove exact Work Order Intake local identity against qualified v1.2.3 source.
+3. Build conservative resource-aware scheduling/self-diagnosis from sanitized RAM/CPU/GPU/disk/error state while preserving one 14B primary worker unless measurements prove otherwise.
+4. Correct the generic-vs-interactive UI Bridge health signal and diagnose the stale heartbeat with materially new evidence before any further restart attempt.
+5. Continue validating Maintenance v1.3.3 Work Order polling for freshness, idempotency, bounded failure accounting, downstream authority separation, and proof collection.
+6. Continue measured multi-step Skill Lab work from already-PROVEN GREEN primitives, adding replay/idempotency, intentional failure, checkpoint/resume, recovery isolation, and measured promotion.
+7. Advance browser observation/navigation and other isolated candidates only through their proper authority checkpoints.
+8. Build the local Second Brain / Knowledge baseline with transparent Markdown + SQLite FTS5, explicit provenance/contradiction handling, durable handoff, checkpoint/resume, and postmortems before evaluating heavier semantic-memory systems.
+9. Maintain opportunity radar and three-steps-ahead planning; produce at least one genuinely useful owner-visible surprise accomplishment per day when useful work exists.
+10. Build lawful economic-output labs only from already-proven capabilities, retaining owner control over money, purchases, external sends, credentials, permissions, and consequential production actions.
 
 ## Engineering doctrine
 
