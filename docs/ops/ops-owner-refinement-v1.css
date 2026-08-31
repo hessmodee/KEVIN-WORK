@@ -2,6 +2,7 @@
 .worker-progress{display:none!important}
 .worker.ready{--statec:#244f8f!important}.line.state-ready{--statec:#244f8f!important}
 .worker .owl-eye-white,.worker .owl-eye,.worker .owl-eye-hi{display:none!important}.worker .owl-eye-outline{fill:none!important;stroke:var(--idc);stroke-width:2.3;vector-effect:non-scaling-stroke}.worker .owl-feet-kevin{fill:var(--idc);stroke:none}
+.worker .owl-beak{fill:var(--idc);stroke:none;filter:drop-shadow(0 0 2px color-mix(in srgb,var(--idc) 35%,transparent))}.worker.working .owl-beak,.worker.building .owl-beak,.worker.active .owl-beak{display:none!important}
 .worker .owl-eyes{transform-box:fill-box;transform-origin:center}
 .worker.ready .owl{animation:ownerReadyBreath 4.8s ease-in-out infinite}.worker.ready .owl-eyes{animation:ownerBlink var(--blink-rate,5.9s) ease-in-out infinite;animation-delay:var(--blink-delay,-1s)}
 .worker.working .owl{animation:ownerWorkBob 1.15s ease-in-out infinite}.worker.working .owl-eyes{animation:ownerBlink var(--blink-rate,3.4s) ease-in-out infinite;animation-delay:var(--blink-delay,-.7s)}
@@ -12,7 +13,7 @@
 #kevinHub .hub-inner{height:236px;min-height:236px;width:230px;justify-content:flex-start}
 #kevinHub .kevin-meta{min-height:62px;margin-top:7px}
 #kevinHub.truth-armed .hub-inner{box-shadow:none!important}
-#kevinHub.truth-active .kevin-avatar-prod .kv-eyes,#kevinHub.truth-working .kevin-avatar-prod .kv-eyes{transform-origin:60px 48px;animation:ownerKevinBlink 3.8s ease-in-out infinite}
+#kevinHub.truth-active .kevin-avatar-prod .kv-eyes,#kevinHub.truth-working .kevin-avatar-prod .kv-eyes,#kevinHub.truth-building .kevin-avatar-prod .kv-eyes{transform-origin:60px 48px;animation:ownerKevinBlink 3.8s ease-in-out infinite}
 #kevinHub.truth-armed .kevin-avatar-prod .kv-eyes{transform-origin:60px 48px;animation:ownerKevinBlink 6.2s ease-in-out infinite}
 #kevinHub .kevin-avatar-prod.owner-victory{transform-origin:50% 82%;animation:ownerVictoryFlip 1.55s cubic-bezier(.22,.8,.28,1) 1!important}
 #kevinHub.owner-celebrate:before,#kevinHub.owner-celebrate:after{content:'✦';position:absolute;z-index:8;color:#ffd166;font-size:23px;animation:ownerSpark 1.2s ease-out 1;pointer-events:none}#kevinHub.owner-celebrate:before{left:14%;top:12%}#kevinHub.owner-celebrate:after{right:14%;top:18%;animation-delay:.12s}
