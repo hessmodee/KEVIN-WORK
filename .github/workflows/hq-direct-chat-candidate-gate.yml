@@ -15,11 +15,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install test dependency
+        run: python -m pip install pytest
       - name: Compile
-        run: python -m py_compile candidates/communications/hq-direct-chat/contract.py candidates/communications/hq-direct-chat/private_spool.py candidates/communications/hq-direct-chat/private_http_adapter.py candidates/communications/hq-direct-chat/test_contract.py candidates/communications/hq-direct-chat/test_private_spool.py candidates/communications/hq-direct-chat/test_private_http_adapter.py candidates/communications/hq-direct-chat/test_mobile_panel.py
-      - name: Adversarial tests
+        run: python -m py_compile candidates/communications/hq-direct-chat/contract.py candidates/communications/hq-direct-chat/private_spool.py candidates/communications/hq-direct-chat/private_http_adapter.py candidates/communications/hq-direct-chat/typed_installer.py candidates/communications/hq-direct-chat/test_contract.py candidates/communications/hq-direct-chat/test_private_spool.py candidates/communications/hq-direct-chat/test_private_http_adapter.py candidates/communications/hq-direct-chat/test_mobile_panel.py candidates/communications/hq-direct-chat/test_typed_installer.py
+      - name: Existing adversarial tests
         working-directory: candidates/communications/hq-direct-chat
         run: python -m unittest -v test_contract.py test_private_spool.py test_private_http_adapter.py test_mobile_panel.py
+      - name: Typed installer adversarial tests
+        working-directory: candidates/communications/hq-direct-chat
+        run: python -m pytest -q test_typed_installer.py
       - name: Deterministic private adapter selftest
         working-directory: candidates/communications/hq-direct-chat
         run: python private_http_adapter.py
@@ -27,13 +32,14 @@ jobs:
         shell: python
         run: |
           from pathlib import Path
-          files = [
+          runtime_files = [
               Path('candidates/communications/hq-direct-chat/contract.py'),
               Path('candidates/communications/hq-direct-chat/private_spool.py'),
               Path('candidates/communications/hq-direct-chat/private_http_adapter.py'),
               Path('candidates/communications/hq-direct-chat/mobile_panel.html'),
+              Path('candidates/communications/hq-direct-chat/typed_installer.py'),
           ]
-          text = '\n'.join(p.read_text(encoding='utf-8').lower() for p in files)
+          text = '\n'.join(p.read_text(encoding='utf-8').lower() for p in runtime_files)
           forbidden = [
               'subprocess', 'os.system', 'popen(', 'powershell', 'cmd.exe',
               'requests.', 'urllib.request', 'eval(', 'exec(',
@@ -50,6 +56,10 @@ jobs:
               raise SystemExit('private adapter loopback invariant missing: ' + ', '.join(missing))
           if '0.0.0.0' in adapter and 'assert_loopback_host("0.0.0.0")' not in adapter:
               raise SystemExit('wildcard bind surface detected')
+          installer = Path('candidates/communications/hq-direct-chat/typed_installer.py').read_text(encoding='utf-8').lower()
+          for required_installer in ['exact fixed component set required', 'expected-current mismatch', 'fixed chat selftest failed', 'fresh benchmark postcondition failed']:
+              if required_installer not in installer:
+                  raise SystemExit('typed installer invariant missing: ' + required_installer)
           print('authority boundary PASS')
       - name: Public proof privacy boundary
         shell: python
@@ -58,6 +68,7 @@ jobs:
           p = Path('candidates/communications/hq-direct-chat/private_spool.py').read_text(encoding='utf-8').lower()
           adapter = Path('candidates/communications/hq-direct-chat/private_http_adapter.py').read_text(encoding='utf-8').lower()
           panel = Path('candidates/communications/hq-direct-chat/mobile_panel.html').read_text(encoding='utf-8').lower()
+          installer = Path('candidates/communications/hq-direct-chat/typed_installer.py').read_text(encoding='utf-8').lower()
           if 'public_proof(' not in p:
               raise SystemExit('public proof generation missing')
           if 'private_spool' in p and 'github' in p:
@@ -70,4 +81,8 @@ jobs:
           bad_adapter = [x for x in forbidden_adapter if x in adapter]
           if bad_adapter:
               raise SystemExit('private adapter contains forbidden public/secret surface: ' + ', '.join(bad_adapter))
+          forbidden_installer = ['github.com', 'api.github.com', 'authorization:', 'bearer ', 'client_secret', 'refresh_token']
+          bad_installer = [x for x in forbidden_installer if x in installer]
+          if bad_installer:
+              raise SystemExit('typed installer contains forbidden network/secret surface: ' + ', '.join(bad_installer))
           print('private/public split PASS')
