@@ -1,0 +1,78 @@
+name: Maintenance v1.3.1 Bootstrap Proof
+
+on:
+  push:
+    paths:
+      - 'inbox/maintenance/packages/bootstrap-maintenance-v1.3.1-v1.ps1'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.1.ps1'
+      - '.github/workflows/maintenance-v131-bootstrap-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-bootstrap-preflight:
+    runs-on: windows-latest
+    steps:
+      - name: Pin LF checkout
+        shell: powershell
+        run: git config --global core.autocrlf false
+
+      - uses: actions/checkout@v4
+
+      - name: Exact hashes parser and token gates
+        shell: powershell
+        run: |
+          $boot='inbox/maintenance/packages/bootstrap-maintenance-v1.3.1-v1.ps1'
+          $cand='control-plane/maintenance/kevin-maintenance-runner-v1.3.1.ps1'
+          foreach($p in @($boot,$cand)){
+            $txt=[IO.File]::ReadAllText($p)
+            if($txt.Contains("`r`n")){throw "CRLF checkout detected $p"}
+            $tokens=$null;$errors=$null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+            if($errors.Count){throw "parser failed $p : $($errors[0].Message)"}
+            foreach($pattern in @('(?m)\breturn(?=\$|\[|@)','(?i)-Filter''')){
+              if($txt -match $pattern){throw "Windows token adjacency regression $pattern in $p"}
+            }
+          }
+          $ch=(Get-FileHash $cand -Algorithm SHA256).Hash.ToUpperInvariant()
+          $bh=(Get-FileHash $boot -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "MAINTENANCE_V131_SHA256=$ch"
+          Write-Host "BOOTSTRAP_V131_SHA256=$bh"
+          if($ch -ne '8371806430518E00E67E7592C9C309B8F03075091C13FDA529CADD34B2CED9D6'){throw 'candidate hash drift'}
+
+      - name: Windows PowerShell runtime self-tests
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/maintenance/kevin-maintenance-runner-v1.3.1.ps1' -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'candidate self-test failed'}
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'inbox/maintenance/packages/bootstrap-maintenance-v1.3.1-v1.ps1' -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'bootstrap self-test failed'}
+
+      - name: Immutable source fetch equivalence
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ref='999b1a5f903fe9d74ace3a88d912b2dd6e253fc2'
+          $path='control-plane/maintenance/kevin-maintenance-runner-v1.3.1.ps1'
+          $tmp=Join-Path $env:TEMP 'kevin-v131-fetch-proof.ps1'
+          $b64=gh api "repos/hessmodee/KEVIN-WORK/contents/$path`?ref=$ref" --jq '.content'
+          if($LASTEXITCODE -ne 0){throw 'immutable candidate fetch failed'}
+          [IO.File]::WriteAllBytes($tmp,[Convert]::FromBase64String(($b64 -replace '\s','')))
+          $h=(Get-FileHash $tmp -Algorithm SHA256).Hash.ToUpperInvariant()
+          Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+          if($h -ne '8371806430518E00E67E7592C9C309B8F03075091C13FDA529CADD34B2CED9D6'){throw "immutable fetch hash mismatch $h"}
+          Write-Host 'IMMUTABLE_FETCH_PASS'
+
+      - name: Live-root and rollback contract assertions
+        shell: powershell
+        run: |
+          $old=(Get-FileHash 'control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1' -Algorithm SHA256).Hash.ToUpperInvariant()
+          if($old -ne '97F3FAE54C72F97D3634A6C070FD2E2C7E31B516FEB318CD3D1AECC4A17910C7'){throw "live-root source mismatch $old"}
+          $txt=[IO.File]::ReadAllText('inbox/maintenance/packages/bootstrap-maintenance-v1.3.1-v1.ps1')
+          foreach($required in @('ROLLBACK maintenance restored','APPLIED_PREAUTHORIZED_PROVEN','ALREADY_APPLIED_PROVEN','Kevin Self-Reliance Watchdog v1','benchmark not 30/30 critical=0')){
+            if(-not $txt.Contains($required)){throw "missing bootstrap invariant: $required"}
+          }
+          Write-Host 'BOOTSTRAP_CONTRACT_PASS rollback=true typed_postproof=true watchdog=Limited benchmark=30/30'
