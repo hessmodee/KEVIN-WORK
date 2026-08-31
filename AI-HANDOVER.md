@@ -1,6 +1,6 @@
 # Kevin AI Engineering Handover
 
-Last updated: 2026-08-30 22:13 MDT / 2026-08-31 04:13 UTC
+Last updated: 2026-08-30 22:31 MDT / 2026-08-31 04:31 UTC
 
 Purpose: durable turnover sheet for Kevin engineering. Re-check current GitHub telemetry before acting; fresh timestamps, exact hashes, receipts, branch/CI heads, request IDs, and independent postconditions outrank narrative.
 
@@ -59,6 +59,14 @@ Desired-state trust-anchor drifts remain owner-reserved and must not be silently
 Fresh Support in the current window shows Supervisor recovered to `RECOVERY_PASS` with zero consecutive failures after retained Forge rejection evidence. Preserve the latest Forge rejection/failure history and reusable lesson; a later recovery/Benchmark pass does not erase candidate failure evidence.
 
 Fresh HQ state generated about 22:13 MDT shows overall health healthy with CPU about 17%, RAM about 33%, and RTX 3060 GPU about 29%. This is useful scheduling evidence, not permission to spawn extra 14B workers. Preserve the one-14B-primary-worker discipline unless measured evidence proves otherwise.
+
+### HQ Owner Refinement v1 is regression-qualified and deployed
+
+The owner-directed HQ cleanup audited every primary tab and retained only distinct operational roles: Overview, Ops Floor, Activity, System, Roadmap, Capabilities, and Diagnostics remain; `Talk · Exp` is hidden because it is explicitly experimental/unproven. The duplicate 24-hour chart is removed from Overview because System owns that detail. `AI-HANDOVER.md` copy/view controls are promoted to the top of Overview and the copy button is labeled `COPY KEVIN HANDOVER`; the existing no-cache fetch remains the source so the control targets the current root handover.
+
+Ops Floor READY is dark blue `#244f8f` and ARMED remains cyan `#68d8ce`; READY/ARMED/WORKING/BUILDING/COOLDOWN/DEGRADED/OFFLINE definitions are shown inline. Reader's operational chip says READY while GREEN remains a deeper authority/safety classification. Worker progress bars are removed because the old values were not trustworthy continuous completion measurements. Worker owls now have larger owl-like eyes, Kevin-like filled feet/toes, and telemetry-linked status animations/blinking. The top-left Kevin and Ops Floor Kevin share the same live dashboard/support state classifier and 5-second refresh cadence; they should show the same semantic state/animation profile, though separate iframe DOMs do not imply frame-perfect animation phase.
+
+Dedicated workflow `HQ Owner Refinement v1 Gate` run `33357216042` completed SUCCESS on UI head `bb3d2fabee4c46412f9c76279085110b02e3c3c7`; JavaScript syntax and owner UI invariants both passed. A descendant main head `355939fd2aec6e3c34bfe17015dd61155fd13039` completed GitHub Pages deployment successfully in run `33357230946`, so the refinement is published. Canonical design/audit record: `docs/engineering/HQ-OWNER-REFINEMENT-v1.md`.
 
 ## Open advanced candidates / authority checkpoints
 
