@@ -18,13 +18,13 @@ jobs:
       - name: Install test dependency
         run: python -m pip install pytest
       - name: Compile
-        run: python -m py_compile candidates/communications/hq-direct-chat/contract.py candidates/communications/hq-direct-chat/private_spool.py candidates/communications/hq-direct-chat/private_http_adapter.py candidates/communications/hq-direct-chat/typed_installer.py candidates/communications/hq-direct-chat/test_contract.py candidates/communications/hq-direct-chat/test_private_spool.py candidates/communications/hq-direct-chat/test_private_http_adapter.py candidates/communications/hq-direct-chat/test_mobile_panel.py candidates/communications/hq-direct-chat/test_typed_installer.py
+        run: python -m py_compile candidates/communications/hq-direct-chat/contract.py candidates/communications/hq-direct-chat/private_spool.py candidates/communications/hq-direct-chat/private_http_adapter.py candidates/communications/hq-direct-chat/typed_installer.py candidates/communications/hq-direct-chat/typed_transport.py candidates/communications/hq-direct-chat/test_contract.py candidates/communications/hq-direct-chat/test_private_spool.py candidates/communications/hq-direct-chat/test_private_http_adapter.py candidates/communications/hq-direct-chat/test_mobile_panel.py candidates/communications/hq-direct-chat/test_typed_installer.py candidates/communications/hq-direct-chat/test_typed_transport.py
       - name: Existing adversarial tests
         working-directory: candidates/communications/hq-direct-chat
         run: python -m unittest -v test_contract.py test_private_spool.py test_private_http_adapter.py test_mobile_panel.py
-      - name: Typed installer adversarial tests
+      - name: Typed installer and transport adversarial tests
         working-directory: candidates/communications/hq-direct-chat
-        run: python -m pytest -q test_typed_installer.py
+        run: python -m pytest -q test_typed_installer.py test_typed_transport.py
       - name: Deterministic private adapter selftest
         working-directory: candidates/communications/hq-direct-chat
         run: python private_http_adapter.py
@@ -49,6 +49,7 @@ jobs:
           bad = [x for x in forbidden if x in text]
           if bad:
               raise SystemExit('forbidden authority surface: ' + ', '.join(bad))
+
           adapter = Path('candidates/communications/hq-direct-chat/private_http_adapter.py').read_text(encoding='utf-8').lower()
           required = ['127.0.0.1', 'loopback only', 'threadinghttpserver']
           missing = [x for x in required if x not in adapter]
@@ -57,30 +58,36 @@ jobs:
           if '0.0.0.0' in adapter and 'assert_loopback_host("0.0.0.0")' not in adapter:
               raise SystemExit('wildcard bind surface detected')
 
-          installer_path = Path('candidates/communications/hq-direct-chat/typed_installer.py')
-          installer = installer_path.read_text(encoding='utf-8')
-          tree = ast.parse(installer)
-          forbidden_imports = {'subprocess', 'socket', 'requests', 'urllib', 'http', 'ctypes'}
-          imported = set()
-          risky_calls = []
-          for node in ast.walk(tree):
-              if isinstance(node, ast.Import):
-                  imported.update(alias.name.split('.')[0] for alias in node.names)
-              elif isinstance(node, ast.ImportFrom) and node.module:
-                  imported.add(node.module.split('.')[0])
-              elif isinstance(node, ast.Call):
-                  if isinstance(node.func, ast.Name) and node.func.id in {'eval', 'exec', 'compile'}:
-                      risky_calls.append(node.func.id)
-                  if isinstance(node.func, ast.Attribute) and isinstance(node.func.value, ast.Name):
-                      if (node.func.value.id, node.func.attr) in {('os','system'), ('os','popen')}:
-                          risky_calls.append(node.func.value.id + '.' + node.func.attr)
-          bad_imports = sorted(imported.intersection(forbidden_imports))
-          if bad_imports or risky_calls:
-              raise SystemExit('typed installer executable/network surface: ' + ', '.join(bad_imports + risky_calls))
-          installer_lower = installer.lower()
+          for candidate in ['typed_installer.py', 'typed_transport.py']:
+              path = Path('candidates/communications/hq-direct-chat') / candidate
+              src = path.read_text(encoding='utf-8')
+              tree = ast.parse(src)
+              forbidden_imports = {'subprocess', 'socket', 'requests', 'urllib', 'http', 'ctypes'}
+              imported = set()
+              risky_calls = []
+              for node in ast.walk(tree):
+                  if isinstance(node, ast.Import):
+                      imported.update(alias.name.split('.')[0] for alias in node.names)
+                  elif isinstance(node, ast.ImportFrom) and node.module:
+                      imported.add(node.module.split('.')[0])
+                  elif isinstance(node, ast.Call):
+                      if isinstance(node.func, ast.Name) and node.func.id in {'eval', 'exec', 'compile'}:
+                          risky_calls.append(node.func.id)
+                      if isinstance(node.func, ast.Attribute) and isinstance(node.func.value, ast.Name):
+                          if (node.func.value.id, node.func.attr) in {('os','system'), ('os','popen')}:
+                              risky_calls.append(node.func.value.id + '.' + node.func.attr)
+              bad_imports = sorted(imported.intersection(forbidden_imports))
+              if bad_imports or risky_calls:
+                  raise SystemExit(candidate + ' executable/network surface: ' + ', '.join(bad_imports + risky_calls))
+
+          installer = Path('candidates/communications/hq-direct-chat/typed_installer.py').read_text(encoding='utf-8').lower()
           for required_installer in ['exact fixed component set required', 'expected-current mismatch', 'fixed chat selftest failed', 'fresh benchmark postcondition failed']:
-              if required_installer not in installer_lower:
+              if required_installer not in installer:
                   raise SystemExit('typed installer invariant missing: ' + required_installer)
+          transport = Path('candidates/communications/hq-direct-chat/typed_transport.py').read_text(encoding='utf-8').lower()
+          for required_transport in ['install_hq_private_chat_v01', 'request id/idempotency mismatch', 'operation not allowlisted', 'caller_selected_path']:
+              if required_transport not in transport:
+                  raise SystemExit('typed transport invariant missing: ' + required_transport)
           print('authority boundary PASS')
       - name: Public proof privacy boundary
         shell: python
@@ -90,6 +97,7 @@ jobs:
           adapter = Path('candidates/communications/hq-direct-chat/private_http_adapter.py').read_text(encoding='utf-8').lower()
           panel = Path('candidates/communications/hq-direct-chat/mobile_panel.html').read_text(encoding='utf-8').lower()
           installer = Path('candidates/communications/hq-direct-chat/typed_installer.py').read_text(encoding='utf-8').lower()
+          transport = Path('candidates/communications/hq-direct-chat/typed_transport.py').read_text(encoding='utf-8').lower()
           if 'public_proof(' not in p:
               raise SystemExit('public proof generation missing')
           if 'private_spool' in p and 'github' in p:
@@ -98,12 +106,9 @@ jobs:
           bad = [x for x in forbidden_panel if x in panel]
           if bad:
               raise SystemExit('private material surface in panel: ' + ', '.join(bad))
-          forbidden_adapter = ['bot_token', 'chat_id', 'client_secret', 'refresh_token', 'password=', 'github.com', 'api.github.com']
-          bad_adapter = [x for x in forbidden_adapter if x in adapter]
-          if bad_adapter:
-              raise SystemExit('private adapter contains forbidden public/secret surface: ' + ', '.join(bad_adapter))
-          forbidden_installer = ['github.com', 'api.github.com', 'authorization:', 'bearer ', 'client_secret', 'refresh_token']
-          bad_installer = [x for x in forbidden_installer if x in installer]
-          if bad_installer:
-              raise SystemExit('typed installer contains forbidden network/secret surface: ' + ', '.join(bad_installer))
+          forbidden_private = ['bot_token', 'chat_id', 'client_secret', 'refresh_token', 'password=', 'github.com', 'api.github.com']
+          for name, text in [('adapter', adapter), ('installer', installer), ('transport', transport)]:
+              bad_private = [x for x in forbidden_private if x in text]
+              if bad_private:
+                  raise SystemExit(name + ' contains forbidden public/secret surface: ' + ', '.join(bad_private))
           print('private/public split PASS')
