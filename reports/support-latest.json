@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-31T16:18:51.8296829-06:00",
+    "generated_at":  "2026-08-31T16:21:51.8366348-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788214547595,
-                                  "next_run_at_ms":  1788214727595
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788214579019,
-                                  "next_run_at_ms":  1788214753447
+                                  "last_run_at_ms":  1788214727610,
+                                  "next_run_at_ms":  1788214907610
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788214708533,
-                                  "next_run_at_ms":  1788214768533
+                                  "last_run_at_ms":  1788214888574,
+                                  "next_run_at_ms":  1788214948574
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -101,8 +89,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788214607457,
-                                  "next_run_at_ms":  1788214787457
+                                  "last_run_at_ms":  1788214787470,
+                                  "next_run_at_ms":  1788214967470
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788214753463,
+                                  "next_run_at_ms":  1788215053463
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -122,16 +122,16 @@
     "supervisor":  {
                        "cycle":  346,
                        "last_mission":  "forge-v4",
-                       "last_result":  "REJECT",
-                       "next_eligible_at":  "2026-08-31T16:18:26.4615596-06:00",
+                       "last_result":  "RECOVERY_PASS",
+                       "next_eligible_at":  "2026-08-31T16:20:20.2252382-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
     "recovery":  {
-                     "fingerprint":  "2DA06330F6181FF123085A4121617AF102FD03840555EA7826319CDBBB37E978",
+                     "fingerprint":  "B515A7AC22F391E6EEC2186FC71B28AD38626573DD4AEAEA29A8A0F9AB3D6E89",
                      "round":  1,
-                     "last_at":  "2026-08-31T16:11:16.7960699-06:00",
-                     "last_brief":  "20260831-161116-round1.json"
+                     "last_at":  "2026-08-31T16:20:20.1141745-06:00",
+                     "last_brief":  "20260831-162020-round1.json"
                  },
     "benchmark":  {
                       "at":  "2026-08-31T16:16:45.3646065-06:00",
@@ -161,11 +161,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-31T16:16:30.8368757-06:00",
-                        "status":  "APPLIED_PREAUTHORIZED_PROVEN",
+                        "at":  "2026-08-31T16:19:14.7392783-06:00",
+                        "status":  "ALREADY_APPLIED_PROVEN",
                         "manifest_id":  "install-maintenance-v139-reader-canary-20260831-1613",
                         "stage_path":  "",
-                        "detail":  "Applied/audited and independently verified."
+                        "detail":  "Maintenance previously proven."
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "579F978159EBD3E72E7388CB8EF40FF3D974071D98A2EA33EB9AA1470D252823"
+    "semantic_hash":  "6E69B568678C03990DDED7F66440E36B33340E9E1386CC20EFB8A3774314ACE4"
 }
