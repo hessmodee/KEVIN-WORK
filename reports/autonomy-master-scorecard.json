@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-autonomy-master-scorecard",
-  "generated_at": "2026-08-31T09:15:00-06:00",
+  "generated_at": "2026-08-31T09:26:20-06:00",
   "safe_for_public_repo": true,
   "north_star": "Kevin owns routine goal execution, proof, recovery, learning, communication and computer work inside owner-approved boundaries while Bess intervention trends toward zero.",
   "wip_policy": {
@@ -11,12 +11,14 @@
     "round_robin_forge_without_demand": false
   },
   "global_health": {
-    "benchmark": "PASS_30_OF_30_CRITICAL_0",
-    "autonomy": "NEEDS_REVIEW",
+    "benchmark": "PASS_30_OF_30_CRITICAL_0_AT_09_22_MDT",
+    "autonomy": "NEEDS_REVIEW_LAST_PUBLIC_08_09_MDT",
     "autonomy_work_conserving": "DEFECT_NO_DISPATCH_WITH_EXPLICIT_BACKLOG",
     "ui_bridge": "UNHEALTHY_STALE_INTERACTIVE_HEARTBEAT",
     "skill_lab_proven_count": 3,
-    "design_forge_spin": "DEFECT_FORGE_V4_ITERATION_252_REJECTED"
+    "design_forge_spin": "DEFECT_FORGE_V4_ITERATION_253_REJECTED_FAILURE_COUNT_7_SECURITY_FINDINGS_1",
+    "supervisor_latest": "RECOVERY_THROTTLED",
+    "hq_live_pulse": "RECOVERED_CURRENT_SNAPSHOT_OK"
   },
   "lanes": [
     {
@@ -24,8 +26,8 @@
       "priority": 1,
       "proof": "OMEN_COMPONENTS_PRESENT_BUT_SEMANTIC_DEFECT",
       "transfer": "T2",
-      "blocker": "0 workers + explicit P0 backlog can produce NO_DISPATCH_NEEDED; stale/duplicate slots still require Bess attention",
-      "next_evidence": "Kevin independently notices idle/blocked state, selects a different authorized owner objective, executes and verifies useful work without Bess refilling queue"
+      "blocker": "0 workers + explicit P0 backlog can produce NO_DISPATCH_NEEDED; stale/duplicate slots still require Bess attention; fixed Forge rotation continues generating rejected work",
+      "next_evidence": "Kevin independently suppresses non-demand Forge churn, notices idle/blocked state, selects a different authorized owner objective, executes and verifies useful work without Bess refilling queue"
     },
     {
       "id": "hq-direct-chat",
@@ -48,7 +50,7 @@
       "priority": 4,
       "proof": "OMEN-PROVEN_3_COMPOSITES",
       "transfer": "T3",
-      "blocker": "Bess still identifies/stages some useful executable composites; procedural learning not yet converged onto native Skill Workshop",
+      "blocker": "Bess still identifies/stages some useful executable composites; native procedural self-learning availability not locally verified",
       "next_evidence": "Kevin detects repeated real GREEN procedure, proposes/evaluates reusable skill/composite and proves usefulness without Bess hand-authoring"
     },
     {
@@ -72,7 +74,7 @@
       "priority": 7,
       "proof": "ROOT_CAUSE_UNPROVEN",
       "transfer": "T0",
-      "blocker": "native OpenClaw channel registration/polling-vs-webhook/gateway/binding/routing state not yet proven",
+      "blocker": "native OpenClaw channel registration/default-long-polling-vs-webhook/gateway/binding/routing state not yet proven",
       "next_evidence": "fresh sanitized native channel probe + root cause + bounded repair + owner round trip"
     },
     {
@@ -86,10 +88,10 @@
     {
       "id": "handoff-memory",
       "priority": 9,
-      "proof": "DURABLE_REPO_PROTOCOL_EXISTS",
+      "proof": "DURABLE_REPO_PROTOCOL_AND_RECONCILED_BOOTSTRAP_SOURCE",
       "transfer": "T1",
-      "blocker": "Bess/Chief Engineer still maintains handoff truth",
-      "next_evidence": "Kevin automatically reconciles native memory + handoff + transfer checkpoint after substantive work and replacement session resumes accurately"
+      "blocker": "repo source has been reconciled but Omen consumption/native memory-flush behavior and Kevin-owned maintenance are not yet proven",
+      "next_evidence": "Kevin automatically consumes/maintains native memory + handoff + transfer/master checkpoints after substantive work and replacement session resumes accurately"
     },
     {
       "id": "business-value",
@@ -120,11 +122,12 @@
     ]
   },
   "research_adoption": {
-    "standing_orders": "ADOPT",
-    "task_flow": "ADOPT_FOR_DURABLE_MULTI_STEP_WORK",
-    "lobster": "ADOPT_WHERE_TYPED_PIPELINES_REDUCE_MODEL_ORCHESTRATION",
-    "skill_workshop": "EVALUATE_AND_START_PROPOSE_MODE",
+    "standing_orders": "SOURCE_CODIFIED_LOCAL_CONSUMPTION_NOT_YET_PROVEN",
+    "task_flow": "ADOPT_FOR_DURABLE_MULTI_STEP_WORK_AFTER_LOCAL_CAPABILITY_INVENTORY",
+    "lobster": "ADOPT_WHERE_TYPED_PIPELINES_REDUCE_MODEL_ORCHESTRATION_AFTER_LOCAL_CAPABILITY_INVENTORY",
+    "skill_workshop": "EVALUATE_LOCAL_AVAILABILITY_AND_START_PROPOSE_MODE_IF_SUPPORTED",
     "native_memory_flush": "VERIFY_AND_USE",
+    "clawhub_scout_before_build": "ADOPT_WITH_VERIFY_AND_SECURITY_REVIEW",
     "multi_agent_swarm": "DEFER_UNTIL_MEASURED_NEED",
     "external_temporal_orchestrator": "DEFER_USE_NATIVE_TASK_FLOW_PATTERN_FIRST",
     "unrestricted_windows_exec": "REJECT_FOR_NORMAL_CONTROL_PLANE"
