@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-30T20:17:51.6678729-06:00",
+  "generated_at": "2026-08-30T20:20:14.0351762-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 28,
-    "cpu_pct": 12,
+    "memory_pct": 33,
+    "cpu_pct": 7,
     "gpu": "RTX 3060",
-    "gpu_pct": 39
+    "gpu_pct": 32
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-30T16:20:13-06:00",
-        "estimated": false,
-        "ram": 31,
-        "cpu": 11,
-        "gpu": 35
-      },
       {
         "at": "2026-08-30T16:21:22-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 28,
         "cpu": 12,
         "gpu": 39
+      },
+      {
+        "at": "2026-08-30T20:20:14-06:00",
+        "estimated": false,
+        "ram": 33,
+        "cpu": 7,
+        "gpu": 32
       }
     ],
     "ram": [
-      31,
       31,
       31,
       27,
@@ -798,10 +797,10 @@
       28,
       28,
       28,
-      28
+      28,
+      33
     ],
     "cpu": [
-      11,
       15,
       15,
       6,
@@ -896,10 +895,10 @@
       12,
       12,
       12,
-      12
+      12,
+      7
     ],
     "gpu": [
-      35,
       37,
       37,
       38,
@@ -994,11 +993,12 @@
       42,
       42,
       39,
-      39
+      39,
+      32
     ]
   },
   "weather": {
-    "summary": "Tonight 45 | Wind 6 mph | Mostly Clear"
+    "summary": "Tonight 45 | Wind 3 mph | Mostly Clear"
   },
   "capabilities": [
     {
@@ -1148,6 +1148,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-30T20:20:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-30T20:17:26-06:00",
       "source": "forge",
       "component": "forge",
@@ -1184,13 +1191,6 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-30T20:05:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-30T19:58:48-06:00",
@@ -1378,7 +1378,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-30T20:17:51.6678729-06:00",
+    "last": "2026-08-30T20:20:14.0351762-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1415,7 +1415,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-30T20:17:51.6678729-06:00",
+    "generated_at": "2026-08-30T20:20:14.0351762-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1427,7 +1427,7 @@
       "title": "Kevin autonomous system armed",
       "category": "supervisor",
       "state": "ready",
-      "detail": "Completed forge-v4 i170 evaluation=REJECT score=2 auto_staged=False",
+      "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
       "what": "Waiting only for the next scheduled three-minute control cycle.",
       "engine": "Supervisor v1.4",
       "action": "Autonomous schedule armed"
@@ -1438,7 +1438,7 @@
         "name": "Supervisor",
         "role": "Goal-aware control plane",
         "state": "ready",
-        "detail": "Completed forge-v4 i170 evaluation=REJECT score=2 auto_staged=False",
+        "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1468,7 +1468,7 @@
   "execution": {
     "running": false,
     "state": "ready",
-    "phase": "Completed forge-v4 i170 evaluation=REJECT score=2 auto_staged=False",
+    "phase": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
     "worker": "Supervisor",
     "engine": "Supervisor v1.4",
     "action": "Autonomous schedule armed"
@@ -1476,7 +1476,7 @@
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | Completed forge-v4 i170 evaluation=REJECT score=2 auto_staged=False",
+      "text": "Supervisor | READY | Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
       "severity": "normal"
     }
   ]
