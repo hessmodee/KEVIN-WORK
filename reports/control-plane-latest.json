@@ -1,13 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-08-30T18:54:00.4556579-06:00",
-    "order_id":  "watch-20260830-062530-autonomy-refresh",
-    "idempotency_key":  "watch-autonomy-refresh-20260830-062530",
-    "verb":  "refresh_autonomy_telemetry",
-    "target":  "autonomy-telemetry",
-    "status":  "FAILED",
-    "detail":  "Work order is expired.",
+    "generated_at":  "2026-08-30T20:54:03.6728843-06:00",
+    "request":  {
+                    "id":  "bess-20260831-0218-os-awareness-proof",
+                    "verb":  "run_os_awareness",
+                    "target":  "kevin-os-awareness-v1"
+                },
+    "status":  "SUCCESS",
+    "detail":  "OS_AWARENESS_PROVEN generated_at=2026-08-30T20:54:10.4992257-06:00 memory_bytes=34270429184 cpu_count=1 gpu_count=1 memory_modules=2 processes=150 services=295 tasks=307 software=90 system_errors_24h=3 application_errors_24h=2 runner=KEVIN OS OBSERVER DONE operation=snapshot Local evidence = C:\\Users\\hessm\\.openclaw\\workspace\\reports\\os-awareness\\latest-local.json Public summary = C:\\Users\\hessm\\.openclaw\\workspace\\reports\\os-awareness\\latest-public.json",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
