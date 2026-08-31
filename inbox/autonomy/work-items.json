@@ -1,0 +1,114 @@
+{
+  "schema": 1,
+  "kind": "kevin-work-items",
+  "safe_for_public_repo": true,
+  "items": [
+    {
+      "id": "finish-forge-v40-runtime-convergence",
+      "program": "platform-reliability",
+      "authority_class": "GREEN",
+      "status": "READY",
+      "lane": "production",
+      "work_type": "execution",
+      "severity": "high",
+      "owner_value": 5,
+      "near_acceptance": true,
+      "closes_proof_gap": true,
+      "reduces_bess_intervention": true,
+      "repairs_false_success": true,
+      "acceptance_criteria": [
+        "Demand-driven Forge v4.0 is installed through typed Maintenance with exact source identity and rollback.",
+        "Benchmark returns PASS 30/30 critical=0 against the intentional new Forge identity.",
+        "With no valid CURRENT demand, Forge records IDLE_NO_ELIGIBLE_DEMAND and does not create a new candidate iteration.",
+        "A valid bounded demand is consumed exactly once and archived."
+      ],
+      "dependencies_ready": true,
+      "failure_attempts": 1,
+      "material_new_evidence": true,
+      "next_action": "Finish publishing/installing Maintenance v1.3.5, then execute the coordinated Forge+Benchmark-pin migration."
+    },
+    {
+      "id": "runtime-owner-doctrine-v2",
+      "program": "autonomy-debt",
+      "authority_class": "GREEN",
+      "status": "READY",
+      "lane": "staging",
+      "work_type": "execution",
+      "severity": "medium",
+      "owner_value": 5,
+      "closes_proof_gap": true,
+      "reduces_bess_intervention": true,
+      "acceptance_criteria": [
+        "Permanent GREEN owner authorization is durable in repository/handoff.",
+        "Updated AGENTS/SOUL/MEMORY/TOOLS policy passes deterministic safety checks.",
+        "Exact policy bundle is installed on Omen through typed Maintenance and Benchmark remains 30/30."
+      ],
+      "dependencies_ready": true,
+      "failure_attempts": 0,
+      "next_action": "Qualify source hashes, determine exact current Omen policy identities, then install the five-file runtime bundle."
+    },
+    {
+      "id": "real-owner-task-reader-e2e",
+      "program": "reader-evidence",
+      "authority_class": "GREEN",
+      "status": "READY",
+      "lane": "research",
+      "work_type": "research",
+      "severity": "medium",
+      "owner_value": 5,
+      "reuses_proven_capability": true,
+      "produces_owner_deliverable": true,
+      "acceptance_criteria": [
+        "Kevin answers one useful current owner question through the actual Reader path.",
+        "Evidence includes provenance/freshness and contradiction handling.",
+        "The owner outcome record captures semantic result, elapsed time, retries and Bess intervention."
+      ],
+      "dependencies_ready": true,
+      "downstream_consumer": "OWNER_OUTCOME_SCORECARD",
+      "failure_attempts": 0,
+      "next_action": "Run a genuine Reader E2E owner-value task after the active production crossing is stable."
+    },
+    {
+      "id": "hq-direct-chat-real-roundtrip",
+      "program": "owner-communications",
+      "authority_class": "GREEN",
+      "status": "OPEN",
+      "lane": "production",
+      "work_type": "execution",
+      "severity": "medium",
+      "owner_value": 5,
+      "closes_proof_gap": true,
+      "reduces_bess_intervention": true,
+      "produces_owner_deliverable": true,
+      "acceptance_criteria": [
+        "HQ private transport is installed and reports truthful READY only after local readiness.",
+        "Matt sends one real message through HQ and Kevin returns the correlated reply.",
+        "Restart/replay proves no duplicate execution/reply."
+      ],
+      "dependencies_ready": false,
+      "blocked": true,
+      "failure_attempts": 0,
+      "next_action": "Finish its typed production crossing after the current runtime convergence lane."
+    },
+    {
+      "id": "skill-workshop-self-learning-proof",
+      "program": "skill-learning",
+      "authority_class": "GREEN",
+      "status": "OPEN",
+      "lane": "staging",
+      "work_type": "execution",
+      "severity": "low",
+      "owner_value": 4,
+      "reduces_bess_intervention": true,
+      "acceptance_criteria": [
+        "Installed OpenClaw runtime/tool policy is verified to expose Skill Workshop/self-learning.",
+        "One substantial real trajectory produces a scanner-governed reusable procedure proposal or abstains with evidence.",
+        "No learned skill creates new primitive authority."
+      ],
+      "dependencies_ready": false,
+      "blocked": true,
+      "failure_attempts": 0,
+      "next_action": "Verify installed OpenClaw capability/config before enabling or changing self-learning mode."
+    }
+  ]
+}
