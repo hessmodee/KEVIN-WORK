@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kevin HQ Private Chat Candidate</title>
+<style>
+:root{color-scheme:dark;--bg:#0b0e0b;--card:#151a14;--line:rgba(242,239,231,.15);--fg:#f2efe7;--muted:#9da49a;--ok:#c2d5b6;--warn:#efd9ae}
+*{box-sizing:border-box}
+html,body{margin:0;min-width:0;max-width:100%;overflow-x:hidden;background:var(--bg);color:var(--fg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+body{padding:12px;padding-bottom:max(12px,env(safe-area-inset-bottom))}
+.chat-shell{width:min(100%,760px);margin:0 auto;display:grid;grid-template-rows:auto minmax(240px,1fr) auto;min-height:calc(100dvh - 24px);background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.chat-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0}
+.chat-title{font-size:16px;font-weight:700;min-width:0}.chat-sub{font-size:11px;color:var(--muted);margin-top:3px;overflow-wrap:anywhere}
+.chat-state{flex:0 0 auto;font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:7px 9px;color:var(--warn)}
+.transcript{padding:14px;overflow:auto;overscroll-behavior:contain;min-width:0;scrollbar-gutter:stable}
+.msg{max-width:88%;margin:0 0 12px;padding:11px 12px;border:1px solid var(--line);border-radius:14px;overflow-wrap:anywhere;word-break:break-word;line-height:1.45;font-size:14px}
+.msg.owner{margin-left:auto}.msg.kevin{margin-right:auto}.msg.system{max-width:100%;color:var(--muted);font-size:12px}
+.meta{margin-top:5px;color:var(--muted);font-size:10px;overflow-wrap:anywhere}
+.composer{position:sticky;bottom:0;z-index:4;padding:10px;padding-bottom:max(10px,env(safe-area-inset-bottom));border-top:1px solid var(--line);background:rgba(21,26,20,.98);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:end}
+textarea{width:100%;min-width:0;min-height:48px;max-height:150px;resize:vertical;border:1px solid var(--line);border-radius:12px;background:#0f130e;color:var(--fg);font:inherit;font-size:16px;line-height:1.35;padding:12px;overflow-wrap:anywhere}
+button{min-width:72px;min-height:48px;border:1px solid var(--line);border-radius:12px;background:#20271f;color:var(--fg);font:inherit;font-weight:700;padding:0 14px;touch-action:manipulation}
+button:disabled{opacity:.48;cursor:not-allowed}
+.transport-note{grid-column:1/-1;color:var(--muted);font-size:11px;line-height:1.35;overflow-wrap:anywhere}
+@media(max-width:430px){body{padding:0}.chat-shell{width:100%;min-height:100dvh;border:0;border-radius:0}.chat-head{padding:12px}.transcript{padding:12px}.composer{grid-template-columns:minmax(0,1fr) 72px}.msg{max-width:92%}}
+@media(max-width:360px){.chat-head{align-items:flex-start}.chat-state{font-size:9px;padding:6px 7px}.composer{padding:8px;gap:6px;grid-template-columns:minmax(0,1fr) 64px}button{min-width:64px;padding:0 8px}.msg{max-width:94%}}
+</style>
+</head>
+<body>
+<section class="chat-shell" aria-label="Private conversation with Kevin" data-proof-level="CI-CANDIDATE" data-private-transport="unavailable">
+  <header class="chat-head">
+    <div class="chat-title">Talk to Kevin<div class="chat-sub">Private owner channel · typed intent only</div></div>
+    <div class="chat-state" id="chatState" aria-live="polite">NOT INSTALLED</div>
+  </header>
+  <main class="transcript" id="transcript" aria-live="polite">
+    <div class="msg system">The private Omen transport is not installed yet. This candidate intentionally refuses to pretend that a public textbox is a working Kevin conversation.</div>
+  </main>
+  <form class="composer" id="composer">
+    <textarea id="message" maxlength="8000" placeholder="Message Kevin…" aria-label="Message Kevin" disabled></textarea>
+    <button id="send" type="submit" disabled>Send</button>
+    <div class="transport-note" id="transportNote">Send stays disabled until an owner-private adapter explicitly marks the transport READY. No endpoint address, token, chat ID, private path, or message body belongs in public telemetry.</div>
+  </form>
+</section>
+<script>
+(()=>{
+  'use strict';
+  const shell=document.querySelector('.chat-shell');
+  const form=document.getElementById('composer');
+  const field=document.getElementById('message');
+  const send=document.getElementById('send');
+  const state=document.getElementById('chatState');
+  const allowed=new Set(['QUEUED','RECEIVED','THINKING','REPLIED','FAILED']);
+  function setPrivateTransportReady(ready){
+    const ok=ready===true;
+    shell.dataset.privateTransport=ok?'ready':'unavailable';
+    field.disabled=!ok; send.disabled=!ok;
+    state.textContent=ok?'READY':'NOT INSTALLED';
+  }
+  function applyLifecycle(next){
+    if(!allowed.has(next)) throw new Error('invalid lifecycle state');
+    state.textContent=next;
+  }
+  form.addEventListener('submit',ev=>{
+    ev.preventDefault();
+    if(shell.dataset.privateTransport!=='ready') return;
+    const content=field.value.trim();
+    if(!content) return;
+    applyLifecycle('QUEUED');
+    window.dispatchEvent(new CustomEvent('kevin-hq-owner-message',{detail:{content}}));
+  });
+  window.KevinHQPrivateChat={setPrivateTransportReady,applyLifecycle};
+})();
+</script>
+</body>
+</html>
