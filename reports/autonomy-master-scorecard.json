@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-autonomy-master-scorecard",
-  "generated_at": "2026-08-31T10:42:30-06:00",
+  "generated_at": "2026-08-31T15:15:43-06:00",
   "safe_for_public_repo": true,
   "north_star": "Kevin owns routine goal execution, proof, recovery, learning, communication and computer work inside owner-approved boundaries while Bess intervention trends toward zero.",
   "wip_policy": {
@@ -11,32 +11,36 @@
     "round_robin_forge_without_demand": false
   },
   "global_health": {
-    "benchmark": "PASS_30_OF_30_CRITICAL_0_AT_10_33_MDT",
-    "autonomy": "NEEDS_REVIEW_WITH_ALTERNATE_CANDIDATE_BUT_NOT_YET_SUPERVISOR_INTEGRATED",
+    "benchmark": "PASS_30_OF_30_CRITICAL_0_AT_15_06_MDT",
+    "autonomy": "NEEDS_REVIEW_NO_DISPATCH_NEEDED_WITH_ZERO_ACTIVE_ENGINEERING_WORKERS",
     "autonomy_work_conserving": "PARTIAL_ADVISORY_ONLY",
-    "ui_bridge": "UNHEALTHY_STALE_INTERACTIVE_HEARTBEAT",
+    "ui_bridge": "FRESH_INTERACTIVE_HEARTBEAT_AT_15_14_MDT_BUT_DOMAIN_SELFTEST_NOT_REPROVEN_THIS_CHECKPOINT",
     "skill_lab_proven_count": 3,
-    "maintenance_v134": "INSTALLED_OMEN_PROVEN_EXACT_SHA_5E1E6D931D52BC3AF66EE10A5B4809224A2965DDBD4D8D5EF43193F2B7B63373",
-    "runtime_convergence_audit": "EXECUTED_PROVEN_BUT_EXACT_LOCAL_RESULT_NOT_PUBLICLY_EXPOSED",
+    "maintenance_v137": "INSTALLED_OBSERVED_SHA_C044FC68CACF82A10F8E1092CCCCDEB8D1827F17440A8A9EA49744DD512819EA",
+    "runtime_capability_audit": "OMEN_AUDIT_PROVEN_AT_15_06_MDT",
+    "openclaw_version": "UNKNOWN_FROM_FIXED_AUDIT",
+    "task_flow_cli": "AVAILABLE_WITH_COUNT_1",
+    "skill_workshop_cli": "AVAILABLE_PENDING_0_POLICY_MODE_UNSET_OR_UNKNOWN",
+    "lobster": "NOT_PROVEN_AVAILABLE_OR_REGISTERED",
     "design_forge_v40": "CI_PROVEN_NOT_INSTALLED",
-    "legacy_design_forge_spin": "STILL_LIVE_FORGE_V4_ITERATION_262_REJECTED_AT_10_40_MDT",
+    "legacy_design_forge_spin": "STILL_LIVE_FORGE_V4_ITERATION_291_REJECTED_AT_15_12_MDT_FAILURE_COUNT_5_SECURITY_FINDINGS_2",
     "hq_live_pulse": "CURRENT_SNAPSHOT_OK"
   },
   "lanes": [
     {
       "id": "runtime-convergence",
       "priority": 0,
-      "proof": "MAINTENANCE_V134_OMEN_PROVEN_POLICY_AND_FORGE_NOT_YET_CONVERGED",
+      "proof": "NATIVE_RUNTIME_AUDIT_OMEN_PROVEN_MAINTENANCE_V137_INSTALLED_POLICY_AND_FORGE_BEHAVIOR_NOT_YET_CONVERGED",
       "transfer": "T2",
-      "blocker": "v1.3.4 audit result contains exact local policy/Forge hashes but Support currently exposes only generic maintenance detail, so exact-before pins for the next replacements must not be guessed",
-      "next_evidence": "public-safe exact local before hashes -> five-file policy bundle install -> demand-driven Forge v4.0 install -> repeated no-demand idle proof with no Qwen/round-robin increments"
+      "blocker": "Fixed audit proves OpenClaw CLI/config/gateway, Task Flow CLI and Skill Workshop CLI observations, but OpenClaw version remains unknown, five reviewed workspace bootstrap bytes are not yet proven consumed locally, and legacy demandless Forge still runs.",
+      "next_evidence": "prove exact local AGENTS/SOUL/MEMORY/TOOLS/HEARTBEAT identities and consumption -> stop demandless Forge admission -> retire stale Engineering Relay slot -> show idle-with-backlog selects useful authorized work without Bess dispatch"
     },
     {
       "id": "work-selection",
       "priority": 1,
-      "proof": "OMEN_COMPONENTS_PRESENT_BUT_SEMANTIC_DEFECT",
+      "proof": "OMEN_COMPONENTS_PRESENT_BUT_SEMANTIC_DEFECT_LIVE",
       "transfer": "T2",
-      "blocker": "legacy round-robin Forge still consumes Supervisor wakes; alternate autonomy suggestion is advisory rather than integrated; stale/duplicate slots still need retirement",
+      "blocker": "fresh autonomy still reports zero active engineering workers and NO_DISPATCH_NEEDED while explicit P0 backlog exists; Forge continues rejected round-robin work",
       "next_evidence": "Kevin independently suppresses non-demand Forge churn, notices idle/blocked state, selects a different authorized owner objective, executes and verifies useful work without Bess refilling queue"
     },
     {
@@ -58,9 +62,9 @@
     {
       "id": "skill-learning",
       "priority": 4,
-      "proof": "OMEN-PROVEN_3_COMPOSITES",
+      "proof": "OMEN-PROVEN_3_COMPOSITES_AND_LOCAL_WORKSHOP_CLI_OBSERVED",
       "transfer": "T3",
-      "blocker": "Bess still identifies/stages some useful executable composites; native Skill Workshop proposal capability not locally inventoried",
+      "blocker": "Workshop autonomous/approval policy is unset or unknown and no Kevin-originated useful proposal has been proven",
       "next_evidence": "Kevin detects a repeated real GREEN procedure, proposes/evaluates a reusable procedure or executable composite and proves usefulness without Bess hand-authoring"
     },
     {
@@ -100,7 +104,7 @@
       "priority": 9,
       "proof": "DURABLE_REPO_PROTOCOL_AND_RECONCILED_BOOTSTRAP_SOURCE",
       "transfer": "T1",
-      "blocker": "repo source is reconciled but Omen consumption/native memory-flush behavior and Kevin-owned maintenance are not yet proven",
+      "blocker": "repo source is reconciled but exact Omen bootstrap-byte consumption and native memory-flush behavior remain unproven",
       "next_evidence": "Kevin automatically consumes/maintains native memory + handoff + transfer/master checkpoints after substantive work and replacement session resumes accurately"
     },
     {
@@ -133,10 +137,10 @@
   },
   "research_adoption": {
     "standing_orders": "SOURCE_CODIFIED_LOCAL_CONSUMPTION_NOT_YET_PROVEN",
-    "task_flow": "ADOPT_FOR_DURABLE_MULTI_STEP_WORK_AFTER_LOCAL_CAPABILITY_INVENTORY",
-    "lobster": "ADOPT_WHERE_TYPED_PIPELINES_REDUCE_MODEL_ORCHESTRATION_AFTER_LOCAL_CAPABILITY_INVENTORY",
+    "task_flow": "LOCAL_CLI_AVAILABLE_COUNT_1_SEMANTIC_USE_NOT_YET_PROVEN",
+    "lobster": "NOT_PROVEN_INSTALLED_OR_REGISTERED",
     "heartbeat": "MINIMIZE_OR_DISABLE_MODEL_WORK_USE_AUTOMATIONS_AND_TASKS_FOR_RECURRING_EXECUTION",
-    "skill_workshop": "EVALUATE_LOCAL_AVAILABILITY_AND_START_PROPOSAL_MODE_IF_SUPPORTED",
+    "skill_workshop": "LOCAL_CLI_AVAILABLE_PROPOSAL_POLICY_NOT_YET_PROVEN",
     "native_memory_flush": "VERIFY_AND_USE",
     "clawhub_scout_before_build": "ADOPT_WITH_VERIFY_AND_SECURITY_REVIEW",
     "multi_agent_swarm": "DEFER_UNTIL_MEASURED_NEED",
