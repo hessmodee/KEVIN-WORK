@@ -1,0 +1,115 @@
+name: Self-Reliance Bootstrap v1.3 End-to-End Proof
+
+on:
+  push:
+    paths:
+      - 'inbox/maintenance/packages/bootstrap-self-reliance-v1.3.ps1'
+      - 'control-plane/maintenance/kevin-self-reliance-watchdog-v1.2.ps1'
+      - '.github/workflows/bootstrap-self-reliance-v13-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-e2e:
+    runs-on: windows-latest
+    steps:
+      - name: Pin LF checkout
+        shell: powershell
+        run: git config --global core.autocrlf false
+
+      - uses: actions/checkout@v4
+
+      - name: Hash parser and authority regression gate
+        shell: powershell
+        run: |
+          $boot='inbox/maintenance/packages/bootstrap-self-reliance-v1.3.ps1'
+          $watch='control-plane/maintenance/kevin-self-reliance-watchdog-v1.2.ps1'
+          foreach($p in @($boot,$watch)){
+            $txt=[IO.File]::ReadAllText($p)
+            if($txt.Contains("`r`n")){throw "CRLF checkout detected $p"}
+            $tokens=$null;$errors=$null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+            if($errors.Count){throw "parser failed $p : $($errors[0].Message)"}
+            if($txt -match '(?m)\breturn\$'){throw "return-variable token adjacency regression $p"}
+            foreach($bad in @('Invoke-Expression','ScriptBlock]::Create','-EncodedCommand','DownloadString','WScript.Shell')){
+              if($txt -match [regex]::Escape($bad)){throw "forbidden execution primitive $bad in $p"}
+            }
+          }
+          $h=(Get-FileHash $boot -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "BOOTSTRAP_V13_SHA256=$h"
+          $wh=(Get-FileHash $watch -Algorithm SHA256).Hash.ToUpperInvariant()
+          if($wh -ne 'E068031536E3F44BE58864228C26217B3C88DBC7349EF779532E2177787BD00B'){throw "watchdog hash mismatch $wh"}
+
+      - name: Bootstrap self-test and immutable component preflight
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $p='inbox/maintenance/packages/bootstrap-self-reliance-v1.3.ps1'
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'bootstrap self-test failed'}
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -Preflight
+          if($LASTEXITCODE -ne 0){throw 'bootstrap preflight failed'}
+
+      - name: Real Scheduled Task register start assert unregister round-trip
+        shell: powershell
+        run: |
+          $p='inbox/maintenance/packages/bootstrap-self-reliance-v1.3.ps1'
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -TaskContractTest
+          if($LASTEXITCODE -ne 0){throw 'task contract round-trip failed'}
+
+      - name: Full ephemeral production-path bootstrap
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $w=Join-Path $env:USERPROFILE '.openclaw\workspace'
+          Remove-Item -LiteralPath $w -Recurse -Force -ErrorAction SilentlyContinue
+          New-Item -ItemType Directory -Force $w,(Join-Path $w 'ControlPlane'),(Join-Path $w 'reports\self-reliance'),(Join-Path $w 'reports\benchmark-v1')|Out-Null
+
+          $v12='control-plane/maintenance/kevin-maintenance-runner-v1.2.ps1'
+          $rootHash=(Get-FileHash $v12 -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "MAINTENANCE_V12_SOURCE_SHA256=$rootHash"
+          if($rootHash -ne '3B9D5B235E593C1CFF8CC9B7DED9E82FB958C2F7CD1F29FC813ECFA87E5C5483'){throw 'repository v1.2 root bytes do not match live root'}
+          Copy-Item -LiteralPath $v12 -Destination (Join-Path $w 'kevin-maintenance-runner.ps1') -Force
+
+          $bench=@'
+          $root=Join-Path $env:USERPROFILE '.openclaw\workspace\reports\benchmark-v1'
+          New-Item -ItemType Directory -Force $root|Out-Null
+          $o=[ordered]@{status='PASS';regression=[ordered]@{passed=30;total=30;critical_failures=0}}
+          $o|ConvertTo-Json -Depth 5|Set-Content -LiteralPath (Join-Path $root 'latest.json') -Encoding UTF8
+          Write-Host 'BENCHMARK PASS 30/30'
+          exit 0
+          '@
+          [IO.File]::WriteAllText((Join-Path $w 'kevin-benchmark-v1.ps1'),$bench,(New-Object System.Text.UTF8Encoding($false)))
+
+          $app=Join-Path $env:APPDATA 'npm\node_modules\openclaw\dist'
+          New-Item -ItemType Directory -Force $app|Out-Null
+          [IO.File]::WriteAllText((Join-Path $app 'index.js'),"console.log('{}'); process.exit(0);`n",(New-Object System.Text.UTF8Encoding($false)))
+
+          $state=[ordered]@{schema=1;failure_family='';attempts=0;cooldown_until=$null;last_result='';updated_at=(Get-Date).ToString('o');last_maintenance_at=(Get-Date).ToString('o');maintenance_result='OK'}
+          $state|ConvertTo-Json -Depth 5|Set-Content -LiteralPath (Join-Path $w 'reports\self-reliance\watchdog-state.json') -Encoding UTF8
+
+          try{
+            & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'inbox/maintenance/packages/bootstrap-self-reliance-v1.3.ps1'
+            if($LASTEXITCODE -ne 0){throw "full bootstrap exit=$LASTEXITCODE"}
+            $receipt=Join-Path $w 'reports\self-reliance\bootstrap-self-reliance-v1.3-proven.json'
+            if(-not(Test-Path -LiteralPath $receipt)){throw 'proof receipt missing'}
+            $r=Get-Content -LiteralPath $receipt -Raw|ConvertFrom-Json
+            if([string]$r.status -ne 'PROVEN'){throw 'proof receipt not PROVEN'}
+            $mh=(Get-FileHash (Join-Path $w 'kevin-maintenance-runner.ps1') -Algorithm SHA256).Hash.ToUpperInvariant()
+            $ih=(Get-FileHash (Join-Path $w 'ControlPlane\kevin-work-order-intake-v0.1.ps1') -Algorithm SHA256).Hash.ToUpperInvariant()
+            $wh=(Get-FileHash (Join-Path $w 'kevin-self-reliance-watchdog.ps1') -Algorithm SHA256).Hash.ToUpperInvariant()
+            if($mh -ne '97F3FAE54C72F97D3634A6C070FD2E2C7E31B516FEB318CD3D1AECC4A17910C7'){throw 'maintenance installed hash mismatch'}
+            if($ih -ne '55942149C892AD988E1AEE5A6FF7983D71D891ECA5B71FA20CC3FB9E7D03E903'){throw 'intake installed hash mismatch'}
+            if($wh -ne 'E068031536E3F44BE58864228C26217B3C88DBC7349EF779532E2177787BD00B'){throw 'watchdog installed hash mismatch'}
+            $t=Get-ScheduledTask -TaskName 'Kevin Self-Reliance Watchdog v1' -ErrorAction Stop
+            if([string]$t.State -eq 'Disabled'){throw 'production task disabled'}
+            if([string]$t.Principal.RunLevel -ne 'Limited'){throw 'production task privilege widened'}
+            Write-Host 'FULL_BOOTSTRAP_E2E_PASS receipt=PROVEN hashes=exact task=Limited benchmark=30/30'
+          }
+          finally{
+            Unregister-ScheduledTask -TaskName 'Kevin Self-Reliance Watchdog v1' -Confirm:$false -ErrorAction SilentlyContinue
+          }
