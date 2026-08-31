@@ -1,84 +1,87 @@
 # Kevin AI Engineering Handover
 
-Last updated: 2026-08-30 18:11 MDT / 2026-08-31 00:11 UTC
+Last updated: 2026-08-30 18:59 MDT / 2026-08-31 00:59 UTC
 
-Purpose: durable turnover sheet for the single scheduled Kevin Chief Engineer. Re-check current GitHub/telemetry before acting; fresh timestamps, exact hashes, request IDs, branch/CI heads, maintenance receipts, and independent postconditions outrank narrative.
+Purpose: durable turnover sheet for Kevin engineering. Re-check current GitHub telemetry before acting; fresh timestamps, exact hashes, receipts, branch/CI heads, and independent postconditions outrank narrative.
 
 ## Mission and authority
 
-Make Kevin a persistent, proactive, evidence-driven local Chief of Staff/worker while preserving human control at consequential boundaries. Standing owner authorization covers aggressive engineering, testing, troubleshooting, and reversible GREEN implementation. It does NOT authorize arbitrary remote shell/code execution, RED authority expansion, permission widening, credential/config exposure, money movement, purchases, owner-representing external communications, automatic promotion of novel YELLOW code, silent trust-anchor adoption, safety weakening, or owner-locked-goal changes. Production avatar/Ops Floor design remains frozen except real defects, truthful telemetry improvements, and owner-requested UI changes.
+Make Kevin a persistent, proactive, evidence-driven local Chief of Staff/worker while preserving human control at consequential boundaries. Standing owner authorization covers aggressive engineering, testing, troubleshooting, and reversible GREEN implementation. It does NOT authorize arbitrary remote shell/code execution, RED authority expansion, permission widening, credential/config exposure, money movement, purchases, owner-representing external communications, automatic promotion of genuinely novel primitive authority without an owner checkpoint, silent trust-anchor adoption, safety weakening, or owner-locked-goal changes.
 
-Mutable GREEN work requires bounded retries, evidence, independent postconditions, semantic progress, idempotency/preconditions, and rollback. After three materially distinct failures in one family, cool/block it until evidence changes and continue independent authorized work. Preserve one-14B-primary-worker discipline.
+Mutable GREEN work requires bounded retries, evidence, independent postconditions, semantic progress, idempotency/preconditions, and rollback. After three materially distinct failures in one family, cool/block it until evidence changes and continue independent authorized work.
 
 ## Fresh trustworthy live state
 
-### Core / Maintenance
+### Self-reliance bootstrap is now Omen-PROVEN
 
-Fresh `reports/support-latest.json` generated `2026-08-30T18:10:54.9404539-06:00` reports governance `ok=true`. Live Maintenance Runner remains the exact proven v1.2 SHA256:
+Owner-local trust transition completed successfully at approximately 2026-08-30 18:54 MDT with exit code 0. Local bootstrap receipt path reported:
 
-`3B9D5B235E593C1CFF8CC9B7DED9E82FB958C2F7CD1F29FC813ECFA87E5C5483`
+`C:\Users\hessm\.openclaw\workspace\reports\self-reliance\bootstrap-self-reliance-v1.3-proven.json`
 
-Fresh Benchmark at `2026-08-30T18:04:28.7352135-06:00` is PASS 30/30, critical 0. Support Bridge, HQ Live Pulse, Supervisor, Maintenance Intake, Engineering Relay, Skill Lab, and Benchmark are enabled with zero consecutive scheduler errors in the fresh Engineering Relay snapshot.
+Bootstrap proved:
+- Maintenance Runner v1.3 installed, SHA256 `97F3FAE54C72F97D3634A6C070FD2E2C7E31B516FEB318CD3D1AECC4A17910C7`
+- Work Order Intake v1.2.2 installed, SHA256 `55942149C892AD988E1AEE5A6FF7983D71D891ECA5B71FA20CC3FB9E7D03E903`
+- Self-Reliance Watchdog v1.2 installed, SHA256 `E068031536E3F44BE58864228C26217B3C88DBC7349EF779532E2177787BD00B`
+- external Windows Scheduled Task registered with Limited run level and exact fixed action
+- watchdog produced fresh `HEALTHY`
+- fresh Benchmark PASS 30/30, critical 0
+- rollback path was exercised successfully in earlier failed bootstrap attempts and restored component files cleanly
 
-The separate Maintenance v1.3 self-upgrade bootstrap remains an owner/local-action package. Its exact candidate SHA256 is `5C3B170FAF996FFE0890C028ABE1DD16D8A14258E5A1CAE2653E39F857AB324A`; exact bootstrap package SHA256 is `89F36888876D61322671DC9A0D188F3EAE8995DA68FB2EB4D2B3AD313DF131B6`. Do not claim v1.3 is installed until exact local hash plus self-test plus fresh Benchmark evidence proves it.
+Independent post-bootstrap support telemetry generated `2026-08-30T18:56:31.2525920-06:00` confirms the live Maintenance Runner hash is exactly `97F3...10C7`, governance `ok=true`, all listed schedulers enabled/ok with 0 consecutive errors, and Benchmark PASS 30/30 critical 0 at `18:54:22`.
 
-### Skill Lab recovery crossed the production proof boundary
+This closes the old Maintenance v1.2 bootstrap paradox. Routine typed GREEN self-maintenance and fixed watchdog recovery should no longer require the owner to act as a PowerShell courier. Human involvement remains appropriate for physical failures, credentials/admin decisions, owner checkpoints for genuinely new primitive authority, and consequential actions.
 
-Skill Lab v1.0.4 remains the installed/repaired runtime identity:
+### Maintenance schema migration
 
-`BCF21255F5D2BF1ED5B852DE26A06BB4FB5ACC14708539801E3E234A0968CE29`
+Fresh support at `18:56:31` exposed one post-upgrade compatibility warning: Maintenance v1.3 reported `SCHEMA2_NEEDS_MIGRATION` because `inbox/maintenance/manifest.json` was still a schema-2 typed UI Bridge restart manifest.
 
-Fresh Engineering Relay at `2026-08-30T18:10:36.4767698-06:00` now shows Operator queues `ready=0`, `running=0`, `done=7`, `failed=1`, and composite skills `ready=0`, `running=0`, `done=2`, `failed=1`, `proven_count=2`. The latest proven composite is:
+Bess migrated that live manifest to schema 3 on `main` at commit `3dd9a6c88f5594882fd359efb1aad3d78b5b667b` using:
+- kind `kevin-self-maintenance-manifest`
+- operation `restart_ui_bridge`
+- target alias `ui_bridge_runner`
+- exact current UI Bridge SHA256 `5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42`
+- authority class GREEN, authority delta NONE, production effect NONE
+- owner-preauthorized typed contract
+
+Observe the next Maintenance Intake cycle and require a successful schema-3 result plus fresh Benchmark before closing this migration warning.
+
+### UI Bridge recovered and healthy
+
+Fresh Engineering Relay generated `2026-08-30T18:58:40.5923843-06:00` reports:
+- UI Bridge task present
+- heartbeat age `2.9s`
+- UI Bridge hash match true at `5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42`
+- Operator queue `ready=0`, `running=0`, `done=7`, `failed=1`
+- composite skills `ready=0`, `running=0`, `done=2`, `failed=1`, `proven_count=2`
+- Benchmark PASS 30/30, critical 0
+- Engineering Relay, Skill Lab, Support Bridge, Maintenance Intake, Supervisor, and Benchmark all enabled/ok with 0 consecutive errors
+
+The earlier stale-heartbeat condition is resolved. Preserve the failed `ui_notepad_write` composite evidence; its known failure family is Notepad save verification, not Skill Lab orchestration.
+
+### Skill Lab production proof
+
+Skill Lab v1.0.4 remains repaired and production-capable. Production composite consumption/promotion is proven. Current latest proven composite:
 
 `skill-lab-recovery-isolation-create-text@1`
 
-proven at `2026-08-30T17:32:09.4586325-06:00`, manifest SHA256 `63B34295BFA6EC4C432DE594AD2F5B1087C51748111BDB4CFE1C7BB24B8E37E6`, proof SHA256 `9E4412B8AAFD335D080597EB1C456213208DE0E17935320320A3D06BCF990198`, primitive steps `[create_text]`.
+with manifest SHA256 `63B34295BFA6EC4C432DE594AD2F5B1087C51748111BDB4CFE1C7BB24B8E37E6` and proof SHA256 `9E4412B8AAFD335D080597EB1C456213208DE0E17935320320A3D06BCF990198`.
 
-This supersedes the old handover state that said production composite completion was still pending. Production queue consumption and composite promotion are now proven. Preserve the existing failed composite evidence rather than deleting/relabeling it. The previously observed two-step `create_text -> ui_notepad_write` family failed specifically at UI Notepad save verification; do not treat that as Skill Lab regression.
+Current composite count is 2 PROVEN. Do not delete or relabel the retained failed two-step UI composite.
 
-### UI Bridge is currently unhealthy by the real-heartbeat rule
+## Open advanced candidates / authority checkpoints
 
-Phase 2B identities still match:
-- Green Operator v0.3.3 `19EEA6749FB70EB18A6ACC2DC0C9DF4313C0AC0D893F646A6D1170044E4C282F`
-- Initiative Engine v0.3 `8AA0DC8F5A1502A3E4D0150EB073DC77C29D47F153E066B32D6B8E4B2ACB7CD3`
-- UI Bridge v0.3.4 `5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42`
-
-However, fresh Engineering Relay observed UI Bridge heartbeat age `2358.2s` at `18:10:36`, far outside the expected ~5-second cadence. Matching hash/task presence therefore does NOT establish health. Generic HQ dashboard service health must not override this direct heartbeat evidence.
-
-A new owner-preauthorized typed GREEN restart manifest `typed-ui-bridge-restart-v034-20260830-1811` was submitted on `main` at commit `2d0d918e8cb27478f014fdb9f77569138f47d296`. It targets only `ui_bridge_runner`, requires exact installed hash `5516F60...B42`, exact task `Kevin UI Bridge v0.3`, a 15-second fresh-heartbeat postcondition, and no authority expansion. Do not call the bridge recovered until fresh READY heartbeat evidence appears and the typed maintenance transaction proves its postconditions.
-
-### HQ / operator truth
-
-`reports/dashboard-state.json` generated `2026-08-30T18:10:45.8301047-06:00` reports overall dashboard health `healthy`, current Supervisor autonomous cycle active, and normal host utilization. Treat the dashboard `services.bridge=healthy` field as coarse service telemetry only; it is not sufficient UI Bridge liveness proof.
-
-Fresh support latest evaluation is `forge-v4` iteration 156 at `2026-08-30T18:10:33.3438235-06:00`: verdict REJECT, score 2, failure_count 8, security_finding_count 5, reusable lesson true, next experiment true. Do not allow Benchmark PASS to erase this rejected candidate/security evidence.
-
-## Autonomy / Desired State
-
-`reports/autonomy-latest.json` generated `2026-08-30T18:07:00.3801192-06:00` remains `NEEDS_REVIEW`, drift_count 3, selected_action null. Safety remains `green_only=true`, `arbitrary_shell=false`, `authority_expansion=false`, `novel_production_promotion=false`.
-
-Current Desired State still contains three owner-reserved identity drifts. Do NOT silently edit those trust anchors. The dedicated owner-review proposal remains the only acceptable reconciliation path.
-
-## Open advanced candidates / CI heads
-
-- PR #26 — GREEN OS Awareness v0.1, head `4d1d571b4368f6443dafb3c720ee85ac8f071780`; `OS Awareness v0.1 Gate` run `33342993916` completed SUCCESS. Candidate remains bounded read-only and not production-installed. Do not auto-promote.
-- PR #25 — Skill Lab v1.0.4 Windows runtime repair, head `734d931fbb98c45a5b916af6f60862c1a91f7a98`; exact runtime is live/proven and production composite consumption/promotion is now independently observed.
-- PR #24 — self-maintenance transport + external watchdog, head `956b6b14a3e6a6b3f1a78f562c05312322d26161`; gates previously SUCCESS; candidate-only, not production-promoted.
-- PR #23 — fixed-action out-of-band self-heal watchdog, head `0305f3ea4f8d396f935fd69d27ea4a3e5e59441e`; candidate-only, not installed.
-- PR #22 — Typed GREEN Maintenance v1.2, head `9839c4569082f793316f25a2c9ce4e11c3ea7471`; exact runner proven live on Omen.
-- PR #21 — Skill Lab v1.0.3 crash-safe recovery; superseded by v1.0.4 in production.
-- PR #19 — browser observe/navigate remains pre-primitive/candidate-only.
-- PR #17 and Knowledge/Handoff/Postmortem/Tool Budget candidates remain isolated and unpromoted.
+- GREEN OS Awareness v0.1 remains candidate-only. It provides bounded read-only observation modes for snapshot, hardware, processes, services, storage, tasks, network, software, and event health. Windows CI previously passed. Promotion to the Omen is the next major capability leap, but because this introduces genuinely new primitive read-only OS authority, require an explicit owner checkpoint before production promotion. Preserve no arbitrary shell, caller-selected commands/arguments, credential/environment dumps, or mutation authority.
+- Browser observe/navigate remains candidate-only and must retain strict host/HTTPS/redirect/public-IP controls, no arbitrary selectors/DOM dump/cookies/storage, and no automatic primitive promotion.
+- Desired-state trust-anchor drifts remain owner-reserved and must not be silently repinned.
 
 ## Immediate priority order
 
-1. Observe maintenance intake for exact result of `typed-ui-bridge-restart-v034-20260830-1811`; require fresh READY heartbeat and fresh Benchmark before declaring recovery.
-2. After UI Bridge recovery, re-run a bounded `ui_notepad_write` isolation proof before retrying the two-step `create_text -> ui_notepad_write` composite. Preserve the existing failed evidence and distinguish app/save verification failure from orchestration failure.
-3. Verify replay suppression and registry identity for both currently PROVEN composites; complete intentional-failure/restart-resume proof only if it adds new evidence rather than repeating already-proven lifecycle coverage.
-4. Keep Maintenance v1.3 bootstrap owner-local only until exact installation evidence exists. Do not let the current typed restart obscure that separate pending upgrade path.
-5. Continue OS Awareness v0.1 only as a bounded read-only candidate. Next production step, if ever authorized through the typed maintenance lane, must retain no arbitrary shell/caller command/credential/environment authority and require post-install Benchmark 30/30.
-6. Reconcile the three Desired State identity drifts only through owner review.
-7. Continue independent candidate research in browser semantics, Knowledge/Second Brain, handoff, checkpoint/resume, postmortems, Tool Budget Governor, and measured economic-output labs while blocked families cool.
+1. Observe the next Maintenance Intake cycle and close the schema-3 migration only after exact success + fresh Benchmark 30/30.
+2. Exercise the new self-reliance lane with a harmless typed GREEN maintenance/status cycle and verify Kevin can complete it without owner-local commands.
+3. Repair Notepad save verification through bounded UI Bridge engineering, then re-run a minimal `ui_notepad_write` isolation proof before retrying `create_text -> ui_notepad_write`.
+4. Present the owner checkpoint for production promotion of GREEN OS Awareness v0.1. After approval, install through typed self-maintenance, collect a full sanitized Omen snapshot, verify exact observer identity and Benchmark 30/30, then wire awareness into Supervisor/HQ as observation only.
+5. Continue browser observe/navigate candidate work after OS Awareness live proof.
+6. Reconcile Desired State only through explicit owner review.
 
 ## Engineering doctrine
 
