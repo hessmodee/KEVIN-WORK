@@ -1,0 +1,38 @@
+name: Gmail Omen Adapter v0.1 Proof
+
+on:
+  push:
+    paths:
+      - 'control-plane/communications/kevin-gmail-adapter-v0.1.ps1'
+      - '.github/workflows/gmail-omen-adapter-v01-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prove:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse hash and selftest
+        shell: powershell
+        run: |
+          $p='control-plane/communications/kevin-gmail-adapter-v0.1.ps1'
+          $tokens=$null;$errors=$null
+          [void][Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors.Count){$errors|Format-List|Out-String|Write-Host;throw 'PowerShell parse failed'}
+          Write-Host ('GMAIL_OMEN_ADAPTER_V01_SHA256='+(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant())
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -Mode SelfTest 2>&1|Out-String
+          Write-Host $out
+          if($LASTEXITCODE-ne0){throw 'selftest failed'}
+          if($out-notmatch 'KEVIN GMAIL ADAPTER v0\.1 SELFTEST PASS'){throw 'selftest marker missing'}
+      - name: Authority and secret boundary
+        shell: powershell
+        run: |
+          $t=[IO.File]::ReadAllText('control-plane/communications/kevin-gmail-adapter-v0.1.ps1')
+          foreach($x in @('hessmodee@gmail.com','kevinsk8erkid@gmail.com','gmail.send','gmail.readonly','ProtectedData','DataProtectionScope]::CurrentUser','code_challenge_method=S256','X-Kevin-Reply-Key','-WindowStyle Hidden','Kevin Gmail Chief of Staff v0.1')){if(-not$t.Contains($x)){throw "missing invariant $x"}}
+          foreach($bad in @('https://mail.google.com/','gmail.modify','gmail.settings','Invoke-Expression','-EncodedCommand','DownloadString')){if($t.Contains($bad)){throw "forbidden capability $bad"}}
+          if($t -match 'param\([^\)]*(Recipient|To|Body|Attachment|Command|Path)'){throw 'caller-selected communication/command parameter detected'}
+          if($t -notmatch "ValidateSet\('SelfTest','Status','Enroll','InstallTask','SendProof','PollOnce','HandleOnce'\)"){throw 'mode allowlist drift'}
+          Write-Host 'GMAIL_OMEN_V01_BOUNDARY_PASS account=kevin owner=hessmodee scopes=send+readonly dpapi=true body_public=false arbitrary_recipient=false attachments=false'
