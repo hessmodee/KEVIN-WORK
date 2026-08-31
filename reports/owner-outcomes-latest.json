@@ -1,17 +1,46 @@
 {
   "schema": 1,
   "kind": "kevin-owner-outcome-scorecard",
-  "generated_at": "2026-08-31T12:18:00-06:00",
+  "generated_at": "2026-08-31T12:29:10-06:00",
   "safe_for_public_repo": true,
   "measurement_contract": "docs/engineering/REAL-WORLD-OWNER-OUTCOME-PROTOCOL-v1.md",
   "today": {
-    "verified_owner_outcomes": 0,
+    "verified_owner_outcomes": 1,
     "owner_accepted_outcomes": 0,
-    "bess_interventions_per_verified_outcome": null,
-    "first_pass_success_rate": null,
-    "known_failure_self_recovery_rate": null,
-    "note": "Do not infer owner outcomes from component/Skill Lab proof. No new owner-accepted E2E result has been independently recorded in this scorecard yet."
+    "bess_interventions_per_verified_outcome": 1.0,
+    "first_pass_success_rate": 1.0,
+    "known_failure_self_recovery_rate": 0.0,
+    "note": "One real Omen maintenance outcome is verified. It is not counted as a Kevin autonomy transfer because Bess detected/initiated the repair. Owner acceptance is not applicable to this maintenance outcome."
   },
+  "verified_outcomes": [
+    {
+      "outcome_id": "20260831-ui-bridge-fresh-heartbeat-repair",
+      "owner_goal": "reliable self-maintaining Kevin runtime and truthful interactive UI health",
+      "result": "PASS",
+      "workflow": "typed Maintenance v1.3.4 restart_ui_bridge",
+      "acceptance_criteria": [
+        "installed UI Bridge hash equals the expected pinned identity",
+        "Kevin UI Bridge v0.3 scheduled task exists",
+        "restart produces a fresh READY heartbeat within the bounded timeout",
+        "fresh Benchmark returns PASS 30/30 with zero critical failures",
+        "fresh independent Engineering snapshot sees a near-real-time heartbeat"
+      ],
+      "evidence": [
+        "reports/support-latest.json maintenance manifest ui-bridge-fresh-heartbeat-repair-20260831-1218 = APPLIED_PREAUTHORIZED_PROVEN",
+        "reports/engineering/latest.json generated 2026-08-31T12:29:06.8177047-06:00: UI Bridge heartbeat age 3.4 seconds, exact hash match, task present",
+        "reports/engineering/latest.json: Benchmark PASS 30/30 critical 0"
+      ],
+      "technical_proof": "OMEN-PROVEN repair and independent fresh-health cross-check",
+      "transfer_level": "T2 for this repair path; do not promote overall UI Bridge ownership solely from this event",
+      "bess_interventions": 1,
+      "owner_interventions": 0,
+      "owner_acceptance": "not-applicable",
+      "first_pass_success": true,
+      "retries": 0,
+      "autonomy_credit": false,
+      "autonomy_gap": "Bess noticed the stale heartbeat and issued the typed repair. Kevin still needs to prove notice -> diagnose -> repair -> verify without Bess."
+    }
+  ],
   "real_capability_evidence_not_yet_counted_as_owner_outcome": [
     {
       "capability": "business-budget-starter-pack@1",
@@ -24,25 +53,25 @@
     {
       "id": "forge-round-robin-spin",
       "state": "ACTIVE_BLOCKER",
-      "latest_observed_iteration": 272,
+      "latest_observed_iteration": 273,
       "symptom": "Legacy Forge continues demandless/repeated candidate execution.",
-      "remediation_state": "Demand-driven Forge v4.0 is CI-qualified, but typed install rolled back because Benchmark R03 pins the previous Forge identity. A coordinated validator/component migration is required."
+      "remediation_state": "Demand-driven Forge v4.0 is CI-qualified. Direct typed install correctly rolled back because Benchmark R03 pins the previous Forge identity. A coordinated component + validator-pin migration is now in CI qualification."
     },
     {
       "id": "ui-bridge-stale-heartbeat",
-      "state": "REPAIR_QUEUED",
-      "symptom": "Interactive UI Bridge task/hash present but heartbeat is ~17h stale.",
-      "remediation_state": "Fresh exact-hash typed restart manifest queued through Maintenance v1.3.4."
+      "state": "RESOLVED_PROVEN",
+      "symptom": "Interactive UI Bridge task/hash was present but heartbeat was ~17h stale.",
+      "remediation_state": "Typed restart completed. Fresh Engineering cross-check reports heartbeat age 3.4 seconds, exact hash match, task present, Benchmark 30/30 critical 0."
     },
     {
       "id": "autonomy-work-selection",
       "state": "NEEDS_REVIEW",
-      "symptom": "Autonomy can report NO_DISPATCH_NEEDED despite explicit useful owner backlog.",
-      "remediation_state": "Must be retested after runtime convergence; do not claim work-selection transfer until Kevin self-selects and verifies useful work."
+      "symptom": "Autonomy has not yet proven demand-aware self-selection of useful work when another lane is blocked.",
+      "remediation_state": "Retest after Forge/runtime convergence; do not claim T3 work selection until Kevin independently selects, executes and verifies useful work."
     }
   ],
   "next_real_world_test": {
-    "target": "Complete one useful owner task E2E through Kevin's actual runtime and record acceptance, time, retries, evidence and Bess intervention.",
+    "target": "Complete one useful owner-value task E2E through Kevin's actual runtime and record acceptance, time, retries, evidence and Bess intervention.",
     "preferred_examples": [
       "Reader answers a useful current status/research question with provenance",
       "Kevin uses a proven file/spreadsheet composite on a real owner deliverable",
