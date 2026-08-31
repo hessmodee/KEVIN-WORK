@@ -16,17 +16,35 @@ jobs:
         with:
           python-version: '3.12'
       - name: Compile
-        run: python -m py_compile candidates/communications/hq-direct-chat/contract.py candidates/communications/hq-direct-chat/test_contract.py
+        run: python -m py_compile candidates/communications/hq-direct-chat/contract.py candidates/communications/hq-direct-chat/private_spool.py candidates/communications/hq-direct-chat/test_contract.py candidates/communications/hq-direct-chat/test_private_spool.py
       - name: Adversarial tests
         working-directory: candidates/communications/hq-direct-chat
-        run: python -m unittest -v test_contract.py
+        run: python -m unittest -v test_contract.py test_private_spool.py
       - name: Static authority boundary
         shell: python
         run: |
           from pathlib import Path
-          p = Path('candidates/communications/hq-direct-chat/contract.py').read_text(encoding='utf-8').lower()
-          forbidden = ['subprocess', 'os.system', 'popen(', 'powershell', 'cmd.exe', 'socket.', 'requests.', 'urllib.request', 'eval(', 'exec(']
-          bad = [x for x in forbidden if x in p]
+          files = [
+              Path('candidates/communications/hq-direct-chat/contract.py'),
+              Path('candidates/communications/hq-direct-chat/private_spool.py'),
+          ]
+          text = '\n'.join(p.read_text(encoding='utf-8').lower() for p in files)
+          forbidden = [
+              'subprocess', 'os.system', 'popen(', 'powershell', 'cmd.exe',
+              'socket.', 'requests.', 'urllib.request', 'eval(', 'exec(',
+              'shell=true', 'createprocess', 'win32api', 'win32process'
+          ]
+          bad = [x for x in forbidden if x in text]
           if bad:
               raise SystemExit('forbidden authority surface: ' + ', '.join(bad))
           print('authority boundary PASS')
+      - name: Public proof privacy boundary
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('candidates/communications/hq-direct-chat/private_spool.py').read_text(encoding='utf-8').lower()
+          if 'public_proof(' not in p:
+              raise SystemExit('public proof generation missing')
+          if 'private_spool' in p and 'github' in p:
+              raise SystemExit('unexpected public transport coupling')
+          print('private/public split PASS')
