@@ -3,14 +3,23 @@
   "kind": "kevin-autonomy-wip-state",
   "safe_for_public_repo": true,
   "wip": {
-    "production": 1,
-    "staging": 0,
-    "research": 0
+    "production": 0,
+    "staging": 1,
+    "research": 1
   },
   "active": {
-    "production": "finish-forge-v40-runtime-convergence",
-    "staging": null,
-    "research": null
+    "production": null,
+    "staging": "runtime-owner-doctrine-v2",
+    "research": "native-runtime-capability-audit-v1"
   },
-  "note": "Selection state only. It does not grant authority or execute work."
+  "blocked": {
+    "production": [
+      "finish-forge-v40-runtime-convergence"
+    ]
+  },
+  "observation_window": {
+    "purpose": "Give Kevin breathing room to advance independent GREEN work while the Forge failure family is quarantined.",
+    "success_condition": "No new demandless Forge retry is credited; staging/research lanes produce verified evidence and the next action follows that evidence rather than a renamed retry."
+  },
+  "note": "Selection state only. It does not grant authority or execute work. Blocked/cooling work does not consume WIP."
 }
