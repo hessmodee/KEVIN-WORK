@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "kind": "kevin-responsibility-transfer-checkpoint",
+  "generated_at": "2026-08-31T08:58:00-06:00",
+  "north_star": "Transfer recurring operational responsibility from Bess to Kevin until Kevin owns normal authorized lifecycles end-to-end and Bess is not part of the routine operating loop.",
+  "transfer_levels": {
+    "T0": "BESS-DEPENDENT",
+    "T1": "BESS-BUILT / KEVIN-TESTED",
+    "T2": "BESS-DISPATCHED / KEVIN-EXECUTED",
+    "T3": "KEVIN-RUN / BESS-VERIFIED",
+    "T4": "KEVIN-OWNED / EXCEPTION-ESCALATED",
+    "T5": "SELF-RELIANT / BESS-NOT-REQUIRED"
+  },
+  "baseline": {
+    "benchmark_regression_health": "T3",
+    "work_order_intake": "T2",
+    "typed_maintenance": "T2",
+    "os_awareness": "T3",
+    "skill_lab_runtime": "T3",
+    "business_budget_starter_pack": "T3",
+    "hq_direct_chat": "T1",
+    "gmail_owner_communication": "T1",
+    "telegram_owner_communication": "T0",
+    "reader": "T1",
+    "tick_work_conservation": "T2",
+    "autonomy_work_selection": "T2",
+    "interactive_ui_bridge": "T1",
+    "staging_validation": "T1",
+    "handoff_continuity": "T1",
+    "scheduler_task_health": "T3",
+    "performance_optimization": "T1",
+    "broad_pc_fluency": "T0-T1",
+    "app_game_product_building": "T0-T1"
+  },
+  "highest_value_transfers": [
+    "work selection T2 -> T3/T4",
+    "HQ direct chat T1 -> T3",
+    "Reader T1 -> T3",
+    "Skill growth T3 -> T4",
+    "Maintenance T2 -> T4",
+    "Gmail T1 -> T3/T4",
+    "Tick T2 -> T4",
+    "Handoff continuity T1 -> T4"
+  ],
+  "promotion_test": [
+    "notice",
+    "understand",
+    "plan",
+    "execute",
+    "verify",
+    "recover",
+    "conserve_work",
+    "remember",
+    "avoid_regressions",
+    "escalate_correctly"
+  ],
+  "tracking_metrics": [
+    "T4_T5_responsibility_count",
+    "T0_T1_responsibility_count",
+    "bess_interventions_per_day_week",
+    "owner_interventions_per_workflow",
+    "routine_failure_self_recovery_rate",
+    "useful_work_self_initiation_rate",
+    "blocked_lane_work_conservation_rate",
+    "repeatedly_proven_green_skills",
+    "failure_to_verified_recovery_time",
+    "owner_request_to_verified_completion_time",
+    "false_success_or_stale_evidence_incidents",
+    "manual_bess_actions_converted_to_typed_kevin_mechanisms"
+  ],
+  "source_of_truth": {
+    "doctrine": "docs/engineering/BESS-TO-KEVIN-AUTONOMY-TRANSFER-DOCTRINE-v1.md",
+    "ledger": "docs/engineering/RESPONSIBILITY-TRANSFER-LEDGER-v1.md",
+    "current_task": "inbox/CURRENT_TASK.md",
+    "handover": "AI-HANDOVER.md",
+    "start_here": "KEVIN-START-HERE.md"
+  },
+  "privacy": {
+    "public_safe_metadata_only": true,
+    "contains_secrets": false,
+    "contains_private_message_bodies": false
+  }
+}
