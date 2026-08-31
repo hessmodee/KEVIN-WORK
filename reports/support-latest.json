@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-31T15:39:49.3484115-06:00",
+    "generated_at":  "2026-08-31T15:42:49.5217052-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788212205135,
-                                  "next_run_at_ms":  1788212385135
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788212088767,
-                                  "next_run_at_ms":  1788212388767
+                                  "last_run_at_ms":  1788212385149,
+                                  "next_run_at_ms":  1788212565149
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788212365191,
-                                  "next_run_at_ms":  1788212425191
+                                  "last_run_at_ms":  1788212510871,
+                                  "next_run_at_ms":  1788212570871
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -101,8 +89,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788212260021,
-                                  "next_run_at_ms":  1788212440021
+                                  "last_run_at_ms":  1788212440038,
+                                  "next_run_at_ms":  1788212620038
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788212393427,
+                                  "next_run_at_ms":  1788212693427
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -120,10 +120,10 @@
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  341,
+                       "cycle":  342,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-08-31T15:34:41.5297183-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-08-31T15:41:48.7995950-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -148,20 +148,20 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260831-152841-forge-v4-i293-evaluation.json",
-                              "at":  "2026-08-31T15:29:46.5647092-06:00",
+                              "file":  "20260831-154041-forge-v4-i294-evaluation.json",
+                              "at":  "2026-08-31T15:41:48.6788147-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  293,
+                              "iteration":  294,
                               "verdict":  "REJECT",
-                              "score":  55,
+                              "score":  65,
                               "result":  "",
-                              "failure_count":  8,
-                              "security_finding_count":  1,
+                              "failure_count":  5,
+                              "security_finding_count":  2,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-31T15:37:15.5780356-06:00",
+                        "at":  "2026-08-31T15:39:54.2442332-06:00",
                         "status":  "ALREADY_APPLIED_PROVEN",
                         "manifest_id":  "publish-runtime-capabilities-20260831-1501",
                         "stage_path":  "",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "0ECD898C36036BA0E1C305F2A811FA9EC6469D191047107D967FB4861A9B461C"
+    "semantic_hash":  "6542935A7108FB30926612BCDF110A7AAE368A39F52486CBECF6246B2192AE28"
 }
