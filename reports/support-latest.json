@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-30T21:12:19.7611700-06:00",
+    "generated_at":  "2026-08-30T21:15:19.7667281-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788145755571,
-                                  "next_run_at_ms":  1788145935571
+                                  "last_run_at_ms":  1788145935585,
+                                  "next_run_at_ms":  1788146115585
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,20 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788145875754,
-                                  "next_run_at_ms":  1788145935754
-                              },
-                              {
-                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
-                                  "declaration_key":  "kevin-supervisor-v1",
-                                  "name":  "Kevin Supervisor v1.6 High Gear",
-                                  "enabled":  true,
-                                  "every_ms":  180000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788145828868,
-                                  "next_run_at_ms":  1788146008868
+                                  "last_run_at_ms":  1788146063751,
+                                  "next_run_at_ms":  1788146123751
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -115,6 +103,18 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788145895986,
                                   "next_run_at_ms":  1788146195986
+                              },
+                              {
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.6 High Gear",
+                                  "enabled":  true,
+                                  "every_ms":  180000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788146016346,
+                                  "next_run_at_ms":  1788146196346
                               }
                           ],
                  "error":  ""
@@ -122,16 +122,16 @@
     "supervisor":  {
                        "cycle":  214,
                        "last_mission":  "forge-v4",
-                       "last_result":  "REJECT",
-                       "next_eligible_at":  "2026-08-30T21:11:13.6645885-06:00",
+                       "last_result":  "RECOVERY_PASS",
+                       "next_eligible_at":  "2026-08-30T21:14:06.9546167-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
     "recovery":  {
-                     "fingerprint":  "67986BDBFF2997048725F558D029EEC7DBC2223EFC6663742D88B2661954F8B7",
+                     "fingerprint":  "2277AF8CDDD291C360AC19C4534C94C2E068C2BF83DBDFF2D1EEFC87D9FF61E4",
                      "round":  1,
-                     "last_at":  "2026-08-30T21:05:14.9935191-06:00",
-                     "last_brief":  "20260830-210514-round1.json"
+                     "last_at":  "2026-08-30T21:14:06.8434821-06:00",
+                     "last_brief":  "20260830-211406-round1.json"
                  },
     "benchmark":  {
                       "at":  "2026-08-30T21:06:12.5211790-06:00",
@@ -161,7 +161,7 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-30T21:11:36.8377159-06:00",
+                        "at":  "2026-08-30T21:13:09.7474051-06:00",
                         "status":  "ALREADY_APPLIED_PROVEN",
                         "manifest_id":  "typed-maintenance-v133-workorder-poller-transport-20260830-2022",
                         "stage_path":  "",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "04EC3EEC96031F595A80E921722902460317AD3BB1799B26607C6BCB6FD75209"
+    "semantic_hash":  "B2DCFEF42BA323CFE5FB2DF3ED49BE3EFD704B66613A0BF1C499EC767397373F"
 }
