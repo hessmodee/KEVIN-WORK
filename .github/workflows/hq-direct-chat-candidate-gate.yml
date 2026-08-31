@@ -31,15 +31,15 @@ jobs:
       - name: Static authority boundary
         shell: python
         run: |
+          import ast
           from pathlib import Path
-          runtime_files = [
+          general_files = [
               Path('candidates/communications/hq-direct-chat/contract.py'),
               Path('candidates/communications/hq-direct-chat/private_spool.py'),
               Path('candidates/communications/hq-direct-chat/private_http_adapter.py'),
               Path('candidates/communications/hq-direct-chat/mobile_panel.html'),
-              Path('candidates/communications/hq-direct-chat/typed_installer.py'),
           ]
-          text = '\n'.join(p.read_text(encoding='utf-8').lower() for p in runtime_files)
+          text = '\n'.join(p.read_text(encoding='utf-8').lower() for p in general_files)
           forbidden = [
               'subprocess', 'os.system', 'popen(', 'powershell', 'cmd.exe',
               'requests.', 'urllib.request', 'eval(', 'exec(',
@@ -56,9 +56,30 @@ jobs:
               raise SystemExit('private adapter loopback invariant missing: ' + ', '.join(missing))
           if '0.0.0.0' in adapter and 'assert_loopback_host("0.0.0.0")' not in adapter:
               raise SystemExit('wildcard bind surface detected')
-          installer = Path('candidates/communications/hq-direct-chat/typed_installer.py').read_text(encoding='utf-8').lower()
+
+          installer_path = Path('candidates/communications/hq-direct-chat/typed_installer.py')
+          installer = installer_path.read_text(encoding='utf-8')
+          tree = ast.parse(installer)
+          forbidden_imports = {'subprocess', 'socket', 'requests', 'urllib', 'http', 'ctypes'}
+          imported = set()
+          risky_calls = []
+          for node in ast.walk(tree):
+              if isinstance(node, ast.Import):
+                  imported.update(alias.name.split('.')[0] for alias in node.names)
+              elif isinstance(node, ast.ImportFrom) and node.module:
+                  imported.add(node.module.split('.')[0])
+              elif isinstance(node, ast.Call):
+                  if isinstance(node.func, ast.Name) and node.func.id in {'eval', 'exec', 'compile'}:
+                      risky_calls.append(node.func.id)
+                  if isinstance(node.func, ast.Attribute) and isinstance(node.func.value, ast.Name):
+                      if (node.func.value.id, node.func.attr) in {('os','system'), ('os','popen')}:
+                          risky_calls.append(node.func.value.id + '.' + node.func.attr)
+          bad_imports = sorted(imported.intersection(forbidden_imports))
+          if bad_imports or risky_calls:
+              raise SystemExit('typed installer executable/network surface: ' + ', '.join(bad_imports + risky_calls))
+          installer_lower = installer.lower()
           for required_installer in ['exact fixed component set required', 'expected-current mismatch', 'fixed chat selftest failed', 'fresh benchmark postcondition failed']:
-              if required_installer not in installer:
+              if required_installer not in installer_lower:
                   raise SystemExit('typed installer invariant missing: ' + required_installer)
           print('authority boundary PASS')
       - name: Public proof privacy boundary
