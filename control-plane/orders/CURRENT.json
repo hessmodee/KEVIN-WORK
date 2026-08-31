@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "kind": "kevin-work-order",
-  "id": "bess-20260831-0802-benchmark-fixtures",
-  "idempotency_key": "bess-benchmark-fixtures-20260831-0802-a",
-  "created_at": "2026-08-31T08:02:00-06:00",
-  "expires_at": "2026-08-31T10:02:00-06:00",
+  "id": "bess-20260831-0840-telemetry-quality",
+  "idempotency_key": "bess-telemetry-quality-20260831-0840-a",
+  "created_at": "2026-08-31T08:40:00-06:00",
+  "expires_at": "2026-08-31T10:40:00-06:00",
   "authority_class": "GREEN",
   "verb": "dispatch_mission",
-  "target": "benchmark-fixtures",
-  "reason": "Daytime Production-Proof Sprint: replace the already-processed refresh order with the distinct catalogued Benchmark Fixture Expansion mission. Focus on regression fixtures for stale telemetry, duplicate/replay handling, cooldown/work-conservation contradictions, typed-action validation, and false-success claims. Keep the existing candidate-only and single-worker policy unchanged."
+  "target": "telemetry-quality",
+  "reason": "Daytime Production-Proof Sprint recovery after the previous order became DUPLICATE_IGNORED. Advance the already-catalogued Telemetry Quality mission with emphasis on detecting stale or contradictory state, duplicate-loop churn, zero-workers-plus-owner-backlog contradictions, stale heartbeat versus task presence, and false-success/busy claims. Candidate-only, single-14B-worker, no production mutation, no permission change, no arbitrary shell, no external owner messages, no authority expansion."
 }
