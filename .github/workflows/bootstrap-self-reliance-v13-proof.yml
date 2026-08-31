@@ -21,6 +21,18 @@ jobs:
 
       - uses: actions/checkout@v4
 
+      - name: Persist GitHub CLI auth for token-scrubbed runtime
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $token=$env:GH_TOKEN
+          Remove-Item Env:GH_TOKEN -ErrorAction SilentlyContinue
+          Remove-Item Env:GITHUB_TOKEN -ErrorAction SilentlyContinue
+          $token | gh auth login --hostname github.com --with-token
+          if($LASTEXITCODE -ne 0){throw 'gh auth persistence failed'}
+          gh auth status
+
       - name: Hash parser and authority regression gate
         shell: powershell
         run: |
@@ -44,8 +56,6 @@ jobs:
 
       - name: Bootstrap self-test and immutable component preflight
         shell: powershell
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           $p='inbox/maintenance/packages/bootstrap-self-reliance-v1.3.ps1'
           & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest
@@ -62,8 +72,6 @@ jobs:
 
       - name: Full ephemeral production-path bootstrap
         shell: powershell
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           $w=Join-Path $env:USERPROFILE '.openclaw\workspace'
           Remove-Item -LiteralPath $w -Recurse -Force -ErrorAction SilentlyContinue
