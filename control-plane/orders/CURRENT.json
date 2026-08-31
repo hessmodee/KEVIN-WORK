@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "kind": "kevin-work-order",
-  "id": "hq-attention-intake-v126-install-20260831-1705",
-  "idempotency_key": "hq-attention-intake-v126-install-20260831-1705-a",
-  "created_at": "2026-08-31T17:05:00-06:00",
-  "expires_at": "2026-08-31T18:05:00-06:00",
+  "id": "hq-alert-flush-maintenance-slot-20260831-1742",
+  "idempotency_key": "hq-alert-flush-maintenance-slot-20260831-1742-a",
+  "created_at": "2026-08-31T17:42:00-06:00",
+  "expires_at": "2026-08-31T18:30:00-06:00",
   "authority_class": "GREEN",
   "verb": "run_typed_maintenance",
   "target": "kevin-maintenance-v1",
-  "reason": "Install exact CI-qualified Work Order Intake v1.2.6 through fixed typed Maintenance. Require exact-current v1.2.4 identity, exact v1.2.6 SHA, parse/selftest, fresh Benchmark PASS 30/30 critical=0, rollback on failure. v1.2.6 permanently adds stale-slot retirement, terminal-idle handling, semantic ack de-duplication, bounded 3-attempt GitHub ack CAS recovery, and semantic/fresh Maintenance postcondition verification. No arbitrary command/path/URL/argv and no authority expansion."
+  "reason": "Consume and settle the already-present bounded GREEN maintenance manifest so the maintenance lane is not overwritten while fresh. Preserve semantic Maintenance postcondition verification and no arbitrary shell/authority expansion."
 }
