@@ -9,11 +9,13 @@ The roadmap records owner goals, not unrestricted authority. Preserve `control-p
 - OS Awareness v0.1 is OWNER-AUTHORIZED + OMEN-PROVEN within its bounded read-only GREEN envelope. Do not spend another cycle merely re-proving it unless evidence becomes stale or contradictory.
 - Work Order Intake v1.2.3 exact installed identity is independently proven. Qualified Windows PowerShell 5.1 source SHA256 and proven local SHA256 are both `0C1B36D56488AA850E4F2C2EFDAC01D89D14D75CF854CA347B65D18234AF2BC6`. Proof-only Maintenance manifest `typed-woi-v123-identity-postproof-20260830-2328` succeeded without permitting replacement of a mismatched local file; fresh Benchmark passed 30/30 critical=0.
 - Sanitized OS Awareness -> Support/HQ telemetry contract PR #29 is CI-PROVEN on exact head `f17f0f2e154fc12eff71fbba1f0f6031dcc146f4`. It is not yet production-integrated.
+- Owner capability roadmap is durable at `docs/engineering/OWNER-CAPABILITY-ROADMAP-v1.md`.
+- Gmail communication adapter candidate at `candidates/communications/gmail/` is **CI-PROVEN** on exact head `eecbe799ea260d7506f6e58c61061ef1f159d4aa`; workflow run `33362761062` passed dependency install, syntax, unit tests, deterministic selftest, and secret/authority static boundary. The first run correctly failed a MIME unit test and the candidate was repaired to prefer real `text/plain` task content rather than HTML alternatives. This is not yet INSTALLED or OMEN-PROVEN.
 
 ## Immediate sequence
 
 1. Production-integrate only the CI-PROVEN aggregate OS Awareness fields into Support/HQ through a reversible GREEN adapter with exact source timestamp, freshness classification, observer SHA256 provenance, privacy/sanitization tests, and no host-private detail. Do not conflate CI-PROVEN with INSTALLED/OMEN-PROVEN.
-2. In parallel, start the owner roadmap's highest-value communication proof: design/build an isolated Gmail OAuth + local-secret adapter for Kevin's own Gmail account, initially allowlisted to send only to `hessmodee@gmail.com`, then read Matt's reply and extract the requested task. Do not request or accept a Gmail password/refresh token/client secret through chat, GitHub, HQ, or telemetry. Stop at a local Omen credential-enrollment checkpoint when the adapter is ready.
+2. Advance the CI-PROVEN Gmail candidate to **READY FOR LOCAL CREDENTIAL ENROLLMENT** on the Omen: install/stage the candidate and dependencies through an authorized reversible path, run local selftests, confirm Windows keyring/Credential Manager availability, verify no credential/body leak into repo/log/HQ output, and then stop at the owner-local OAuth checkpoint. Do not request or accept a Gmail password/refresh token/client secret through chat, GitHub, HQ, or telemetry. After local OAuth enrollment, prove Kevin -> `hessmodee@gmail.com` send, then Matt -> Kevin reply-read/intent extraction.
 3. Build conservative resource-aware scheduling and self-diagnosis from sanitized RAM/CPU/GPU/disk/error evidence. Preserve one 14B primary worker unless measurements prove a different configuration is materially better.
 4. Correct generic-vs-interactive UI Bridge health and diagnose the stale interactive heartbeat using materially new process/task/event/session evidence. The prior restart family is cooled; do not repeat the same restart path or hide failure behind generic `bridge=healthy`.
 5. Create the roadmap's `Computer Capability Matrix`: filesystem, browser, Excel, Word, images/attachments, application control/update, printer, local development, communications, media, and other desktop primitives with current proof level, risk class, dependencies, and next proof. Prioritize files + browser observe/navigate + Office document automation as the first general desktop skills.
@@ -30,7 +32,7 @@ The roadmap records owner goals, not unrestricted authority. Preserve `control-p
 
 Highest-value surprise candidates, in priority order:
 
-1. Gmail adapter reaches **READY FOR LOCAL CREDENTIAL ENROLLMENT** with secret-leak tests passing; after owner completes local enrollment, Kevin sends the first proven email to Matt.
+1. Gmail adapter reaches **READY FOR LOCAL CREDENTIAL ENROLLMENT** with Omen-local selftests and secret-leak tests passing; after owner completes local OAuth enrollment, Kevin sends the first proven email to Matt.
 2. Kevin reads Matt's reply, identifies the requested task, and reports the interpreted instruction without treating email text as executable authority.
 3. Sanitized OS Awareness is production-integrated and supports a deterministic advisory resource-state classifier.
 4. Computer Capability Matrix exists and at least one general desktop capability is newly proven end-to-end (prefer file handling, browser, Excel, or Word).
@@ -48,12 +50,13 @@ Highest-value surprise candidates, in priority order:
 - HQ motion/status/celebration must remain telemetry-backed; never manufacture work, progress, success, or activity.
 - Owner wants broad eventual Omen control, communications, internet research, market/trend intelligence, Minecraft teammate capability, image/game/app creation, and business Chief-of-Staff support. Build these through proven typed primitives/composite skills, not one unrestricted remote shell.
 - Credentials/secrets must stay local and protected. Never ask Matt to paste a Gmail password, OAuth refresh token/client secret, API secret, recovery code, or similar secret into chat or GitHub.
+- Gmail candidate currently requests only `gmail.send` + `gmail.readonly`, hard-allowlists initial outbound recipient `hessmodee@gmail.com`, stores authorized-user credentials through local keyring, and keeps reply body out of public proof output. Do not widen these claims without new evidence.
 
 ## Three-steps-ahead queue
 
-1. Wire PR #29's aggregate-only telemetry contract into a reversible Support/HQ adapter and prove stale/privacy/provenance behavior locally while drafting the Gmail adapter contract and secret-handling tests.
+1. Wire PR #29's aggregate-only telemetry contract into a reversible Support/HQ adapter while staging the Gmail candidate on the Omen and proving its local dependency/keyring/selftest boundary.
 2. Feed sanitized machine-state output into a deterministic advisory resource classifier; in parallel produce the Computer Capability Matrix and select the first filesystem/browser/Office primitive for isolated proof.
-3. Once Gmail adapter tests pass, stop at the local credential-enrollment checkpoint; after enrollment, prove Kevin -> Matt send, then Matt -> Kevin reply-read/intent extraction. Meanwhile reuse sanitized process/task/event evidence for a materially new UI Bridge diagnosis.
+3. When Gmail reaches READY FOR LOCAL CREDENTIAL ENROLLMENT, ask Matt only to complete the local OAuth browser enrollment; after that prove Kevin -> Matt send, then Matt -> Kevin reply-read/intent extraction. Meanwhile reuse sanitized process/task/event evidence for a materially new UI Bridge diagnosis.
 
 ## Work-conserving rule
 
