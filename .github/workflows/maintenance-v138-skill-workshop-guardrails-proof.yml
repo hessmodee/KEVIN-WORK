@@ -1,0 +1,110 @@
+name: Maintenance v1.3.8 Skill Workshop Guardrails Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v138.py'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.7.ps1'
+      - '.github/workflows/maintenance-v138-skill-workshop-guardrails-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Generate exact candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          python .\tools\generate-maintenance-v138.py
+          if($LASTEXITCODE -ne 0){throw 'generator failed'}
+          if(-not(Test-Path .\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.8.ps1)){throw 'candidate missing'}
+
+      - name: Parse PowerShell 5.1 candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $p=Resolve-Path .\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.8.ps1
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count -gt 0){$errors|ForEach-Object{Write-Host $_.Message};throw 'PowerShell parse failed'}
+          Write-Host 'V138_PARSE_PASS'
+
+      - name: Deterministic self-test
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.8.ps1 -SelfTest 2>&1 | Out-String
+          Write-Host $out
+          if($LASTEXITCODE -ne 0){throw 'v1.3.8 selftest exited nonzero'}
+          if($out -notmatch 'KEVIN MAINTENANCE v1\.3\.8 SELFTEST PASS'){throw 'v1.3.8 marker missing'}
+          if($out -notmatch 'workshop_guardrails=propose_pending'){throw 'guardrail marker missing'}
+          if($out -notmatch 'fixed_config_paths=2'){throw 'fixed path marker missing'}
+          if($out -notmatch 'rollback=true'){throw 'rollback marker missing'}
+
+      - name: Static authority and config invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.8.ps1')
+          t=p.read_text(encoding='utf-8')
+          required=[
+            'configure_skill_workshop_guardrails',
+            "skills.workshop.autonomous.mode",
+            "skills.workshop.approvalPolicy",
+            "'propose'",
+            "'pending'",
+            "'--dry-run','--json'",
+            "config','validate','--json",
+            "skills','check','--agent','main','--json",
+            'skill workshop guardrail rollback completed',
+            'caller-selected Workshop config path accepted',
+            '$MaxAttempts = 3',
+            "production_effect must be NONE",
+            "authority_delta must be NONE",
+          ]
+          for x in required: assert x in t, x
+          # Operation must not permit manifest-selected path/value/command.
+          assert "must not supply '+$name" in t
+          assert "@('path','key','value','command','args','plugin','target','mode','approval_policy')" in t
+          forbidden=['Invoke-Expression','DownloadString(','New-Object Net.WebClient','System.Net.WebClient']
+          lo=t.lower()
+          for x in forbidden: assert x.lower() not in lo, x
+          print('V138_STATIC_PASS fixed_paths=2 caller_values=false rollback=true authority_delta=NONE')
+
+      - name: Emit exact candidate identities
+        shell: python
+        run: |
+          import hashlib,json
+          from pathlib import Path
+          c=Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.8.ps1')
+          b=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.7.ps1')
+          out={
+            'schema':1,
+            'kind':'kevin-maintenance-v138-qualified-candidate',
+            'git_head':'${{ github.sha }}',
+            'candidate_path':str(c).replace('\\','/'),
+            'sha256':hashlib.sha256(c.read_bytes()).hexdigest().upper(),
+            'base_v137_sha256':hashlib.sha256(b.read_bytes()).hexdigest().upper(),
+          }
+          Path('maintenance-v138-candidate-hash.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf-8')
+          print(Path('maintenance-v138-candidate-hash.json').read_text())
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-v138-qualified-candidate
+          path: |
+            control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.8.ps1
+            maintenance-v138-candidate-hash.json
+          if-no-files-found: error
+          retention-days: 7
