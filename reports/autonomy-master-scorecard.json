@@ -1,0 +1,132 @@
+{
+  "schema": 1,
+  "kind": "kevin-autonomy-master-scorecard",
+  "generated_at": "2026-08-31T09:15:00-06:00",
+  "safe_for_public_repo": true,
+  "north_star": "Kevin owns routine goal execution, proof, recovery, learning, communication and computer work inside owner-approved boundaries while Bess intervention trends toward zero.",
+  "wip_policy": {
+    "max_active_production_crossings": 1,
+    "max_staging_eval": 1,
+    "max_research_design": 1,
+    "round_robin_forge_without_demand": false
+  },
+  "global_health": {
+    "benchmark": "PASS_30_OF_30_CRITICAL_0",
+    "autonomy": "NEEDS_REVIEW",
+    "autonomy_work_conserving": "DEFECT_NO_DISPATCH_WITH_EXPLICIT_BACKLOG",
+    "ui_bridge": "UNHEALTHY_STALE_INTERACTIVE_HEARTBEAT",
+    "skill_lab_proven_count": 3,
+    "design_forge_spin": "DEFECT_FORGE_V4_ITERATION_252_REJECTED"
+  },
+  "lanes": [
+    {
+      "id": "work-selection",
+      "priority": 1,
+      "proof": "OMEN_COMPONENTS_PRESENT_BUT_SEMANTIC_DEFECT",
+      "transfer": "T2",
+      "blocker": "0 workers + explicit P0 backlog can produce NO_DISPATCH_NEEDED; stale/duplicate slots still require Bess attention",
+      "next_evidence": "Kevin independently notices idle/blocked state, selects a different authorized owner objective, executes and verifies useful work without Bess refilling queue"
+    },
+    {
+      "id": "hq-direct-chat",
+      "priority": 2,
+      "proof": "CI-PROVEN_SOURCE_ON_MAIN",
+      "transfer": "T1",
+      "blocker": "current production Maintenance/Work-Order path lacks exact HQ chat install operation",
+      "next_evidence": "typed crossing -> installed exact bundle -> local privacy/loopback/idempotency proof -> Matt-Kevin round trip"
+    },
+    {
+      "id": "reader",
+      "priority": 3,
+      "proof": "PARTIAL_CANDIDATE",
+      "transfer": "T1",
+      "blocker": "requested real status-question E2E not proven",
+      "next_evidence": "typed acquisition -> correct interpretation -> provenance receipt on useful question"
+    },
+    {
+      "id": "skill-learning",
+      "priority": 4,
+      "proof": "OMEN-PROVEN_3_COMPOSITES",
+      "transfer": "T3",
+      "blocker": "Bess still identifies/stages some useful executable composites; procedural learning not yet converged onto native Skill Workshop",
+      "next_evidence": "Kevin detects repeated real GREEN procedure, proposes/evaluates reusable skill/composite and proves usefulness without Bess hand-authoring"
+    },
+    {
+      "id": "staging",
+      "priority": 5,
+      "proof": "PARTIAL",
+      "transfer": "T1",
+      "blocker": "not yet an autonomous replay/negative/rollback/idempotency/resource comparison lane",
+      "next_evidence": "one candidate automatically produces promote/reject evidence including failure and recovery"
+    },
+    {
+      "id": "gmail",
+      "priority": 6,
+      "proof": "CI-PROVEN_CANDIDATE",
+      "transfer": "T1",
+      "blocker": "Omen install/local OAuth enrollment not proven",
+      "next_evidence": "installed/selftest/secret-leak proof -> owner OAuth -> Kevin-owned poll/read/tool-use/reply/restart/duplicate round trip"
+    },
+    {
+      "id": "telegram",
+      "priority": 7,
+      "proof": "ROOT_CAUSE_UNPROVEN",
+      "transfer": "T0",
+      "blocker": "native OpenClaw channel registration/polling-vs-webhook/gateway/binding/routing state not yet proven",
+      "next_evidence": "fresh sanitized native channel probe + root cause + bounded repair + owner round trip"
+    },
+    {
+      "id": "computer-fluency",
+      "priority": 8,
+      "proof": "MIXED_T0_T3_BY_PRIMITIVE",
+      "transfer": "T0-T1",
+      "blocker": "few representative owner tasks are repeatedly proven end-to-end",
+      "next_evidence": "useful file/Excel/Word/image/browser/app task completed, independently verified, repeated and converted to reusable composite where appropriate"
+    },
+    {
+      "id": "handoff-memory",
+      "priority": 9,
+      "proof": "DURABLE_REPO_PROTOCOL_EXISTS",
+      "transfer": "T1",
+      "blocker": "Bess/Chief Engineer still maintains handoff truth",
+      "next_evidence": "Kevin automatically reconciles native memory + handoff + transfer checkpoint after substantive work and replacement session resumes accurately"
+    },
+    {
+      "id": "business-value",
+      "priority": 10,
+      "proof": "ONE_USEFUL_COMPOSITE_PROVEN",
+      "transfer": "T1-T3_BY_WORKFLOW",
+      "blocker": "not yet a steady accepted-deliverable pipeline",
+      "next_evidence": "real owner business deliverable accepted with time/correction metric and reusable procedure"
+    }
+  ],
+  "no_spin": {
+    "count_as_progress": [
+      "proof-level transition",
+      "transfer-level promotion with retired Bess action",
+      "accepted useful owner deliverable",
+      "verified failure recovery",
+      "incident-derived eval added",
+      "measured performance improvement"
+    ],
+    "do_not_count": [
+      "heartbeat/pulse/dashboard churn",
+      "raw cycle count",
+      "PONG/model smoke checks",
+      "duplicate request replay",
+      "unconsumed candidate generation",
+      "CI-only code with no production path",
+      "task/hash presence without runtime semantic proof"
+    ]
+  },
+  "research_adoption": {
+    "standing_orders": "ADOPT",
+    "task_flow": "ADOPT_FOR_DURABLE_MULTI_STEP_WORK",
+    "lobster": "ADOPT_WHERE_TYPED_PIPELINES_REDUCE_MODEL_ORCHESTRATION",
+    "skill_workshop": "EVALUATE_AND_START_PROPOSE_MODE",
+    "native_memory_flush": "VERIFY_AND_USE",
+    "multi_agent_swarm": "DEFER_UNTIL_MEASURED_NEED",
+    "external_temporal_orchestrator": "DEFER_USE_NATIVE_TASK_FLOW_PATTERN_FIRST",
+    "unrestricted_windows_exec": "REJECT_FOR_NORMAL_CONTROL_PLANE"
+  }
+}
