@@ -1,5 +1,7 @@
 # Current task
 
+<!-- Kevin check 2026-08-31 19:03 UTC: no isolate report, OK-WRITE present, hold layer -->
+
 Run the **2026-08-31 Autonomy Consolidation + Production-Proof Sprint** under:
 - `docs/engineering/KEVIN-AUTONOMY-MASTER-PLAN-v1.md`
 - `docs/engineering/OWNER-GOAL-INVENTORY-v1.md`
