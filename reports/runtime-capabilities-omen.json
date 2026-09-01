@@ -1,14 +1,31 @@
 {
     "schema":  1,
     "kind":  "kevin-runtime-capabilities-public",
-    "generated_at":  "2026-09-01T08:52:49.4727091-06:00",
+    "generated_at":  "2026-09-01T09:01:17.4171705-06:00",
     "state":  "OMEN_AUDIT_PROVEN",
     "safe_for_public_repo":  true,
     "openclaw":  {
                      "cli_present":  true,
                      "version":  "UNKNOWN",
+                     "version_exit_code":  1,
+                     "version_output_sha256":  "A1E93043636C7EEFD0BC6A15D77101B7916EB2705B24C0744D9EEEEA98252D28",
                      "config_valid":  true,
-                     "gateway_deep_probe_ok":  true
+                     "gateway_deep_probe_ok":  true,
+                     "cli_surface":  {
+                                         "root_help_ok":  false,
+                                         "root_mentions_agent":  false,
+                                         "root_mentions_automations":  false,
+                                         "root_mentions_cron":  false,
+                                         "automations_help_ok":  false,
+                                         "automations_fell_to_tui":  false,
+                                         "cron_help_ok":  true,
+                                         "cron_fell_to_tui":  false,
+                                         "agent_help_ok":  true,
+                                         "agent_has_local":  true,
+                                         "agent_has_message":  true,
+                                         "agent_has_agent":  true,
+                                         "agent_has_json":  true
+                                     }
                  },
     "orchestration":  {
                           "task_flow_cli_available":  true,
