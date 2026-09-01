@@ -1,0 +1,55 @@
+name: Autonomy Selector v1.1 Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'control-plane/autonomy/kevin-work-selector-v1.1.py'
+      - 'control-plane/autonomy/failure-families-v1.json'
+      - 'control-plane/autonomy/standing-programs-v1.json'
+      - 'inbox/autonomy/work-items.json'
+      - 'inbox/autonomy/state.json'
+      - '.github/workflows/autonomy-selector-v11-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile selector
+        run: python -m py_compile control-plane/autonomy/kevin-work-selector-v1.1.py
+      - name: Semantic failure-family selftest
+        run: python control-plane/autonomy/kevin-work-selector-v1.1.py --selftest
+      - name: Run selector against current Kevin state
+        run: |
+          python control-plane/autonomy/kevin-work-selector-v1.1.py \
+            --programs control-plane/autonomy/standing-programs-v1.json \
+            --items inbox/autonomy/work-items.json \
+            --state inbox/autonomy/state.json \
+            --failure-families control-plane/autonomy/failure-families-v1.json \
+            --now 2026-09-01T04:10:00Z > /tmp/selection.json
+          cat /tmp/selection.json
+      - name: Enforce no-spin and useful-backlog invariants
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('/tmp/selection.json',encoding='utf-8'))
+          blocked={x['id']:x.get('reasons',[]) for x in d['blocked']}
+          assert 'finish-forge-v40-runtime-convergence' in blocked, blocked
+          assert any(r.startswith('FAILURE_FAMILY_') or r in {'EXPLICITLY_BLOCKED','FAILURE_BUDGET_EXHAUSTED'} for r in blocked['finish-forge-v40-runtime-convergence']), blocked['finish-forge-v40-runtime-convergence']
+          assert d['semantic_failure_families'] is True
+          assert d['authority_effect']=='NONE_SELECTION_ONLY'
+          # Production is intentionally free now; useful eligible work must not be misreported as NO_DISPATCH_NEEDED.
+          assert d['eligible_count'] >= 1, d
+          assert d['selection'] is not None, d
+          assert d['selection']['id'] != 'finish-forge-v40-runtime-convergence', d
+          print('AUTONOMY_SELECTOR_V11_PROOF PASS selected='+d['selection']['id'])
+          PY
