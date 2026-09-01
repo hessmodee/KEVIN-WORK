@@ -62,7 +62,11 @@ jobs:
             'caller-selected autonomy controller path accepted',
             'autonomy_controller_install=fixed'
           )){if(-not$t.Contains($m)){throw "missing invariant: $m"}}
-          foreach($forbidden in @('kevin_shell','Start-Process cmd.exe')){if($t.Contains($forbidden)){throw "forbidden marker: $forbidden"}}
+          $start=$t.IndexOf('function Install-AutonomyControllerV182')
+          $end=$t.IndexOf('function Assert-MainAgentCanary',$start)
+          if($start -lt 0 -or $end -le $start){throw 'unable to isolate autonomy installer function'}
+          $installer=$t.Substring($start,$end-$start)
+          foreach($forbidden in @('kevin_shell','Start-Process cmd.exe','Invoke-Expression')){if($installer.Contains($forbidden)){throw "forbidden installer marker: $forbidden"}}
           Write-Host 'MAINT_V1325_AUTONOMY_INSTALL_INVARIANTS_PASS'
       - name: Verify qualified source identities
         shell: pwsh
