@@ -1,0 +1,59 @@
+name: Supervisor v1.8.1 First-State Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-supervisor-v18-autonomy-controller.py'
+      - 'tools/generate-supervisor-v181-first-state-fix.py'
+      - 'control-plane/autonomy/kevin-work-selector-v1.1.py'
+      - 'control-plane/autonomy/standing-programs-v1.json'
+      - 'control-plane/autonomy/failure-families-v1.json'
+      - 'inbox/autonomy/work-items.json'
+      - 'inbox/autonomy/state.json'
+      - '.github/workflows/supervisor-v181-first-state-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: windows-2025
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Generate exact Supervisor v1.8.1
+        run: python tools/generate-supervisor-v181-first-state-fix.py
+      - name: Parse PowerShell and forbid arbitrary execution
+        shell: pwsh
+        run: |
+          $p=(Resolve-Path 'control-plane/autonomy/kevin-supervisor-v1.8.1.ps1')
+          $tokens=$null;$errors=$null
+          $ast=[Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw $errors[0].Message}
+          $commands=@($ast.FindAll({param($n) $n -is [Management.Automation.Language.CommandAst]},$true))
+          $names=@($commands|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($forbidden in @('invoke-expression','iex','cmd.exe','start-process')){if($names -contains $forbidden){throw "forbidden executable command: $forbidden"}}
+          Write-Host "SUPERVISOR_V181_AST_PASS commands=$($commands.Count)"
+      - name: Run Supervisor self-test
+        shell: pwsh
+        run: |
+          & .\control-plane\autonomy\kevin-supervisor-v1.8.1.ps1 -SelfTest
+          if($LASTEXITCODE -ne 0){throw "Supervisor v1.8.1 selftest exit=$LASTEXITCODE"}
+      - name: Prove first-run selector check-only path
+        shell: pwsh
+        run: |
+          $root=Join-Path $env:USERPROFILE '.openclaw\workspace'
+          $cp=Join-Path $root 'ControlPlane';New-Item -ItemType Directory -Force -Path $cp|Out-Null
+          Copy-Item .\control-plane\autonomy\kevin-work-selector-v1.1.py (Join-Path $cp 'kevin-work-selector-v1.1.py') -Force
+          $runtime=Join-Path $root 'reports\autonomy-runtime';Remove-Item $runtime -Recurse -Force -ErrorAction SilentlyContinue
+          & .\control-plane\autonomy\kevin-supervisor-v1.8.1.ps1 -CheckOnly
+          if($LASTEXITCODE -ne 0){throw "Supervisor v1.8.1 check-only exit=$LASTEXITCODE"}
+          $latest=Get-Content (Join-Path $root 'reports\autonomy-continuation-latest.json') -Raw|ConvertFrom-Json
+          if([string]$latest.status -ne 'CHECK_ONLY_ELIGIBLE'){throw ('expected useful eligible selection, got '+[string]$latest.status)}
+          if([string]$latest.selected_id -eq 'finish-forge-v40-runtime-convergence'){throw 'blocked Forge selected'}
+          Write-Host ('SUPERVISOR_V181_FIRST_STATE_PASS selected='+[string]$latest.selected_id)
