@@ -1,0 +1,110 @@
+name: Maintenance v1.3.16 Supervisor Forge Demand Gate Proof v4
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1316-supervisor-forge-demand-gate.py'
+      - 'tools/generate-maintenance-v1316-supervisor-forge-demand-gate-fixed.py'
+      - '.github/workflows/maintenance-v1316-supervisor-forge-demand-gate-proof-v4.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  proof:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Generate exact candidate
+        run: python tools/generate-maintenance-v1316-supervisor-forge-demand-gate-fixed.py
+      - name: Parse and inspect executable AST
+        shell: pwsh
+        run: |
+          $p=(Resolve-Path 'control-plane/maintenance/kevin-maintenance-runner-v1.3.16.ps1')
+          $tokens=$null;$errors=$null
+          $ast=[Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw $errors[0].Message}
+          $commands=@($ast.FindAll({param($n) $n -is [Management.Automation.Language.CommandAst]},$true))
+          $names=@($commands|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($forbidden in @('invoke-expression','iex','cmd.exe')){
+            if($names -contains $forbidden){throw "forbidden executable command in AST: $forbidden"}
+          }
+          Write-Host "MAINT_V1316_AST_PASS commands=$($commands.Count) eval_exec=false cmd_shell=false"
+      - name: Run Maintenance self-test
+        shell: pwsh
+        run: |
+          $env:KEVIN_MAINT_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'kevin-maint-v1316-selftest'
+          New-Item -ItemType Directory -Force -Path $env:KEVIN_MAINT_TEST_ROOT|Out-Null
+          & .\control-plane\maintenance\kevin-maintenance-runner-v1.3.16.ps1 -SelfTest
+          if($LASTEXITCODE -ne 0){throw "Maintenance v1.3.16 selftest exit=$LASTEXITCODE"}
+      - name: Fixed migration and authority invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          import hashlib
+          p=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.16.ps1')
+          b=p.read_bytes(); t=b.decode('utf-8')
+          required=[
+            "version='1.3.16'",
+            "migrate_supervisor_forge_demand_gated_v17",
+            "63B8D9C27625E0FB6AFE62165BE376E7ED7EB416E5DA15BB47C206BBF4AE4989",
+            "796B1756CE0B3C9E926AA72A32410FC9119F0AD4FEC2E6CA15D977F4DA87333A",
+            "4C83DF29E765D61F2B26D2029FE6C2C7ED68DA90E5A7A457A82BE769029E22CA",
+            "433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A",
+            "B4F2B01ADBFC946754A987797F94D3E50C51300111DE4003546825D11ED649A1",
+            "Global\\KevinSupervisor",
+            "Global\\KevinDesignForge",
+            "SUPERVISOR IDLE NO_ELIGIBLE_MISSION",
+            "status='IDLE_NO_ELIGIBLE_DEMAND'",
+            "Benchmark baseline changed after staging; aborting TOCTOU",
+            "caller-selected Supervisor/Forge path accepted",
+            "Supervisor/Forge coordinated migration rollback completed",
+          ]
+          for x in required: assert x in t, x
+          assert "production_effect -ne 'NONE'" in t
+          assert "authority_delta -ne 'NONE'" in t
+          assert t.count('catch [System.Threading.AbandonedMutexException]') == 2
+          # New migration manifest accepts no caller-selected paths, hashes, args, command, host or port.
+          migration_assert=t[t.index('function Assert-SupervisorForgeDemandGateMigration'):t.index('function Get-DemandGatedSupervisorV17')]
+          for forbidden_field in ['path','source_path','source_sha256','expected_current_sha256','expected_after_sha256','args','command','host','port']:
+            assert "'"+forbidden_field+"'" not in migration_assert, forbidden_field
+          print('MAINT_V1316_FIXED_INVARIANTS_PASS sha256='+hashlib.sha256(b).hexdigest().upper())
+      - name: Emit candidate identity
+        shell: pwsh
+        run: |
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.16.ps1'
+          $sha=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "MAINT_V1316_CANDIDATE_PROVEN sha256=$sha"
+          "MAINT_V1316_SHA=$sha" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Publish exact qualified candidate with bounded conflict retries
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $repo='hessmodee/KEVIN-WORK';$path='control-plane/maintenance/kevin-maintenance-runner-v1.3.16.ps1'
+          $bytes=[IO.File]::ReadAllBytes($path);$encoded=[Convert]::ToBase64String($bytes);$published=$false
+          for($attempt=1;$attempt -le 10;$attempt++){
+            $body=[ordered]@{message='Publish CI-proven Maintenance v1.3.16';content=$encoded;branch='main'}
+            $raw=gh api "repos/$repo/contents/$path?ref=main" 2>$null
+            if($LASTEXITCODE -eq 0 -and $raw){$cur=$raw|ConvertFrom-Json;if($cur.sha){$body.sha=[string]$cur.sha}}
+            $payload=Join-Path $env:RUNNER_TEMP ('maint-v1316-publish-'+$attempt+'.json')
+            [IO.File]::WriteAllText($payload,($body|ConvertTo-Json -Compress),(New-Object Text.UTF8Encoding($false)))
+            gh api --method PUT "repos/$repo/contents/$path" --input $payload --silent 2>$null
+            if($LASTEXITCODE -eq 0){$published=$true;break}
+            Start-Sleep -Seconds 2
+          }
+          if(-not$published){throw 'candidate publication exhausted bounded conflict retries'}
+          Start-Sleep -Seconds 1
+          $remoteRaw=gh api "repos/$repo/contents/$path?ref=main" --jq .content
+          if($LASTEXITCODE -ne 0 -or -not$remoteRaw){throw 'candidate remote verification fetch failed'}
+          $remote=[Convert]::FromBase64String(($remoteRaw -replace '\s',''))
+          $tmp=Join-Path $env:RUNNER_TEMP 'maint-v1316-remote.ps1';[IO.File]::WriteAllBytes($tmp,$remote)
+          $rsha=(Get-FileHash $tmp -Algorithm SHA256).Hash.ToUpperInvariant()
+          if($rsha -ne $env:MAINT_V1316_SHA){throw "candidate remote identity mismatch $rsha"}
+          Write-Host "MAINT_V1316_PUBLISHED_VERIFIED sha256=$rsha"
