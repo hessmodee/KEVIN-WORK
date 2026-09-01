@@ -1,8 +1,41 @@
 {
-  "schema": 1,
-  "kind": "kevin-gateway-failure-detail-public",
-  "generated_at": null,
-  "state": "PENDING",
-  "safe_for_public_repo": true,
-  "truth_boundary": "Placeholder only. No diagnosis is claimed until replaced by fresh Omen-generated evidence."
+    "schema":  1,
+    "kind":  "kevin-gateway-failure-detail-public",
+    "generated_at":  "2026-09-01T16:11:15.3788470-06:00",
+    "state":  "OMEN_DIAGNOSIS_PROVEN",
+    "safe_for_public_repo":  true,
+    "openclaw_version":  "2026.7.1-2",
+    "release_policy_status":  "EVIDENCE_REJECTED",
+    "root_cause_family":  "OTHER_FAILURE",
+    "probe_exit_codes":  [
+                             1
+                         ],
+    "probe_output_fingerprints":  [
+                                      "BE8AB969F7F5D8D5A07E06BDBAAAB318D551C769526F46266BAF2528AFAC85DF"
+                                  ],
+    "config":  {
+                   "current_sha256":  "6FC7A112062BD97A6CDFEC4516A3266D0217BDEB5EF6BE920283C55B345C8518",
+                   "current_last_touched":  "2026.7.1-2",
+                   "backup_exists":  true,
+                   "backup_sha256":  "6FC7A112062BD97A6CDFEC4516A3266D0217BDEB5EF6BE920283C55B345C8518",
+                   "backup_last_touched":  "2026.7.1-2",
+                   "backup_semantically_equivalent":  true,
+                   "telegram_present":  true,
+                   "discord_present":  false,
+                   "codex_present":  false,
+                   "memory_core_present":  false
+               },
+    "windows":  {
+                    "keeper_present":  true,
+                    "keeper_state":  "Running",
+                    "keeper_script_present":  true,
+                    "keeper_script_sha256":  "9D8EEF194336BD3F91A3F592D82A078A6D7C19C6719039A7747EEFF7FB692BD0",
+                    "legacy_task_present":  true,
+                    "legacy_task_state":  "Disabled",
+                    "port_18789_listening":  true,
+                    "gateway_listener_count":  1
+                },
+    "recommended_repair":  "TYPED_WINDOWS_LKG_RECOVERY",
+    "source_contract":  "Four fixed OpenClaw probes plus fixed package/config/backup/Gateway topology metadata. No caller-selected command/path/argv.",
+    "truth_boundary":  "Only classifications, exit codes, hashes, safe versions, booleans, and known plugin flags are published. No raw output, config values, credentials, paths, messages, prompts, or secrets."
 }
