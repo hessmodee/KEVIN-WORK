@@ -1,19 +1,16 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-08-31T21:31:11.5702280-06:00",
+    "generated_at":  "2026-08-31T21:33:17.1561532-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
-                    "id":  "today-convergence-snapshot-20260831-1555",
+                    "id":  "hq-attention-repair-snapshot-20260831-2133",
                     "operation":  "snapshot",
-                    "status":  "REJECTED",
-                    "detail":  "request expired"
+                    "status":  "DONE",
+                    "detail":  "Fresh sanitized engineering snapshot captured."
                 },
     "result":  {
-
-               },
-    "action":  {
                    "phase2b_proof_present":  true,
                    "hashes":  {
                                   "operator":  "19EEA6749FB70EB18A6ACC2DC0C9DF4313C0AC0D893F646A6D1170044E4C282F",
@@ -27,7 +24,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  2.1
+                                     "heartbeat_age_seconds":  0.7
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -57,7 +54,7 @@
                                      "passed":  30,
                                      "total":  30,
                                      "critical":  0,
-                                     "at":  "2026-08-31T21:22:02.8281583-06:00"
+                                     "at":  "2026-08-31T21:32:03.1350123-06:00"
                                  },
                    "cron":  [
                                 {
@@ -75,16 +72,93 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-benchmark-v1",
+                                    "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
-                                    "every_ms":  600000,
+                                    "every_ms":  180000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-maintenance-intake-v1",
+                                    "enabled":  true,
+                                    "every_ms":  300000,
+                                    "last_status":  "error",
+                                    "consecutive_errors":  4
                                 },
                                 {
                                     "declaration_key":  "kevin-support-bridge-v1",
                                     "enabled":  true,
                                     "every_ms":  180000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-benchmark-v1",
+                                    "enabled":  true,
+                                    "every_ms":  600000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                }
+                            ]
+               },
+    "action":  {
+                   "phase2b_proof_present":  true,
+                   "hashes":  {
+                                  "operator":  "19EEA6749FB70EB18A6ACC2DC0C9DF4313C0AC0D893F646A6D1170044E4C282F",
+                                  "initiative":  "8AA0DC8F5A1502A3E4D0150EB073DC77C29D47F153E066B32D6B8E4B2ACB7CD3",
+                                  "ui_bridge":  "5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42"
+                              },
+                   "hashes_match":  {
+                                        "operator":  true,
+                                        "initiative":  true,
+                                        "ui_bridge":  true
+                                    },
+                   "ui_bridge":  {
+                                     "task_present":  true,
+                                     "heartbeat_age_seconds":  1.3
+                                 },
+                   "queues":  {
+                                  "ready":  0,
+                                  "running":  0,
+                                  "done":  10,
+                                  "failed":  1
+                              },
+                   "composite_skills":  {
+                                            "ready":  0,
+                                            "running":  0,
+                                            "done":  3,
+                                            "failed":  1,
+                                            "proven_count":  3,
+                                            "latest_proven":  {
+                                                                  "key":  "business-budget-starter-pack@1",
+                                                                  "proven_at":  "2026-08-31T08:10:29.3271378-06:00",
+                                                                  "manifest_sha256":  "518B877322137215172E2A4F8AE52EF6E962C41A98E80B7ABEA26EBA94ED2174",
+                                                                  "proof_sha256":  "9DFB9C84A16AE8FEE914BE5CAC75D1093185C4D69FC38775AC452CA7B151B915",
+                                                                  "primitive_steps":  [
+                                                                                          "create_spreadsheet",
+                                                                                          "create_text"
+                                                                                      ]
+                                                              }
+                                        },
+                   "benchmark":  {
+                                     "status":  "PASS",
+                                     "passed":  30,
+                                     "total":  30,
+                                     "critical":  0,
+                                     "at":  "2026-08-31T21:32:03.1350123-06:00"
+                                 },
+                   "cron":  [
+                                {
+                                    "declaration_key":  "kevin-engineering-relay-v1",
+                                    "enabled":  true,
+                                    "every_ms":  120000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-skill-lab-v1",
+                                    "enabled":  true,
+                                    "every_ms":  120000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
@@ -101,6 +175,20 @@
                                     "every_ms":  300000,
                                     "last_status":  "error",
                                     "consecutive_errors":  4
+                                },
+                                {
+                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-benchmark-v1",
+                                    "enabled":  true,
+                                    "every_ms":  600000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
                                 }
                             ]
                }
