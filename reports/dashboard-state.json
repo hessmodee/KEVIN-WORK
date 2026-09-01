@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T06:05:14-06:00",
-  "status": "working",
+  "generated_at": "2026-09-01T06:06:05.4022582-06:00",
+  "status": "ready",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -1385,7 +1385,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-01T06:05:14-06:00",
+    "last": "2026-09-01T06:06:05.4022582-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1422,33 +1422,33 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-01T06:05:05.4293743-06:00",
+    "generated_at": "2026-09-01T06:06:05.4022582-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
-    "supervisor_active": true,
+    "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
       "id": "supervisor",
       "name": "Supervisor",
-      "title": "Supervisor autonomous cycle",
+      "title": "Kevin autonomous system armed",
       "category": "supervisor",
-      "state": "coordinating",
-      "detail": "Goal-aware Supervisor cycle active.",
-      "what": "Selecting and advancing the highest-value authorized mission.",
+      "state": "ready",
+      "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
+      "what": "Waiting only for the next scheduled three-minute control cycle.",
       "engine": "Supervisor v1.4",
-      "action": "Mission coordination"
+      "action": "Autonomous schedule armed"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "coordinating",
-        "detail": "Selecting, evaluating, staging, or recording autonomous work.",
+        "state": "ready",
+        "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
-        "action": "Autonomous coordination"
+        "action": "Awaiting next 3-minute cycle"
       },
       {
         "id": "benchmark",
@@ -1473,17 +1473,17 @@
     ]
   },
   "execution": {
-    "running": true,
-    "state": "coordinating",
-    "phase": "Goal-aware Supervisor cycle active.",
+    "running": false,
+    "state": "ready",
+    "phase": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
     "worker": "Supervisor",
     "engine": "Supervisor v1.4",
-    "action": "Mission coordination"
+    "action": "Autonomous schedule armed"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | COORDINATING | Goal-aware Supervisor cycle active.",
+      "text": "Supervisor | READY | Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
       "severity": "normal"
     }
   ]
