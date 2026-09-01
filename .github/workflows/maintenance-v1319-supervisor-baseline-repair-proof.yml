@@ -54,7 +54,7 @@ jobs:
         shell: pwsh
         run: |
           $t=[IO.File]::ReadAllText('control-plane/maintenance/kevin-maintenance-runner-v1.3.19.ps1')
-          foreach($marker in @('47A0A1D0E3F744E972E2F2239F100CA2B009ABD3928D0281E4587A364B7C27AC','repair_supervisor_v171_forge_pin','benchmark-v1\\baseline.json','baselineStageObj.hashes.supervisor=$SupervisorV171Sha','SUPERVISOR IDLE NO_ELIGIBLE_MISSION','Benchmark baseline changed after staging; aborting TOCTOU')){if(-not$t.Contains($marker)){throw "missing repair invariant: $marker"}}
+          foreach($marker in @('47A0A1D0E3F744E972E2F2239F100CA2B009ABD3928D0281E4587A364B7C27AC','repair_supervisor_v171_forge_pin','benchmark-v1\baseline.json','baselineStageObj.hashes.supervisor=$SupervisorV171Sha','SUPERVISOR IDLE NO_ELIGIBLE_MISSION','Benchmark baseline changed after staging; aborting TOCTOU')){if(-not$t.Contains($marker)){throw "missing repair invariant: $marker"}}
           Write-Host 'MAINT_V1319_COORDINATED_REPAIR_INVARIANTS_PASS'
 
       - name: Emit exact qualified identity
