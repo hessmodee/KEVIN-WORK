@@ -1,0 +1,121 @@
+name: Maintenance v1.3.26 Fixed Main Production Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1326-fixed-main.py'
+      - 'tools/generate-supervisor-v183-main-agent.py'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.25.ps1'
+      - 'control-plane/autonomy/kevin-supervisor-v1.8.2.ps1'
+      - 'control-plane/autonomy/kevin-work-selector-v1.1.py'
+      - 'tools/check-maintenance-operation-parity.py'
+      - '.github/workflows/maintenance-v1326-fixed-main-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  proof:
+    runs-on: windows-2025
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Generate exact corrected Supervisor v1.8.3
+        run: python tools/generate-supervisor-v183-main-agent.py
+      - name: Verify corrected Supervisor identity and safety
+        shell: pwsh
+        run: |
+          $p='control-plane/autonomy/kevin-supervisor-v1.8.3.ps1'
+          $sha=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          if($sha -ne '29122F147233DC672DC6AFF4D5AD4262D4512B39D67CC42628DB6C5C78D811FB'){throw "Supervisor v1.8.3 identity drift $sha"}
+          $tokens=$null;$errors=$null;$ast=[Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw $errors[0].Message}
+          $names=@($ast.FindAll({param($n) $n -is [Management.Automation.Language.CommandAst]},$true)|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($bad in @('invoke-expression','iex','kevin_shell','cmd.exe','start-process')){if($names -contains $bad){throw "forbidden Supervisor command $bad"}}
+          & $p -SelfTest
+          if($LASTEXITCODE -ne 0){throw "Supervisor selftest exit=$LASTEXITCODE"}
+      - name: Generate exact Maintenance v1.3.26
+        run: python tools/generate-maintenance-v1326-fixed-main.py
+      - name: Parse Maintenance and forbid arbitrary execution
+        shell: pwsh
+        run: |
+          $p=(Resolve-Path 'control-plane/maintenance/kevin-maintenance-runner-v1.3.26.ps1')
+          $tokens=$null;$errors=$null;$ast=[Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw $errors[0].Message}
+          $names=@($ast.FindAll({param($n) $n -is [Management.Automation.Language.CommandAst]},$true)|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($bad in @('invoke-expression','iex','cmd.exe')){if($names -contains $bad){throw "forbidden Maintenance command $bad"}}
+      - name: Run full Maintenance self-test
+        shell: pwsh
+        run: |
+          $env:KEVIN_MAINT_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'kevin-maint-v1326-selftest'
+          New-Item -ItemType Directory -Force -Path $env:KEVIN_MAINT_TEST_ROOT|Out-Null
+          & .\control-plane\maintenance\kevin-maintenance-runner-v1.3.26.ps1 -SelfTest
+          if($LASTEXITCODE -ne 0){throw "Maintenance v1.3.26 selftest exit=$LASTEXITCODE"}
+      - name: Prove operation parity
+        run: python tools/check-maintenance-operation-parity.py control-plane/maintenance/kevin-maintenance-runner-v1.3.26.ps1
+      - name: Assert fixed-main canary and v1.8.3 installer invariants
+        shell: pwsh
+        run: |
+          $t=[IO.File]::ReadAllText('control-plane/maintenance/kevin-maintenance-runner-v1.3.26.ps1')
+          foreach($m in @(
+            "`$SupervisorV183Sha = '29122F147233DC672DC6AFF4D5AD4262D4512B39D67CC42628DB6C5C78D811FB'",
+            "`$SupervisorV183Source = 'control-plane/autonomy/kevin-supervisor-v1.8.3.ps1'",
+            'install_autonomy_controller_v183',
+            "Invoke-OpenClawFixedConfig @('gateway','status','--require-rpc','--json')",
+            "Invoke-OpenClawFixedConfig @('agent','--agent','main','--json','--message',`$message)",
+            "agent='fixed:main'",
+            'gateway_rpc_only=true',
+            'supervisor_v183=true',
+            'Global\KevinSupervisor',
+            'autonomy controller rollback completed'
+          )){if(-not$t.Contains($m)){throw "missing invariant: $m"}}
+          if($t.Contains("Invoke-OpenClawFixedConfig @('agent','--json','--message',`$message)")){throw 'selectorless canary remains'}
+          $start=$t.IndexOf('function Install-AutonomyControllerV183')
+          $end=$t.IndexOf('function Assert-MainAgentCanary',$start)
+          if($start -lt 0 -or $end -le $start){throw 'unable to isolate v1.8.3 installer'}
+          $installer=$t.Substring($start,$end-$start)
+          $tok=$null;$err=$null;$iast=[Management.Automation.Language.Parser]::ParseInput($installer,[ref]$tok,[ref]$err)
+          if($err.Count){throw $err[0].Message}
+          $inames=@($iast.FindAll({param($n) $n -is [Management.Automation.Language.CommandAst]},$true)|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($bad in @('kevin_shell','invoke-expression','iex','cmd.exe','start-process')){if($inames -contains $bad){throw "forbidden installer command $bad"}}
+          Write-Host 'MAINT_V1326_INVARIANTS_PASS fixed_main=true rpc_only=true supervisor_v183=true'
+      - name: Emit exact Maintenance identity
+        shell: pwsh
+        run: |
+          $sha=(Get-FileHash 'control-plane/maintenance/kevin-maintenance-runner-v1.3.26.ps1' -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "MAINT_V1326_CI_PROVEN sha256=$sha"
+          "MAINT_V1326_SHA=$sha" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Publish both exact proven candidates without discarding telemetry
+        shell: pwsh
+        run: |
+          $supPath='control-plane/autonomy/kevin-supervisor-v1.8.3.ps1'
+          $maintPath='control-plane/maintenance/kevin-maintenance-runner-v1.3.26.ps1'
+          $supSaved=Join-Path $env:RUNNER_TEMP 'supervisor-v183.proven.ps1'
+          $maintSaved=Join-Path $env:RUNNER_TEMP 'maintenance-v1326.proven.ps1'
+          Copy-Item $supPath $supSaved -Force;Copy-Item $maintPath $maintSaved -Force
+          if((Get-FileHash $supSaved -Algorithm SHA256).Hash.ToUpperInvariant() -ne '29122F147233DC672DC6AFF4D5AD4262D4512B39D67CC42628DB6C5C78D811FB'){throw 'saved Supervisor identity mismatch'}
+          if((Get-FileHash $maintSaved -Algorithm SHA256).Hash.ToUpperInvariant() -ne $env:MAINT_V1326_SHA){throw 'saved Maintenance identity mismatch'}
+          git config user.name 'Kevin CI';git config user.email 'kevin-ci@users.noreply.github.com'
+          $ok=$false
+          for($attempt=1;$attempt -le 80;$attempt++){
+            git fetch origin main --quiet
+            if($LASTEXITCODE -ne 0){Start-Sleep -Milliseconds 350;continue}
+            git checkout -B publish-v1326 origin/main --quiet
+            if($LASTEXITCODE -ne 0){Start-Sleep -Milliseconds 350;continue}
+            Copy-Item $supSaved $supPath -Force;Copy-Item $maintSaved $maintPath -Force
+            git add -- $supPath $maintPath
+            git diff --cached --quiet
+            if($LASTEXITCODE -eq 0){$ok=$true;break}
+            git commit -m 'Publish CI-proven Supervisor v1.8.3 and Maintenance v1.3.26' --quiet
+            if($LASTEXITCODE -ne 0){Start-Sleep -Milliseconds 350;continue}
+            git push origin HEAD:main --quiet
+            if($LASTEXITCODE -eq 0){$ok=$true;break}
+            Start-Sleep -Milliseconds 350
+          }
+          if(-not$ok){throw 'paired candidate publication exhausted bounded fast-forward retries'}
+          Write-Host "MAINT_V1326_PUBLISH_ACCEPTED sha256=$env:MAINT_V1326_SHA supervisor=29122F147233DC672DC6AFF4D5AD4262D4512B39D67CC42628DB6C5C78D811FB"
