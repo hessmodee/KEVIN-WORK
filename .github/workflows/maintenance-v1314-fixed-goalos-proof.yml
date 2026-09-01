@@ -1,0 +1,89 @@
+name: Maintenance v1.3.14 Fixed Goal OS Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1314-fixed-goalos.py'
+      - '.github/workflows/maintenance-v1314-fixed-goalos-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  prove-and-publish:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Generate candidate from proven v1.3.13
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          python .\tools\generate-maintenance-v1314-fixed-goalos.py
+          if($LASTEXITCODE-ne0){throw 'generator failed'}
+      - name: Parse and deterministic self-test
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $p=Resolve-Path .\control-plane\maintenance\kevin-maintenance-runner-v1.3.14.ps1
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count-gt0){$errors|ForEach-Object{Write-Host $_.Message};throw 'parse failed'}
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1|Out-String
+          Write-Host $out
+          if($LASTEXITCODE-ne0){throw 'selftest failed'}
+          if($out-notmatch 'KEVIN MAINTENANCE v1.3.13 SELFTEST PASS'){throw 'base selftest contract missing'}
+      - name: Static fixed-path and authority invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.14.ps1')
+          t=p.read_text(encoding='utf-8')
+          for x in ['Get-FixedGoalOsFile', "Join-Path $Reports 'goals\\goal-os.json'", 'Fixed Goal OS hash mismatch', 'diagnose_goal_os_forge_anchor', 'Find-ForgeAnchorMatches', 'Assert-Benchmark30']:
+              assert x in t, x
+          for x in ['Get-BoundedJsonInventory','Find-JsonBySha','Goal OS discovery inventory exceeded fixed 500-file budget']:
+              assert x not in t, x
+          for x in ['Invoke-Expression','DownloadString(','New-Object Net.WebClient','System.Net.WebClient']:
+              assert x.lower() not in t.lower(), x
+          assert "foreach($name in @('path','command','args','target','source_path','source_sha256','hash','file','property','root','pattern'))" in t
+          print('V1314_STATIC_PASS fixed_goal_os_path=true exact_hash_gate=true broad_inventory=false authority_delta=NONE')
+      - name: Emit candidate identity
+        shell: python
+        run: |
+          import hashlib,json
+          from pathlib import Path
+          p=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.14.ps1')
+          b=p.read_bytes()
+          out={'schema':1,'kind':'kevin-maintenance-v1314-qualified-candidate','git_head':'${{ github.sha }}','candidate_path':str(p).replace('\\','/'),'sha256':hashlib.sha256(b).hexdigest().upper(),'base_v1313_sha256':hashlib.sha256(Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.13.ps1').read_bytes()).hexdigest().upper()}
+          Path('maintenance-v1314-candidate-hash.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf-8')
+          print(Path('maintenance-v1314-candidate-hash.json').read_text())
+      - uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-v1314-qualified-candidate
+          path: |
+            control-plane/maintenance/kevin-maintenance-runner-v1.3.14.ps1
+            maintenance-v1314-candidate-hash.json
+          retention-days: 7
+      - name: Publish exact qualified source to main
+        shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference='Stop'
+          $repo='${{ github.repository }}'
+          $path='control-plane/maintenance/kevin-maintenance-runner-v1.3.14.ps1'
+          $bytes=[IO.File]::ReadAllBytes($path)
+          $body=[ordered]@{message='Publish CI-qualified Maintenance v1.3.14';content=[Convert]::ToBase64String($bytes);branch='main'}
+          $lookup=gh api ('repos/'+$repo+'/contents/'+$path) --jq '.sha' 2>$null
+          if($LASTEXITCODE-eq0 -and $lookup){$body.sha=[string]$lookup}
+          $tmp=Join-Path $env:TEMP 'v1314-publish.json'
+          [IO.File]::WriteAllText($tmp,($body|ConvertTo-Json -Compress),(New-Object Text.UTF8Encoding($false)))
+          gh api --method PUT ('repos/'+$repo+'/contents/'+$path) --input $tmp --silent
+          if($LASTEXITCODE-ne0){throw 'publish failed'}
