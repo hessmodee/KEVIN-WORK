@@ -4,6 +4,7 @@ import hashlib
 
 # Preserve the already-reviewed v1.3.16 generator as the canonical transformation,
 # then apply one surgical syntax correction discovered by the Windows parser gate.
+# This deterministic wrapper is also the trigger surface for the AST safety gate.
 runpy.run_path('tools/generate-maintenance-v1316-supervisor-forge-demand-gate.py', run_name='__main__')
 
 p = Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.16.ps1')
