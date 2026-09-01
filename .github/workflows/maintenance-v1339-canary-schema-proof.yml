@@ -60,7 +60,8 @@ jobs:
           python tools/check-maintenance-operation-parity.py control-plane/maintenance/kevin-maintenance-runner-v1.3.39.ps1
           if($LASTEXITCODE-ne0){throw 'operation parity failed'}
           $t=[IO.File]::ReadAllText('control-plane/maintenance/kevin-maintenance-runner-v1.3.39.ps1')
-          foreach($m in @("version='1.3.39'",'optional_agent_json=true','missing_toolSummary_safe=true','missing_tool_inventory_safe=true','payload_fallback=true','recursive_tool_count=true','exact_canary_semantics_preserved=true',"$success=($status-eq'success' -and $expected -and $calls-eq0)",'four_independent_readonly_probes=true','install_from_verified_local_tarball=true','supervisor_target=v1.8.5')){if(-not$t.Contains($m)){throw "missing v1.3.39 invariant: $m"}}
+          $required=@("version='1.3.39'",'optional_agent_json=true','missing_toolSummary_safe=true','missing_tool_inventory_safe=true','payload_fallback=true','recursive_tool_count=true','exact_canary_semantics_preserved=true','$success=($status-eq''success'' -and $expected -and $calls-eq0)','four_independent_readonly_probes=true','install_from_verified_local_tarball=true','supervisor_target=v1.8.5')
+          foreach($m in $required){if(-not$t.Contains($m)){throw "missing v1.3.39 invariant: $m"}}
           if($t-match '\.result\.meta\.toolSummary\.calls'){throw 'unsafe mandatory toolSummary dereference remains'}
           Write-Host 'V1339_NARROW_CANARY_SCHEMA_PASS exact_reply=true zero_tools=true optional_fields_safe=true authority_expansion=false'
 
