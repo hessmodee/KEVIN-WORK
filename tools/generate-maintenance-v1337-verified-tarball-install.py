@@ -22,8 +22,8 @@ def once(old: str, new: str, label: str):
 
 once("version='1.3.36'", "version='1.3.37'", 'state version')
 
-old = "function Assert-NpmIntegrity([string]$Version,[string]$Expected) {$r=Invoke-NpmFixed @('view',('openclaw@'+$Version),'dist.integrity','--json') 90;if($r.exit_code-ne0){throw ('npm registry integrity lookup failed for '+$Version)};$actual=([string]$r.output).Trim().Trim('\\\"');if($actual-ne$Expected){throw ('npm integrity mismatch for '+$Version)}}\nfunction Install-ExactOpenClaw([string]$Version) {$r=Invoke-NpmFixed @('install','--global',('openclaw@'+$Version),'--no-audit','--no-fund','--ignore-scripts=false') 900;if($r.exit_code-ne0){throw ('exact OpenClaw install failed version='+$Version)};if((Get-InstalledOpenClawVersion)-ne$Version){throw ('installed OpenClaw version mismatch expected='+$Version)}}"
-
+start = text.index('function Assert-NpmIntegrity')
+end = text.index('function Wait-GatewayRpc', start)
 new = r'''function Get-FixedOpenClawTarballSpec([string]$Version) {
     $integrity = if($Version-eq$GatewayLkgVersion){$GatewayLkgIntegrity}elseif($Version-eq$GatewayRejectedVersion){$GatewayRejectedIntegrity}else{throw ('untrusted OpenClaw package version '+$Version)}
     if($Version-notmatch '^2026\.[0-9]+\.[0-9]+(?:-[0-9]+)?$'){throw 'OpenClaw package version format rejected'}
@@ -67,8 +67,9 @@ function Install-ExactOpenClaw([string]$Version) {
         if($r.exit_code-ne0){throw ('exact verified-tarball OpenClaw install failed version='+$Version)}
         if((Get-InstalledOpenClawVersion)-ne$Version){throw ('installed OpenClaw version mismatch expected='+$Version)}
     }finally{Remove-Item -LiteralPath $tar -Force -ErrorAction SilentlyContinue}
-}'''
-once(old, new, 'npm integrity/install functions')
+}
+'''
+text = text[:start] + new + text[end:]
 
 self_anchor = "    Write-Host 'KEVIN MAINTENANCE v1.3.36 SELFTEST PASS lkg_config_compat=target_validates_untouched transactional_snapshot=true config_hash_unchanged=true exact_config_rollback=true exact_package_rollback=true keeper_preserved=true gateway_rpc_postcondition=true benchmark_30=true arbitrary_shell=false authority_expansion=false'\n"
 self_extra = self_anchor + r'''    $pkgFn=(Get-Command Install-ExactOpenClaw).ScriptBlock.ToString();$dlFn=(Get-Command Download-VerifiedOpenClawTarball).ScriptBlock.ToString();$specFn=(Get-Command Get-FixedOpenClawTarballSpec).ScriptBlock.ToString();if(-not$pkgFn.Contains("@('install','--global',$tar")){throw 'verified local tarball install missing'};if(-not$dlFn.Contains('Get-FileSriSha512')){throw 'tarball byte-level SRI verification missing'};if(-not$specFn.Contains('https://registry.npmjs.org/openclaw/-/openclaw-')){throw 'fixed official registry tarball root missing'};if($specFn.Contains('http://')){throw 'insecure tarball transport present'}
