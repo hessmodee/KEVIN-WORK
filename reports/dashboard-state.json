@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T22:35:09.5712338-06:00",
-  "status": "ready",
+  "generated_at": "2026-08-31T22:37:01-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,16 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "night-forge",
+    "title": "Night Forge cycle",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-31T22:37:01-06:00",
+    "source": "forge"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -20,8 +29,8 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 34,
-    "cpu_pct": 26,
+    "memory_pct": 35,
+    "cpu_pct": 10,
     "gpu": "RTX 3060",
     "gpu_pct": 39
   },
@@ -29,20 +38,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-31T18:23:21-06:00",
-        "estimated": false,
-        "ram": 30,
-        "cpu": 12,
-        "gpu": 34
-      },
-      {
-        "at": "2026-08-31T18:24:01-06:00",
-        "estimated": false,
-        "ram": 30,
-        "cpu": 12,
-        "gpu": 34
-      },
       {
         "at": "2026-08-31T18:32:24-06:00",
         "estimated": false,
@@ -700,11 +695,23 @@
         "ram": 34,
         "cpu": 26,
         "gpu": 39
+      },
+      {
+        "at": "2026-08-31T22:35:14-06:00",
+        "estimated": false,
+        "ram": 36,
+        "cpu": 25,
+        "gpu": 37
+      },
+      {
+        "at": "2026-08-31T22:37:01-06:00",
+        "estimated": false,
+        "ram": 35,
+        "cpu": 10,
+        "gpu": 39
       }
     ],
     "ram": [
-      30,
-      30,
       30,
       30,
       33,
@@ -798,11 +805,11 @@
       31,
       31,
       34,
-      34
+      34,
+      36,
+      35
     ],
     "cpu": [
-      12,
-      12,
       8,
       8,
       11,
@@ -896,11 +903,11 @@
       17,
       17,
       26,
-      26
+      26,
+      25,
+      10
     ],
     "gpu": [
-      34,
-      34,
       28,
       28,
       21,
@@ -994,6 +1001,8 @@
       38,
       38,
       39,
+      39,
+      37,
       39
     ]
   },
@@ -1148,6 +1157,22 @@
   ],
   "activity": [
     {
+      "at": "2026-08-31T22:37:01-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-08-31T22:35:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-31T22:35:04-06:00",
       "source": "forge",
       "component": "forge",
@@ -1203,13 +1228,6 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-31T22:20:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-31T22:13:26-06:00",
@@ -1361,24 +1379,14 @@
       "detail": "Design Forge: operator",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-31T21:28:06-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: forge-v4",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 40000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-31T22:35:09.5712338-06:00",
+    "last": "2026-08-31T22:37:01-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1415,30 +1423,30 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-31T22:35:09.5712338-06:00",
+    "generated_at": "2026-08-31T22:37:01-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "Forge attempt failed; Supervisor scheduled a bounded retry.",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
+      "id": "night-forge",
+      "name": "Night Forge",
+      "title": "Night Forge cycle",
+      "category": "qa",
+      "state": "working",
+      "detail": "started",
+      "what": "Running safety and regression checks.",
+      "engine": "Night Forge",
+      "action": "QA / regression"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "Forge attempt failed; Supervisor scheduled a bounded retry.",
+        "state": "waiting",
+        "detail": "Supervisor is yielding while Night Forge owns the engineering lane.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1466,17 +1474,17 @@
     ]
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "Forge attempt failed; Supervisor scheduled a bounded retry.",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "running": true,
+    "state": "working",
+    "phase": "started",
+    "worker": "Night Forge",
+    "engine": "Night Forge",
+    "action": "QA / regression"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | Forge attempt failed; Supervisor scheduled a bounded retry.",
+      "text": "Night Forge | WORKING | started",
       "severity": "normal"
     }
   ]
