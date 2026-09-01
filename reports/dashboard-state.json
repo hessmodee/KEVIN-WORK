@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T07:05:14-06:00",
-  "status": "ready",
+  "generated_at": "2026-09-01T07:05:54-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,16 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "design-forge",
+    "title": "Design Forge: forge-v4",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-09-01T07:05:54-06:00",
+    "source": "forge"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -29,13 +38,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-01T03:26:05-06:00",
-        "estimated": false,
-        "ram": 32,
-        "cpu": 7,
-        "gpu": 35
-      },
       {
         "at": "2026-09-01T03:31:38-06:00",
         "estimated": false,
@@ -700,10 +702,16 @@
         "ram": 35,
         "cpu": 21,
         "gpu": 31
+      },
+      {
+        "at": "2026-09-01T07:05:54-06:00",
+        "estimated": false,
+        "ram": 35,
+        "cpu": 21,
+        "gpu": 31
       }
     ],
     "ram": [
-      32,
       35,
       35,
       37,
@@ -798,10 +806,10 @@
       33,
       32,
       36,
+      35,
       35
     ],
     "cpu": [
-      7,
       7,
       7,
       11,
@@ -896,10 +904,10 @@
       47,
       4,
       13,
+      21,
       21
     ],
     "gpu": [
-      35,
       36,
       36,
       36,
@@ -994,6 +1002,7 @@
       36,
       48,
       99,
+      31,
       31
     ]
   },
@@ -1147,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-09-01T07:05:54-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: forge-v4",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-09-01T07:05:14-06:00",
       "component": "tick",
@@ -1361,24 +1379,14 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-09-01T05:50:32-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: knowledge",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 26000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-09-01T07:05:14-06:00",
+    "last": "2026-09-01T07:05:54-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1415,30 +1423,30 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-01T07:04:55.0866108-06:00",
+    "generated_at": "2026-09-01T07:05:54-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "Forge attempt failed; Supervisor scheduled a bounded retry.",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
+      "id": "design-forge",
+      "name": "Build Lab",
+      "title": "Design Forge: forge-v4",
+      "category": "forge",
+      "state": "working",
+      "detail": "started",
+      "what": "Generating and validating an isolated candidate.",
+      "engine": "Ollama | Qwen 2.5 14B",
+      "action": "Candidate engineering"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "Forge attempt failed; Supervisor scheduled a bounded retry.",
+        "state": "coordinating",
+        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1466,17 +1474,17 @@
     ]
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "Forge attempt failed; Supervisor scheduled a bounded retry.",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "running": true,
+    "state": "working",
+    "phase": "started",
+    "worker": "Build Lab",
+    "engine": "Ollama | Qwen 2.5 14B",
+    "action": "Candidate engineering"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | Forge attempt failed; Supervisor scheduled a bounded retry.",
+      "text": "Build Lab | WORKING | started",
       "severity": "normal"
     }
   ]
