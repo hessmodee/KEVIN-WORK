@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-01T00:48:11.2668353-06:00",
+    "generated_at":  "2026-09-01T00:51:12.3438431-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,32 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788245107020,
-                                  "next_run_at_ms":  1788245287020
-                              },
-                              {
-                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
-                                  "declaration_key":  "kevin-hq-live-pulse-v15",
-                                  "name":  "Kevin HQ Live Pulse v1.5",
-                                  "enabled":  true,
-                                  "every_ms":  60000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788245282846,
-                                  "next_run_at_ms":  1788245342846
-                              },
-                              {
-                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
-                                  "declaration_key":  "kevin-supervisor-v1",
-                                  "name":  "Kevin Supervisor v1.6 High Gear",
-                                  "enabled":  true,
-                                  "every_ms":  180000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788245166776,
-                                  "next_run_at_ms":  1788245346776
+                                  "last_run_at_ms":  1788245287033,
+                                  "next_run_at_ms":  1788245467033
                               },
                               {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
@@ -103,6 +79,30 @@
                                   "consecutive_errors":  1,
                                   "last_run_at_ms":  1788245188235,
                                   "next_run_at_ms":  1788245488235
+                              },
+                              {
+                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
+                                  "declaration_key":  "kevin-hq-live-pulse-v15",
+                                  "name":  "Kevin HQ Live Pulse v1.5",
+                                  "enabled":  true,
+                                  "every_ms":  60000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788245463554,
+                                  "next_run_at_ms":  1788245523554
+                              },
+                              {
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.6 High Gear",
+                                  "enabled":  true,
+                                  "every_ms":  180000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788245346791,
+                                  "next_run_at_ms":  1788245526791
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -120,10 +120,10 @@
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  405,
+                       "cycle":  406,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-09-01T00:46:08.2985542-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-09-01T00:49:52.0445245-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -148,14 +148,14 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260901-004040-forge-v4-i353-evaluation.json",
-                              "at":  "2026-09-01T00:41:26.0205663-06:00",
+                              "file":  "20260901-004908-forge-v4-i354-evaluation.json",
+                              "at":  "2026-09-01T00:49:51.9317274-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  353,
+                              "iteration":  354,
                               "verdict":  "REJECT",
                               "score":  2,
                               "result":  "",
-                              "failure_count":  5,
+                              "failure_count":  8,
                               "security_finding_count":  1,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "381D1844FBBAC9A4F9AF338A698A150F94924908D48866C1536A629B9D8E0D31"
+    "semantic_hash":  "778E35B3740FED9CDFCD4E6A6E0D8649102A6212317CBF31800D0C6F86CBB7E1"
 }
