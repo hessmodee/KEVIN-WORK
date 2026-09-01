@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T21:37:45-06:00",
-  "status": "ready",
+  "generated_at": "2026-08-31T21:38:08.3377139-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,14 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "night-forge",
+    "title": "Night Forge QA",
+    "category": "qa",
+    "phase": "Night Forge QA/regression cycle active.",
+    "started_at": "2026-08-31T21:38:08.3377139-06:00",
+    "source": "hq-live-ops"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -1377,7 +1384,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-31T21:37:45-06:00",
+    "last": "2026-08-31T21:38:08.3377139-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1414,22 +1421,22 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-31T21:36:07.1269761-06:00",
+    "generated_at": "2026-08-31T21:38:08.3377139-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "Forge attempt failed; Supervisor scheduled a bounded retry.",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
+      "id": "night-forge",
+      "name": "Night Forge",
+      "title": "Night Forge QA",
+      "category": "qa",
+      "state": "working",
+      "detail": "Night Forge QA/regression cycle active.",
+      "what": "Running safety and regression checks.",
+      "engine": "Night Forge",
+      "action": "QA / regression"
     },
     "lanes": [
       {
@@ -1437,7 +1444,7 @@
         "name": "Supervisor",
         "role": "Goal-aware control plane",
         "state": "ready",
-        "detail": "Forge attempt failed; Supervisor scheduled a bounded retry.",
+        "detail": "Completed forge-v4 i333 evaluation=REJECT score=2 auto_staged=False",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1465,17 +1472,17 @@
     ]
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "Forge attempt failed; Supervisor scheduled a bounded retry.",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "running": true,
+    "state": "working",
+    "phase": "Night Forge QA/regression cycle active.",
+    "worker": "Night Forge",
+    "engine": "Night Forge",
+    "action": "QA / regression"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | Forge attempt failed; Supervisor scheduled a bounded retry.",
+      "text": "Night Forge | WORKING | Night Forge QA/regression cycle active.",
       "severity": "normal"
     }
   ]
