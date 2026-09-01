@@ -93,9 +93,9 @@ old_marker="Write-Host 'KEVIN SELF-RELIANCE WATCHDOG v1.3 SELFTEST PASS implemen
 new_marker="""if (-not $PSCommandPath -or -not (Test-Path -LiteralPath $PSCommandPath -PathType Leaf)) { throw 'self path unavailable' }
     $selfText=[IO.File]::ReadAllText($PSCommandPath)
     if ($selfText -notmatch 'param\\(\\[switch\\]\\$SelfTest,\\[switch\\]\\$ProbeOnly\\)') { throw 'ProbeOnly parameter missing' }
-    if ($selfText -notmatch "maintenance_result = 'SKIPPED_PROBE'") { throw 'ProbeOnly maintenance recursion guard missing' }
-    if ($selfText -notmatch "Save-State \\$s \\('PROBE_ONLY_' \\+ \\$class\\)") { throw 'ProbeOnly failure terminal missing' }
-    if ($selfText -notmatch "Get-ScheduledTask -TaskName 'KevinGatewayKeeper'") { throw 'Gateway Keeper topology missing' }
+    if (-not $selfText.Contains("maintenance_result = 'SKIPPED_PROBE'")) { throw 'ProbeOnly maintenance recursion guard missing' }
+    if (-not $selfText.Contains("Save-State `$s ('PROBE_ONLY_' + `$class)")) { throw 'ProbeOnly failure terminal missing' }
+    if (-not $selfText.Contains("Get-ScheduledTask -TaskName 'KevinGatewayKeeper'")) { throw 'Gateway Keeper topology missing' }
     Write-Host 'KEVIN SELF-RELIANCE WATCHDOG v1.3 SELFTEST PASS implementation=v1.6.0 gateway_truth=fresh outage_maintenance_wake=true work_order_poll=true probe_only=true probe_no_intake=true probe_no_restart=true keeper_topology=true safe_startup_classifier=true direct_config_secrets=false retry_max=3 cooldown=15m arbitrary_shell=false caller_argv=false'"""
 once(old_marker,new_marker,'selftest')
 
