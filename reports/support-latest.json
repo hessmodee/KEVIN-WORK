@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-31T18:31:38.3598198-06:00",
+    "generated_at":  "2026-08-31T18:34:38.3801883-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788222511224,
-                                  "next_run_at_ms":  1788222691224
-                              },
-                              {
-                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
-                                  "declaration_key":  "kevin-supervisor-v1",
-                                  "name":  "Kevin Supervisor v1.6 High Gear",
-                                  "enabled":  true,
-                                  "every_ms":  180000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788222561598,
-                                  "next_run_at_ms":  1788222741598
+                                  "last_run_at_ms":  1788222694036,
+                                  "next_run_at_ms":  1788222874036
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,20 +77,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788222691029,
-                                  "next_run_at_ms":  1788222751029
+                                  "last_run_at_ms":  1788222818751,
+                                  "next_run_at_ms":  1788222878751
                               },
                               {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.6 High Gear",
                                   "enabled":  true,
-                                  "every_ms":  300000,
+                                  "every_ms":  180000,
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788222558551,
-                                  "next_run_at_ms":  1788222858551
+                                  "last_run_at_ms":  1788222741613,
+                                  "next_run_at_ms":  1788222921613
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -115,15 +103,27 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788222537154,
                                   "next_run_at_ms":  1788223137154
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788222858564,
+                                  "next_run_at_ms":  1788223158564
                               }
                           ],
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  361,
+                       "cycle":  362,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-08-31T18:29:23.1945866-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-08-31T18:33:36.6719898-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -148,20 +148,20 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260831-182321-forge-v4-i312-evaluation.json",
-                              "at":  "2026-08-31T18:24:16.3390215-06:00",
+                              "file":  "20260831-183223-forge-v4-i313-evaluation.json",
+                              "at":  "2026-08-31T18:33:36.5539028-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  312,
+                              "iteration":  313,
                               "verdict":  "REJECT",
-                              "score":  2,
+                              "score":  0,
                               "result":  "",
-                              "failure_count":  6,
-                              "security_finding_count":  2,
+                              "failure_count":  8,
+                              "security_finding_count":  3,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-31T18:31:14.7279899-06:00",
+                        "at":  "2026-08-31T18:34:19.4644895-06:00",
                         "status":  "ALREADY_APPLIED_PROVEN",
                         "manifest_id":  "diagnose-forge-r03-contract-20260831-1756",
                         "stage_path":  "",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "FE5FA6BE044B8AA93C356356C987C38701564A932C0F40BE3F3A7C0CA58441DA"
+    "semantic_hash":  "EC773501A5D1CF744E05C736B1F280B3F49B419C209B4F775F3B0B9788765A94"
 }
