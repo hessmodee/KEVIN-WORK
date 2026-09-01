@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-31T21:19:58.5834675-06:00",
+    "generated_at":  "2026-08-31T21:23:03.7109764-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788232614361,
-                                  "next_run_at_ms":  1788232794361
+                                  "last_run_at_ms":  1788232794377,
+                                  "next_run_at_ms":  1788232974377
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788232760021,
-                                  "next_run_at_ms":  1788232820021
+                                  "last_run_at_ms":  1788232973950,
+                                  "next_run_at_ms":  1788233033950
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -89,8 +89,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788232703597,
-                                  "next_run_at_ms":  1788232883597
+                                  "last_run_at_ms":  1788232883608,
+                                  "next_run_at_ms":  1788233063608
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -101,8 +101,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788232292057,
-                                  "next_run_at_ms":  1788232892057
+                                  "last_run_at_ms":  1788232913919,
+                                  "next_run_at_ms":  1788233513919
                               },
                               {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
@@ -122,19 +122,19 @@
     "supervisor":  {
                        "cycle":  380,
                        "last_mission":  "forge-v4",
-                       "last_result":  "REJECT",
-                       "next_eligible_at":  "2026-08-31T21:19:17.9504354-06:00",
+                       "last_result":  "RECOVERY_PASS",
+                       "next_eligible_at":  "2026-08-31T21:21:51.8374454-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
     "recovery":  {
-                     "fingerprint":  "64FE42423A130C81A1DE7E9FF54E7151033F3693BDFC341DEF73B9C89756FA20",
+                     "fingerprint":  "30FC5DEE1999C4D48CC9519CD5DF6C91B211934250213A016EB04D516B7C461E",
                      "round":  1,
-                     "last_at":  "2026-08-31T21:12:44.2870971-06:00",
-                     "last_brief":  "20260831-211244-round1.json"
+                     "last_at":  "2026-08-31T21:21:51.7054346-06:00",
+                     "last_brief":  "20260831-212151-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-08-31T21:11:40.9243623-06:00",
+                      "at":  "2026-08-31T21:22:02.8281583-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -161,11 +161,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-31T21:19:25.9457548-06:00",
-                        "status":  "ERROR",
-                        "manifest_id":  "",
+                        "at":  "2026-08-31T21:21:17.8410107-06:00",
+                        "status":  "APPLY_FAILED",
+                        "manifest_id":  "reader-status-canary-20260831-2119",
                         "stage_path":  "",
-                        "detail":  "manifest expired"
+                        "detail":  "Reader gateway deep probe failed"
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "7826C8786257827160CB68AEA8AF5E955FFCCDFE1F7151A007A847C13D51AB91"
+    "semantic_hash":  "53A2FEDB6FD96AE6E32535932DDE0DA2EA6ACFBE67A8A1F18054CF854BEE5ACE"
 }
