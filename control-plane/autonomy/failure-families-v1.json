@@ -1,0 +1,83 @@
+{
+  "schema": 1,
+  "kind": "kevin-failure-family-registry",
+  "safe_for_public_repo": true,
+  "policy": {
+    "max_material_attempts": 3,
+    "rename_does_not_reset_budget": true,
+    "request_id_does_not_reset_budget": true,
+    "iteration_does_not_reset_budget": true,
+    "reopen_requires_material_new_evidence": true,
+    "blocked_family_may_do_read_only_diagnosis": true,
+    "blocked_family_may_mutate_or_execute": false
+  },
+  "families": [
+    {
+      "id": "forge-demandless-supervisor-bypass",
+      "state": "BLOCKED",
+      "attempts": 3,
+      "severity": "high",
+      "scope": "Supervisor/Recovery/Forge production admission",
+      "current_evidence": "Legacy Supervisor v1.6 High Gear continues to create Forge work while finish-forge-v40-runtime-convergence is BLOCKED; fresh Support reached forge-v4 iteration 334 REJECT. Exact installed Supervisor bytes prove Recovery->Experiment constructs a new choice with blocked=false without consulting the modern deterministic work selector.",
+      "allowed_next": [
+        "read-only installed-runtime diagnosis",
+        "build and test deterministic admission repair candidate",
+        "install repair only through typed reversible maintenance after exact-current proof"
+      ],
+      "reopen_conditions": [
+        "installed admission repair prevents all blocked-family Forge dispatches",
+        "at least two scheduled Supervisor opportunities produce zero new Forge evaluations while family is blocked",
+        "a new bounded demand identity is tied to a current owner objective and acceptance criteria",
+        "Benchmark remains PASS 30/30 critical=0"
+      ]
+    },
+    {
+      "id": "reader-canary-runtime-path",
+      "state": "BLOCKED",
+      "attempts": 3,
+      "severity": "high",
+      "scope": "isolated Reader status canary execution path",
+      "current_evidence": "Initial Reader canary expired without terminal evidence and the bounded reissue exhausted the Maintenance/runtime retry budget before 2/2 semantic proof was produced.",
+      "allowed_next": [
+        "read-only installed Reader/Maintenance execution-path diagnosis",
+        "replay only after a materially changed dependency or runtime repair"
+      ],
+      "reopen_conditions": [
+        "materially new installed-runtime evidence identifies the execution-path blocker",
+        "the blocker is repaired through a typed reversible path",
+        "the original 2/2 semantic/tool/privacy acceptance contract remains unchanged"
+      ]
+    },
+    {
+      "id": "skill-workshop-config-contract",
+      "state": "COOLED",
+      "attempts": 2,
+      "severity": "medium",
+      "scope": "installed OpenClaw Skill Workshop configuration contract",
+      "current_evidence": "Two materially distinct fixed configuration hypotheses failed closed against the installed Omen CLI while Benchmark stayed healthy.",
+      "allowed_next": [
+        "read-only installed CLI help/schema/version/config-path evidence",
+        "proposal-first learning design without configuration mutation"
+      ],
+      "reopen_conditions": [
+        "read-only installed CLI evidence materially changes the configuration hypothesis",
+        "new write is exact-key/value bounded, dry-run or validation-gated when supported, reversible, and Benchmark-verified"
+      ]
+    },
+    {
+      "id": "hq-attention-historical-replay",
+      "state": "RESOLVED",
+      "attempts": 1,
+      "severity": "medium",
+      "scope": "HQ Truth current Attention predicates",
+      "current_evidence": "Production HQ Truth now recomputes current desired/live drift, treats deliberate blocked Forge-only mismatch as KNOWN DRIFT, and only reports Forge rejection when blocked Forge is currently active or freshly evaluating. The exact production JS loaded by HQ is CI-gated.",
+      "allowed_next": [
+        "regression monitoring only"
+      ],
+      "reopen_conditions": [
+        "a resolved historical incident resurfaces as current Attention without a true current predicate",
+        "HQ tests a shadow file instead of the production-loaded artifact"
+      ]
+    }
+  ]
+}
