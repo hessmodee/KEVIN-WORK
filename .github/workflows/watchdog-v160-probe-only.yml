@@ -1,0 +1,76 @@
+name: Self-Reliance Watchdog v1.6.0 ProbeOnly
+
+on:
+  push:
+    paths:
+      - '.github/workflows/watchdog-v160-probe-only.yml'
+      - '.github/scripts/build-watchdog-v160-probe-only.py'
+      - 'control-plane/maintenance/kevin-self-reliance-watchdog-v1.5.1.ps1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  prove:
+    runs-on: windows-latest
+    steps:
+      - name: Preserve LF bytes
+        shell: powershell
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build candidate
+        shell: powershell
+        run: |
+          python .github/scripts/build-watchdog-v160-probe-only.py
+          if($LASTEXITCODE-ne0){throw 'builder failed'}
+      - name: Parse and self-test
+        shell: powershell
+        run: |
+          $p='control-plane/maintenance/kevin-self-reliance-watchdog-v1.6.0.ps1'
+          $txt=[IO.File]::ReadAllText($p)
+          $tokens=$null;$errors=$null
+          $ast=[System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){$errors|%{$_.Message};throw 'parser rejected watchdog v1.6.0'}
+          if($txt-notmatch'\[switch\]\$ProbeOnly'){throw 'ProbeOnly missing'}
+          if($txt-notmatch"maintenance_result = 'SKIPPED_PROBE'"){throw 'probe intake guard missing'}
+          if($txt-notmatch"PROBE_ONLY_' \+ \$class"){throw 'probe terminal missing'}
+          if($txt-notmatch"Get-ScheduledTask -TaskName 'KevinGatewayKeeper'"){throw 'Keeper topology missing'}
+          $commands=@($ast.FindAll({param($n) $n -is [System.Management.Automation.Language.CommandAst]},$true))
+          if(@($commands|?{($_.GetCommandName()) -in @('Invoke-Expression','iex')}).Count){throw 'actual Invoke-Expression detected'}
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1|Out-String
+          if($LASTEXITCODE-ne0){Write-Host $out;throw 'self-test failed'}
+          if($out-notmatch'implementation=v1\.6\.0' -or $out-notmatch'probe_no_intake=true' -or $out-notmatch'probe_no_restart=true'){Write-Host $out;throw 'v1.6.0 proof marker missing'}
+          Write-Host $out
+      - name: Structural no-recursion/no-restart proof
+        shell: powershell
+        run: |
+          $p='control-plane/maintenance/kevin-self-reliance-watchdog-v1.6.0.ps1'
+          $txt=[IO.File]::ReadAllText($p)
+          $probeGate=$txt.IndexOf("if (`$ProbeOnly) { `$s.failure_family = `$class; Save-State `$s ('PROBE_ONLY_' + `$class); exit 0 }")
+          $restart=$txt.IndexOf("Invoke-OpenClawFixed @('gateway','restart'")
+          if($probeGate-lt0-or$restart-lt0-or$probeGate-ge$restart){throw 'ProbeOnly does not terminate before restart path'}
+          $skip=$txt.IndexOf("`$s.maintenance_result = 'SKIPPED_PROBE'")
+          $runMaint=$txt.IndexOf('Run-MaintenanceIfDue $s')
+          if($skip-lt0-or$runMaint-lt0-or$skip-ge$runMaint){throw 'ProbeOnly intake guard ordering invalid'}
+      - name: Emit proof
+        shell: powershell
+        run: |
+          $p='control-plane/maintenance/kevin-self-reliance-watchdog-v1.6.0.ps1'
+          $sha=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          $obj=[ordered]@{schema=1;kind='kevin-watchdog-v160-ci-proof';generated_at=(Get-Date).ToString('o');state='WINDOWS_CI_PROVEN';candidate_sha256=$sha;parent='v1.5.1';windows_parser=$true;self_test=$true;probe_only=$true;probe_skips_maintenance=$true;probe_skips_work_order=$true;probe_skips_console_mutation=$true;probe_terminates_before_restart=$true;keeper_topology=$true;normal_outage_intake_preserved=$true;retry_max=3;cooldown_minutes=15;arbitrary_shell=$false;authority_expansion=$false}
+          New-Item -ItemType Directory -Force reports/ci|Out-Null
+          [IO.File]::WriteAllText('reports/ci/watchdog-v160-probe-only.json',($obj|ConvertTo-Json -Depth 10),(New-Object Text.UTF8Encoding($false)))
+          Write-Host "CANDIDATE_SHA256=$sha"
+      - name: Commit proven candidate
+        shell: powershell
+        run: |
+          git config user.name 'kevin-ci'
+          git config user.email 'kevin-ci@users.noreply.github.com'
+          git add control-plane/maintenance/kevin-self-reliance-watchdog-v1.6.0.ps1 reports/ci/watchdog-v160-probe-only.json
+          if(git diff --cached --quiet){Write-Host 'Already committed';exit 0}
+          git commit -m 'Add CI-proven watchdog v1.6.0 ProbeOnly recursion guard'
+          git pull --rebase origin main
+          git push origin HEAD:main
