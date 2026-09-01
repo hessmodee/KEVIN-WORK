@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T06:20:38-06:00",
+  "generated_at": "2026-09-01T06:20:42.9542225-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -1378,7 +1378,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-01T06:20:38-06:00",
+    "last": "2026-09-01T06:20:42.9542225-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1415,7 +1415,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-01T06:19:16.5520552-06:00",
+    "generated_at": "2026-09-01T06:20:42.9542225-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1427,7 +1427,7 @@
       "title": "Kevin autonomous system armed",
       "category": "supervisor",
       "state": "ready",
-      "detail": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-09-01T06:17:47.7120267-06:00",
+      "detail": "Forge attempt failed; Supervisor scheduled a bounded retry.",
       "what": "Waiting only for the next scheduled three-minute control cycle.",
       "engine": "Supervisor v1.4",
       "action": "Autonomous schedule armed"
@@ -1438,7 +1438,7 @@
         "name": "Supervisor",
         "role": "Goal-aware control plane",
         "state": "ready",
-        "detail": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-09-01T06:17:47.7120267-06:00",
+        "detail": "Forge attempt failed; Supervisor scheduled a bounded retry.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1468,7 +1468,7 @@
   "execution": {
     "running": false,
     "state": "ready",
-    "phase": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-09-01T06:17:47.7120267-06:00",
+    "phase": "Forge attempt failed; Supervisor scheduled a bounded retry.",
     "worker": "Supervisor",
     "engine": "Supervisor v1.4",
     "action": "Autonomous schedule armed"
@@ -1476,7 +1476,7 @@
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-09-01T06:17:47.7120267-06:00",
+      "text": "Supervisor | READY | Forge attempt failed; Supervisor scheduled a bounded retry.",
       "severity": "normal"
     }
   ]
