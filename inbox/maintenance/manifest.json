@@ -1,12 +1,17 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "watchdog-operational-proof-v131-20260901-1440",
+  "id": "install-maint-v132-recovery-hardening-20260901-1519",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "run_self_reliance_watchdog_once",
-  "expires_at": "2026-09-01T16:00:00-06:00"
+  "operation": "replace_pinned_component",
+  "target_alias": "maintenance_runner",
+  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.32.ps1",
+  "source_sha256": "8C7C389C60BFAAE8AFB519435D1FA1A7297C5B702AC5F782951B390A80F7F871",
+  "expected_current_sha256": "75ED88D5A399A6AC14D30EC07EF90E53080D63FC404C6315352200B5DF1105C1",
+  "expected_after_sha256": "8C7C389C60BFAAE8AFB519435D1FA1A7297C5B702AC5F782951B390A80F7F871",
+  "expires_at": "2026-09-01T17:00:00-06:00"
 }
