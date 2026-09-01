@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T06:53:49-06:00",
-  "status": "working",
+  "generated_at": "2026-09-01T06:54:29-06:00",
+  "status": "ready",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,16 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: forge-v4",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-09-01T06:53:49-06:00",
-    "source": "forge"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -38,13 +29,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-01T03:16:28-06:00",
-        "estimated": false,
-        "ram": 31,
-        "cpu": 9,
-        "gpu": 44
-      },
       {
         "at": "2026-09-01T03:17:01-06:00",
         "estimated": false,
@@ -709,11 +693,17 @@
         "ram": 33,
         "cpu": 47,
         "gpu": 36
+      },
+      {
+        "at": "2026-09-01T06:54:29-06:00",
+        "estimated": false,
+        "ram": 33,
+        "cpu": 47,
+        "gpu": 36
       }
     ],
     "ram": [
       31,
-      31,
       35,
       32,
       32,
@@ -807,12 +797,12 @@
       35,
       35,
       32,
+      33,
       33
     ],
     "cpu": [
       9,
       9,
-      9,
       7,
       7,
       7,
@@ -905,10 +895,10 @@
       23,
       23,
       13,
+      47,
       47
     ],
     "gpu": [
-      44,
       44,
       41,
       35,
@@ -1003,6 +993,7 @@
       51,
       51,
       38,
+      36,
       36
     ]
   },
@@ -1156,6 +1147,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-09-01T06:54:28-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge built candidate: forge-v4",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 39000
+    },
     {
       "at": "2026-09-01T06:53:49-06:00",
       "source": "forge",
@@ -1370,23 +1371,14 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 35000
-    },
-    {
-      "at": "2026-09-01T05:44:28-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: forge-v4",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-09-01T06:53:49-06:00",
+    "last": "2026-09-01T06:54:29-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1396,9 +1388,9 @@
   "autonomy": {
     "mode": "hourly_design",
     "state": "pass",
-    "last_mission": "reader-weather",
+    "last_mission": "forge-v4",
     "iteration": 390,
-    "updated_at": "2026-09-01T06:39:05.5538579-06:00",
+    "updated_at": "2026-09-01T06:54:28.8832434-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1413,40 +1405,40 @@
     "candidate_forge": {
       "result": "pass",
       "mode": "design-forge-v3",
-      "last_mission": "reader-weather",
+      "last_mission": "forge-v4",
       "iteration": 390,
-      "updated_at": "2026-09-01T06:39:05.5538579-06:00",
-      "next_index": 5,
+      "updated_at": "2026-09-01T06:54:28.8832434-06:00",
+      "next_index": 0,
       "scheduled": true,
       "promotion": "blocked"
     }
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-01T06:53:49-06:00",
+    "generated_at": "2026-09-01T06:52:50.6337596-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "design-forge",
-      "name": "Build Lab",
-      "title": "Design Forge: forge-v4",
-      "category": "forge",
-      "state": "working",
-      "detail": "started",
-      "what": "Generating and validating an isolated candidate.",
-      "engine": "Ollama | Qwen 2.5 14B",
-      "action": "Candidate engineering"
+      "id": "supervisor",
+      "name": "Supervisor",
+      "title": "Kevin autonomous system armed",
+      "category": "supervisor",
+      "state": "ready",
+      "detail": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=DUPLICATE. Recovery proposed an experiment that was already dispatched.",
+      "what": "Waiting only for the next scheduled three-minute control cycle.",
+      "engine": "Supervisor v1.4",
+      "action": "Autonomous schedule armed"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "coordinating",
-        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
+        "state": "ready",
+        "detail": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=DUPLICATE. Recovery proposed an experiment that was already dispatched.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1474,17 +1466,17 @@
     ]
   },
   "execution": {
-    "running": true,
-    "state": "working",
-    "phase": "started",
-    "worker": "Build Lab",
-    "engine": "Ollama | Qwen 2.5 14B",
-    "action": "Candidate engineering"
+    "running": false,
+    "state": "ready",
+    "phase": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=DUPLICATE. Recovery proposed an experiment that was already dispatched.",
+    "worker": "Supervisor",
+    "engine": "Supervisor v1.4",
+    "action": "Autonomous schedule armed"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Build Lab | WORKING | started",
+      "text": "Supervisor | READY | All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=DUPLICATE. Recovery proposed an experiment that was already dispatched.",
       "severity": "normal"
     }
   ]
