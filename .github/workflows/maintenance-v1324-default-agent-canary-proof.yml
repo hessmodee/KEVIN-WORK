@@ -48,8 +48,10 @@ jobs:
         shell: pwsh
         run: |
           $t=[IO.File]::ReadAllText('control-plane/maintenance/kevin-maintenance-runner-v1.3.24.ps1')
-          foreach($marker in @("@('agent','--json','--message',$message)","agent='fixed:runtime-default'","failure_stage='agent_cli'","failure_stage='agent_json_parse'","default_agent_canary=fixed","raw_text_published=false")){if(-not$t.Contains($marker)){throw "missing invariant: $marker"}}
-          if($t.Contains("@('agent','--agent','main','--json','--message',$message)")){throw 'old explicit main-agent canary invocation remained'}
+          $expectedInvocation='@(''agent'',''--json'',''--message'',$message)'
+          $oldInvocation='@(''agent'',''--agent'',''main'',''--json'',''--message'',$message)'
+          foreach($marker in @($expectedInvocation,"agent='fixed:runtime-default'","failure_stage='agent_cli'","failure_stage='agent_json_parse'","default_agent_canary=fixed","raw_text_published=false")){if(-not$t.Contains($marker)){throw "missing invariant: $marker"}}
+          if($t.Contains($oldInvocation)){throw 'old explicit main-agent canary invocation remained'}
           foreach($forbidden in @('raw_prompt=','raw_output=','tool_names=@(')){if($t.Contains($forbidden)){throw "forbidden public canary field: $forbidden"}}
           Write-Host 'MAINT_V1324_DEFAULT_AGENT_CANARY_INVARIANTS_PASS'
       - name: Emit exact qualified identity
