@@ -1,0 +1,59 @@
+name: Maintenance v1.3.13 Goal OS Anchor Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1313-goalos-anchor.py'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.12.ps1'
+      - '.github/workflows/maintenance-v1313-goalos-anchor-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.13'}
+      - name: Generate candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop';python .\tools\generate-maintenance-v1313-goalos-anchor.py;if($LASTEXITCODE-ne0){throw 'generator failed'}
+      - name: Parse and deterministic self-test
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop';$p=Resolve-Path .\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.13.ps1;$tokens=$null;$errors=$null;[void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors);if($errors.Count-gt0){$errors|ForEach-Object{Write-Host $_.Message};throw 'parse failed'}
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1|Out-String;Write-Host $out;if($LASTEXITCODE-ne0){throw 'selftest failed'}
+          foreach($m in @('KEVIN MAINTENANCE v1.3.13 SELFTEST PASS','goal_os_anchor_discovery=fixed','exact_hash_lookup=true','unique_forge_anchor=true','inventory_max=500','arbitrary_shell=false')){if($out-notmatch[regex]::Escape($m)){throw "missing $m"}}
+      - name: Static authority and bounded-discovery invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          t=Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.13.ps1').read_text()
+          required=['diagnose_goal_os_forge_anchor','Get-BoundedJsonInventory','Find-JsonBySha','Find-ForgeAnchorMatches','reports/goal-os-forge-anchor.json','Select-Object -First 500','Goal OS discovery inventory exceeded fixed 500-file budget','Goal OS exact-hash file match count must be 1','Goal OS Forge anchor must be unique before migration','Assert-Benchmark30']
+          for x in required: assert x in t,x
+          assert "foreach($name in @('path','command','args','target','source_path','source_sha256','hash','file','property','root','pattern'))" in t
+          for x in ['Invoke-Expression','DownloadString(','New-Object Net.WebClient','System.Net.WebClient']:
+              assert x.lower() not in t.lower(),x
+          print('V1313_STATIC_PASS bounded_inventory=500 exact_goal_hash=true unique_forge_anchor=true authority_delta=NONE')
+      - name: Emit exact candidate identity
+        shell: python
+        run: |
+          import hashlib,json
+          from pathlib import Path
+          c=Path('control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.13.ps1');b=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.12.ps1')
+          out={'schema':1,'kind':'kevin-maintenance-v1313-qualified-candidate','git_head':'${{ github.sha }}','candidate_path':str(c).replace('\\','/'),'sha256':hashlib.sha256(c.read_bytes()).hexdigest().upper(),'base_v1312_sha256':hashlib.sha256(b.read_bytes()).hexdigest().upper()}
+          Path('maintenance-v1313-candidate-hash.json').write_text(json.dumps(out,indent=2)+'\n');print(Path('maintenance-v1313-candidate-hash.json').read_text())
+      - uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-v1313-qualified-candidate
+          path: |
+            control-plane/maintenance/generated/kevin-maintenance-runner-v1.3.13.ps1
+            maintenance-v1313-candidate-hash.json
+          retention-days: 7
+          if-no-files-found: error
