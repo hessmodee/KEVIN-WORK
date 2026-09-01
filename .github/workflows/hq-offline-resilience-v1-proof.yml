@@ -30,10 +30,11 @@ jobs:
           assert "const BASE='/KEVIN-WORK/'" in sw
           assert "raw.githubusercontent.com" in sw
           assert "networkFirst(req,DATA_CACHE)" in sw
+          assert "credentials:'omit'" in sw
           assert "cache:'no-store'" not in sw
-          for bad in ('GH_TOKEN','GITHUB_TOKEN','password','credential','Authorization:','localStorage'):
+          for bad in ('GH_TOKEN','GITHUB_TOKEN','Authorization:','localStorage','document.cookie','indexedDB'):
               assert bad not in sw, bad
-          print('HQ_OFFLINE_RESILIENCE_INVARIANTS_PASS scope=fixed public_data_only=true network_first=true')
+          print('HQ_OFFLINE_RESILIENCE_INVARIANTS_PASS scope=fixed public_data_only=true network_first=true credential_send=omit')
       - name: Prove shell assets exist
         shell: python
         run: |
