@@ -1,0 +1,94 @@
+name: Maintenance v1.3.29 Supervisor v1.8.4 Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1329-supervisor-v184.py'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.28.ps1'
+      - 'control-plane/autonomy/kevin-supervisor-v1.8.4.ps1'
+      - '.github/workflows/maintenance-v1329-supervisor-v184-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  proof:
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Generate exact Maintenance v1.3.29
+        run: python tools/generate-maintenance-v1329-supervisor-v184.py
+      - name: Parse and forbid arbitrary execution
+        shell: pwsh
+        run: |
+          $p=(Resolve-Path 'control-plane/maintenance/kevin-maintenance-runner-v1.3.29.ps1')
+          $tokens=$null;$errors=$null;$ast=[Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw $errors[0].Message}
+          $names=@($ast.FindAll({param($n) $n -is [Management.Automation.Language.CommandAst]},$true)|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($bad in @('invoke-expression','iex','cmd.exe')){if($names -contains $bad){throw "forbidden Maintenance command $bad"}}
+      - name: Run full Maintenance self-test
+        shell: pwsh
+        run: |
+          $env:KEVIN_MAINT_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'kevin-maint-v1329-selftest'
+          New-Item -ItemType Directory -Force -Path $env:KEVIN_MAINT_TEST_ROOT|Out-Null
+          & .\control-plane\maintenance\kevin-maintenance-runner-v1.3.29.ps1 -SelfTest
+          if($LASTEXITCODE -ne 0){throw "Maintenance v1.3.29 selftest exit=$LASTEXITCODE"}
+      - name: Prove operation parity
+        run: python tools/check-maintenance-operation-parity.py control-plane/maintenance/kevin-maintenance-runner-v1.3.29.ps1
+      - name: Assert Supervisor v1.8.4 crossing invariants
+        shell: pwsh
+        run: |
+          $t=[IO.File]::ReadAllText('control-plane/maintenance/kevin-maintenance-runner-v1.3.29.ps1')
+          foreach($m in @(
+            "version='1.3.29'",
+            'BBE4F4947E5D5BEFCBB82890F63EE4A68C0F39375A627F311036EDBB78665940',
+            'control-plane/autonomy/kevin-supervisor-v1.8.4.ps1',
+            'install_autonomy_controller_v183',
+            'installed Supervisor v1.8.4 hash mismatch',
+            'installed Supervisor v1.8.4 selftest failed',
+            'supervisor_v184=true',
+            'openclaw_native_node=$true',
+            'shell_shim_bypassed=$true',
+            'rollback_available=$true'
+          )){if(-not$t.Contains($m)){throw "missing invariant: $m"}}
+          if($t.Contains('29122F147233DC672DC6AFF4D5AD4262D4512B39D67CC42628DB6C5C78D811FB')){throw 'defective Supervisor v1.8.3 hash remains'}
+          if($t.Contains('control-plane/autonomy/kevin-supervisor-v1.8.3.ps1')){throw 'defective Supervisor v1.8.3 source remains'}
+          $s=[IO.File]::ReadAllText('control-plane/autonomy/kevin-supervisor-v1.8.4.ps1')
+          if($s -match '(?i)Get-Command\s+openclaw'){throw 'qualified Supervisor unexpectedly uses OpenClaw shell shim'}
+          Write-Host 'MAINT_V1329_INVARIANTS_PASS supervisor_v184=true typed_contract_unchanged=true native_node=true rollback=true'
+      - name: Emit exact identity
+        shell: pwsh
+        run: |
+          $sha=(Get-FileHash 'control-plane/maintenance/kevin-maintenance-runner-v1.3.29.ps1' -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "MAINT_V1329_CI_PROVEN sha256=$sha"
+          "MAINT_V1329_SHA=$sha" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Publish exact proven candidate through Git database API
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $repo='hessmodee/KEVIN-WORK';$path='control-plane/maintenance/kevin-maintenance-runner-v1.3.29.ps1'
+          $bytes=[IO.File]::ReadAllBytes($path)
+          if((Get-FileHash $path -Algorithm SHA256).Hash.ToUpperInvariant() -ne $env:MAINT_V1329_SHA){throw 'candidate identity changed after proof'}
+          $utf8=New-Object Text.UTF8Encoding($false)
+          function Api([string]$method,[string]$endpoint,[object]$body=$null){
+            if($null-eq$body){$out=gh api $endpoint 2>$null}else{$tmp=Join-Path $env:RUNNER_TEMP ('api-'+[guid]::NewGuid().ToString('N')+'.json');try{[IO.File]::WriteAllText($tmp,($body|ConvertTo-Json -Depth 20 -Compress),$utf8);$out=gh api --method $method $endpoint --input $tmp 2>$null}finally{Remove-Item $tmp -Force -ErrorAction SilentlyContinue}}
+            if($LASTEXITCODE-ne0){return $null};return($out|ConvertFrom-Json)
+          }
+          $blob=Api 'POST' "repos/$repo/git/blobs" ([ordered]@{content=[Convert]::ToBase64String($bytes);encoding='base64'});if(-not$blob.sha){throw 'blob creation failed'}
+          $ok=$false
+          for($attempt=1;$attempt-le100;$attempt++){
+            $ref=Api 'GET' "repos/$repo/git/ref/heads/main";if(-not$ref.object.sha){Start-Sleep -Milliseconds 250;continue}
+            $parent=[string]$ref.object.sha;$pc=Api 'GET' "repos/$repo/git/commits/$parent";if(-not$pc.tree.sha){Start-Sleep -Milliseconds 250;continue}
+            $tree=Api 'POST' "repos/$repo/git/trees" ([ordered]@{base_tree=[string]$pc.tree.sha;tree=@([ordered]@{path=$path;mode='100644';type='blob';sha=[string]$blob.sha})});if(-not$tree.sha){Start-Sleep -Milliseconds 250;continue}
+            $commit=Api 'POST' "repos/$repo/git/commits" ([ordered]@{message='Publish CI-proven Maintenance v1.3.29';tree=[string]$tree.sha;parents=@($parent)});if(-not$commit.sha){Start-Sleep -Milliseconds 250;continue}
+            $move=Api 'PATCH' "repos/$repo/git/refs/heads/main" ([ordered]@{sha=[string]$commit.sha;force=$false});if($move.object.sha-eq[string]$commit.sha){$ok=$true;break};Start-Sleep -Milliseconds 250
+          }
+          if(-not$ok){throw 'v1.3.29 Git-database publication exhausted bounded retries'}
+          Write-Host "MAINT_V1329_PUBLISH_ACCEPTED sha256=$env:MAINT_V1329_SHA force=false"
