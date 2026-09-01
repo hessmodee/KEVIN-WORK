@@ -1,6 +1,6 @@
 # Current task — GREEN 100 / Direct Owner Communication
 
-Updated: 2026-09-01 13:54 MDT
+Updated: 2026-09-01 15:14 MDT
 
 ## Owner directive
 Kevin must become self-reliant for all legitimately GREEN work. The target operating lifecycle is:
@@ -10,16 +10,19 @@ Kevin must become self-reliant for all legitimately GREEN work. The target opera
 Direct Matt <-> Kevin text communication is P0 owner value. Bess should be progressively removed from routine operation as Kevin proves each responsibility end-to-end.
 
 ## P0 — restore native OpenClaw agent path
-A fresh Maintenance v1.3.30 `diagnose_gateway_rpc` request is in flight. Do not guess, weaken policy, or bypass the governed runtime path.
+Maintenance v1.3.31 Gateway recovery is now installed on Omen at SHA256 `75ED88D5A399A6AC14D30EC07EF90E53080D63FC404C6315352200B5DF1105C1`. Fresh Support reports manifest `install-maint-v131-gateway-recovery-20260901-1437` as `APPLIED_PREAUTHORIZED_PROVEN`, and Benchmark remains PASS 30/30 critical=0. Do not rerun or describe the old v1.3.30 `diagnose_gateway_rpc` request as in flight.
+
+The live blocker is now the Maintenance Intake itself: fresh Support/Engineering report 4 consecutive intake errors after the successful v1.3.31 install. Treat that as the current production boundary and do not assume Gateway/main-agent health merely from the successful controller install.
 
 Required sequence:
-1. classify the actual OpenClaw/Gateway failure from fresh bounded evidence;
-2. repair only through an existing or newly proven narrow typed GREEN repair whose preconditions match the diagnosed failure;
-3. prove Gateway RPC health, config validity, and main-agent skills/runtime readiness;
-4. run the fixed main-agent canary and require semantic OMEN proof;
-5. require fresh Benchmark PASS 30/30 critical=0 after consequential repair/proof.
+1. classify the current Maintenance Intake failure from the latest fixed receipt/error family without overwriting a fresh unconsumed item;
+2. determine whether the failure is a stale/unsupported manifest, idempotency/receipt problem, or a real post-install Gateway/main-agent failure;
+3. retire stale/duplicate execution state if that is the cause; otherwise repair only through an existing or newly proven narrow typed GREEN repair whose preconditions match the diagnosed failure;
+4. prove Gateway direct RPC health, config validity, Gateway health and main-agent skills/runtime readiness using fixed probes;
+5. run the fixed main-agent canary and require semantic OMEN proof;
+6. require fresh Benchmark PASS 30/30 critical=0 after consequential repair/proof.
 
-Do not treat dashboard/Gateway labels, task presence, old watchdog state, or process existence as proof when the fixed RPC/main-agent path disagrees.
+Do not treat dashboard/Gateway labels, task presence, old watchdog state, process existence, or the v1.3.31 install itself as proof when the fixed RPC/main-agent path disagrees.
 
 ## P1 — direct Matt <-> Kevin text communication
 Prefer the native OpenClaw Control UI/WebChat as the primary direct owner conversation transport because it is the installed runtime's own chat/session surface. Keep public GitHub Pages Kevin HQ read-only and free of secrets/private message bodies.
