@@ -44,13 +44,16 @@ jobs:
             "version = '1.8.3'",
             "Invoke-OpenClaw @('skills', 'check', '--agent', 'main', '--json')",
             "Invoke-OpenClaw @('agent', '--agent', 'main', '--json', '--message', `$message)",
+            "Invoke-OpenClaw @('gateway', 'status', '--require-rpc', '--json')",
+            'gateway RPC probe failed after bounded retries',
             'IDLE_NO_ELIGIBLE_DEMAND',
             'COOLDOWN_BUDGET_EXHAUSTED',
             'AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF',
             'A model response, heartbeat, publish commit, cycle, candidate, or hash alone is not an accomplishment.'
           )){if(-not$t.Contains($m)){throw "missing invariant: $m"}}
           if($t.Contains("Invoke-OpenClaw @('agent', '--json', '--message', `$message)")){throw 'selectorless Gateway agent turn remains'}
-          Write-Host 'SUPERVISOR_V183_INVARIANTS_PASS fixed_main=true selectorless=false'
+          if($t.Contains("Invoke-OpenClaw @('gateway', 'status', '--deep', '--require-rpc')")){throw 'deep probe remains in production turn'}
+          Write-Host 'SUPERVISOR_V183_INVARIANTS_PASS fixed_main=true selectorless=false rpc_only=true retries=3'
       - name: Emit exact qualified identity
         shell: pwsh
         run: |
@@ -58,22 +61,31 @@ jobs:
           $sha=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
           Write-Host "SUPERVISOR_V183_CI_PROVEN sha256=$sha"
           "SUPERVISOR_V183_SHA=$sha" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
-      - name: Publish exact candidate
+      - name: Publish exact candidate without discarding telemetry commits
         shell: pwsh
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
-          $repo='hessmodee/KEVIN-WORK';$path='control-plane/autonomy/kevin-supervisor-v1.8.3.ps1'
-          $bytes=[IO.File]::ReadAllBytes($path);$encoded=[Convert]::ToBase64String($bytes);$ok=$false
-          for($attempt=1;$attempt -le 12;$attempt++){
-            $body=[ordered]@{message='Publish CI-proven Supervisor v1.8.3';content=$encoded;branch='main'}
-            $raw=gh api "repos/$repo/contents/$path?ref=main" 2>$null
-            if($LASTEXITCODE -eq 0 -and $raw){$cur=$raw|ConvertFrom-Json;if($cur.sha){$body.sha=[string]$cur.sha}}
-            $tmp=Join-Path $env:RUNNER_TEMP ('v183-'+$attempt+'.json')
-            [IO.File]::WriteAllText($tmp,($body|ConvertTo-Json -Compress),(New-Object Text.UTF8Encoding($false)))
-            gh api --method PUT "repos/$repo/contents/$path" --input $tmp --silent 2>$null
+          $path='control-plane/autonomy/kevin-supervisor-v1.8.3.ps1'
+          $saved=Join-Path $env:RUNNER_TEMP 'kevin-supervisor-v1.8.3.proven.ps1'
+          Copy-Item -LiteralPath $path -Destination $saved -Force
+          if((Get-FileHash $saved -Algorithm SHA256).Hash.ToUpperInvariant() -ne $env:SUPERVISOR_V183_SHA){throw 'saved proven candidate identity mismatch'}
+          git config user.name 'Kevin CI'
+          git config user.email 'kevin-ci@users.noreply.github.com'
+          $ok=$false
+          for($attempt=1;$attempt -le 60;$attempt++){
+            git fetch origin main --quiet
+            if($LASTEXITCODE -ne 0){Start-Sleep -Milliseconds 500;continue}
+            git checkout -B publish-v183 origin/main --quiet
+            if($LASTEXITCODE -ne 0){Start-Sleep -Milliseconds 500;continue}
+            Copy-Item -LiteralPath $saved -Destination $path -Force
+            if((Get-FileHash $path -Algorithm SHA256).Hash.ToUpperInvariant() -ne $env:SUPERVISOR_V183_SHA){throw 'working candidate identity mismatch'}
+            git add -- $path
+            git diff --cached --quiet
             if($LASTEXITCODE -eq 0){$ok=$true;break}
-            Start-Sleep -Seconds 2
+            git commit -m 'Publish CI-proven Supervisor v1.8.3' --quiet
+            if($LASTEXITCODE -ne 0){Start-Sleep -Milliseconds 500;continue}
+            git push origin HEAD:main --quiet
+            if($LASTEXITCODE -eq 0){$ok=$true;break}
+            Start-Sleep -Milliseconds 500
           }
-          if(-not$ok){throw 'Supervisor v1.8.3 publication exhausted bounded retries'}
+          if(-not$ok){throw 'Supervisor v1.8.3 fast-forward publication exhausted bounded retries'}
           Write-Host "SUPERVISOR_V183_PUBLISH_ACCEPTED sha256=$env:SUPERVISOR_V183_SHA"
