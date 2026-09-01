@@ -23,7 +23,7 @@ def once(old: str, new: str, label: str):
 once("version='1.3.35'", "version='1.3.36'", 'state version')
 
 start = text.index('function Repair-OpenClawWindowsLkg {')
-end = text.index('function Assert-MainAgentCanary', start)
+end = text.index('function Reconcile-MaintenanceCronBackoff', start)
 old = text[start:end]
 new = r'''function Repair-OpenClawWindowsLkg {
     if($env:OS-ne'Windows_NT'){throw 'Windows LKG recovery requires Windows'}
@@ -31,7 +31,7 @@ new = r'''function Repair-OpenClawWindowsLkg {
     Assert-NpmIntegrity $GatewayLkgVersion $GatewayLkgIntegrity
     $facts=Get-DirectGatewayConfigFacts;$top=Get-GatewayTopology;if(-not$facts.current_exists){throw 'OpenClaw config missing'}
     if($top.keeper_present-and-not$top.keeper_script_present){throw 'Gateway Keeper task exists but fixed Keeper script is missing'}
-    $config=Join-Path $env:USERPROFILE '.openclaw\openclaw.json'
+    $config=Join-Path $env:USERPROFILE '.openclaw\\openclaw.json'
     $beforeConfigSha=Get-Sha $config;if(-not$beforeConfigSha){throw 'starting OpenClaw config hash unavailable'}
     $backupDir=Join-Path $BackupRoot ('openclaw-lkg-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N'));New-Item -ItemType Directory -Force -Path $backupDir|Out-Null
     $savedConfig=Join-Path $backupDir 'openclaw.json';Copy-Item -LiteralPath $config -Destination $savedConfig -Force
