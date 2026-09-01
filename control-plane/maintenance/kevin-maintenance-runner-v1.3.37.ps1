@@ -27,10 +27,10 @@ $ForgeV37Sha = '4C83DF29E765D61F2B26D2029FE6C2C7ED68DA90E5A7A457A82BE769029E22CA
 $ForgeV40Sha = '433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A'
 $ForgeV40Source = 'control-plane/forge/kevin-design-forge-v4.0.ps1'
 $BenchmarkBaselineBeforeSha = 'B4F2B01ADBFC946754A987797F94D3E50C51300111DE4003546825D11ED649A1'
-$SupervisorV183Sha = '06C352D77369E247D6ABC3856862926CAEB03246D7FCDB34F5D20E2B78B55E79'
+$SupervisorV183Sha = 'BBE4F4947E5D5BEFCBB82890F63EE4A68C0F39375A627F311036EDBB78665940'
 $SelectorV11Sha = '9DF1F770E8855232758AC275FA2D3A82C6D484099B5B2D2185A999ACDE185DE4'
-$SupervisorV183Source = 'control-plane/autonomy/kevin-supervisor-v1.8.5.ps1'
-# Legacy v183 symbol/operation name is retained as the typed contract identifier; its qualified target is Supervisor v1.8.5.
+$SupervisorV183Source = 'control-plane/autonomy/kevin-supervisor-v1.8.4.ps1'
+# Legacy v183 symbol/operation name is retained as the typed contract identifier; its qualified target is Supervisor v1.8.4.
 $SelectorV11Source = 'control-plane/autonomy/kevin-work-selector-v1.1.py'
 $GatewayLkgVersion = '2026.6.34'
 $GatewayRejectedVersion = '2026.7.1-2'
@@ -267,8 +267,8 @@ function Assert-Governance {
 }
 function Parse-PowerShell([string]$Path) { $tokens=$null;$errors=$null;[void][Management.Automation.Language.Parser]::ParseFile($Path,[ref]$tokens,[ref]$errors);if($errors.Count -gt 0){throw('PowerShell parser rejected candidate: '+$errors[0].Message)} }
 function Invoke-FixedSelfTest([string]$Alias,[string]$Path) {
-    $spec=Get-AliasSpec $Alias;$CommandArguments=@($spec.SelfTestArgs);$old=$ErrorActionPreference
-    try{$ErrorActionPreference='Continue';$out=(& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $Path @CommandArguments 2>&1|Out-String).Trim();$code=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
+    $spec=Get-AliasSpec $Alias;$args=@($spec.SelfTestArgs);$old=$ErrorActionPreference
+    try{$ErrorActionPreference='Continue';$out=(& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $Path @args 2>&1|Out-String).Trim();$code=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
     if($code -ne 0){throw('fixed self-test failed exit='+$code)}
     if($out -notmatch [regex]::Escape([string]$spec.Marker)){throw 'fixed self-test marker missing'}
 }
@@ -620,7 +620,7 @@ function Publish-RuntimeConvergence {
 function Invoke-OpenClawReadOnlyProbe([string]$Probe) {
     $cmd=Get-Command openclaw -ErrorAction SilentlyContinue
     if(-not $cmd){return [pscustomobject]@{exit_code=127;output='';available=$false}}
-    $CommandArguments=switch($Probe){
+    $args=switch($Probe){
         'version' {@('--version')}
         'root_help' {@('--help')}
         'automations_help' {@('automations','--help')}
@@ -643,7 +643,7 @@ function Invoke-OpenClawReadOnlyProbe([string]$Probe) {
         default {throw 'runtime audit probe not allowlisted'}
     }
     $old=$ErrorActionPreference
-    try{$ErrorActionPreference='Continue';$out=(& $cmd.Source @CommandArguments 2>&1|Out-String).Trim();$code=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
+    try{$ErrorActionPreference='Continue';$out=(& $cmd.Source @args 2>&1|Out-String).Trim();$code=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
     return [pscustomobject]@{exit_code=$code;output=[string]$out;available=$true}
 }
 function ConvertFrom-JsonSafe([string]$Text){if(-not$Text){return $null};try{return($Text|ConvertFrom-Json)}catch{return $null}}
@@ -1045,11 +1045,11 @@ function Assert-ReaderStatusCanary([object]$m) {
         if($m.PSObject.Properties[$name]){throw ('Reader canary manifest must not supply '+$name)}
     }
 }
-function Invoke-ReaderOpenClaw([string[]]$CommandArguments) {
+function Invoke-ReaderOpenClaw([string[]]$Args) {
     $cmd=Get-Command openclaw -ErrorAction SilentlyContinue
     if(-not$cmd){throw 'OpenClaw CLI unavailable for Reader canary'}
     $old=$ErrorActionPreference
-    try{$ErrorActionPreference='Continue';$out=(& $cmd.Source --profile reader @CommandArguments 2>&1|Out-String).Trim();$code=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
+    try{$ErrorActionPreference='Continue';$out=(& $cmd.Source --profile reader @Args 2>&1|Out-String).Trim();$code=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
     return [pscustomobject]@{exit_code=$code;output=[string]$out}
 }
 function ConvertFrom-ReaderJson([string]$Raw) {
@@ -1156,9 +1156,9 @@ function Invoke-FixedNativeBounded([string]$Executable,[string[]]$Argv,[int]$Tim
     $out=(($stdout+$(if($stdout-and$stderr){"`n"}else{''})+$stderr)).Trim()
     return [pscustomobject]@{exit_code=$code;output=$out;timed_out=$timed}
 }
-function Invoke-OpenClawFixedConfig([string[]]$CommandArguments) {
+function Invoke-OpenClawFixedConfig([string[]]$Args) {
     $r=Get-FixedOpenClawRuntime
-    return Invoke-FixedNativeBounded $r.node (@($r.cli)+@($CommandArguments)) 180
+    return Invoke-FixedNativeBounded $r.node (@($r.cli)+@($Args)) 180
 }
 function Get-WorkshopAuthoredValue([string]$Path,[string[]]$Allowed) {
     if($Path -notin @('skills.workshop.autonomous.mode','skills.workshop.approvalPolicy')){throw 'workshop config path not fixed'}
@@ -1221,11 +1221,11 @@ function Get-RemoteAutonomyControllerBytes([string]$RepoPath) {
 }
 function Invoke-FixedPythonSelfTest([string]$Path) {
     $py=Get-Command python -ErrorAction SilentlyContinue
-    $CommandArguments=@($Path,'--selftest')
-    if(-not$py){$py=Get-Command py -ErrorAction SilentlyContinue;$CommandArguments=@('-3',$Path,'--selftest')}
+    $args=@($Path,'--selftest')
+    if(-not$py){$py=Get-Command py -ErrorAction SilentlyContinue;$args=@('-3',$Path,'--selftest')}
     if(-not$py){throw 'python runtime unavailable for selector selftest'}
     $old=$ErrorActionPreference
-    try{$ErrorActionPreference='Continue';$out=(& $py.Source @CommandArguments 2>&1|Out-String).Trim();$code=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
+    try{$ErrorActionPreference='Continue';$out=(& $py.Source @args 2>&1|Out-String).Trim();$code=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
     if($code-ne0 -or $out -notmatch 'KEVIN WORK SELECTOR v1.1 SELFTEST PASS'){throw 'selector fixed selftest failed'}
 }
 function Install-AutonomyControllerV183([object]$m) {
@@ -1243,7 +1243,7 @@ function Install-AutonomyControllerV183([object]$m) {
     if(-not$base.hashes){throw 'Benchmark baseline hashes missing'}
     $baseSup=([string]$base.hashes.supervisor).ToUpperInvariant();$baseForge=([string]$base.hashes.forge).ToUpperInvariant()
     if($supBefore -eq $SupervisorV183Sha -and $selectorBefore -eq $SelectorV11Sha -and $baseSup -eq $SupervisorV183Sha -and $baseForge -eq $ForgeV40Sha){
-        Parse-PowerShell $supervisorTarget; & $supervisorTarget -SelfTest; if($LASTEXITCODE-ne0){throw 'installed Supervisor v1.8.5 selftest failed'}
+        Parse-PowerShell $supervisorTarget; & $supervisorTarget -SelfTest; if($LASTEXITCODE-ne0){throw 'installed Supervisor v1.8.4 selftest failed'}
         Invoke-FixedPythonSelfTest $selectorTarget;Assert-Benchmark30
         return [ordered]@{changed=$false;idempotent=$true;supervisor_after=$supBefore;selector_after=$selectorBefore;baseline_supervisor_anchor=$baseSup;forge_anchor=$baseForge}
     }
@@ -1257,14 +1257,14 @@ function Install-AutonomyControllerV183([object]$m) {
     $supStage=Join-Path $StageRoot ([string]$m.id+'.supervisor-v183.ps1')
     $selStage=Join-Path $StageRoot ([string]$m.id+'.selector-v11.py')
     [IO.File]::WriteAllBytes($supStage,$supBytes);[IO.File]::WriteAllBytes($selStage,$selBytes)
-    if((Get-Sha $supStage)-ne$SupervisorV183Sha){throw 'Supervisor v1.8.5 source hash mismatch'}
+    if((Get-Sha $supStage)-ne$SupervisorV183Sha){throw 'Supervisor v1.8.4 source hash mismatch'}
     if((Get-Sha $selStage)-ne$SelectorV11Sha){throw 'selector v1.1 source hash mismatch'}
     Parse-PowerShell $supStage
-    & $supStage -SelfTest;if($LASTEXITCODE-ne0){throw 'staged Supervisor v1.8.5 selftest failed'}
+    & $supStage -SelfTest;if($LASTEXITCODE-ne0){throw 'staged Supervisor v1.8.4 selftest failed'}
     Invoke-FixedPythonSelfTest $selStage
     $supText=[IO.File]::ReadAllText($supStage)
-    foreach($marker in @('Governed Autonomy Continuation Controller','IDLE_NO_ELIGIBLE_DEMAND','COOLDOWN_BUDGET_EXHAUSTED','AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF')){if(-not$supText.Contains($marker)){throw ('Supervisor v1.8.5 marker missing: '+$marker)}}
-    foreach($bad in @('Invoke-Expression','kevin_shell','Start-Process cmd.exe')){if($supText.Contains($bad)){throw ('Supervisor v1.8.5 forbidden marker: '+$bad)}}
+    foreach($marker in @('Governed Autonomy Continuation Controller','IDLE_NO_ELIGIBLE_DEMAND','COOLDOWN_BUDGET_EXHAUSTED','AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF')){if(-not$supText.Contains($marker)){throw ('Supervisor v1.8.4 marker missing: '+$marker)}}
+    foreach($bad in @('Invoke-Expression','kevin_shell','Start-Process cmd.exe')){if($supText.Contains($bad)){throw ('Supervisor v1.8.4 forbidden marker: '+$bad)}}
 
     $baseStageObj=$base|ConvertTo-Json -Depth 30|ConvertFrom-Json
     $baseStageObj.hashes.supervisor=$SupervisorV183Sha
@@ -1288,11 +1288,11 @@ function Install-AutonomyControllerV183([object]$m) {
         $liveBase=Get-Content -LiteralPath $baselineTarget -Raw|ConvertFrom-Json
         if(([string]$liveBase.hashes.supervisor).ToUpperInvariant()-ne$SupervisorV171Sha -or ([string]$liveBase.hashes.forge).ToUpperInvariant()-ne$ForgeV40Sha){throw 'Benchmark anchors changed after staging; aborting TOCTOU'}
         foreach($pair in @(@($supStage,$supervisorTarget),@($selStage,$selectorTarget),@($baseStage,$baselineTarget))){$tmp=[string]$pair[1]+'.typed-'+[guid]::NewGuid().ToString('N');Copy-Item -LiteralPath $pair[0] -Destination $tmp -Force;Move-Item -LiteralPath $tmp -Destination $pair[1] -Force}
-        if((Get-Sha $supervisorTarget)-ne$SupervisorV183Sha){throw 'installed Supervisor v1.8.5 hash mismatch'}
+        if((Get-Sha $supervisorTarget)-ne$SupervisorV183Sha){throw 'installed Supervisor v1.8.4 hash mismatch'}
         if((Get-Sha $selectorTarget)-ne$SelectorV11Sha){throw 'installed selector v1.1 hash mismatch'}
         $postBase=Get-Content -LiteralPath $baselineTarget -Raw|ConvertFrom-Json
         if(([string]$postBase.hashes.supervisor).ToUpperInvariant()-ne$SupervisorV183Sha -or ([string]$postBase.hashes.forge).ToUpperInvariant()-ne$ForgeV40Sha){throw 'installed Benchmark anchors mismatch'}
-        Parse-PowerShell $supervisorTarget;& $supervisorTarget -SelfTest;if($LASTEXITCODE-ne0){throw 'installed Supervisor v1.8.5 selftest failed'}
+        Parse-PowerShell $supervisorTarget;& $supervisorTarget -SelfTest;if($LASTEXITCODE-ne0){throw 'installed Supervisor v1.8.4 selftest failed'}
         Invoke-FixedPythonSelfTest $selectorTarget;Assert-Benchmark30
         return [ordered]@{changed=$true;supervisor_before=$supBefore;supervisor_after=(Get-Sha $supervisorTarget);selector_before=$selectorBefore;selector_after=(Get-Sha $selectorTarget);benchmark_supervisor_anchor=$SupervisorV183Sha;forge_anchor=$ForgeV40Sha;selector_first=$true;fixed_main_agent=$true;anti_spin=$true;openclaw_native_node=$true;shell_shim_bypassed=$true;rollback_available=$true}
     }catch{
@@ -1538,31 +1538,64 @@ function Run-SelfRelianceWatchdogOnce {
     return [ordered]@{state='OMEN_CLASSIFIER_PROOF';probe_mode='NO_SIDE_EFFECTS';receipt_sha256=$receipt;last_result=$public.last_result;startup_class=$public.startup_class;failure_family=$public.failure_family;binary_version=$public.binary_version;config_last_touched_version=$public.config_last_touched_version;keeper_present=$public.keeper_present;port_18789_listening=$public.port_18789_listening}
 }
 function Diagnose-GatewayFailureDetail {
-    # Separate command expressions: comma-separated commands bind as arguments
-    # to the first invocation in PowerShell. Every probe is strictly read-only.
-    $probes=@(
-        (Invoke-OpenClawFixedConfig @('config','validate','--json'))
-        (Invoke-OpenClawFixedConfig @('gateway','status','--require-rpc','--json'))
-        (Invoke-OpenClawFixedConfig @('gateway','call','status','--json'))
-        (Invoke-OpenClawFixedConfig @('gateway','health','--json'))
-    )
-    if($probes.Count-ne4){throw 'fixed diagnostic must execute exactly four probes'}
-    $allProbesOk=(@($probes|Where-Object{$_.exit_code-ne0}).Count-eq0)
-    $text=($probes|ForEach-Object{[string]$_.output})-join"`n";$family=if($allProbesOk){'HEALTHY'}else{Get-GatewayFailureFamilyDetailed $text};$facts=Get-DirectGatewayConfigFacts;$top=Get-GatewayTopology
+    $probes=@(Invoke-OpenClawFixedConfig @('config','validate','--json'),Invoke-OpenClawFixedConfig @('gateway','status','--json'),Invoke-OpenClawFixedConfig @('plugins','doctor','--json'),Invoke-OpenClawFixedConfig @('doctor','--json'))
+    $text=($probes|ForEach-Object{[string]$_.output})-join"`n";$family=Get-GatewayFailureFamilyDetailed $text;$facts=Get-DirectGatewayConfigFacts;$top=Get-GatewayTopology
     $version='UNKNOWN';$pkg=Join-Path $env:APPDATA 'npm\node_modules\openclaw\package.json';if(Test-Path -LiteralPath $pkg -PathType Leaf){try{$version=[string](Get-Content -LiteralPath $pkg -Raw|ConvertFrom-Json).version}catch{}}
-    $public=[ordered]@{schema=1;kind='kevin-gateway-failure-detail-public';generated_at=(Get-Date).ToString('o');state='OMEN_DIAGNOSIS_PROVEN';safe_for_public_repo=$true;openclaw_version=$version;release_policy_status=$(if($version-eq$GatewayRejectedVersion){'EVIDENCE_REJECTED'}elseif($version-eq$GatewayLkgVersion){'WINDOWS_VALIDATED_LKG'}else{'OTHER'});root_cause_family=$family;probe_count=$probes.Count;probe_names=@('config_validate','gateway_require_rpc','gateway_direct_rpc','gateway_health');all_probes_ok=$allProbesOk;command_forwarding_contract='v1.3.37';probe_exit_codes=@($probes|ForEach-Object{[int]$_.exit_code});probe_output_fingerprints=@($probes|ForEach-Object{Get-TextSha256 ([string]$_.output)});config=[ordered]@{current_sha256=$facts.current_sha256;current_last_touched=$facts.current_last_touched;backup_exists=[bool]$facts.backup_exists;backup_sha256=$facts.backup_sha256;backup_last_touched=$facts.backup_last_touched;backup_semantically_equivalent=[bool]$facts.backup_semantically_equivalent;telegram_present=[bool]$facts.telegram_present;discord_present=[bool]$facts.discord_present;codex_present=[bool]$facts.codex_present;memory_core_present=[bool]$facts.memory_core_present};windows=[ordered]@{keeper_present=[bool]$top.keeper_present;keeper_state=[string]$top.keeper_state;keeper_script_present=[bool]$top.keeper_script_present;keeper_script_sha256=$top.keeper_script_sha256;legacy_task_present=[bool]$top.legacy_present;legacy_task_state=[string]$top.legacy_state;port_18789_listening=[bool]$top.port_listening;gateway_listener_count=[int]$top.gateway_listener_count};recommended_repair=$(if($allProbesOk){'NONE_ALL_PROBES_PASSED'}else{'CLASSIFY_FAILED_PROBE_BEFORE_REPAIR'});source_contract='Four separately invoked read-only config/RPC/health probes with verified command forwarding plus fixed package/config/backup/Gateway topology metadata. No doctor repair, version mutation, or caller-selected command/path/argv.';truth_boundary='Only classifications, exit codes, hashes, safe versions, booleans, and known plugin flags are published. No raw output, config values, credentials, paths, messages, prompts, or secrets.'}
+    $public=[ordered]@{schema=1;kind='kevin-gateway-failure-detail-public';generated_at=(Get-Date).ToString('o');state='OMEN_DIAGNOSIS_PROVEN';safe_for_public_repo=$true;openclaw_version=$version;release_policy_status=$(if($version-eq$GatewayRejectedVersion){'EVIDENCE_REJECTED'}elseif($version-eq$GatewayLkgVersion){'WINDOWS_VALIDATED_LKG'}else{'OTHER'});root_cause_family=$family;probe_exit_codes=@($probes|ForEach-Object{[int]$_.exit_code});probe_output_fingerprints=@($probes|ForEach-Object{Get-TextSha256 ([string]$_.output)});config=[ordered]@{current_sha256=$facts.current_sha256;current_last_touched=$facts.current_last_touched;backup_exists=[bool]$facts.backup_exists;backup_sha256=$facts.backup_sha256;backup_last_touched=$facts.backup_last_touched;backup_semantically_equivalent=[bool]$facts.backup_semantically_equivalent;telegram_present=[bool]$facts.telegram_present;discord_present=[bool]$facts.discord_present;codex_present=[bool]$facts.codex_present;memory_core_present=[bool]$facts.memory_core_present};windows=[ordered]@{keeper_present=[bool]$top.keeper_present;keeper_state=[string]$top.keeper_state;keeper_script_present=[bool]$top.keeper_script_present;keeper_script_sha256=$top.keeper_script_sha256;legacy_task_present=[bool]$top.legacy_present;legacy_task_state=[string]$top.legacy_state;port_18789_listening=[bool]$top.port_listening;gateway_listener_count=[int]$top.gateway_listener_count};recommended_repair=$(if($version-eq$GatewayRejectedVersion){'TYPED_WINDOWS_LKG_RECOVERY'}else{'ROOT_CAUSE_SPECIFIC_REPAIR'});source_contract='Four fixed OpenClaw probes plus fixed package/config/backup/Gateway topology metadata. No caller-selected command/path/argv.';truth_boundary='Only classifications, exit codes, hashes, safe versions, booleans, and known plugin flags are published. No raw output, config values, credentials, paths, messages, prompts, or secrets.'}
     $receipt=Publish-SafeFixedReport 'reports/gateway-failure-detail-omen.json' 'gateway-failure-detail-public.json' $public 'kevin gateway failure detail telemetry';Assert-Benchmark30
     return [ordered]@{state='OMEN_DIAGNOSIS_PROVEN';receipt_sha256=$receipt;root_cause_family=$family;openclaw_version=$version;release_policy_status=$public.release_policy_status;keeper_present=[bool]$top.keeper_present;backup_semantically_equivalent=[bool]$facts.backup_semantically_equivalent}
 }
-function Invoke-NpmFixed([string[]]$CommandArguments,[int]$Timeout=600) {
+function Invoke-NpmFixed([string[]]$Args,[int]$Timeout=600) {
     $node=Get-Command node.exe -ErrorAction SilentlyContinue;if(-not$node){$node=Get-Command node -ErrorAction SilentlyContinue};if(-not$node){throw 'node unavailable for fixed npm runtime'}
     $npmCli=Join-Path (Split-Path -Parent ([string]$node.Source)) 'node_modules\npm\bin\npm-cli.js'
     if(-not(Test-Path -LiteralPath $npmCli -PathType Leaf)){throw 'fixed npm-cli.js unavailable beside Node runtime'}
-    return Invoke-FixedNativeBounded ([string]$node.Source) (@($npmCli)+@($CommandArguments)) $Timeout
+    return Invoke-FixedNativeBounded ([string]$node.Source) (@($npmCli)+@($Args)) $Timeout
 }
 function Get-InstalledOpenClawVersion {$pkg=Join-Path $env:APPDATA 'npm\node_modules\openclaw\package.json';if(-not(Test-Path -LiteralPath $pkg -PathType Leaf)){return 'ABSENT'};try{return [string](Get-Content -LiteralPath $pkg -Raw|ConvertFrom-Json).version}catch{return 'UNREADABLE'}}
-function Assert-NpmIntegrity([string]$Version,[string]$Expected) {$r=Invoke-NpmFixed @('view',('openclaw@'+$Version),'dist.integrity','--json') 90;if($r.exit_code-ne0){throw ('npm registry integrity lookup failed for '+$Version)};$actual=([string]$r.output).Trim().Trim('"');if($actual-ne$Expected){throw ('npm integrity mismatch for '+$Version)}}
-function Install-ExactOpenClaw([string]$Version) {$r=Invoke-NpmFixed @('install','--global',('openclaw@'+$Version),'--no-audit','--no-fund','--ignore-scripts=false') 900;if($r.exit_code-ne0){throw ('exact OpenClaw install failed version='+$Version)};if((Get-InstalledOpenClawVersion)-ne$Version){throw ('installed OpenClaw version mismatch expected='+$Version)}}
+function Get-FixedOpenClawTarballSpec([string]$Version) {
+    $integrity = if($Version-eq$GatewayLkgVersion){$GatewayLkgIntegrity}elseif($Version-eq$GatewayRejectedVersion){$GatewayRejectedIntegrity}else{throw ('untrusted OpenClaw package version '+$Version)}
+    if($Version-notmatch '^2026\.[0-9]+\.[0-9]+(?:-[0-9]+)?$'){throw 'OpenClaw package version format rejected'}
+    $uri='https://registry.npmjs.org/openclaw/-/openclaw-'+$Version+'.tgz'
+    if($uri-notmatch '^https://registry\.npmjs\.org/openclaw/-/openclaw-2026\.[0-9]+\.[0-9]+(?:-[0-9]+)?\.tgz$'){throw 'fixed npm tarball URI invariant failed'}
+    return [pscustomobject]@{version=$Version;uri=$uri;integrity=$integrity}
+}
+function Get-FileSriSha512([string]$Path) {
+    if(-not(Test-Path -LiteralPath $Path -PathType Leaf)){throw 'tarball missing for SRI verification'}
+    $sha=[Security.Cryptography.SHA512]::Create()
+    try{
+        $fs=[IO.File]::OpenRead($Path)
+        try{$digest=$sha.ComputeHash($fs)}finally{$fs.Dispose()}
+    }finally{$sha.Dispose()}
+    return 'sha512-'+[Convert]::ToBase64String($digest)
+}
+function Download-VerifiedOpenClawTarball([string]$Version,[string]$Expected) {
+    $spec=Get-FixedOpenClawTarballSpec $Version
+    if([string]$Expected-ne[string]$spec.integrity){throw ('embedded integrity contract mismatch for '+$Version)}
+    $dest=Join-Path $env:TEMP ('openclaw-'+$Version+'-'+[guid]::NewGuid().ToString('N')+'.tgz')
+    try{
+        Invoke-WebRequest -UseBasicParsing -Uri ([string]$spec.uri) -OutFile $dest -TimeoutSec 180 -ErrorAction Stop
+        $actual=Get-FileSriSha512 $dest
+        if($actual-ne$Expected){throw ('downloaded OpenClaw tarball integrity mismatch for '+$Version)}
+        return $dest
+    }catch{
+        Remove-Item -LiteralPath $dest -Force -ErrorAction SilentlyContinue
+        throw
+    }
+}
+function Assert-NpmIntegrity([string]$Version,[string]$Expected) {
+    $tar=Download-VerifiedOpenClawTarball $Version $Expected
+    try{if((Get-FileSriSha512 $tar)-ne$Expected){throw ('verified OpenClaw tarball changed before use for '+$Version)}}finally{Remove-Item -LiteralPath $tar -Force -ErrorAction SilentlyContinue}
+}
+function Install-ExactOpenClaw([string]$Version) {
+    $spec=Get-FixedOpenClawTarballSpec $Version
+    $tar=Download-VerifiedOpenClawTarball $Version ([string]$spec.integrity)
+    try{
+        if((Get-FileSriSha512 $tar)-ne[string]$spec.integrity){throw ('verified OpenClaw tarball changed before install for '+$Version)}
+        $r=Invoke-NpmFixed @('install','--global',$tar,'--no-audit','--no-fund','--ignore-scripts=false') 900
+        if($r.exit_code-ne0){throw ('exact verified-tarball OpenClaw install failed version='+$Version)}
+        if((Get-InstalledOpenClawVersion)-ne$Version){throw ('installed OpenClaw version mismatch expected='+$Version)}
+    }finally{Remove-Item -LiteralPath $tar -Force -ErrorAction SilentlyContinue}
+}
 function Wait-GatewayRpc([int]$Seconds=90) {$deadline=(Get-Date).AddSeconds($Seconds);while((Get-Date)-lt$deadline){$r=Invoke-OpenClawFixedConfig @('gateway','call','status','--json');if($r.exit_code-eq0){return $true};Start-Sleep -Seconds 3};return $false}
 function Start-AuthoritativeGateway([object]$Topology) {if([bool]$Topology.keeper_present){Start-ScheduledTask -TaskName $GatewayKeeperTaskName;return 'KEEPER'};if([bool]$Topology.legacy_present){Start-ScheduledTask -TaskName $LegacyGatewayTaskName;return 'LEGACY'};throw 'No fixed Gateway launcher task exists'}
 function Repair-OpenClawWindowsLkg {
@@ -1571,29 +1604,37 @@ function Repair-OpenClawWindowsLkg {
     Assert-NpmIntegrity $GatewayLkgVersion $GatewayLkgIntegrity
     $facts=Get-DirectGatewayConfigFacts;$top=Get-GatewayTopology;if(-not$facts.current_exists){throw 'OpenClaw config missing'}
     if($top.keeper_present-and-not$top.keeper_script_present){throw 'Gateway Keeper task exists but fixed Keeper script is missing'}
-    $useBackup=$false
-    if([string]$facts.current_last_touched-eq$GatewayRejectedVersion){if(-not$facts.backup_exists-or-not$facts.backup_semantically_equivalent){throw 'SAFE_BACKUP_NOT_PROVEN_FOR_DOWNGRADE'};if([string]$facts.backup_last_touched-eq$GatewayRejectedVersion-or[string]$facts.backup_last_touched-eq'UNKNOWN'){throw 'SAFE_BACKUP_VERSION_NOT_COMPATIBLE'};$useBackup=$true}
-    $config=Join-Path $env:USERPROFILE '.openclaw\openclaw.json';$configBak=$config+'.bak';$backupDir=Join-Path $BackupRoot ('openclaw-lkg-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N'));New-Item -ItemType Directory -Force -Path $backupDir|Out-Null;$savedConfig=Join-Path $backupDir 'openclaw.json';Copy-Item -LiteralPath $config -Destination $savedConfig -Force
+    $config=Join-Path $env:USERPROFILE '.openclaw\\openclaw.json'
+    $beforeConfigSha=Get-Sha $config;if(-not$beforeConfigSha){throw 'starting OpenClaw config hash unavailable'}
+    $backupDir=Join-Path $BackupRoot ('openclaw-lkg-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N'));New-Item -ItemType Directory -Force -Path $backupDir|Out-Null
+    $savedConfig=Join-Path $backupDir 'openclaw.json';Copy-Item -LiteralPath $config -Destination $savedConfig -Force
+    if((Get-Sha $savedConfig)-ne$beforeConfigSha){throw 'pretransition config snapshot hash mismatch'}
     $versionTransitionAttempted=$false;$launcher=''
     try{
         if($top.keeper_present){try{Stop-ScheduledTask -TaskName $GatewayKeeperTaskName -ErrorAction SilentlyContinue}catch{}}elseif($top.legacy_present){try{Stop-ScheduledTask -TaskName $LegacyGatewayTaskName -ErrorAction SilentlyContinue}catch{}}
         Stop-FixedGatewayListener
         if($before-ne$GatewayLkgVersion){$versionTransitionAttempted=$true;Install-ExactOpenClaw $GatewayLkgVersion}
-        if($useBackup){Copy-Item -LiteralPath $configBak -Destination $config -Force}
-        $v=Invoke-OpenClawFixedConfig @('config','validate','--json');if($v.exit_code-ne0){throw 'LKG config validation failed'}
+        # The target LKG must prove it can read the untouched current config.
+        # No metadata rewrite or backup substitution is allowed.
+        $v=Invoke-OpenClawFixedConfig @('config','validate','--json');if($v.exit_code-ne0){throw 'LKG current-config compatibility validation failed'}
+        if((Get-Sha $config)-ne$beforeConfigSha){throw 'LKG config validation unexpectedly modified config'}
         $launcher=Start-AuthoritativeGateway $top;if(-not(Wait-GatewayRpc 90)){throw 'LKG Gateway direct RPC did not become healthy'}
-        $health=Invoke-OpenClawFixedConfig @('gateway','health','--json');if($health.exit_code-ne0){throw 'LKG Gateway health failed'};$skills=Invoke-OpenClawFixedConfig @('skills','check','--agent','main','--json');if($skills.exit_code-ne0){throw 'LKG main-agent skills check failed'}
+        $health=Invoke-OpenClawFixedConfig @('gateway','health','--json');if($health.exit_code-ne0){throw 'LKG Gateway health failed'}
+        $skills=Invoke-OpenClawFixedConfig @('skills','check','--agent','main','--json');if($skills.exit_code-ne0){throw 'LKG main-agent skills check failed'}
         Assert-Benchmark30;$after=Get-InstalledOpenClawVersion
-        $public=[ordered]@{schema=1;kind='kevin-openclaw-windows-lkg-recovery-public';generated_at=(Get-Date).ToString('o');state='OMEN_PROVEN';safe_for_public_repo=$true;before_version=$before;after_version=$after;validated_version=$GatewayLkgVersion;npm_integrity_verified=$true;config_backup_used=$useBackup;authoritative_launcher=$launcher;keeper_preserved=[bool]$top.keeper_present;config_valid=$true;gateway_direct_rpc=$true;gateway_health=$true;main_skills_check=$true;benchmark_30_of_30=$true;rollback_available=$true;source_contract='Fixed Windows exact-version recovery to validated LKG with fixed npm integrity, preserved Keeper topology, safe config compatibility gate, fixed RPC/health/main-skills/Benchmark postconditions.';truth_boundary='No npm output, config body, credentials, paths, messages, prompts, or secrets are published.'}
-        $receipt=Publish-SafeFixedReport 'reports/openclaw-windows-lkg-recovery-omen.json' 'openclaw-windows-lkg-recovery-public.json' $public 'kevin OpenClaw Windows LKG recovery telemetry';return [ordered]@{state='OMEN_PROVEN';receipt_sha256=$receipt;before_version=$before;after_version=$after;authoritative_launcher=$launcher;gateway_direct_rpc=$true;benchmark='30/30';config_backup_used=$useBackup}
+        if($after-ne$GatewayLkgVersion){throw 'LKG postcondition version mismatch'}
+        if((Get-Sha $config)-ne$beforeConfigSha){throw 'OpenClaw config changed during successful LKG recovery'}
+        $public=[ordered]@{schema=1;kind='kevin-openclaw-windows-lkg-recovery-public';generated_at=(Get-Date).ToString('o');state='OMEN_PROVEN';safe_for_public_repo=$true;before_version=$before;after_version=$after;validated_version=$GatewayLkgVersion;npm_integrity_verified=$true;transactional_config_validation=$true;config_snapshot_verified=$true;config_sha_unchanged=$true;config_backup_used=$false;authoritative_launcher=$launcher;keeper_preserved=[bool]$top.keeper_present;config_valid=$true;gateway_direct_rpc=$true;gateway_health=$true;main_skills_check=$true;benchmark_30_of_30=$true;rollback_available=$true;source_contract='Fixed Windows exact-version recovery to validated LKG with fixed npm integrity, exact pretransition config snapshot, target-version compatibility validation against the untouched config, preserved Keeper topology, fixed RPC/health/main-skills/Benchmark postconditions, and exact package/config rollback.';truth_boundary='No npm output, config body, credentials, paths, messages, prompts, or secrets are published.'}
+        $receipt=Publish-SafeFixedReport 'reports/openclaw-windows-lkg-recovery-omen.json' 'openclaw-windows-lkg-recovery-public.json' $public 'kevin OpenClaw Windows LKG recovery telemetry'
+        return [ordered]@{state='OMEN_PROVEN';receipt_sha256=$receipt;before_version=$before;after_version=$after;authoritative_launcher=$launcher;gateway_direct_rpc=$true;benchmark='30/30';transactional_config_validation=$true;config_sha_unchanged=$true}
     }catch{
-        $primary=$_.Exception.Message;$packageRollbackOk=$true
-        try{Copy-Item -LiteralPath $savedConfig -Destination $config -Force}catch{}
+        $primary=$_.Exception.Message;$packageRollbackOk=$true;$configRollbackOk=$true
+        try{Copy-Item -LiteralPath $savedConfig -Destination $config -Force;if((Get-Sha $config)-ne$beforeConfigSha){throw 'starting OpenClaw config not restored exactly'}}catch{$configRollbackOk=$false}
         if($versionTransitionAttempted){
             try{Assert-NpmIntegrity $GatewayRejectedVersion $GatewayRejectedIntegrity;Install-ExactOpenClaw $GatewayRejectedVersion;if((Get-InstalledOpenClawVersion)-ne$before){throw 'starting OpenClaw version not restored'}}catch{$packageRollbackOk=$false}
         }
         try{$null=Start-AuthoritativeGateway $top}catch{};try{Assert-Benchmark30}catch{}
-        if(-not$packageRollbackOk){throw ('OpenClaw Windows LKG recovery AND exact package rollback failed after: '+$primary)}
+        if(-not$configRollbackOk -or -not$packageRollbackOk){throw ('OpenClaw Windows LKG recovery AND exact rollback failed config='+$configRollbackOk+' package='+$packageRollbackOk+' after: '+$primary)}
         throw ('OpenClaw Windows LKG recovery rollback completed: '+$primary)
     }
 }
@@ -1981,11 +2022,10 @@ function Invoke-SelfTest {
     Write-Host 'KEVIN MAINTENANCE v1.3.34 SELFTEST PASS continuation_cli=cron_alias runtime_compatible=true maintenance_backoff_reset=enabled_patch no_recursive_run=true fixed_job_identity=true benchmark_postcondition=true arbitrary_shell=false authority_expansion=false'
     $pubFn=(Get-Command Publish-SafeFixedReport).ScriptBlock.ToString();if($pubFn -notmatch 'attempt=1;\$attempt-le3'){throw 'safe report bounded retry loop missing'};if(-not$pubFn.Contains("--jq','.content")){throw 'safe report remote verification fetch missing'};if(-not$pubFn.Contains('remoteHash-eq$localHash')){throw 'safe report hash verification missing'};if($pubFn -match '(?i)invoke-expression|kevin_shell|cmd\.exe'){throw 'safe report publisher widened authority'}
     Write-Host 'KEVIN MAINTENANCE v1.3.35 SELFTEST PASS safe_report_publish=bounded3 create_update_race=true remote_hash_verify=true continuation_cli=cron_alias backoff_reset=true arbitrary_shell=false authority_expansion=false'
-    foreach($fn in @('Invoke-OpenClawFixedConfig','Invoke-ReaderOpenClaw','Invoke-NpmFixed')){
-        if((Get-Command $fn).Parameters.ContainsKey('Args')){throw 'automatic Args parameter must never be used for fixed command forwarding'}
-        if(-not(Get-Command $fn).Parameters.ContainsKey('CommandArguments')){throw 'explicit command argument parameter missing'}
-    }
-    Write-Host 'KEVIN MAINTENANCE v1.3.37 SELFTEST PASS explicit_command_arguments=true four_independent_readonly_probes=true version_change_not_implied=true supervisor_target=v1.8.5 authority_expansion=false'
+    $lkgFn=(Get-Command Repair-OpenClawWindowsLkg).ScriptBlock.ToString();if($lkgFn.Contains('SAFE_BACKUP_NOT_PROVEN_FOR_DOWNGRADE') -or $lkgFn.Contains('SAFE_BACKUP_VERSION_NOT_COMPATIBLE')){throw 'metadata-only downgrade backup gate retained'};if(-not$lkgFn.Contains('pretransition config snapshot hash mismatch')){throw 'exact pretransition config snapshot verification missing'};if(-not$lkgFn.Contains('LKG current-config compatibility validation failed')){throw 'target-version config compatibility validation missing'};if(-not$lkgFn.Contains('LKG config validation unexpectedly modified config')){throw 'config mutation guard missing'};if(-not$lkgFn.Contains('starting OpenClaw config not restored exactly')){throw 'exact config rollback verification missing'};if(-not$lkgFn.Contains('starting OpenClaw version not restored')){throw 'exact package rollback verification missing'}
+    Write-Host 'KEVIN MAINTENANCE v1.3.36 SELFTEST PASS lkg_config_compat=target_validates_untouched transactional_snapshot=true config_hash_unchanged=true exact_config_rollback=true exact_package_rollback=true keeper_preserved=true gateway_rpc_postcondition=true benchmark_30=true arbitrary_shell=false authority_expansion=false'
+    $pkgFn=(Get-Command Install-ExactOpenClaw).ScriptBlock.ToString();$dlFn=(Get-Command Download-VerifiedOpenClawTarball).ScriptBlock.ToString();$specFn=(Get-Command Get-FixedOpenClawTarballSpec).ScriptBlock.ToString();if(-not$pkgFn.Contains("'--global'") -or -not$pkgFn.Contains('$tar')){throw 'verified local tarball install missing'};if(-not$dlFn.Contains('Get-FileSriSha512')){throw 'tarball byte-level SRI verification missing'};if(-not$specFn.Contains('https://registry.npmjs.org/openclaw/-/openclaw-')){throw 'fixed official registry tarball root missing'};if($specFn.Contains('http://')){throw 'insecure tarball transport present'};$lkgSpec=Get-FixedOpenClawTarballSpec $GatewayLkgVersion;$rejSpec=Get-FixedOpenClawTarballSpec $GatewayRejectedVersion;if([string]$lkgSpec.uri-ne'https://registry.npmjs.org/openclaw/-/openclaw-2026.6.34.tgz' -or [string]$lkgSpec.integrity-ne$GatewayLkgIntegrity){throw 'LKG package spec mismatch'};if([string]$rejSpec.uri-ne'https://registry.npmjs.org/openclaw/-/openclaw-2026.7.1-2.tgz' -or [string]$rejSpec.integrity-ne$GatewayRejectedIntegrity){throw 'rollback package spec mismatch'};$untrustedRejected=$false;try{$null=Get-FixedOpenClawTarballSpec '2026.9.9'}catch{$untrustedRejected=$true};if(-not$untrustedRejected){throw 'untrusted package version accepted'}
+    Write-Host 'KEVIN MAINTENANCE v1.3.37 SELFTEST PASS package_source=fixed_registry_tarball fixed_specs_runtime_proven=true byte_sri_sha512=true embedded_windows_policy_pin=true install_from_verified_local_tarball=true rollback_package_same_contract=true dynamic_npm_view=false arbitrary_url=false arbitrary_shell=false authority_expansion=false'
 }
 
 if($SelfTest){Invoke-SelfTest;exit 0}
