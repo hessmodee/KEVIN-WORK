@@ -1,0 +1,92 @@
+name: Supervisor v1.8.4 Native OpenClaw Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-supervisor-v184-native-openclaw.py'
+      - 'control-plane/autonomy/kevin-supervisor-v1.8.3.ps1'
+      - '.github/workflows/supervisor-v184-native-openclaw-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  proof:
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Generate exact Supervisor v1.8.4
+        run: python tools/generate-supervisor-v184-native-openclaw.py
+      - name: Parse and forbid authority widening
+        shell: pwsh
+        run: |
+          $p=(Resolve-Path 'control-plane/autonomy/kevin-supervisor-v1.8.4.ps1')
+          $tokens=$null;$errors=$null;$ast=[Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw $errors[0].Message}
+          $names=@($ast.FindAll({param($n) $n -is [Management.Automation.Language.CommandAst]},$true)|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($bad in @('invoke-expression','iex','cmd.exe','start-process','kevin_shell')){if($names -contains $bad){throw "forbidden Supervisor command $bad"}}
+      - name: Run Supervisor self-test
+        shell: pwsh
+        run: |
+          & .\control-plane\autonomy\kevin-supervisor-v1.8.4.ps1 -SelfTest
+          if($LASTEXITCODE -ne 0){throw "Supervisor v1.8.4 selftest exit=$LASTEXITCODE"}
+      - name: Assert native runtime and fixed-main invariants
+        shell: pwsh
+        run: |
+          $t=[IO.File]::ReadAllText('control-plane/autonomy/kevin-supervisor-v1.8.4.ps1')
+          foreach($m in @(
+            '# Kevin Supervisor v1.8.4 Governed Autonomy Continuation Controller - Native OpenClaw Runtime',
+            "version = '1.8.4'",
+            'function Get-FixedOpenClawRuntime',
+            'Get-Command node.exe',
+            'node_modules',
+            'openclaw',
+            'dist',
+            'index.js',
+            'function Invoke-FixedNativeBounded',
+            'CreateNoWindow = $true',
+            'return Invoke-FixedNativeBounded $r.node (@($r.cli) + @($Args)) 180',
+            "Invoke-OpenClaw @('gateway', 'status', '--require-rpc', '--json')",
+            "Invoke-OpenClaw @('skills', 'check', '--agent', 'main', '--json')",
+            "Invoke-OpenClaw @('agent', '--agent', 'main', '--json', '--message', `$message)",
+            'shell_shim_bypassed=true'
+          )){if(-not$t.Contains($m)){throw "missing invariant: $m"}}
+          if($t -match '(?i)Get-Command\s+openclaw'){throw 'PowerShell OpenClaw shim remains'}
+          if($t -match '(?i)arbitrary\s+shell'){ }
+          Write-Host 'SUPERVISOR_V184_INVARIANTS_PASS native_node=true shim=false fixed_main=true timeout=true'
+      - name: Emit exact identity
+        shell: pwsh
+        run: |
+          $sha=(Get-FileHash 'control-plane/autonomy/kevin-supervisor-v1.8.4.ps1' -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "SUPERVISOR_V184_CI_PROVEN sha256=$sha"
+          "SUPERVISOR_V184_SHA=$sha" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Publish exact proven candidate through Git database API
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $repo='hessmodee/KEVIN-WORK';$path='control-plane/autonomy/kevin-supervisor-v1.8.4.ps1'
+          $bytes=[IO.File]::ReadAllBytes($path)
+          if((Get-FileHash $path -Algorithm SHA256).Hash.ToUpperInvariant() -ne $env:SUPERVISOR_V184_SHA){throw 'candidate identity changed after proof'}
+          $utf8=New-Object Text.UTF8Encoding($false)
+          function Api([string]$method,[string]$endpoint,[object]$body=$null){
+            if($null-eq$body){$out=gh api $endpoint 2>$null}else{$tmp=Join-Path $env:RUNNER_TEMP ('api-'+[guid]::NewGuid().ToString('N')+'.json');try{[IO.File]::WriteAllText($tmp,($body|ConvertTo-Json -Depth 20 -Compress),$utf8);$out=gh api --method $method $endpoint --input $tmp 2>$null}finally{Remove-Item $tmp -Force -ErrorAction SilentlyContinue}}
+            if($LASTEXITCODE-ne0){return $null};return($out|ConvertFrom-Json)
+          }
+          $blob=Api 'POST' "repos/$repo/git/blobs" ([ordered]@{content=[Convert]::ToBase64String($bytes);encoding='base64'});if(-not$blob.sha){throw 'blob creation failed'}
+          $ok=$false
+          for($attempt=1;$attempt-le100;$attempt++){
+            $ref=Api 'GET' "repos/$repo/git/ref/heads/main";if(-not$ref.object.sha){Start-Sleep -Milliseconds 250;continue}
+            $parent=[string]$ref.object.sha;$pc=Api 'GET' "repos/$repo/git/commits/$parent";if(-not$pc.tree.sha){Start-Sleep -Milliseconds 250;continue}
+            $tree=Api 'POST' "repos/$repo/git/trees" ([ordered]@{base_tree=[string]$pc.tree.sha;tree=@([ordered]@{path=$path;mode='100644';type='blob';sha=[string]$blob.sha})});if(-not$tree.sha){Start-Sleep -Milliseconds 250;continue}
+            $commit=Api 'POST' "repos/$repo/git/commits" ([ordered]@{message='Publish CI-proven Supervisor v1.8.4';tree=[string]$tree.sha;parents=@($parent)});if(-not$commit.sha){Start-Sleep -Milliseconds 250;continue}
+            $move=Api 'PATCH' "repos/$repo/git/refs/heads/main" ([ordered]@{sha=[string]$commit.sha;force=$false});if($move.object.sha-eq[string]$commit.sha){$ok=$true;break};Start-Sleep -Milliseconds 250
+          }
+          if(-not$ok){throw 'Supervisor v1.8.4 publication exhausted bounded retries'}
+          Write-Host "SUPERVISOR_V184_PUBLISH_ACCEPTED sha256=$env:SUPERVISOR_V184_SHA force=false"
