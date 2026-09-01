@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-01T03:15:26.9195077-06:00",
+    "generated_at":  "2026-09-01T03:18:26.9054457-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788253942646,
-                                  "next_run_at_ms":  1788254122646
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788253849969,
-                                  "next_run_at_ms":  1788254149969
+                                  "last_run_at_ms":  1788254122658,
+                                  "next_run_at_ms":  1788254302658
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788254090012,
-                                  "next_run_at_ms":  1788254150012
+                                  "last_run_at_ms":  1788254295915,
+                                  "next_run_at_ms":  1788254355915
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -101,8 +89,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788254005526,
-                                  "next_run_at_ms":  1788254185526
+                                  "last_run_at_ms":  1788254185539,
+                                  "next_run_at_ms":  1788254365539
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788254149985,
+                                  "next_run_at_ms":  1788254449985
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -120,10 +120,10 @@
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  423,
+                       "cycle":  424,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-09-01T03:13:27.0709017-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-09-01T03:17:13.8220785-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -148,20 +148,20 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260901-030727-forge-v4-i369-evaluation.json",
-                              "at":  "2026-09-01T03:08:36.6563689-06:00",
+                              "file":  "20260901-031627-forge-v4-i370-evaluation.json",
+                              "at":  "2026-09-01T03:17:13.7023942-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  369,
+                              "iteration":  370,
                               "verdict":  "REJECT",
-                              "score":  55,
+                              "score":  2,
                               "result":  "",
-                              "failure_count":  7,
-                              "security_finding_count":  0,
+                              "failure_count":  8,
+                              "security_finding_count":  1,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-09-01T03:15:12.5655286-06:00",
+                        "at":  "2026-09-01T03:15:50.8638255-06:00",
                         "status":  "ALREADY_APPLIED_PROVEN",
                         "manifest_id":  "recover-maintenance-runtime-audit-20260901-0208",
                         "stage_path":  "",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "89286BAF5D0DEB00E37F53DB1C6728AB25EE726EB5B4B810B5E9FAB4FC943366"
+    "semantic_hash":  "1B7F2DE099C037A2F3F57C828D46061AB88A7859BA47C78709C164ACC6A01F0F"
 }
