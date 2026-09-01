@@ -1,10 +1,33 @@
 {
     "schema":  1,
     "kind":  "kevin-gateway-rpc-diagnosis-public",
-    "generated_at":  "2026-09-01T13:27:45.4277400-06:00",
+    "generated_at":  "2026-09-01T13:57:57.3934686-06:00",
     "state":  "OMEN_DIAGNOSIS_PROVEN",
     "safe_for_public_repo":  true,
     "openclaw_version":  "2026.7.1-2",
+    "bootstrap":  {
+                      "node_version":  {
+                                           "exit_code":  0,
+                                           "class":  "OK",
+                                           "output_sha256":  "C0862AA59607838AF3E7159AED076117DB206866E0843A624104BB795B5C545E"
+                                       },
+                      "cli_version":  {
+                                          "exit_code":  0,
+                                          "class":  "OK",
+                                          "output_sha256":  "CA76E76571FC7811C297E483E2951074E10F5AC59A9929D3528785CE7050887E"
+                                      },
+                      "cli_help":  {
+                                       "exit_code":  0,
+                                       "class":  "OK",
+                                       "output_sha256":  "E725384F18C0F965E74DEC4AEF45FFBCEBF767913ACE348D99AA281672C70F8A"
+                                   }
+                  },
+    "config_file":  {
+                        "exists":  true,
+                        "sha256":  "6FC7A112062BD97A6CDFEC4516A3266D0217BDEB5EF6BE920283C55B345C8518",
+                        "size_bytes":  6549,
+                        "strict_json_valid":  true
+                    },
     "probes":  {
                    "gateway_status":  {
                                           "exit_code":  1,
