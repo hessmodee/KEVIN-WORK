@@ -54,15 +54,30 @@ jobs:
           New-Item -ItemType Directory -Force reports/ci|Out-Null
           [IO.File]::WriteAllText('reports/ci/maintenance-v133-watchdog-probe.json',($obj|ConvertTo-Json -Depth 10),(New-Object Text.UTF8Encoding($false)))
           Write-Host "CANDIDATE_SHA256=$sha"
-      - name: Commit proven candidate
+      - name: Publish proven fixed files through Contents API
         shell: powershell
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          git config user.name 'kevin-ci'
-          git config user.email 'kevin-ci@users.noreply.github.com'
-          git add control-plane/maintenance/kevin-maintenance-runner-v1.3.33.ps1 reports/ci/maintenance-v133-watchdog-probe.json
-          if(git diff --cached --quiet){Write-Host 'Already committed';exit 0}
-          git commit -m 'Add CI-proven Maintenance v1.3.33 watchdog ProbeOnly bridge'
-          git reset --hard HEAD
-          git fetch origin main
-          git rebase origin/main
-          git push origin HEAD:main
+          $ErrorActionPreference='Stop'
+          function Publish-FixedFile([string]$Path,[string]$Message) {
+            if(-not(Test-Path -LiteralPath $Path -PathType Leaf)){throw "missing proven file $Path"}
+            $endpoint="repos/${env:GITHUB_REPOSITORY}/contents/$Path"
+            $old=$ErrorActionPreference
+            try {
+              $ErrorActionPreference='Continue'
+              $existing=(& gh api $endpoint --jq '.sha' 2>$null | Out-String).Trim()
+              $lookupExit=[int]$LASTEXITCODE
+            } finally {$ErrorActionPreference=$old}
+            $body=[ordered]@{message=$Message;content=[Convert]::ToBase64String([IO.File]::ReadAllBytes($Path))}
+            if($lookupExit-eq0 -and $existing){$body.sha=$existing}
+            elseif($lookupExit-ne0){Write-Host "Creating new fixed path $Path"}
+            $tmp=Join-Path $env:RUNNER_TEMP ('kevin-publish-'+[guid]::NewGuid().ToString('N')+'.json')
+            try {
+              [IO.File]::WriteAllText($tmp,($body|ConvertTo-Json -Compress),(New-Object Text.UTF8Encoding($false)))
+              & gh api --method PUT $endpoint --input $tmp --silent
+              if($LASTEXITCODE-ne0){throw "Contents API publish failed $Path"}
+            } finally {Remove-Item -LiteralPath $tmp -Force -ErrorAction SilentlyContinue}
+          }
+          Publish-FixedFile 'control-plane/maintenance/kevin-maintenance-runner-v1.3.33.ps1' 'Publish CI-proven Maintenance v1.3.33'
+          Publish-FixedFile 'reports/ci/maintenance-v133-watchdog-probe.json' 'Publish Maintenance v1.3.33 Windows CI proof'
