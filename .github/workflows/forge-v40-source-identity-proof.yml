@@ -9,7 +9,7 @@ on:
       - '.github/workflows/forge-v40-source-identity-proof.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   proof:
@@ -46,38 +46,10 @@ jobs:
           if($t -match 'MissionContractPath'){ throw 'legacy MissionContractPath interface present in Forge v4' }
           if($t -match '(?i)Invoke-Expression|kevin_shell|Start-Process\s+cmd\.exe'){ throw 'forbidden arbitrary execution marker' }
           Write-Host 'FORGE_V40_DEMAND_GATE_PASS'
-      - name: Publish exact qualified identity
+      - name: Emit immutable qualified identity
         shell: pwsh
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           $p='control-plane/forge/kevin-design-forge-v4.0.ps1'
           $sha=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
-          $obj=[ordered]@{
-            schema=1
-            kind='kevin-forge-v40-source-identity'
-            generated_at=(Get-Date).ToUniversalTime().ToString('o')
-            state='CI_PROVEN'
-            source_path=$p
-            sha256=$sha
-            demand_driven=$true
-            round_robin=$false
-            max_attempts=3
-            legacy_mission_contract_interface=$false
-            parse_proven=$true
-            selftest_proven=$true
-            authority_delta='NONE'
-            production_promotion=$false
-          }
-          $tmp=Join-Path $env:TEMP 'forge-v40-source-identity.json'
-          [IO.File]::WriteAllText($tmp,($obj|ConvertTo-Json -Depth 10),(New-Object Text.UTF8Encoding($false)))
-          $repo='hessmodee/KEVIN-WORK';$path='reports/forge-v40-source-identity.json'
-          $encoded=[Convert]::ToBase64String([IO.File]::ReadAllBytes($tmp))
-          $raw=gh api "repos/$repo/contents/$path?ref=main" 2>$null
-          $body=[ordered]@{message='kevin Forge v4 qualified source identity';content=$encoded;branch='main'}
-          if($LASTEXITCODE -eq 0 -and $raw){$lookup=$raw|ConvertFrom-Json;if($lookup.sha){$body.sha=[string]$lookup.sha}}
-          $payload=Join-Path $env:TEMP 'forge-v40-publish.json'
-          [IO.File]::WriteAllText($payload,($body|ConvertTo-Json -Compress),(New-Object Text.UTF8Encoding($false)))
-          gh api --method PUT "repos/$repo/contents/$path" --input $payload --silent
-          if($LASTEXITCODE -ne 0){throw 'Forge v4 identity publish failed'}
           Write-Host "FORGE_V40_IDENTITY_PROVEN sha256=$sha"
+          Write-Host 'FORGE_V40_PROOF parse=true selftest=true demand_driven=true round_robin=false max_attempts=3 legacy_mission_contract=false authority_delta=NONE production_promotion=false'
