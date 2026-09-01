@@ -54,9 +54,13 @@ foreach($case in $cases){
 Import-SourceFunction $new 'Diagnose-GatewayFailureDetail'
 function Invoke-OpenClawFixedConfig([string[]]$CommandArguments){
     $script:NativeCalls.Add(@($CommandArguments))
+    if($script:ProbeFailure -and $CommandArguments[0]-eq'config'){return [pscustomobject]@{exit_code=1;output='invalid config'}}
     return [pscustomobject]@{exit_code=0;output='{}'}
 }
-function Get-GatewayFailureFamilyDetailed([string]$Text){throw 'successful probes must not be classified from arbitrary stdout'}
+function Get-GatewayFailureFamilyDetailed([string]$Text){
+    if($script:ProbeFailure -and $Text.Contains('invalid config')){return 'CONFIG_INVALID'}
+    throw 'successful probes must not be classified from arbitrary stdout'
+}
 function Get-DirectGatewayConfigFacts{return [pscustomobject]@{current_sha256='';current_last_touched='';backup_exists=$false;backup_sha256='';backup_last_touched='';backup_semantically_equivalent=$false;telegram_present=$false;discord_present=$false;codex_present=$false;memory_core_present=$false}}
 function Get-GatewayTopology{return [pscustomobject]@{keeper_present=$false;keeper_state='';keeper_script_present=$false;keeper_script_sha256='';legacy_present=$false;legacy_state='';port_listening=$false;gateway_listener_count=0}}
 function Get-TextSha256([string]$Text){return ('A'*64)}
@@ -66,6 +70,7 @@ $GatewayRejectedVersion='2026.7.1-2';$GatewayLkgVersion='2026.6.34'
 $previousAppData=$env:APPDATA
 try{
     $env:APPDATA=[IO.Path]::GetTempPath()
+    $script:ProbeFailure=$false
     $script:NativeCalls.Clear();$null=Diagnose-GatewayFailureDetail
     Assert-True ($script:NativeCalls.Count-eq4) 'diagnostic must call exactly four independent probes'
     Assert-Arguments $script:NativeCalls[0] @('config','validate','--json') 'probe 1'
@@ -74,6 +79,11 @@ try{
     Assert-Arguments $script:NativeCalls[3] @('gateway','health','--json') 'probe 4'
     Assert-True ($script:Published.root_cause_family-eq'HEALTHY') 'all-pass diagnostic reported a failure'
     Assert-True ($script:Published.recommended_repair-eq'NONE_ALL_PROBES_PASSED') 'all-pass diagnostic recommended a version change'
+    $script:ProbeFailure=$true;$script:NativeCalls.Clear();$null=Diagnose-GatewayFailureDetail
+    Assert-True ($script:NativeCalls.Count-eq4) 'negative diagnostic skipped independent probes'
+    Assert-True (-not$script:Published.all_probes_ok) 'failed config probe falsely reported all-pass'
+    Assert-True ($script:Published.root_cause_family-eq'CONFIG_INVALID') 'failed config probe was not classified'
+    Assert-True ($script:Published.recommended_repair-eq'CLASSIFY_FAILED_PROBE_BEFORE_REPAIR') 'failed probe automatically recommended a downgrade'
 }finally{if($null-eq$previousAppData){Remove-Item Env:APPDATA -ErrorAction SilentlyContinue}else{$env:APPDATA=$previousAppData}}
 
 # Test the actual native process boundary and quoting, with an argv-only child.
