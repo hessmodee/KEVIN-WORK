@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-01T05:14:55.5248556-06:00",
+    "generated_at":  "2026-09-01T05:16:55.5623079-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
@@ -27,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  5
+                                     "heartbeat_age_seconds":  3.7
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -57,13 +57,20 @@
                                      "passed":  30,
                                      "total":  30,
                                      "critical":  0,
-                                     "at":  "2026-09-01T05:06:49.4483851-06:00"
+                                     "at":  "2026-09-01T05:16:49.3255384-06:00"
                                  },
                    "cron":  [
                                 {
                                     "declaration_key":  "kevin-engineering-relay-v1",
                                     "enabled":  true,
                                     "every_ms":  120000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-supervisor-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
@@ -85,13 +92,6 @@
                                     "declaration_key":  "kevin-benchmark-v1",
                                     "enabled":  true,
                                     "every_ms":  600000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-supervisor-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
