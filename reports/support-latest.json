@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-01T02:21:26.4543768-06:00",
+    "generated_at":  "2026-09-01T02:24:26.4614689-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788250702221,
-                                  "next_run_at_ms":  1788250882221
+                                  "last_run_at_ms":  1788250882234,
+                                  "next_run_at_ms":  1788251062234
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,32 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788250839151,
-                                  "next_run_at_ms":  1788250899151
-                              },
-                              {
-                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
-                                  "declaration_key":  "kevin-supervisor-v1",
-                                  "name":  "Kevin Supervisor v1.6 High Gear",
-                                  "enabled":  true,
-                                  "every_ms":  180000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788250765269,
-                                  "next_run_at_ms":  1788250945269
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788250753463,
-                                  "next_run_at_ms":  1788251053463
+                                  "last_run_at_ms":  1788251031841,
+                                  "next_run_at_ms":  1788251091841
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -115,6 +91,30 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788250511132,
                                   "next_run_at_ms":  1788251111132
+                              },
+                              {
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.6 High Gear",
+                                  "enabled":  true,
+                                  "every_ms":  180000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788250945285,
+                                  "next_run_at_ms":  1788251125285
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788251053478,
+                                  "next_run_at_ms":  1788251353478
                               }
                           ],
                  "error":  ""
@@ -122,16 +122,16 @@
     "supervisor":  {
                        "cycle":  417,
                        "last_mission":  "forge-v4",
-                       "last_result":  "REJECT",
-                       "next_eligible_at":  "2026-09-01T02:20:37.0724149-06:00",
+                       "last_result":  "RECOVERY_PASS",
+                       "next_eligible_at":  "2026-09-01T02:22:49.7322140-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
     "recovery":  {
-                     "fingerprint":  "D44E8A530EF4BB0890071A1B99DD43E36749697EE0C4F1B8F99CFF64195EC212",
+                     "fingerprint":  "706902A27DF030D8CCDEA4C4323F9D13B31F751C0A3333B3CF5BF380793AA0DF",
                      "round":  1,
-                     "last_at":  "2026-09-01T02:13:48.4709909-06:00",
-                     "last_brief":  "20260901-021348-round1.json"
+                     "last_at":  "2026-09-01T02:22:49.6080772-06:00",
+                     "last_brief":  "20260901-022249-round1.json"
                  },
     "benchmark":  {
                       "at":  "2026-09-01T02:15:20.1142992-06:00",
@@ -161,7 +161,7 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-09-01T02:21:13.6626758-06:00",
+                        "at":  "2026-09-01T02:24:14.3503357-06:00",
                         "status":  "ALREADY_APPLIED_PROVEN",
                         "manifest_id":  "recover-maintenance-runtime-audit-20260901-0208",
                         "stage_path":  "",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "949A4D738EF7EE47B0D8457D9D39550187F3CE5DDF804D01B74C2576B01EAF62"
+    "semantic_hash":  "F2421BC282FE19764D60C5F04289A9CFDF8C9EA9F2B4C40EBD22F2BDCD1FC209"
 }
