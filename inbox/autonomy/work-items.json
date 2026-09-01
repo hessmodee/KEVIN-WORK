@@ -5,6 +5,7 @@
   "items": [
     {
       "id": "finish-forge-v40-runtime-convergence",
+      "failure_family": "forge-demandless-supervisor-bypass",
       "program": "platform-reliability",
       "authority_class": "GREEN",
       "status": "BLOCKED",
@@ -20,14 +21,16 @@
         "Benchmark returns PASS 30/30 critical=0 against the intentional new Forge/Goal-OS trust relationship.",
         "With no valid current demand, Forge records IDLE_NO_ELIGIBLE_DEMAND and does not create another candidate iteration.",
         "A valid bounded demand is consumed exactly once and archived.",
-        "Legacy Supervisor no longer generates demandless Forge work."
+        "Legacy Supervisor no longer generates demandless Forge work.",
+        "Blocked Forge produces zero new evaluations across at least two scheduled Supervisor opportunities.",
+        "When Forge is ineligible, Kevin selects another eligible GREEN owner objective instead of manufacturing Recovery experiment demand."
       ],
       "dependencies_ready": false,
       "blocked": true,
       "failure_attempts": 3,
       "material_new_evidence": true,
-      "cooldown_until": "2026-08-31T17:00:00-06:00",
-      "next_action": "READ-ONLY diagnosis only. R03 is proven to reference Forge + Goal OS + hash semantics while the current Forge SHA occurs zero times literally. Identify the real Benchmark/Goal-OS/Forge trust relationship and installed Supervisor admission path before any new migration. Do not retry the disproven literal-SHA migration."
+      "cooldown_until": null,
+      "next_action": "READ-ONLY diagnosis and admission repair only. Exact installed Supervisor v1.6 source has been reconstructed and proves Recovery->Experiment can manufacture a new choice with blocked=false without consulting the modern work selector. Do not retry the disproven literal-SHA Forge migration. First converge installed Maintenance, then gate every Supervisor/Recovery Forge dispatch through deterministic current demand/failure-family state."
     },
     {
       "id": "runtime-owner-doctrine-v2",
@@ -76,14 +79,15 @@
       "dependencies_ready": true,
       "downstream_consumer": "AUTONOMY_CONTROLLER_V2_AND_FORGE_R03_REPAIR",
       "failure_attempts": 0,
-      "completion_evidence": "reports/runtime-capabilities-omen.json state=OMEN_AUDIT_PROVEN generated 2026-08-31T15:06:15-06:00; Task Flow CLI and Skill Workshop are installed; Lobster is not registered; R03 references Forge + Goal OS + file/hash and not Desired State; current Forge SHA literal count=0.",
+      "completion_evidence": "reports/runtime-capabilities-omen.json state=OMEN_AUDIT_PROVEN; Task Flow CLI and Skill Workshop are installed; Lobster is not registered; R03 references Forge + Goal OS + file/hash and not Desired State; current Forge SHA literal count=0.",
       "next_action": "Do not rerun unchanged probes. Consumers should use this receipt until installed runtime/config materially changes."
     },
     {
       "id": "real-owner-task-reader-e2e",
+      "failure_family": "reader-canary-runtime-path",
       "program": "reader-evidence",
       "authority_class": "GREEN",
-      "status": "RUNNING",
+      "status": "BLOCKED",
       "lane": "production",
       "work_type": "execution",
       "severity": "high",
@@ -98,11 +102,12 @@
         "Fresh Benchmark remains PASS 30/30 critical=0 and the public receipt contains metadata/output hashes only.",
         "The result is recorded separately from T-level autonomy because Bess initiated the canary."
       ],
-      "dependencies_ready": true,
+      "dependencies_ready": false,
+      "blocked": true,
       "downstream_consumer": "OWNER_OUTCOME_SCORECARD_AND_TRAJECTORY_RELIABILITY",
-      "failure_attempts": 0,
-      "near_acceptance": true,
-      "next_action": "The first 20:24 manifest expired without terminal Reader evidence; this was an execution-window expiry, not a canary semantic/tool/privacy failure. One bounded reissue reader-status-canary-20260831-2119 is active through 22:15. Require reports/reader-canary-omen.json state=REPEATEDLY_PROVEN pass_k=2/2 and fresh Benchmark 30/30 before promotion. Do not issue another Reader retry until this manifest is terminal or materially new evidence changes the blocker."
+      "failure_attempts": 3,
+      "material_new_evidence": false,
+      "next_action": "Do not issue another renamed Reader canary. The bounded execution attempts are exhausted. Reopen only after materially new installed-runtime evidence identifies and fixes the Reader/Maintenance execution-path cause; then require the original 2/2 semantic/tool/privacy acceptance unchanged."
     },
     {
       "id": "hq-direct-chat-real-roundtrip",
@@ -125,10 +130,11 @@
       "dependencies_ready": true,
       "blocked": false,
       "failure_attempts": 0,
-      "next_action": "Wait only for the current Reader production proof crossing to free the single production lane, then use the existing CI-proven typed HQ-chat package. Do not redesign the contract again."
+      "next_action": "Production WIP is free, but do not mix this crossing with the current control-plane convergence. Once the legacy Supervisor admission loop is contained and Maintenance is current, use the existing CI-proven typed HQ-chat package; do not redesign the contract."
     },
     {
       "id": "skill-workshop-self-learning-proof",
+      "failure_family": "skill-workshop-config-contract",
       "program": "skill-learning",
       "authority_class": "GREEN",
       "status": "BLOCKED",
@@ -149,7 +155,8 @@
       "dependencies_ready": false,
       "blocked": true,
       "failure_attempts": 2,
-      "next_action": "Configuration writes are cooled. The JSON-value hypothesis and the materially different fixed raw-string --dry-run hypothesis both failed closed on the installed Omen CLI; fresh Benchmark stayed 30/30. Advance only with read-only installed CLI-contract evidence that materially changes the hypothesis. Do not create another renamed config retry."
+      "material_new_evidence": false,
+      "next_action": "Configuration writes are cooled. The JSON-value hypothesis and materially different fixed raw-string --dry-run hypothesis both failed closed. Reopen only with read-only installed CLI help/schema/version evidence that materially changes the contract hypothesis; no renamed config retry."
     },
     {
       "id": "staging-trajectory-reliability-v1",
@@ -171,7 +178,7 @@
       "dependencies_ready": true,
       "failure_attempts": 0,
       "downstream_consumer": "READER_AND_SKILL_REUSE_RELIABILITY",
-      "next_action": "Use the real two-run Reader canary as the first production-like repeated trajectory. Do not manufacture synthetic trials merely to increase promotion count."
+      "next_action": "Use the next genuinely successful real owner workflow as trajectory evidence. Do not manufacture synthetic trials merely to increase promotion count."
     }
   ]
 }
