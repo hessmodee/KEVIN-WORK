@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T22:46:26.2405696-06:00",
-  "status": "ready",
+  "generated_at": "2026-08-31T22:48:28-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -13,12 +13,14 @@
     "tools": false
   },
   "current_task": {
-    "id": "supervisor",
-    "title": "Supervisor autonomous cycle",
-    "category": "supervisor",
-    "phase": "Goal-aware Supervisor cycle active.",
-    "started_at": "2026-08-31T22:45:26.2325799-06:00",
-    "source": "hq-live-ops"
+    "id": "design-forge",
+    "title": "Design Forge: forge-v4",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-08-31T22:48:28-06:00",
+    "source": "forge"
   },
   "services": {
     "tick": "healthy",
@@ -27,22 +29,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 39,
-    "cpu_pct": 5,
+    "memory_pct": 36,
+    "cpu_pct": 14,
     "gpu": "RTX 3060",
-    "gpu_pct": 27
+    "gpu_pct": 38
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-31T18:41:24-06:00",
-        "estimated": false,
-        "ram": 36,
-        "cpu": 5,
-        "gpu": 39
-      },
       {
         "at": "2026-08-31T18:41:57-06:00",
         "estimated": false,
@@ -707,10 +702,16 @@
         "ram": 39,
         "cpu": 5,
         "gpu": 27
+      },
+      {
+        "at": "2026-08-31T22:48:28-06:00",
+        "estimated": false,
+        "ram": 36,
+        "cpu": 14,
+        "gpu": 38
       }
     ],
     "ram": [
-      36,
       36,
       29,
       30,
@@ -805,10 +806,10 @@
       37,
       37,
       39,
-      39
+      39,
+      36
     ],
     "cpu": [
-      5,
       5,
       10,
       10,
@@ -903,10 +904,10 @@
       9,
       9,
       5,
-      5
+      5,
+      14
     ],
     "gpu": [
-      39,
       39,
       21,
       37,
@@ -1001,7 +1002,8 @@
       40,
       40,
       27,
-      27
+      27,
+      38
     ]
   },
   "weather": {
@@ -1154,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-31T22:48:28-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: forge-v4",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-08-31T22:42:49-06:00",
       "source": "forge",
@@ -1368,23 +1379,14 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-31T21:39:26-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Night Forge PASS 145159ms",
-      "result": "pass",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-08-31T22:46:26.2405696-06:00",
+    "last": "2026-08-31T22:48:28-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1414,37 +1416,37 @@
       "last_mission": "knowledge",
       "iteration": 44,
       "updated_at": "2026-08-31T22:42:48.9687580-06:00",
-      "next_index": 4,
+      "next_index": 5,
       "scheduled": true,
       "promotion": "blocked"
     }
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-31T22:46:26.2405696-06:00",
+    "generated_at": "2026-08-31T22:48:28-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
+      "id": "design-forge",
+      "name": "Build Lab",
+      "title": "Design Forge: forge-v4",
+      "category": "forge",
+      "state": "working",
+      "detail": "started",
+      "what": "Generating and validating an isolated candidate.",
+      "engine": "Ollama | Qwen 2.5 14B",
+      "action": "Candidate engineering"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
+        "state": "coordinating",
+        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1472,17 +1474,17 @@
     ]
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "running": true,
+    "state": "working",
+    "phase": "started",
+    "worker": "Build Lab",
+    "engine": "Ollama | Qwen 2.5 14B",
+    "action": "Candidate engineering"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
+      "text": "Build Lab | WORKING | started",
       "severity": "normal"
     }
   ]
