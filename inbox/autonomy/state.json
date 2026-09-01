@@ -35,10 +35,11 @@
     "hq-attention-current-state-repair-v3",
     "forge-supervisor-admission-root-cause",
     "forge-v40-demand-gated-runtime-convergence",
-    "supervisor-v171-coordinated-trust-anchor-repair"
+    "supervisor-v171-coordinated-trust-anchor-repair",
+    "maintenance-intake-failure-classification"
   ],
   "preferred_observation_sequence": [
-    "maintenance-intake-current-failure-classification",
+    "gateway-probe-current-failure-classification",
     "gateway-direct-rpc-and-main-agent-readiness",
     "main-agent-real-turn-capability-canary",
     "persistent-compatible-autonomy-continuation",
@@ -50,9 +51,9 @@
     "real-owner-task-reader-e2e"
   ],
   "observation_window": {
-    "purpose": "First clear the fresh Maintenance Intake failure state after the proven v1.3.31 Gateway-recovery controller install, then prove the native OpenClaw Gateway/main-agent path before persistent continuation. Continuation infrastructure does not permanently consume production WIP. Do not restore legacy Supervisor/Forge admission and do not give Kevin a caller-selected next work-item id.",
-    "success_condition": "Maintenance Intake is healthy or has an exact bounded blocker; Gateway direct RPC/config/health/main-agent readiness are independently proven; a fixed compatible wake mechanism is repeatedly proven on Omen; production WIP remains available for owner outcomes; Kevin independently refreshes evidence, rejects already-satisfied work, selects an eligible GREEN objective, executes/verifies/records it through a proven typed path, and continues without manufacturing Forge demand or Bess choosing the immediate task identity."
+    "purpose": "Maintenance Intake has recovered to zero consecutive errors. The current boundary is the fixed main-agent canary REJECT at gateway_probe. Prove the native OpenClaw Gateway/main-agent path before persistent continuation. Continuation infrastructure does not permanently consume production WIP. Do not restore legacy Supervisor/Forge admission and do not give Kevin a caller-selected next work-item id.",
+    "success_condition": "Gateway probe failure is classified from bounded metadata-only evidence; Gateway direct RPC/config/health/main-agent readiness are independently proven; the fixed main-agent canary becomes OMEN-PROVEN; a compatible wake mechanism is repeatedly proven on Omen; production WIP remains available for owner outcomes; Kevin independently refreshes evidence, rejects already-satisfied work, selects an eligible GREEN objective, executes/verifies/records it through a proven typed path, and continues without manufacturing Forge demand or Bess choosing the immediate task identity."
   },
-  "truth_boundary": "Selection/WIP state only. Maintenance v1.3.31 install proof does not by itself prove Gateway/main-agent semantic health. Failed native continuation attempts are not active production work and cannot occupy WIP. This file does not grant T3; fresh Omen agent-turn and owner-outcome evidence must prove that transition.",
-  "note": "Reconciled 2026-09-01 15:14 MDT. Fresh Support reports Maintenance runner SHA256 75ED88D5A399A6AC14D30EC07EF90E53080D63FC404C6315352200B5DF1105C1 and manifest install-maint-v131-gateway-recovery-20260901-1437 as APPLIED_PREAUTHORIZED_PROVEN; Benchmark is PASS 30/30 critical=0. However Maintenance Intake has 4 consecutive errors, so the next boundary is current intake failure classification plus fixed Gateway/main-agent postconditions, not another v1.3.30 diagnosis retry."
+  "truth_boundary": "Selection/WIP state only. Maintenance Intake recovery does not prove Gateway/main-agent semantic health. The current fixed canary is REJECT at gateway_probe. Failed native continuation attempts are not active production work and cannot occupy WIP. This file does not grant T3; fresh Omen agent-turn and owner-outcome evidence must prove that transition.",
+  "note": "Reconciled 2026-09-01 16:24 MDT. Fresh Support generated 16:19:54 MDT reports Maintenance Intake consecutive_errors=0, Benchmark PASS 30/30 critical=0, and latest Maintenance manifest classify-gateway-failure-detail-20260901-1600 as ALREADY_APPLIED_PROVEN. The latest main-agent canary generated 15:53:22 MDT remains REJECT at failure_stage=gateway_probe with gateway_probe_ok=false and no agent execution. Intake incident is retired; Gateway/main-agent semantic recovery is the current boundary."
 }
