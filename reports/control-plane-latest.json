@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-08-31T22:29:02.7795228-06:00",
+    "generated_at":  "2026-08-31T22:29:12.9242246-06:00",
     "request":  {
                     "id":  "wake-maint-v1314-20260831-2227",
                     "verb":  "run_typed_maintenance",
                     "target":  "kevin-maintenance-v1"
                 },
-    "status":  "SUCCESS",
-    "detail":  "maintenance proven status=ALREADY_APPLIED_PROVEN manifest=install-maint-v1314-20260831-2227",
+    "status":  "IDLE_TERMINAL",
+    "detail":  "Current work order is already terminal; awaiting replacement",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
