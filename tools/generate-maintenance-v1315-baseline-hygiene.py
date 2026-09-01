@@ -102,7 +102,7 @@ if text.count(marker)!=1:
     raise SystemExit('selftest output marker missing')
 text=text.replace(marker,marker+"\n    Write-Host 'KEVIN MAINTENANCE v1.3.15 SELFTEST PASS benchmark_baseline_anchor=fixed typed_apply_failure=handled scheduler_backoff_poison=false arbitrary_shell=false authority_expansion=false'")
 
-for required in ['diagnose_benchmark_baseline_forge_anchor','reports/benchmark-v1\\baseline.json','MAINTENANCE TYPED OUTCOME APPLY_FAILED','scheduler_backoff_poison=false']:
+for required in ['diagnose_benchmark_baseline_forge_anchor','benchmark-v1\\baseline.json','MAINTENANCE TYPED OUTCOME APPLY_FAILED','scheduler_backoff_poison=false']:
     if required not in text: raise SystemExit('missing invariant '+required)
 if text==original: raise SystemExit('no change')
 OUT.write_text(text,encoding='utf-8',newline='\n')
