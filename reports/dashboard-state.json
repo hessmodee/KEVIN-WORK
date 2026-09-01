@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T04:32:48.1974005-06:00",
-  "status": "ready",
+  "generated_at": "2026-09-01T04:35:15-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,16 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "design-forge",
+    "title": "Design Forge: forge-v4",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-09-01T04:35:15-06:00",
+    "source": "forge"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -21,28 +30,14 @@
   },
   "system": {
     "memory_pct": 39,
-    "cpu_pct": 13,
+    "cpu_pct": 16,
     "gpu": "RTX 3060",
-    "gpu_pct": 33
+    "gpu_pct": 98
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-01T00:35:14-06:00",
-        "estimated": false,
-        "ram": 37,
-        "cpu": 4,
-        "gpu": 38
-      },
-      {
-        "at": "2026-09-01T00:37:01-06:00",
-        "estimated": false,
-        "ram": 37,
-        "cpu": 4,
-        "gpu": 38
-      },
       {
         "at": "2026-09-01T00:38:39-06:00",
         "estimated": false,
@@ -700,11 +695,23 @@
         "ram": 39,
         "cpu": 13,
         "gpu": 33
+      },
+      {
+        "at": "2026-09-01T04:35:14-06:00",
+        "estimated": false,
+        "ram": 39,
+        "cpu": 16,
+        "gpu": 98
+      },
+      {
+        "at": "2026-09-01T04:35:15-06:00",
+        "estimated": false,
+        "ram": 39,
+        "cpu": 16,
+        "gpu": 98
       }
     ],
     "ram": [
-      37,
-      37,
       38,
       38,
       38,
@@ -797,12 +804,12 @@
       36,
       37,
       37,
+      39,
+      39,
       39,
       39
     ],
     "cpu": [
-      4,
-      4,
       19,
       19,
       19,
@@ -896,11 +903,11 @@
       5,
       5,
       13,
-      13
+      13,
+      16,
+      16
     ],
     "gpu": [
-      38,
-      38,
       10,
       10,
       10,
@@ -994,7 +1001,9 @@
       32,
       32,
       33,
-      33
+      33,
+      98,
+      98
     ]
   },
   "weather": {
@@ -1148,6 +1157,22 @@
   ],
   "activity": [
     {
+      "at": "2026-09-01T04:35:15-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: forge-v4",
+      "result": "",
+      "task_id": "design-forge"
+    },
+    {
+      "at": "2026-09-01T04:35:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-09-01T04:32:43-06:00",
       "source": "forge",
       "component": "forge",
@@ -1232,13 +1257,6 @@
       "result": "fail",
       "task_id": "design-forge",
       "duration_ms": 30000
-    },
-    {
-      "at": "2026-09-01T04:20:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-09-01T04:19:47-06:00",
@@ -1361,24 +1379,14 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-09-01T03:35:35-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: forge-v4",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 37000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-09-01T04:32:48.1974005-06:00",
+    "last": "2026-09-01T04:35:15-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1415,30 +1423,30 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-01T04:32:48.1974005-06:00",
+    "generated_at": "2026-09-01T04:35:15-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "Forge attempt failed; Supervisor scheduled a bounded retry.",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
+      "id": "design-forge",
+      "name": "Build Lab",
+      "title": "Design Forge: forge-v4",
+      "category": "forge",
+      "state": "working",
+      "detail": "started",
+      "what": "Generating and validating an isolated candidate.",
+      "engine": "Ollama | Qwen 2.5 14B",
+      "action": "Candidate engineering"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "Forge attempt failed; Supervisor scheduled a bounded retry.",
+        "state": "coordinating",
+        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1466,17 +1474,17 @@
     ]
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "Forge attempt failed; Supervisor scheduled a bounded retry.",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "running": true,
+    "state": "working",
+    "phase": "started",
+    "worker": "Build Lab",
+    "engine": "Ollama | Qwen 2.5 14B",
+    "action": "Candidate engineering"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | Forge attempt failed; Supervisor scheduled a bounded retry.",
+      "text": "Build Lab | WORKING | started",
       "severity": "normal"
     }
   ]
