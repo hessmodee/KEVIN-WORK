@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T14:37:29.2768326-06:00",
+  "generated_at": "2026-09-01T14:38:42-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -14,13 +14,11 @@
   },
   "current_task": {
     "id": "night-forge",
-    "title": "Night Forge cycle",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-09-01T14:37:01-06:00",
-    "source": "forge"
+    "title": "Night Forge QA",
+    "category": "qa",
+    "phase": "Night Forge QA/regression cycle active.",
+    "started_at": "2026-09-01T14:38:29.2889447-06:00",
+    "source": "hq-live-ops"
   },
   "services": {
     "tick": "healthy",
@@ -30,21 +28,14 @@
   },
   "system": {
     "memory_pct": 27,
-    "cpu_pct": 3,
+    "cpu_pct": 16,
     "gpu": "RTX 3060",
-    "gpu_pct": 35
+    "gpu_pct": 18
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-01T05:26:55-06:00",
-        "estimated": false,
-        "ram": 32,
-        "cpu": 5,
-        "gpu": 24
-      },
       {
         "at": "2026-09-01T05:35:07-06:00",
         "estimated": false,
@@ -709,10 +700,16 @@
         "ram": 27,
         "cpu": 3,
         "gpu": 35
+      },
+      {
+        "at": "2026-09-01T14:38:42-06:00",
+        "estimated": false,
+        "ram": 27,
+        "cpu": 16,
+        "gpu": 18
       }
     ],
     "ram": [
-      32,
       32,
       35,
       35,
@@ -807,10 +804,10 @@
       31,
       30,
       28,
+      27,
       27
     ],
     "cpu": [
-      5,
       19,
       22,
       22,
@@ -905,10 +902,10 @@
       25,
       22,
       19,
-      3
+      3,
+      16
     ],
     "gpu": [
-      24,
       15,
       55,
       55,
@@ -1003,7 +1000,8 @@
       37,
       38,
       35,
-      35
+      35,
+      18
     ]
   },
   "weather": {
@@ -1156,6 +1154,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-09-01T14:38:41-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge idle: no CURRENT forge demand",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 100000
+    },
     {
       "at": "2026-09-01T14:37:01-06:00",
       "source": "forge",
@@ -1367,24 +1375,14 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-09-01T07:06:26-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: forge-v4",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 32000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-09-01T14:37:29.2768326-06:00",
+    "last": "2026-09-01T14:38:42-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1396,7 +1394,7 @@
     "state": "idle_no_eligible_demand",
     "last_mission": "",
     "iteration": null,
-    "updated_at": "2026-09-01T13:38:32.5711558-06:00",
+    "updated_at": "2026-09-01T14:38:41.7748998-06:00",
     "promotion": "blocked"
   },
   "diagnostics": {
@@ -1413,7 +1411,7 @@
       "mode": "design-forge-v3",
       "last_mission": "",
       "iteration": null,
-      "updated_at": "2026-09-01T13:38:32.5711558-06:00",
+      "updated_at": "2026-09-01T14:38:41.7748998-06:00",
       "next_index": null,
       "scheduled": true,
       "promotion": "blocked"
@@ -1421,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-01T14:37:29.2768326-06:00",
+    "generated_at": "2026-09-01T14:38:29.2889447-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
