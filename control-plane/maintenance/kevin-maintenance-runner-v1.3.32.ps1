@@ -1523,7 +1523,12 @@ function Diagnose-GatewayFailureDetail {
     $receipt=Publish-SafeFixedReport 'reports/gateway-failure-detail-omen.json' 'gateway-failure-detail-public.json' $public 'kevin gateway failure detail telemetry';Assert-Benchmark30
     return [ordered]@{state='OMEN_DIAGNOSIS_PROVEN';receipt_sha256=$receipt;root_cause_family=$family;openclaw_version=$version;release_policy_status=$public.release_policy_status;keeper_present=[bool]$top.keeper_present;backup_semantically_equivalent=[bool]$facts.backup_semantically_equivalent}
 }
-function Invoke-NpmFixed([string[]]$Args,[int]$Timeout=600) {$npm=Get-Command npm.cmd -ErrorAction SilentlyContinue;if(-not$npm){$npm=Get-Command npm -ErrorAction SilentlyContinue};if(-not$npm){throw 'npm unavailable'};return Invoke-FixedNativeBounded ([string]$npm.Source) $Args $Timeout}
+function Invoke-NpmFixed([string[]]$Args,[int]$Timeout=600) {
+    $node=Get-Command node.exe -ErrorAction SilentlyContinue;if(-not$node){$node=Get-Command node -ErrorAction SilentlyContinue};if(-not$node){throw 'node unavailable for fixed npm runtime'}
+    $npmCli=Join-Path (Split-Path -Parent ([string]$node.Source)) 'node_modules\npm\bin\npm-cli.js'
+    if(-not(Test-Path -LiteralPath $npmCli -PathType Leaf)){throw 'fixed npm-cli.js unavailable beside Node runtime'}
+    return Invoke-FixedNativeBounded ([string]$node.Source) (@($npmCli)+@($Args)) $Timeout
+}
 function Get-InstalledOpenClawVersion {$pkg=Join-Path $env:APPDATA 'npm\node_modules\openclaw\package.json';if(-not(Test-Path -LiteralPath $pkg -PathType Leaf)){return 'ABSENT'};try{return [string](Get-Content -LiteralPath $pkg -Raw|ConvertFrom-Json).version}catch{return 'UNREADABLE'}}
 function Assert-NpmIntegrity([string]$Version,[string]$Expected) {$r=Invoke-NpmFixed @('view',('openclaw@'+$Version),'dist.integrity','--json') 90;if($r.exit_code-ne0){throw ('npm registry integrity lookup failed for '+$Version)};$actual=([string]$r.output).Trim().Trim('"');if($actual-ne$Expected){throw ('npm integrity mismatch for '+$Version)}}
 function Install-ExactOpenClaw([string]$Version) {$r=Invoke-NpmFixed @('install','--global',('openclaw@'+$Version),'--no-audit','--no-fund','--ignore-scripts=false') 900;if($r.exit_code-ne0){throw ('exact OpenClaw install failed version='+$Version)};if((Get-InstalledOpenClawVersion)-ne$Version){throw ('installed OpenClaw version mismatch expected='+$Version)}}
@@ -1538,11 +1543,11 @@ function Repair-OpenClawWindowsLkg {
     $useBackup=$false
     if([string]$facts.current_last_touched-eq$GatewayRejectedVersion){if(-not$facts.backup_exists-or-not$facts.backup_semantically_equivalent){throw 'SAFE_BACKUP_NOT_PROVEN_FOR_DOWNGRADE'};if([string]$facts.backup_last_touched-eq$GatewayRejectedVersion-or[string]$facts.backup_last_touched-eq'UNKNOWN'){throw 'SAFE_BACKUP_VERSION_NOT_COMPATIBLE'};$useBackup=$true}
     $config=Join-Path $env:USERPROFILE '.openclaw\openclaw.json';$configBak=$config+'.bak';$backupDir=Join-Path $BackupRoot ('openclaw-lkg-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::NewGuid().ToString('N'));New-Item -ItemType Directory -Force -Path $backupDir|Out-Null;$savedConfig=Join-Path $backupDir 'openclaw.json';Copy-Item -LiteralPath $config -Destination $savedConfig -Force
-    $changed=$false;$launcher=''
+    $versionTransitionAttempted=$false;$launcher=''
     try{
         if($top.keeper_present){try{Stop-ScheduledTask -TaskName $GatewayKeeperTaskName -ErrorAction SilentlyContinue}catch{}}elseif($top.legacy_present){try{Stop-ScheduledTask -TaskName $LegacyGatewayTaskName -ErrorAction SilentlyContinue}catch{}}
         Stop-FixedGatewayListener
-        if($before-ne$GatewayLkgVersion){Install-ExactOpenClaw $GatewayLkgVersion;$changed=$true}
+        if($before-ne$GatewayLkgVersion){$versionTransitionAttempted=$true;Install-ExactOpenClaw $GatewayLkgVersion}
         if($useBackup){Copy-Item -LiteralPath $configBak -Destination $config -Force}
         $v=Invoke-OpenClawFixedConfig @('config','validate','--json');if($v.exit_code-ne0){throw 'LKG config validation failed'}
         $launcher=Start-AuthoritativeGateway $top;if(-not(Wait-GatewayRpc 90)){throw 'LKG Gateway direct RPC did not become healthy'}
@@ -1551,8 +1556,14 @@ function Repair-OpenClawWindowsLkg {
         $public=[ordered]@{schema=1;kind='kevin-openclaw-windows-lkg-recovery-public';generated_at=(Get-Date).ToString('o');state='OMEN_PROVEN';safe_for_public_repo=$true;before_version=$before;after_version=$after;validated_version=$GatewayLkgVersion;npm_integrity_verified=$true;config_backup_used=$useBackup;authoritative_launcher=$launcher;keeper_preserved=[bool]$top.keeper_present;config_valid=$true;gateway_direct_rpc=$true;gateway_health=$true;main_skills_check=$true;benchmark_30_of_30=$true;rollback_available=$true;source_contract='Fixed Windows exact-version recovery to validated LKG with fixed npm integrity, preserved Keeper topology, safe config compatibility gate, fixed RPC/health/main-skills/Benchmark postconditions.';truth_boundary='No npm output, config body, credentials, paths, messages, prompts, or secrets are published.'}
         $receipt=Publish-SafeFixedReport 'reports/openclaw-windows-lkg-recovery-omen.json' 'openclaw-windows-lkg-recovery-public.json' $public 'kevin OpenClaw Windows LKG recovery telemetry';return [ordered]@{state='OMEN_PROVEN';receipt_sha256=$receipt;before_version=$before;after_version=$after;authoritative_launcher=$launcher;gateway_direct_rpc=$true;benchmark='30/30';config_backup_used=$useBackup}
     }catch{
-        $primary=$_.Exception.Message;try{Copy-Item -LiteralPath $savedConfig -Destination $config -Force}catch{};if($changed){try{Assert-NpmIntegrity $GatewayRejectedVersion $GatewayRejectedIntegrity;Install-ExactOpenClaw $GatewayRejectedVersion}catch{}}
-        try{$null=Start-AuthoritativeGateway $top}catch{};try{Assert-Benchmark30}catch{};throw ('OpenClaw Windows LKG recovery rollback completed: '+$primary)
+        $primary=$_.Exception.Message;$packageRollbackOk=$true
+        try{Copy-Item -LiteralPath $savedConfig -Destination $config -Force}catch{}
+        if($versionTransitionAttempted){
+            try{Assert-NpmIntegrity $GatewayRejectedVersion $GatewayRejectedIntegrity;Install-ExactOpenClaw $GatewayRejectedVersion;if((Get-InstalledOpenClawVersion)-ne$before){throw 'starting OpenClaw version not restored'}}catch{$packageRollbackOk=$false}
+        }
+        try{$null=Start-AuthoritativeGateway $top}catch{};try{Assert-Benchmark30}catch{}
+        if(-not$packageRollbackOk){throw ('OpenClaw Windows LKG recovery AND exact package rollback failed after: '+$primary)}
+        throw ('OpenClaw Windows LKG recovery rollback completed: '+$primary)
     }
 }
 
@@ -1882,7 +1893,9 @@ function Invoke-SelfTest {
     if((Get-GatewayFailureFamilyDetailed 'shared SQLite state has conflicting plugin install metadata')-ne'PLUGIN_INSTALL_METADATA_CONFLICT'){throw 'detailed plugin conflict classifier failed'}
     Write-Host 'KEVIN MAINTENANCE v1.3.31 SELFTEST PASS watchdog_operational_proof=fixed gateway_detail=fixed windows_lkg=2026.6.34 integrity_pinned=true keeper_topology_preserved=true safe_config_backup_required=true rollback=true gateway_rpc_postcondition=true main_skills_postcondition=true benchmark_30=true arbitrary_shell=false authority_expansion=false'
     $stopFn=(Get-Command Stop-FixedGatewayListener).ScriptBlock.ToString();if($stopFn -match 'foreach\(\$pid\b'){throw 'read-only PID automatic variable collision retained'};if($stopFn -notmatch '\$listenerPid'){throw 'listenerPid fixed variable missing'}
-    Write-Host 'KEVIN MAINTENANCE v1.3.32 SELFTEST PASS gateway_listener_pid_collision=false fixed_listener_identity_check=true rollback=true arbitrary_shell=false authority_expansion=false'
+    $npmFn=(Get-Command Invoke-NpmFixed).ScriptBlock.ToString();if($npmFn -match 'npm\.cmd'){throw 'batch npm launcher retained'};if($npmFn -notmatch 'npm-cli\.js'){throw 'fixed npm-cli.js runtime missing'}
+    $repairFn=(Get-Command Repair-OpenClawWindowsLkg).ScriptBlock.ToString();if($repairFn -notmatch 'versionTransitionAttempted'){throw 'partial install rollback flag missing'};if($repairFn -notmatch 'starting OpenClaw version not restored'){throw 'exact starting-version rollback verification missing'}
+    Write-Host 'KEVIN MAINTENANCE v1.3.32 SELFTEST PASS gateway_listener_pid_collision=false native_npm_cli=true partial_install_rollback=true fixed_listener_identity_check=true rollback=true arbitrary_shell=false authority_expansion=false'
 }
 
 if($SelfTest){Invoke-SelfTest;exit 0}
