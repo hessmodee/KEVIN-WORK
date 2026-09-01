@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-31T21:16:58.6046273-06:00",
+    "generated_at":  "2026-08-31T21:19:58.5834675-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788232434345,
-                                  "next_run_at_ms":  1788232614345
+                                  "last_run_at_ms":  1788232614361,
+                                  "next_run_at_ms":  1788232794361
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788232569208,
-                                  "next_run_at_ms":  1788232629208
+                                  "last_run_at_ms":  1788232760021,
+                                  "next_run_at_ms":  1788232820021
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -89,20 +89,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788232519130,
-                                  "next_run_at_ms":  1788232699130
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "error",
-                                  "last_run_status":  "error",
-                                  "consecutive_errors":  3,
-                                  "last_run_at_ms":  1788232459339,
-                                  "next_run_at_ms":  1788232760231
+                                  "last_run_at_ms":  1788232703597,
+                                  "next_run_at_ms":  1788232883597
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -115,15 +103,27 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788232292057,
                                   "next_run_at_ms":  1788232892057
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "error",
+                                  "last_run_status":  "error",
+                                  "consecutive_errors":  4,
+                                  "last_run_at_ms":  1788232765105,
+                                  "next_run_at_ms":  1788233666011
                               }
                           ],
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  379,
+                       "cycle":  380,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-08-31T21:15:20.6356306-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-08-31T21:19:17.9504354-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -148,20 +148,20 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260831-210917-forge-v4-i330-evaluation.json",
-                              "at":  "2026-08-31T21:10:04.6414523-06:00",
+                              "file":  "20260831-211825-forge-v4-i331-evaluation.json",
+                              "at":  "2026-08-31T21:19:17.8372339-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  330,
+                              "iteration":  331,
                               "verdict":  "REJECT",
                               "score":  2,
                               "result":  "",
                               "failure_count":  8,
-                              "security_finding_count":  3,
+                              "security_finding_count":  1,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-31T21:15:12.4432269-06:00",
+                        "at":  "2026-08-31T21:19:25.9457548-06:00",
                         "status":  "ERROR",
                         "manifest_id":  "",
                         "stage_path":  "",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "69E79E28F2BAEAE431C56B8D8C55BD2B4E820A872F500480C58FC03454B1B3B2"
+    "semantic_hash":  "7826C8786257827160CB68AEA8AF5E955FFCCDFE1F7151A007A847C13D51AB91"
 }
