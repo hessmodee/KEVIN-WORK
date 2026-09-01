@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T21:49:05.6314559-06:00",
+  "generated_at": "2026-08-31T21:50:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 39,
-    "cpu_pct": 16,
+    "memory_pct": 41,
+    "cpu_pct": 12,
     "gpu": "RTX 3060",
-    "gpu_pct": 34
+    "gpu_pct": 39
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-31T17:39:06-06:00",
-        "estimated": false,
-        "ram": 33,
-        "cpu": 19,
-        "gpu": 23
-      },
       {
         "at": "2026-08-31T17:39:08-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 39,
         "cpu": 16,
         "gpu": 34
+      },
+      {
+        "at": "2026-08-31T21:50:14-06:00",
+        "estimated": false,
+        "ram": 41,
+        "cpu": 12,
+        "gpu": 39
       }
     ],
     "ram": [
-      33,
       33,
       37,
       37,
@@ -798,10 +797,10 @@
       37,
       37,
       39,
-      39
+      39,
+      41
     ],
     "cpu": [
-      19,
       19,
       13,
       13,
@@ -896,10 +895,10 @@
       31,
       31,
       16,
-      16
+      16,
+      12
     ],
     "gpu": [
-      23,
       23,
       39,
       39,
@@ -994,11 +993,12 @@
       98,
       98,
       34,
-      34
+      34,
+      39
     ]
   },
   "weather": {
-    "summary": "Tonight 50 | Wind 3 to 13 mph | Chance Showers And Thunderstorms"
+    "summary": "Tonight 50 | Wind 3 to 13 mph | Scattered Showers And Thunderstorms then Chance Showers And Thunderstorms"
   },
   "capabilities": [
     {
@@ -1148,6 +1148,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-31T21:50:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-31T21:46:27-06:00",
       "source": "forge",
       "component": "forge",
@@ -1221,13 +1228,6 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-08-31T21:35:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-31T21:35:02-06:00",
@@ -1377,7 +1377,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-31T21:49:05.6314559-06:00",
+    "last": "2026-08-31T21:50:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1414,7 +1414,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-31T21:49:05.6314559-06:00",
+    "generated_at": "2026-08-31T21:50:05.5531607-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
