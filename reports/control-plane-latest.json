@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-08-31T17:59:12.3549378-06:00",
+    "generated_at":  "2026-08-31T22:20:00.2714551-06:00",
     "request":  {
-                    "id":  "hq-alert-run-r03-diagnosis-20260831-1756",
+                    "id":  "wake-maint-v1313-20260831-2216",
                     "verb":  "run_typed_maintenance",
                     "target":  "kevin-maintenance-v1"
                 },
-    "status":  "IDLE_TERMINAL",
-    "detail":  "Current work order is already terminal; awaiting replacement",
+    "status":  "FAILED",
+    "detail":  "Fixed local action failed: MAINTENANCE ERROR Goal OS discovery inventory exceeded fixed 500-file budget",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
