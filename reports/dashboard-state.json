@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T02:35:04.5029939-06:00",
+  "generated_at": "2026-09-01T02:35:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 31,
-    "cpu_pct": 14,
+    "memory_pct": 36,
+    "cpu_pct": 19,
     "gpu": "RTX 3060",
-    "gpu_pct": 37
+    "gpu_pct": 11
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-31T22:30:28-06:00",
-        "estimated": false,
-        "ram": 31,
-        "cpu": 17,
-        "gpu": 38
-      },
       {
         "at": "2026-08-31T22:31:17-06:00",
         "estimated": false,
@@ -700,11 +693,17 @@
         "ram": 31,
         "cpu": 14,
         "gpu": 37
+      },
+      {
+        "at": "2026-09-01T02:35:14-06:00",
+        "estimated": false,
+        "ram": 36,
+        "cpu": 19,
+        "gpu": 11
       }
     ],
     "ram": [
       31,
-      31,
       34,
       34,
       36,
@@ -798,10 +797,10 @@
       34,
       34,
       31,
-      31
+      31,
+      36
     ],
     "cpu": [
-      17,
       17,
       26,
       26,
@@ -896,10 +895,10 @@
       12,
       12,
       14,
-      14
+      14,
+      19
     ],
     "gpu": [
-      38,
       38,
       39,
       39,
@@ -994,7 +993,8 @@
       99,
       99,
       37,
-      37
+      37,
+      11
     ]
   },
   "weather": {
@@ -1148,6 +1148,13 @@
   ],
   "activity": [
     {
+      "at": "2026-09-01T02:35:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-09-01T02:29:16-06:00",
       "source": "forge",
       "component": "forge",
@@ -1175,13 +1182,6 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 54000
-    },
-    {
-      "at": "2026-09-01T02:20:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-09-01T02:19:27-06:00",
@@ -1378,7 +1378,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-01T02:35:04.5029939-06:00",
+    "last": "2026-09-01T02:35:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
