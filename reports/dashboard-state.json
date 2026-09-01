@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T21:31:10.8411130-06:00",
-  "status": "ready",
+  "generated_at": "2026-08-31T21:33:25.9394848-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,14 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "supervisor",
+    "title": "Supervisor autonomous cycle",
+    "category": "supervisor",
+    "phase": "Goal-aware Supervisor cycle active.",
+    "started_at": "2026-08-31T21:33:25.9394848-06:00",
+    "source": "hq-live-ops"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -1378,7 +1385,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-31T21:31:10.8411130-06:00",
+    "last": "2026-08-31T21:33:25.9394848-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1415,33 +1422,33 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-31T21:31:10.8411130-06:00",
+    "generated_at": "2026-08-31T21:33:25.9394848-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
-    "supervisor_active": false,
+    "supervisor_active": true,
     "benchmark_active": false,
     "primary": {
       "id": "supervisor",
       "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
+      "title": "Supervisor autonomous cycle",
       "category": "supervisor",
-      "state": "ready",
-      "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
+      "state": "coordinating",
+      "detail": "Goal-aware Supervisor cycle active.",
+      "what": "Selecting and advancing the highest-value authorized mission.",
       "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
+      "action": "Mission coordination"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
+        "state": "coordinating",
+        "detail": "Selecting, evaluating, staging, or recording autonomous work.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
-        "action": "Awaiting next 3-minute cycle"
+        "action": "Autonomous coordination"
       },
       {
         "id": "benchmark",
@@ -1466,17 +1473,17 @@
     ]
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
+    "running": true,
+    "state": "coordinating",
+    "phase": "Goal-aware Supervisor cycle active.",
     "worker": "Supervisor",
     "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "action": "Mission coordination"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
+      "text": "Supervisor | COORDINATING | Goal-aware Supervisor cycle active.",
       "severity": "normal"
     }
   ]
