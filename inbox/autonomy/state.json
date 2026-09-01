@@ -31,9 +31,9 @@
     "finish-forge-v40-runtime-convergence"
   ],
   "observation_window": {
-    "purpose": "Verify the Skill Workshop authored guardrails with a fresh fixed runtime-capabilities receipt while the Reader gateway-deep-probe failure family is cooled instead of retried.",
+    "purpose": "Verify the Skill Workshop authored guardrails with a fresh fixed runtime-capabilities receipt while the Reader gateway-deep-probe failure family and Forge migration family remain cooled instead of retried.",
     "success_condition": "Fresh runtime capabilities proves autonomous_mode=propose, approval_policy=pending, config_valid=true and skills_check_main_ok=true. Reader remains blocked until materially new gateway evidence changes the failed deep-probe hypothesis."
   },
   "truth_boundary": "Selection state only. WIP counts only evidence-backed active work; queued/CI items do not consume WIP. This file does not grant authority or prove autonomous selection.",
-  "note": "Fresh Support 2026-08-31T17:37:32-06:00 shows Reader canary manifest reader-status-canary-v1310-20260831-1732 APPLY_FAILED with detail Reader gateway deep probe failed and Maintenance Intake at 2 consecutive errors while Benchmark remains PASS 30/30. The failed Reader manifest was retired and replaced by a fixed read-only publish_runtime_capabilities verification manifest."
+  "note": "Fresh Support 2026-08-31T19:19:40-06:00 showed the Maintenance slot still contained expired read-only Forge diagnosis diagnose-forge-r03-contract-20260831-1756, causing Maintenance Intake consecutive_errors=4 while Benchmark remained PASS 30/30. The canonical writer retired that stale slot and replaced it with fixed read-only publish_runtime_capabilities manifest verify-workshop-runtime-20260831-1922 at commit 4592e6d653c08840be2e06cbd5ae62154c4df35a. No Forge or Reader mutation was retried."
 }
