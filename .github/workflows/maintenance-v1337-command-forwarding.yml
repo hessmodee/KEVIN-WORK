@@ -1,0 +1,66 @@
+name: Kevin command forwarding and diagnostic regression proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1337-command-forwarding.py'
+      - 'tools/test-kevin-command-forwarding.ps1'
+      - 'tools/fixtures/echo-argv.cjs'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.37.ps1'
+      - 'control-plane/autonomy/kevin-supervisor-v1.8.5.ps1'
+      - '.github/workflows/maintenance-v1337-command-forwarding.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify deterministic candidate generation
+        shell: pwsh
+        run: |
+          $before=@{}
+          $paths=@('control-plane/maintenance/kevin-maintenance-runner-v1.3.37.ps1','control-plane/autonomy/kevin-supervisor-v1.8.5.ps1')
+          foreach($p in $paths){$before[$p]=(Get-FileHash $p -Algorithm SHA256).Hash}
+          python tools/generate-maintenance-v1337-command-forwarding.py
+          if($LASTEXITCODE-ne0){throw 'generation failed'}
+          foreach($p in $paths){if((Get-FileHash $p -Algorithm SHA256).Hash-ne$before[$p]){throw 'candidate differs from reviewed source'}}
+      - name: Windows PowerShell 5.1 real argument regression
+        shell: powershell
+        run: ./tools/test-kevin-command-forwarding.ps1
+      - name: PowerShell 7 real argument regression
+        shell: pwsh
+        run: ./tools/test-kevin-command-forwarding.ps1
+      - name: Full Maintenance self-test on production PowerShell
+        shell: powershell
+        run: |
+          $env:KEVIN_MAINT_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'kevin-v1337-selftest'
+          & ./control-plane/maintenance/kevin-maintenance-runner-v1.3.37.ps1 -SelfTest
+          if($LASTEXITCODE-ne0){throw 'Maintenance selftest failed'}
+      - name: Supervisor self-test and operation parity
+        shell: powershell
+        run: |
+          & ./control-plane/autonomy/kevin-supervisor-v1.8.5.ps1 -SelfTest
+          if($LASTEXITCODE-ne0){throw 'Supervisor selftest failed'}
+          python tools/check-maintenance-operation-parity.py control-plane/maintenance/kevin-maintenance-runner-v1.3.37.ps1
+          if($LASTEXITCODE-ne0){throw 'operation parity failed'}
+      - name: Preserve production authority and source identity
+        shell: pwsh
+        run: |
+          foreach($p in @('control-plane/maintenance/kevin-maintenance-runner-v1.3.37.ps1','control-plane/autonomy/kevin-supervisor-v1.8.5.ps1')){
+            $tokens=$null;$errors=$null;$ast=[Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+            if($errors.Count){throw 'PowerShell parse failed'}
+            $commands=@($ast.FindAll({param($n) $n -is [Management.Automation.Language.CommandAst]},$true)|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+            foreach($bad in @('invoke-expression','iex','cmd.exe','kevin_shell')){if($commands-contains$bad){throw 'forbidden command'}}
+            $badParams=@($ast.FindAll({param($n) $n -is [Management.Automation.Language.ParameterAst] -and $n.Name.VariablePath.UserPath-eq'args'},$true))
+            if($badParams.Count){throw 'automatic Args parameter regressed'}
+            Write-Host ('CI_PROVEN '+$p+' SHA256='+(Get-FileHash $p -Algorithm SHA256).Hash)
+          }

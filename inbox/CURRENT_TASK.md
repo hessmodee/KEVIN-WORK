@@ -9,21 +9,25 @@ Kevin must become self-reliant for all legitimately GREEN work. The target opera
 
 Direct Matt <-> Kevin text communication is P0 owner value. Bess should be progressively removed from routine operation as Kevin proves each responsibility end-to-end.
 
-## P0 — restore native OpenClaw agent path
-Fresh Support at 16:19 MDT supersedes the earlier Maintenance Intake blocker. Maintenance Intake is now healthy with `consecutive_errors=0`, Benchmark is PASS 30/30 critical=0, and the latest Maintenance terminal result is `ALREADY_APPLIED_PROVEN` for `classify-gateway-failure-detail-20260901-1600`. Do not continue describing the earlier four-error Intake state as current.
+## P0 — repair the proven command-forwarding defect, then prove the native agent
+Local reproduction on 2026-09-01 confirmed two defects in the installed Maintenance source and pending Supervisor v1.8.4:
+- A function parameter named PowerShell's automatic `$Args` loses the supplied command arguments. The old wrapper forwarded zero of four requested Gateway arguments. Direct Node version/help calls bypass that wrapper, explaining the disagreement.
+- Comma-separated function invocations in `Diagnose-GatewayFailureDetail` execute one malformed call, not four independent probes. Its existing single-result receipt is not four-probe evidence.
 
-The live semantic blocker is the native Gateway/main-agent path. The latest fixed main-agent canary receipt at 15:53 MDT is `REJECT` with `failure_stage=gateway_probe`, `gateway_probe_ok=false`, zero agent execution, and zero tool calls. Treat that fixed receipt as stronger evidence than dashboard/process labels or old runtime-capability receipts.
+Maintenance v1.3.37 and Supervisor v1.8.5 are the narrowly corrected candidates. Maintenance retains the established typed operation identifiers, exact source/target pins, rollback, and Benchmark requirements. Its fixed diagnostic uses four independent read-only config/RPC/health calls and does not recommend a version change merely from a release label. The unproven v1.3.36 downgrade candidate is superseded for this incident.
+
+Current crossing status: local regression reproduction and corrected native argv tests PASS; complete inherited Maintenance/Supervisor selftests and operation parity PASS. Windows PowerShell 5.1 and PowerShell 7 CI must pass for these exact sources before a typed production install. Source/CI are not Omen proof.
 
 Required sequence:
-1. preserve the now-healthy Maintenance Intake state and do not overwrite/reissue already-applied manifests;
-2. classify the current fixed Gateway probe failure using the latest bounded diagnostic/receipt family already available in Maintenance; do not use arbitrary shell, caller-selected command/argv/path, or broaden authority;
-3. distinguish stale probe/transport/config state from an actual Gateway service failure using fixed metadata-only postconditions;
-4. if a repair is required, use only an existing or newly CI-proven narrow typed GREEN operation with exact preconditions, rollback, and Benchmark postcondition;
-5. prove Gateway direct RPC health, config validity, Gateway health and main-agent skills/runtime readiness with fixed probes;
-6. rerun the fixed main-agent canary only after materially changed evidence and require semantic OMEN proof;
-7. require fresh Benchmark PASS 30/30 critical=0 after consequential repair/proof.
+1. verify exact Windows CI for v1.3.37 and v1.8.5, then stage only the v1.3.37 Maintenance replacement with fresh expected-current SHA and exact expected-after SHA;
+2. preserve the healthy Intake and never overwrite fresh unconsumed/running manifests;
+3. obtain the Omen install receipt, then run the corrected four-probe diagnosis and fresh v1.6.0 ProbeOnly watchdog proof;
+4. if Gateway/config/RPC health now passes, do not change OpenClaw version; if not, classify the genuine remaining failure using corrected evidence before considering a typed repair;
+5. run the fixed main-agent canary after the actual wrapper repair and require exact semantic success, zero tool calls, and fresh Benchmark PASS 30/30 critical=0;
+6. cross the corrected Supervisor/selector and continuation mechanism only after auditing their work-conservation behavior and preserving rollback;
+7. require real independently selected work, semantic result, recovery/recording and next decision before any autonomy promotion.
 
-Do not count process existence, task/hash presence, dashboard labels, historical gateway-deep-probe success, or a controller install as current semantic proof when the fixed canary disagrees.
+Fresh Support already proved Maintenance v1.3.33 installed and Maintenance Intake `consecutive_errors=0`; do not re-open the retired backoff incident without new errors. Dashboard/process labels remain weaker than corrected RPC and main-agent receipts.
 
 ## P1 — direct Matt <-> Kevin text communication
 Prefer the native OpenClaw Control UI/WebChat as the primary direct owner conversation transport because it is the installed runtime's own chat/session surface. Keep public GitHub Pages Kevin HQ read-only and free of secrets/private message bodies.
