@@ -24,17 +24,22 @@ once("version = '1.8.2'","version = '1.8.3'",'state version')
 old="""        $gw = Invoke-OpenClaw @('gateway', 'status', '--deep', '--require-rpc')
         if ($gw.exit_code -ne 0) { throw 'gateway deep probe failed' }
         $message = 'KEVIN_AUTONOMY_CONTINUATION_V1."""
-new="""        $gw = Invoke-OpenClaw @('gateway', 'status', '--deep', '--require-rpc')
-        if ($gw.exit_code -ne 0) { throw 'gateway deep probe failed' }
+new="""        $gw = $null
+        for ($probeAttempt = 1; $probeAttempt -le 3; $probeAttempt++) {
+            $gw = Invoke-OpenClaw @('gateway', 'status', '--require-rpc', '--json')
+            if ($gw.exit_code -eq 0) { break }
+            if ($probeAttempt -lt 3) { Start-Sleep -Milliseconds (500 * $probeAttempt) }
+        }
+        if ($null -eq $gw -or $gw.exit_code -ne 0) { throw 'gateway RPC probe failed after bounded retries' }
         $mainCheck = Invoke-OpenClaw @('skills', 'check', '--agent', 'main', '--json')
         if ($mainCheck.exit_code -ne 0) { throw 'fixed main agent preflight failed' }
         $message = 'KEVIN_AUTONOMY_CONTINUATION_V1."""
-once(old,new,'main preflight')
+once(old,new,'rpc-only main preflight')
 once("$r = Invoke-OpenClaw @('agent', '--json', '--message', $message)",
      "$r = Invoke-OpenClaw @('agent', '--agent', 'main', '--json', '--message', $message)",
      'agent selector')
 once("Write-Host 'KEVIN SUPERVISOR v1.8 SELFTEST PASS selector_first=true gateway_agent=true no_forge_dispatch=true anti_spin=true arbitrary_shell=false authority_expansion=false'",
-     "Write-Host 'KEVIN SUPERVISOR v1.8.3 SELFTEST PASS selector_first=true gateway_agent=fixed-main main_preflight=true no_forge_dispatch=true anti_spin=true arbitrary_shell=false authority_expansion=false'",
+     "Write-Host 'KEVIN SUPERVISOR v1.8.3 SELFTEST PASS selector_first=true gateway_agent=fixed-main gateway_rpc_only=true gateway_probe_retries=3 main_preflight=true no_forge_dispatch=true anti_spin=true arbitrary_shell=false authority_expansion=false'",
      'selftest marker')
 OUT.write_text(text,encoding='utf-8',newline='')
 print('SUPERVISOR_V183_GENERATED sha256='+hashlib.sha256(OUT.read_bytes()).hexdigest().upper())
