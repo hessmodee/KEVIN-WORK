@@ -1,46 +1,23 @@
-name: Bootstrap v1.3 Exact Hash Proof
+name: Legacy Bootstrap v1.3 Proof (Archived)
+
+# Historical bootstrap gate retained for provenance only.
+# Current production Maintenance is v1.3.13-class typed schema-3 transport and
+# inbox/maintenance/manifest.json is a live queue slot. It MUST NOT be interpreted
+# as the 2026-08-30 bootstrap manifest or fail unrelated modern maintenance work.
+# Active Maintenance gates live with the current runner/candidate workflows.
+
 on:
-  push:
-    paths:
-      - 'inbox/maintenance/packages/bootstrap-maintenance-v13-20260830.ps1'
-      - 'inbox/maintenance/manifest.json'
-      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1'
-      - '.github/workflows/bootstrap-v13-proof.yml'
-  pull_request:
-    paths:
-      - 'inbox/maintenance/packages/bootstrap-maintenance-v13-20260830.ps1'
-      - 'inbox/maintenance/manifest.json'
-      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1'
-      - '.github/workflows/bootstrap-v13-proof.yml'
+  workflow_dispatch:
+
 permissions:
   contents: read
+
 jobs:
-  exact-hash:
-    runs-on: windows-2025
+  archived:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Verify package manifest and candidate hashes
-        shell: powershell
+      - name: Archived gate notice
         run: |
-          $pkg='inbox/maintenance/packages/bootstrap-maintenance-v13-20260830.ps1'
-          $manifest='inbox/maintenance/manifest.json'
-          $candidate='control-plane/maintenance/kevin-maintenance-runner-v1.3.ps1'
-          if(-not(Test-Path $pkg)){throw 'bootstrap package missing'}
-          if(-not(Test-Path $manifest)){throw 'manifest missing'}
-          if(-not(Test-Path $candidate)){throw 'v1.3 candidate missing'}
-          $m=Get-Content $manifest -Raw | ConvertFrom-Json
-          $pkgHash=(Get-FileHash $pkg -Algorithm SHA256).Hash.ToUpperInvariant()
-          $candidateHash=(Get-FileHash $candidate -Algorithm SHA256).Hash.ToUpperInvariant()
-          Write-Host ('package_sha256='+$pkgHash)
-          Write-Host ('manifest_payload_sha256='+([string]$m.payload_sha256).ToUpperInvariant())
-          Write-Host ('candidate_sha256='+$candidateHash)
-          if($pkgHash -ne ([string]$m.payload_sha256).ToUpperInvariant()){throw 'bootstrap package hash does not match manifest'}
-          if($candidateHash -ne '5C3B170FAF996FFE0890C028ABE1DD16D8A14258E5A1CAE2653E39F857AB324A'){throw 'candidate hash mismatch'}
-          if(([string]$m.expected_current.'kevin-maintenance-runner.ps1').ToUpperInvariant() -ne '3B9D5B235E593C1CFF8CC9B7DED9E82FB958C2F7CD1F29FC813ECFA87E5C5483'){throw 'expected-current mismatch in manifest'}
-          if(([string]$m.expected_after.'kevin-maintenance-runner.ps1').ToUpperInvariant() -ne $candidateHash){throw 'expected-after mismatch in manifest'}
-          $tokens=$null;$errors=$null
-          [void][System.Management.Automation.Language.Parser]::ParseFile($pkg,[ref]$tokens,[ref]$errors)
-          if($errors.Count){throw 'bootstrap package parser failure'}
-          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $candidate -SelfTest
-          if($LASTEXITCODE -ne 0){throw 'v1.3 self-test failed'}
-          Write-Host 'PASS bootstrap v1.3 exact-hash contract'
+          echo 'ARCHIVED: bootstrap-v13-proof no longer watches the live maintenance manifest.'
+          echo 'Reason: the live schema-3 queue evolved beyond the historical bootstrap payload contract.'
+          echo 'Do not use this workflow as current Maintenance health evidence.'
