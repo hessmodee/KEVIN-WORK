@@ -1,0 +1,61 @@
+name: Watchdog v1.5 proof
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'control-plane/maintenance/kevin-self-reliance-watchdog-v1.5.ps1'
+      - '.github/workflows/watchdog-v15-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prove-watchdog-v15:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse PowerShell source
+        shell: pwsh
+        run: |
+          $p='control-plane/maintenance/kevin-self-reliance-watchdog-v1.5.ps1'
+          $text=Get-Content -LiteralPath $p -Raw
+          $null=[scriptblock]::Create($text)
+          Write-Host 'WATCHDOG_V15_PARSE_PASS'
+      - name: Run bounded invariant selftest
+        shell: pwsh
+        run: |
+          & ./control-plane/maintenance/kevin-self-reliance-watchdog-v1.5.ps1 -SelfTest
+          if($LASTEXITCODE -ne 0){throw "watchdog selftest exit=$LASTEXITCODE"}
+      - name: Prove outage-safe design invariants
+        shell: pwsh
+        run: |
+          $p='control-plane/maintenance/kevin-self-reliance-watchdog-v1.5.ps1'
+          $text=Get-Content -LiteralPath $p -Raw
+          $required=@(
+            '# Critical resilience rule: maintenance and work-order intake stay alive even when OpenClaw/Gateway is unhealthy.',
+            'Run-WorkOrderIfDue $s',
+            'Run-MaintenanceIfDue $s',
+            "Invoke-OpenClawFixed @('gateway','status','--require-rpc','--json')",
+            'NEEDS_TYPED_REPAIR_',
+            '$MaxAttempts=3',
+            '$CooldownMinutes=15'
+          )
+          foreach($r in $required){if(-not $text.Contains($r)){throw "missing invariant: $r"}}
+          $maintenanceIndex=$text.IndexOf('Run-MaintenanceIfDue $s')
+          $probeIndex=$text.IndexOf("$status=$null")
+          if($maintenanceIndex -lt 0 -or $probeIndex -lt 0 -or $maintenanceIndex -gt $probeIndex){throw 'maintenance wake must precede gateway probe'}
+          if($text -match '(?i)Invoke-Expression|\biex\b|Start-Process\s+[^\r\n]*-ArgumentList\s+\$|cmd\.exe\s+/c'){throw 'arbitrary execution pattern detected'}
+          Write-Host 'WATCHDOG_V15_OUTAGE_INVARIANTS_PASS'
+      - name: Publish exact source identity
+        shell: pwsh
+        run: |
+          $p='control-plane/maintenance/kevin-self-reliance-watchdog-v1.5.ps1'
+          $h=(Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash
+          $n=(Get-Item -LiteralPath $p).Length
+          Write-Host "WATCHDOG_V15_SHA256=$h"
+          Write-Host "WATCHDOG_V15_BYTES=$n"
+          "WATCHDOG_V15_SHA256=$h" >> $env:GITHUB_STEP_SUMMARY
+          "WATCHDOG_V15_BYTES=$n" >> $env:GITHUB_STEP_SUMMARY
