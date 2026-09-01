@@ -1,0 +1,85 @@
+name: HQ Truth Current-State v4 Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/hq-truth-current-state-v4.py'
+      - 'docs/hq-truth-v2.js'
+      - 'docs/index.html'
+      - '.github/workflows/hq-truth-current-state-v4-proof.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Patch exact production Truth source
+        run: python tools/hq-truth-current-state-v4.py
+      - name: JavaScript syntax
+        run: node --check docs/hq-truth-v2.js
+      - name: Exact production loading and alert invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          t=Path('docs/hq-truth-v2.js').read_text(encoding='utf-8')
+          idx=Path('docs/index.html').read_text(encoding='utf-8')
+          assert 'hq-truth-v2.js' in idx, 'production index does not load tested truth file'
+          assert 'function workTelemetryConflict(d,s)' in t
+          assert 'return supportAt>=dashAt;' in t
+          assert 'Blocked Forge is still producing work' in t, 'real Forge incident was suppressed'
+          assert 'Engineering Relay slot is expired' not in t, 'terminal relay envelope still treated as owner Attention'
+          assert 'KNOWN DRIFT' in t
+          print('HQ_TRUTH_V4_STATIC_PASS production_file=true forge_alert_preserved=true expired_relay_historical=true')
+      - name: Temporal coherence behavioral fixtures
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),vm=require('vm');
+          let src=fs.readFileSync('docs/hq-truth-v2.js','utf8');
+          src=src.replace("const frame=document.getElementById('kevinCore');", "const frame={};");
+          const stop="frame.addEventListener('load',()=>{bind();refresh()});";
+          if(!src.includes(stop)) throw new Error('runtime stop anchor missing');
+          src=src.replace(stop, "globalThis.__hqtest={workTelemetryConflict};return;\n"+stop);
+          const sandbox={document:{getElementById:()=>({})},console,Date,setTimeout:()=>0,setInterval:()=>0,MutationObserver:function(){},window:{}};
+          vm.createContext(sandbox);vm.runInContext(src,sandbox);
+          const f=sandbox.__hqtest.workTelemetryConflict;
+          const now=Date.now();
+          const iso=x=>new Date(x).toISOString();
+          const active=(at)=>({generated_at:iso(at),current_task:{id:'task-1',title:'Task 1',phase:'started'}});
+          const support=(at,n=0)=>({generated_at:iso(at),active_workers:{supervisor:n}});
+          if(f(active(now),support(now-10000,0))!==false) throw new Error('older Support created false contradiction');
+          if(f(active(now-10000),support(now,0))!==true) throw new Error('newer Support failed to detect real contradiction');
+          if(f({generated_at:iso(now),current_task:null},support(now,0))!==false) throw new Error('idle dashboard falsely conflicted');
+          if(f(active(now-10000),support(now,1))!==false) throw new Error('active Support worker falsely conflicted');
+          if(f(active(now),support(now-3600000,0))!==false) throw new Error('stale Support falsely conflicted');
+          console.log('HQ_TRUTH_V4_BEHAVIOR_PASS temporal_coherence=true');
+          NODE
+      - name: Publish exact tested production bytes atomically
+        shell: python
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          import base64,json,subprocess
+          from pathlib import Path
+          repo='hessmodee/KEVIN-WORK'; path='docs/hq-truth-v2.js'
+          desired=Path(path).read_bytes()
+          def gh(*args,input_text=None):
+              p=subprocess.run(['gh',*args],input=input_text,text=True,capture_output=True,check=False)
+              if p.returncode: raise SystemExit(p.stdout+'\n'+p.stderr)
+              return p.stdout
+          cur=json.loads(gh('api',f'repos/{repo}/contents/{path}?ref=main'))
+          current=base64.b64decode(cur['content'].replace('\n',''))
+          if current==desired:
+              print('HQ_TRUTH_V4_ALREADY_PUBLISHED'); raise SystemExit(0)
+          payload=json.dumps({'message':'Repair HQ Truth temporal coherence and terminal relay alerts','content':base64.b64encode(desired).decode('ascii'),'sha':cur['sha'],'branch':'main'})
+          out=json.loads(gh('api','--method','PUT',f'repos/{repo}/contents/{path}','--input','-',input_text=payload))
+          print('HQ_TRUTH_V4_PUBLISHED',out['commit']['sha'])
