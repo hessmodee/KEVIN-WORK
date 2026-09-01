@@ -34,10 +34,11 @@ jobs:
           $tokens=$null;$errors=$null
           $ast=[System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
           if($errors.Count){$errors|%{$_.Message};throw 'parser rejected v1.3.33'}
-          if($txt-notmatch"'-ProbeOnly'"){throw 'ProbeOnly fixed argv missing'}
+          if(-not $txt.Contains("'-SelfTest'")){throw 'watchdog SelfTest fixed argv missing'}
+          if(-not $txt.Contains("'-ProbeOnly'")){throw 'ProbeOnly fixed argv missing'}
           if($txt-notmatch'OMEN_CLASSIFIER_PROOF'){throw 'classifier proof state missing'}
           if($txt-notmatch'probe_mode=''NO_SIDE_EFFECTS'''){throw 'no-side-effects proof tag missing'}
-          if($txt-notmatch'implementation=v1\\.6\\.0'){throw 'watchdog v1.6 contract gate missing'}
+          if(-not $txt.Contains('installed watchdog does not prove ProbeOnly v1.6.0 contract')){throw 'watchdog v1.6 contract guard missing'}
           $commands=@($ast.FindAll({param($n) $n -is [System.Management.Automation.Language.CommandAst]},$true))
           if(@($commands|?{($_.GetCommandName()) -in @('Invoke-Expression','iex')}).Count){throw 'actual Invoke-Expression detected'}
           $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1|Out-String
