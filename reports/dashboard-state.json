@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T01:05:53.8582224-06:00",
-  "status": "ready",
+  "generated_at": "2026-09-01T01:07:39-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -13,12 +13,14 @@
     "tools": false
   },
   "current_task": {
-    "id": "benchmark",
-    "title": "Kevin Benchmark v1",
-    "category": "benchmark",
-    "phase": "Regression/capability fitness worker active.",
-    "started_at": "2026-09-01T01:04:53.8646222-06:00",
-    "source": "hq-live-ops"
+    "id": "design-forge",
+    "title": "Design Forge: forge-v4",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-09-01T01:07:39-06:00",
+    "source": "forge"
   },
   "services": {
     "tick": "healthy",
@@ -28,21 +30,14 @@
   },
   "system": {
     "memory_pct": 37,
-    "cpu_pct": 6,
+    "cpu_pct": 16,
     "gpu": "RTX 3060",
-    "gpu_pct": 11
+    "gpu_pct": 34
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-31T21:09:17-06:00",
-        "estimated": false,
-        "ram": 30,
-        "cpu": 6,
-        "gpu": 36
-      },
       {
         "at": "2026-08-31T21:09:50-06:00",
         "estimated": false,
@@ -707,10 +702,16 @@
         "ram": 37,
         "cpu": 6,
         "gpu": 11
+      },
+      {
+        "at": "2026-09-01T01:07:39-06:00",
+        "estimated": false,
+        "ram": 37,
+        "cpu": 16,
+        "gpu": 34
       }
     ],
     "ram": [
-      30,
       30,
       30,
       30,
@@ -805,10 +806,10 @@
       31,
       35,
       35,
+      37,
       37
     ],
     "cpu": [
-      6,
       6,
       11,
       11,
@@ -903,10 +904,10 @@
       4,
       9,
       9,
-      6
+      6,
+      16
     ],
     "gpu": [
-      36,
       36,
       37,
       37,
@@ -1001,7 +1002,8 @@
       40,
       50,
       50,
-      11
+      11,
+      34
     ]
   },
   "weather": {
@@ -1154,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-09-01T01:07:39-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: forge-v4",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-09-01T01:05:14-06:00",
       "component": "tick",
@@ -1368,24 +1379,14 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-09-01T00:01:26-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: forge-v4",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 36000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-09-01T01:05:53.8582224-06:00",
+    "last": "2026-09-01T01:07:39-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1415,37 +1416,37 @@
       "last_mission": "knowledge",
       "iteration": 46,
       "updated_at": "2026-09-01T01:04:38.2951264-06:00",
-      "next_index": 4,
+      "next_index": 5,
       "scheduled": true,
       "promotion": "blocked"
     }
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-01T01:05:53.8582224-06:00",
+    "generated_at": "2026-09-01T01:07:39-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "Completed knowledge i46 evaluation=REJECT score=65 auto_staged=False",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
+      "id": "design-forge",
+      "name": "Build Lab",
+      "title": "Design Forge: forge-v4",
+      "category": "forge",
+      "state": "working",
+      "detail": "started",
+      "what": "Generating and validating an isolated candidate.",
+      "engine": "Ollama | Qwen 2.5 14B",
+      "action": "Candidate engineering"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "Completed knowledge i46 evaluation=REJECT score=65 auto_staged=False",
+        "state": "coordinating",
+        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1473,17 +1474,17 @@
     ]
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "Completed knowledge i46 evaluation=REJECT score=65 auto_staged=False",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "running": true,
+    "state": "working",
+    "phase": "started",
+    "worker": "Build Lab",
+    "engine": "Ollama | Qwen 2.5 14B",
+    "action": "Candidate engineering"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | Completed knowledge i46 evaluation=REJECT score=65 auto_staged=False",
+      "text": "Build Lab | WORKING | started",
       "severity": "normal"
     }
   ]
