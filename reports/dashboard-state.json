@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T05:27:16.0247216-06:00",
-  "status": "working",
+  "generated_at": "2026-09-01T05:28:15.9555086-06:00",
+  "status": "ready",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -1385,7 +1385,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-01T05:27:16.0247216-06:00",
+    "last": "2026-09-01T05:28:15.9555086-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1422,22 +1422,22 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-01T05:27:16.0247216-06:00",
+    "generated_at": "2026-09-01T05:28:15.9555086-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
-    "benchmark_active": true,
+    "benchmark_active": false,
     "primary": {
-      "id": "benchmark",
-      "name": "Benchmark",
-      "title": "Kevin Benchmark v1",
-      "category": "benchmark",
-      "state": "working",
-      "detail": "Regression/capability fitness worker active.",
-      "what": "Checking that Kevin preserves proven behavior.",
-      "engine": "Deterministic benchmark",
-      "action": "Regression evaluation"
+      "id": "supervisor",
+      "name": "Supervisor",
+      "title": "Kevin autonomous system armed",
+      "category": "supervisor",
+      "state": "ready",
+      "detail": "Completed forge-v4 i382 evaluation=REJECT score=0 auto_staged=False",
+      "what": "Waiting only for the next scheduled three-minute control cycle.",
+      "engine": "Supervisor v1.4",
+      "action": "Autonomous schedule armed"
     },
     "lanes": [
       {
@@ -1454,11 +1454,11 @@
         "id": "benchmark",
         "name": "Benchmark",
         "role": "Regression + capability fitness",
-        "state": "working",
-        "detail": "Benchmark v1 deterministic worker is active.",
+        "state": "ready",
+        "detail": "Cheap regression watchdog armed; heavy model suite remains resource-gated.",
         "what": "Protects proven behavior and measures challenger quality.",
         "engine": "Kevin Benchmark v1",
-        "action": "Regression evaluation"
+        "action": "10-minute watchdog armed"
       },
       {
         "id": "staging",
@@ -1473,17 +1473,17 @@
     ]
   },
   "execution": {
-    "running": true,
-    "state": "working",
-    "phase": "Regression/capability fitness worker active.",
-    "worker": "Benchmark",
-    "engine": "Deterministic benchmark",
-    "action": "Regression evaluation"
+    "running": false,
+    "state": "ready",
+    "phase": "Completed forge-v4 i382 evaluation=REJECT score=0 auto_staged=False",
+    "worker": "Supervisor",
+    "engine": "Supervisor v1.4",
+    "action": "Autonomous schedule armed"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Benchmark | WORKING | Regression/capability fitness worker active.",
+      "text": "Supervisor | READY | Completed forge-v4 i382 evaluation=REJECT score=0 auto_staged=False",
       "severity": "normal"
     }
   ]
