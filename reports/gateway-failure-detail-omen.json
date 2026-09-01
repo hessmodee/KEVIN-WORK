@@ -1,17 +1,33 @@
 {
     "schema":  1,
     "kind":  "kevin-gateway-failure-detail-public",
-    "generated_at":  "2026-09-01T16:11:15.3788470-06:00",
+    "generated_at":  "2026-09-01T17:44:50.3784545-06:00",
     "state":  "OMEN_DIAGNOSIS_PROVEN",
     "safe_for_public_repo":  true,
     "openclaw_version":  "2026.7.1-2",
     "release_policy_status":  "EVIDENCE_REJECTED",
-    "root_cause_family":  "OTHER_FAILURE",
+    "root_cause_family":  "HEALTHY",
+    "probe_count":  4,
+    "probe_names":  [
+                        "config_validate",
+                        "gateway_require_rpc",
+                        "gateway_direct_rpc",
+                        "gateway_health"
+                    ],
+    "all_probes_ok":  true,
+    "command_forwarding_contract":  "v1.3.38",
+    "win32_argv_contract":  "numeric-char-mscrt",
     "probe_exit_codes":  [
-                             1
+                             0,
+                             0,
+                             0,
+                             0
                          ],
     "probe_output_fingerprints":  [
-                                      "BE8AB969F7F5D8D5A07E06BDBAAAB318D551C769526F46266BAF2528AFAC85DF"
+                                      "614F8F1C41DE4376A51C8081813B9DEF57E0B87705E3284CAEF7F00FC83F8D9A",
+                                      "CABFDCBB214053ED97326F84605D3255DBFAD1EFEC98C792E74723AF371567F4",
+                                      "787B682DA3749CECBB1618F1ACD5DCC4B097183BA9089CC945BB97C4EA5C9BB5",
+                                      "05D83EE79E36079BBAA606E576FBA8220DFEDCA6C1591DD2CBDEE86E76FD8A59"
                                   ],
     "config":  {
                    "current_sha256":  "6FC7A112062BD97A6CDFEC4516A3266D0217BDEB5EF6BE920283C55B345C8518",
@@ -35,7 +51,7 @@
                     "port_18789_listening":  true,
                     "gateway_listener_count":  1
                 },
-    "recommended_repair":  "TYPED_WINDOWS_LKG_RECOVERY",
-    "source_contract":  "Four fixed OpenClaw probes plus fixed package/config/backup/Gateway topology metadata. No caller-selected command/path/argv.",
+    "recommended_repair":  "NONE_ALL_PROBES_PASSED",
+    "source_contract":  "Four separately invoked read-only config/RPC/health probes with verified command forwarding and byte-tested Win32 argv quoting plus fixed package/config/backup/Gateway topology metadata. No doctor repair, version mutation, or caller-selected command/path/argv.",
     "truth_boundary":  "Only classifications, exit codes, hashes, safe versions, booleans, and known plugin flags are published. No raw output, config values, credentials, paths, messages, prompts, or secrets."
 }
