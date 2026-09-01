@@ -62,5 +62,7 @@ jobs:
           git add control-plane/maintenance/kevin-maintenance-runner-v1.3.33.ps1 reports/ci/maintenance-v133-watchdog-probe.json
           if(git diff --cached --quiet){Write-Host 'Already committed';exit 0}
           git commit -m 'Add CI-proven Maintenance v1.3.33 watchdog ProbeOnly bridge'
-          git pull --rebase origin main
+          git reset --hard HEAD
+          git fetch origin main
+          git rebase origin/main
           git push origin HEAD:main
