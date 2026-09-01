@@ -81,6 +81,11 @@ jobs:
           git config user.name 'Kevin CI';git config user.email 'kevin-ci@users.noreply.github.com'
           $ok=$false
           for($attempt=1;$attempt-le80;$attempt++){
+            # Other repository steps may refresh report files in this runner checkout.
+            # Preserve the proven candidate outside the worktree, discard only runner-local
+            # ephemeral changes, then rebuild from the newest remote main. Never force-push.
+            git reset --hard HEAD --quiet
+            git clean -fd --quiet
             git fetch origin main --quiet
             if($LASTEXITCODE-ne0){Start-Sleep -Milliseconds 350;continue}
             git checkout -B publish-v1327 origin/main --quiet
