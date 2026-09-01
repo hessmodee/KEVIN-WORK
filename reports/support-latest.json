@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-01T06:10:11.0442310-06:00",
+    "generated_at":  "2026-09-01T06:13:12.9493131-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -57,18 +57,6 @@
                  "ok":  true,
                  "jobs":  [
                               {
-                                  "id":  "88a986b2-9ab8-4fe7-a738-d7e52930b1d5",
-                                  "declaration_key":  "kevin-support-bridge-v1",
-                                  "name":  "Kevin Support Bridge v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  180000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788264426687,
-                                  "next_run_at_ms":  1788264606687
-                              },
-                              {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
                                   "declaration_key":  "kevin-hq-live-pulse-v15",
                                   "name":  "Kevin HQ Live Pulse v1.5",
@@ -77,8 +65,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788264548749,
-                                  "next_run_at_ms":  1788264608749
+                                  "last_run_at_ms":  1788264723936,
+                                  "next_run_at_ms":  1788264783936
+                              },
+                              {
+                                  "id":  "88a986b2-9ab8-4fe7-a738-d7e52930b1d5",
+                                  "declaration_key":  "kevin-support-bridge-v1",
+                                  "name":  "Kevin Support Bridge v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  180000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788264606701,
+                                  "next_run_at_ms":  1788264786701
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -89,8 +89,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788264485107,
-                                  "next_run_at_ms":  1788264665107
+                                  "last_run_at_ms":  1788264668059,
+                                  "next_run_at_ms":  1788264848059
                               },
                               {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
@@ -120,10 +120,10 @@
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  444,
+                       "cycle":  445,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-09-01T06:08:06.6468689-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-09-01T06:12:01.8580522-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -148,15 +148,15 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260901-060206-forge-v4-i386-evaluation.json",
-                              "at":  "2026-09-01T06:02:53.2208780-06:00",
+                              "file":  "20260901-061110-forge-v4-i387-evaluation.json",
+                              "at":  "2026-09-01T06:12:01.7347351-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  386,
+                              "iteration":  387,
                               "verdict":  "REJECT",
                               "score":  2,
                               "result":  "",
-                              "failure_count":  8,
-                              "security_finding_count":  2,
+                              "failure_count":  7,
+                              "security_finding_count":  1,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
                           },
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "D385535FDC6F9A430CA9FFC6D14E76621C5100D890468F31DF5E7946ECA6B500"
+    "semantic_hash":  "59935A8FC0D3DCCC92ACD0BBBF68B2A4EF0007CE1AAF5A56F9AE43544D2BBE6C"
 }
