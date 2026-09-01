@@ -1,12 +1,17 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "run-fixed-main-canary-v1326-20260901-1212",
+  "id": "install-maintenance-v1327-20260901-1226",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "run_main_agent_canary",
-  "expires_at": "2026-09-01T12:32:00-06:00"
+  "operation": "replace_pinned_component",
+  "target_alias": "maintenance_runner",
+  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.27.ps1",
+  "source_sha256": "B22A26EA5B417F0514BE253E1F45F93407BD5B8EDC2A92482D9518FB058B83AA",
+  "expected_current_sha256": "E010E22EF82479C3A9564350172B8BB92DDBF91BCE9CD0B586E8E6B2A43A3F0F",
+  "expected_after_sha256": "B22A26EA5B417F0514BE253E1F45F93407BD5B8EDC2A92482D9518FB058B83AA",
+  "expires_at": "2026-09-01T13:00:00-06:00"
 }
