@@ -1,12 +1,17 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "repair-supervisor-v171-coordinated-20260901-0809",
+  "id": "install-maintenance-v1320-autonomy-continuation-20260901-0817",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "repair_supervisor_v171_forge_pin",
-  "expires_at": "2026-09-01T09:00:00-06:00"
+  "operation": "replace_pinned_component",
+  "target_alias": "maintenance_runner",
+  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.20.ps1",
+  "source_sha256": "737F40049FEA0C16EB8DC17FAA8DBCEE0DE2E7E1CCF7D5DCD353F63EF23DE1AD",
+  "expected_current_sha256": "7422A70B75FC8BCA069CA00DBDD1967318159F87B3E84C202A8932474611BB21",
+  "expected_after_sha256": "737F40049FEA0C16EB8DC17FAA8DBCEE0DE2E7E1CCF7D5DCD353F63EF23DE1AD",
+  "expires_at": "2026-09-01T09:10:00-06:00"
 }
