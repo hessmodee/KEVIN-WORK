@@ -65,6 +65,10 @@ jobs:
           git add docs/hq-truth-v2.js
           git diff --cached --quiet && exit 0
           git commit -m 'Make HQ Attention current-state aware'
+          # Tests may leave generated/untracked files. The production patch is already committed;
+          # clean the runner before rebasing over live telemetry commits.
+          git reset --hard HEAD
+          git clean -fd
           for i in 1 2 3; do
             git pull --rebase origin main && git push origin HEAD:main && exit 0
             sleep "$i"
