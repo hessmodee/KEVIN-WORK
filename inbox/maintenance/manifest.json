@@ -1,12 +1,17 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "publish-runtime-capabilities-20260901-0847",
+  "id": "install-maintenance-v1322-cli-audit-20260901-0853",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "publish_runtime_capabilities",
-  "expires_at": "2026-09-01T09:40:00-06:00"
+  "operation": "replace_pinned_component",
+  "target_alias": "maintenance_runner",
+  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.22.ps1",
+  "source_sha256": "3F926629917D49BD28FD492C6698146461BA5F362F09146A160CB221CBAEEE4E",
+  "expected_current_sha256": "AF8C37FEF03A8BD0F2E2131FCA9BA7384D26F4AFD8B35CF8D6608D1249733ED3",
+  "expected_after_sha256": "3F926629917D49BD28FD492C6698146461BA5F362F09146A160CB221CBAEEE4E",
+  "expires_at": "2026-09-01T09:45:00-06:00"
 }
