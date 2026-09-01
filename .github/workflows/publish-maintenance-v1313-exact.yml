@@ -1,0 +1,36 @@
+name: Publish Maintenance v1.3.13 Exact
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1313-goalos-anchor.py'
+      - '.github/workflows/publish-maintenance-v1313-exact.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.13'}
+      - name: Regenerate exact qualified candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop';python .\tools\generate-maintenance-v1313-goalos-anchor.py
+          $p='.\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.13.ps1';$expected='901B72A53DEF8995D367E50201379551AF4B3C1C601842ECE1B9D33CE448C914';$actual=(Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToUpperInvariant();if($actual-ne$expected){throw "identity drift $actual"}
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1|Out-String;if($LASTEXITCODE-ne0-or$out-notmatch'KEVIN MAINTENANCE v1\.3\.13 SELFTEST PASS'){throw 'selftest failed'}
+      - name: Publish exact bytes via JSON input
+        shell: powershell
+        env: {GH_TOKEN: '${{ github.token }}'}
+        run: |
+          $ErrorActionPreference='Stop';$repo=$env:GITHUB_REPOSITORY;$path='control-plane/maintenance/kevin-maintenance-runner-v1.3.13.ps1';$src='.\control-plane\maintenance\generated\kevin-maintenance-runner-v1.3.13.ps1';$expected='901B72A53DEF8995D367E50201379551AF4B3C1C601842ECE1B9D33CE448C914';$utf8=New-Object Text.UTF8Encoding($false)
+          $old=$ErrorActionPreference;try{$ErrorActionPreference='Continue';$existing=(& gh api "repos/$repo/contents/$path?ref=main" 2>$null|Out-String).Trim();$ec=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old};if($ec-eq0-and$existing){Write-Host 'V1313_ALREADY_PRESENT';exit 0}
+          $body=[ordered]@{message='Publish exact CI-qualified Maintenance v1.3.13';content=[Convert]::ToBase64String([IO.File]::ReadAllBytes($src));branch='main'}|ConvertTo-Json -Compress;$input=Join-Path $env:RUNNER_TEMP 'publish-v1313.json';[IO.File]::WriteAllText($input,$body,$utf8)
+          & gh api --method PUT "repos/$repo/contents/$path" --input $input --silent;if($LASTEXITCODE-ne0){throw 'publication failed'}
+          Write-Host "V1313_PUBLISH_SENT expected_sha256=$expected"
