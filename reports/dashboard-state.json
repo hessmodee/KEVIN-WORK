@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T21:33:27-06:00",
+  "generated_at": "2026-08-31T21:35:02-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,14 +13,12 @@
     "tools": false
   },
   "current_task": {
-    "id": "design-forge",
-    "title": "Design Forge: operator",
-    "category": "forge",
-    "phase": "started",
-    "completed": 0,
-    "total": null,
-    "started_at": "2026-08-31T21:33:27-06:00",
-    "source": "forge"
+    "id": "supervisor",
+    "title": "Supervisor autonomous cycle",
+    "category": "supervisor",
+    "phase": "Goal-aware Supervisor cycle active.",
+    "started_at": "2026-08-31T21:33:25.9394848-06:00",
+    "source": "hq-live-ops"
   },
   "services": {
     "tick": "healthy",
@@ -38,13 +36,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-31T17:17:33-06:00",
-        "estimated": false,
-        "ram": 34,
-        "cpu": 12,
-        "gpu": 36
-      },
       {
         "at": "2026-08-31T17:18:14-06:00",
         "estimated": false,
@@ -709,10 +700,16 @@
         "ram": 36,
         "cpu": 28,
         "gpu": 39
+      },
+      {
+        "at": "2026-08-31T21:35:02-06:00",
+        "estimated": false,
+        "ram": 36,
+        "cpu": 28,
+        "gpu": 39
       }
     ],
     "ram": [
-      34,
       34,
       38,
       29,
@@ -807,10 +804,10 @@
       34,
       31,
       31,
+      36,
       36
     ],
     "cpu": [
-      12,
       12,
       21,
       4,
@@ -905,10 +902,10 @@
       3,
       12,
       12,
+      28,
       28
     ],
     "gpu": [
-      36,
       36,
       99,
       37,
@@ -1003,6 +1000,7 @@
       37,
       37,
       37,
+      39,
       39
     ]
   },
@@ -1156,6 +1154,16 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-08-31T21:35:02-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Ollama output limit reached: done_reason=length",
+      "result": "fail",
+      "task_id": "design-forge",
+      "duration_ms": 95000
+    },
     {
       "at": "2026-08-31T21:33:27-06:00",
       "source": "forge",
@@ -1370,23 +1378,14 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 48000
-    },
-    {
-      "at": "2026-08-31T20:12:30-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: forge-v4",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "working"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-08-31T21:33:27-06:00",
+    "last": "2026-08-31T21:35:02-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1423,22 +1422,22 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-31T21:33:27-06:00",
+    "generated_at": "2026-08-31T21:33:25.9394848-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": true,
     "benchmark_active": false,
     "primary": {
-      "id": "design-forge",
-      "name": "Build Lab",
-      "title": "Design Forge: operator",
-      "category": "forge",
-      "state": "working",
-      "detail": "started",
-      "what": "Generating and validating an isolated candidate.",
-      "engine": "Ollama | Qwen 2.5 14B",
-      "action": "Candidate engineering"
+      "id": "supervisor",
+      "name": "Supervisor",
+      "title": "Supervisor autonomous cycle",
+      "category": "supervisor",
+      "state": "coordinating",
+      "detail": "Goal-aware Supervisor cycle active.",
+      "what": "Selecting and advancing the highest-value authorized mission.",
+      "engine": "Supervisor v1.4",
+      "action": "Mission coordination"
     },
     "lanes": [
       {
@@ -1446,7 +1445,7 @@
         "name": "Supervisor",
         "role": "Goal-aware control plane",
         "state": "coordinating",
-        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
+        "detail": "Selecting, evaluating, staging, or recording autonomous work.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Autonomous coordination"
@@ -1475,16 +1474,16 @@
   },
   "execution": {
     "running": true,
-    "state": "working",
-    "phase": "started",
-    "worker": "Build Lab",
-    "engine": "Ollama | Qwen 2.5 14B",
-    "action": "Candidate engineering"
+    "state": "coordinating",
+    "phase": "Goal-aware Supervisor cycle active.",
+    "worker": "Supervisor",
+    "engine": "Supervisor v1.4",
+    "action": "Mission coordination"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Build Lab | WORKING | started",
+      "text": "Supervisor | COORDINATING | Goal-aware Supervisor cycle active.",
       "severity": "normal"
     }
   ]
