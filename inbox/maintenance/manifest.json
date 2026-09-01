@@ -1,12 +1,17 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "runtime-convergence-audit-20260831-2212",
+  "id": "install-maint-v1313-20260831-2214",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "audit_runtime_convergence",
-  "expires_at": "2026-08-31T23:05:00-06:00"
+  "operation": "replace_pinned_component",
+  "target_alias": "maintenance_runner",
+  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.13.ps1",
+  "source_sha256": "901B72A53DEF8995D367E50201379551AF4B3C1C601842ECE1B9D33CE448C914",
+  "expected_current_sha256": "2CA0EA73E5F43EB1FA7F004288193EE18C450029C403C9A80BE7D3931565E629",
+  "expected_after_sha256": "901B72A53DEF8995D367E50201379551AF4B3C1C601842ECE1B9D33CE448C914",
+  "expires_at": "2026-08-31T23:30:00-06:00"
 }
