@@ -81,6 +81,15 @@ function liveCoreDrift(s,desired){
 }
 function forgeBlocked(){const w=workItem('finish-forge-v40-runtime-convergence');return !!w&&(w.blocked===true||String(w.status||'').toUpperCase()==='BLOCKED')}
 function forgeActive(d,s){const t=d?.current_task||{};const tag=[t.id,t.title,t.category,t.source].join(' ');return (taskActive(t)&&/forge/i.test(tag))||Number(s?.active_workers?.design_forge||0)>0||Number(s?.active_workers?.night_forge||0)>0}
+function workTelemetryConflict(d,s){
+  if(!taskActive(d?.current_task)||activeWorkers(s)!==0)return false;
+  const ds=sourceState('dashboard',d),ss=sourceState('support',s);
+  if(ds.state!=='FRESH'||ss.state!=='FRESH')return false;
+  const dashAt=parseTs(tsOf(d)),supportAt=parseTs(tsOf(s));
+  if(!Number.isFinite(dashAt)||!Number.isFinite(supportAt))return false;
+  // A Support snapshot older than Dashboard cannot disprove work that Dashboard observed later.
+  return supportAt>=dashAt;
+}
 function autonomyTruth(a){
   if(!a)return{headline:'UNKNOWN',detail:'Autonomy snapshot missing',cls:'bad'};
   const st=sourceState('autonomy',a),live=liveCoreDrift(cache.support||{},cache.desired||{}),reported=Number(a.drift_count||0);
@@ -118,12 +127,11 @@ function issueRows(){
   }else if(reject&&!blocked){
     out.push({sev:'bad',title:'Forge failure family is repeating',detail:`${ev.mission||'forge'} · iteration ${it||'?'} · failures ${fail} · security ${sec}.`});
   }
-  if(taskActive(d.current_task)&&activeWorkers(s)===0){
-    out.push({sev:'warn',title:'Current-work telemetry conflicts',detail:`Dashboard says “${d.current_task?.title||d.current_task?.id||'task'}” is active while Support reports 0 active workers.`});
+  if(workTelemetryConflict(d,s)){
+    out.push({sev:'warn',title:'Current-work telemetry conflicts',detail:`Dashboard says “${d.current_task?.title||d.current_task?.id||'task'}” is active and an equally-new or newer Support snapshot still reports 0 active workers.`});
   }
   const hb=Number(e?.action?.ui_bridge?.heartbeat_age_seconds);
   if(Number.isFinite(hb)&&hb>60)out.push({sev:'bad',title:'UI Bridge heartbeat is not fresh',detail:`Heartbeat ${ageText(hb)} old.`});
-  if(String(e?.request?.status||'').toUpperCase()==='REJECTED'&&/expired/i.test(String(e?.request?.detail||'')))out.push({sev:'warn',title:'Engineering Relay slot is expired',detail:`${e?.request?.id||'request'} should be retired instead of resurfaced.`});
   const ast=sourceState('autonomy',a),live=liveCoreDrift(s,cache.desired||{}),reported=Number(a?.drift_count||0),knownForgeOnly=live.count===1&&live.keys[0]==='forge'&&blocked;
   if(ast.state==='FRESH'&&cache.desired&&reported!==live.count)out.push({sev:'warn',title:'Autonomy drift telemetry is stale',detail:`Autonomy reports ${reported}; current desired-state vs live Support has ${live.count} mismatch(es): ${live.keys.join(', ')||'none'}.`});
   if(cache.desired&&live.count>0&&!knownForgeOnly)out.push({sev:'warn',title:'Live desired-state mismatch',detail:`Current mismatches: ${live.keys.join(', ')}.`});
