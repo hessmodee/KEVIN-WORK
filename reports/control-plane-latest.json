@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-08-31T22:29:12.9242246-06:00",
+    "generated_at":  "2026-08-31T22:30:00.3012047-06:00",
     "request":  {
-                    "id":  "wake-maint-v1314-20260831-2227",
+                    "id":  "wake-goalos-forge-anchor-v1314-20260831-2230",
                     "verb":  "run_typed_maintenance",
                     "target":  "kevin-maintenance-v1"
                 },
-    "status":  "IDLE_TERMINAL",
-    "detail":  "Current work order is already terminal; awaiting replacement",
+    "status":  "FAILED",
+    "detail":  "Fixed local action failed: MAINTENANCE ERROR Goal OS Forge anchor must be unique before migration; count=0",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
