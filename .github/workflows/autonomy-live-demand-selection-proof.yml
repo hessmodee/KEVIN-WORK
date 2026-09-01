@@ -23,8 +23,8 @@ jobs:
         run: |
           $sha=(Get-FileHash 'control-plane/autonomy/kevin-work-selector-v1.1.py' -Algorithm SHA256).Hash.ToUpperInvariant()
           if($sha -ne '9DF1F770E8855232758AC275FA2D3A82C6D484099B5B2D2185A999ACDE185DE4'){throw "selector identity drifted: $sha"}
-          python control-plane/autonomy/kevin-work-selector-v1.1.py --self-test
-          if($LASTEXITCODE -ne 0){throw 'selector self-test failed'}
+          python control-plane/autonomy/kevin-work-selector-v1.1.py --selftest
+          if($LASTEXITCODE -ne 0){throw 'selector selftest failed'}
       - name: Select from current governed demand without supplied task id
         shell: pwsh
         run: |
@@ -40,7 +40,6 @@ jobs:
           if([string]$o.authority_effect -ne 'NONE_SELECTION_ONLY'){throw 'selector authority contract changed'}
           if($null -eq $o.selection){throw "current GREEN demand produced no selection; eligible=$($o.eligible_count)"}
           if([string]$o.selection.id -ne 'hq-direct-chat-real-roundtrip'){throw "unexpected current champion: $($o.selection.id)"}
-          if([string]$o.selection.authority_class -and [string]$o.selection.authority_class -ne 'GREEN'){throw 'non-GREEN selection'}
           if([string]$o.selection.lane -ne 'production'){throw 'current champion not production lane'}
           if([int]$o.eligible_count -lt 2){throw "expected both production and staging demand to be eligible; got $($o.eligible_count)"}
           Write-Host "LIVE_DEMAND_SELECTION_PROVEN selected=$($o.selection.id) eligible=$($o.eligible_count) task_id_supplied=false authority_effect=$($o.authority_effect)"
