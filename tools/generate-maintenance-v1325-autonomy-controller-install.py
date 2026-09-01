@@ -93,7 +93,7 @@ function Install-AutonomyControllerV182([object]$m) {
     if(([string]$verify.hashes.forge).ToUpperInvariant()-ne$ForgeV40Sha){throw 'staged Benchmark Forge anchor mismatch'}
 
     $mutex=New-Object Threading.Mutex($false,'Global\KevinSupervisor');$owned=$false
-    try{$owned=$mutex.WaitOne(10000)}catch[Threading.AbandonedMutexException]{$owned=$true}
+    try{$owned=$mutex.WaitOne(10000)}catch [Threading.AbandonedMutexException]{$owned=$true}
     if(-not$owned){$mutex.Dispose();throw 'Supervisor mutex busy; bounded install deferred'}
     $backupDir=Join-Path $BackupRoot ([string]$m.id);New-Item -ItemType Directory -Force -Path $backupDir|Out-Null
     $supBackup=Join-Path $backupDir 'kevin-supervisor.ps1';$baseBackup=Join-Path $backupDir 'benchmark-baseline.json';$selBackup=Join-Path $backupDir 'kevin-work-selector-v1.1.py'
