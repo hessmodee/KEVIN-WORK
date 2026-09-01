@@ -1,0 +1,55 @@
+{
+    "schema":  1,
+    "kind":  "kevin-gateway-rpc-diagnosis-public",
+    "generated_at":  "2026-09-01T12:33:54.8627109-06:00",
+    "state":  "OMEN_DIAGNOSIS_PROVEN",
+    "safe_for_public_repo":  true,
+    "openclaw_version":  "2026.7.1-2",
+    "probes":  {
+                   "gateway_status":  {
+                                          "exit_code":  1,
+                                          "class":  "OTHER_FAILURE",
+                                          "output_sha256":  "C363330A79683E93BF2C23C9F4CBB534010B65B26953A366FFF89D4BF5D9D055"
+                                      },
+                   "require_rpc":  {
+                                       "exit_code":  1,
+                                       "class":  "OTHER_FAILURE",
+                                       "output_sha256":  "C363330A79683E93BF2C23C9F4CBB534010B65B26953A366FFF89D4BF5D9D055"
+                                   },
+                   "direct_rpc_status":  {
+                                             "exit_code":  1,
+                                             "class":  "OTHER_FAILURE",
+                                             "output_sha256":  "C363330A79683E93BF2C23C9F4CBB534010B65B26953A366FFF89D4BF5D9D055"
+                                         },
+                   "gateway_health":  {
+                                          "exit_code":  1,
+                                          "class":  "OTHER_FAILURE",
+                                          "output_sha256":  "C363330A79683E93BF2C23C9F4CBB534010B65B26953A366FFF89D4BF5D9D055"
+                                      },
+                   "config_validate_ok":  false,
+                   "main_skills_check_ok":  false
+               },
+    "config":  {
+                   "mode":  "UNSET_OR_UNREADABLE",
+                   "bind":  "UNSET_OR_UNREADABLE",
+                   "auth_mode":  "UNSET_OR_UNREADABLE",
+                   "process_config_override_present":  false,
+                   "process_home_override_present":  false,
+                   "process_gateway_token_present":  false,
+                   "process_gateway_password_present":  false
+               },
+    "windows":  {
+                    "gateway_task_count":  1,
+                    "gateway_task_running_count":  0,
+                    "watchdog_task_count":  1,
+                    "watchdog_task_running_count":  1
+                },
+    "self_reliance":  {
+                          "state":  "HEALTHY",
+                          "attempts":  0,
+                          "cooling":  false
+                      },
+    "interpretation":  "DIRECT_RPC_NOT_PROVEN",
+    "source_contract":  "Fixed metadata-only local OpenClaw probes and fixed scheduled-task/state inspection. No caller-selected command, argv, path, URL, token, password, recipient, or raw output publication.",
+    "truth_boundary":  "No credentials, config values outside safe enums, raw CLI output, host paths, messages, prompts, or tool payloads are published."
+}
