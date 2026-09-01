@@ -1,17 +1,12 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "install-maint-v133-probe-bridge-20260901-1538",
+  "id": "prove-main-agent-canary-20260901-1549",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "replace_pinned_component",
-  "target_alias": "maintenance_runner",
-  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.33.ps1",
-  "source_sha256": "33F52DC59D0801C0731DDF58362656349F71972B678E5E7E069366E3E44DA971",
-  "expected_current_sha256": "8C7C389C60BFAAE8AFB519435D1FA1A7297C5B702AC5F782951B390A80F7F871",
-  "expected_after_sha256": "33F52DC59D0801C0731DDF58362656349F71972B678E5E7E069366E3E44DA971",
-  "expires_at": "2026-09-01T17:00:00-06:00"
+  "operation": "run_main_agent_canary",
+  "expires_at": "2026-09-01T17:30:00-06:00"
 }
