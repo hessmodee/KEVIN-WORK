@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T14:35:14-06:00",
-  "status": "ready",
+  "generated_at": "2026-09-01T14:37:01-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,16 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "night-forge",
+    "title": "Night Forge cycle",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-09-01T14:37:01-06:00",
+    "source": "forge"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -20,8 +29,8 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 28,
-    "cpu_pct": 19,
+    "memory_pct": 27,
+    "cpu_pct": 3,
     "gpu": "RTX 3060",
     "gpu_pct": 35
   },
@@ -29,13 +38,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-01T05:26:06-06:00",
-        "estimated": false,
-        "ram": 32,
-        "cpu": 5,
-        "gpu": 24
-      },
       {
         "at": "2026-09-01T05:26:55-06:00",
         "estimated": false,
@@ -700,10 +702,16 @@
         "ram": 28,
         "cpu": 19,
         "gpu": 35
+      },
+      {
+        "at": "2026-09-01T14:37:01-06:00",
+        "estimated": false,
+        "ram": 27,
+        "cpu": 3,
+        "gpu": 35
       }
     ],
     "ram": [
-      32,
       32,
       32,
       35,
@@ -798,10 +806,10 @@
       26,
       31,
       30,
-      28
+      28,
+      27
     ],
     "cpu": [
-      5,
       5,
       19,
       22,
@@ -896,10 +904,10 @@
       3,
       25,
       22,
-      19
+      19,
+      3
     ],
     "gpu": [
-      24,
       24,
       15,
       55,
@@ -994,6 +1002,7 @@
       63,
       37,
       38,
+      35,
       35
     ]
   },
@@ -1093,8 +1102,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 96,
-      "total": 97
+      "done": 95,
+      "total": 96
     }
   ],
   "roadmap": {
@@ -1147,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-09-01T14:37:01-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
     {
       "at": "2026-09-01T14:35:14-06:00",
       "component": "tick",
@@ -1359,23 +1377,14 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 32000
-    },
-    {
-      "at": "2026-09-01T07:05:54-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Design Forge: forge-v4",
-      "result": "",
-      "task_id": "design-forge"
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-09-01T14:35:14-06:00",
+    "last": "2026-09-01T14:37:01-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1412,30 +1421,30 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-01T14:34:28.9745722-06:00",
+    "generated_at": "2026-09-01T14:37:01-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
+      "id": "night-forge",
+      "name": "Night Forge",
+      "title": "Night Forge cycle",
+      "category": "qa",
+      "state": "working",
+      "detail": "started",
+      "what": "Running safety and regression checks.",
+      "engine": "Night Forge",
+      "action": "QA / regression"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
+        "state": "waiting",
+        "detail": "Supervisor is yielding while Night Forge owns the engineering lane.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1463,17 +1472,17 @@
     ]
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "running": true,
+    "state": "working",
+    "phase": "started",
+    "worker": "Night Forge",
+    "engine": "Night Forge",
+    "action": "QA / regression"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
+      "text": "Night Forge | WORKING | started",
       "severity": "normal"
     }
   ]
