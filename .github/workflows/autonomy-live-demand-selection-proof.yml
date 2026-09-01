@@ -1,0 +1,46 @@
+name: Autonomy live demand selection proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/autonomy-live-demand-selection-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  select:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify selector identity and self-test
+        shell: pwsh
+        run: |
+          $sha=(Get-FileHash 'control-plane/autonomy/kevin-work-selector-v1.1.py' -Algorithm SHA256).Hash.ToUpperInvariant()
+          if($sha -ne '9DF1F770E8855232758AC275FA2D3A82C6D484099B5B2D2185A999ACDE185DE4'){throw "selector identity drifted: $sha"}
+          python control-plane/autonomy/kevin-work-selector-v1.1.py --self-test
+          if($LASTEXITCODE -ne 0){throw 'selector self-test failed'}
+      - name: Select from current governed demand without supplied task id
+        shell: pwsh
+        run: |
+          $now=(Get-Date).ToUniversalTime().ToString('o')
+          $raw=python control-plane/autonomy/kevin-work-selector-v1.1.py `
+            --programs control-plane/autonomy/standing-programs-v1.json `
+            --items inbox/autonomy/work-items.json `
+            --state inbox/autonomy/state.json `
+            --failure-families control-plane/autonomy/failure-families-v1.json `
+            --now $now
+          if($LASTEXITCODE -ne 0){throw 'selector execution failed'}
+          $o=($raw -join "`n")|ConvertFrom-Json
+          if([string]$o.authority_effect -ne 'NONE_SELECTION_ONLY'){throw 'selector authority contract changed'}
+          if($null -eq $o.selection){throw "current GREEN demand produced no selection; eligible=$($o.eligible_count)"}
+          if([string]$o.selection.id -ne 'hq-direct-chat-real-roundtrip'){throw "unexpected current champion: $($o.selection.id)"}
+          if([string]$o.selection.authority_class -and [string]$o.selection.authority_class -ne 'GREEN'){throw 'non-GREEN selection'}
+          if([string]$o.selection.lane -ne 'production'){throw 'current champion not production lane'}
+          if([int]$o.eligible_count -lt 2){throw "expected both production and staging demand to be eligible; got $($o.eligible_count)"}
+          Write-Host "LIVE_DEMAND_SELECTION_PROVEN selected=$($o.selection.id) eligible=$($o.eligible_count) task_id_supplied=false authority_effect=$($o.authority_effect)"
