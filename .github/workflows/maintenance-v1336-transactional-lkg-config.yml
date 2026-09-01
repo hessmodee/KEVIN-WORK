@@ -61,7 +61,9 @@ jobs:
           if($s-lt0 -or $e-le$s){throw 'unable to isolate LKG recovery'}
           $b=$t.Substring($s,$e-$s)
           if($b.Contains('SAFE_BACKUP_NOT_PROVEN_FOR_DOWNGRADE') -or $b.Contains('SAFE_BACKUP_VERSION_NOT_COMPATIBLE')){throw 'stale metadata-only compatibility gate remains'}
-          if($b -notmatch "Install-ExactOpenClaw \$GatewayLkgVersion[\s\S]+config','validate','--json'"){throw 'target install must precede compatibility validation'}
+          $installPos=$b.IndexOf('Install-ExactOpenClaw $GatewayLkgVersion')
+          $validatePos=$b.IndexOf("Invoke-OpenClawFixedConfig @('config','validate','--json')")
+          if($installPos-lt0 -or $validatePos-le$installPos){throw 'target install must precede compatibility validation'}
           if($b -notmatch 'config_sha_unchanged=\$true'){throw 'successful recovery config identity proof missing'}
           if($b -match '(?i)invoke-expression|kevin_shell|cmd\.exe'){throw 'LKG recovery widened authority'}
           if($t.Contains("Invoke-OpenClawFixedConfig @('automations'")){throw 'runtime-incompatible automations CLI regressed'}
