@@ -1,0 +1,130 @@
+name: Maintenance v1.3.38 Convergence Proof v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1338-convergence.py'
+      - '.github/workflows/maintenance-v1338-convergence-proof-v2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  proof:
+    runs-on: windows-2025
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Recover exact qualified parents and generate
+        shell: pwsh
+        run: |
+          $parent='434e727b90eff08de60eaf2f57fe57dbd87c0d0c'
+          $src='control-plane/maintenance/kevin-maintenance-runner-v1.3.37.ps1'
+          git fetch origin $parent --depth=1
+          if($LASTEXITCODE -ne 0){throw 'immutable parent fetch failed'}
+          git checkout $parent -- $src
+          if($LASTEXITCODE -ne 0){throw 'immutable parent checkout failed'}
+          $actual=(Get-FileHash $src -Algorithm SHA256).Hash.ToUpperInvariant()
+          $expected='17016BF56F7BBFEE6A0718A26E0729837507E4B556CA30DE395BC32D2383A765'
+          if($actual -ne $expected){throw "qualified parent hash mismatch actual=$actual"}
+          python tools/generate-maintenance-v1338-convergence.py
+          if($LASTEXITCODE -ne 0){throw 'v1.3.38 generation failed'}
+          foreach($p in @('control-plane/maintenance/kevin-maintenance-runner-v1.3.38.ps1','control-plane/autonomy/kevin-supervisor-v1.8.5.ps1')){if(-not(Test-Path -LiteralPath $p -PathType Leaf)){throw "generated artifact missing: $p"}}
+
+      - name: Parse and authority boundary
+        shell: pwsh
+        run: |
+          foreach($p in @('control-plane/maintenance/kevin-maintenance-runner-v1.3.38.ps1','control-plane/autonomy/kevin-supervisor-v1.8.5.ps1')){
+            $tokens=$null;$errors=$null;$ast=[Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+            if($errors.Count){throw ("parse failed: "+$errors[0].Message)}
+            $commands=@($ast.FindAll({param($n) $n -is [Management.Automation.Language.CommandAst]},$true)|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+            foreach($bad in @('invoke-expression','iex','cmd.exe','kevin_shell')){if($commands -contains $bad){throw "forbidden command $bad"}}
+            $badParams=@($ast.FindAll({param($n) $n -is [Management.Automation.Language.ParameterAst] -and $n.Name.VariablePath.UserPath -eq 'args'},$true))
+            if($badParams.Count){throw "automatic Args parameter regressed in $p"}
+          }
+
+      - name: Command forwarding regression PS5.1
+        shell: powershell
+        run: |
+          $src=[IO.File]::ReadAllText('tools/test-kevin-command-forwarding.ps1')
+          $src=$src.Replace("`$new='control-plane/maintenance/kevin-maintenance-runner-v1.3.37.ps1'","`$new='control-plane/maintenance/kevin-maintenance-runner-v1.3.38.ps1'")
+          $tmp=Join-Path $env:RUNNER_TEMP 'forward-v1338.ps1';[IO.File]::WriteAllText($tmp,$src,(New-Object Text.UTF8Encoding($false)))
+          & $tmp -RepositoryRoot $PWD.Path
+          if($LASTEXITCODE -ne 0){throw 'PS5.1 forwarding regression failed'}
+
+      - name: Command forwarding regression PS7
+        shell: pwsh
+        run: |
+          $src=[IO.File]::ReadAllText('tools/test-kevin-command-forwarding.ps1')
+          $src=$src.Replace("`$new='control-plane/maintenance/kevin-maintenance-runner-v1.3.37.ps1'","`$new='control-plane/maintenance/kevin-maintenance-runner-v1.3.38.ps1'")
+          $tmp=Join-Path $env:RUNNER_TEMP 'forward-v1338.ps1';[IO.File]::WriteAllText($tmp,$src,(New-Object Text.UTF8Encoding($false)))
+          & $tmp -RepositoryRoot $PWD.Path
+          if($LASTEXITCODE -ne 0){throw 'PS7 forwarding regression failed'}
+
+      - name: Maintenance inherited self-test PS5.1
+        shell: powershell
+        run: |
+          $env:KEVIN_MAINT_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'v1338-ps51'
+          & .\control-plane\maintenance\kevin-maintenance-runner-v1.3.38.ps1 -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'Maintenance PS5.1 selftest failed'}
+
+      - name: Maintenance inherited self-test PS7
+        shell: pwsh
+        run: |
+          $env:KEVIN_MAINT_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'v1338-ps7'
+          & .\control-plane\maintenance\kevin-maintenance-runner-v1.3.38.ps1 -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'Maintenance PS7 selftest failed'}
+
+      - name: Supervisor selector and operation parity
+        shell: powershell
+        run: |
+          & .\control-plane\autonomy\kevin-supervisor-v1.8.5.ps1 -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'Supervisor v1.8.5 selftest failed'}
+          $selector=(Get-FileHash 'control-plane/autonomy/kevin-work-selector-v1.1.py' -Algorithm SHA256).Hash.ToUpperInvariant()
+          if($selector -ne '9DF1F770E8855232758AC275FA2D3A82C6D484099B5B2D2185A999ACDE185DE4'){throw "selector drifted: $selector"}
+          python tools/check-maintenance-operation-parity.py control-plane/maintenance/kevin-maintenance-runner-v1.3.38.ps1
+          if($LASTEXITCODE -ne 0){throw 'operation parity failed'}
+
+      - name: Convergence invariants
+        shell: pwsh
+        run: |
+          $t=[IO.File]::ReadAllText('control-plane/maintenance/kevin-maintenance-runner-v1.3.38.ps1')
+          foreach($m in @("version='1.3.38'",'function Download-VerifiedOpenClawTarball','https://registry.npmjs.org/openclaw/-/openclaw-','explicit_command_arguments=true','four_independent_readonly_probes=true','NONE_ALL_PROBES_PASSED','CLASSIFY_FAILED_PROBE_BEFORE_REPAIR',"@('gateway','status','--require-rpc','--json')","@('gateway','call','status','--json')","@('gateway','health','--json')",'install_from_verified_local_tarball=true','dynamic_npm_view=false','supervisor_target=v1.8.5','safe_report_publish=bounded3')){if(-not$t.Contains($m)){throw "missing invariant $m"}}
+          if($t.Contains("@('view',('openclaw@'+`$Version),'dist.integrity'")){throw 'dynamic npm view dependency remains'}
+          Write-Host 'V1338_CONVERGENCE_INVARIANTS_PASS'
+
+      - name: Official Windows LKG byte SRI
+        shell: pwsh
+        run: |
+          $url='https://registry.npmjs.org/openclaw/-/openclaw-2026.6.34.tgz';$expected='sha512-Rm4khBrWn9HYqE99NBryCFgjwlsIuwBqK5jIANn2773CGXJ1JIZkDn5twEHB+8SVFdh0FPNPHRVgZepzNJDfHg=='
+          $p=Join-Path $env:RUNNER_TEMP 'openclaw-2026.6.34.tgz';Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile $p -TimeoutSec 180
+          $sha=[Security.Cryptography.SHA512]::Create();try{$fs=[IO.File]::OpenRead($p);try{$digest=$sha.ComputeHash($fs)}finally{$fs.Dispose()}}finally{$sha.Dispose()}
+          $actual='sha512-'+[Convert]::ToBase64String($digest);if($actual -ne $expected){throw "LKG byte SRI mismatch actual=$actual"}
+          Write-Host 'OPENCLAW_LKG_TARBALL_PROVEN version=2026.6.34 sri_match=true'
+
+      - name: Exact identities
+        shell: pwsh
+        run: |
+          $m=(Get-FileHash 'control-plane/maintenance/kevin-maintenance-runner-v1.3.38.ps1' -Algorithm SHA256).Hash.ToUpperInvariant();$s=(Get-FileHash 'control-plane/autonomy/kevin-supervisor-v1.8.5.ps1' -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "MAINT_V1338_CI_PROVEN sha256=$m";Write-Host "SUPERVISOR_V185_CI_PROVEN sha256=$s"
+          "MAINT_V1338_SHA=$m"|Out-File $env:GITHUB_ENV -Append -Encoding utf8;"SUPERVISOR_V185_SHA=$s"|Out-File $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: Publish exact artifacts with bounded CAS
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $repo='hessmodee/KEVIN-WORK';$utf8=New-Object Text.UTF8Encoding($false)
+          $targets=@([ordered]@{path='control-plane/maintenance/kevin-maintenance-runner-v1.3.38.ps1';sha=$env:MAINT_V1338_SHA},[ordered]@{path='control-plane/autonomy/kevin-supervisor-v1.8.5.ps1';sha=$env:SUPERVISOR_V185_SHA})
+          function Api([string]$method,[string]$endpoint,[object]$body=$null){if($null-eq$body){$out=gh api $endpoint 2>$null}else{$tmp=Join-Path $env:RUNNER_TEMP ('api-'+[guid]::NewGuid().ToString('N')+'.json');try{[IO.File]::WriteAllText($tmp,($body|ConvertTo-Json -Depth 20 -Compress),$utf8);$out=gh api --method $method $endpoint --input $tmp 2>$null}finally{Remove-Item $tmp -Force -ErrorAction SilentlyContinue}};if($LASTEXITCODE-ne0){return $null};return($out|ConvertFrom-Json)}
+          $entries=@();foreach($x in $targets){$bytes=[IO.File]::ReadAllBytes([string]$x.path);if((Get-FileHash ([string]$x.path) -Algorithm SHA256).Hash.ToUpperInvariant()-ne[string]$x.sha){throw 'artifact identity changed'};$blob=Api 'POST' "repos/$repo/git/blobs" ([ordered]@{content=[Convert]::ToBase64String($bytes);encoding='base64'});if(-not$blob.sha){throw 'blob creation failed'};$entries += [ordered]@{path=[string]$x.path;mode='100644';type='blob';sha=[string]$blob.sha}}
+          $ok=$false;for($attempt=1;$attempt-le100;$attempt++){$ref=Api 'GET' "repos/$repo/git/ref/heads/main";if(-not$ref.object.sha){Start-Sleep -Milliseconds 250;continue};$parent=[string]$ref.object.sha;$pc=Api 'GET' "repos/$repo/git/commits/$parent";if(-not$pc.tree.sha){Start-Sleep -Milliseconds 250;continue};$tree=Api 'POST' "repos/$repo/git/trees" ([ordered]@{base_tree=[string]$pc.tree.sha;tree=$entries});if(-not$tree.sha){Start-Sleep -Milliseconds 250;continue};$commit=Api 'POST' "repos/$repo/git/commits" ([ordered]@{message='Publish CI-proven Maintenance v1.3.38 and Supervisor v1.8.5';tree=[string]$tree.sha;parents=@($parent)});if(-not$commit.sha){Start-Sleep -Milliseconds 250;continue};$move=Api 'PATCH' "repos/$repo/git/refs/heads/main" ([ordered]@{sha=[string]$commit.sha;force=$false});if($move.object.sha-eq[string]$commit.sha){$ok=$true;break};Start-Sleep -Milliseconds 250};if(-not$ok){throw 'publication CAS retries exhausted'}
+          Write-Host "V1338_ARTIFACTS_PUBLISHED maint=$env:MAINT_V1338_SHA supervisor=$env:SUPERVISOR_V185_SHA force=false"
