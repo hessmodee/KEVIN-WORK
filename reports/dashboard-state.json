@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T14:38:44-06:00",
+  "generated_at": "2026-09-01T14:39:43.8662746-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,11 +13,11 @@
     "tools": false
   },
   "current_task": {
-    "id": "night-forge",
-    "title": "Night Forge QA",
-    "category": "qa",
-    "phase": "Night Forge QA/regression cycle active.",
-    "started_at": "2026-09-01T14:38:29.2889447-06:00",
+    "id": "supervisor",
+    "title": "Supervisor autonomous cycle",
+    "category": "supervisor",
+    "phase": "Goal-aware Supervisor cycle active.",
+    "started_at": "2026-09-01T14:39:43.8662746-06:00",
     "source": "hq-live-ops"
   },
   "services": {
@@ -1382,7 +1382,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-01T14:38:44-06:00",
+    "last": "2026-09-01T14:39:43.8662746-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,33 +1419,33 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-01T14:38:29.2889447-06:00",
+    "generated_at": "2026-09-01T14:39:43.8662746-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
-    "supervisor_active": false,
+    "supervisor_active": true,
     "benchmark_active": false,
     "primary": {
-      "id": "night-forge",
-      "name": "Night Forge",
-      "title": "Night Forge QA",
-      "category": "qa",
-      "state": "working",
-      "detail": "Night Forge QA/regression cycle active.",
-      "what": "Running safety and regression checks.",
-      "engine": "Night Forge",
-      "action": "QA / regression"
+      "id": "supervisor",
+      "name": "Supervisor",
+      "title": "Supervisor autonomous cycle",
+      "category": "supervisor",
+      "state": "coordinating",
+      "detail": "Goal-aware Supervisor cycle active.",
+      "what": "Selecting and advancing the highest-value authorized mission.",
+      "engine": "Supervisor v1.4",
+      "action": "Mission coordination"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
+        "state": "coordinating",
+        "detail": "Selecting, evaluating, staging, or recording autonomous work.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
-        "action": "Awaiting next 3-minute cycle"
+        "action": "Autonomous coordination"
       },
       {
         "id": "benchmark",
@@ -1471,16 +1471,16 @@
   },
   "execution": {
     "running": true,
-    "state": "working",
-    "phase": "Night Forge QA/regression cycle active.",
-    "worker": "Night Forge",
-    "engine": "Night Forge",
-    "action": "QA / regression"
+    "state": "coordinating",
+    "phase": "Goal-aware Supervisor cycle active.",
+    "worker": "Supervisor",
+    "engine": "Supervisor v1.4",
+    "action": "Mission coordination"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Night Forge | WORKING | Night Forge QA/regression cycle active.",
+      "text": "Supervisor | COORDINATING | Goal-aware Supervisor cycle active.",
       "severity": "normal"
     }
   ]
