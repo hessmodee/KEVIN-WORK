@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T23:39:42-06:00",
-  "status": "working",
+  "generated_at": "2026-08-31T23:40:29.8563073-06:00",
+  "status": "ready",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -1384,7 +1384,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-31T23:39:42-06:00",
+    "last": "2026-08-31T23:40:29.8563073-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1421,22 +1421,22 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-08-31T23:39:29.8543953-06:00",
+    "generated_at": "2026-08-31T23:40:29.8563073-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
-    "forge_active": true,
+    "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "design-forge",
-      "name": "Build Lab",
-      "title": "Design Forge | forge-v4 i346",
-      "category": "forge",
-      "state": "working",
-      "detail": "Building isolated candidate forge-v4 | iteration 346",
-      "what": "Generating and validating an isolated candidate.",
-      "engine": "Ollama | Qwen 2.5 14B",
-      "action": "Candidate engineering"
+      "id": "supervisor",
+      "name": "Supervisor",
+      "title": "Kevin autonomous system armed",
+      "category": "supervisor",
+      "state": "ready",
+      "detail": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-08-31T23:40:41.8895856-06:00",
+      "what": "Waiting only for the next scheduled three-minute control cycle.",
+      "engine": "Supervisor v1.4",
+      "action": "Autonomous schedule armed"
     },
     "lanes": [
       {
@@ -1444,7 +1444,7 @@
         "name": "Supervisor",
         "role": "Goal-aware control plane",
         "state": "ready",
-        "detail": "Recovery pass 1/4 completed: root-cause diagnosis. Focus=forge-v4 Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate.",
+        "detail": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-08-31T23:40:41.8895856-06:00",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1472,17 +1472,17 @@
     ]
   },
   "execution": {
-    "running": true,
-    "state": "working",
-    "phase": "Building isolated candidate forge-v4 | iteration 346",
-    "worker": "Build Lab",
-    "engine": "Ollama | Qwen 2.5 14B",
-    "action": "Candidate engineering"
+    "running": false,
+    "state": "ready",
+    "phase": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-08-31T23:40:41.8895856-06:00",
+    "worker": "Supervisor",
+    "engine": "Supervisor v1.4",
+    "action": "Autonomous schedule armed"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Build Lab | WORKING | Building isolated candidate forge-v4 | iteration 346",
+      "text": "Supervisor | READY | All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-08-31T23:40:41.8895856-06:00",
       "severity": "normal"
     }
   ]
