@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-31T21:01:49.4565977-06:00",
+    "generated_at":  "2026-08-31T21:04:49.5564871-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788231525226,
-                                  "next_run_at_ms":  1788231705226
+                                  "last_run_at_ms":  1788231705238,
+                                  "next_run_at_ms":  1788231885238
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788231692052,
-                                  "next_run_at_ms":  1788231752052
+                                  "last_run_at_ms":  1788231882392,
+                                  "next_run_at_ms":  1788231942392
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -89,8 +89,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788231615352,
-                                  "next_run_at_ms":  1788231795352
+                                  "last_run_at_ms":  1788231795362,
+                                  "next_run_at_ms":  1788231975362
                               },
                               {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
@@ -98,11 +98,11 @@
                                   "name":  "Kevin Maintenance Intake v1.1d",
                                   "enabled":  true,
                                   "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788231553519,
-                                  "next_run_at_ms":  1788231853519
+                                  "last_status":  "error",
+                                  "last_run_status":  "error",
+                                  "consecutive_errors":  1,
+                                  "last_run_at_ms":  1788231853530,
+                                  "next_run_at_ms":  1788232153530
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -122,16 +122,16 @@
     "supervisor":  {
                        "cycle":  378,
                        "last_mission":  "forge-v4",
-                       "last_result":  "REJECT",
-                       "next_eligible_at":  "2026-08-31T21:01:29.9769145-06:00",
+                       "last_result":  "RECOVERY_PASS",
+                       "next_eligible_at":  "2026-08-31T21:03:40.2913659-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
     "recovery":  {
-                     "fingerprint":  "F2F3C8E046BA7FF7369AC1CD876DA03111F8D8BB8DD5AC23AB6743E33C6B73C0",
+                     "fingerprint":  "03954D9EA572EB4216C707C97DB3AFB084E8982F8FA3BF23D5EF1E233BF097FC",
                      "round":  1,
-                     "last_at":  "2026-08-31T20:54:53.1319100-06:00",
-                     "last_brief":  "20260831-205453-round1.json"
+                     "last_at":  "2026-08-31T21:03:40.1610889-06:00",
+                     "last_brief":  "20260831-210340-round1.json"
                  },
     "benchmark":  {
                       "at":  "2026-08-31T21:01:41.3107084-06:00",
@@ -161,11 +161,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-31T20:59:14.4337344-06:00",
-                        "status":  "BLOCKED_FAILURE_BUDGET",
-                        "manifest_id":  "reader-status-canary-20260831-2024",
+                        "at":  "2026-08-31T21:04:14.4795159-06:00",
+                        "status":  "ERROR",
+                        "manifest_id":  "",
                         "stage_path":  "",
-                        "detail":  "Failure budget exhausted."
+                        "detail":  "manifest expired"
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "ABE29206B83480D5206378F8C65BD39364E8226539BD1A0D22DA0E5A06CA2C5F"
+    "semantic_hash":  "EFA4EB26F1D405669317E2832F24E05539798CF82DC68D3376CA39D398B44C19"
 }
