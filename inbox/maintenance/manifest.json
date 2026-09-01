@@ -1,12 +1,17 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "repair-supervisor-v171-forge-pin-20260901-0730",
+  "id": "install-maintenance-v1319-coordinated-supervisor-baseline-20260901-0739",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "repair_supervisor_v171_forge_pin",
-  "expires_at": "2026-09-01T08:20:00-06:00"
+  "operation": "replace_pinned_component",
+  "target_alias": "maintenance_runner",
+  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.19.ps1",
+  "source_sha256": "7422A70B75FC8BCA069CA00DBDD1967318159F87B3E84C202A8932474611BB21",
+  "expected_current_sha256": "1F64E5A40F8E5708BCA3E797FBD702D411D6F23B34F4289E3BF3578404ED97DF",
+  "expected_after_sha256": "7422A70B75FC8BCA069CA00DBDD1967318159F87B3E84C202A8932474611BB21",
+  "expires_at": "2026-09-01T08:30:00-06:00"
 }
