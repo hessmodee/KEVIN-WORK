@@ -1,8 +1,8 @@
 # Kevin AI Engineering Handover
 
-Last reconciled: 2026-09-01 05:13 MDT
+Last reconciled: 2026-09-01 10:16 MDT
 
-Start with `KEVIN-START-HERE.md`, then read fresh `inbox/CURRENT_TASK.md`, `inbox/autonomy/work-items.json`, `inbox/autonomy/state.json`, `reports/support-latest.json`, `reports/engineering/latest.json`, `reports/autonomy-latest.json`, `reports/runtime-convergence-omen.json`, `reports/runtime-capabilities-omen.json`, `reports/owner-outcomes-latest.json`, and current Maintenance/control-plane receipts. Fresh timestamps, request IDs, hashes and independent semantic postconditions outrank this narrative.
+Start with `KEVIN-START-HERE.md`, then read fresh `inbox/CURRENT_TASK.md`, `inbox/autonomy/work-items.json`, `inbox/autonomy/state.json`, `reports/support-latest.json`, `reports/engineering/latest.json`, `reports/autonomy-latest.json`, `reports/runtime-convergence-omen.json`, `reports/runtime-capabilities-omen.json`, `reports/owner-outcomes-latest.json`, `reports/main-agent-canary-omen.json`, and current Maintenance/control-plane receipts. Fresh timestamps, request IDs, hashes and independent semantic postconditions outrank this narrative.
 
 ## North star
 
@@ -14,72 +14,59 @@ Build Kevin into a trustworthy local-first Chief of Staff that increasingly owns
 
 Hard boundaries remain: no arbitrary shell/remote code authority, self-granted authority, silent trust-anchor blessing, secret/private-body leakage, safety weakening, purchases/money/live trades, unauthorized public/third-party owner sends, or novel YELLOW/RED auto-promotion.
 
-## Fresh live truth — 05:10 MDT
+## Fresh live truth — 10:16 MDT
 
-Fresh Support generated 05:10:04 MDT reports:
+Fresh Support generated 10:13:54 MDT reports:
 - governance OK;
-- Benchmark PASS 30/30 critical=0 at 05:06:49 MDT;
-- observed Maintenance runner SHA256 `2DBE9FD6A93779CCB26C6BA5A13EBE94EEA56F0BFB3052C58E08B65F2526F8AF`;
-- Maintenance Intake has six consecutive errors and is in long error backoff; latest Maintenance result at 05:09:14 is `ERROR: operation not allowlisted`;
-- legacy Supervisor v1.6 remains installed at SHA256 `63B8D9C27625E0FB6AFE62165BE376E7ED7EB416E5DA15BB47C206BBF4AE4989`;
-- legacy Forge remains installed at SHA256 `4C83DF29E765D61F2B26D2029FE6C2C7ED68DA90E5A7A457A82BE769029E22CA` and continued demandless work through iteration 380 at 05:08:52 MDT, REJECT with 8 failures and 1 security finding;
-- active workers were zero in that snapshot.
+- Benchmark PASS 30/30 critical=0 at 10:13:24 MDT;
+- Maintenance v1.3.24 installed at SHA256 `B5E053DFE39597DC08C58BBAD571F8590D6F10C12DA0F25363FD42723CFC2A06`;
+- Supervisor installed at SHA256 `47A0A1D0E3F744E972E2F2239F100CA2B009ABD3928D0281E4587A364B7C27AC` and fresh Supervisor state is `NO_ELIGIBLE_MISSION` with zero consecutive failures;
+- Forge v4 installed at SHA256 `433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A`;
+- latest Forge evaluation remains iteration 391 from 07:06 MDT, so there has been no fresh Forge churn in the current observation window;
+- active workers were zero in the snapshot;
+- Maintenance terminal result says the v1.3.24 install was `APPLIED_PREAUTHORIZED_PROVEN`; the scheduler summary still showed one historical Maintenance Intake error, so use newer terminal receipts over the lagging counter.
 
-The failed manifest `migrate-supervisor-forge-demand-gate-20260901-0317` was valid only for Maintenance v1.3.16, which is present and CI-proven on `main` but is not installed on the Omen. Feeding that operation to the older live runner caused the repeated allowlist errors.
+Fresh Engineering generated 10:13:41 MDT reports no Engineering Relay request, a 1.3-second UI Bridge heartbeat, Benchmark 30/30, three proven Skill Lab composites, and the same lagging one-error Maintenance scheduler counter.
 
-At 05:12 MDT the single canonical writer replaced that guaranteed-failure slot with fixed GREEN `replace_pinned_component` manifest `install-maintenance-v1315-prereq-20260901-0512`:
-- target alias: `maintenance_runner` only;
-- expected current SHA256: `2DBE9FD6A93779CCB26C6BA5A13EBE94EEA56F0BFB3052C58E08B65F2526F8AF`;
-- source/after SHA256: CI-qualified Maintenance v1.3.15 `F6C283AEFDC069AF528480AA59E0D1649AFEF251E638B901E18ACBCCBE282A2C`;
-- source path fixed to `control-plane/maintenance/kevin-maintenance-runner-v1.3.15.ps1`;
-- authority delta NONE; production effect NONE.
+`reports/autonomy-latest.json` is stale relative to current runtime truth (generated 09:15 MDT) and still says `NEEDS_REVIEW`, 0 workers and `NO_DISPATCH_NEEDED`; do not let it override fresh Support/current task state.
 
-Do not claim this prerequisite INSTALLED until fresh Omen Maintenance + Support evidence proves the exact after hash and Benchmark remains clean. The next scheduled Maintenance attempt is delayed by existing error backoff.
+## Current P0 — autonomy continuation independence proof
 
-## Why v1.3.15 first
+`inbox/CURRENT_TASK.md` was updated 08:46 MDT. The prior `write-proof` task is SATISFIED and must never be selected again. The current boundary is to prove a non-interactive native continuation wake compatible with the actually installed OpenClaw CLI/runtime, then prove Kevin independently selects and completes one useful UNSATISFIED GREEN objective without Bess naming that immediate objective.
 
-`tools/generate-maintenance-v1316-supervisor-forge-demand-gate.py` deterministically builds v1.3.16 from exact v1.3.15 SHA256 `F6C283AEFDC069AF528480AA59E0D1649AFEF251E638B901E18ACBCCBE282A2C`. The v1.3.16 proof gate is CI-proven and publishes the exact candidate to main. v1.3.16 adds the fixed `migrate_supervisor_forge_demand_gated_v17` operation and rejects caller-selected Supervisor/Forge paths, hashes, args, command, host, and port.
+Native `automations`/continuation attempts previously fell through to the installed runtime's interactive TUI and failed closed. Do not revive those same hypotheses without materially new runtime evidence.
 
-The safe chain is therefore:
-1. converge live Maintenance `2DBE9...` -> exact CI-qualified v1.3.15 through existing `replace_pinned_component`;
-2. after terminal Omen proof, converge v1.3.15 -> exact CI-proven v1.3.16 through the same typed component-replacement authority using an independently recovered exact v1.3.16 source SHA;
-3. only after v1.3.16 is Omen-proven, submit the fixed zero-parameter `migrate_supervisor_forge_demand_gated_v17` operation;
-4. require exact Supervisor v1.7 + Forge v4 identities, fresh Benchmark 30/30, and behavioral no-spin proof before any convergence success claim.
+Maintenance v1.3.24 adds a fixed zero-parameter `run_main_agent_canary` operation. The operation performs one fixed Gateway-backed default-agent turn through `openclaw agent --json --message <fixed canary>`, requires exact expected reply and zero tool calls, publishes metadata-only evidence to `reports/main-agent-canary-omen.json`, runs Benchmark 30/30, and does not accept caller-selected prompt, agent id, profile, command, argv, path, recipient or authority.
 
-Do not bypass the chain, broaden allowlists, or silently bless desired-state/hash drift.
+At 10:15 MDT the single canonical writer submitted manifest `run-default-agent-canary-v1324-20260901-1014`. It is the one outstanding Maintenance item. Do not overwrite or reissue it while unconsumed/running. `reports/main-agent-canary-omen.json` was still `NOT_RUN` at the latest read, so no OMEN-PROVEN canary claim exists yet.
 
-## Supervisor / Forge root cause and target
+A CI-proven Supervisor v1.8.2 candidate is now on `main`. Its purpose is governed autonomy continuation using the deterministic selector and a fixed default-agent turn, with repetition/failure budgets and no claim that a model call alone is accomplishment. Do not install/promote it merely because CI passed; first consume the current main-agent canary and use its real Omen result to decide whether the runtime path is viable.
 
-The exact legacy Supervisor v1.6 source lineage proves the core admission defect: when normal missions cool, its Recovery -> Experiment path can manufacture a new runnable Forge mission with `blocked=false`, bypassing the modern deterministic work selector. This is why a BLOCKED Forge family continues to produce evaluations.
+## Work inventory / WIP
 
-The qualified v1.3.16 migration is a coordinated compatibility repair. Its fixed Supervisor v1.7 candidate retires legacy candidate dispatch before the old Forge path, emits `SUPERVISOR IDLE NO_ELIGIBLE_MISSION`, returns fail-closed, and leaves governed selector/Task Flow admission as the owner of durable work. It stages Forge v4 only through the fixed known source and uses coordinated backup/rollback and Benchmark postconditions.
+Authoritative `inbox/autonomy/state.json` currently has production=0, staging=0, research=0 active WIP.
 
-Acceptance remains behavioral, not hash-only:
-- blocked Forge produces zero new evaluations across at least two scheduled Supervisor opportunities;
-- cooled/blocked work stays blocked;
-- no Recovery path manufactures replacement Forge demand;
-- Kevin advances another eligible GREEN owner objective instead;
-- Benchmark remains PASS 30/30 critical=0;
-- exact installed identities and rollback evidence are recorded.
+READY:
+- production: `hq-direct-chat-real-roundtrip`;
+- staging: `staging-trajectory-reliability-v1`.
 
-## Other lanes
+BLOCKED:
+- Forge convergence family remains BLOCKED for further migration retries despite Forge v4 currently being installed; preserve read-only diagnosis/behavioral observation only unless materially new evidence opens the family;
+- Reader E2E is BLOCKED after three failed execution-path attempts;
+- Skill Workshop config writes are BLOCKED/COOLED after two materially different failed config-contract hypotheses.
 
-Reader real E2E is BLOCKED after the first manifest expired and the bounded reissue exhausted the Maintenance failure budget. Do not create a renamed retry without materially new evidence.
-
-Skill Workshop config writes are BLOCKED/COOLED after both JSON-value and materially different raw-string dry-run hypotheses failed closed. Only read-only installed CLI-contract diagnosis may reopen it.
-
-HQ direct chat remains READY behind the active control-plane crossing. The existing exact CI-proven candidate is already on `main`; do not redesign it. Success requires typed install -> Omen selftest/privacy/idempotency -> truthful READY -> genuine Matt->Kevin->Matt correlated round trip -> restart/replay without duplicate -> channel health/recovery.
-
-Staging trajectory reliability is READY and may use the staging/eval WIP slot if it has a concrete reusable trajectory and downstream consumer. Do not manufacture trivial evaluation activity.
-
-Skill Lab has three production-proven composites; this is capability inventory, not owner-accepted outcome proof.
+Do not manufacture activity in blocked families. A blocked lane must not stop independent useful GREEN work.
 
 ## Runtime doctrine / native runtime
 
-Autonomy OS v2 five-file workspace doctrine is Omen identity-proven. Native audit proves Task Flow CLI and Skill Workshop are present, main-agent skills check and gateway deep probe succeed, Lobster is not registered, and OpenClaw version remains UNKNOWN. Do not claim unavailable version-specific features.
+Autonomy OS v2 five-file workspace doctrine is Omen identity-proven. The latest runtime-capabilities receipt (09:01 MDT) proves Task Flow CLI present with one flow, Skill Workshop CLI present, gateway deep probe OK, main-agent skills check OK, Lobster not registered, and OpenClaw version still UNKNOWN. It also proves `agent --help` exposes local/message/agent/json flags. Actual default-agent turn viability is the purpose of the current v1.3.24 canary; do not infer it from help text.
+
+## HQ direct chat
+
+HQ direct chat remains READY behind the active continuation proof. The exact CI-proven candidate is already on `main`; do not redesign it. Success requires typed install -> Omen selftest/privacy/idempotency -> truthful READY -> genuine Matt->Kevin->Matt correlated round trip -> restart/replay without duplicate -> channel health/recovery.
 
 ## Continuity / no-spin
 
 Single canonical scheduled Chief Engineer is the only scheduled writer for mutable Kevin execution state. Never overwrite a fresh unconsumed/running item. Duplicate/expired receipt churn, heartbeat/dashboard commits, raw Forge cycles, CI-only candidates and PONG/model smoke are not accomplishments.
 
-When one lane blocks, advance another useful authorized standing program. Repeated manual Bess intervention is autonomy debt and should become an observable typed Kevin capability where safely possible.
+When one lane blocks, advance another useful authorized standing program. Repeated manual Bess intervention is autonomy debt and should become an observable typed Kevin capability where safely possible. Work selection remains T2 until Kevin independently notices available work, selects it, executes it, semantically verifies the outcome, records the result and continues; repeated unrelated examples are required before T4.
