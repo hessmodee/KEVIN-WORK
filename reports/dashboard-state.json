@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T06:05:05.4293743-06:00",
+  "generated_at": "2026-09-01T06:05:14-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -27,22 +27,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 32,
-    "cpu_pct": 10,
+    "memory_pct": 37,
+    "cpu_pct": 22,
     "gpu": "RTX 3060",
-    "gpu_pct": 29
+    "gpu_pct": 98
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-01T02:28:27-06:00",
-        "estimated": false,
-        "ram": 31,
-        "cpu": 14,
-        "gpu": 37
-      },
       {
         "at": "2026-09-01T02:29:16-06:00",
         "estimated": false,
@@ -707,11 +700,17 @@
         "ram": 32,
         "cpu": 10,
         "gpu": 29
+      },
+      {
+        "at": "2026-09-01T06:05:14-06:00",
+        "estimated": false,
+        "ram": 37,
+        "cpu": 22,
+        "gpu": 98
       }
     ],
     "ram": [
       31,
-      31,
       36,
       35,
       31,
@@ -805,11 +804,11 @@
       38,
       38,
       32,
-      32
+      32,
+      37
     ],
     "cpu": [
       14,
-      14,
       19,
       9,
       14,
@@ -903,10 +902,10 @@
       12,
       12,
       10,
-      10
+      10,
+      22
     ],
     "gpu": [
-      37,
       37,
       11,
       34,
@@ -1001,7 +1000,8 @@
       15,
       15,
       29,
-      29
+      29,
+      98
     ]
   },
   "weather": {
@@ -1155,6 +1155,13 @@
   ],
   "activity": [
     {
+      "at": "2026-09-01T06:05:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-09-01T06:02:37-06:00",
       "source": "forge",
       "component": "forge",
@@ -1201,13 +1208,6 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 26000
-    },
-    {
-      "at": "2026-09-01T05:50:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-09-01T05:50:06-06:00",
@@ -1385,7 +1385,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-01T06:05:05.4293743-06:00",
+    "last": "2026-09-01T06:05:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
