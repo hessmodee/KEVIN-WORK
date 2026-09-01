@@ -83,8 +83,8 @@
       "id": "real-owner-task-reader-e2e",
       "program": "reader-evidence",
       "authority_class": "GREEN",
-      "status": "READY",
-      "lane": "research",
+      "status": "RUNNING",
+      "lane": "production",
       "work_type": "execution",
       "severity": "high",
       "owner_value": 5,
@@ -102,7 +102,7 @@
       "downstream_consumer": "OWNER_OUTCOME_SCORECARD_AND_TRAJECTORY_RELIABILITY",
       "failure_attempts": 0,
       "near_acceptance": true,
-      "next_action": "Maintenance v1.3.9 fixed Reader canary passed Windows CI and exact publication. After Workshop guardrails finish and v1.3.9 is Omen-installed, run fixed run_reader_status_canary and require reports/reader-canary-omen.json state=REPEATEDLY_PROVEN pass_k=2/2."
+      "next_action": "The first 20:24 manifest expired without terminal Reader evidence; this was an execution-window expiry, not a canary semantic/tool/privacy failure. One bounded reissue reader-status-canary-20260831-2119 is active through 22:15. Require reports/reader-canary-omen.json state=REPEATEDLY_PROVEN pass_k=2/2 and fresh Benchmark 30/30 before promotion. Do not issue another Reader retry until this manifest is terminal or materially new evidence changes the blocker."
     },
     {
       "id": "hq-direct-chat-real-roundtrip",
@@ -125,13 +125,13 @@
       "dependencies_ready": true,
       "blocked": false,
       "failure_attempts": 0,
-      "next_action": "Production prerequisite doctrine is now proven. Wait only for the current Maintenance/Reader proof crossing to free the single production lane, then use the existing CI-proven typed HQ-chat package. Do not redesign the contract again."
+      "next_action": "Wait only for the current Reader production proof crossing to free the single production lane, then use the existing CI-proven typed HQ-chat package. Do not redesign the contract again."
     },
     {
       "id": "skill-workshop-self-learning-proof",
       "program": "skill-learning",
       "authority_class": "GREEN",
-      "status": "RUNNING",
+      "status": "BLOCKED",
       "lane": "staging",
       "work_type": "execution",
       "severity": "medium",
@@ -146,9 +146,10 @@
         "No learned skill creates new primitive authority.",
         "The learned procedure is replayed on a second task before any T4 credit."
       ],
-      "dependencies_ready": true,
-      "failure_attempts": 0,
-      "next_action": "Maintenance v1.3.8 exact controller is Omen-installed. Manifest configure-skill-workshop-propose-pending-20260831-1610 is queued. Require APPLIED_PREAUTHORIZED_PROVEN + Benchmark 30/30, then publish_runtime_capabilities and verify autonomous_mode=propose, approval_policy=pending, config_valid=true, skills_check_main_ok=true."
+      "dependencies_ready": false,
+      "blocked": true,
+      "failure_attempts": 2,
+      "next_action": "Configuration writes are cooled. The JSON-value hypothesis and the materially different fixed raw-string --dry-run hypothesis both failed closed on the installed Omen CLI; fresh Benchmark stayed 30/30. Advance only with read-only installed CLI-contract evidence that materially changes the hypothesis. Do not create another renamed config retry."
     },
     {
       "id": "staging-trajectory-reliability-v1",
