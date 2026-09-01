@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T00:25:46.0166264-06:00",
-  "status": "ready",
+  "generated_at": "2026-09-01T00:27:58-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,16 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "design-forge",
+    "title": "Design Forge: forge-v4",
+    "category": "forge",
+    "phase": "started",
+    "completed": 0,
+    "total": null,
+    "started_at": "2026-09-01T00:27:58-06:00",
+    "source": "forge"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -20,22 +29,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 37,
-    "cpu_pct": 9,
+    "memory_pct": 31,
+    "cpu_pct": 6,
     "gpu": "RTX 3060",
-    "gpu_pct": 98
+    "gpu_pct": 37
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-31T20:13:18-06:00",
-        "estimated": false,
-        "ram": 35,
-        "cpu": 15,
-        "gpu": 10
-      },
       {
         "at": "2026-08-31T20:20:14-06:00",
         "estimated": false,
@@ -700,10 +702,16 @@
         "ram": 37,
         "cpu": 9,
         "gpu": 98
+      },
+      {
+        "at": "2026-09-01T00:27:58-06:00",
+        "estimated": false,
+        "ram": 31,
+        "cpu": 6,
+        "gpu": 37
       }
     ],
     "ram": [
-      35,
       35,
       30,
       30,
@@ -798,10 +806,10 @@
       35,
       36,
       37,
-      37
+      37,
+      31
     ],
     "cpu": [
-      15,
       6,
       30,
       30,
@@ -896,10 +904,10 @@
       7,
       12,
       9,
-      9
+      9,
+      6
     ],
     "gpu": [
-      10,
       37,
       36,
       36,
@@ -994,7 +1002,8 @@
       40,
       37,
       98,
-      98
+      98,
+      37
     ]
   },
   "weather": {
@@ -1147,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-09-01T00:27:58-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: forge-v4",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-09-01T00:20:19-06:00",
       "source": "forge",
@@ -1361,24 +1379,14 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-31T23:07:38-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_finish",
-      "detail": "Design Forge built candidate: forge-v4",
-      "result": "pass",
-      "task_id": "design-forge",
-      "duration_ms": 58000
     }
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-09-01T00:25:46.0166264-06:00",
+    "last": "2026-09-01T00:27:58-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1408,37 +1416,37 @@
       "last_mission": "forge-v4",
       "iteration": 351,
       "updated_at": "2026-09-01T00:20:19.7110136-06:00",
-      "next_index": 0,
+      "next_index": 5,
       "scheduled": true,
       "promotion": "blocked"
     }
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-01T00:25:46.0166264-06:00",
+    "generated_at": "2026-09-01T00:27:58-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-09-01T00:26:21.6067982-06:00",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
+      "id": "design-forge",
+      "name": "Build Lab",
+      "title": "Design Forge: forge-v4",
+      "category": "forge",
+      "state": "working",
+      "detail": "started",
+      "what": "Generating and validating an isolated candidate.",
+      "engine": "Ollama | Qwen 2.5 14B",
+      "action": "Candidate engineering"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-09-01T00:26:21.6067982-06:00",
+        "state": "coordinating",
+        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1466,17 +1474,17 @@
     ]
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-09-01T00:26:21.6067982-06:00",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "running": true,
+    "state": "working",
+    "phase": "started",
+    "worker": "Build Lab",
+    "engine": "Ollama | Qwen 2.5 14B",
+    "action": "Candidate engineering"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | All current strategic missions are cooling. Recovery analysis already ran for this evidence set within the last 10 minutes. Experiment bridge=PACING. A unique Recovery experiment is queued behind the six-minute evidence pacing gate. Next experiment eligible=2026-09-01T00:26:21.6067982-06:00",
+      "text": "Build Lab | WORKING | started",
       "severity": "normal"
     }
   ]
