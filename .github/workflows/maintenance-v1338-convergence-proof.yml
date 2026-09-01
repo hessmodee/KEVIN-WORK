@@ -22,13 +22,29 @@ jobs:
     timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
 
-      - name: Generate convergence artifacts
+      - name: Recover immutable byte-verified v1.3.37 parent and generate convergence artifacts
         shell: pwsh
         run: |
+          $parent='434e727b90eff08de60eaf2f57fe57dbd87c0d0c'
+          git fetch origin $parent --depth=1
+          if($LASTEXITCODE -ne 0){throw 'unable to fetch immutable v1.3.37 parent commit'}
+          $src='control-plane/maintenance/kevin-maintenance-runner-v1.3.37.ps1'
+          git show ($parent+':'+$src) | Set-Content -LiteralPath $src -NoNewline -Encoding utf8
+          if($LASTEXITCODE -ne 0){throw 'unable to recover immutable v1.3.37 source'}
+          $actual=(Get-FileHash $src -Algorithm SHA256).Hash.ToUpperInvariant()
+          $expected='17016BF56F7BBFEE6A0718A26E0729837507E4B556CA30DE395BC32D2383A765'
+          if($actual -ne $expected){
+            # Set-Content can normalize bytes; recover with cmd-safe redirection through git archive object bytes.
+            git show ($parent+':'+$src) | Out-File -LiteralPath $src -Encoding utf8 -NoNewline
+            $actual=(Get-FileHash $src -Algorithm SHA256).Hash.ToUpperInvariant()
+          }
+          if($actual -ne $expected){throw "immutable v1.3.37 source hash mismatch actual=$actual"}
           python tools/generate-maintenance-v1338-convergence.py
           if($LASTEXITCODE -ne 0){throw 'v1.3.38 generation failed'}
           foreach($p in @(
