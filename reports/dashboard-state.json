@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-08-31T21:35:07.2042480-06:00",
+  "generated_at": "2026-08-31T21:35:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -12,14 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "supervisor",
-    "title": "Supervisor autonomous cycle",
-    "category": "supervisor",
-    "phase": "Goal-aware Supervisor cycle active.",
-    "started_at": "2026-08-31T21:33:25.9394848-06:00",
-    "source": "hq-live-ops"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -28,21 +21,14 @@
   },
   "system": {
     "memory_pct": 36,
-    "cpu_pct": 28,
+    "cpu_pct": 17,
     "gpu": "RTX 3060",
-    "gpu_pct": 39
+    "gpu_pct": 37
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-31T17:18:14-06:00",
-        "estimated": false,
-        "ram": 34,
-        "cpu": 12,
-        "gpu": 36
-      },
       {
         "at": "2026-08-31T17:20:14-06:00",
         "estimated": false,
@@ -707,10 +693,16 @@
         "ram": 36,
         "cpu": 28,
         "gpu": 39
+      },
+      {
+        "at": "2026-08-31T21:35:14-06:00",
+        "estimated": false,
+        "ram": 36,
+        "cpu": 17,
+        "gpu": 37
       }
     ],
     "ram": [
-      34,
       38,
       29,
       29,
@@ -805,10 +797,10 @@
       31,
       31,
       36,
+      36,
       36
     ],
     "cpu": [
-      12,
       21,
       4,
       4,
@@ -903,10 +895,10 @@
       12,
       12,
       28,
-      28
+      28,
+      17
     ],
     "gpu": [
-      36,
       99,
       37,
       37,
@@ -1001,11 +993,12 @@
       37,
       37,
       39,
-      39
+      39,
+      37
     ]
   },
   "weather": {
-    "summary": "Tonight 50 | Wind 3 to 13 mph | Scattered Showers And Thunderstorms then Chance Showers And Thunderstorms"
+    "summary": "Tonight 50 | Wind 3 to 13 mph | Chance Showers And Thunderstorms"
   },
   "capabilities": [
     {
@@ -1155,6 +1148,13 @@
   ],
   "activity": [
     {
+      "at": "2026-08-31T21:35:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-08-31T21:35:02-06:00",
       "source": "forge",
       "component": "forge",
@@ -1191,13 +1191,6 @@
       "detail": "Design Forge: forge-v4",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-08-31T21:20:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-08-31T21:19:04-06:00",
@@ -1385,7 +1378,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-08-31T21:35:07.2042480-06:00",
+    "last": "2026-08-31T21:35:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
