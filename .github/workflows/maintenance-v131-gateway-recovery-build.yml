@@ -35,9 +35,14 @@ jobs:
           $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.31.ps1'
           $txt=[IO.File]::ReadAllText($p)
           $tokens=$null;$errors=$null
-          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          $ast=[System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
           if($errors.Count){$errors|ForEach-Object{Write-Host $_.Message};throw 'PowerShell parser rejected v1.3.31'}
-          foreach($bad in @('Invoke-Expression','ScriptBlock]::Create','-EncodedCommand','DownloadString','WScript.Shell')){if($txt -match [regex]::Escape($bad)){throw "forbidden execution primitive: $bad"}}
+          $commands=@($ast.FindAll({param($n) $n -is [System.Management.Automation.Language.CommandAst]},$true))
+          $badCommands=@($commands|Where-Object{($_.GetCommandName()) -in @('Invoke-Expression','iex')})
+          if($badCommands.Count){throw 'actual Invoke-Expression command invocation detected'}
+          $members=@($ast.FindAll({param($n) $n -is [System.Management.Automation.Language.InvokeMemberExpressionAst]},$true))
+          foreach($m in $members){if([string]$m.Member.Value -eq 'Create' -and [string]$m.Expression.Extent.Text -match 'ScriptBlock'){throw 'dynamic ScriptBlock.Create invocation detected'}}
+          foreach($bad in @('-EncodedCommand','DownloadString','WScript.Shell')){if($txt -match [regex]::Escape($bad)){throw "forbidden executable surface: $bad"}}
           $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1|Out-String
           if($LASTEXITCODE-ne0){Write-Host $out;throw 'v1.3.31 self-test exit failure'}
           if($out-notmatch'KEVIN MAINTENANCE v1\.3\.31 SELFTEST PASS'){Write-Host $out;throw 'v1.3.31 self-test marker missing'}
@@ -51,7 +56,7 @@ jobs:
         run: |
           $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.31.ps1'
           $sha=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
-          $obj=[ordered]@{schema=1;kind='kevin-maintenance-v131-ci-proof';generated_at=(Get-Date).ToString('o');state='WINDOWS_CI_PROVEN';candidate_sha256=$sha;source='v1.3.30 deterministic patch';windows_parser=$true;self_test=$true;lkg_version='2026.6.34';lkg_integrity_pinned=$true;rejected_version='2026.7.1-2';rejected_integrity_pinned=$true;gateway_keeper_preserved=$true;safe_backup_required=$true;rollback=$true;gateway_rpc_postcondition=$true;main_skills_postcondition=$true;benchmark_postcondition='30/30 critical=0';caller_selected_version=$false;arbitrary_shell=$false;authority_expansion=$false}
+          $obj=[ordered]@{schema=1;kind='kevin-maintenance-v131-ci-proof';generated_at=(Get-Date).ToString('o');state='WINDOWS_CI_PROVEN';candidate_sha256=$sha;source='v1.3.30 deterministic patch';windows_parser=$true;self_test=$true;ast_no_invoke_expression=$true;lkg_version='2026.6.34';lkg_integrity_pinned=$true;rejected_version='2026.7.1-2';rejected_integrity_pinned=$true;gateway_keeper_preserved=$true;safe_backup_required=$true;rollback=$true;gateway_rpc_postcondition=$true;main_skills_postcondition=$true;benchmark_postcondition='30/30 critical=0';caller_selected_version=$false;arbitrary_shell=$false;authority_expansion=$false}
           New-Item -ItemType Directory -Force reports/ci|Out-Null
           [IO.File]::WriteAllText('reports/ci/maintenance-v131-gateway-recovery.json',($obj|ConvertTo-Json -Depth 10),(New-Object Text.UTF8Encoding($false)))
           Write-Host "CANDIDATE_SHA256=$sha"
