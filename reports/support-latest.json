@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-01T13:23:50.2419948-06:00",
+    "generated_at":  "2026-09-01T13:26:50.2361212-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788290446280,
-                                  "next_run_at_ms":  1788290626280
+                                  "last_run_at_ms":  1788290626299,
+                                  "next_run_at_ms":  1788290806299
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,32 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788290588493,
-                                  "next_run_at_ms":  1788290648493
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788290361307,
-                                  "next_run_at_ms":  1788290661307
-                              },
-                              {
-                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
-                                  "declaration_key":  "kevin-supervisor-v1",
-                                  "name":  "Kevin Supervisor v1.6 High Gear",
-                                  "enabled":  true,
-                                  "every_ms":  180000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788290622874,
-                                  "next_run_at_ms":  1788290802874
+                                  "last_run_at_ms":  1788290768544,
+                                  "next_run_at_ms":  1788290828544
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -115,6 +91,30 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788290334652,
                                   "next_run_at_ms":  1788290934652
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788290661317,
+                                  "next_run_at_ms":  1788290961317
+                              },
+                              {
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.6 High Gear",
+                                  "enabled":  true,
+                                  "every_ms":  180000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788290802886,
+                                  "next_run_at_ms":  1788290982886
                               }
                           ],
                  "error":  ""
@@ -123,7 +123,7 @@
                        "cycle":  449,
                        "last_mission":  "",
                        "last_result":  "NO_ELIGIBLE_MISSION",
-                       "next_eligible_at":  "2026-09-01T13:26:44.1391249-06:00",
+                       "next_eligible_at":  "2026-09-01T13:29:44.1666213-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -134,7 +134,7 @@
                      "last_brief":  "20260901-070846-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-09-01T13:19:33.4067234-06:00",
+                      "at":  "2026-09-01T13:24:44.7123233-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -161,11 +161,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-09-01T13:21:12.4542289-06:00",
-                        "status":  "ALREADY_APPLIED_PROVEN",
-                        "manifest_id":  "install-maintenance-v1329-20260901-1315b",
+                        "at":  "2026-09-01T13:24:44.8073051-06:00",
+                        "status":  "APPLY_FAILED",
+                        "manifest_id":  "run-native-main-canary-20260901-1321",
                         "stage_path":  "",
-                        "detail":  "Maintenance previously proven."
+                        "detail":  "main-agent canary direct RPC status failed"
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "3F9DEB1E815AF7750B09BF392973D6EE75BE3A3156BE4E125D30645537C41DCB"
+    "semantic_hash":  "B9C3EE428EF8A74046CCCAAC995C70CDA76CE5874CB9927646FBBB58BE4973FC"
 }
