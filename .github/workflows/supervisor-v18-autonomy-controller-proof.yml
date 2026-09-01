@@ -1,0 +1,93 @@
+name: Supervisor v1.8 Governed Autonomy Controller Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-supervisor-v18-autonomy-controller.py'
+      - 'control-plane/autonomy/kevin-work-selector-v1.1.py'
+      - 'control-plane/autonomy/standing-programs-v1.json'
+      - 'control-plane/autonomy/failure-families-v1.json'
+      - 'inbox/autonomy/work-items.json'
+      - 'inbox/autonomy/state.json'
+      - '.github/workflows/supervisor-v18-autonomy-controller-proof.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  proof:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Generate exact Supervisor v1.8
+        shell: pwsh
+        run: python tools/generate-supervisor-v18-autonomy-controller.py
+      - name: Parse PowerShell and forbid arbitrary execution
+        shell: pwsh
+        run: |
+          $p=(Resolve-Path 'control-plane/autonomy/kevin-supervisor-v1.8.ps1')
+          $tokens=$null;$errors=$null
+          $ast=[Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw $errors[0].Message}
+          $commands=@($ast.FindAll({param($n) $n -is [Management.Automation.Language.CommandAst]},$true))
+          $names=@($commands|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($forbidden in @('invoke-expression','iex','cmd.exe','start-process')){if($names -contains $forbidden){throw "forbidden executable command: $forbidden"}}
+          Write-Host "SUPERVISOR_V18_AST_PASS commands=$($commands.Count)"
+      - name: Run Supervisor self-test
+        shell: pwsh
+        run: |
+          & .\control-plane\autonomy\kevin-supervisor-v1.8.ps1 -SelfTest
+          if($LASTEXITCODE -ne 0){throw "Supervisor v1.8 selftest exit=$LASTEXITCODE"}
+      - name: Prove selector-first check-only path
+        shell: pwsh
+        run: |
+          $root=Join-Path $env:USERPROFILE '.openclaw\workspace'
+          $cp=Join-Path $root 'ControlPlane';New-Item -ItemType Directory -Force -Path $cp|Out-Null
+          Copy-Item .\control-plane\autonomy\kevin-work-selector-v1.1.py (Join-Path $cp 'kevin-work-selector-v1.1.py') -Force
+          & .\control-plane\autonomy\kevin-supervisor-v1.8.ps1 -CheckOnly
+          if($LASTEXITCODE -ne 0){throw "Supervisor v1.8 check-only exit=$LASTEXITCODE"}
+          $latest=Get-Content (Join-Path $root 'reports\autonomy-continuation-latest.json') -Raw|ConvertFrom-Json
+          if([string]$latest.status -ne 'CHECK_ONLY_ELIGIBLE'){throw ('expected useful eligible selection, got '+[string]$latest.status)}
+          if([string]$latest.selected_id -eq 'finish-forge-v40-runtime-convergence'){throw 'blocked Forge selected'}
+          Write-Host ('SUPERVISOR_V18_SELECTOR_CHECK_PASS selected='+[string]$latest.selected_id)
+      - name: Assert controller invariants
+        shell: pwsh
+        run: |
+          $t=[IO.File]::ReadAllText('control-plane/autonomy/kevin-supervisor-v1.8.ps1')
+          foreach($marker in @('Kevin Supervisor v1.8 Governed Autonomy Continuation Controller','Global\KevinSupervisor','kevin-work-selector-v1.1.py','NONE_SELECTION_ONLY','IDLE_NO_ELIGIBLE_DEMAND','WAIT_UNCHANGED_WORK','COOLDOWN_BUDGET_EXHAUSTED','AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF','@(''agent'',''--agent'',''main'',''--json'',''--message'',$message)','model_call_counts_as_accomplishment=$false','Do not manufacture Forge/design demand')){if(-not$t.Contains($marker)){throw "missing invariant: $marker"}}
+          foreach($forbidden in @('kevin-design-forge.ps1','kevin-candidate-forge','Invoke-Expression','kevin_shell','--local')){if($t.Contains($forbidden)){throw "forbidden controller marker: $forbidden"}}
+          if(($t.Split('https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/',[StringSplitOptions]::None).Count-1)-ne1){throw 'controller must have exactly one fixed repository base'}
+          Write-Host 'SUPERVISOR_V18_INVARIANTS_PASS'
+      - name: Emit exact qualified identities
+        shell: pwsh
+        run: |
+          $sup='control-plane/autonomy/kevin-supervisor-v1.8.ps1';$sel='control-plane/autonomy/kevin-work-selector-v1.1.py'
+          $supSha=(Get-FileHash $sup -Algorithm SHA256).Hash.ToUpperInvariant();$selSha=(Get-FileHash $sel -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "SUPERVISOR_V18_CI_PROVEN sha256=$supSha selector_sha256=$selSha"
+          "SUPERVISOR_V18_SHA=$supSha"|Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          "SELECTOR_V11_SHA=$selSha"|Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Publish exact Supervisor candidate
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $repo='hessmodee/KEVIN-WORK';$path='control-plane/autonomy/kevin-supervisor-v1.8.ps1'
+          $bytes=[IO.File]::ReadAllBytes($path);$encoded=[Convert]::ToBase64String($bytes);$ok=$false
+          for($attempt=1;$attempt -le 12;$attempt++){
+            $body=[ordered]@{message='Publish CI-proven Supervisor v1.8';content=$encoded;branch='main'}
+            $raw=gh api "repos/$repo/contents/$path?ref=main" 2>$null
+            if($LASTEXITCODE -eq 0 -and $raw){$cur=$raw|ConvertFrom-Json;if($cur.sha){$body.sha=[string]$cur.sha}}
+            $tmp=Join-Path $env:RUNNER_TEMP ('supervisor-v18-'+$attempt+'.json')
+            [IO.File]::WriteAllText($tmp,($body|ConvertTo-Json -Compress),(New-Object Text.UTF8Encoding($false)))
+            gh api --method PUT "repos/$repo/contents/$path" --input $tmp --silent 2>$null
+            if($LASTEXITCODE -eq 0){$ok=$true;break}
+            Start-Sleep -Seconds 2
+          }
+          if(-not$ok){throw 'Supervisor v1.8 publication exhausted bounded retries'}
+          Write-Host "SUPERVISOR_V18_PUBLISH_ACCEPTED sha256=$env:SUPERVISOR_V18_SHA selector_sha256=$env:SELECTOR_V11_SHA"
