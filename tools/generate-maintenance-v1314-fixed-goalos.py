@@ -23,7 +23,7 @@ function Find-ForgeAnchorMatches'''
 
 text, n = re.subn(
     r'function Get-BoundedJsonInventory \{.*?\nfunction Find-ForgeAnchorMatches',
-    replacement,
+    lambda _m: replacement,
     text,
     count=1,
     flags=re.S,
