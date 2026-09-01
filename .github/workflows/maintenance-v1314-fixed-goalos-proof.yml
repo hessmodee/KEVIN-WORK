@@ -81,8 +81,14 @@ jobs:
           $path='control-plane/maintenance/kevin-maintenance-runner-v1.3.14.ps1'
           $bytes=[IO.File]::ReadAllBytes($path)
           $body=[ordered]@{message='Publish CI-qualified Maintenance v1.3.14';content=[Convert]::ToBase64String($bytes);branch='main'}
-          $lookup=gh api ('repos/'+$repo+'/contents/'+$path) --jq '.sha' 2>$null
-          if($LASTEXITCODE-eq0 -and $lookup){$body.sha=[string]$lookup}
+          $old=$ErrorActionPreference
+          try {
+            $ErrorActionPreference='Continue'
+            $lookup=(& gh api ('repos/'+$repo+'/contents/'+$path) --jq '.sha' 2>&1 | Out-String).Trim()
+            $lookupCode=[int]$LASTEXITCODE
+          } finally { $ErrorActionPreference=$old }
+          if($lookupCode-eq0 -and $lookup){$body.sha=[string]$lookup}
+          elseif($lookupCode-ne0 -and $lookup -notmatch '(?i)404|Not Found'){throw ('unexpected contents lookup failure: '+$lookup)}
           $tmp=Join-Path $env:TEMP 'v1314-publish.json'
           [IO.File]::WriteAllText($tmp,($body|ConvertTo-Json -Compress),(New-Object Text.UTF8Encoding($false)))
           gh api --method PUT ('repos/'+$repo+'/contents/'+$path) --input $tmp --silent
