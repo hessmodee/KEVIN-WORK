@@ -7,10 +7,15 @@
 <title>Kevin HQ</title>
 <style>
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0b0e0b}#kevinCore{display:block;width:100%;height:100%;border:0;background:#0b0e0b}
+#kevinTalkLaunch{position:fixed;right:16px;bottom:16px;z-index:1000;display:inline-flex;align-items:center;gap:8px;padding:11px 15px;border-radius:999px;border:1px solid rgba(194,213,182,.42);background:#c2d5b6;color:#10150f;text-decoration:none;font:700 12px/1 system-ui,-apple-system,Segoe UI,sans-serif;letter-spacing:.03em;box-shadow:0 12px 34px rgba(0,0,0,.34)}
+#kevinTalkLaunch:hover{filter:brightness(1.06)}#kevinTalkLaunch:focus-visible{outline:2px solid #fff;outline-offset:3px}
+#kevinTalkLaunch small{font-size:9px;font-weight:650;opacity:.68;letter-spacing:.05em;text-transform:uppercase}
+@media(max-width:520px){#kevinTalkLaunch{right:10px;bottom:10px;padding:12px 14px}#kevinTalkLaunch small{display:none}}
 </style>
 </head>
 <body>
 <iframe id="kevinCore" title="Kevin HQ" src="./hq-core-v7.html?v=9#overview"></iframe>
+<a id="kevinTalkLaunch" href="http://127.0.0.1:18789/" target="_blank" rel="noopener noreferrer" aria-label="Open Kevin native private chat on this computer">Talk to Kevin <small>local private chat</small></a>
 <script src="./hq-overrides-v1.js?v=3"></script>
 <script src="./hq-owner-refinement-v2.js?v=1"></script>
 <script src="./hq-fun-v2.js?v=3"></script>
