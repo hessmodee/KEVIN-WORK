@@ -46,7 +46,11 @@ jobs:
           $t=[IO.File]::ReadAllText('control-plane/maintenance/kevin-maintenance-runner-v1.3.28.ps1')
           foreach($m in @(
             'function Get-FixedOpenClawRuntime',
-            "'npm\\node_modules\\openclaw\\dist\\index.js'".Replace('\\\\','\\'),
+            'Get-Command node.exe',
+            'node_modules',
+            'openclaw',
+            'dist',
+            'index.js',
             'function Invoke-FixedNativeBounded',
             'CreateNoWindow=$true',
             'return Invoke-FixedNativeBounded $r.node (@($r.cli)+@($Args)) 180',
@@ -55,10 +59,10 @@ jobs:
             'shell_shim_bypassed=true'
           )){if(-not$t.Contains($m)){throw "missing invariant: $m"}}
           $start=$t.IndexOf('function Invoke-OpenClawFixedConfig')
-          $end=$t.IndexOf('function Publish-RuntimeCapabilities',$start)
           if($start-lt0){throw 'fixed wrapper missing'}
-          $slice=if($end-gt$start){$t.Substring($start,$end-$start)}else{$t.Substring($start,[Math]::Min(1500,$t.Length-$start))}
+          $slice=$t.Substring($start,[Math]::Min(1200,$t.Length-$start))
           if($slice -match '(?i)Get-Command\s+openclaw'){throw 'PowerShell OpenClaw shim still used by fixed wrapper'}
+          if($slice -notmatch '(?i)Get-FixedOpenClawRuntime'){throw 'fixed wrapper does not use native runtime resolver'}
           Write-Host 'MAINT_V1328_INVARIANTS_PASS native_node=true shim=false timeout=true fixed_main=true'
       - name: Emit exact identity
         shell: pwsh
