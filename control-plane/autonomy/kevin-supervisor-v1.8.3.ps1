@@ -287,8 +287,13 @@ function Invoke-Cycle {
             return
         }
 
-        $gw = Invoke-OpenClaw @('gateway', 'status', '--deep', '--require-rpc')
-        if ($gw.exit_code -ne 0) { throw 'gateway deep probe failed' }
+        $gw = $null
+        for ($probeAttempt = 1; $probeAttempt -le 3; $probeAttempt++) {
+            $gw = Invoke-OpenClaw @('gateway', 'status', '--require-rpc', '--json')
+            if ($gw.exit_code -eq 0) { break }
+            if ($probeAttempt -lt 3) { Start-Sleep -Milliseconds (500 * $probeAttempt) }
+        }
+        if ($null -eq $gw -or $gw.exit_code -ne 0) { throw 'gateway RPC probe failed after bounded retries' }
         $mainCheck = Invoke-OpenClaw @('skills', 'check', '--agent', 'main', '--json')
         if ($mainCheck.exit_code -ne 0) { throw 'fixed main agent preflight failed' }
         $message = 'KEVIN_AUTONOMY_CONTINUATION_V1. The deterministic governed selector selected work item ID ' + $id + '. Read your Standing Orders and local reports/autonomy-selection-current.json. Independently refresh evidence and confirm this item is still eligible and UNSATISFIED before any side effect. If stale, satisfied, blocked, cooled, prohibited, or missing a proven typed GREEN capability, do not improvise or widen authority; record the exact blocker through normal Kevin evidence. Otherwise execute the highest-value safe next step through proven typed GREEN mechanisms, semantically verify the real outcome, record evidence and reusable learning, then leave durable next state so a later cycle can continue. Do not manufacture Forge/design demand. Do not use arbitrary shell/code transport, self-grant permissions, spend money, perform live trades, expose credentials, or send unauthorized third-party/public owner-representing communications. A model response, heartbeat, publish commit, cycle, candidate, or hash alone is not an accomplishment.'
@@ -346,7 +351,7 @@ if ($SelfTest) {
     try { $null = Get-ControlText $bad } catch { $blocked = $true }
     if (-not $blocked) { throw 'arbitrary control-plane path accepted' }
     if ($MinRepeatMinutes -lt 10 -or $MaxSameFingerprintTurns -gt 3 -or $FailureCooldownMinutes -lt 60) { throw 'anti-spin budget weakened' }
-    Write-Host 'KEVIN SUPERVISOR v1.8.3 SELFTEST PASS selector_first=true gateway_agent=fixed-main main_preflight=true no_forge_dispatch=true anti_spin=true arbitrary_shell=false authority_expansion=false'
+    Write-Host 'KEVIN SUPERVISOR v1.8.3 SELFTEST PASS selector_first=true gateway_agent=fixed-main gateway_rpc_only=true gateway_probe_retries=3 main_preflight=true no_forge_dispatch=true anti_spin=true arbitrary_shell=false authority_expansion=false'
     exit 0
 }
 
