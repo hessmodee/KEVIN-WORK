@@ -1,0 +1,67 @@
+name: Maintenance v1.3.15 Baseline Hygiene Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1315-baseline-hygiene.py'
+      - '.github/workflows/maintenance-v1315-baseline-hygiene-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  prove-and-publish:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 1}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.13'}
+      - name: Generate v1.3.15 candidate
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'; python .\tools\generate-maintenance-v1315-baseline-hygiene.py; if($LASTEXITCODE-ne0){throw 'generator failed'}
+      - name: Parse and self-test
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop';$p=Resolve-Path .\control-plane\maintenance\kevin-maintenance-runner-v1.3.15.ps1;$tokens=$null;$errors=$null;[void][Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors);if($errors.Count){$errors|%{Write-Host $_.Message};throw 'parse failed'}
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1|Out-String;Write-Host $out;if($LASTEXITCODE-ne0){throw 'selftest failed'};if($out-notmatch 'KEVIN MAINTENANCE v1.3.15 SELFTEST PASS'){throw 'v1.3.15 marker missing'}
+      - name: Static invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          t=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.15.ps1').read_text(encoding='utf-8')
+          req=['diagnose_benchmark_baseline_forge_anchor',"Join-Path $Reports 'benchmark-v1\\baseline.json'",'Benchmark baseline Forge anchor does not match live Forge','MAINTENANCE TYPED OUTCOME APPLY_FAILED','scheduler_backoff_poison=false','Assert-Benchmark30']
+          for x in req: assert x in t,x
+          assert "Save-State 'APPLY_FAILED'" in t
+          segment=t[t.index("Save-State 'APPLY_FAILED'"):t.index("function Legacy-Stage")]
+          assert '\n        throw' not in segment, 'typed apply failure still throws into scheduler'
+          for x in ['Invoke-Expression','DownloadString(','New-Object Net.WebClient','System.Net.WebClient']:
+              assert x.lower() not in t.lower(),x
+          print('V1315_STATIC_PASS baseline_anchor=fixed typed_failure=handled authority_delta=NONE')
+      - name: Emit candidate identity
+        shell: python
+        run: |
+          import hashlib,json
+          from pathlib import Path
+          p=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.15.ps1');base=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.14.ps1')
+          out={'schema':1,'kind':'kevin-maintenance-v1315-qualified-candidate','git_head':'${{ github.sha }}','candidate_path':str(p).replace('\\','/'),'sha256':hashlib.sha256(p.read_bytes()).hexdigest().upper(),'base_v1314_sha256':hashlib.sha256(base.read_bytes()).hexdigest().upper()}
+          Path('maintenance-v1315-candidate-hash.json').write_text(json.dumps(out,indent=2)+'\n',encoding='utf-8');print(Path('maintenance-v1315-candidate-hash.json').read_text())
+      - uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-v1315-qualified-candidate
+          path: |
+            control-plane/maintenance/kevin-maintenance-runner-v1.3.15.ps1
+            maintenance-v1315-candidate-hash.json
+          retention-days: 7
+      - name: Publish exact qualified source
+        shell: powershell
+        env: {GH_TOKEN: '${{ github.token }}'}
+        run: |
+          $ErrorActionPreference='Stop';$repo='${{ github.repository }}';$path='control-plane/maintenance/kevin-maintenance-runner-v1.3.15.ps1';$bytes=[IO.File]::ReadAllBytes($path);$body=[ordered]@{message='Publish CI-qualified Maintenance v1.3.15';content=[Convert]::ToBase64String($bytes);branch='main'}
+          $old=$ErrorActionPreference;try{$ErrorActionPreference='Continue';$lookup=(& gh api ('repos/'+$repo+'/contents/'+$path) --jq '.sha' 2>&1|Out-String).Trim();$code=[int]$LASTEXITCODE}finally{$ErrorActionPreference=$old}
+          if($code-eq0-and$lookup){$body.sha=$lookup}elseif($code-ne0-and$lookup-notmatch'(?i)404|Not Found'){throw('lookup failed '+$lookup)}
+          $tmp=Join-Path $env:TEMP 'v1315-publish.json';[IO.File]::WriteAllText($tmp,($body|ConvertTo-Json -Compress),(New-Object Text.UTF8Encoding($false)));gh api --method PUT ('repos/'+$repo+'/contents/'+$path) --input $tmp --silent;if($LASTEXITCODE-ne0){throw 'publish failed'}
