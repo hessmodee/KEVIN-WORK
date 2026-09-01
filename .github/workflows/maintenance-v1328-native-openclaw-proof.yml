@@ -46,7 +46,7 @@ jobs:
           $t=[IO.File]::ReadAllText('control-plane/maintenance/kevin-maintenance-runner-v1.3.28.ps1')
           foreach($m in @(
             'function Get-FixedOpenClawRuntime',
-            "'npm\\node_modules\\openclaw\\dist\\index.js'",
+            "'npm\\node_modules\\openclaw\\dist\\index.js'".Replace('\\\\','\\'),
             'function Invoke-FixedNativeBounded',
             'CreateNoWindow=$true',
             'return Invoke-FixedNativeBounded $r.node (@($r.cli)+@($Args)) 180',
