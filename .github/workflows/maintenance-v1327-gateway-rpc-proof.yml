@@ -1,0 +1,99 @@
+name: Maintenance v1.3.27 Gateway RPC Diagnosis Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1327-gateway-rpc-diagnosis.py'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.26.ps1'
+      - '.github/workflows/maintenance-v1327-gateway-rpc-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  proof:
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Generate exact Maintenance v1.3.27
+        run: python tools/generate-maintenance-v1327-gateway-rpc-diagnosis.py
+      - name: Parse and forbid arbitrary execution
+        shell: pwsh
+        run: |
+          $p=(Resolve-Path 'control-plane/maintenance/kevin-maintenance-runner-v1.3.27.ps1')
+          $tokens=$null;$errors=$null;$ast=[Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw $errors[0].Message}
+          $names=@($ast.FindAll({param($n) $n -is [Management.Automation.Language.CommandAst]},$true)|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($bad in @('invoke-expression','iex','cmd.exe')){if($names -contains $bad){throw "forbidden Maintenance command $bad"}}
+      - name: Run full Maintenance self-test
+        shell: pwsh
+        run: |
+          $env:KEVIN_MAINT_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'kevin-maint-v1327-selftest'
+          New-Item -ItemType Directory -Force -Path $env:KEVIN_MAINT_TEST_ROOT|Out-Null
+          & .\control-plane\maintenance\kevin-maintenance-runner-v1.3.27.ps1 -SelfTest
+          if($LASTEXITCODE -ne 0){throw "Maintenance v1.3.27 selftest exit=$LASTEXITCODE"}
+      - name: Prove operation parity
+        run: python tools/check-maintenance-operation-parity.py control-plane/maintenance/kevin-maintenance-runner-v1.3.27.ps1
+      - name: Assert Gateway diagnosis and direct-RPC canary invariants
+        shell: pwsh
+        run: |
+          $t=[IO.File]::ReadAllText('control-plane/maintenance/kevin-maintenance-runner-v1.3.27.ps1')
+          foreach($m in @(
+            'diagnose_gateway_rpc',
+            "Invoke-OpenClawFixedConfig @('gateway','call','status','--json')",
+            "Invoke-OpenClawFixedConfig @('agent','--agent','main','--json','--message',`$message)",
+            'kevin-gateway-rpc-diagnosis-public',
+            'Kevin Self-Reliance Watchdog v1',
+            'DIRECT_RPC_HEALTHY_STATUS_LAYER_DISAGREEMENT_POSSIBLE',
+            'gateway_direct_rpc=true'
+          )){if(-not$t.Contains($m)){throw "missing invariant: $m"}}
+          if($t.Contains("Invoke-OpenClawFixedConfig @('agent','--json','--message',`$message)")){throw 'selectorless canary remains'}
+          $start=$t.IndexOf('function Diagnose-GatewayRpc')
+          $end=$t.IndexOf('function Assert-MainAgentCanary',$start)
+          if($start -lt 0 -or $end -le $start){throw 'unable to isolate diagnosis block'}
+          $diag=$t.Substring($start,$end-$start)
+          $tok=$null;$err=$null;$ast=[Management.Automation.Language.Parser]::ParseInput($diag,[ref]$tok,[ref]$err)
+          if($err.Count){throw $err[0].Message}
+          $names=@($ast.FindAll({param($n) $n -is [Management.Automation.Language.CommandAst]},$true)|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($bad in @('invoke-expression','iex','cmd.exe','start-process','kevin_shell')){if($names -contains $bad){throw "forbidden diagnosis command $bad"}}
+          Write-Host 'MAINT_V1327_INVARIANTS_PASS direct_rpc=true metadata_only=true watchdog_readonly=true'
+      - name: Emit exact identity
+        shell: pwsh
+        run: |
+          $sha=(Get-FileHash 'control-plane/maintenance/kevin-maintenance-runner-v1.3.27.ps1' -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "MAINT_V1327_CI_PROVEN sha256=$sha"
+          "MAINT_V1327_SHA=$sha" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Publish exact proven candidate without discarding telemetry
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $path='control-plane/maintenance/kevin-maintenance-runner-v1.3.27.ps1'
+          $saved=Join-Path $env:RUNNER_TEMP 'maintenance-v1327.proven.ps1'
+          Copy-Item $path $saved -Force
+          if((Get-FileHash $saved -Algorithm SHA256).Hash.ToUpperInvariant() -ne $env:MAINT_V1327_SHA){throw 'saved identity mismatch'}
+          git config user.name 'Kevin CI';git config user.email 'kevin-ci@users.noreply.github.com'
+          $ok=$false
+          for($attempt=1;$attempt-le80;$attempt++){
+            git fetch origin main --quiet
+            if($LASTEXITCODE-ne0){Start-Sleep -Milliseconds 350;continue}
+            git checkout -B publish-v1327 origin/main --quiet
+            if($LASTEXITCODE-ne0){Start-Sleep -Milliseconds 350;continue}
+            Copy-Item $saved $path -Force
+            git add -- $path
+            git diff --cached --quiet
+            if($LASTEXITCODE-eq0){$ok=$true;break}
+            git commit -m 'Publish CI-proven Maintenance v1.3.27' --quiet
+            if($LASTEXITCODE-ne0){Start-Sleep -Milliseconds 350;continue}
+            git push origin HEAD:main --quiet
+            if($LASTEXITCODE-eq0){$ok=$true;break}
+            Start-Sleep -Milliseconds 350
+          }
+          if(-not$ok){throw 'v1.3.27 publication exhausted bounded fast-forward retries'}
+          Write-Host "MAINT_V1327_PUBLISH_ACCEPTED sha256=$env:MAINT_V1327_SHA"
