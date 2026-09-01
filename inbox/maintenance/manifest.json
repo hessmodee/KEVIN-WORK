@@ -1,12 +1,17 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "observe-watchdog-v151-post-interval-20260901-1418",
+  "id": "install-maint-v131-gateway-recovery-20260901-1437",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "diagnose_gateway_rpc",
-  "expires_at": "2026-09-01T15:10:00-06:00"
+  "operation": "replace_pinned_component",
+  "target_alias": "maintenance_runner",
+  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.31.ps1",
+  "source_sha256": "75ED88D5A399A6AC14D30EC07EF90E53080D63FC404C6315352200B5DF1105C1",
+  "expected_current_sha256": "7B83966CD36DCF95C634BBD1F3815BD4355D2931852176537FFC090DDAA3F62D",
+  "expected_after_sha256": "75ED88D5A399A6AC14D30EC07EF90E53080D63FC404C6315352200B5DF1105C1",
+  "expires_at": "2026-09-01T16:00:00-06:00"
 }
