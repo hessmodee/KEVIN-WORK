@@ -97,28 +97,30 @@ function Save-Latest([string]$Status, [hashtable]$Extra = $null) {
 }
 
 function ConvertTo-Win32CommandLineArg([AllowEmptyString()][string]$Value) {
-    if ($null -eq $Value -or $Value.Length -eq 0) { return '""' }
-    if ($Value -notmatch '[\s"]') { return $Value }
-    $sb = New-Object Text.StringBuilder
-    [void]$sb.Append('"')
-    $slashes = 0
-    for ($i = 0; $i -lt $Value.Length; $i++) {
-        $ch = $Value[$i]
-        if ($ch -eq '\') { $slashes++; continue }
-        if ($ch -eq '"') {
-            if ($slashes -gt 0) { [void]$sb.Append(('\' * ($slashes * 2))) }
-            [void]$sb.Append('\"')
-            $slashes = 0
+    $Quote=[string][char]34
+    $Slash=[string][char]92
+    if($null-eq$Value -or $Value.Length-eq0){return ($Quote+$Quote)}
+    if($Value -notmatch '[\s"]'){return $Value}
+    $sb=New-Object Text.StringBuilder
+    [void]$sb.Append($Quote)
+    $slashes=0
+    for($i=0;$i-lt$Value.Length;$i++){
+        $ch=$Value[$i]
+        if($ch-eq[char]92){$slashes++;continue}
+        if($ch-eq[char]34){
+            if($slashes-gt0){[void]$sb.Append(($Slash*($slashes*2)))}
+            [void]$sb.Append($Slash)
+            [void]$sb.Append($Quote)
+            $slashes=0
             continue
         }
-        if ($slashes -gt 0) { [void]$sb.Append(('\' * $slashes)); $slashes = 0 }
+        if($slashes-gt0){[void]$sb.Append(($Slash*$slashes));$slashes=0}
         [void]$sb.Append($ch)
     }
-    if ($slashes -gt 0) { [void]$sb.Append(('\' * ($slashes * 2))) }
-    [void]$sb.Append('"')
+    if($slashes-gt0){[void]$sb.Append(($Slash*($slashes*2)))}
+    [void]$sb.Append($Quote)
     return $sb.ToString()
 }
-
 function Invoke-FixedNativeBounded([string]$Executable, [string[]]$Argv, [int]$TimeoutSeconds) {
     $psi = New-Object Diagnostics.ProcessStartInfo
     $psi.FileName = $Executable
