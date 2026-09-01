@@ -69,36 +69,40 @@ jobs:
           $sha=(Get-FileHash 'control-plane/maintenance/kevin-maintenance-runner-v1.3.27.ps1' -Algorithm SHA256).Hash.ToUpperInvariant()
           Write-Host "MAINT_V1327_CI_PROVEN sha256=$sha"
           "MAINT_V1327_SHA=$sha" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
-      - name: Publish exact proven candidate without discarding telemetry
+      - name: Publish exact proven candidate through Git database API
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          $repo='hessmodee/KEVIN-WORK'
           $path='control-plane/maintenance/kevin-maintenance-runner-v1.3.27.ps1'
-          $saved=Join-Path $env:RUNNER_TEMP 'maintenance-v1327.proven.ps1'
-          Copy-Item $path $saved -Force
-          if((Get-FileHash $saved -Algorithm SHA256).Hash.ToUpperInvariant() -ne $env:MAINT_V1327_SHA){throw 'saved identity mismatch'}
-          git config user.name 'Kevin CI';git config user.email 'kevin-ci@users.noreply.github.com'
-          $ok=$false
-          for($attempt=1;$attempt-le80;$attempt++){
-            # Other repository steps may refresh report files in this runner checkout.
-            # Preserve the proven candidate outside the worktree, discard only runner-local
-            # ephemeral changes, then rebuild from the newest remote main. Never force-push.
-            git reset --hard HEAD --quiet
-            git clean -fd --quiet
-            git fetch origin main --quiet
-            if($LASTEXITCODE-ne0){Start-Sleep -Milliseconds 350;continue}
-            git checkout -B publish-v1327 origin/main --quiet
-            if($LASTEXITCODE-ne0){Start-Sleep -Milliseconds 350;continue}
-            Copy-Item $saved $path -Force
-            git add -- $path
-            git diff --cached --quiet
-            if($LASTEXITCODE-eq0){$ok=$true;break}
-            git commit -m 'Publish CI-proven Maintenance v1.3.27' --quiet
-            if($LASTEXITCODE-ne0){Start-Sleep -Milliseconds 350;continue}
-            git push origin HEAD:main --quiet
-            if($LASTEXITCODE-eq0){$ok=$true;break}
-            Start-Sleep -Milliseconds 350
+          $bytes=[IO.File]::ReadAllBytes($path)
+          if((Get-FileHash $path -Algorithm SHA256).Hash.ToUpperInvariant() -ne $env:MAINT_V1327_SHA){throw 'candidate identity changed after proof'}
+          $utf8=New-Object Text.UTF8Encoding($false)
+          function Api([string]$method,[string]$endpoint,[object]$body=$null){
+            if($null -eq $body){$out=gh api $endpoint 2>$null}else{
+              $tmp=Join-Path $env:RUNNER_TEMP ('api-'+[guid]::NewGuid().ToString('N')+'.json')
+              try{[IO.File]::WriteAllText($tmp,($body|ConvertTo-Json -Depth 20 -Compress),$utf8);$out=gh api --method $method $endpoint --input $tmp 2>$null}finally{Remove-Item $tmp -Force -ErrorAction SilentlyContinue}
+            }
+            if($LASTEXITCODE-ne0){return $null}
+            return ($out|ConvertFrom-Json)
           }
-          if(-not$ok){throw 'v1.3.27 publication exhausted bounded fast-forward retries'}
-          Write-Host "MAINT_V1327_PUBLISH_ACCEPTED sha256=$env:MAINT_V1327_SHA"
+          $blob=Api 'POST' "repos/$repo/git/blobs" ([ordered]@{content=[Convert]::ToBase64String($bytes);encoding='base64'})
+          if(-not$blob.sha){throw 'candidate blob creation failed'}
+          $ok=$false
+          for($attempt=1;$attempt-le100;$attempt++){
+            $ref=Api 'GET' "repos/$repo/git/ref/heads/main"
+            if(-not$ref.object.sha){Start-Sleep -Milliseconds 250;continue}
+            $parent=[string]$ref.object.sha
+            $pc=Api 'GET' "repos/$repo/git/commits/$parent"
+            if(-not$pc.tree.sha){Start-Sleep -Milliseconds 250;continue}
+            $tree=Api 'POST' "repos/$repo/git/trees" ([ordered]@{base_tree=[string]$pc.tree.sha;tree=@([ordered]@{path=$path;mode='100644';type='blob';sha=[string]$blob.sha})})
+            if(-not$tree.sha){Start-Sleep -Milliseconds 250;continue}
+            $commit=Api 'POST' "repos/$repo/git/commits" ([ordered]@{message='Publish CI-proven Maintenance v1.3.27';tree=[string]$tree.sha;parents=@($parent)})
+            if(-not$commit.sha){Start-Sleep -Milliseconds 250;continue}
+            $move=Api 'PATCH' "repos/$repo/git/refs/heads/main" ([ordered]@{sha=[string]$commit.sha;force=$false})
+            if($move.object.sha -eq [string]$commit.sha){$ok=$true;break}
+            Start-Sleep -Milliseconds 250
+          }
+          if(-not$ok){throw 'v1.3.27 Git-database publication exhausted bounded retries'}
+          Write-Host "MAINT_V1327_PUBLISH_ACCEPTED sha256=$env:MAINT_V1327_SHA worktree_independent=true force=false"
