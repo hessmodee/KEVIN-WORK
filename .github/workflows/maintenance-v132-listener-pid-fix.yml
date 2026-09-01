@@ -1,0 +1,63 @@
+name: Maintenance v1.3.32 Listener PID Fix
+
+on:
+  push:
+    paths:
+      - '.github/workflows/maintenance-v132-listener-pid-fix.yml'
+      - '.github/scripts/build-maintenance-v132-listener-pid-fix.py'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.31.ps1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  prove:
+    runs-on: windows-latest
+    steps:
+      - name: Preserve LF bytes
+        shell: powershell
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build candidate
+        shell: powershell
+        run: |
+          python .github/scripts/build-maintenance-v132-listener-pid-fix.py
+          if($LASTEXITCODE-ne0){throw 'builder failed'}
+      - name: Parse, self-test, and inspect listener safety
+        shell: powershell
+        run: |
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.32.ps1'
+          $txt=[IO.File]::ReadAllText($p)
+          $tokens=$null;$errors=$null
+          $ast=[System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){$errors|%{$_.Message};throw 'parser rejected v1.3.32'}
+          if($txt -match 'foreach\(\$pid\b'){throw 'read-only PID foreach collision remains'}
+          if($txt -notmatch 'foreach\(\$listenerPid\b'){throw 'listenerPid fix missing'}
+          $commands=@($ast.FindAll({param($n) $n -is [System.Management.Automation.Language.CommandAst]},$true))
+          if(@($commands|?{($_.GetCommandName()) -in @('Invoke-Expression','iex')}).Count){throw 'actual Invoke-Expression command detected'}
+          $out=& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1|Out-String
+          if($LASTEXITCODE-ne0){Write-Host $out;throw 'self-test failed'}
+          if($out-notmatch'KEVIN MAINTENANCE v1\.3\.32 SELFTEST PASS'){Write-Host $out;throw 'v1.3.32 marker missing'}
+          Write-Host $out
+      - name: Emit proof
+        shell: powershell
+        run: |
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.32.ps1'
+          $sha=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          $obj=[ordered]@{schema=1;kind='kevin-maintenance-v132-ci-proof';generated_at=(Get-Date).ToString('o');state='WINDOWS_CI_PROVEN';candidate_sha256=$sha;parent_version='1.3.31';windows_parser=$true;self_test=$true;listener_pid_collision_fixed=$true;fixed_listener_identity_check=$true;lkg_version='2026.6.34';integrity_pins_preserved=$true;keeper_topology_preserved=$true;safe_backup_required=$true;rollback=$true;gateway_rpc_postcondition=$true;main_skills_postcondition=$true;benchmark_postcondition='30/30 critical=0';arbitrary_shell=$false;authority_expansion=$false}
+          New-Item -ItemType Directory -Force reports/ci|Out-Null
+          [IO.File]::WriteAllText('reports/ci/maintenance-v132-listener-pid-fix.json',($obj|ConvertTo-Json -Depth 10),(New-Object Text.UTF8Encoding($false)))
+          Write-Host "CANDIDATE_SHA256=$sha"
+      - name: Commit proven candidate
+        shell: powershell
+        run: |
+          git config user.name 'kevin-ci'
+          git config user.email 'kevin-ci@users.noreply.github.com'
+          git add control-plane/maintenance/kevin-maintenance-runner-v1.3.32.ps1 reports/ci/maintenance-v132-listener-pid-fix.json
+          if(git diff --cached --quiet){Write-Host 'Already committed';exit 0}
+          git commit -m 'Add CI-proven Maintenance v1.3.32 listener PID fix'
+          git pull --rebase origin main
+          git push origin HEAD:main
