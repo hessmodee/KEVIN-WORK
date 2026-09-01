@@ -1,0 +1,86 @@
+name: Maintenance v1.3.39 Canary Schema Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1339-canary-schema.py'
+      - '.github/workflows/maintenance-v1339-canary-schema-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  proof:
+    runs-on: windows-2025
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Generate exact v1.3.39 candidate
+        shell: pwsh
+        run: |
+          $src=(Get-FileHash 'control-plane/maintenance/kevin-maintenance-runner-v1.3.38.ps1' -Algorithm SHA256).Hash.ToUpperInvariant()
+          if($src -ne '0AD0A05E3F9DB4F1ED3C07B898B635A28915290D58762D11B63D07751B8B9153'){throw "v1.3.38 parent drifted: $src"}
+          python tools/generate-maintenance-v1339-canary-schema.py
+          if($LASTEXITCODE -ne 0){throw 'v1.3.39 generation failed'}
+
+      - name: Parse and authority boundary
+        shell: pwsh
+        run: |
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.39.ps1'
+          $tokens=$null;$errors=$null;$ast=[Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw $errors[0].Message}
+          $commands=@($ast.FindAll({param($n)$n-is[Management.Automation.Language.CommandAst]},$true)|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($bad in @('invoke-expression','iex','cmd.exe','kevin_shell')){if($commands-contains$bad){throw "forbidden command $bad"}}
+          $badArgs=@($ast.FindAll({param($n)$n-is[Management.Automation.Language.ParameterAst]-and$n.Name.VariablePath.UserPath-eq'args'},$true))
+          if($badArgs.Count){throw 'automatic Args parameter regressed'}
+
+      - name: Full inherited self-test PS5.1
+        shell: powershell
+        run: |
+          $env:KEVIN_MAINT_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'v1339-ps51'
+          & .\control-plane\maintenance\kevin-maintenance-runner-v1.3.39.ps1 -SelfTest
+          if($LASTEXITCODE-ne0){throw 'v1.3.39 PS5.1 selftest failed'}
+
+      - name: Full inherited self-test PS7
+        shell: pwsh
+        run: |
+          $env:KEVIN_MAINT_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'v1339-ps7'
+          & .\control-plane\maintenance\kevin-maintenance-runner-v1.3.39.ps1 -SelfTest
+          if($LASTEXITCODE-ne0){throw 'v1.3.39 PS7 selftest failed'}
+
+      - name: Operation parity and narrow-change assertions
+        shell: pwsh
+        run: |
+          python tools/check-maintenance-operation-parity.py control-plane/maintenance/kevin-maintenance-runner-v1.3.39.ps1
+          if($LASTEXITCODE-ne0){throw 'operation parity failed'}
+          $t=[IO.File]::ReadAllText('control-plane/maintenance/kevin-maintenance-runner-v1.3.39.ps1')
+          foreach($m in @("version='1.3.39'",'optional_agent_json=true','missing_toolSummary_safe=true','missing_tool_inventory_safe=true','payload_fallback=true','recursive_tool_count=true','exact_canary_semantics_preserved=true',"$success=($status-eq'success' -and $expected -and $calls-eq0)",'four_independent_readonly_probes=true','install_from_verified_local_tarball=true','supervisor_target=v1.8.5')){if(-not$t.Contains($m)){throw "missing v1.3.39 invariant: $m"}}
+          if($t-match '\.result\.meta\.toolSummary\.calls'){throw 'unsafe mandatory toolSummary dereference remains'}
+          Write-Host 'V1339_NARROW_CANARY_SCHEMA_PASS exact_reply=true zero_tools=true optional_fields_safe=true authority_expansion=false'
+
+      - name: Emit exact identity
+        shell: pwsh
+        run: |
+          $m=(Get-FileHash 'control-plane/maintenance/kevin-maintenance-runner-v1.3.39.ps1' -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "MAINT_V1339_CI_PROVEN sha256=$m"
+          "MAINT_V1339_SHA=$m"|Out-File $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: Publish exact candidate with bounded CAS
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $repo='hessmodee/KEVIN-WORK';$path='control-plane/maintenance/kevin-maintenance-runner-v1.3.39.ps1';$expected=$env:MAINT_V1339_SHA;$utf8=New-Object Text.UTF8Encoding($false)
+          $bytes=[IO.File]::ReadAllBytes($path);if((Get-FileHash $path -Algorithm SHA256).Hash.ToUpperInvariant()-ne$expected){throw 'candidate identity changed'}
+          function Api([string]$method,[string]$endpoint,[object]$body=$null){if($null-eq$body){$out=gh api $endpoint 2>$null}else{$tmp=Join-Path $env:RUNNER_TEMP ('api-'+[guid]::NewGuid().ToString('N')+'.json');try{[IO.File]::WriteAllText($tmp,($body|ConvertTo-Json -Depth 20 -Compress),$utf8);$out=gh api --method $method $endpoint --input $tmp 2>$null}finally{Remove-Item $tmp -Force -ErrorAction SilentlyContinue}};if($LASTEXITCODE-ne0){return $null};return($out|ConvertFrom-Json)}
+          $blob=Api 'POST' "repos/$repo/git/blobs" ([ordered]@{content=[Convert]::ToBase64String($bytes);encoding='base64'});if(-not$blob.sha){throw 'blob creation failed'}
+          $entry=[ordered]@{path=$path;mode='100644';type='blob';sha=[string]$blob.sha};$ok=$false
+          for($a=1;$a-le100;$a++){$ref=Api 'GET' "repos/$repo/git/ref/heads/main";if(-not$ref.object.sha){Start-Sleep -Milliseconds 250;continue};$parent=[string]$ref.object.sha;$pc=Api 'GET' "repos/$repo/git/commits/$parent";if(-not$pc.tree.sha){Start-Sleep -Milliseconds 250;continue};$tree=Api 'POST' "repos/$repo/git/trees" ([ordered]@{base_tree=[string]$pc.tree.sha;tree=@($entry)});if(-not$tree.sha){Start-Sleep -Milliseconds 250;continue};$commit=Api 'POST' "repos/$repo/git/commits" ([ordered]@{message='Publish CI-proven Maintenance v1.3.39';tree=[string]$tree.sha;parents=@($parent)});if(-not$commit.sha){Start-Sleep -Milliseconds 250;continue};$move=Api 'PATCH' "repos/$repo/git/refs/heads/main" ([ordered]@{sha=[string]$commit.sha;force=$false});if($move.object.sha-eq[string]$commit.sha){$ok=$true;break};Start-Sleep -Milliseconds 250}
+          if(-not$ok){throw 'v1.3.39 publication retries exhausted'}
+          Write-Host "V1339_PUBLISHED sha256=$expected force=false"
