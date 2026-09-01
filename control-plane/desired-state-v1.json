@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-desired-state",
-  "version": "1.1",
+  "version": "1.2",
   "authority": {
     "owner_authorization": "Kevin Owner Authorization v1",
     "green_only": true,
@@ -10,12 +10,12 @@
     "allow_novel_production_promotion": false
   },
   "core_hashes": {
-    "supervisor": "63B8D9C27625E0FB6AFE62165BE376E7ED7EB416E5DA15BB47C206BBF4AE4989",
+    "supervisor": "47A0A1D0E3F744E972E2F2239F100CA2B009ABD3928D0281E4587A364B7C27AC",
     "benchmark": "02447EE8F3302E3EA1EF00290DBA6804F30FAC9F46CAE8714F402EA2D013CC38",
-    "forge": "0ED50A9714B4B5E778844006CD24E57D25FFA0873261E5BF63F990FBB4D5643E",
+    "forge": "433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A",
     "goal_os": "B20C7AC8EDC35C656ED544C4D13D3EB4FF4A79453AF0F49BD60B7DF31092AEF0",
     "support_bridge": "E72A2A635326CF1AB036404E64E274D2F56CE79CA5CEB268DBF9B2EA4B67BEA5",
-    "maintenance_runner": "F6C283AEFDC069AF528480AA59E0D1649AFEF251E638B901E18ACBCCBE282A2C"
+    "maintenance_runner": "737F40049FEA0C16EB8DC17FAA8DBCEE0DE2E7E1CCF7D5DCD353F63EF23DE1AD"
   },
   "required_automations": [
     {"declaration_key":"kevin-support-bridge-v1","name":"Kevin Support Bridge v1.1d","must_be_enabled":true},
@@ -48,5 +48,12 @@
       "telemetry-quality",
       "skill-evaluation"
     ]
+  },
+  "reconciled_from_proof": {
+    "at": "2026-09-01T08:22:00-06:00",
+    "supervisor": "OMEN_PROVEN_V1_7_1",
+    "forge": "OMEN_PROVEN_V4_0",
+    "maintenance": "OMEN_PROVEN_V1_3_20",
+    "benchmark": "PASS_30_OF_30_CRITICAL_0"
   }
 }
