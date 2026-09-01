@@ -1,12 +1,17 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "publish-runtime-capabilities-v1322-cli-surface-20260901-0856",
+  "id": "install-maintenance-v1323-main-agent-canary-20260901-0904",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "publish_runtime_capabilities",
-  "expires_at": "2026-09-01T09:50:00-06:00"
+  "operation": "replace_pinned_component",
+  "target_alias": "maintenance_runner",
+  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.23.ps1",
+  "source_sha256": "3E60FF4B135B676569D351438369D3650E1A336DC7F8F31181D9F24BD9CAC340",
+  "expected_current_sha256": "3F926629917D49BD28FD492C6698146461BA5F362F09146A160CB221CBAEEE4E",
+  "expected_after_sha256": "3E60FF4B135B676569D351438369D3650E1A336DC7F8F31181D9F24BD9CAC340",
+  "expires_at": "2026-09-01T09:55:00-06:00"
 }
