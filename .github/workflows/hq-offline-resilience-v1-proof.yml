@@ -1,0 +1,51 @@
+name: Kevin HQ Offline Resilience v1 Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/index.html'
+      - 'docs/sw.js'
+      - '.github/workflows/hq-offline-resilience-v1-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse Service Worker
+        run: node --check docs/sw.js
+      - name: Prove registration and fixed scope
+        shell: python
+        run: |
+          from pathlib import Path
+          index=Path('docs/index.html').read_text(encoding='utf-8')
+          sw=Path('docs/sw.js').read_text(encoding='utf-8')
+          assert "navigator.serviceWorker.register('./sw.js',{scope:'./'})" in index
+          assert "const BASE='/KEVIN-WORK/'" in sw
+          assert "raw.githubusercontent.com" in sw
+          assert "networkFirst(req,DATA_CACHE)" in sw
+          assert "cache:'no-store'" not in sw
+          for bad in ('GH_TOKEN','GITHUB_TOKEN','password','credential','Authorization:','localStorage'):
+              assert bad not in sw, bad
+          print('HQ_OFFLINE_RESILIENCE_INVARIANTS_PASS scope=fixed public_data_only=true network_first=true')
+      - name: Prove shell assets exist
+        shell: python
+        run: |
+          from pathlib import Path
+          required=[
+            'docs/index.html','docs/hq-core-v7.html','docs/hq-overrides-v1.js',
+            'docs/hq-owner-refinement-v2.js','docs/hq-fun-v2.js','docs/hq-truth-v2.js',
+            'docs/ops/index.html','docs/ops/embed.html','docs/ops/app.js','docs/ops/style.css',
+            'docs/ops/ops-v11.css','docs/ops/ops-v11.js','docs/ops/ops-fun-v2.js',
+            'docs/ops/ops-owner-refinement-v1.css','docs/ops/ops-owner-refinement-v1.js',
+            'docs/ops/ops-truth-patch-v1.js'
+          ]
+          missing=[p for p in required if not Path(p).is_file()]
+          assert not missing, missing
+          print(f'HQ_OFFLINE_SHELL_ASSETS_PASS count={len(required)}')
