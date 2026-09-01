@@ -1,175 +1,108 @@
 # Kevin AI Engineering Handover
 
-Last reconciled: 2026-08-31 09:26 MDT
+Last reconciled: 2026-08-31 21:20 MDT
 
-Purpose: canonical turnover sheet for Kevin engineering. Start with `KEVIN-START-HERE.md`. Re-check fresh GitHub/Omen evidence before acting; timestamps, exact hashes, request IDs, receipts, PR/CI heads and independent semantic postconditions outrank narrative.
+Start with `KEVIN-START-HERE.md`, then read fresh `inbox/CURRENT_TASK.md`, `inbox/autonomy/work-items.json`, `inbox/autonomy/state.json`, `reports/support-latest.json`, `reports/engineering/latest.json`, `reports/autonomy-latest.json`, `reports/runtime-convergence-omen.json`, `reports/runtime-capabilities-omen.json`, and current Maintenance/control-plane receipts. Fresh timestamps, request IDs, hashes and independent semantic postconditions outrank this narrative.
 
-## Mission / master architecture
+## North star
 
-Build Kevin into a trustworthy, local-first, persistent, proactive AI **Chief of Staff** that increasingly owns routine planning, execution, verification, monitoring, repair, learning, communication, memory and work selection until Bess is unnecessary in the normal authorized operating loop.
+Build Kevin into a trustworthy local-first Chief of Staff that increasingly owns NOTICE -> UNDERSTAND -> PLAN -> EXECUTE -> VERIFY -> RECOVER -> RECORD -> CONTINUE for authorized GREEN work, with Bess removed from routine operation. Technical proof and transfer maturity remain separate:
 
-Read these as first-class doctrine:
-- `docs/engineering/KEVIN-AUTONOMY-MASTER-PLAN-v1.md`
-- `docs/engineering/OWNER-GOAL-INVENTORY-v1.md`
-- `docs/engineering/BESS-TO-KEVIN-AUTONOMY-TRANSFER-DOCTRINE-v1.md`
-- `docs/engineering/RESPONSIBILITY-TRANSFER-LEDGER-v1.md`
-- `reports/autonomy-master-scorecard.json`
-- `inbox/CURRENT_TASK.md`
+`DESIGNED -> CI-PROVEN -> INSTALLABLE -> INSTALLED -> OMEN-PROVEN -> ROUND-TRIP-PROVEN -> REPEATEDLY-PROVEN -> SELF-RELIANT`
 
-Technical proof ladder:
-`DESIGNED -> CI-PROVEN -> INSTALLABLE THROUGH TYPED PATH -> INSTALLED -> OMEN-PROVEN -> ROUND-TRIP-PROVEN -> REPEATEDLY-PROVEN -> SELF-RELIANT`
+`T0 BESS-DEPENDENT -> T1 BESS-BUILT/KEVIN-TESTED -> T2 BESS-DISPATCHED/KEVIN-EXECUTED -> T3 KEVIN-RUN/BESS-VERIFIED -> T4 KEVIN-OWNED/EXCEPTION-ESCALATED -> T5 SELF-RELIANT`
 
-Responsibility-transfer ladder:
-`T0 BESS-DEPENDENT -> T1 BESS-BUILT/KEVIN-TESTED -> T2 BESS-DISPATCHED/KEVIN-EXECUTED -> T3 KEVIN-RUN/BESS-VERIFIED -> T4 KEVIN-OWNED/EXCEPTION-ESCALATED -> T5 SELF-RELIANT/BESS-NOT-REQUIRED`
+Hard boundaries remain: no arbitrary shell/remote code authority, self-granted authority, silent trust-anchor blessing, secret/private-body leakage, safety weakening, purchases/money/live trades, unauthorized public/third-party owner sends, or novel YELLOW/RED auto-promotion.
 
-Desired operational lifecycle:
-`NOTICE -> UNDERSTAND -> PLAN -> EXECUTE -> VERIFY -> RECOVER -> RECORD -> CONTINUE`
+## Fresh live truth — 21:20 MDT
 
-Hard boundaries remain: no arbitrary shell/remote code authority, no self-granted permission/RED/recipient expansion, no secret/private-body leakage, no silent trust-anchor blessing, no safety/audit/rollback weakening, no purchases/money/live trades, no unauthorized third-party/public owner-representing sends, and no novel YELLOW/RED auto-promotion.
-
-## 2026-08-31 deep architecture audit — important correction
-
-External research and repo/runtime audit confirmed Kevin's **typed safety/evidence foundation is good**, but custom orchestration has become too layered and some loops are spinning.
-
-Research-backed direction:
-- use OpenClaw Standing Orders for permanent programs;
-- use Automations for schedules and Heartbeat only as ambient monitor;
-- adopt Task Flow for durable multi-step work and constrained deterministic workflows (e.g. Lobster) when locally available and simpler than model-orchestrated step chains;
-- evaluate Skill Workshop/self-learning in `propose` mode for procedural/recovery learning; keep Kevin Skill Lab for executable composites made only from proven GREEN primitives;
-- use native workspace memory/pre-compaction memory flush for always-loaded continuity, with Second Brain as supplemental larger provenance search;
-- use GitHub primarily for source/doctrine/PR-CI/sanitized evidence rather than long-term primary real-time queue state;
-- keep one 14B primary worker by default; add agents only when measured benefit justifies resource/coordination cost;
-- production incidents and owner corrections should create targeted evals/scoped engineering work.
-
-`workspace/AGENTS.md`, `MEMORY.md`, `SOUL.md`, `TOOLS.md`, and `HEARTBEAT.md` were found to contain stale rules such as **"one action then stop"**, **"on tool failure stop/do not retry"**, old hard-coded model/runtime assumptions, and meaningless tick-style heartbeat behavior. Repo source was reconciled on 2026-08-31 to standing-order/work-conserving/bounded-recovery semantics. **Do not claim the Omen is consuming those new source bytes until local installed/workspace evidence proves it.**
-
-See also:
-- `docs/engineering/EXTERNAL-SKILL-SCOUT-2026-08-31.md`
-- `docs/engineering/OPEN-PR-WIP-CLASSIFICATION-2026-08-31.md`
-
-## No-spin / WIP policy
-
-Default global WIP:
-- 1 ACTIVE production/proof crossing;
-- 1 STAGING/EVAL item;
-- 1 RESEARCH/DESIGN item with a named downstream consumer.
-
-Do not count heartbeat/pulse/dashboard commits, raw cycle count, PONG/model smoke tests, duplicate/expired request handling, uninstalled candidates, CI-only source, or task/hash presence as accomplishments.
-
-Design/Forge work is eligible only with current demand, explicit missing capability/hypothesis, predefined acceptance tests, downstream consumer, WIP capacity and a non-cooled failure family. After three materially distinct failures, cool/change the family rather than renaming the same retry.
-
-## Fresh live truth — 09:26 MDT
-
-Fresh Support generated **2026-08-31 09:26:20 MDT**:
+Fresh Support generated 21:19:58 MDT reports:
 - governance OK;
-- core schedulers listed there healthy with zero consecutive errors;
-- Benchmark **PASS 30/30, critical=0** at 09:22:34 MDT;
-- production Maintenance runner SHA256 `0AC6C0F20DC33507159789A8A3B7767154A918E4E665CEAA90201E1ADA94FDA3`;
-- Supervisor cycle 298, latest result `RECOVERY_THROTTLED`;
-- latest Forge evaluation `forge-v4` iteration **253**, verdict REJECT, failure_count **7**, security_finding_count **1**;
-- all listed active workers zero in that snapshot.
+- Benchmark PASS 30/30 critical=0 at 21:11:40 MDT;
+- observed Maintenance runner SHA256 `2CA0EA73E5F43EB1FA7F004288193EE18C450029C403C9A80BE7D3931565E629` — do not infer its version without exact lineage proof;
+- Maintenance Intake is in error backoff after four consecutive `manifest expired` errors; the 21:19:25 intake cycle ran before the replacement Reader manifest commit landed;
+- next scheduled Maintenance attempt is delayed by error backoff rather than normal five-minute cadence;
+- legacy Forge is still spinning: iteration 331 at 21:19:17 MDT, REJECT, 8 failures, 1 security finding;
+- active workers were zero in that snapshot.
 
-This is direct evidence of **candidate/work-selection spin**, not platform failure. The previous iteration was 252, so the family continued despite repeated rejection. Treat stopping demandless round-robin Forge admission as a real autonomy defect.
+Fresh Engineering at 21:18:15 MDT still publishes expired request `today-convergence-snapshot-20260831-1555` as REJECTED/request expired while its scheduler is healthy. UI Bridge heartbeat was fresh (~4.9s) and Benchmark 30/30.
 
-Fresh control-plane ack at 09:21:12 MDT still reports request `bess-20260831-0840-telemetry-quality` as `DUPLICATE_IGNORED`; the Engineering Relay inbox still contains already-processed business-budget staging request `bess-stage-business-budget-20260831-0800`. Do not count or replay these stale slots.
+Fresh autonomy at 21:13:47 MDT remains `NEEDS_REVIEW`, drift_count=3, zero active engineering workers, selected_action=null, and `NO_DISPATCH_NEEDED`. This is still a work-conservation defect against the explicit owner backlog.
 
-Latest public autonomy evidence remains older (08:09:21 MDT): `NEEDS_REVIEW`, `drift_count=3`, selected_action null, active_engineering_workers=0, next_suggested_candidate=null, `NO_DISPATCH_NEEDED` despite explicit owner P0 backlog. This is a real work-conservation contradiction.
+## Runtime doctrine / native runtime
 
-Interactive UI Bridge remains UNHEALTHY until fresh interactive heartbeat/process/session/selftest evidence proves otherwise. Task/hash presence or generic bridge health is insufficient.
+Autonomy OS v2 five-file workspace doctrine is Omen identity-proven in `reports/runtime-convergence-omen.json`:
+- AGENTS.md `B167CAC8096D7584325A4C79CF40C0C086EF45FECABBCADD025FFE6F4B26163B`
+- HEARTBEAT.md `845D3337A367A81E55D5EC0BCB5EFB8DBC4A40B0032FC13BDE686F1576ADDD13`
+- MEMORY.md `017767B1CCB00699EFFF0F6BC17D5F4CFBC9D11C9A26DF0B4F99C3BE2FD45BDC`
+- SOUL.md `A7938BD9D6DC401B2BEF0F6113847AAA765C9A1F0D12ECD5C2226B93B0250125`
+- TOOLS.md `D8808730EC3A62D0BED6C98F933C275C5A28A9E43028DD1E0F78D9A872E19310`
 
-## Desired-state drift — exact three-component finding
+`reports/runtime-capabilities-omen.json` proves Task Flow CLI and Skill Workshop are present, main-agent skills check succeeds, gateway deep probe succeeds, Lobster is not registered, and OpenClaw version remains UNKNOWN. Do not claim unavailable version-specific features.
 
-`control-plane/desired-state-v1.json` differs from fresh live Support at exactly three core identities:
+## Active production crossing — Reader real repeated canary
 
-- Supervisor pinned `EA2860...` vs observed `63B8D9...`;
-- Forge pinned `0ED50A...` vs observed `4C83DF...`;
-- Maintenance pinned `B47714...` vs observed production runner `0AC6C0...`.
+Reader is the single ACTIVE production/proof crossing.
 
-Benchmark, Goal OS and Support Bridge still match their desired-state pins. Desired state also names Supervisor v1.5.3b while live Support names v1.6 High Gear. This strongly explains current autonomy `drift_count=3`, but **do not silently repin**.
+The first fixed manifest `reader-status-canary-20260831-2024` expired at 21:00 without terminal Reader evidence. `reports/reader-canary-omen.json` remained `NOT_RUN`, `0/2`; this is an execution-window/scheduler failure, not evidence that the Reader semantic/tool/privacy canary failed.
 
-Updated owner-review packet:
-`control-plane/proposals/20260831-owner-hash-drift-review-v2.json`
+At 21:19:35 MDT the canonical writer reissued the same fixed GREEN operation once as `reader-status-canary-20260831-2119`, expiry 22:15, commit `6c8ad5bb7f0f81dcf72fd978f2717b80e2451967`. Do not issue another Reader retry until this manifest reaches terminal evidence or materially new evidence changes the blocker.
 
-Before any desired-state patch, map each observed identity to exact source/proof/install history. In particular, do not bless the current Forge merely to clear drift while its behavior is showing no-spin defects.
+Acceptance remains strict:
+- two real isolated `kevin-reader` turns;
+- exactly one visible/called tool `kevin_system_status` per trial;
+- semantic coverage of RAM, CPU, GPU, disk free, Ollama, gateway;
+- privacy gate passes;
+- metadata/output-hash-only public receipt;
+- 2/2 required for REPEATEDLY-PROVEN;
+- fresh Benchmark 30/30 critical=0;
+- no T4 credit because Bess/canonical Chief Engineer selected and dispatched this canary.
 
-## Proven production foundations
+## Skill Workshop
 
-- Work Order Intake v1.2.3 exact installed/source SHA256 `0C1B36D56488AA850E4F2C2EFDAC01D89D14D75CF854CA347B65D18234AF2BC6`.
-- OS Awareness v0.1 OWNER-AUTHORIZED + OMEN-PROVEN.
-- Typed Maintenance v1.3.3 production-proven at installed SHA256 `0AC6C0F20DC33507159789A8A3B7767154A918E4E665CEAA90201E1ADA94FDA3`.
-- Benchmark baseline PASS 30/30 critical=0.
-- Skill Lab production proven composites = **3**; newest is `business-budget-starter-pack@1` (create_spreadsheet + create_text), proven 08:10:29 MDT. Do not confuse this with Skill Lab owning its own skill-discovery lifecycle yet.
-- one-14B-primary-worker discipline remains default.
+Workshop configuration writes are BLOCKED/COOLED. The initial JSON-value hypothesis and the materially different fixed raw-string `--dry-run` hypothesis both failed closed against the installed Omen CLI while Benchmark stayed 30/30. Do not create another renamed config retry. Allowed next work is read-only installed CLI-contract diagnosis that materially changes the hypothesis.
 
-## HQ direct chat — proof truth
+## Forge
 
-PR #30 base candidate and #31 typed transport candidate are CI-PROVEN design/evidence baselines. Exact proven candidate source was published onto current `main` by merged PR **#33** using exact branch head `3e3dbe981815f18534f42b4f13ec963ac79eae49`; HQ Direct Chat Candidate Gate run `33395954207` succeeded.
+Forge migration remains BLOCKED after three materially distinct failed migration hypotheses. No production retry is allowed until materially new evidence identifies the actual integrity dependency and installed Supervisor admission path.
 
-Candidate stack includes typed Matt<->Kevin envelopes/correlation/content hashes, private atomic spool, mobile-first panel, loopback-only HTTP adapter, fixed four-component installer and typed `install_hq_private_chat_v01` transport with no caller-selected command/path/host/port/URL/executable/network surface.
+Known read-only proof:
+- R03 structurally references Forge + Goal OS + file/hash semantics;
+- current Forge SHA appears zero times literally in Benchmark;
+- `reports/forge-r03-contract.json` proves R03 has no literal 64-char SHA anchor and shows structural identifiers including baseline/spec/scorecard/policy/Goal OS references;
+- `reports/goal-os-forge-anchor.json` and `reports/forge-v40-benchmark-diagnosis.json` are still NOT_RUN placeholders;
+- legacy Supervisor continues demandless Forge work, now observed through iteration 331.
 
-This is source publication only. HQ chat is still **not installable through current production Maintenance**, not installed, not Omen-proven, not round-trip-proven.
+Target remains demand-driven Forge v4.0: no valid demand -> `IDLE_NO_ELIGIBLE_DEMAND`; valid bounded demand -> exactly-once consume/archive; cooled families stay cooled.
 
-Exact next boundary:
-`main exact source -> minimum fixed Maintenance/Work-Order integration -> CI/hash pin -> typed Maintenance self-upgrade -> Omen install -> private/loopback/idempotency/selftest/Benchmark proof -> benign owner round trip -> restart/replay -> channel health/common repair`
+## HQ direct chat
 
-Do not add speculative chat features while this crossing is unresolved.
+Existing typed HQ direct-chat candidate is CI-PROVEN and present on `main`; do not redesign it. It remains READY behind the current Reader production crossing. Success requires typed install -> Omen selftest/privacy/loopback/idempotency -> Benchmark/domain proof -> truthful READY -> genuine Matt->Kevin->Matt correlated round trip -> restart/replay no duplicate -> health/recovery proof.
 
-## Other P0 truth
+## Skill Lab / owner outcomes
 
-### Work selection / Tick autonomy
-Top semantic defect. Kevin must stop depending on Bess to refill stale/duplicate slots and stop demandless Forge rotation. Acceptance target: Kevin independently detects idle/blocked state, selects another useful authorized owner objective, executes it and verifies it without Bess issuing the next task.
+Skill Lab has three production-proven composites; newest known is `business-budget-starter-pack@1`. That is capability inventory, not an owner-accepted outcome.
 
-### Reader
-Repo contains Reader workspace and helper/gateway components. No trustworthy current evidence yet proves the requested real status-question E2E. Next proof: exact typed acquisition -> correct interpretation -> provenance/evidence receipt. `reader-weather` advances only if demanded by a real task.
+`reports/owner-outcomes-latest.json` still records one verified real maintenance outcome (UI Bridge fresh-heartbeat repair), but it was Bess-initiated and earns no T4 credit. Next owner-value target is a real Reader result or genuine HQ direct-chat round trip.
 
-### Skill learning / Staging
-Three executable composites are proven. Next objective is not raw skill count. Evaluate native Skill Workshop procedural learning when locally supported/privacy-appropriate; keep Skill Lab for executable composites. Staging must become replay/negative/rollback/idempotency/resource/promotion-or-rejection evidence rather than passive parking.
+## Current WIP / next actions
 
-### Gmail
-Candidate remains CI-PROVEN, not Omen-installed/selftested. Earlier Gmail round trip in ChatGPT was performed through the connected ChatGPT Gmail connector and **did not prove Kevin/Omen autonomy**. Real proof remains Omen Kevin poll/read/interpret/local-tool/reply/thread/restart/duplicate evidence. Stop at exact owner-local OAuth enrollment checkpoint.
+WIP cap remains 1 production, 1 staging/eval, 1 research/design. Current state:
+- ACTIVE production: `real-owner-task-reader-e2e`;
+- BLOCKED: Forge migration, Skill Workshop config writes;
+- READY behind Reader: HQ direct chat, Staging trajectory reuse.
 
-### Telegram
-Root cause remains unproven. Official OpenClaw default is long polling; webhook is optional and relevant config changes may require Gateway restart. Diagnose native channel registration/config, long-polling-vs-webhook conflict, gateway state, probe/reachability, binding/routing/permissions and stale process before building a parallel Telegram stack.
+While Reader waits on Maintenance error backoff, only independent work that does not overwrite the fresh manifest is allowed. Read-only Forge/R03 diagnosis is permitted; do not mutate the cooled family.
 
-### Broad computer control
-Goal remains a portfolio of narrow typed/repeatable capabilities: files, Excel, Word/docs, images/attachments, app/window awareness, browser, printer, updates, local dev and later UI control. ClawHub/native OpenClaw contains relevant Gmail/Windows capability patterns, but third-party desktop skills often expose broader PowerShell/path/process/input authority than Kevin's normal production boundary. Scout/verify/reuse patterns; do not auto-install broad control as a shortcut.
+After Reader terminal evidence:
+1. if PASS 2/2, record Reader technical proof and real owner-outcome evidence without inflating transfer maturity;
+2. free production lane and advance existing HQ direct-chat crossing;
+3. connect the real Reader trajectory to Staging reliability only if it supplies reusable evidence;
+4. continue native Task Flow admission-controller work to eliminate Bess work selection;
+5. advance Gmail/Telegram only after higher-priority crossings and actual local prerequisites.
 
-## Owner goal inventory
+## Continuity / no-spin
 
-Do not let today's P0 erase long-term owner goals. `docs/engineering/OWNER-GOAL-INVENTORY-v1.md` now tracks:
-- autonomy/Bess replacement;
-- HQ/Gmail/Telegram/SMS/voice/Discord communication;
-- broad Omen computer fluency;
-- persistent safe self-improvement;
-- current web/news/X/market/crypto research;
-- business/economic value and accepted deliverables;
-- app/product building incl. Relief Route;
-- image/media/tiny-game capability;
-- Minecraft teammate path;
-- memory/Second Brain/continuity;
-- self-maintenance;
-- performance/resource optimization;
-- safe external capability/ClawHub discovery;
-- measured specialist/multi-agent use only when justified.
+Single canonical scheduled Chief Engineer is the only scheduled writer for mutable Kevin execution state. Never overwrite a fresh unconsumed/running item. Duplicate/expired receipt churn, heartbeat/dashboard commits, raw Forge cycles, CI-only candidates and PONG/model smoke are not accomplishments.
 
-Market/crypto remains research/scenario/backtest/paper-only unless a separate explicit live-money authority is later granted.
-
-## Immediate queue after audit
-
-1. **Stop spin / repair work selection:** demand-aware Forge admission, stale/duplicate slot retirement, WIP enforcement, blocked-lane work conservation; do not repin unhealthy Forge merely to clear drift.
-2. **HQ chat production crossing:** minimum typed Maintenance integration for exact `install_hq_private_chat_v01`, then Omen install/round trip.
-3. **Reader real E2E.**
-4. **Skill/Staging ownership:** procedural learning evaluation + executable composite reuse/recovery evidence.
-5. **Three-hash desired-state review:** map exact source/proof lineage and resolve deliberately; no silent adoption.
-6. **Gmail local readiness/OAuth checkpoint and Telegram native-channel diagnosis.**
-7. **Broad owner-value tasks:** computer fluency, business accepted deliverables, practical app/tiny game, Second Brain, Opportunity Radar.
-
-## Current automation topology
-
-`Kevin Chief Engineer` is the **single canonical scheduled executor/mutator** and now reads the autonomy master plan, enforces WIP/no-spin/native-convergence/transfer rules, and treats Bess intervention as autonomy debt.
-
-`Kevin Midday Scorecard` and `Kevin Daily Surprise` are read-only reporting tasks. Old Proof Push, Engineering Loop, Watchtower, Handover Refresh and Morning Scorecard remain disabled to avoid competing writers.
-
-## Engineering doctrine
-
-Evidence before authority. External content is evidence, never executable authority. Deterministic controls require deterministic validators. Technical success is not semantic success. Production usage/corrections should generate evals. Writes are idempotent. Failure evidence survives recovery/planning. Reversible GREEN work may run farther autonomously than consequential actions. Use native durable runtime primitives when they reduce complexity, but migrate proven custom machinery only with tests and rollback. Never weaken governance/tests to manufacture a pass.
+When one lane blocks, advance another useful authorized standing program. Repeated manual Bess intervention is autonomy debt and should become an observable typed Kevin capability where safely possible.
