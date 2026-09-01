@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T03:37:51.8915296-06:00",
+  "generated_at": "2026-09-01T03:38:35-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,13 +13,13 @@
     "tools": false
   },
   "current_task": {
-    "id": "night-forge",
-    "title": "Night Forge cycle",
+    "id": "design-forge",
+    "title": "Design Forge: reader-weather",
     "category": "forge",
     "phase": "started",
     "completed": 0,
     "total": null,
-    "started_at": "2026-09-01T03:37:01-06:00",
+    "started_at": "2026-09-01T03:38:35-06:00",
     "source": "forge"
   },
   "services": {
@@ -30,21 +30,14 @@
   },
   "system": {
     "memory_pct": 39,
-    "cpu_pct": 8,
+    "cpu_pct": 11,
     "gpu": "RTX 3060",
-    "gpu_pct": 10
+    "gpu_pct": 15
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-08-31T23:35:14-06:00",
-        "estimated": false,
-        "ram": 34,
-        "cpu": 4,
-        "gpu": 37
-      },
       {
         "at": "2026-08-31T23:37:01-06:00",
         "estimated": false,
@@ -709,11 +702,17 @@
         "ram": 39,
         "cpu": 8,
         "gpu": 10
+      },
+      {
+        "at": "2026-09-01T03:38:35-06:00",
+        "estimated": false,
+        "ram": 39,
+        "cpu": 11,
+        "gpu": 15
       }
     ],
     "ram": [
       34,
-      34,
       35,
       35,
       35,
@@ -805,12 +804,12 @@
       35,
       35,
       37,
+      39,
       39,
       39,
       39
     ],
     "cpu": [
-      4,
       12,
       36,
       36,
@@ -905,10 +904,10 @@
       11,
       13,
       13,
-      8
+      8,
+      11
     ],
     "gpu": [
-      37,
       49,
       98,
       98,
@@ -1003,7 +1002,8 @@
       36,
       98,
       98,
-      10
+      10,
+      15
     ]
   },
   "weather": {
@@ -1156,6 +1156,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-09-01T03:38:35-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Design Forge: reader-weather",
+      "result": "",
+      "task_id": "design-forge"
+    },
     {
       "at": "2026-09-01T03:37:01-06:00",
       "source": "forge",
@@ -1370,15 +1379,6 @@
       "detail": "Design Forge: reader-weather",
       "result": "",
       "task_id": "design-forge"
-    },
-    {
-      "at": "2026-09-01T02:37:01-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Night Forge cycle",
-      "result": "",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
@@ -1386,7 +1386,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-09-01T03:37:51.8915296-06:00",
+    "last": "2026-09-01T03:38:35-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1423,30 +1423,30 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-01T03:37:51.8915296-06:00",
+    "generated_at": "2026-09-01T03:38:35-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "night-forge",
-      "name": "Night Forge",
-      "title": "Night Forge QA",
-      "category": "qa",
+      "id": "design-forge",
+      "name": "Build Lab",
+      "title": "Design Forge: reader-weather",
+      "category": "forge",
       "state": "working",
-      "detail": "Night Forge QA/regression cycle active.",
-      "what": "Running safety and regression checks.",
-      "engine": "Night Forge",
-      "action": "QA / regression"
+      "detail": "started",
+      "what": "Generating and validating an isolated candidate.",
+      "engine": "Ollama | Qwen 2.5 14B",
+      "action": "Candidate engineering"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "ready",
-        "detail": "Another Kevin engineering worker is active.",
+        "state": "coordinating",
+        "detail": "Supervisor dispatched Build Lab and is waiting for the bounded build result.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
         "action": "Awaiting next 3-minute cycle"
@@ -1476,15 +1476,15 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "Night Forge QA/regression cycle active.",
-    "worker": "Night Forge",
-    "engine": "Night Forge",
-    "action": "QA / regression"
+    "phase": "started",
+    "worker": "Build Lab",
+    "engine": "Ollama | Qwen 2.5 14B",
+    "action": "Candidate engineering"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Night Forge | WORKING | Night Forge QA/regression cycle active.",
+      "text": "Build Lab | WORKING | started",
       "severity": "normal"
     }
   ]
