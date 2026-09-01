@@ -1,0 +1,72 @@
+name: HQ Truth Current-State v3 Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/hq-truth-current-state-v3.py'
+      - '.github/workflows/hq-truth-current-state-v3-proof.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Patch exact production Truth source
+        run: python tools/hq-truth-current-state-v3.py
+      - name: JavaScript syntax
+        run: node --check docs/hq-truth-v2.js
+      - name: Current-state behavioral invariants
+        shell: python
+        run: |
+          from pathlib import Path
+          t=Path('docs/hq-truth-v2.js').read_text(encoding='utf-8')
+          idx=Path('docs/index.html').read_text(encoding='utf-8')
+          assert 'hq-truth-v2.js' in idx
+          assert "desired:{label:'Desired state'" in t
+          assert "workItems:{label:'Autonomy work items'" in t
+          assert 'function liveCoreDrift(' in t
+          assert 'Blocked Forge is still producing work' in t
+          assert 'Autonomy drift telemetry is stale' in t
+          assert 'KNOWN DRIFT' in t
+          assert 'Repeated Forge rejection is not progress' not in t
+          assert 'Desired-state drift needs review' not in t
+          assert "live.keys[0]==='forge'&&forgeBlocked()" in t
+          assert "ageSec(ev.at)<=900" in t
+          assert "status||'').toUpperCase()==='BLOCKED'" in t
+          print('HQ_TRUTH_CURRENT_STATE_V3_PASS production_file=true current_predicates=true known_drift=true')
+      - name: Smoothness compatibility
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          t=Path('docs/hq-truth-v2.js').read_text(encoding='utf-8')
+          assert "main.insertAdjacentElement('afterend',host)" in t
+          assert 'detailsState(host)' in t
+          assert 'restoreDetails(host,open)' in t
+          ints=[int(x) for x in re.findall(r'setInterval\([^,]+,\s*(\d+)\s*\)',t)]
+          assert ints and min(ints)>=30000, ints
+      - name: Publish exact tested production bytes
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name 'Kevin CI'
+          git config user.email 'actions@users.noreply.github.com'
+          git add docs/hq-truth-v2.js
+          git diff --cached --quiet && exit 0
+          git commit -m 'Make HQ Attention current-state aware'
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep "$i"
+          done
+          exit 1
