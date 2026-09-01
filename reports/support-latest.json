@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-31T19:07:40.4379157-06:00",
+    "generated_at":  "2026-08-31T19:10:40.4595968-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788224676225,
-                                  "next_run_at_ms":  1788224856225
+                                  "last_run_at_ms":  1788224856238,
+                                  "next_run_at_ms":  1788225036238
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788224831858,
-                                  "next_run_at_ms":  1788224891858
+                                  "last_run_at_ms":  1788224990466,
+                                  "next_run_at_ms":  1788225050466
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -89,8 +89,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788224738231,
-                                  "next_run_at_ms":  1788224918231
+                                  "last_run_at_ms":  1788224918245,
+                                  "next_run_at_ms":  1788225098245
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "error",
+                                  "last_run_status":  "error",
+                                  "consecutive_errors":  2,
+                                  "last_run_at_ms":  1788224990473,
+                                  "next_run_at_ms":  1788225253447
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -101,29 +113,17 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788224337192,
-                                  "next_run_at_ms":  1788224937192
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "error",
-                                  "last_run_status":  "error",
-                                  "consecutive_errors":  1,
-                                  "last_run_at_ms":  1788224658642,
-                                  "next_run_at_ms":  1788224958642
+                                  "last_run_at_ms":  1788224990461,
+                                  "next_run_at_ms":  1788225590461
                               }
                           ],
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  365,
+                       "cycle":  366,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-08-31T19:05:39.7995423-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-08-31T19:09:48.3888623-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -134,7 +134,7 @@
                      "last_brief":  "20260831-190309-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-08-31T18:59:06.4671322-06:00",
+                      "at":  "2026-08-31T19:09:59.8888964-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -148,20 +148,20 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260831-185940-forge-v4-i316-evaluation.json",
-                              "at":  "2026-08-31T19:00:46.5423230-06:00",
+                              "file":  "20260831-190840-forge-v4-i317-evaluation.json",
+                              "at":  "2026-08-31T19:09:48.2758238-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  316,
+                              "iteration":  317,
                               "verdict":  "REJECT",
-                              "score":  2,
+                              "score":  0,
                               "result":  "",
-                              "failure_count":  5,
-                              "security_finding_count":  3,
+                              "failure_count":  8,
+                              "security_finding_count":  1,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-31T19:07:14.4798048-06:00",
+                        "at":  "2026-08-31T19:09:51.5557021-06:00",
                         "status":  "ERROR",
                         "manifest_id":  "",
                         "stage_path":  "",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "C007D664AA8C2BEBE37B3B8A7E15C87D9CB984102D13847AE026B3D526D87700"
+    "semantic_hash":  "963E0692D1A03713261CAF36715E4732D09434886C090B9AD2D268FB87A5A7FA"
 }
