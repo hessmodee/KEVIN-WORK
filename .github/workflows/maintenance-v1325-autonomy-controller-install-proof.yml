@@ -66,8 +66,13 @@ jobs:
           $end=$t.IndexOf('function Assert-MainAgentCanary',$start)
           if($start -lt 0 -or $end -le $start){throw 'unable to isolate autonomy installer function'}
           $installer=$t.Substring($start,$end-$start)
-          foreach($forbidden in @('kevin_shell','Start-Process cmd.exe','Invoke-Expression')){if($installer.Contains($forbidden)){throw "forbidden installer marker: $forbidden"}}
-          Write-Host 'MAINT_V1325_AUTONOMY_INSTALL_INVARIANTS_PASS'
+          $tokens=$null;$errors=$null
+          $iast=[Management.Automation.Language.Parser]::ParseInput($installer,[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw ('installer AST parse failed: '+$errors[0].Message)}
+          $icmds=@($iast.FindAll({param($n) $n -is [Management.Automation.Language.CommandAst]},$true))
+          $inames=@($icmds|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($forbidden in @('kevin_shell','invoke-expression','iex','cmd.exe','start-process')){if($inames -contains $forbidden){throw "forbidden executable installer command: $forbidden"}}
+          Write-Host "MAINT_V1325_AUTONOMY_INSTALL_INVARIANTS_PASS commands=$($icmds.Count)"
       - name: Verify qualified source identities
         shell: pwsh
         run: |
