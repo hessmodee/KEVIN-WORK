@@ -1,0 +1,87 @@
+name: Maintenance v1.3.20 Autonomy Continuation Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-maintenance-v1320-autonomy-continuation.py'
+      - 'tools/check-maintenance-operation-parity.py'
+      - '.github/workflows/maintenance-v1320-autonomy-continuation-proof.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  proof:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Generate exact v1.3.20 candidate
+        shell: pwsh
+        run: python tools/generate-maintenance-v1320-autonomy-continuation.py
+
+      - name: Parse executable PowerShell and forbid arbitrary eval shell
+        shell: pwsh
+        run: |
+          $p=(Resolve-Path 'control-plane/maintenance/kevin-maintenance-runner-v1.3.20.ps1')
+          $tokens=$null;$errors=$null
+          $ast=[Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw $errors[0].Message}
+          $commands=@($ast.FindAll({param($n) $n -is [Management.Automation.Language.CommandAst]},$true))
+          $names=@($commands|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($forbidden in @('invoke-expression','iex','cmd.exe')){if($names -contains $forbidden){throw "forbidden executable command in AST: $forbidden"}}
+          Write-Host "MAINT_V1320_AST_PASS commands=$($commands.Count)"
+
+      - name: Run full Maintenance self-test
+        shell: pwsh
+        run: |
+          $env:KEVIN_MAINT_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'kevin-maint-v1320-selftest'
+          New-Item -ItemType Directory -Force -Path $env:KEVIN_MAINT_TEST_ROOT|Out-Null
+          & .\control-plane\maintenance\kevin-maintenance-runner-v1.3.20.ps1 -SelfTest
+          if($LASTEXITCODE -ne 0){throw "Maintenance v1.3.20 selftest exit=$LASTEXITCODE"}
+
+      - name: Prove operation-set parity
+        shell: pwsh
+        run: python tools/check-maintenance-operation-parity.py control-plane/maintenance/kevin-maintenance-runner-v1.3.20.ps1
+
+      - name: Assert autonomy continuation invariants
+        shell: pwsh
+        run: |
+          $t=[IO.File]::ReadAllText('control-plane/maintenance/kevin-maintenance-runner-v1.3.20.ps1')
+          foreach($marker in @('ensure_autonomy_continuation_automation','Kevin Autonomy Continuation v1','--every','5m','--session','main','--system-event','KEVIN_CONTINUATION_V1','never re-select already-satisfied work','Do not manufacture Forge/design demand','arbitrary_shell=$false','authority_expansion=$false')){if(-not$t.Contains($marker)){throw "missing autonomy continuation invariant: $marker"}}
+          if($t.Contains("'--command'")){throw 'autonomy continuation must not create a command-payload automation'}
+          Write-Host 'MAINT_V1320_AUTONOMY_CONTINUATION_INVARIANTS_PASS'
+
+      - name: Emit exact qualified identity
+        shell: pwsh
+        run: |
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.20.ps1'
+          $sha=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "MAINT_V1320_CI_PROVEN sha256=$sha"
+          "MAINT_V1320_SHA=$sha" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+      - name: Publish exact qualified candidate
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $repo='hessmodee/KEVIN-WORK';$path='control-plane/maintenance/kevin-maintenance-runner-v1.3.20.ps1'
+          $bytes=[IO.File]::ReadAllBytes($path);$encoded=[Convert]::ToBase64String($bytes);$ok=$false
+          for($attempt=1;$attempt -le 12;$attempt++){
+            $body=[ordered]@{message='Publish CI-proven Maintenance v1.3.20';content=$encoded;branch='main'}
+            $raw=gh api "repos/$repo/contents/$path?ref=main" 2>$null
+            if($LASTEXITCODE -eq 0 -and $raw){$cur=$raw|ConvertFrom-Json;if($cur.sha){$body.sha=[string]$cur.sha}}
+            $tmp=Join-Path $env:RUNNER_TEMP ('v1320-'+$attempt+'.json')
+            [IO.File]::WriteAllText($tmp,($body|ConvertTo-Json -Compress),(New-Object Text.UTF8Encoding($false)))
+            gh api --method PUT "repos/$repo/contents/$path" --input $tmp --silent 2>$null
+            if($LASTEXITCODE -eq 0){$ok=$true;break}
+            Start-Sleep -Seconds 2
+          }
+          if(-not$ok){throw 'v1.3.20 publication exhausted bounded retries'}
+          Write-Host "MAINT_V1320_PUBLISH_ACCEPTED sha256=$env:MAINT_V1320_SHA"
