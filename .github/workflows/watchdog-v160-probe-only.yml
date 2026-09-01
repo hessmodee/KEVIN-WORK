@@ -36,7 +36,8 @@ jobs:
           if($errors.Count){$errors|%{$_.Message};throw 'parser rejected watchdog v1.6.0'}
           if($txt-notmatch'\[switch\]\$ProbeOnly'){throw 'ProbeOnly missing'}
           if($txt-notmatch"maintenance_result = 'SKIPPED_PROBE'"){throw 'probe intake guard missing'}
-          if($txt-notmatch"PROBE_ONLY_' \+ \$class"){throw 'probe terminal missing'}
+          $terminal="if (`$ProbeOnly) { `$s.failure_family = `$class; Save-State `$s ('PROBE_ONLY_' + `$class); exit 0 }"
+          if(-not $txt.Contains($terminal)){throw 'probe terminal missing'}
           if($txt-notmatch"Get-ScheduledTask -TaskName 'KevinGatewayKeeper'"){throw 'Keeper topology missing'}
           $commands=@($ast.FindAll({param($n) $n -is [System.Management.Automation.Language.CommandAst]},$true))
           if(@($commands|?{($_.GetCommandName()) -in @('Invoke-Expression','iex')}).Count){throw 'actual Invoke-Expression detected'}
