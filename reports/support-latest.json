@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-08-31T21:44:12.5074322-06:00",
+    "generated_at":  "2026-08-31T21:47:12.8919409-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788234067933,
-                                  "next_run_at_ms":  1788234247933
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "error",
-                                  "last_run_status":  "error",
-                                  "consecutive_errors":  1,
-                                  "last_run_at_ms":  1788233953460,
-                                  "next_run_at_ms":  1788234253460
+                                  "last_run_at_ms":  1788234247948,
+                                  "next_run_at_ms":  1788234427948
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788234203115,
-                                  "next_run_at_ms":  1788234263115
+                                  "last_run_at_ms":  1788234409534,
+                                  "next_run_at_ms":  1788234469534
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -101,8 +89,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788234145634,
-                                  "next_run_at_ms":  1788234325634
+                                  "last_run_at_ms":  1788234325649,
+                                  "next_run_at_ms":  1788234505649
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "error",
+                                  "last_run_status":  "error",
+                                  "consecutive_errors":  2,
+                                  "last_run_at_ms":  1788234256504,
+                                  "next_run_at_ms":  1788234553447
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -120,10 +120,10 @@
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  382,
+                       "cycle":  383,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_PASS",
-                       "next_eligible_at":  "2026-08-31T21:43:12.6110522-06:00",
+                       "last_result":  "REJECT",
+                       "next_eligible_at":  "2026-08-31T21:46:47.4562642-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -148,20 +148,20 @@
                       "model_status":  "SKIPPED_NOT_DUE"
                   },
     "latest_evaluation":  {
-                              "file":  "20260831-213706-forge-v4-i333-evaluation.json",
-                              "at":  "2026-08-31T21:38:05.6728149-06:00",
+                              "file":  "20260831-214527-forge-v4-i334-evaluation.json",
+                              "at":  "2026-08-31T21:46:47.3412527-06:00",
                               "mission":  "forge-v4",
-                              "iteration":  333,
+                              "iteration":  334,
                               "verdict":  "REJECT",
-                              "score":  2,
+                              "score":  60,
                               "result":  "",
-                              "failure_count":  7,
-                              "security_finding_count":  2,
+                              "failure_count":  5,
+                              "security_finding_count":  1,
                               "has_reusable_lesson":  true,
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-08-31T21:39:14.3242397-06:00",
+                        "at":  "2026-08-31T21:45:14.6121559-06:00",
                         "status":  "ERROR",
                         "manifest_id":  "",
                         "stage_path":  "",
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "0D2B2920137FB0BB17A79191CE4D40F82E57B5BAB075F5E8E2BC84F72A2886A7"
+    "semantic_hash":  "C561C15F4908D3462653F3E47926382D5E48FDF25C544CA65BF3F7D303738B6A"
 }
