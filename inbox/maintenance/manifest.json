@@ -1,17 +1,12 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "install-maintenance-v1338-20260901-1740",
+  "id": "diagnose-gateway-four-probe-v1338-20260901-1744",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "replace_pinned_component",
-  "target_alias": "maintenance_runner",
-  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.38.ps1",
-  "source_sha256": "0AD0A05E3F9DB4F1ED3C07B898B635A28915290D58762D11B63D07751B8B9153",
-  "expected_current_sha256": "AE726C9B2446D12BFB2C9B0ECA1706642B3393E5509B2F6AC1E3DDD5E7ECD742",
-  "expected_after_sha256": "0AD0A05E3F9DB4F1ED3C07B898B635A28915290D58762D11B63D07751B8B9153",
+  "operation": "diagnose_gateway_failure_detail",
   "expires_at": "2026-09-01T20:00:00-06:00"
 }
