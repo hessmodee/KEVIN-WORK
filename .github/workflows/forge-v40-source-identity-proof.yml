@@ -1,0 +1,83 @@
+name: Forge v4 Source Identity Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'control-plane/forge/kevin-design-forge-v4.0.ps1'
+      - '.github/workflows/forge-v40-source-identity-proof.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  proof:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse exact PowerShell source
+        shell: pwsh
+        run: |
+          $p='control-plane/forge/kevin-design-forge-v4.0.ps1'
+          $tokens=$null;$errors=$null
+          [void][Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors.Count){ throw $errors[0].Message }
+          Write-Host 'FORGE_V40_PARSE_PASS'
+      - name: Run isolated Forge self-test
+        shell: pwsh
+        run: |
+          & .\control-plane\forge\kevin-design-forge-v4.0.ps1 -SelfTest
+          if($LASTEXITCODE -ne 0){ throw "Forge self-test exit=$LASTEXITCODE" }
+      - name: Demand-gate regression invariants
+        shell: pwsh
+        run: |
+          $t=[IO.File]::ReadAllText((Resolve-Path 'control-plane/forge/kevin-design-forge-v4.0.ps1'))
+          foreach($m in @(
+            "status='IDLE_NO_ELIGIBLE_DEMAND'",
+            "demand_driven=$true",
+            "round_robin=$false",
+            "if([int]$d.max_attempts-ne3)",
+            "downstream consumer not allowlisted",
+            "production downstream accepted",
+            "unknown command field accepted"
+          )){ if(-not $t.Contains($m)){ throw "missing Forge v4 invariant: $m" } }
+          if($t -match 'MissionContractPath'){ throw 'legacy MissionContractPath interface present in Forge v4' }
+          if($t -match '(?i)Invoke-Expression|kevin_shell|Start-Process\s+cmd\.exe'){ throw 'forbidden arbitrary execution marker' }
+          Write-Host 'FORGE_V40_DEMAND_GATE_PASS'
+      - name: Publish exact qualified identity
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $p='control-plane/forge/kevin-design-forge-v4.0.ps1'
+          $sha=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          $obj=[ordered]@{
+            schema=1
+            kind='kevin-forge-v40-source-identity'
+            generated_at=(Get-Date).ToUniversalTime().ToString('o')
+            state='CI_PROVEN'
+            source_path=$p
+            sha256=$sha
+            demand_driven=$true
+            round_robin=$false
+            max_attempts=3
+            legacy_mission_contract_interface=$false
+            parse_proven=$true
+            selftest_proven=$true
+            authority_delta='NONE'
+            production_promotion=$false
+          }
+          $tmp=Join-Path $env:TEMP 'forge-v40-source-identity.json'
+          [IO.File]::WriteAllText($tmp,($obj|ConvertTo-Json -Depth 10),(New-Object Text.UTF8Encoding($false)))
+          $repo='hessmodee/KEVIN-WORK';$path='reports/forge-v40-source-identity.json'
+          $encoded=[Convert]::ToBase64String([IO.File]::ReadAllBytes($tmp))
+          $lookup=gh api "repos/$repo/contents/$path?ref=main" 2>$null | ConvertFrom-Json
+          $body=[ordered]@{message='kevin Forge v4 qualified source identity';content=$encoded;branch='main'}
+          if($lookup.sha){$body.sha=[string]$lookup.sha}
+          $payload=Join-Path $env:TEMP 'forge-v40-publish.json'
+          [IO.File]::WriteAllText($payload,($body|ConvertTo-Json -Compress),(New-Object Text.UTF8Encoding($false)))
+          gh api --method PUT "repos/$repo/contents/$path" --input $payload --silent
+          if($LASTEXITCODE -ne 0){throw 'Forge v4 identity publish failed'}
+          Write-Host "FORGE_V40_IDENTITY_PROVEN sha256=$sha"
