@@ -62,8 +62,10 @@ jobs:
         shell: pwsh
         run: |
           $t=[IO.File]::ReadAllText('control-plane/autonomy/kevin-supervisor-v1.8.2.ps1')
-          foreach($m in @("Invoke-OpenClaw @('agent', '--json', '--message', $message)",'IDLE_NO_ELIGIBLE_DEMAND','WAIT_UNCHANGED_WORK','COOLDOWN_BUDGET_EXHAUSTED','AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF','model_call_counts_as_accomplishment = $false')){if(-not$t.Contains($m)){throw "missing invariant: $m"}}
-          if($t.Contains("@('agent', '--agent', 'main'")){throw 'explicit main-agent assumption remained'}
+          $defaultInvocation='Invoke-OpenClaw @(''agent'', ''--json'', ''--message'', $message)'
+          $oldInvocation='@(''agent'', ''--agent'', ''main'''
+          foreach($m in @($defaultInvocation,'IDLE_NO_ELIGIBLE_DEMAND','WAIT_UNCHANGED_WORK','COOLDOWN_BUDGET_EXHAUSTED','AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF','model_call_counts_as_accomplishment = $false')){if(-not$t.Contains($m)){throw "missing invariant: $m"}}
+          if($t.Contains($oldInvocation)){throw 'explicit main-agent assumption remained'}
           foreach($forbidden in @('Invoke-Expression','kevin_shell','Start-Process cmd.exe')){if($t.Contains($forbidden)){throw "forbidden marker: $forbidden"}}
           Write-Host 'SUPERVISOR_V182_INVARIANTS_PASS default_agent=true selector_first=true anti_spin=true'
       - name: Emit exact qualified identities
