@@ -1,0 +1,79 @@
+name: Supervisor v1.8.3 Fixed Main Agent Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-supervisor-v183-main-agent.py'
+      - 'control-plane/autonomy/kevin-supervisor-v1.8.2.ps1'
+      - '.github/workflows/supervisor-v183-main-agent-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  proof:
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Generate exact Supervisor v1.8.3
+        run: python tools/generate-supervisor-v183-main-agent.py
+      - name: Parse and self-test Supervisor v1.8.3
+        shell: pwsh
+        run: |
+          $p=(Resolve-Path 'control-plane/autonomy/kevin-supervisor-v1.8.3.ps1')
+          $tokens=$null;$errors=$null
+          $ast=[Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw $errors[0].Message}
+          $commands=@($ast.FindAll({param($n) $n -is [Management.Automation.Language.CommandAst]},$true))
+          $names=@($commands|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($forbidden in @('invoke-expression','iex','kevin_shell','cmd.exe','start-process')){if($names -contains $forbidden){throw "forbidden executable command: $forbidden"}}
+          & $p -SelfTest
+          if($LASTEXITCODE -ne 0){throw "Supervisor v1.8.3 selftest exit=$LASTEXITCODE"}
+      - name: Assert fixed-main routing and anti-spin invariants
+        shell: pwsh
+        run: |
+          $t=[IO.File]::ReadAllText('control-plane/autonomy/kevin-supervisor-v1.8.3.ps1')
+          foreach($m in @(
+            '# Kevin Supervisor v1.8.3 Governed Autonomy Continuation Controller',
+            "version = '1.8.3'",
+            "Invoke-OpenClaw @('skills', 'check', '--agent', 'main', '--json')",
+            "Invoke-OpenClaw @('agent', '--agent', 'main', '--json', '--message', `$message)",
+            'IDLE_NO_ELIGIBLE_DEMAND',
+            'COOLDOWN_BUDGET_EXHAUSTED',
+            'AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF',
+            'A model response, heartbeat, publish commit, cycle, candidate, or hash alone is not an accomplishment.'
+          )){if(-not$t.Contains($m)){throw "missing invariant: $m"}}
+          if($t.Contains("Invoke-OpenClaw @('agent', '--json', '--message', `$message)")){throw 'selectorless Gateway agent turn remains'}
+          Write-Host 'SUPERVISOR_V183_INVARIANTS_PASS fixed_main=true selectorless=false'
+      - name: Emit exact qualified identity
+        shell: pwsh
+        run: |
+          $p='control-plane/autonomy/kevin-supervisor-v1.8.3.ps1'
+          $sha=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "SUPERVISOR_V183_CI_PROVEN sha256=$sha"
+          "SUPERVISOR_V183_SHA=$sha" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      - name: Publish exact candidate
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $repo='hessmodee/KEVIN-WORK';$path='control-plane/autonomy/kevin-supervisor-v1.8.3.ps1'
+          $bytes=[IO.File]::ReadAllBytes($path);$encoded=[Convert]::ToBase64String($bytes);$ok=$false
+          for($attempt=1;$attempt -le 12;$attempt++){
+            $body=[ordered]@{message='Publish CI-proven Supervisor v1.8.3';content=$encoded;branch='main'}
+            $raw=gh api "repos/$repo/contents/$path?ref=main" 2>$null
+            if($LASTEXITCODE -eq 0 -and $raw){$cur=$raw|ConvertFrom-Json;if($cur.sha){$body.sha=[string]$cur.sha}}
+            $tmp=Join-Path $env:RUNNER_TEMP ('v183-'+$attempt+'.json')
+            [IO.File]::WriteAllText($tmp,($body|ConvertTo-Json -Compress),(New-Object Text.UTF8Encoding($false)))
+            gh api --method PUT "repos/$repo/contents/$path" --input $tmp --silent 2>$null
+            if($LASTEXITCODE -eq 0){$ok=$true;break}
+            Start-Sleep -Seconds 2
+          }
+          if(-not$ok){throw 'Supervisor v1.8.3 publication exhausted bounded retries'}
+          Write-Host "SUPERVISOR_V183_PUBLISH_ACCEPTED sha256=$env:SUPERVISOR_V183_SHA"
