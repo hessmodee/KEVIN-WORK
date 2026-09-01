@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-01T10:04:54.1936579-06:00",
+    "generated_at":  "2026-09-01T10:07:54.2218403-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,32 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788278510001,
-                                  "next_run_at_ms":  1788278690001
-                              },
-                              {
-                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
-                                  "declaration_key":  "kevin-hq-live-pulse-v15",
-                                  "name":  "Kevin HQ Live Pulse v1.5",
-                                  "enabled":  true,
-                                  "every_ms":  60000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788278653488,
-                                  "next_run_at_ms":  1788278713488
-                              },
-                              {
-                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
-                                  "declaration_key":  "kevin-supervisor-v1",
-                                  "name":  "Kevin Supervisor v1.6 High Gear",
-                                  "enabled":  true,
-                                  "every_ms":  180000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788278672834,
-                                  "next_run_at_ms":  1788278852834
+                                  "last_run_at_ms":  1788278690017,
+                                  "next_run_at_ms":  1788278870017
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -105,6 +81,18 @@
                                   "next_run_at_ms":  1788278876738
                               },
                               {
+                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
+                                  "declaration_key":  "kevin-hq-live-pulse-v15",
+                                  "name":  "Kevin HQ Live Pulse v1.5",
+                                  "enabled":  true,
+                                  "every_ms":  60000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788278833530,
+                                  "next_run_at_ms":  1788278893530
+                              },
+                              {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
                                   "declaration_key":  "kevin-maintenance-intake-v1",
                                   "name":  "Kevin Maintenance Intake v1.1d",
@@ -115,6 +103,18 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788278658848,
                                   "next_run_at_ms":  1788278958848
+                              },
+                              {
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.6 High Gear",
+                                  "enabled":  true,
+                                  "every_ms":  180000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788278852847,
+                                  "next_run_at_ms":  1788279032847
                               }
                           ],
                  "error":  ""
@@ -123,7 +123,7 @@
                        "cycle":  449,
                        "last_mission":  "",
                        "last_result":  "NO_ELIGIBLE_MISSION",
-                       "next_eligible_at":  "2026-09-01T10:07:34.1798221-06:00",
+                       "next_eligible_at":  "2026-09-01T10:10:34.1866442-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -161,11 +161,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-09-01T10:04:19.7839477-06:00",
-                        "status":  "BLOCKED_FAILURE_BUDGET",
-                        "manifest_id":  "run-main-agent-canary-20260901-0922",
+                        "at":  "2026-09-01T10:07:14.3671995-06:00",
+                        "status":  "ERROR",
+                        "manifest_id":  "",
                         "stage_path":  "",
-                        "detail":  "Failure budget exhausted."
+                        "detail":  "manifest expired"
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "889852445B7DD53FBC07D82C9A48FD419610DBEB3477A3763247CD69808B49D2"
+    "semantic_hash":  "C0073AA27CE9ED045E8DE2D0124D49D3E628C2E6AE92EE117D4A512CBE2DED39"
 }
