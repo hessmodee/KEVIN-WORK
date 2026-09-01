@@ -49,9 +49,10 @@ once(
 old_marker = "    Write-Host 'KEVIN MAINTENANCE v1.3.32 SELFTEST PASS gateway_listener_pid_collision=false native_npm_cli=true partial_install_rollback=true fixed_listener_identity_check=true rollback=true arbitrary_shell=false authority_expansion=false'"
 new_marker = """    Write-Host 'KEVIN MAINTENANCE v1.3.32 SELFTEST PASS gateway_listener_pid_collision=false native_npm_cli=true partial_install_rollback=true fixed_listener_identity_check=true rollback=true arbitrary_shell=false authority_expansion=false'
     $wp=(Get-Command Run-SelfRelianceWatchdogOnce).ScriptBlock.ToString()
+    if(-not $wp.Contains("'-SelfTest'")){throw 'watchdog fixed self-test invocation missing'}
     if(-not $wp.Contains("'-ProbeOnly'")){throw 'watchdog ProbeOnly invocation missing'}
-    if($wp -notmatch 'implementation=v1\\.6\\.0'){throw 'watchdog v1.6.0 contract gate missing'}
-    if($wp -notmatch 'ProbeOnly run failed'){throw 'watchdog ProbeOnly terminal guard missing'}
+    if(-not $wp.Contains('installed watchdog does not prove ProbeOnly v1.6.0 contract')){throw 'watchdog v1.6.0 contract guard missing'}
+    if(-not $wp.Contains('self-reliance watchdog ProbeOnly run failed')){throw 'watchdog ProbeOnly terminal guard missing'}
     Write-Host 'KEVIN MAINTENANCE v1.3.33 SELFTEST PASS watchdog_probe=v1.6.0 probe_no_intake=true probe_no_restart=true classifier_proof=true native_npm_cli=true package_rollback=true arbitrary_shell=false authority_expansion=false'"""
 once(old_marker, new_marker, 'selftest')
 
