@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-01T07:01:15.2179280-06:00",
+    "generated_at":  "2026-09-01T07:04:15.0656862-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -11,7 +11,7 @@
                    "goal_os":  "B20C7AC8EDC35C656ED544C4D13D3EB4FF4A79453AF0F49BD60B7DF31092AEF0",
                    "promotion_policy":  "0A10B3C1F379EDAEC7D0AA1C227A46990C8CE80D6FDC5D9C04B67EB8AA26952E",
                    "support_bridge":  "E72A2A635326CF1AB036404E64E274D2F56CE79CA5CEB268DBF9B2EA4B67BEA5",
-                   "maintenance_runner":  "2DBE9FD6A93779CCB26C6BA5A13EBE94EEA56F0BFB3052C58E08B65F2526F8AF"
+                   "maintenance_runner":  "667BBFD034F33E7EE95E887B0AB5FFF9742092B9FB7F25A127F160CE0772AAA2"
                },
     "governance":  {
                        "ok":  true,
@@ -65,32 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788267490762,
-                                  "next_run_at_ms":  1788267670762
-                              },
-                              {
-                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
-                                  "declaration_key":  "kevin-hq-live-pulse-v15",
-                                  "name":  "Kevin HQ Live Pulse v1.5",
-                                  "enabled":  true,
-                                  "every_ms":  60000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788267652693,
-                                  "next_run_at_ms":  1788267695343
-                              },
-                              {
-                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
-                                  "declaration_key":  "kevin-supervisor-v1",
-                                  "name":  "Kevin Supervisor v1.6 High Gear",
-                                  "enabled":  true,
-                                  "every_ms":  180000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788267551959,
-                                  "next_run_at_ms":  1788267731959
+                                  "last_run_at_ms":  1788267670776,
+                                  "next_run_at_ms":  1788267850776
                               },
                               {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
@@ -103,6 +79,30 @@
                                   "consecutive_errors":  3,
                                   "last_run_at_ms":  1788267555644,
                                   "next_run_at_ms":  1788267856619
+                              },
+                              {
+                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
+                                  "declaration_key":  "kevin-hq-live-pulse-v15",
+                                  "name":  "Kevin HQ Live Pulse v1.5",
+                                  "enabled":  true,
+                                  "every_ms":  60000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788267834783,
+                                  "next_run_at_ms":  1788267894783
+                              },
+                              {
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.6 High Gear",
+                                  "enabled":  true,
+                                  "every_ms":  180000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788267731970,
+                                  "next_run_at_ms":  1788267911970
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -122,8 +122,8 @@
     "supervisor":  {
                        "cycle":  448,
                        "last_mission":  "forge-v4",
-                       "last_result":  "RECOVERY_THROTTLED",
-                       "next_eligible_at":  "2026-09-01T06:59:13.5588675-06:00",
+                       "last_result":  "FORGE_FAIL",
+                       "next_eligible_at":  "2026-09-01T07:03:52.7119205-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -134,7 +134,7 @@
                      "last_brief":  "20260901-065643-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-09-01T06:57:47.9187058-06:00",
+                      "at":  "2026-09-01T07:03:25.2114584-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -161,11 +161,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-09-01T06:59:16.5509174-06:00",
-                        "status":  "ERROR",
-                        "manifest_id":  "",
+                        "at":  "2026-09-01T07:03:25.3364108-06:00",
+                        "status":  "APPLIED_PREAUTHORIZED_PROVEN",
+                        "manifest_id":  "install-maintenance-v1317-parity-20260901-0701",
                         "stage_path":  "",
-                        "detail":  "operation not allowlisted"
+                        "detail":  "Applied/audited and independently verified."
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "9EB4EC5A9BB4A667725FAE433E03825F4817A45ECA8D192BD57F01AEAA3A510E"
+    "semantic_hash":  "67DEB9C2E917A92928166D0E065D8367CEC26904CE109F59DB19F85C33516791"
 }
