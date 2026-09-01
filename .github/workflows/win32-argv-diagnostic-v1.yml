@@ -1,0 +1,27 @@
+name: Win32 argv diagnostic v1
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/win32-argv-diagnostic-v1.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 200
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Generate exact candidate
+        shell: pwsh
+        run: |
+          $src='control-plane/maintenance/kevin-maintenance-runner-v1.3.37.ps1';$expected='17016BF56F7BBFEE6A0718A26E0729837507E4B556CA30DE395BC32D2383A765';git fetch origin main --depth=300;$found='';foreach($c in @(git log --format=%H -- $src|Select-Object -First 60)){git checkout $c -- $src;if($LASTEXITCODE-ne0){continue};if((Get-FileHash $src -Algorithm SHA256).Hash.ToUpperInvariant()-eq$expected){$found=$c;break}};if(-not$found){throw 'parent not found'};python tools/generate-maintenance-v1338-convergence-v2.py;if($LASTEXITCODE-ne0){throw 'generation failed'}
+      - name: Print exact encoded argv boundary PS5.1
+        shell: powershell
+        run: |
+          $repo=$PWD.Path;$p=Join-Path $repo 'control-plane/maintenance/kevin-maintenance-runner-v1.3.38.ps1';$tokens=$null;$errors=$null;$ast=[Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors);foreach($name in @('ConvertTo-FixedWin32Arg','Invoke-FixedNativeBounded')){$nodes=@($ast.FindAll({param($n)$n-is[Management.Automation.Language.FunctionDefinitionAst]-and$n.Name-eq$name},$true));$def=$nodes[0].Extent.Text-replace('^function\s+'+[regex]::Escape($name)),('function script:'+$name);.([scriptblock]::Create($def))};$literal=@('with spaces','literal "quotes"','dollar $value','semi;colon','amp&ersand','C:\folder with space\','');$encoded=@($literal|%{ConvertTo-FixedWin32Arg ([string]$_)});Write-Host ('EXPECTED_JSON='+(ConvertTo-Json @($literal) -Compress));Write-Host ('ENCODED_JSON='+(ConvertTo-Json @($encoded) -Compress));Write-Host ('COMMANDLINE='+($encoded-join' '));$node=(Get-Command node -ErrorAction Stop).Source;$fixture=Join-Path $repo 'tools/fixtures/echo-argv.cjs';$r=Invoke-FixedNativeBounded $node (@($fixture)+$literal) 15;Write-Host ('EXIT='+$r.exit_code);Write-Host ('RECEIVED_JSON='+$r.output);$got=@($r.output|ConvertFrom-Json);Write-Host ('EXPECTED_COUNT='+$literal.Count+' RECEIVED_COUNT='+$got.Count)
