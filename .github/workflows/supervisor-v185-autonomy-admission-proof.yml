@@ -1,0 +1,79 @@
+name: Supervisor v1.8.5 Autonomy Admission Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'control-plane/autonomy/kevin-supervisor-v1.8.5.ps1'
+      - 'control-plane/autonomy/kevin-work-selector-v1.1.py'
+      - 'control-plane/autonomy/standing-programs-v1.json'
+      - 'control-plane/autonomy/failure-families-v1.json'
+      - 'inbox/autonomy/work-items.json'
+      - 'inbox/autonomy/state.json'
+      - '.github/workflows/supervisor-v185-autonomy-admission-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Exact qualified source identities
+        shell: pwsh
+        run: |
+          $sup=(Get-FileHash 'control-plane/autonomy/kevin-supervisor-v1.8.5.ps1' -Algorithm SHA256).Hash.ToUpperInvariant()
+          $sel=(Get-FileHash 'control-plane/autonomy/kevin-work-selector-v1.1.py' -Algorithm SHA256).Hash.ToUpperInvariant()
+          if($sup-ne'C3F781E4F722AF691D2B47A9CD0F06A4F6AD3134A826C5D657B9ED9D5AEBC400'){throw "Supervisor identity mismatch $sup"}
+          if($sel-ne'9DF1F770E8855232758AC275FA2D3A82C6D484099B5B2D2185A999ACDE185DE4'){throw "Selector identity mismatch $sel"}
+          Write-Host "QUALIFIED_IDENTITIES supervisor=$sup selector=$sel"
+
+      - name: Supervisor parser and authority boundary
+        shell: pwsh
+        run: |
+          $p='control-plane/autonomy/kevin-supervisor-v1.8.5.ps1'
+          $tokens=$null;$errors=$null;$ast=[Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw $errors[0].Message}
+          $commands=@($ast.FindAll({param($n)$n-is[Management.Automation.Language.CommandAst]},$true)|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($bad in @('invoke-expression','iex','cmd.exe','kevin_shell')){if($commands-contains$bad){throw "forbidden command $bad"}}
+          $badArgs=@($ast.FindAll({param($n)$n-is[Management.Automation.Language.ParameterAst]-and$n.Name.VariablePath.UserPath-eq'args'},$true))
+          if($badArgs.Count){throw 'automatic Args parameter regressed'}
+          $t=[IO.File]::ReadAllText($p)
+          foreach($m in @('version = ''1.8.5''','authority_effect = ''NONE_CONTROLLER_ONLY''','model_call_counts_as_accomplishment = $false','kevin-work-selector-v1.1.py')){if(-not$t.Contains($m)){throw "missing controller invariant $m"}}
+
+      - name: Supervisor self-test PS5.1
+        shell: powershell
+        run: |
+          & .\control-plane\autonomy\kevin-supervisor-v1.8.5.ps1 -SelfTest
+          if($LASTEXITCODE-ne0){throw 'Supervisor PS5.1 selftest failed'}
+
+      - name: Supervisor self-test PS7
+        shell: pwsh
+        run: |
+          & .\control-plane\autonomy\kevin-supervisor-v1.8.5.ps1 -SelfTest
+          if($LASTEXITCODE-ne0){throw 'Supervisor PS7 selftest failed'}
+
+      - name: Selector self-test
+        shell: pwsh
+        run: |
+          python control-plane/autonomy/kevin-work-selector-v1.1.py --selftest
+          if($LASTEXITCODE-ne0){throw 'Selector selftest failed'}
+
+      - name: Current queue false-idle regression
+        shell: pwsh
+        run: |
+          $out=python control-plane/autonomy/kevin-work-selector-v1.1.py --programs control-plane/autonomy/standing-programs-v1.json --items inbox/autonomy/work-items.json --state inbox/autonomy/state.json --failure-families control-plane/autonomy/failure-families-v1.json --now 2026-09-02T00:02:00Z
+          if($LASTEXITCODE-ne0){throw 'Current queue selector execution failed'}
+          $j=$out|ConvertFrom-Json
+          if($j.status-ne'SELECTED'){throw 'False-idle regression: current queue returned no eligible work'}
+          if($j.selection.id-ne'hq-direct-chat-real-roundtrip'){throw ('Unexpected current selection '+[string]$j.selection.id)}
+          if($j.selection.lane-ne'production'){throw 'Expected production selection'}
+          if($j.authority_effect-ne'NONE_SELECTION_ONLY'){throw 'Selector authority boundary changed'}
+          Write-Host ('FALSE_IDLE_REGRESSION_PASS selected='+$j.selection.id+' eligible='+$j.eligible_count+' score='+$j.selection.score)
