@@ -1,9 +1,42 @@
 {
-  "schema": 1,
-  "kind": "kevin-reader-canary-public",
-  "generated_at": null,
-  "state": "NOT_RUN",
-  "safe_for_public_repo": true,
-  "pass_k": "0/2",
-  "truth_boundary": "Placeholder for the fixed metadata-only Omen Reader canary. No raw model text, tool output, paths, ports, usernames, prompts, or secrets are published."
+    "schema":  1,
+    "kind":  "kevin-reader-canary-public",
+    "generated_at":  "2026-09-02T08:02:30.7382354-06:00",
+    "state":  "REPEATEDLY_PROVEN",
+    "safe_for_public_repo":  true,
+    "pass_k":  "2/2",
+    "gateway_probe_ok":  true,
+    "reader_profile":  "fixed:reader",
+    "reader_agent":  "fixed:kevin-reader",
+    "allowed_tool":  "kevin_system_status",
+    "expected_tool_calls_per_trial":  1,
+    "trials":  [
+                   {
+                       "trial":  1,
+                       "status":  "ok",
+                       "tool_calls":  1,
+                       "tool_failures":  0,
+                       "visible_tool_count":  1,
+                       "visible_tool_boundary_ok":  true,
+                       "semantic_ok":  true,
+                       "privacy_ok":  true,
+                       "required_categories":  6,
+                       "duration_ms":  33520,
+                       "output_sha256":  "0AA34ED6C66AFDAD5886560893FE76127E61F4FDACBEEBF0250FC7F9BF68166D"
+                   },
+                   {
+                       "trial":  2,
+                       "status":  "ok",
+                       "tool_calls":  1,
+                       "tool_failures":  0,
+                       "visible_tool_count":  1,
+                       "visible_tool_boundary_ok":  true,
+                       "semantic_ok":  true,
+                       "privacy_ok":  true,
+                       "required_categories":  6,
+                       "duration_ms":  23937,
+                       "output_sha256":  "2536E5D20015BFF5F3AEEC95408CD7E833614867485F436BBFA79CCCEF780EC4"
+                   }
+               ],
+    "truth_boundary":  "Two real fixed Reader agent turns on the Omen. Receipt contains metadata and output hashes only; no raw model text/tool output, paths, usernames, ports, configuration, prompts, or secrets."
 }
