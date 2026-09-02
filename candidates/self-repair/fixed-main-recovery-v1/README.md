@@ -1,0 +1,75 @@
+# Fixed:main recovery candidate v1
+
+Status: **CANDIDATE ONLY — NO PRODUCTION EFFECT**
+Authority delta: **NONE**
+Consumer: current P1 autonomy-debt retirement for fixed:main context/compaction and tool-policy drift.
+
+## Why this exists
+
+The 2026-09-02 owner repair proved a narrow known-good fixed:main configuration:
+
+- `ollama-chat-16k/qwen2.5:14b`
+- provider/model `contextTokens=16384`
+- Ollama `params.num_ctx=16384`
+- `agents.defaults.compaction.reserveTokensFloor=2048`
+- `agents.defaults.compaction.reserveTokens=2048`
+- `agents.defaults.compaction.keepRecentTokens=4000`
+
+A fresh main session replied normally and manual compaction succeeded, but the repair still required outside diagnosis/owner terminal execution. The same fresh `/context detail` also proved the session's effective tool inventory was empty.
+
+This package turns the repeated reasoning into deterministic candidate code that Kevin can later consume through a governed typed repair. It does **not** edit a config, run OpenClaw, rebaseline Benchmark, restart Gateway, or grant tools.
+
+## Contract
+
+`contract.py` provides pure functions only:
+
+1. classify a supplied OpenClaw JSON object against the known fixed:main contract;
+2. decide whether the exact known compaction repair is safe to propose;
+3. produce only the two known `config set` intents when the corresponding values are absent;
+4. reject unknown/non-target values rather than overwriting them;
+5. calculate semantic leaf differences while ignoring only benign OpenClaw metadata touch fields;
+6. prove a before/after diff contains no unrelated semantic mutation;
+7. classify root/per-main tool policy surfaces without claiming runtime-effective inventory.
+
+The code intentionally does not accept a caller-selected filesystem path or command.
+
+## Required future live wrapper
+
+Before this candidate can become an installed Kevin repair path, a Windows/OpenClaw wrapper must hard-code the active config location and:
+
+- verify pre-change SHA256 and an exact backup;
+- use redacted/fixed `openclaw config get` and `config.schema.lookup` where applicable;
+- dry-run each config mutation;
+- run full config validation;
+- verify semantic leaf diff;
+- rollback exact bytes on any mismatch;
+- prove a new fixed:main turn and successful `sessions.compact` or equivalent current compaction path;
+- reconcile Benchmark R04 through the fixed governed baseline contract;
+- require fresh Benchmark 30/30 and Support evidence.
+
+For tool-policy work, the live wrapper must additionally inspect `tools.catalog`/`tools.effective` where supported, prove the exact session-effective inventory, and run allowed + forbidden negative tests. This candidate does **not** authorize a tool grant.
+
+## Failure-budget rule
+
+Do not rename this candidate or failure family to reset retries. The family is:
+
+`fixed_main_context_overflow_compaction_budget`
+
+Unknown model/provider/context/reserve values are a new diagnostic condition, not permission to force the known repair.
+
+## Candidate safety hardening — 2026-09-02
+
+An independent review reproduced nine failing safety assertions on commit f092c891a68b3c943c03aa4b1276ace823fa35a8 while its original ten tests passed. Fractional/numeric-string reserves were coerced to expected integers, explicit null was treated as absence, and flattened semantic paths/values could hide unrelated changes (boolean vs integer, empty container vs sentinel string, dotted/index-like keys).
+
+The candidate now uses exact integer types, explicit field presence, typed path segments and typed leaf values. Thirteen additional tests retain these negatives and cover non-finite values, context types and forged allowed-path names. CI discovers both test modules; no original acceptance test was removed.
+
+This closes the demonstrated pure-function defects only. The fixture's OpenClaw field layout still needs qualification against the installed 2026.7.1-2 schema and sanitized exact-current configuration. Authored tool-policy counts are not session-effective inventory. There is no production wrapper, baseline change, tool grant, runtime installation, or responsibility-transfer promotion.
+
+
+## Tool-policy evidence hardening — 2026-09-02
+
+A follow-up review against current official OpenClaw tool-policy documentation added five test methods with multiple negative subcases. The candidate now rejects malformed root, per-main, provider, sender and sandbox policy objects; unsupported profile values; and simultaneous allow/alsoAllow keys even when their lists are empty. It distinguishes an explicitly empty policy object from an absent scope and records provider/sender/sandbox presence without claiming session-effective availability.
+
+The follow-up was developed on post-merge branch commit 3b095f5e33a5c11dcd41b637f2bf34c5fd467ee9 after PR37's earlier23-test source had already merged. Exact source hashes were CI-proven in run33685149497 across Linux/Windows and Python3.12/3.13 before this source-only main update.
+
+The candidate still cannot determine effective tools from authored config alone. The installed runtime's provider/model, per-turn sender/channel, sandbox, plugin state and actual inventory must be correlated in a fixed read-only receipt. No tool policy is changed or widened by this code.

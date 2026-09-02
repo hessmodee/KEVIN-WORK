@@ -1,0 +1,81 @@
+name: R04 Production Config Rebaseline v1 Proof
+
+on:
+  push:
+    paths:
+      - 'candidates/maintenance/r04-production-config-rebaseline-v1/**'
+      - '.github/workflows/r04-production-config-rebaseline-v1-proof.yml'
+  pull_request:
+    paths:
+      - 'candidates/maintenance/r04-production-config-rebaseline-v1/**'
+      - '.github/workflows/r04-production-config-rebaseline-v1-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.12', '3.13']
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Run pure one-leaf contract tests
+        working-directory: candidates/maintenance/r04-production-config-rebaseline-v1
+        shell: pwsh
+        run: |
+          python -m unittest discover -v -p 'test*.py'
+          if($LASTEXITCODE -ne 0){ throw 'R04 pure contract tests failed' }
+          python -m py_compile contract.py test_contract.py
+          if($LASTEXITCODE -ne 0){ throw 'R04 pure contract compile failed' }
+      - name: Reject broad authority surfaces in pure contract
+        shell: pwsh
+        run: |
+          $code=Get-Content 'candidates/maintenance/r04-production-config-rebaseline-v1/contract.py' -Raw
+          foreach($pattern in @(
+            '(?m)^\s*(?:from\s+subprocess\s+import|import\s+subprocess\b)',
+            '(?m)^\s*(?:from\s+requests\s+import|import\s+requests\b)',
+            '(?m)^\s*(?:from\s+socket\s+import|import\s+socket\b)',
+            '\bos\.system\s*\(', '\bPopen\s*\(', '\beval\s*\(', '\bexec\s*\('
+          )) { if($code -match $pattern){ throw "forbidden pure-contract surface: $pattern" } }
+          Write-Host 'PURE_CONTRACT_AUTHORITY_PASS production_effect=NONE'
+
+  powershell:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse PowerShell candidate
+        shell: powershell
+        run: |
+          $path='candidates/maintenance/r04-production-config-rebaseline-v1/kevin-r04-production-config-rebaseline-v1.ps1'
+          $tokens=$null; $errors=$null
+          [void][Management.Automation.Language.Parser]::ParseFile($path,[ref]$tokens,[ref]$errors)
+          if($errors.Count){ throw ('PowerShell parser rejected R04 candidate: '+$errors[0].Message) }
+          Write-Host 'POWERSHELL_PARSE_PASS'
+      - name: Run candidate in-memory self-test on Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'candidates/maintenance/r04-production-config-rebaseline-v1/kevin-r04-production-config-rebaseline-v1.ps1' -SelfTest
+          if($LASTEXITCODE -ne 0){ throw 'R04 PowerShell self-test failed' }
+      - name: Enforce fixed mutation boundary
+        shell: powershell
+        run: |
+          $path='candidates/maintenance/r04-production-config-rebaseline-v1/kevin-r04-production-config-rebaseline-v1.ps1'
+          $code=Get-Content $path -Raw
+          foreach($bad in @('Invoke-Expression','kevin_shell','cmd.exe','gh.exe','git.exe','Invoke-WebRequest','Invoke-RestMethod','Start-Process')) {
+            if($code.Contains($bad)){ throw "forbidden R04 implementation surface: $bad" }
+          }
+          if($code -notmatch "hashes\.production_config") { throw 'target leaf marker missing' }
+          if($code -notmatch 'R04 post-change Benchmark not 30/30 critical0') { throw 'fresh 30/30 postcondition missing' }
+          if($code -notmatch 'exact baseline rollback completed') { throw 'rollback marker missing' }
+          if($code -match '(?i)param\([^)]*Path' -or $code -match '(?i)param\([^)]*Command') { throw 'caller-selected path/command parameter introduced' }
+          Write-Host 'R04_FIXED_BOUNDARY_PASS target=baseline.hashes.production_config rollback=true arbitrary_path=false arbitrary_command=false'
