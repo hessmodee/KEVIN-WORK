@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-01T18:23:10.6392005-06:00",
+    "generated_at":  "2026-09-01T18:26:14.0941271-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -57,18 +57,6 @@
                  "ok":  true,
                  "jobs":  [
                               {
-                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
-                                  "declaration_key":  "kevin-supervisor-v1",
-                                  "name":  "Kevin Supervisor v1.6 High Gear",
-                                  "enabled":  true,
-                                  "every_ms":  180000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788308406094,
-                                  "next_run_at_ms":  1788308586094
-                              },
-                              {
                                   "id":  "88a986b2-9ab8-4fe7-a738-d7e52930b1d5",
                                   "declaration_key":  "kevin-support-bridge-v1",
                                   "name":  "Kevin Support Bridge v1.1d",
@@ -77,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788308406105,
-                                  "next_run_at_ms":  1788308586105
+                                  "last_run_at_ms":  1788308586126,
+                                  "next_run_at_ms":  1788308766126
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,8 +77,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788308526123,
-                                  "next_run_at_ms":  1788308586123
+                                  "last_run_at_ms":  1788308724944,
+                                  "next_run_at_ms":  1788308784944
+                              },
+                              {
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.6 High Gear",
+                                  "enabled":  true,
+                                  "every_ms":  180000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788308766131,
+                                  "next_run_at_ms":  1788308946131
                               },
                               {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
@@ -101,8 +101,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788308360986,
-                                  "next_run_at_ms":  1788308660986
+                                  "last_run_at_ms":  1788308664913,
+                                  "next_run_at_ms":  1788308964913
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -123,7 +123,7 @@
                        "cycle":  449,
                        "last_mission":  "",
                        "last_result":  "NO_ELIGIBLE_MISSION",
-                       "next_eligible_at":  "2026-09-01T18:26:07.5920503-06:00",
+                       "next_eligible_at":  "2026-09-01T18:29:07.4887292-06:00",
                        "last_iteration":  0,
                        "consecutive_failures":  0
                    },
@@ -134,7 +134,7 @@
                      "last_brief":  "20260901-070846-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-09-01T18:20:04.0141879-06:00",
+                      "at":  "2026-09-01T18:23:39.3355204-06:00",
                       "status":  "PASS",
                       "regression":  {
                                          "passed":  30,
@@ -161,11 +161,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-09-01T18:19:52.9626308-06:00",
-                        "status":  "APPLY_FAILED",
+                        "at":  "2026-09-01T18:24:25.8551453-06:00",
+                        "status":  "BLOCKED_FAILURE_BUDGET",
                         "manifest_id":  "main-agent-canary-v1340-20260901-1817",
                         "stage_path":  "",
-                        "detail":  "main-agent canary semantic contract rejected"
+                        "detail":  "Failure budget exhausted."
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "548EF96BBC1037F2E785620A3C08717AA4C7E582D7A37246A3FF5F9C96364071"
+    "semantic_hash":  "119DDCBE5EC024BCBB5101A178FA29D4A5C8A354BE196DCF584412560ABE7F9F"
 }
