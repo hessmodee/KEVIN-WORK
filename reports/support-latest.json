@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-01T22:34:28.8459144-06:00",
+    "generated_at":  "2026-09-01T22:37:30.3230459-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788323483364,
-                                  "next_run_at_ms":  1788323663364
+                                  "last_run_at_ms":  1788323663382,
+                                  "next_run_at_ms":  1788323843382
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,20 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788323633979,
-                                  "next_run_at_ms":  1788323693979
-                              },
-                              {
-                                  "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
-                                  "declaration_key":  "kevin-benchmark-v1",
-                                  "name":  "Kevin Benchmark v1.1c",
-                                  "enabled":  true,
-                                  "every_ms":  600000,
-                                  "last_status":  "error",
-                                  "last_run_status":  "error",
-                                  "consecutive_errors":  1,
-                                  "last_run_at_ms":  1788323213828,
-                                  "next_run_at_ms":  1788323813828
+                                  "last_run_at_ms":  1788323827323,
+                                  "next_run_at_ms":  1788323887323
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -115,6 +103,18 @@
                                   "consecutive_errors":  4,
                                   "last_run_at_ms":  1788323361029,
                                   "next_run_at_ms":  1788324262076
+                              },
+                              {
+                                  "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
+                                  "declaration_key":  "kevin-benchmark-v1",
+                                  "name":  "Kevin Benchmark v1.1c",
+                                  "enabled":  true,
+                                  "every_ms":  600000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788323813841,
+                                  "next_run_at_ms":  1788324412498
                               }
                           ],
                  "error":  ""
@@ -134,20 +134,15 @@
                      "last_brief":  "20260901-070846-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-09-01T22:27:05.2692381-06:00",
-                      "status":  "FAIL_CRITICAL_REGRESSION",
+                      "at":  "2026-09-01T22:37:05.2054733-06:00",
+                      "status":  "PASS",
                       "regression":  {
-                                         "passed":  29,
+                                         "passed":  30,
                                          "total":  30,
-                                         "percent":  96.7,
-                                         "critical_failures":  1,
+                                         "percent":  100,
+                                         "critical_failures":  0,
                                          "failed":  [
-                                                        {
-                                                            "id":  "R05",
-                                                            "category":  "config",
-                                                            "critical":  true,
-                                                            "detail":  "Reader config frozen"
-                                                        }
+
                                                     ]
                                      },
                       "model_status":  "SKIPPED_NOT_DUE"
@@ -166,7 +161,7 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-09-01T22:31:08.1238026-06:00",
+                        "at":  "2026-09-01T22:37:10.1550399-06:00",
                         "status":  "ERROR",
                         "manifest_id":  "",
                         "stage_path":  "",
@@ -174,9 +169,9 @@
                     },
     "active_workers":  {
                            "design_forge":  0,
-                           "night_forge":  0,
+                           "night_forge":  1,
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "F1CD4E063F0FCED4850C83D77E90868B6BCDFAFD77E08693840C60CDE56F78C4"
+    "semantic_hash":  "401F2614D809548EE011BCAE459F0D4B264FD095EEE871480D5FEE368B23A94D"
 }
