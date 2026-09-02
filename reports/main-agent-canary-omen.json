@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-main-agent-canary-public",
-    "generated_at":  "2026-09-01T19:15:10.7201203-06:00",
+    "generated_at":  "2026-09-01T21:08:10.9275831-06:00",
     "state":  "REJECT",
     "safe_for_public_repo":  true,
     "gateway_probe_ok":  true,
@@ -10,14 +10,14 @@
     "failure_stage":  "semantic_contract",
     "canary_shape":  {
                          "schema":  1,
-                         "final_length":  145,
+                         "final_length":  127,
                          "final_exact_case_sensitive":  false,
-                         "final_contains_expected":  true,
+                         "final_contains_expected":  false,
                          "final_has_think_tags":  false,
                          "final_empty":  false,
-                         "tool_evidence_present":  true,
-                         "tool_evidence_calls":  0,
-                         "tool_evidence_source":  "CORRELATED_LOCAL_TRANSCRIPT",
+                         "tool_evidence_present":  false,
+                         "tool_evidence_calls":  null,
+                         "tool_evidence_source":  "ABSENT",
                          "fields":  [
                                         {
                                             "path":  "final",
@@ -40,7 +40,7 @@
                                         {
                                             "path":  "result.meta.finalAssistantVisibleText",
                                             "kind":  "STRING",
-                                            "size":  145,
+                                            "size":  127,
                                             "exact":  false
                                         },
                                         {
@@ -78,30 +78,35 @@
                          "thinking":  "off",
                          "transcript":  {
                                             "present":  true,
-                                            "complete":  true,
+                                            "complete":  false,
                                             "tool_calls":  0,
-                                            "user_messages":  1,
+                                            "user_messages":  0,
                                             "assistant_messages":  1,
                                             "final_exact":  false,
-                                            "failure":  "",
-                                            "sha256":  "0AA45B4DD4F7AC806D3ABAEC8D6B75FE44986509D07DF76566D77FE0F08BA6CB"
+                                            "failure":  "TRANSCRIPT_INCOMPLETE_OR_UNCORRELATED",
+                                            "sha256":  "D2A914584F05A07EC0F00676AEF887A981AC9F855BA98844A6F08966DA0B7CB7",
+                                            "provider":  "ollama-chat",
+                                            "model_id":  "qwen2.5:14b"
                                         },
                          "qwen_soft_no_think":  true,
                          "final_last_line_exact":  false,
                          "final_line_count":  1,
                          "reasoning_preface":  false,
-                         "qwen_model_reported":  false
+                         "qwen_model_reported":  true,
+                         "resolved_model_id":  "qwen2.5:14b",
+                         "resolved_provider":  "ollama-chat",
+                         "hypothesis":  "main-qwen-pin-20260901"
                      },
-    "runner_version":  "1.3.43",
+    "runner_version":  "1.3.43+modelid",
     "status":  "ok",
     "exact_expected_reply":  false,
-    "tool_calls":  0,
-    "visible_tool_count":  8,
-    "visible_tool_names_sha256":  "EB003D1781978C34F4003B30A674E39411E30D5298218E702828C061EE0640C4",
+    "tool_calls":  null,
+    "visible_tool_count":  0,
+    "visible_tool_names_sha256":  "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
     "visible_kevin_tool_count":  0,
     "has_kevin_system_status":  false,
-    "duration_ms":  16975,
-    "output_sha256":  "165031011512EB1B0B52548591518BEA02ED79EEBD5C51E44A64E60B55DF36D0",
+    "duration_ms":  25366,
+    "output_sha256":  "3C9BD342FA050017F16FF421A1288D97BE4F116174831E0A55A351C336112B4B",
     "source_contract":  "One fixed Gateway-backed OpenClaw fixed-main-agent turn. No caller-selected prompt, agent id, profile, command, argv, path, recipient, or authority.",
     "truth_boundary":  "Metadata-only proof of one real fixed-main-agent turn and its prompt-reported visible tool surface. Raw prompt, model text, CLI output, tool output, tool names list, configuration, paths, usernames, ports, credentials, and secrets are not published."
 }
