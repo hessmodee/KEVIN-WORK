@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   proof:
@@ -78,4 +78,20 @@ jobs:
           $p='control-plane/autonomy/kevin-supervisor-v1.8.6.ps1';$t=[IO.File]::ReadAllText($p)
           foreach($m in @('WORK-CONSERVATION PASS','fingerprint_scoped_cooldown=true','alternative_reselection=true','local_exclusion_only=true','canonical_queue_unchanged=true','no_global_idle_with_alternative=true','CONTROLLER_LOCAL_ANTI_SPIN_EXCLUSION','AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF','authority_effect = ''NONE_CONTROLLER_ONLY''')){if(-not$t.Contains($m)){throw "missing work-conservation invariant $m"}}
           $sha=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          if($sha-ne'7F79F6FC09898982B0746EE5EA2912397C9EE760A3EC71387C70A4AC02185EFF'){throw "qualified identity changed $sha"}
+          "SUPERVISOR_V186_SHA=$sha"|Out-File $env:GITHUB_ENV -Append -Encoding utf8
           Write-Host "SUPERVISOR_V186_CI_PROVEN sha256=$sha"
+
+      - name: Publish exact qualified controller with bounded CAS
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $repo='hessmodee/KEVIN-WORK';$path='control-plane/autonomy/kevin-supervisor-v1.8.6.ps1';$expected=$env:SUPERVISOR_V186_SHA;$utf8=New-Object Text.UTF8Encoding($false)
+          $bytes=[IO.File]::ReadAllBytes($path);if((Get-FileHash $path -Algorithm SHA256).Hash.ToUpperInvariant()-ne$expected){throw 'controller identity changed before publish'}
+          function Api([string]$method,[string]$endpoint,[object]$body=$null){if($null-eq$body){$out=gh api $endpoint 2>$null}else{$tmp=Join-Path $env:RUNNER_TEMP ('api-'+[guid]::NewGuid().ToString('N')+'.json');try{[IO.File]::WriteAllText($tmp,($body|ConvertTo-Json -Depth 20 -Compress),$utf8);$out=gh api --method $method $endpoint --input $tmp 2>$null}finally{Remove-Item $tmp -Force -ErrorAction SilentlyContinue}};if($LASTEXITCODE-ne0){return $null};return($out|ConvertFrom-Json)}
+          $blob=Api 'POST' "repos/$repo/git/blobs" ([ordered]@{content=[Convert]::ToBase64String($bytes);encoding='base64'});if(-not$blob.sha){throw 'controller blob creation failed'}
+          $entry=[ordered]@{path=$path;mode='100644';type='blob';sha=[string]$blob.sha};$ok=$false
+          for($a=1;$a-le100;$a++){$ref=Api 'GET' "repos/$repo/git/ref/heads/main";if(-not$ref.object.sha){Start-Sleep -Milliseconds 250;continue};$parent=[string]$ref.object.sha;$pc=Api 'GET' "repos/$repo/git/commits/$parent";if(-not$pc.tree.sha){Start-Sleep -Milliseconds 250;continue};$tree=Api 'POST' "repos/$repo/git/trees" ([ordered]@{base_tree=[string]$pc.tree.sha;tree=@($entry)});if(-not$tree.sha){Start-Sleep -Milliseconds 250;continue};$commit=Api 'POST' "repos/$repo/git/commits" ([ordered]@{message='Publish CI-proven Supervisor v1.8.6';tree=[string]$tree.sha;parents=@($parent)});if(-not$commit.sha){Start-Sleep -Milliseconds 250;continue};$move=Api 'PATCH' "repos/$repo/git/refs/heads/main" ([ordered]@{sha=[string]$commit.sha;force=$false});if($move.object.sha-eq[string]$commit.sha){$ok=$true;break};Start-Sleep -Milliseconds 250}
+          if(-not$ok){throw 'Supervisor v1.8.6 publication retries exhausted'}
+          Write-Host "SUPERVISOR_V186_PUBLISHED sha256=$expected force=false"
