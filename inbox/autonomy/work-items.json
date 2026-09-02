@@ -113,7 +113,7 @@
       "id": "hq-direct-chat-real-roundtrip",
       "program": "owner-communications",
       "authority_class": "GREEN",
-      "status": "READY",
+      "status": "COMPLETE",
       "lane": "production",
       "work_type": "execution",
       "severity": "high",
@@ -130,7 +130,11 @@
       "dependencies_ready": true,
       "blocked": false,
       "failure_attempts": 0,
-      "next_action": "Production WIP is free, but do not mix this crossing with the current control-plane convergence. Once the legacy Supervisor admission loop is contained and Maintenance is current, use the existing CI-proven typed HQ-chat package; do not redesign the contract."
+      "next_action": "Closed. Do not reselect. Owner Control UI path proven; prefer openclaw dashboard / Desktop Kevin Control UI. Public HQ must not embed gateway token.",
+      "proof": "reports/engineering/PROOF-matt-kevin-control-ui-roundtrip-2026-09-01.md",
+      "provenAt": "2026-09-01T22:00:00-06:00",
+      "note": "Owner screenshot: ping from Matt -> Kevin Pong on Control UI fresh session",
+      "completion_evidence": "reports/engineering/PROOF-matt-kevin-control-ui-roundtrip-2026-09-01.md OMEN_PROVEN Matt ping from Matt -> Kevin Pong on Control UI fresh session 2026-09-01T22:00 MT; local proof+status previously DONE; published to KEVIN-WORK so governed selector (GitHub-sourced) excludes item."
     },
     {
       "id": "skill-workshop-self-learning-proof",
@@ -178,7 +182,8 @@
       "dependencies_ready": true,
       "failure_attempts": 0,
       "downstream_consumer": "READER_AND_SKILL_REUSE_RELIABILITY",
-      "next_action": "Use the next genuinely successful real owner workflow as trajectory evidence. Do not manufacture synthetic trials merely to increase promotion count."
+      "next_action": "Trajectory gate v1 installed under control-plane/staging; selftest proves false-DONE rejection. Connect second independent real owner trial for control-ui-owner-roundtrip (trial1=Control UI 2026-09-01). Do not manufacture synthetic trials. Run gate --evidence when 2 real trials exist.",
+      "near_acceptance": true
     }
   ]
 }
