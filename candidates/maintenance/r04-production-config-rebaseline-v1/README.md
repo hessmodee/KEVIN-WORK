@@ -6,6 +6,14 @@ Purpose: close the single intentional Benchmark R04 drift created when Matt vali
 
 Proof workflow: `R04 Production Config Rebaseline v1 Proof`; branch proof run `33686340488` passed all Linux/Windows contract jobs plus Windows PowerShell parser/self-test/authority-boundary checks before this source was landed on `main`.
 
+## September 2 evidence hardening
+
+PR39 merged as `e57bf5b013bbbbad98a4c34b0e933c8d2912bfe5`. Merged-commit CI run `33696456619` passed all Linux/Windows contract jobs and Windows PowerShell5.1 checks. The suite now contains23 Python tests plus real PowerShell predicate negatives.
+
+The candidate now refuses incomplete/duplicate/malformed Benchmark row evidence and a mismatched baseline runner anchor. Non-target comparison retains empty containers and distinguishes literal keys from nested paths. Unknown previous production-config anchors are rejected by the planner and transition validator as well as preflight.
+
+This remains uninstalled. Before production, qualify exact local layout and baseline, fresh evidence, transaction races/rollback and the registered invocation path. A scan of104 PowerShell source blobs on main found no match for the installed Maintenance SHA; source recovery remains necessary.
+
 ## Exact approved identities
 
 - repaired `openclaw.json`: `23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5`
