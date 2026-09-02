@@ -44,7 +44,23 @@ Whenever an outside engineer repeatedly performs a useful action, treat that rec
    - open PR/CI state when a candidate or production crossing is relevant
 9. Compare timestamps, request IDs, idempotency keys, hashes, PR heads, CI conclusions, active-worker state, and postconditions. **Fresh evidence outranks handover prose.**
 10. State internally what is current, what is stale, what is blocked, what WIP slots are occupied, what routine outside-engineer responsibility can be transferred next, and the single highest-value safe next action before mutating anything.
-11. Preserve the scheduled single-writer rule: **Kevin Chief Engineer is the only scheduled ChatGPT Kevin process allowed to steer/mutate Kevin execution state.** Read-only scorecards may observe but must not steer.
+11. Preserve the single-writer rule. **Kevin Chief Engineer is the only scheduled ChatGPT Kevin process allowed to steer/mutate Kevin execution state. If a foreground human-directed Bess/Grok/ChatGPT session will mutate shared repository/handover/control-plane state, pause the scheduled ChatGPT Chief Engineer first, leave HESS-PC/Kevin local schedulers running, complete/reconcile the foreground crossing, then re-enable the scheduled Chief Engineer before the foreground session ends.** Do not allow two outside AI writers to edit the canonical handover/control plane concurrently.
+
+## Foreground/scheduled handoff protocol
+
+This rule exists because concurrent outside writers have already produced a stale handover reference after a foreground merge.
+
+When a foreground owner-directed session intends to write:
+1. inspect whether the scheduled ChatGPT Chief Engineer is enabled;
+2. pause only that outside ChatGPT automation before repository/control-plane mutation;
+3. do **not** stop Kevin's local HESS-PC Support/Supervisor/Maintenance/Benchmark/etc. merely to gain editor exclusivity;
+4. inspect current in-flight manifests/requests/locks before writing;
+5. complete the bounded foreground change and its proof/rollback bookkeeping;
+6. reconcile `AI-HANDOVER.md` + `inbox/CURRENT_TASK.md` and any affected compact scorecard/transfer state;
+7. remove/retire any foreground-only stale requests/manifests that would execute later unexpectedly;
+8. re-enable the scheduled ChatGPT Chief Engineer after publishing the new checkpoint.
+
+If the foreground session is read-only, no pause is needed.
 
 ## Architecture convergence rules
 
@@ -120,7 +136,9 @@ When context is getting crowded, or after any substantive proof transition, repa
 5. Reconcile `docs/engineering/RESPONSIBILITY-TRANSFER-LEDGER-v1.md`, `reports/responsibility-transfer-latest.json`, and `reports/autonomy-master-scorecard.json` when evidence changes responsibility or master-lane truth.
 6. Record exact hashes, request IDs, PR/CI heads, proof levels, transfer levels, WIP state and owner-required checkpoints needed by the next AI.
 7. Encode any outside repair as a Kevin-owned lesson/detector/procedure/test when feasible; do not leave the next recurrence as another manual chat fix.
-8. Never store secrets/private message bodies in handoff artifacts.
+8. Retire/clear foreground requests that would execute later unexpectedly.
+9. Re-enable the scheduled ChatGPT Chief Engineer if this foreground session paused it.
+10. Never store secrets/private message bodies in handoff artifacts.
 
 ## Durable project sources
 
