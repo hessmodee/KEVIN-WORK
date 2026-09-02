@@ -1,3 +1,3 @@
 # Status 2026-09-02 03:36 UTC
 
-Bridge PASS (2026-09-01T18:28:06-06:00). No heartbeat-latest.json. No ollama-isolate-latest.json. No isolate report. No layer advance. CURRENT_TASK stays as-is. Push e98e636 by hessmodee (kevin governed continuation evidence). Cannot SSH HESS-PC. Local Ollama default. Stop.
+Bridge PASS (2026-09-01T21:28:05-06:00). Fresh. No heartbeat-latest.json. No ollama-isolate-latest.json. No isolate → hold write-proof. tool-write-test.txt has OK-WRITE but layer rule blocks advance. CURRENT_TASK remains write-proof (layer: isolate required first). Push d1a1ba4 checked (hessmodee). Cannot SSH. Local Ollama. Stop.
