@@ -1,6 +1,6 @@
 # Bess -> Kevin Responsibility Transfer Ledger v1
 
-Baseline established: 2026-08-31; reconciled from: 2026-09-02 06:08 UTC evidence
+Baseline established: 2026-08-31; current reconciliation: 2026-09-02 11:18 UTC evidence
 
 Purpose: track whether Kevin is actually taking recurring operational responsibility away from Bess, not merely accumulating code or candidates.
 
@@ -83,6 +83,10 @@ The goal of this ledger is to watch the operational dependency shrink:
 
 ## Current proof checkpoint
 
+The expired consumed canary request was archived byte-for-byte and retired, not renewed: commit f46fce1fedeeb9a0d0fa6438ae664b04abb4b7c6 removed inbox/maintenance/manifest.json after verifying archive blob34e0c37f1be661c14ac1f7636ab6fa853f8c2233. Omen Maintenance now reports NO_MANIFEST at05:15:07 September2, with Intake errors0; independent Engineering05:18 confirms Benchmark30/30 critical0 at05:17 and UI heartbeat1.6s. The expiry-driven Intake fault is closed. No runtime binary, budget, scheduler, canary or trust-anchor change occurred. A missing active manifest is now the expected healthy empty-queue state; do not restore or renew the expired canary. See docs/engineering/KEVIN-INTAKE-TERMINAL-RETIREMENT-2026-09-02.md.
+
+Migration provenance audit: all8 published work-inventory revisions were checked; neither HQ chat nor staging trajectory declares failure_family where present. The earliest retrieved continuation already contains a prior attempt, not an authenticated empty-history seed. Do not infer canonical families from program labels or declare recovered history complete. The journal candidate remains uninstalled; authenticated migration and fixed controller/verifier integration are still next.
+
 Attempt-journal storage is now CI-PROVEN on the existing history-recovery candidate branch: run33619080134 at b52d825649af9fbe8d3d7273d8ebdbdbbbe658be passed28 journal tests plus18 recovery tests on Linux and Windows, with all492 tracked files unchanged. Real child-process death tests preserve committed reservations, roll back uncommitted ones, and prevent silent replay after a fixed fixture effect. The journal retains fingerprint epochs and mapped-family budgets, rejects absent/incomplete state and has no bootstrap, executor or automatic reopening API. It is NOT integrated with Supervisor or installed on Omen. Prior receipt recovery still establishes staging's observed lower bound4, not complete history; live family provenance remains unresolved. See docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md. Next: authenticated complete migration/family provenance, bounded fixed Supervisor/verifier integration, then typed qualification and correlated Omen proof. No live budget reset, completed-item reopening, isolation-hold release or T-level promotion.
 
 The earlier strict baseline gate remains authoritative for its tested scope: run33608179462 reproduced6 contract violations across14 cases; no runtime pass is claimed. The isolated journal now covers family aggregation and real process-death fixtures; authenticated migration, reopening policy and integrated-runtime/effect tests remain required.
@@ -91,9 +95,9 @@ See [current review](KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md). Main exact rep
 
 All T-levels remain unchanged. No T4/T5 or Bess-responsibility retirement is added. This reconciliation itself is Bess-maintained continuity, not Kevin autonomy.
 
-## Canonical reconciliation check — 10:22 UTC
+## Canonical reconciliation check — 11:18 UTC
 
-Reviewed dde67b7be71a7ca732fd095de0ae5d71e8ac7d3e: Support04:19/Engineering04:20 confirm scheduler errors0, Benchmark30/30 critical0 at04:17 and UI heartbeat2.1s. Current continuation remains idle with no useful outcome proof. Candidate CI is separate from production/transfer proof.
+Reviewed 61ec1e48a9072b466a6948d949a3e58a561c1c9b: the terminal canary manifest is archived and absent from active intake. NO_MANIFEST at05:15 and errors0 are independently observed; Benchmark30/30 critical0 at05:17 and heartbeat1.6s at05:18. This is bounded queue recovery, not Supervisor repair or autonomy promotion.
 
 Scoped hold preserved from reports/STATUS.md (commit b632929b6dee535abd0e95bac3f007fc33b886c8, 07:11 UTC): no isolation-dependent advance without the missing isolation receipt. The write-proof already contains OK-WRITE and must not be repeated. STATUS's claim that CURRENT_TASK is still the write-proof is stale, not a reason to resurrect that task. Independent authorized GREEN CI/design/continuity work remains allowed; no broad hold release or foreground-owner attribution is inferred.
 
