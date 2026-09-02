@@ -31,13 +31,15 @@ def _sha(value: str, label: str) -> str:
 
 
 def _walk(value: Any, path: Tuple[str, ...] = ()) -> Iterable[Tuple[Tuple[str, ...], Any]]:
-    if isinstance(value, dict):
+    if isinstance(value, dict) and value:
         for key in sorted(value):
-            yield from _walk(value[key], path + (str(key),))
+            if not isinstance(key, str):
+                raise ContractError("JSON object keys must be strings")
+            yield from _walk(value[key], path + (key,))
         return
-    if isinstance(value, list):
+    if isinstance(value, list) and value:
         for index, item in enumerate(value):
-            yield from _walk(item, path + (f"[{index}]",))
+            yield from _walk(item, path + (index,))
         return
     yield path, value
 
@@ -47,22 +49,31 @@ def semantic_leaf_map(value: Any) -> Dict[str, str]:
         raise ContractError("baseline root must be an object")
     result: Dict[str, str] = {}
     for path, leaf in _walk(value):
-        key = "$" + "".join(part if part.startswith("[") else "." + part for part in path)
-        result[key] = json.dumps(leaf, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+        # Encode unusual keys unambiguously; preserve familiar simple JSON paths.
+        key = "$"
+        for part in path:
+            if isinstance(part, int):
+                key += f"[{part}]"
+            elif part.isidentifier():
+                key += "." + part
+            else:
+                key += "[" + json.dumps(part, ensure_ascii=False) + "]"
+        result[key] = json.dumps(leaf, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False)
     return result
 
 
 def non_target_fingerprint(value: Any) -> str:
-    leaves = semantic_leaf_map(value)
-    leaves.pop("$.hashes.production_config", None)
-    canonical = "\n".join(f"{key}={leaves[key]}" for key in sorted(leaves))
+    # Hash the complete structure, including empty containers and literal keys.
+    value = copy.deepcopy(validate_baseline(value))
+    del value["hashes"]["production_config"]
+    canonical = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False)
     return hashlib.sha256(canonical.encode("utf-8")).hexdigest().upper()
 
 
 def validate_baseline(baseline: Any) -> Dict[str, Any]:
     if not isinstance(baseline, dict):
         raise ContractError("baseline root must be an object")
-    if baseline.get("schema") != 1:
+    if type(baseline.get("schema")) is not int or baseline["schema"] != 1:
         raise ContractError("baseline schema must be 1")
     if baseline.get("kind") != "kevin-benchmark-v1-baseline":
         raise ContractError("baseline kind mismatch")
@@ -102,24 +113,42 @@ def validate_preconditions(
     baseline = validate_baseline(baseline)
     if _sha(baseline["hashes"]["production_config"], "baseline production_config") != EXPECTED_PREVIOUS_CONFIG_SHA256:
         raise ContractError("baseline production_config is not the exact pre-repair accepted identity")
+    if _sha(baseline["hashes"]["benchmark_runner"], "baseline benchmark runner") != EXPECTED_BENCHMARK_SHA256:
+        raise ContractError("baseline Benchmark runner anchor mismatch")
     if not isinstance(latest_benchmark, dict):
         raise ContractError("latest benchmark evidence missing")
     regression = latest_benchmark.get("regression")
     if not isinstance(regression, dict):
         raise ContractError("latest benchmark regression evidence missing")
-    if int(regression.get("passed", -1)) != 29 or int(regression.get("total", -1)) != 30:
-        raise ContractError("latest benchmark must be exactly 29/30 before R04-only rebaseline")
-    if int(regression.get("critical_failures", -1)) != 1:
-        raise ContractError("latest benchmark must have exactly one critical failure")
+    if latest_benchmark.get("status") != "FAIL_CRITICAL_REGRESSION":
+        raise ContractError("latest benchmark status must be FAIL_CRITICAL_REGRESSION")
+    for name, expected in (("passed", 29), ("total", 30), ("critical_failures", 1)):
+        if type(regression.get(name)) is not int or regression[name] != expected:
+            raise ContractError("latest benchmark must be exactly 29/30 critical1")
     rows = regression.get("rows")
-    if isinstance(rows, list) and rows:
-        failed = [row for row in rows if isinstance(row, dict) and not bool(row.get("pass", False))]
-        if len(failed) != 1 or str(failed[0].get("id")) != "R04":
-            raise ContractError("latest benchmark row evidence is not R04-only")
+    if not isinstance(rows, list) or len(rows) != 30:
+        raise ContractError("Benchmark row evidence incomplete")
+    expected_ids = {f"R{i:02d}" for i in range(1, 31)}
+    seen = set()
+    failed = []
+    for row in rows:
+        if not isinstance(row, dict) or not isinstance(row.get("id"), str):
+            raise ContractError("Benchmark row shape invalid")
+        if row["id"] not in expected_ids or row["id"] in seen:
+            raise ContractError("Benchmark row identity duplicate or unexpected")
+        seen.add(row["id"])
+        if type(row.get("pass")) is not bool or type(row.get("critical")) is not bool:
+            raise ContractError("Benchmark row verdicts must be booleans")
+        if not row["pass"]:
+            failed.append(row)
+    if len(failed) != 1 or failed[0]["id"] != "R04" or not failed[0]["critical"]:
+        raise ContractError("latest benchmark row evidence is not R04-only critical failure")
 
 
 def plan_rebaseline(baseline: Any) -> Dict[str, Any]:
     before = validate_baseline(copy.deepcopy(baseline))
+    if _sha(before["hashes"]["production_config"], "before production_config") != EXPECTED_PREVIOUS_CONFIG_SHA256:
+        raise ContractError("planner requires exact pre-repair accepted identity")
     before_fp = non_target_fingerprint(before)
     after = copy.deepcopy(before)
     after["hashes"]["production_config"] = EXPECTED_CURRENT_CONFIG_SHA256
@@ -136,6 +165,8 @@ def plan_rebaseline(baseline: Any) -> Dict[str, Any]:
 def validate_transition(before: Any, after: Any) -> None:
     validate_baseline(before)
     validate_baseline(after)
+    if _sha(before["hashes"]["production_config"], "before production_config") != EXPECTED_PREVIOUS_CONFIG_SHA256:
+        raise ContractError("transition requires exact pre-repair accepted identity")
     if _sha(after["hashes"]["production_config"], "after production_config") != EXPECTED_CURRENT_CONFIG_SHA256:
         raise ContractError("after production_config does not match repaired config")
     if non_target_fingerprint(before) != non_target_fingerprint(after):
