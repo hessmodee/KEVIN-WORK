@@ -83,3 +83,10 @@ Default WIP: 1 production/proof + 1 staging/eval + 1 research/design. Heartbeats
 ## Shared handover rule
 
 All Bess/ChatGPT, Grok Build, Grok Bot and replacement engineering sessions must enter through `KEVIN-START-HERE.md`, read `AI-HANDOVER.md`, inspect fresh runtime evidence, and reconcile the handover/current task after substantive changes. Matt should not be the continuity or PowerShell transport layer when an existing governed remote path can perform the work.
+
+
+## Foreground closeout 2026-09-02T23:53:36.643Z
+
+Kevin completed `kevin-r04-evidence-and-tool-curriculum@1` at 2026-09-02T17:50:04.0975506-06:00; Engineering 2026-09-02T17:51:45.7063360-06:00 reports six proven composites. Proof SHA256 `C2DFEC282C5188AF5C3DAD31905F762CB9BF6E26D631099A36F51D7A3A52E53F`. Both create_text lessons were executed and verified by the existing local pipeline. This establishes delivered artifacts, not learner mastery or independent self-repair. The consumed request is archived/retired. See `reports/engineering/r04-tool-teachback-20260902.json`.
+
+The existing hourly Kevin Chief Engineer was re-enabled after this foreground crossing with the updated checkpoint; no second scheduled engineer was created. Live R04/source/transport and main-tool-access gaps remain open. Required missing source: the exact installed `kevin-maintenance-runner.ps1`, SHA `3CFC...B0D6E`; all104 published PowerShell blobs were checked without a match.
