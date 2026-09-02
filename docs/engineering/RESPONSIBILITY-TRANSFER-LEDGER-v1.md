@@ -1,6 +1,6 @@
 # Bess -> Kevin Responsibility Transfer Ledger v1
 
-Baseline established: 2026-08-31; reconciled from: 2026-09-02 05:10 UTC evidence
+Baseline established: 2026-08-31; reconciled from: 2026-09-02 06:08 UTC evidence
 
 Purpose: track whether Kevin is actually taking recurring operational responsibility away from Bess, not merely accumulating code or candidates.
 
@@ -83,6 +83,6 @@ The goal of this ledger is to watch the operational dependency shrink:
 
 ## Current proof checkpoint
 
-See [current review](KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md). Main exact reply now passes with correlated zero-tool transcript; useful tool execution remains unproven. Supervisor v1.8.8 is observed installed on the existing5m scheduler, and current IDLE_NO_ELIGIBLE_DEMAND matches the complete/blocked inventory. Cross-fingerprint attempt history is not preserved; this is not repaired. Foreground chat/staging closures are not replay proof. Desired pins remain unblessed; scheduled Maintenance recovery awaits a natural result despite a newer successful manifest receipt.
+See [current review](KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md). Main exact reply now passes with correlated zero-tool transcript; useful tool execution remains unproven. Supervisor v1.8.8 is observed installed on the existing5m scheduler, and current IDLE_NO_ELIGIBLE_DEMAND matches the complete/blocked inventory. Cross-fingerprint attempt history is not preserved; this is not repaired. Foreground chat/staging closures are not replay proof. Desired pins remain unblessed despite newly reported drift0; repository desired-vs-observed hashes still differ. Scheduled Maintenance recovery is now observed ok/0 errors by independent Support and Engineering. The selector CI-only regression repair passed13 tests in run33597815086; runtime retry history is not repaired. See [CI recovery review](KEVIN-SELECTOR-CI-RECOVERY-2026-09-02.md).
 
 All T-levels remain unchanged. No T4/T5 or Bess-responsibility retirement is added. This reconciliation itself is Bess-maintained continuity, not Kevin autonomy.

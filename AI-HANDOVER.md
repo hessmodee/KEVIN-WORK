@@ -1,6 +1,6 @@
 # Kevin AI Engineering Handover
 
-Reconciled from 2026-09-02T05:10:31Z evidence. Read KEVIN-START-HERE.md, inbox/CURRENT_TASK.md and docs/engineering/KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md. Fresh correlated Omen receipts and exact identities outrank this prose; older takeover notes are historical.
+Reconciled from 2026-09-02T06:08:16Z runtime evidence and selector CI33597815086. Read KEVIN-START-HERE.md, inbox/CURRENT_TASK.md and docs/engineering/KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md. Fresh correlated Omen receipts and exact identities outrank this prose; older takeover notes are historical.
 
 ## Owner goal and single writer
 
@@ -12,10 +12,10 @@ Kevin must independently NOTICE -> UNDERSTAND -> PLAN -> EXECUTE -> VERIFY -> RE
 - Supervisor v1.8.8 is observed installed at F5D8C9740D384CC576D4BD70A3940B51AA1FCF398C7085E59DB20C01E9180138. The existing kevin-supervisor-v1 scheduler is healthy at5m. Its legacy display name/cycle449 is not the current runtime result.
 - reports/autonomy-continuation-latest.json at23:09:17 reports IDLE_NO_ELIGIBLE_DEMAND, eligible_count0, outcome_proven=false, tool_calls=null (UNKNOWN). Inventory contains four COMPLETE and three BLOCKED items; do not manufacture demand or reopen completed work.
 - New unresolved retry-history defect: v1.8.8 resets turn count on any item fingerprint change and replaces the previous per-ID history row. Correlated staging receipts show prior3 attempts replaced by a new fingerprint with1 attempt. Prose fields participate in that fingerprint. No unsafe action is proved, and no fix is claimed.
-- Current Maintenance manifest main-canary-reaffirm-16k-20260902-2300 has matching ALREADY_APPLIED_PROVEN at23:09:10. Scheduler summary still shows5 errors from its older22:44 run; a newer manual/other-path receipt is not scheduled recovery proof. Wait for a natural scheduled result or new bounded failure evidence; do not rename/retry.
-- Benchmark PASS30/30 critical0 at23:07:03; independent Engineering heartbeat3.9s at23:10:05. Old expired Engineering request is terminal. Forge has no new evaluation after iteration391 at07:06.
+- Maintenance Intake scheduled recovery is now observed: Support00:07 and independent Engineering00:08 both show ok/0 consecutive errors. The same unchanged manifest has matching ALREADY_APPLIED_PROVEN at00:04:19. No repair/retry was dispatched by this review.
+- Benchmark PASS30/30 critical0 at00:07:01 September2; independent Engineering heartbeat1s at00:08:10. Old expired Engineering request is terminal. Forge has no new evaluation after iteration391 at07:06.
 - Foreground recorded HQ owner chat and trajectory reliability COMPLETE, but referenced sanitized proof/trajectory files are absent from the reviewed tree. Preserve closures; independent replay/deduplication/2-of-2 proof remains unavailable. Do not invent another Matt message.
-- Maintenance observed FF9C5FDF217B0ED5F38A8566BD54D8A654CB8DFEF0093654DDBC23DC9A1BF956; Benchmark observed4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964. Exact local modification/source/transaction provenance remains to be published before any trust-anchor reconciliation. Existing desired-state pins are deliberately not blessed or reset by this review. Latest autonomy reports drift_count4.
+- Maintenance observed FF9C5FDF217B0ED5F38A8566BD54D8A654CB8DFEF0093654DDBC23DC9A1BF956; Benchmark observed4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964. Exact local modification/source/transaction provenance remains to be published before any trust-anchor reconciliation. Existing desired-state pins are deliberately not blessed or reset by this review. Latest autonomy at00:03 reports HEALTHY/drift_count0, but repository desired pins still differ from observed Supervisor/Maintenance/Benchmark identities. Local source/desired-state provenance remains unresolved; zero reported drift is not a trust-anchor approval.
 - HQ still contains old engine/cadence labels; fresh dashboard timestamps do not make those labels correct.
 
 ## Immediate boundary
@@ -24,7 +24,7 @@ No repeat exact-reply test or duplicate controller install. Named downstream con
 
 Obtain sanitized missing owner-outcome/tool/source receipts through the existing foreground/typed path. Only then prove Kevin selecting without a Bess-supplied ID, useful typed execution, independent semantic verification, durable outcome/lesson, restart/replay and a subsequent correct scheduled decision. Work-selection transfer remains T2; no T4/T5 or Bess responsibility retirement is added.
 
-Selector CI33590422621 fails because its live-queue test insists on eligible work after all runnable items were closed. Do not undo closures to make CI pass; use fixed fixtures and truthful live-state assertions. The incident review records precise evidence and acceptance.
+Selector CI regression is now corrected at dc368d0ab86fe5dae0af960cd0a0d3f2cf7a949c: 13 isolated positive/negative tests, independent current-inventory oracle, unchanged selector source and read-only workflow permissions. CI33597815086 passed. Both false idle and false selection are rejected. No live queue, runtime budget, manifest or production source changed; old-controller workflows remain separately unresolved. Details: docs/engineering/KEVIN-SELECTOR-CI-RECOVERY-2026-09-02.md.
 
 ## Other work and boundaries
 
