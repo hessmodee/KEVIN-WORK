@@ -1,0 +1,147 @@
+{
+  "schema": 1,
+  "kind": "kevin-convergence-bridge-evidence",
+  "recorded_at": "2026-09-02T23:29:18.410Z",
+  "safe_for_public_repo": true,
+  "os_awareness": {
+    "request": {
+      "authority_class": "GREEN",
+      "created_at": "2026-09-02T23:21:02.344Z",
+      "expires_at": "2026-09-02T23:51:02.344Z",
+      "id": "bess-os-awareness-20260902232102",
+      "idempotency_key": "bess-os-awareness-20260902232102",
+      "kind": "kevin-work-order",
+      "reason": "Refresh fixed read-only hardware/software/service/task/event-count inventory for the owner-requested Kevin computer-fluency and repair convergence review. Keep private inventory local; publish existing sanitized summary only.",
+      "schema": 1,
+      "target": "kevin-os-awareness-v1",
+      "verb": "run_os_awareness"
+    },
+    "observed_status": "SUCCESS",
+    "observed_ack_at": "2026-09-02T17:21:06.5342539-06:00",
+    "observation_at": "2026-09-02T17:21:17.3109903-06:00",
+    "physical_memory_bytes": 34270429184,
+    "cpu_packages": 1,
+    "gpu_count": 1,
+    "memory_modules": 2,
+    "processes": 150,
+    "services": 295,
+    "scheduled_tasks": 234,
+    "installed_software": 90,
+    "system_errors_24h": 2,
+    "application_errors_24h": 1,
+    "private_inventory_published": false,
+    "error_causes": "NOT_COLLECTED"
+  },
+  "teachback_staging": {
+    "action": {
+      "benchmark": {
+        "at": "2026-09-02T17:02:35.2116512-06:00",
+        "critical": 1,
+        "passed": 29,
+        "status": "FAIL_CRITICAL_REGRESSION",
+        "total": 30
+      },
+      "composite_skills": {
+        "done": 4,
+        "failed": 1,
+        "latest_proven": {
+          "key": "kevin-recovery-evidence-kit@1",
+          "manifest_sha256": "E79E65B384E1B61152850A321B3AB4E4E0ADC445B7C0008C27C59AB538A073A0",
+          "primitive_steps": [
+            "create_text",
+            "create_text"
+          ],
+          "proof_sha256": "23569AEC57691B4CC93929E3C8DE843E88B50DA3C1EDA6E4B1624CDD43A36B24",
+          "proven_at": "2026-09-02T11:11:41.5774343-06:00"
+        },
+        "proven_count": 4,
+        "ready": 1,
+        "running": 0
+      },
+      "cron": [
+        {
+          "consecutive_errors": 0,
+          "declaration_key": "kevin-engineering-relay-v1",
+          "enabled": true,
+          "every_ms": 120000,
+          "last_status": "ok"
+        },
+        {
+          "consecutive_errors": 0,
+          "declaration_key": "kevin-skill-lab-v1",
+          "enabled": true,
+          "every_ms": 120000,
+          "last_status": "ok"
+        },
+        {
+          "consecutive_errors": 0,
+          "declaration_key": "kevin-maintenance-intake-v1",
+          "enabled": true,
+          "every_ms": 300000,
+          "last_status": "ok"
+        },
+        {
+          "consecutive_errors": 0,
+          "declaration_key": "kevin-support-bridge-v1",
+          "enabled": true,
+          "every_ms": 180000,
+          "last_status": "ok"
+        },
+        {
+          "consecutive_errors": 0,
+          "declaration_key": "kevin-supervisor-v1",
+          "enabled": true,
+          "every_ms": 300000,
+          "last_status": "ok"
+        },
+        {
+          "consecutive_errors": 8,
+          "declaration_key": "kevin-benchmark-v1",
+          "enabled": true,
+          "every_ms": 600000,
+          "last_status": "error"
+        }
+      ],
+      "hashes": {
+        "initiative": "8AA0DC8F5A1502A3E4D0150EB073DC77C29D47F153E066B32D6B8E4B2ACB7CD3",
+        "operator": "19EEA6749FB70EB18A6ACC2DC0C9DF4313C0AC0D893F646A6D1170044E4C282F",
+        "ui_bridge": "5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42"
+      },
+      "hashes_match": {
+        "initiative": true,
+        "operator": true,
+        "ui_bridge": true
+      },
+      "phase2b_proof_present": true,
+      "queues": {
+        "done": 14,
+        "failed": 1,
+        "ready": 0,
+        "running": 0
+      },
+      "ui_bridge": {
+        "heartbeat_age_seconds": 19237.9,
+        "task_present": true
+      }
+    },
+    "generated_at": "2026-09-02T17:27:43.3535145-06:00",
+    "kind": "kevin-engineering-response",
+    "public_payload_policy": "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
+    "request": {
+      "detail": "Composite skill staged for Skill Lab.",
+      "id": "bess-context-teachback-20260902232739",
+      "operation": "stage_composite_skill",
+      "status": "STAGED"
+    },
+    "result": {
+      "local_name": "kevin-context-recovery-teachback--1.json",
+      "skill_id": "kevin-context-recovery-teachback",
+      "skill_sha256": "E2B1FF5D337AF85007BFD776713E9AACD5FC876A8773574A283D63AAB441A5AD",
+      "step_count": 2,
+      "version": "1"
+    },
+    "safe_for_public_repo": true,
+    "schema": 1
+  },
+  "proof_limit": "OS audit executed and composite staged. Staging is not completion, learner mastery, or self-repair ownership."
+}
