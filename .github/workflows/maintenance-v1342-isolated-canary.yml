@@ -1,0 +1,48 @@
+name: Maintenance v1.3.42 Isolated Canary
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.42.ps1'
+      - 'tools/test-main-canary-shape.ps1'
+      - 'tools/test-canary-transcript.ps1'
+      - '.github/workflows/maintenance-v1342-isolated-canary.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  proof:
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Parser, authority and operation parity
+        shell: pwsh
+        run: |
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.42.ps1'
+          $tokens=$null;$errors=$null;$ast=[Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw $errors[0].Message}
+          $commands=@($ast.FindAll({param($n)$n-is[Management.Automation.Language.CommandAst]},$true)|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($bad in @('invoke-expression','iex','cmd.exe','kevin_shell')){if($commands-contains$bad){throw "forbidden command $bad"}}
+          python tools/check-maintenance-operation-parity.py $p
+          if($LASTEXITCODE-ne0){throw 'operation parity failed'}
+          Write-Host ('MAINT_V1341_SHA256='+ (Get-FileHash $p -Algorithm SHA256).Hash)
+      - name: Inherited tests Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $env:KEVIN_MAINT_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'v1342-ps51'
+          & ./control-plane/maintenance/kevin-maintenance-runner-v1.3.42.ps1 -SelfTest
+          if($LASTEXITCODE-ne0){throw 'inherited PS5.1 tests failed'}
+          & ./tools/test-main-canary-shape.ps1 -Runner ./control-plane/maintenance/kevin-maintenance-runner-v1.3.42.ps1
+          & ./tools/test-canary-transcript.ps1
+      - name: Inherited tests PowerShell 7
+        shell: pwsh
+        run: |
+          $env:KEVIN_MAINT_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'v1342-ps7'
+          & ./control-plane/maintenance/kevin-maintenance-runner-v1.3.42.ps1 -SelfTest
+          if($LASTEXITCODE-ne0){throw 'inherited PS7 tests failed'}
+          & ./tools/test-main-canary-shape.ps1 -Runner ./control-plane/maintenance/kevin-maintenance-runner-v1.3.42.ps1
+          & ./tools/test-canary-transcript.ps1
