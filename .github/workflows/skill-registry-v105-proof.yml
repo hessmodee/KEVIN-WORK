@@ -17,21 +17,27 @@ on:
 permissions:
   contents: read
 jobs:
-  qualify:
+  powershell51:
+    name: Windows PowerShell 5.1
     runs-on: windows-latest
     timeout-minutes: 8
-    strategy:
-      matrix:
-        shell: [powershell, pwsh]
     steps:
       - uses: actions/checkout@v4
       - name: Fixed runner self-test and registry fault/restart/replay proof
-        shell: ${{ matrix.shell }}
+        shell: powershell
         run: |
           & ./control-plane/skill-lab/kevin-skill-lab-v1.0.5.ps1 -SelfTest
           if ($LASTEXITCODE -ne 0) { throw 'Runner self-test failed' }
           & ./tools/test-skill-lab-registry-v105.ps1
-      - name: Preserve qualification log
-        if: always()
-        shell: ${{ matrix.shell }}
-        run: Write-Host 'Qualification uses temporary fixture roots only; no live Omen access or model calls.'
+  powershell7:
+    name: PowerShell 7
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fixed runner self-test and registry fault/restart/replay proof
+        shell: pwsh
+        run: |
+          & ./control-plane/skill-lab/kevin-skill-lab-v1.0.5.ps1 -SelfTest
+          if ($LASTEXITCODE -ne 0) { throw 'Runner self-test failed' }
+          & ./tools/test-skill-lab-registry-v105.ps1
