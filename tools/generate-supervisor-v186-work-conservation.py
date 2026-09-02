@@ -1,6 +1,7 @@
 from pathlib import Path
 import hashlib
 
+# CI trigger note: deterministic output is pinned to the reviewed v1.8.5 parent.
 SRC=Path('control-plane/autonomy/kevin-supervisor-v1.8.5.ps1')
 OUT=Path('control-plane/autonomy/kevin-supervisor-v1.8.6.ps1')
 EXPECTED='C3F781E4F722AF691D2B47A9CD0F06A4F6AD3134A826C5D657B9ED9D5AEBC400'
@@ -89,7 +90,6 @@ if text.count(old)!=1:raise SystemExit('anti-spin block anchor mismatch')
 text=text.replace(old,new,1)
 
 self_anchor="""        Write-Host 'KEVIN SUPERVISOR v1.8.5 SELFTEST PASS selector_first=true gateway_agent=fixed-main gateway_rpc_only=true gateway_probe_retries=3 main_preflight=true no_forge_dispatch=true anti_spin=true openclaw_native_node=true shell_shim_bypassed=true native_timeout=180s arbitrary_shell=false authority_expansion=false'"""
-# version replacement above already changed marker to v1.8.6.
 self_anchor=self_anchor.replace('v1.8.5','v1.8.6')
 if text.count(self_anchor)!=1:raise SystemExit('selftest marker anchor mismatch')
 extra=self_anchor+"\n        Write-Host 'KEVIN SUPERVISOR v1.8.6 WORK-CONSERVATION PASS fingerprint_scoped_cooldown=true alternative_reselection=true local_exclusion_only=true canonical_queue_unchanged=true no_global_idle_with_alternative=true authority_expansion=false'"
