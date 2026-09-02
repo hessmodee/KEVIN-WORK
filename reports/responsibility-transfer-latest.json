@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-responsibility-transfer-checkpoint",
-  "generated_at": "2026-09-02T13:10:00Z",
+  "generated_at": "2026-09-02T14:20:00Z",
   "north_star": "Transfer recurring operational responsibility from Bess/GrokBot to Kevin until Kevin owns normal authorized lifecycles end-to-end and remote human/AI operators are not part of the routine operating loop.",
   "transfer_levels": {
     "T0": "BESS-DEPENDENT",
@@ -81,27 +81,29 @@
     "contains_secrets": false,
     "contains_private_message_bodies": false
   },
-  "current_engineering_record": "docs/engineering/KEVIN-TOOL-VISIBILITY-EVIDENCE-2026-09-02.md",
+  "current_engineering_record": "docs/engineering/KEVIN-READER-BENCHMARK-BOUNDARY-2026-09-02.md",
   "current_evidence": {
     "scheduled_chatgpt": "ONLY_CHIEF_ENGINEER_ENABLED_FOREGROUND_PRIORITY_PRESERVED",
-    "ui_bridge": "FRESH_HEARTBEAT1_6S_AT0518_MDT",
+    "ui_bridge": "FRESH_HEARTBEAT4_7S_AT0810_MDT",
     "watchdog": "EARLIER_PROBE_ONLY_HEALTHY_NO_NEW_PROOF_THIS_REVIEW",
     "main_agent": "EXACT_REPLY_OMEN_PROVEN_CORRELATED_ZERO_TOOL_CANARY_USEFUL_ACTION_NOT_PROVEN",
     "work_selection": "V188_INSTALLED_OBSERVED_SCHEDULED_SELECTION_AND_IDLE_NO_OUTCOME_CREDIT",
     "retry_history": "CI_PROVEN_JOURNAL41_PLUS_RECOVERY18_TESTS_NOT_INTEGRATED_RUNTIME_REPAIR",
     "owner_chat": "FOREGROUND_COMPLETE_REFERENCED_PROOF_NOT_RETRIEVABLE",
     "staging": "FOREGROUND_COMPLETE_2_OF_2_CLAIM_REFERENCED_RESULTS_NOT_RETRIEVABLE",
-    "desired_state": "REPORTED_DRIFT0_REPOSITORY_PIN_MISMATCH_AND_SOURCE_PROVENANCE_UNRESOLVED",
-    "maintenance": "NO_MANIFEST_ERRORS0_AFTER_EXPIRED_CONSUMED_REQUEST_RETIREMENT",
+    "desired_state": "NEEDS_REVIEW_DRIFT2_REPOSITORY_PIN_MISMATCH_SOURCE_UNQUALIFIED",
+    "maintenance": "NO_MANIFEST_INTAKE_ERRORS0_LOCAL_PATCH_IDENTITY_UNQUALIFIED",
     "selector_ci": "13_TESTS_CI_PROVEN_FALSE_IDLE_AND_FALSE_ELIGIBLE_REJECTED_NO_RUNTIME_CHANGE",
-    "tool_visibility": "REPORTED_ZERO_HAS_NO_PRESENCE_DISCRIMINATOR_EFFECTIVE_VISIBILITY_UNKNOWN"
+    "tool_visibility": "REPORTED_ZERO_HAS_NO_PRESENCE_DISCRIMINATOR_EFFECTIVE_VISIBILITY_UNKNOWN",
+    "reader": "READER_RECEIPT_2_OF_2_PLATFORM_ACCEPTANCE_BLOCKED",
+    "benchmark": "FAIL29_OF30_CRITICAL1_R05_AT0812_MDT"
   },
   "review": {
-    "source_commit": "61ec1e48a9072b466a6948d949a3e58a561c1c9b",
+    "source_commit": "8f86a8d33e772878545d21cd6e797ae42e13fcd5",
     "promotions": [],
     "demotions": [],
     "retired_bess_responsibilities": [],
-    "truth_boundary": "No autonomous useful owner outcome or T4/T5 promotion is inferred from canary, installed hash, scheduler or foreground completion flag."
+    "truth_boundary": "Reader receipt is scoped domain evidence, not full production acceptance or autonomous responsibility transfer. Baselines unchanged; scheduled Benchmark evidence continues but platform health fails."
   },
   "scoped_hold": {
     "status": "PRESERVED_PENDING_ISOLATION_RECEIPT",
@@ -114,11 +116,11 @@
     "owner_attribution": "NOT_INFERRED_FROM_COMMIT_AUTHOR"
   },
   "continuity_review": {
-    "source_commit": "61ec1e48a9072b466a6948d949a3e58a561c1c9b",
-    "evidence_at": "2026-09-02T11:18:45Z",
-    "scope": "TERMINAL_QUEUE_RETIREMENT_AND_CONTINUITY_NO_RUNTIME_BINARY_CHANGE",
+    "source_commit": "8f86a8d33e772878545d21cd6e797ae42e13fcd5",
+    "evidence_at": "2026-09-02T14:20:00Z",
+    "scope": "FOREGROUND_READER_RECEIPT_AND_FAILED_PLATFORM_GATE_CONTINUITY_ONLY",
     "runtime_mutation": false,
-    "manifest_mutation": true,
+    "manifest_mutation": false,
     "retry_budget_mutation": false,
     "transfer_promotion": false
   },
@@ -302,6 +304,62 @@
     "policy_change_authorized": false,
     "canary_retry_authorized": false,
     "next": "Version-qualified fixed read-only presence/type/correlation diagnostic; then actual authorized useful tool action with independent semantics.",
-    "consumer": "fixed main-agent semantic/tool-evidence boundary"
+    "consumer": "fixed main-agent semantic/tool-evidence boundary",
+    "scope": "FIXED_MAIN_CANARY_ONLY_NOT_READER_PROFILE"
+  },
+  "reader_benchmark_review": {
+    "acceptance_weakened": false,
+    "benchmark": {
+      "at": "2026-09-02T08:12:35.2273154-06:00",
+      "passed": 29,
+      "total": 30,
+      "critical_failures": 1,
+      "failures": [
+        "R05 Reader config frozen"
+      ],
+      "scheduler_consecutive_errors": 5,
+      "previous": {
+        "at": "2026-09-02T08:03:12.3181818-06:00",
+        "passed": 23,
+        "total": 25,
+        "critical_failures": 2,
+        "failures": [
+          "R05 Reader config frozen",
+          "R11 cron list exit=1"
+        ]
+      },
+      "r11_currently_failing": false
+    },
+    "foreground_contract_preserved": true,
+    "independent_full_semantic_verification": false,
+    "maintenance": {
+      "intake_errors": 0,
+      "state": "NO_MANIFEST"
+    },
+    "manifest_mutation": false,
+    "missing_patch_proof": "reports/engineering/PROOF-reader-status-canary-predicate-fix-2026-09-02-0802.md",
+    "observed_maintenance_sha256": "3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E",
+    "production_acceptance": "BLOCKED_NOT_COMPLETE",
+    "production_mutation": false,
+    "reader_family_history": {
+      "current_inventory": "benchmark-postcondition-R05-R11",
+      "previous": "reader-canary-runtime-path",
+      "reset_authorized": false,
+      "retained_failure_attempts": 3
+    },
+    "reader_receipt_at": "2026-09-02T08:02:30.7382354-06:00",
+    "reader_receipt_blob": "37812dee3522ac295c8916654be919026cd46924",
+    "reader_reported_calls_per_trial": 1,
+    "reader_reported_state": "REPEATEDLY_PROVEN",
+    "reader_reported_trials": 2,
+    "reader_source_qualified": false,
+    "report": "docs/engineering/KEVIN-READER-BENCHMARK-BOUNDARY-2026-09-02.md",
+    "repository_runner_blob": "2e80d7f528a230f74e3bd8d7a16193911d50405b",
+    "retry_budget_mutation": false,
+    "reviewed_at": "2026-09-02T14:20:00Z",
+    "source_commit": "8f86a8d33e772878545d21cd6e797ae42e13fcd5",
+    "status": "READER_RECEIPT_2_OF_2_PLATFORM_ACCEPTANCE_BLOCKED",
+    "transfer_promotion": false,
+    "latest_health_source_commit": "fbc5f324c0f0f30553513f51eec5d1d50ac96672"
   }
 }
