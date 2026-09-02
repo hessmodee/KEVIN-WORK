@@ -166,7 +166,7 @@
       "id": "staging-trajectory-reliability-v1",
       "program": "skill-learning",
       "authority_class": "GREEN",
-      "status": "READY",
+      "status": "COMPLETE",
       "lane": "staging",
       "work_type": "execution",
       "severity": "medium",
@@ -182,8 +182,9 @@
       "dependencies_ready": true,
       "failure_attempts": 0,
       "downstream_consumer": "READER_AND_SKILL_REUSE_RELIABILITY",
-      "next_action": "Trajectory gate v1 installed under control-plane/staging; selftest proves false-DONE rejection. Connect second independent real owner trial for control-ui-owner-roundtrip (trial1=Control UI 2026-09-01). Do not manufacture synthetic trials. Run gate --evidence when 2 real trials exist.",
-      "near_acceptance": true
+      "next_action": "Closed. Trajectory gate connected to sanitized evidence without new authority. Do not manufacture synthetic trials for promotion count.",
+      "near_acceptance": true,
+      "completion_evidence": "reports/trajectory/gate-result-control-ui-owner-roundtrip-v1.json verdict=REPEATEDLY_PROVEN pass_k=2/2 capability=control-ui-owner-roundtrip@1; false-DONE fixture rejected in reports/trajectory/gate-result-false-done-fixture-v1.json; gate selftest PASS; gate at control-plane/staging/kevin-trajectory-gate-v1.py authority_effect=NONE"
     }
   ]
 }
