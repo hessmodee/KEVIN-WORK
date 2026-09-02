@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-02T14:38:35-06:00",
+  "generated_at": "2026-09-02T14:38:36.2062598-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,11 +13,11 @@
     "tools": false
   },
   "current_task": {
-    "id": "night-forge",
-    "title": "Night Forge QA",
-    "category": "qa",
-    "phase": "Night Forge QA/regression cycle active.",
-    "started_at": "2026-09-02T14:37:36.2062238-06:00",
+    "id": "design-forge",
+    "title": "Design Forge active",
+    "category": "forge",
+    "phase": "Design Forge candidate generation active.",
+    "started_at": "2026-09-02T14:38:36.2062598-06:00",
     "source": "hq-live-ops"
   },
   "services": {
@@ -1382,7 +1382,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-02T14:38:35-06:00",
+    "last": "2026-09-02T14:38:36.2062598-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,22 +1419,22 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-02T14:37:36.2062238-06:00",
+    "generated_at": "2026-09-02T14:38:36.2062598-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
-    "forge_active": false,
+    "forge_active": true,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "night-forge",
-      "name": "Night Forge",
-      "title": "Night Forge QA",
-      "category": "qa",
+      "id": "design-forge",
+      "name": "Build Lab",
+      "title": "Design Forge active",
+      "category": "forge",
       "state": "working",
-      "detail": "Night Forge QA/regression cycle active.",
-      "what": "Running safety and regression checks.",
-      "engine": "Night Forge",
-      "action": "QA / regression"
+      "detail": "Design Forge candidate generation active.",
+      "what": "Generating and validating an isolated candidate.",
+      "engine": "Ollama | Qwen 2.5 14B",
+      "action": "Candidate engineering"
     },
     "lanes": [
       {
@@ -1472,15 +1472,15 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "Night Forge QA/regression cycle active.",
-    "worker": "Night Forge",
-    "engine": "Night Forge",
-    "action": "QA / regression"
+    "phase": "Design Forge candidate generation active.",
+    "worker": "Build Lab",
+    "engine": "Ollama | Qwen 2.5 14B",
+    "action": "Candidate engineering"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Night Forge | WORKING | Night Forge QA/regression cycle active.",
+      "text": "Build Lab | WORKING | Design Forge candidate generation active.",
       "severity": "normal"
     }
   ]
