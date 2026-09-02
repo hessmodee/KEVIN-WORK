@@ -1,12 +1,16 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "main-agent-canary-v1340-20260901-1817",
+  "id": "ui-bridge-recovery-20260902-0036",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "run_main_agent_canary",
-  "expires_at": "2026-09-01T20:30:00-06:00"
+  "operation": "restart_ui_bridge",
+  "target_alias": "ui_bridge_runner",
+  "expected_current_sha256": "5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42",
+  "task_name": "Kevin UI Bridge v0.3",
+  "heartbeat_timeout_seconds": 30,
+  "expires_at": "2026-09-02T02:30:00Z"
 }
