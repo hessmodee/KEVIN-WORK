@@ -1,6 +1,6 @@
 # Bess -> Kevin Responsibility Transfer Ledger v1
 
-Baseline established: 2026-08-31; reconciled from: 2026-09-02 05:10 UTC evidence
+Baseline established: 2026-08-31; reconciled from: 2026-09-02 06:08 UTC evidence
 
 Purpose: track whether Kevin is actually taking recurring operational responsibility away from Bess, not merely accumulating code or candidates.
 
@@ -83,6 +83,14 @@ The goal of this ledger is to watch the operational dependency shrink:
 
 ## Current proof checkpoint
 
-See [current review](KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md). Main exact reply now passes with correlated zero-tool transcript; useful tool execution remains unproven. Supervisor v1.8.8 is observed installed on the existing5m scheduler, and current IDLE_NO_ELIGIBLE_DEMAND matches the complete/blocked inventory. Cross-fingerprint attempt history is not preserved; this is not repaired. Foreground chat/staging closures are not replay proof. Desired pins remain unblessed; scheduled Maintenance recovery awaits a natural result despite a newer successful manifest receipt.
+See [current review](KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md). Main exact reply now passes with correlated zero-tool transcript; useful tool execution remains unproven. Supervisor v1.8.8 is observed installed on the existing5m scheduler, and current IDLE_NO_ELIGIBLE_DEMAND matches the complete/blocked inventory. Cross-fingerprint attempt history is not preserved; this is not repaired. Foreground chat/staging closures are not replay proof. Desired pins remain unblessed despite newly reported drift0; repository desired-vs-observed hashes still differ. Scheduled Maintenance recovery is now observed ok/0 errors by independent Support and Engineering. The selector CI-only regression repair passed13 tests in run33597815086; runtime retry history is not repaired. See [CI recovery review](KEVIN-SELECTOR-CI-RECOVERY-2026-09-02.md).
 
 All T-levels remain unchanged. No T4/T5 or Bess-responsibility retirement is added. This reconciliation itself is Bess-maintained continuity, not Kevin autonomy.
+
+## Canonical reconciliation check — 07:22 UTC
+
+Reviewed 8a4d3b2eb05f39fe4d701971f5c9ea945cee5a7f: Support01:19/Engineering01:22 confirm Maintenance ok/0 errors, Benchmark30/30 critical0 at01:17, and UI heartbeat4.4s. Continuation01:19 remains legitimate idle with no useful outcome proof. No runtime or transfer change.
+
+Scoped hold preserved from reports/STATUS.md (commit b632929b6dee535abd0e95bac3f007fc33b886c8, 07:11 UTC): no isolation-dependent advance without the missing isolation receipt. The write-proof already contains OK-WRITE and must not be repeated. STATUS's claim that CURRENT_TASK is still the write-proof is stale, not a reason to resurrect that task. Independent authorized GREEN CI/design/continuity work remains allowed; no broad hold release or foreground-owner attribution is inferred.
+
+The earlier whole-branch continuity publication conflicted with concurrent telemetry and was retained on chief-engineer/selector-ci-handoff-20260902. This reconciliation uses per-file expected-blob updates and stops on a changed target, preserving unrelated concurrent writes. No retry budgets were reset.
