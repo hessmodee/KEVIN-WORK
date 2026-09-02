@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-responsibility-transfer-checkpoint",
-  "generated_at": "2026-09-02T11:18:45Z",
+  "generated_at": "2026-09-02T12:28:00Z",
   "north_star": "Transfer recurring operational responsibility from Bess/GrokBot to Kevin until Kevin owns normal authorized lifecycles end-to-end and remote human/AI operators are not part of the routine operating loop.",
   "transfer_levels": {
     "T0": "BESS-DEPENDENT",
@@ -81,14 +81,14 @@
     "contains_secrets": false,
     "contains_private_message_bodies": false
   },
-  "current_engineering_record": "docs/engineering/KEVIN-INTAKE-TERMINAL-RETIREMENT-2026-09-02.md",
+  "current_engineering_record": "docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md",
   "current_evidence": {
     "scheduled_chatgpt": "ONLY_CHIEF_ENGINEER_ENABLED_FOREGROUND_PRIORITY_PRESERVED",
     "ui_bridge": "FRESH_HEARTBEAT1_6S_AT0518_MDT",
     "watchdog": "EARLIER_PROBE_ONLY_HEALTHY_NO_NEW_PROOF_THIS_REVIEW",
     "main_agent": "EXACT_REPLY_OMEN_PROVEN_CORRELATED_ZERO_TOOL_CANARY_USEFUL_ACTION_NOT_PROVEN",
     "work_selection": "V188_INSTALLED_OBSERVED_SCHEDULED_SELECTION_AND_IDLE_NO_OUTCOME_CREDIT",
-    "retry_history": "CI_PROVEN_STORAGE_CANDIDATE_28_TESTS_NOT_INTEGRATED_RUNTIME_REPAIR",
+    "retry_history": "CI_PROVEN_JOURNAL41_PLUS_RECOVERY18_TESTS_NOT_INTEGRATED_RUNTIME_REPAIR",
     "owner_chat": "FOREGROUND_COMPLETE_REFERENCED_PROOF_NOT_RETRIEVABLE",
     "staging": "FOREGROUND_COMPLETE_2_OF_2_CLAIM_REFERENCED_RESULTS_NOT_RETRIEVABLE",
     "desired_state": "REPORTED_DRIFT0_REPOSITORY_PIN_MISMATCH_AND_SOURCE_PROVENANCE_UNRESOLVED",
@@ -193,22 +193,22 @@
   },
   "history_journal_candidate": {
     "status": "CI_PROVEN_STORAGE_CANDIDATE_NOT_INTEGRATED_RUNTIME_REPAIR",
-    "source_commit": "b52d825649af9fbe8d3d7273d8ebdbdbbbe658be",
+    "source_commit": "672d9daabbb6a07e080ef05e7e5eb7559dfe8ef9",
     "branch": "chief-engineer/history-recovery-20260902",
-    "run_id": 33619080134,
+    "run_id": 33629971001,
     "jobs": [
-      100211668149,
-      100211668353
+      100246723023,
+      100246723288
     ],
-    "tests": 28,
+    "tests": 41,
     "recovery_tests": 18,
     "platforms": [
       "Linux",
       "Windows"
     ],
-    "tracked_files_unchanged": 492,
-    "library_sha256": "461E2C6C524FFC4CDF460367FAF82D441914392F840159E9E9E0D89B99D929A2",
-    "report": "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md",
+    "tracked_files_unchanged": 493,
+    "library_sha256": "1E6B9BDF6130FDB77BF139114E5BC7BE5DD6BFDB3494E78A49D3EFD5B22AFE32",
+    "report": "docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md",
     "consumer": "next governed Supervisor history-preservation integration",
     "eval_lane": "COMPLETE",
     "real_process_death_fixtures": true,
@@ -226,9 +226,33 @@
       {
         "run_id": 33619080134,
         "result": "EXPLICIT_FIXTURE_CONNECTION_CLOSE_ALL_28_PLUS18_PASS_BOTH_PLATFORMS"
+      },
+      {
+        "run_id": 33629971001,
+        "result": "RESOURCE_BOUNDS_13_PLUS_JOURNAL28_PLUS_RECOVERY18_PASS_LINUX_WINDOWS_NO_NEW_FAILURE"
       }
     ],
-    "remaining": "Authenticated complete migration/family provenance; fixed Supervisor and semantic-verifier integration; operation/storage bounds; installed-runtime qualification; typed crossing and Omen outcomes."
+    "remaining": "Authenticated complete migration/family provenance; fixed Supervisor/path/semantic-verifier binding; hard process and OS-I/O supervision; installed-runtime qualification; typed crossing and Omen outcomes.",
+    "resource_bound_tests": 13,
+    "previous_qualifications": [
+      {
+        "source_commit": "b52d825649af9fbe8d3d7273d8ebdbdbbbe658be",
+        "run_id": 33619080134,
+        "tests": 28,
+        "library_sha256": "461E2C6C524FFC4CDF460367FAF82D441914392F840159E9E9E0D89B99D929A2",
+        "report": "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md"
+      }
+    ],
+    "resource_limits": {
+      "database_bytes": 16777216,
+      "mappings": 256,
+      "events": 4096,
+      "sqlite_value_sql_bytes": 4096,
+      "vm_steps": 2000000,
+      "progress_interval": 1000,
+      "cooperative_deadline_seconds": 2,
+      "hard_process_timeout_proven": false
+    }
   },
   "intake_terminal_retirement": {
     "status": "OMEN_OBSERVED_EMPTY_QUEUE_RECOVERY",

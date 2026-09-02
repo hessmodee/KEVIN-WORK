@@ -43,7 +43,7 @@
     "kevin-independent-next-selection-t3-proof"
   ],
   "observation_window": {
-    "purpose": "Exact reply is satisfied; runtime v1.8.8 still has history replacement. CI-proven recovery and journal storage are candidate-only. Authenticate migration/family provenance and integrate the fixed controller/verifier without reopening completed items or resetting budgets.",
+    "purpose": "Exact reply and terminal queue retirement are satisfied. Resource-bound journal candidate CI is qualified; installed v1.8.8 still replaces history. Authenticate migration and fixed controller/verifier/process integration without reopening completed work or resetting budgets.",
     "success_condition": "Preserved per-item and family attempt history across evidence epochs, materially justified reopening only, typed useful execution, independent semantic verification, durable result/lesson, restart/replay and a subsequent correct scheduled decision with no Bess-supplied immediate item ID."
   },
   "truth_boundary": "Selection/WIP metadata only, not runtime continuation history. Exact-reply canary is OMEN_PROVEN with complete zero-tool transcript. Continuation tool telemetry is UNKNOWN and outcome_proven=false. Foreground chat/trajectory closures are preserved; their referenced proofs are not independently retrievable. No T-level promotion.",
@@ -64,7 +64,8 @@
     "reset_authorized": false,
     "executable_regression_record": "docs/engineering/KEVIN-HISTORY-CONTRACT-EVAL-2026-09-02.md",
     "recovery_proposal": "docs/engineering/history-recovery-proposal-20260902.json",
-    "journal_candidate_record": "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md"
+    "journal_candidate_record": "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md",
+    "journal_resource_record": "docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md"
   },
   "ci_contract": {
     "status": "CI_PROVEN",
@@ -127,7 +128,7 @@
     ],
     "remaining": "Installed v1.8.8 remains nonconformant. Isolated journal family/crash/replay fixtures now pass; authenticated live migration, fixed controller/verifier integration, bounded resources and real tool outcomes still required."
   },
-  "current_engineering_record": "docs/engineering/KEVIN-INTAKE-TERMINAL-RETIREMENT-2026-09-02.md",
+  "current_engineering_record": "docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md",
   "history_recovery_candidate": {
     "status": "CI_PROVEN_READ_ONLY_RECOVERY_NOT_RUNTIME_REPAIR",
     "source_commit": "e51132024dfd8b762506f4b0c66a03eafcd8d53f",
@@ -167,22 +168,22 @@
   },
   "history_journal_candidate": {
     "status": "CI_PROVEN_STORAGE_CANDIDATE_NOT_INTEGRATED_RUNTIME_REPAIR",
-    "source_commit": "b52d825649af9fbe8d3d7273d8ebdbdbbbe658be",
+    "source_commit": "672d9daabbb6a07e080ef05e7e5eb7559dfe8ef9",
     "branch": "chief-engineer/history-recovery-20260902",
-    "run_id": 33619080134,
+    "run_id": 33629971001,
     "jobs": [
-      100211668149,
-      100211668353
+      100246723023,
+      100246723288
     ],
-    "tests": 28,
+    "tests": 41,
     "recovery_tests": 18,
     "platforms": [
       "Linux",
       "Windows"
     ],
-    "tracked_files_unchanged": 492,
-    "library_sha256": "461E2C6C524FFC4CDF460367FAF82D441914392F840159E9E9E0D89B99D929A2",
-    "report": "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md",
+    "tracked_files_unchanged": 493,
+    "library_sha256": "1E6B9BDF6130FDB77BF139114E5BC7BE5DD6BFDB3494E78A49D3EFD5B22AFE32",
+    "report": "docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md",
     "consumer": "next governed Supervisor history-preservation integration",
     "eval_lane": "COMPLETE",
     "real_process_death_fixtures": true,
@@ -200,9 +201,33 @@
       {
         "run_id": 33619080134,
         "result": "EXPLICIT_FIXTURE_CONNECTION_CLOSE_ALL_28_PLUS18_PASS_BOTH_PLATFORMS"
+      },
+      {
+        "run_id": 33629971001,
+        "result": "RESOURCE_BOUNDS_13_PLUS_JOURNAL28_PLUS_RECOVERY18_PASS_LINUX_WINDOWS_NO_NEW_FAILURE"
       }
     ],
-    "remaining": "Authenticated complete migration/family provenance; fixed Supervisor and semantic-verifier integration; operation/storage bounds; installed-runtime qualification; typed crossing and Omen outcomes."
+    "remaining": "Authenticated complete migration/family provenance; fixed Supervisor/path/semantic-verifier binding; hard process and OS-I/O supervision; installed-runtime qualification; typed crossing and Omen outcomes.",
+    "resource_bound_tests": 13,
+    "previous_qualifications": [
+      {
+        "source_commit": "b52d825649af9fbe8d3d7273d8ebdbdbbbe658be",
+        "run_id": 33619080134,
+        "tests": 28,
+        "library_sha256": "461E2C6C524FFC4CDF460367FAF82D441914392F840159E9E9E0D89B99D929A2",
+        "report": "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md"
+      }
+    ],
+    "resource_limits": {
+      "database_bytes": 16777216,
+      "mappings": 256,
+      "events": 4096,
+      "sqlite_value_sql_bytes": 4096,
+      "vm_steps": 2000000,
+      "progress_interval": 1000,
+      "cooperative_deadline_seconds": 2,
+      "hard_process_timeout_proven": false
+    }
   },
   "intake_terminal_retirement": {
     "status": "OMEN_OBSERVED_EMPTY_QUEUE_RECOVERY",

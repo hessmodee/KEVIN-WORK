@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-chat-handoff-checkpoint",
-  "generated_at": "2026-09-02T11:18:45Z",
+  "generated_at": "2026-09-02T12:28:00Z",
   "current_sprint": "Useful typed autonomy, durable retry history and outcome provenance",
   "start_here_path": "KEVIN-START-HERE.md",
   "handover_path": "AI-HANDOVER.md",
@@ -41,7 +41,7 @@
     {
       "name": "Durable attempt provenance",
       "proof_level": "SOURCE_AND_RECEIPT_CONFIRMED_HISTORY_REPLACEMENT_NOT_REPAIRED",
-      "next_boundary": "Authenticated complete migration/family provenance; fixed Supervisor and semantic-verifier integration; operation/storage bounds; installed-runtime qualification; typed crossing and Omen outcomes."
+      "next_boundary": "Authenticated complete migration/family provenance; fixed Supervisor/path/semantic-verifier binding; hard process and OS-I/O supervision; installed-runtime qualification; typed crossing and Omen outcomes."
     },
     {
       "name": "Useful main-agent execution",
@@ -81,15 +81,16 @@
     "docs/engineering/KEVIN-HISTORY-RECOVERY-CANDIDATE-2026-09-02.md",
     "docs/engineering/history-recovery-proposal-20260902.json",
     "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md",
-    "docs/engineering/KEVIN-INTAKE-TERMINAL-RETIREMENT-2026-09-02.md"
+    "docs/engineering/KEVIN-INTAKE-TERMINAL-RETIREMENT-2026-09-02.md",
+    "docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md"
   ],
   "privacy": {
     "contains_secrets": false,
     "contains_private_message_bodies": false,
     "public_safe_metadata_only": true
   },
-  "current_engineering_record": "docs/engineering/KEVIN-INTAKE-TERMINAL-RETIREMENT-2026-09-02.md",
-  "source_checkpoint": "61ec1e48a9072b466a6948d949a3e58a561c1c9b",
+  "current_engineering_record": "docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md",
+  "source_checkpoint": "c11fea74bbc820039b129b646415797cc96b72d0",
   "no_runtime_mutation": true,
   "desired_state_review": {
     "reported_state": "HEALTHY",
@@ -199,22 +200,22 @@
   },
   "history_journal_candidate": {
     "status": "CI_PROVEN_STORAGE_CANDIDATE_NOT_INTEGRATED_RUNTIME_REPAIR",
-    "source_commit": "b52d825649af9fbe8d3d7273d8ebdbdbbbe658be",
+    "source_commit": "672d9daabbb6a07e080ef05e7e5eb7559dfe8ef9",
     "branch": "chief-engineer/history-recovery-20260902",
-    "run_id": 33619080134,
+    "run_id": 33629971001,
     "jobs": [
-      100211668149,
-      100211668353
+      100246723023,
+      100246723288
     ],
-    "tests": 28,
+    "tests": 41,
     "recovery_tests": 18,
     "platforms": [
       "Linux",
       "Windows"
     ],
-    "tracked_files_unchanged": 492,
-    "library_sha256": "461E2C6C524FFC4CDF460367FAF82D441914392F840159E9E9E0D89B99D929A2",
-    "report": "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md",
+    "tracked_files_unchanged": 493,
+    "library_sha256": "1E6B9BDF6130FDB77BF139114E5BC7BE5DD6BFDB3494E78A49D3EFD5B22AFE32",
+    "report": "docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md",
     "consumer": "next governed Supervisor history-preservation integration",
     "eval_lane": "COMPLETE",
     "real_process_death_fixtures": true,
@@ -232,9 +233,33 @@
       {
         "run_id": 33619080134,
         "result": "EXPLICIT_FIXTURE_CONNECTION_CLOSE_ALL_28_PLUS18_PASS_BOTH_PLATFORMS"
+      },
+      {
+        "run_id": 33629971001,
+        "result": "RESOURCE_BOUNDS_13_PLUS_JOURNAL28_PLUS_RECOVERY18_PASS_LINUX_WINDOWS_NO_NEW_FAILURE"
       }
     ],
-    "remaining": "Authenticated complete migration/family provenance; fixed Supervisor and semantic-verifier integration; operation/storage bounds; installed-runtime qualification; typed crossing and Omen outcomes."
+    "remaining": "Authenticated complete migration/family provenance; fixed Supervisor/path/semantic-verifier binding; hard process and OS-I/O supervision; installed-runtime qualification; typed crossing and Omen outcomes.",
+    "resource_bound_tests": 13,
+    "previous_qualifications": [
+      {
+        "source_commit": "b52d825649af9fbe8d3d7273d8ebdbdbbbe658be",
+        "run_id": 33619080134,
+        "tests": 28,
+        "library_sha256": "461E2C6C524FFC4CDF460367FAF82D441914392F840159E9E9E0D89B99D929A2",
+        "report": "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md"
+      }
+    ],
+    "resource_limits": {
+      "database_bytes": 16777216,
+      "mappings": 256,
+      "events": 4096,
+      "sqlite_value_sql_bytes": 4096,
+      "vm_steps": 2000000,
+      "progress_interval": 1000,
+      "cooperative_deadline_seconds": 2,
+      "hard_process_timeout_proven": false
+    }
   },
   "intake_terminal_retirement": {
     "status": "OMEN_OBSERVED_EMPTY_QUEUE_RECOVERY",

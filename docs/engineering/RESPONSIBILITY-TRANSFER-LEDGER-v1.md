@@ -1,6 +1,6 @@
 # Bess -> Kevin Responsibility Transfer Ledger v1
 
-Baseline established: 2026-08-31; current reconciliation: 2026-09-02 11:18 UTC evidence
+Baseline established: 2026-08-31; current reconciliation: 2026-09-02 12:28 UTC evidence
 
 Purpose: track whether Kevin is actually taking recurring operational responsibility away from Bess, not merely accumulating code or candidates.
 
@@ -87,7 +87,7 @@ The expired consumed canary request was archived byte-for-byte and retired, not 
 
 Migration provenance audit: all8 published work-inventory revisions were checked; neither HQ chat nor staging trajectory declares failure_family where present. The earliest retrieved continuation already contains a prior attempt, not an authenticated empty-history seed. Do not infer canonical families from program labels or declare recovered history complete. The journal candidate remains uninstalled; authenticated migration and fixed controller/verifier integration are still next.
 
-Attempt-journal storage is now CI-PROVEN on the existing history-recovery candidate branch: run33619080134 at b52d825649af9fbe8d3d7273d8ebdbdbbbe658be passed28 journal tests plus18 recovery tests on Linux and Windows, with all492 tracked files unchanged. Real child-process death tests preserve committed reservations, roll back uncommitted ones, and prevent silent replay after a fixed fixture effect. The journal retains fingerprint epochs and mapped-family budgets, rejects absent/incomplete state and has no bootstrap, executor or automatic reopening API. It is NOT integrated with Supervisor or installed on Omen. Prior receipt recovery still establishes staging's observed lower bound4, not complete history; live family provenance remains unresolved. See docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md. Next: authenticated complete migration/family provenance, bounded fixed Supervisor/verifier integration, then typed qualification and correlated Omen proof. No live budget reset, completed-item reopening, isolation-hold release or T-level promotion.
+Attempt-journal storage now has CI-PROVEN resource controls on the existing history-recovery candidate branch. Source672d9daabbb6a07e080ef05e7e5eb7559dfe8ef9 and run33629971001 passed28 existing journal tests,13 resource-bound tests and18 recovery tests on Linux and Windows; all493 tracked files were unchanged during evaluation. The candidate rejects oversized state, bounds database work, rolls back interrupted operations, preserves history and reserves terminal-record capacity. Cooperative deadline/VM controls are not a hard process or OS-I/O timeout. It remains UNINSTALLED and not integrated with Supervisor. Live history completeness, canonical family provenance, authenticated migration/path/verifier binding and integrated runtime process supervision remain required; the recovered staging lower bound4 is not a complete seed. See docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md. Next: authenticate migration and integrate the fixed controller/verifier through the existing typed path, then correlated Omen outcomes. No live budget reset, completed-item reopening, isolation-hold release or T-level promotion.
 
 The earlier strict baseline gate remains authoritative for its tested scope: run33608179462 reproduced6 contract violations across14 cases; no runtime pass is claimed. The isolated journal now covers family aggregation and real process-death fixtures; authenticated migration, reopening policy and integrated-runtime/effect tests remain required.
 
@@ -95,9 +95,9 @@ See [current review](KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md). Main exact rep
 
 All T-levels remain unchanged. No T4/T5 or Bess-responsibility retirement is added. This reconciliation itself is Bess-maintained continuity, not Kevin autonomy.
 
-## Canonical reconciliation check — 11:18 UTC
+## Canonical reconciliation check — 12:28 UTC
 
-Reviewed 61ec1e48a9072b466a6948d949a3e58a561c1c9b: the terminal canary manifest is archived and absent from active intake. NO_MANIFEST at05:15 and errors0 are independently observed; Benchmark30/30 critical0 at05:17 and heartbeat1.6s at05:18. This is bounded queue recovery, not Supervisor repair or autonomy promotion.
+Reviewed c11fea74bbc820039b129b646415797cc96b72d0: Support06:25/Engineering06:26 MDT retain healthy NO_MANIFEST, Intake errors0 and Benchmark30/30 critical0; continuation remains legitimate idle. Resource-bound journal candidate CI33629971001 passed59 tests per platform, not Omen repair. The following isolation hold and all transfer levels remain unchanged.
 
 Scoped hold preserved from reports/STATUS.md (commit b632929b6dee535abd0e95bac3f007fc33b886c8, 07:11 UTC): no isolation-dependent advance without the missing isolation receipt. The write-proof already contains OK-WRITE and must not be repeated. STATUS's claim that CURRENT_TASK is still the write-proof is stale, not a reason to resurrect that task. Independent authorized GREEN CI/design/continuity work remains allowed; no broad hold release or foreground-owner attribution is inferred.
 
