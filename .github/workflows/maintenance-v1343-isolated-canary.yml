@@ -6,6 +6,7 @@ on:
       - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.43.ps1'
       - 'tools/test-main-canary-shape.ps1'
       - 'tools/test-canary-transcript.ps1'
+      - 'tools/test-single-governed-wake.ps1'
       - '.github/workflows/maintenance-v1343-isolated-canary.yml'
   workflow_dispatch:
 permissions:
@@ -38,6 +39,7 @@ jobs:
           if($LASTEXITCODE-ne0){throw 'inherited PS5.1 tests failed'}
           & ./tools/test-main-canary-shape.ps1 -Runner ./control-plane/maintenance/kevin-maintenance-runner-v1.3.43.ps1
           & ./tools/test-canary-transcript.ps1 -Runner ./control-plane/maintenance/kevin-maintenance-runner-v1.3.43.ps1
+          & ./tools/test-single-governed-wake.ps1
       - name: Inherited tests PowerShell 7
         shell: pwsh
         run: |
@@ -46,3 +48,4 @@ jobs:
           if($LASTEXITCODE-ne0){throw 'inherited PS7 tests failed'}
           & ./tools/test-main-canary-shape.ps1 -Runner ./control-plane/maintenance/kevin-maintenance-runner-v1.3.43.ps1
           & ./tools/test-canary-transcript.ps1 -Runner ./control-plane/maintenance/kevin-maintenance-runner-v1.3.43.ps1
+          & ./tools/test-single-governed-wake.ps1

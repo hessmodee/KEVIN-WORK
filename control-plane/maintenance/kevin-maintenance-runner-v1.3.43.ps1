@@ -589,7 +589,12 @@ function Publish-RuntimeConvergence {
         design_forge_sha256=$audit.design_forge_sha256
         design_forge_present=$audit.design_forge_present
         maintenance_runner_sha256=(Get-Sha (Join-Path $Workspace 'kevin-maintenance-runner.ps1'))
-        source_contract='fixed five runtime policy files + fixed design_forge alias + fixed maintenance runner only'
+        supervisor_sha256=(Get-Sha (Join-Path $Workspace 'kevin-supervisor.ps1'))
+        selector_sha256=(Get-Sha (Join-Path $Workspace 'ControlPlane\kevin-work-selector-v1.1.py'))
+        local_desired_sha256=(Get-Sha (Join-Path $Workspace 'ControlPlane\desired-state-v1.json'))
+        local_actuator_sha256=(Get-Sha (Join-Path $Workspace 'ControlPlane\kevin-autonomy-actuator-v0.1.ps1'))
+        local_bridge_sha256=(Get-Sha (Join-Path $Workspace 'ControlPlane\kevin-autonomy-bridge-v0.1.ps1'))
+        source_contract='fixed five runtime policy files, Forge, Maintenance, Supervisor, selector and local desired-state/actuator/bridge identities only'
         truth_boundary='Metadata-only Omen audit. Hashes prove local file identities at generated_at; they do not by themselves prove semantic behavior.'
     }
     $local=Join-Path $Reports 'runtime-convergence-public.json'
@@ -1938,34 +1943,47 @@ function Get-AutonomyContinuationJobs {
     return @($obj)
 }
 
+function Get-GovernedContinuationJob([object[]]$Jobs) {
+    $legacyName='Kevin Supervisor v1.6 High Gear'
+    $hits=@($Jobs|Where-Object{[string](Get-OptionalPropertyValue $_ 'name')-eq$legacyName})
+    $duplicates=@($Jobs|Where-Object{[string](Get-OptionalPropertyValue $_ 'name')-eq'Kevin Autonomy Continuation v1'})
+    if($hits.Count-ne1-or$duplicates.Count-ne0){throw 'exactly one existing governed Supervisor wake is required; duplicate or missing owner'}
+    $job=$hits[0]
+    if([string]$job.id-notmatch'^[a-fA-F0-9-]{36}$'-or-not[bool]$job.enabled){throw 'governed Supervisor job identity or enabled state invalid'}
+    $payload=Get-OptionalPropertyValue $job 'payload'
+    if(($payload|ConvertTo-Json -Depth 20 -Compress)-notmatch'(?i)kevin-supervisor\.ps1'){throw 'existing scheduler payload does not invoke fixed Supervisor'}
+    if([string]$job.schedule.kind-ne'every'-or[long]$job.schedule.everyMs-notin@(180000,300000)){throw 'unexpected Supervisor cadence'}
+    return $job
+}
+function Get-ContinuationImmutableHash([object]$Job) {
+    $fields=[ordered]@{}
+    foreach($key in @('id','name','enabled','payload','sessionTarget','agentId','delivery','wakeMode','failureAlert')){$fields[$key]=Get-OptionalPropertyValue $Job $key}
+    return Get-TextSha256 ($fields|ConvertTo-Json -Depth 30 -Compress)
+}
 function Ensure-AutonomyContinuationAutomation {
-    $name='Kevin Autonomy Continuation v1'
-    $event='KEVIN_CONTINUATION_V1: Execute standing orders now. Refresh trusted evidence. If an active GREEN goal can advance, select the highest eligible UNSATISFIED item via governed selector/Task Flow; never re-select already-satisfied work; execute only existing proven typed GREEN paths; semantically verify; record outcome/evidence/failure family; then continue. If production WIP is occupied, advance an independent eligible staging or research item within WIP. Do not manufacture Forge/design demand. If no eligible action exists, record the exact blocker and return NO_REPLY.'
-    $jobs=@(Get-AutonomyContinuationJobs|Where-Object{[string]$_.name -eq $name})
-    if($jobs.Count -gt 1){throw 'duplicate Kevin Autonomy Continuation jobs detected'}
-    $changed=$false
-    if($jobs.Count -eq 0){
-        $create=Invoke-OpenClawFixedConfig @('cron','add','--name',$name,'--every','5m','--session','main','--system-event',$event,'--wake','now')
-        if($create.exit_code -ne 0){throw ('autonomy continuation automation create failed: '+(Safe-Text $create.output 260))}
-        $changed=$true
-        $jobs=@(Get-AutonomyContinuationJobs|Where-Object{[string]$_.name -eq $name})
-        if($jobs.Count -ne 1){throw 'autonomy continuation automation create did not converge to exactly one job'}
+    if((Get-Sha (Join-Path $Workspace 'kevin-supervisor.ps1'))-ne$SupervisorV183Sha){throw 'qualified governed Supervisor must be installed before cadence reconciliation'}
+    if((Get-Sha (Join-Path $Workspace 'ControlPlane\kevin-work-selector-v1.1.py'))-ne$SelectorV11Sha){throw 'qualified governed selector missing'}
+    $before=Get-GovernedContinuationJob @(Get-AutonomyContinuationJobs)
+    $id=[string]$before.id;$oldMs=[long]$before.schedule.everyMs;$immutable=Get-ContinuationImmutableHash $before;$changed=$false
+    try{
+        if($oldMs-ne300000){
+            $changed=$true
+            $edit=Invoke-OpenClawFixedConfig @('cron','edit',$id,'--every','5m')
+            if($edit.exit_code-ne0){throw 'fixed Supervisor cadence update failed'}
+        }
+        $after=Get-GovernedContinuationJob @(Get-AutonomyContinuationJobs)
+        if([string]$after.id-ne$id-or[long]$after.schedule.everyMs-ne300000-or(Get-ContinuationImmutableHash $after)-ne$immutable){throw 'governed cadence/payload readback mismatch'}
+        Assert-Benchmark30
+        return [ordered]@{changed=$changed;idempotent=(-not$changed);job_name=[string]$after.name;cadence='5m';existing_job_reused=$true;exactly_one_governed_wake=$true;payload_unchanged=$true;additional_main_session_event=$false;immediate_run_enqueued=$false;next_scheduled_wake_is_proof=$true;arbitrary_shell=$false;authority_expansion=$false}
+    }catch{
+        $primary=$_.Exception.Message
+        if($changed){
+            $rollback=Invoke-OpenClawFixedConfig @('cron','edit',$id,'--every','3m')
+            $restored=Get-GovernedContinuationJob @(Get-AutonomyContinuationJobs)
+            if($rollback.exit_code-ne0-or[long]$restored.schedule.everyMs-ne$oldMs-or(Get-ContinuationImmutableHash $restored)-ne$immutable){throw ('cadence reconciliation and rollback failed: '+$primary)}
+        }
+        throw ('cadence reconciliation rejected: '+$primary)
     }
-    $id=[string]$jobs[0].id
-    if(-not$id){throw 'autonomy continuation automation missing id'}
-    $get=Invoke-OpenClawFixedConfig @('cron','get',$id,'--json')
-    if($get.exit_code -ne 0){throw 'autonomy continuation automation get failed'}
-    try{$job=$get.output|ConvertFrom-Json}catch{throw 'autonomy continuation automation get returned invalid JSON'}
-    if([string]$job.name -ne $name){throw 'autonomy continuation job name readback mismatch'}
-    if($job.PSObject.Properties['enabled'] -and [bool]$job.enabled -ne $true){throw 'autonomy continuation job is disabled'}
-    $raw=[string]$get.output
-    if($raw -notmatch '"everyMs"\s*:\s*300000'){throw 'autonomy continuation cadence readback mismatch'}
-    if($raw -notmatch '"kind"\s*:\s*"systemEvent"'){throw 'autonomy continuation payload kind mismatch'}
-    if(-not$raw.Contains('KEVIN_CONTINUATION_V1')){throw 'autonomy continuation event marker missing from readback'}
-    $run=Invoke-OpenClawFixedConfig @('cron','run',$id)
-    if($run.exit_code -ne 0){throw ('autonomy continuation immediate wake enqueue failed: '+(Safe-Text $run.output 220))}
-    Assert-Benchmark30
-    return [ordered]@{changed=$changed;idempotent=(-not$changed);job_name=$name;cadence='5m';session='main';payload='systemEvent';wake='now';immediate_run_enqueued=$true;arbitrary_shell=$false;authority_expansion=$false}
 }
 
 function Process-Typed([object]$m) {
