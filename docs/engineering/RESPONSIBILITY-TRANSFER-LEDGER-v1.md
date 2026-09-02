@@ -1,6 +1,6 @@
 # Bess -> Kevin Responsibility Transfer Ledger v1
 
-Baseline established: 2026-08-31; current reconciliation: 2026-09-02 12:28 UTC evidence
+Baseline established: 2026-08-31; current reconciliation: 2026-09-02 13:10 UTC evidence
 
 Purpose: track whether Kevin is actually taking recurring operational responsibility away from Bess, not merely accumulating code or candidates.
 
@@ -82,6 +82,8 @@ The goal of this ledger is to watch the operational dependency shrink:
 **Less Bess doing. More Kevin owning.**
 
 ## Current proof checkpoint
+
+Tool-visibility evidence correction (September2 13:10 UTC): the public canary reports0 visible tools but has no inventory-presence/type discriminator. Reviewed Maintenance v1.3.43/v1.3.44 reads one nested inventory path and collapses missing/null or unusable entries into an empty list. Effective tool availability is therefore UNKNOWN from this receipt, not proven empty/disabled. The complete correlated canary transcript still proves zero tool calls and exact reply; useful tool execution remains unproven. Installed local modified-source identity remains unqualified, so the parser finding is not attributed byte-for-byte to Omen. Before any tool-policy repair, qualify a fixed read-only inventory diagnostic against the actual installed version and preserve UNKNOWN/INVALID/EMPTY/NONEMPTY plus correlation. Do not rerun the satisfied no-tool canary or enable tools from a count alone. See docs/engineering/KEVIN-TOOL-VISIBILITY-EVIDENCE-2026-09-02.md.
 
 The expired consumed canary request was archived byte-for-byte and retired, not renewed: commit f46fce1fedeeb9a0d0fa6438ae664b04abb4b7c6 removed inbox/maintenance/manifest.json after verifying archive blob34e0c37f1be661c14ac1f7636ab6fa853f8c2233. Omen Maintenance now reports NO_MANIFEST at05:15:07 September2, with Intake errors0; independent Engineering05:18 confirms Benchmark30/30 critical0 at05:17 and UI heartbeat1.6s. The expiry-driven Intake fault is closed. No runtime binary, budget, scheduler, canary or trust-anchor change occurred. A missing active manifest is now the expected healthy empty-queue state; do not restore or renew the expired canary. See docs/engineering/KEVIN-INTAKE-TERMINAL-RETIREMENT-2026-09-02.md.
 

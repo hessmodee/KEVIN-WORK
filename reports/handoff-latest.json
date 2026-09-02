@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-chat-handoff-checkpoint",
-  "generated_at": "2026-09-02T12:28:00Z",
+  "generated_at": "2026-09-02T13:10:00Z",
   "current_sprint": "Useful typed autonomy, durable retry history and outcome provenance",
   "start_here_path": "KEVIN-START-HERE.md",
   "handover_path": "AI-HANDOVER.md",
@@ -35,7 +35,8 @@
     "forge_new_churn_observed": false,
     "continuation_status": "IDLE_NO_ELIGIBLE_DEMAND",
     "eligible_count": 0,
-    "continuation_tool_calls": null
+    "continuation_tool_calls": null,
+    "main_effective_tool_visibility": "UNKNOWN_NOT_PROVEN_EMPTY"
   },
   "p0": [
     {
@@ -82,14 +83,15 @@
     "docs/engineering/history-recovery-proposal-20260902.json",
     "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md",
     "docs/engineering/KEVIN-INTAKE-TERMINAL-RETIREMENT-2026-09-02.md",
-    "docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md"
+    "docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md",
+    "docs/engineering/KEVIN-TOOL-VISIBILITY-EVIDENCE-2026-09-02.md"
   ],
   "privacy": {
     "contains_secrets": false,
     "contains_private_message_bodies": false,
     "public_safe_metadata_only": true
   },
-  "current_engineering_record": "docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md",
+  "current_engineering_record": "docs/engineering/KEVIN-TOOL-VISIBILITY-EVIDENCE-2026-09-02.md",
   "source_checkpoint": "c11fea74bbc820039b129b646415797cc96b72d0",
   "no_runtime_mutation": true,
   "desired_state_review": {
@@ -288,5 +290,26 @@
     "complete_bootstrap_found": false,
     "history_complete": false,
     "family_assignment_authorized": false
+  },
+  "tool_visibility_review": {
+    "status": "SOURCE_CONFIRMED_RECEIPT_AMBIGUITY_NOT_RUNTIME_REPAIR",
+    "report": "docs/engineering/KEVIN-TOOL-VISIBILITY-EVIDENCE-2026-09-02.md",
+    "reviewed_at": "2026-09-02T13:10:00Z",
+    "source_checkpoint": "9ad8f87cccb195e6db655bd729b0a47053115e23",
+    "source_blob_v1343": "404ba03ed0eb61d8d4b91e5213219b7b4daa003d",
+    "source_blob_v1344": "2e80d7f528a230f74e3bd8d7a16193911d50405b",
+    "canary_blob": "508ef5ca367c386cf5fd992def41770c252d3909",
+    "reported_visible_tool_count": 0,
+    "effective_tool_visibility": "UNKNOWN",
+    "inventory_presence_in_receipt": "NOT_RECORDED",
+    "correlated_canary_tool_calls": 0,
+    "canary_tool_calls_proven": true,
+    "useful_tool_execution_proven": false,
+    "installed_source_identity_qualified": false,
+    "runtime_mutation": false,
+    "policy_change_authorized": false,
+    "canary_retry_authorized": false,
+    "next": "Version-qualified fixed read-only presence/type/correlation diagnostic; then actual authorized useful tool action with independent semantics.",
+    "consumer": "fixed main-agent semantic/tool-evidence boundary"
   }
 }

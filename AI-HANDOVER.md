@@ -1,6 +1,6 @@
 # Kevin AI Engineering Handover
 
-Reconciled September2 12:28 UTC: journal resource controls qualified in CI; Support06:25/Engineering06:26 MDT still show a healthy empty Maintenance queue. Candidate proof remains separate from runtime and transfer proof. Read KEVIN-START-HERE.md, inbox/CURRENT_TASK.md and docs/engineering/KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md. Fresh correlated Omen receipts and exact identities outrank this prose; older takeover notes are historical.
+Reconciled September2 13:10 UTC (tool-visibility evidence classification; runtime unchanged): journal resource controls qualified in CI; Support06:25/Engineering06:26 MDT still show a healthy empty Maintenance queue. Candidate proof remains separate from runtime and transfer proof. Read KEVIN-START-HERE.md, inbox/CURRENT_TASK.md and docs/engineering/KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md. Fresh correlated Omen receipts and exact identities outrank this prose; older takeover notes are historical.
 
 ## Owner goal and single writer
 
@@ -21,6 +21,8 @@ Scoped hold preserved from reports/STATUS.md (commit b632929b6dee535abd0e95bac3f
 - HQ still contains old engine/cadence labels; fresh dashboard timestamps do not make those labels correct.
 
 ## Immediate boundary
+
+Tool-visibility evidence correction (September2 13:10 UTC): the public canary reports0 visible tools but has no inventory-presence/type discriminator. Reviewed Maintenance v1.3.43/v1.3.44 reads one nested inventory path and collapses missing/null or unusable entries into an empty list. Effective tool availability is therefore UNKNOWN from this receipt, not proven empty/disabled. The complete correlated canary transcript still proves zero tool calls and exact reply; useful tool execution remains unproven. Installed local modified-source identity remains unqualified, so the parser finding is not attributed byte-for-byte to Omen. Before any tool-policy repair, qualify a fixed read-only inventory diagnostic against the actual installed version and preserve UNKNOWN/INVALID/EMPTY/NONEMPTY plus correlation. Do not rerun the satisfied no-tool canary or enable tools from a count alone. See docs/engineering/KEVIN-TOOL-VISIBILITY-EVIDENCE-2026-09-02.md.
 
 Attempt-journal storage now has CI-PROVEN resource controls on the existing history-recovery candidate branch. Source672d9daabbb6a07e080ef05e7e5eb7559dfe8ef9 and run33629971001 passed28 existing journal tests,13 resource-bound tests and18 recovery tests on Linux and Windows; all493 tracked files were unchanged during evaluation. The candidate rejects oversized state, bounds database work, rolls back interrupted operations, preserves history and reserves terminal-record capacity. Cooperative deadline/VM controls are not a hard process or OS-I/O timeout. It remains UNINSTALLED and not integrated with Supervisor. Live history completeness, canonical family provenance, authenticated migration/path/verifier binding and integrated runtime process supervision remain required; the recovered staging lower bound4 is not a complete seed. See docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md. Next: authenticate migration and integrate the fixed controller/verifier through the existing typed path, then correlated Omen outcomes. No live budget reset, completed-item reopening, isolation-hold release or T-level promotion.
 
