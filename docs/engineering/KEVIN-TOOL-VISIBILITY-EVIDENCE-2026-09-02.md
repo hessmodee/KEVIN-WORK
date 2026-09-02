@@ -1,34 +1,103 @@
-# Tool visibility is not tool-use evidence
+# Fixed:main tool visibility — fresh evidence and repair boundary
 
-Read-only classification, 2026-09-02 13:10 UTC. Repository checkpoint: `9ad8f87cccb195e6db655bd729b0a47053115e23`. Named consumer: the fixed main-agent evidence/semantic acceptance boundary, before any tool-policy repair or governed controller qualification.
+Reconciled 2026-09-02 after the owner created a fresh Kevin session following the context/compaction repair.
 
-## Finding
+## Current finding
 
-The current public canary reports zero visible tools, but does not publish whether its inventory field existed, was empty, was malformed, or was unsupported by its parser. Consequently, **effective tool visibility is UNKNOWN from this receipt**, not established as empty or disabled. This does not change the separately proven zero tool calls in that canary's complete correlated transcript.
+The earlier public main-canary receipt was not sufficient to prove that the fixed:main tool inventory was actually empty because the reviewed parser collapsed missing/unsupported inventory metadata to an empty list.
 
-Reviewed repository Maintenance v1.3.43, blob `404ba03ed0eb61d8d4b91e5213219b7b4daa003d`: `Get-ReaderVisibleToolNames` reads only `result.meta.systemPromptReport.tools.entries`. A missing/null result returns an empty list; entries without usable names are silently skipped. `Run-MainAgentCanary` then publishes list count, hash of joined names, Kevin-name count and a Boolean membership test, without a presence/validity discriminator. Its self-test explicitly requires a missing inventory to return an empty list. The helper is byte-identical in repository v1.3.44, blob `2e80d7f528a230f74e3bd8d7a16193911d50405b`.
+That ambiguity is now resolved for the fresh owner session by direct OpenClaw `/context detail` evidence. In that session OpenClaw reported:
 
-| Input condition in reviewed source | Published interpretation | Safe conclusion |
-|---|---|---|
-| Recognized path absent/null | zero, empty-list hash, false membership | inventory not observed |
-| Explicit empty recognized array | same outputs | reported inventory empty, only if presence/type is separately retained |
-| Nonempty entries with no usable names | same outputs | malformed/unsupported inventory, not proven empty |
-| Valid recognized named entries | count/names-derived metadata | reported inventory observed; actual execution remains separate |
+- Tool list (system prompt text): 0 chars / 0 tools
+- Tool schemas (JSON): 0 chars / 0 tools
+- Tools: `(none)`
 
-This is a source-derived finding, not a new executed PowerShell test or an Omen repair. The installed Maintenance hash remains `FF9C5FDF217B0ED5F38A8566BD54D8A654CB8DFEF0093654DDBC23DC9A1BF956`, labeled locally `1.3.43+modelid`; its complete modified-source provenance is unresolved. Do not assume the reviewed repository file is byte-identical to that runtime, or assert which input condition produced the latest zero.
+Therefore the current fresh fixed:main owner chat was **genuinely tool-empty at the model context boundary**. A normal text reply from that session proves conversation transport/model response, but it does not prove useful local tool execution.
 
-## What remains proved
+This is now a P0 capability gap because Matt's current objective is for Kevin to perform useful authorized GREEN work, diagnose/repair himself, learn procedures, and progressively eliminate routine dependence on Bess/Grok/Matt.
 
-The September 1 23:02:44 MDT canary receipt, blob `508ef5ca367c386cf5fd992def41770c252d3909`, establishes healthy Gateway transport, a real fixed-main turn, exact expected reply, and zero tool calls from a complete correlated transcript. It deliberately requests no tool calls. That proves neither unavailable tools nor useful tool execution. Do not rerun this satisfied test to discover availability.
+## Historical policy context
 
-Fresh Support at September 2 07:04:59 MDT and Engineering at 07:04:46 show healthy schedulers, NO_MANIFEST, Benchmark 30/30 critical zero and a fresh 0.5-second UI heartbeat. Continuation at 07:05:09 is legitimate idle with zero eligible items, outcome false and tool-use telemetry UNKNOWN. No new runtime incident is inferred.
+Production Chat had previously been intentionally narrowed to a tool-free or nearly tool-free posture while Reader/action capabilities were isolated behind separate governed paths. That historical design explains why tool absence may be policy rather than a model defect; it does not make the present tool-empty state sufficient for the new autonomy objective.
 
-## Qualification target, not new execution authority
+Do not jump from "tools are empty" to "give Kevin full coding/exec authority." The correct repair is a narrow, explicit, auditable GREEN tool surface that is sufficient for useful work while retaining protected boundaries.
 
-Current official OpenClaw documentation distinguishes the agent catalog (`tools.catalog`) from session-effective inventory (`tools.effective`, read-only, requiring a session key). Effective inventory derives trusted context server-side and can report incomplete/warm-MCP notices. A catalog or context estimate is not a record of actual execution. [Gateway protocol](https://docs.openclaw.ai/gateway/protocol), [Context reports](https://docs.openclaw.ai/concepts/context).
+## Current OpenClaw upstream policy model
 
-These are current upstream capabilities, **not proven supported by the installed Omen version**, which the older capability receipt records as UNKNOWN. No probe was enqueued and no endpoint was invoked on Omen. A future qualified fixed diagnostic must first verify installed version/source/support; accept no caller-selected command, endpoint, agent/session, path or private body; reuse current authentication without expanding permissions; emit only bounded sanitized metadata.
+Current official OpenClaw documentation says:
 
-Its acceptance must distinguish inventory `UNKNOWN`, `INVALID`, `REPORTED_EMPTY` and `REPORTED_NONEMPTY`; retain recognized-source presence/type and correlation; treat unsupported versions as UNKNOWN; reject malformed or contradictory evidence. For session-effective probes preserve truncation/incomplete-catalog notices. Neither missing metadata nor catalog presence grants tool authority. Actual-use acceptance still requires a correlated real permitted tool action and an independent useful semantic postcondition.
+- `/context detail` reports the actual tool list and tool-schema contribution placed in the current model context.
+- `tools.profile` creates the base tool allowlist before `allow`/`deny` filtering.
+- `minimal` contains only `session_status`; `coding` contains broad filesystem/runtime/web/session/memory/cron/goal/Skill Workshop capabilities and is therefore too broad to adopt blindly for Kevin.
+- `deny` wins, and a non-empty `allow` blocks everything not explicitly allowed.
+- tool availability can be further restricted by global policy, provider policy, per-agent policy, agent+provider policy, sandbox policy, channel/sender policy, and plugin availability.
+- `tools.catalog` is a read-only runtime catalog for an agent, while `tools.effective` is the session-scoped runtime-effective inventory and requires a session key; the Gateway derives trusted context server-side.
+- `openclaw config get <path> --json` reads the redacted config snapshot; secrets are not printed.
 
-This is the immediate main-agent evidence gate, while authenticated history migration and fixed Supervisor integration remain unresolved. The journal candidate retains its existing CI proof; no new journal candidate or retry was created. No live budget, tool policy, runtime code, completed work, trust anchor, Maintenance manifest or isolation hold changed. Work-selection responsibility remains T2.
+Primary references:
+- https://docs.openclaw.ai/concepts/context
+- https://docs.openclaw.ai/gateway/config-tools
+- https://docs.openclaw.ai/tools/multi-agent-sandbox-tools
+- https://docs.openclaw.ai/gateway/sandbox-vs-tool-policy-vs-elevated
+- https://docs.openclaw.ai/gateway/protocol
+- https://docs.openclaw.ai/cli/config
+
+## Diagnostic target — fixed input, metadata only
+
+Before any tool-policy mutation, Kevin needs a governed read-only diagnostic that uses fixed paths/agent identity and publishes only bounded sanitized metadata.
+
+It should determine, for `main` only:
+1. root `tools.profile` state;
+2. root `tools.allow`, `tools.alsoAllow`, and `tools.deny` presence/count/hash;
+3. per-main `agents.entries.main.tools.*` state;
+4. provider-specific root and per-main policy layers for the resolved provider/model;
+5. sandbox/channel/sender policy layers that can further restrict the current owner session;
+6. `tools.catalog` support/result classification when supported by the installed runtime;
+7. `tools.effective` support/result classification for a fixed correlated fresh main session key when supported;
+8. explicit distinction among `UNKNOWN`, `INVALID`, `REPORTED_EMPTY`, and `REPORTED_NONEMPTY`.
+
+The public receipt should not publish config bodies, tokens, credentials, private messages, arbitrary paths or arbitrary command output. Tool names may be reduced to count + deterministic hash if needed; known required Kevin tool membership can be emitted as booleans.
+
+## Initial repair philosophy
+
+Do not set `tools.profile=full` or enable broad host exec merely to make the tool count nonzero.
+
+A first useful production-chat tool surface should be the smallest set that lets Kevin inspect state, manage durable goals/tasks/memory, invoke already-governed typed Kevin mechanisms, and verify outcomes. Any host/runtime/file mutation capability must stay behind existing typed/preconditioned mechanisms or a separately proven narrow primitive.
+
+The repair candidate should prefer one of these patterns after exact installed-schema confirmation:
+
+- a narrow per-main `tools.profile` plus `alsoAllow` for specifically proven tools; or
+- a non-empty per-main `allow` containing only the explicitly approved tool IDs.
+
+Never combine `allow` and `alsoAllow` in the same scope; current OpenClaw validation rejects that combination.
+
+Protected tools/actions remain denied unless separately authorized and proven: arbitrary `exec`/`process`, unrestricted `write`/`edit`/`apply_patch`, arbitrary browser submission, arbitrary message/send, subagent spawning, authority/permission editing, credential access, purchases, money movement, live trades, or owner-representing external sends.
+
+## Production-change acceptance
+
+A tool-policy repair is not complete because a config write validated. Require:
+1. exact pre-change config SHA and backup;
+2. fixed path/schema lookup and redacted current-value diagnosis;
+3. dry-run of the minimum policy change;
+4. config validation;
+5. semantic JSON diff proving only expected leaves + benign metadata changed;
+6. rollback on any mismatch;
+7. Gateway reload/restart only if the installed version requires it;
+8. a **new fixed:main owner session**;
+9. `/context detail` or `tools.effective` proving the exact intended effective inventory, not merely catalog presence;
+10. one correlated useful allowed tool action with independent semantic postcondition;
+11. forbidden-tool negative tests proving the protected surface stayed unavailable;
+12. fresh Benchmark 30/30 and Support proof;
+13. durable lesson and transfer evidence so Kevin can detect/repair future tool-policy drift.
+
+## Separate Dashboard truth defect
+
+Fresh `reports/dashboard-state.json` currently labels Kevin's brain context as `8K` and tools as `false`. Repository source `workspace/helper_dashboard_state.py` contains those values as hard-coded constants rather than deriving them from current runtime evidence.
+
+Because the published Dashboard currently reports schema 5 while the repository helper source emits schema 3, the repository copy is not proven byte-identical to the live publisher. Treat this as a **truth/observability defect requiring source-provenance recovery before deployment**, not as permission to overwrite the live dashboard helper.
+
+The direct `/context detail` evidence (16,384 context ceiling and zero tools) outranks those hard-coded HQ labels.
+
+## Responsibility-transfer state
+
+Main useful tool execution remains below T4. The next transfer target is not merely "show Kevin tools"; it is a Kevin-owned loop that can detect effective inventory drift, select the safe repair only when exact preconditions match, verify a real useful tool outcome, preserve negative boundaries, and recover/rollback without routine Bess/Grok/Matt intervention.
