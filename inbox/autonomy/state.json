@@ -47,7 +47,7 @@
     "success_condition": "Preserved per-item and family attempt history across evidence epochs, materially justified reopening only, typed useful execution, independent semantic verification, durable result/lesson, restart/replay and a subsequent correct scheduled decision with no Bess-supplied immediate item ID."
   },
   "truth_boundary": "Selection/WIP metadata only, not runtime continuation history. Exact-reply canary is OMEN_PROVEN with complete zero-tool transcript. Continuation tool telemetry is UNKNOWN and outcome_proven=false. Foreground chat/trajectory closures are preserved; their referenced proofs are not independently retrievable. No T-level promotion.",
-  "note": "Reconciled from 2026-09-02T05:10:31Z at b764d65bacd19f2b740b9f6421a7a7f8284a30f1. WIP counts and blocked lists unchanged; ready lists cleared because the authoritative work-items inventory marks both former ready items COMPLETE. No item status, family count, runtime budget, manifest or production source changed. Detailed review: docs/engineering/KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md",
+  "note": "Reconciled at 8a4d3b2eb05f39fe4d701971f5c9ea945cee5a7f from Support01:19, Engineering01:22 and continuation01:19. WIP, blocked lists, item statuses, family counts and runtime budgets unchanged; no newly eligible work. CI-only selector repair dc368d0ab86fe5dae0af960cd0a0d3f2cf7a949c passed13 tests/run33597815086. Scheduled Maintenance is healthy. Desired/source provenance and runtime retry-history repair remain unresolved. Scoped hold preserved from reports/STATUS.md (commit b632929b6dee535abd0e95bac3f007fc33b886c8, 07:11 UTC): no isolation-dependent advance without the missing isolation receipt. The write-proof already contains OK-WRITE and must not be repeated. STATUS's claim that CURRENT_TASK is still the write-proof is stale, not a reason to resurrect that task. Independent authorized GREEN CI/design/continuity work remains allowed; no broad hold release or foreground-owner attribution is inferred.",
   "observed_inventory": {
     "complete": [
       "runtime-owner-doctrine-v2",
@@ -62,5 +62,33 @@
     "status": "UNRESOLVED_NOT_REPAIRED",
     "record": "docs/engineering/KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md",
     "reset_authorized": false
+  },
+  "ci_contract": {
+    "status": "CI_PROVEN",
+    "commit": "dc368d0ab86fe5dae0af960cd0a0d3f2cf7a949c",
+    "run_id": 33597815086,
+    "tests": 13,
+    "consumer": "next governed controller qualification",
+    "runtime_effect": "NONE",
+    "retry_history_fix": "NOT_IMPLEMENTED"
+  },
+  "scoped_hold": {
+    "status": "PRESERVED_PENDING_ISOLATION_RECEIPT",
+    "source_commit": "b632929b6dee535abd0e95bac3f007fc33b886c8",
+    "source_path": "reports/STATUS.md",
+    "scope": "isolation-dependent layer only",
+    "write_proof": "ALREADY_SATISFIED_DO_NOT_REPEAT",
+    "release_condition": "fresh correlated isolation receipt or explicit superseding owner directive",
+    "independent_green_work": "ALLOWED_WITH_CURRENT_AUTHORITY_AND_WIP",
+    "owner_attribution": "NOT_INFERRED_FROM_COMMIT_AUTHOR"
+  },
+  "continuity_review": {
+    "source_commit": "8a4d3b2eb05f39fe4d701971f5c9ea945cee5a7f",
+    "evidence_at": "2026-09-02T07:22:45Z",
+    "scope": "CANONICAL_CONTINUITY_ONLY",
+    "runtime_mutation": false,
+    "manifest_mutation": false,
+    "retry_budget_mutation": false,
+    "transfer_promotion": false
   }
 }
