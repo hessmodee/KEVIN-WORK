@@ -6,11 +6,13 @@ on:
     paths:
       - docs/**
       - .github/scripts/build-hq-newswire.py
+      - .github/scripts/test-hq-owner-invariants.cjs
       - .github/workflows/hq-owner-updates-gate.yml
   pull_request:
     paths:
       - docs/**
       - .github/scripts/build-hq-newswire.py
+      - .github/scripts/test-hq-owner-invariants.cjs
       - .github/workflows/hq-owner-updates-gate.yml
 
 permissions:
@@ -47,11 +49,9 @@ jobs:
           node --check docs/ops/ops-truth-patch-v1.js
       - name: HQ extension invariants
         run: |
-          test -s docs/hq-core-v7.html
-          grep -q 'hq-core-v7.html#overview' docs/index.html
+          node .github/scripts/test-hq-owner-invariants.cjs
           grep -q '7000' docs/hq-overrides-v1.js
           grep -q 'hqCopyHandover' docs/hq-overrides-v1.js
           grep -q 'hqViewHandover' docs/hq-overrides-v1.js
-          grep -q "state:'ARMED'" docs/ops/ops-truth-patch-v1.js
           grep -q 'ops-truth-patch-v1.js' docs/ops/embed.html
           echo 'PASS HQ shell, ticker dwell, handover controls, and truthful Ops overlay present'
