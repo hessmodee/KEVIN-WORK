@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-02T09:38:48-06:00",
-  "status": "working",
+  "generated_at": "2026-09-02T09:39:20.4403231-06:00",
+  "status": "ready",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -1382,7 +1382,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-02T09:38:48-06:00",
+    "last": "2026-09-02T09:39:20.4403231-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,22 +1419,22 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-02T09:38:20.4332420-06:00",
+    "generated_at": "2026-09-02T09:39:20.4403231-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "night-forge",
-      "name": "Night Forge",
-      "title": "Night Forge QA",
-      "category": "qa",
-      "state": "working",
-      "detail": "Night Forge QA/regression cycle active.",
-      "what": "Running safety and regression checks.",
-      "engine": "Night Forge",
-      "action": "QA / regression"
+      "id": "supervisor",
+      "name": "Supervisor",
+      "title": "Kevin autonomous system armed",
+      "category": "supervisor",
+      "state": "ready",
+      "detail": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
+      "what": "Waiting only for the next scheduled three-minute control cycle.",
+      "engine": "Supervisor v1.4",
+      "action": "Autonomous schedule armed"
     },
     "lanes": [
       {
@@ -1470,17 +1470,17 @@
     ]
   },
   "execution": {
-    "running": true,
-    "state": "working",
-    "phase": "Night Forge QA/regression cycle active.",
-    "worker": "Night Forge",
-    "engine": "Night Forge",
-    "action": "QA / regression"
+    "running": false,
+    "state": "ready",
+    "phase": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
+    "worker": "Supervisor",
+    "engine": "Supervisor v1.4",
+    "action": "Autonomous schedule armed"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Night Forge | WORKING | Night Forge QA/regression cycle active.",
+      "text": "Supervisor | READY | No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
       "severity": "normal"
     }
   ]
