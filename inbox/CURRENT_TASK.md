@@ -18,9 +18,17 @@ Known-good owner-observed main configuration after the 2026-09-02 repair:
 - fresh owner chat PASS;
 - manual `/compact` PASS.
 
-Fresh Support at 15:24 MDT still reports Benchmark **29/30 critical1**, with the sole failure R04 `Production config frozen`; governance is healthy and Maintenance is `NO_MANIFEST`. Treat R04 as expected stale-baseline drift from the intentional validated config change, not as evidence to revert the repair.
+Support at 17:39 MDT (Benchmark17:02) still reports Benchmark **29/30 critical1**, with the sole failure R04 `Production config frozen`; governance is healthy and Maintenance is `NO_MANIFEST`. Treat R04 as expected stale-baseline drift from the intentional validated config change, not as evidence to revert the repair.
 
 Required crossing: construct/use a narrow governed production-config baseline reconciliation that verifies the exact current config hash, updates only the fixed R04 production-config anchor, preserves every other baseline field, requires fresh Benchmark30/30 + Support proof, and rolls back on mismatch. Do not weaken/skip R04, restore an older config, misuse Forge/Supervisor baseline migrations, or overwrite the unqualified installed Maintenance runner merely to gain an operation.
+
+## R04 candidate repair and remaining production gate
+
+PR39 is merged as `e57bf5b013bbbbad98a4c34b0e933c8d2912bfe5`. The candidate previously accepted missing Benchmark rows, failed to compare the baseline runner anchor, and could omit empty-container changes from its non-target fingerprint. It now validates all 30 distinct R01-R30 rows, strict verdict/count types, exact prior config and runner anchors, and complete non-target structure including literal keys. The real PowerShell predicate tests were extended too.
+
+CI run `33696303871` passed for `a087abb1ef4030ea54f276b877daf3a6d8df2ad8`: 23 tests on Linux/Windows Python3.12/3.13 plus Windows PowerShell5.1 parser/self-tests. This is **CI-PROVEN CANDIDATE, NOT INSTALLED**. It does not close live R04.
+
+Next production qualification must establish exact local baseline/config layout, fresh precondition evidence, transaction race/rollback behavior and a registered execution path. Version-pinned OpenClaw models distinguish required `contextWindow`, optional `contextTokens` and `params`; do not infer the installed values from the provider alias. Recover the exact local `kevin-maintenance-runner.ps1` with SHA `3CFC...B0D6E` before extending it; no supported generic source-export or R04 invocation operation has been established in the current bridge. Broad owner authorization does not create a missing technical connection.
 
 ## P0 — Fixed:main effective tool/intent surface
 
@@ -68,7 +76,7 @@ When P0/P1 is blocked or cooling, use WIP for independent useful work:
 - Reader and bounded research/browser evidence lanes;
 - lawful owner-value/economic-output workflows using proven capabilities.
 
-PR36 (`Skill Lab v1.0.6` replay proof preservation) has successful CI but is currently not mergeable against the advanced main branch. Do not force-merge it; reconcile/rebase its small proof-preservation change before promotion.
+PR36 replay preservation is merged (`354e74383f93182d2b92ea6ac0f6897d230c46cb`); PR38 policy diagnostic is merged (`7907d40b326c903e9307b5b1dd0044230971098b`). Qualify installed runtime paths; do not redo their merges.
 
 Default WIP: 1 production/proof + 1 staging/eval + 1 research/design. Heartbeats, cycle numbers, renamed requests, candidate generation and model turns are not accomplishments by themselves.
 
