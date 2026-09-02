@@ -2,6 +2,6 @@
 
 write-proof
 
-## 2026-09-02T17:38Z
+## 2026-09-02T17:42Z
 
-No ollama-isolate-latest.json. No isolate on llama3.1:8b / qwen2.5:14b. Hold at write-proof per layer rule. Do not advance. tool-write-test.txt already OK-WRITE but isolate required first. Bridge PASS. Local Ollama. Stop.
+Push a084ba6 (autonomy-latest.json only). Still no heartbeat-latest.json. Still no ollama-isolate-latest.json. No isolate on local Ollama. Hold at write-proof per layer rule. Do not advance. tool-write-test.txt already OK-WRITE but isolate required first. Bridge PASS. Cannot SSH HESS-PC. Stop.
