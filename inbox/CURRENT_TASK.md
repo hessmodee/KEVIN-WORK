@@ -1,12 +1,16 @@
 # CURRENT_TASK
 
-## Active Bess continuation — 2026-09-02T16:33:43.153Z
+## Active Bess continuation — 2026-09-02T17:00:50.945Z
 
-Matt explicitly instructed Bess to continue building and training Kevin. Current bounded proof action: one existing read-only `publish_runtime_convergence` request, `bess-bootstrap-evidence-20260902-1635`, to refresh the September 1 bootstrap/source identities after Grok's reported lean-context changes. Named consumer: measure which known bootstrap bytes are actually installed for the context-overflow diagnosis. No model call, runtime/config replacement, canary retry or retry-budget reset.
+Matt instructed Bess to continue building and training Kevin. The bootstrap audit `bess-bootstrap-evidence-20260902-1635` completed and was retired; fresh Support confirms NO_MANIFEST. Only HEARTBEAT matches the published five-file policy bundle. Preserve Grok's four unpublished policy files and his unavailable local turnover.
 
-The independent staging lane will exercise a reusable recovery-evidence lesson through the existing Skill Lab primitives if its contract and semantic verification are satisfied. It will not imply that the main agent is fixed or that work selection has transferred beyond T2. Preserve Grok's unavailable local turnover and any newer active foreground work; do not overwrite his local files or launch competing production changes.
+PR35 merged as `fec4da2086fcf30906e902255749670b448234b0`. Skill Lab v1.0.5 prevents a corrupt registry or missing registry with prior receipts from being treated as empty learned history. Forty staged checks pass in each of Windows PowerShell 5.1 and PowerShell 7, including restart/replay, collision and byte preservation. Qualification run: https://github.com/hessmodee/KEVIN-WORK/actions/runs/33658106780.
 
-Kevin Chief Engineer should observe this foreground activity and continue only noncompeting read-only work until this checkpoint is refreshed. Retire the audit request after verifying its terminal receipt.
+The sole production crossing is typed `replace_pinned_component`, manifest `bess-skill-registry-preservation-v105-20260902`: fixed alias `skill_lab_runner`; before must equal published v1.0.4 `BCF21255F5D2BF1ED5B852DE26A06BB4FB5ACC14708539801E3E234A0968CE29`; source/after must equal qualified v1.0.5 `F3208DED6000325AC4446A6D960E8D8D199827D24D55790CF1943BB371A4FABC`. The before pin is supported by the August 30 v1.0.4 deployment and its ALREADY_APPLIED_PROVEN receipt, not claimed as a fresh hash observation. Maintenance must check the actual current bytes before replacement, preserve its backup, and run fixed self-test plus fresh Benchmark30/30. A mismatch must stop; do not overwrite an unpublished variant or reset attempts.
+
+After verifying the upgrade, stage `inbox/skills/kevin-recovery-evidence-kit-v1.json` through the existing Engineering Relay, correlate completion and exact replay, and retire terminal requests. Its two text artifacts contain recovery decisions and nine drills. File creation is not a learner pass, autonomous repair or model-weight training. Main canary remains REJECT and work selection T2.
+
+Kevin Chief Engineer should observe this foreground crossing and perform only noncompeting read-only work until the next checkpoint. Preserve any genuinely newer foreground ownership and the single-writer rule.
 
 ## Owner-relayed Grok turnover update — 2026-09-02T16:21:46.261Z
 
