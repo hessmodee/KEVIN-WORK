@@ -1,0 +1,39 @@
+name: Main canary metadata diagnosis
+on:
+  push:
+    branches: [main, 'bess/main-evidence-recovery-20260902']
+    paths:
+      - 'control-plane/diagnostics/main_canary_diagnosis.py'
+      - 'tests/test_main_canary_diagnosis.py'
+      - 'reports/main-agent-canary-omen.json'
+      - '.github/workflows/main-canary-diagnosis.yml'
+  pull_request:
+    paths:
+      - 'control-plane/diagnostics/main_canary_diagnosis.py'
+      - 'tests/test_main_canary_diagnosis.py'
+      - '.github/workflows/main-canary-diagnosis.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  diagnose:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Incident and privacy regression tests
+        run: python -m unittest discover -s tests -p test_main_canary_diagnosis.py -v
+      - name: Classify the published receipt without a model call
+        shell: bash
+        run: python control-plane/diagnostics/main_canary_diagnosis.py > main-canary-diagnosis.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: main-canary-diagnosis-${{ matrix.os }}
+          path: main-canary-diagnosis.json
+          retention-days: 14
