@@ -1,0 +1,76 @@
+name: Supervisor v1.8.6 Work Conservation Proof
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/generate-supervisor-v186-work-conservation.py'
+      - '.github/workflows/supervisor-v186-work-conservation-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Generate exact candidate
+        shell: pwsh
+        run: |
+          $src=(Get-FileHash 'control-plane/autonomy/kevin-supervisor-v1.8.5.ps1' -Algorithm SHA256).Hash.ToUpperInvariant()
+          if($src-ne'C3F781E4F722AF691D2B47A9CD0F06A4F6AD3134A826C5D657B9ED9D5AEBC400'){throw "v1.8.5 parent drifted $src"}
+          python tools/generate-supervisor-v186-work-conservation.py
+          if($LASTEXITCODE-ne0){throw 'v1.8.6 generation failed'}
+
+      - name: Parser and authority boundary
+        shell: pwsh
+        run: |
+          $p='control-plane/autonomy/kevin-supervisor-v1.8.6.ps1'
+          $tokens=$null;$errors=$null;$ast=[Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw $errors[0].Message}
+          $commands=@($ast.FindAll({param($n)$n-is[Management.Automation.Language.CommandAst]},$true)|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($bad in @('invoke-expression','iex','cmd.exe','kevin_shell')){if($commands-contains$bad){throw "forbidden command $bad"}}
+          $badArgs=@($ast.FindAll({param($n)$n-is[Management.Automation.Language.ParameterAst]-and$n.Name.VariablePath.UserPath-eq'args'},$true))
+          if($badArgs.Count){throw 'automatic Args parameter regressed'}
+
+      - name: Supervisor self-test PS5.1
+        shell: powershell
+        run: |
+          & .\control-plane\autonomy\kevin-supervisor-v1.8.6.ps1 -SelfTest
+          if($LASTEXITCODE-ne0){throw 'Supervisor PS5.1 selftest failed'}
+
+      - name: Supervisor self-test PS7
+        shell: pwsh
+        run: |
+          & .\control-plane\autonomy\kevin-supervisor-v1.8.6.ps1 -SelfTest
+          if($LASTEXITCODE-ne0){throw 'Supervisor PS7 selftest failed'}
+
+      - name: Current queue primary and alternative selection proof
+        shell: pwsh
+        run: |
+          $before=(Get-FileHash 'inbox/autonomy/work-items.json' -Algorithm SHA256).Hash.ToUpperInvariant()
+          $primary=python control-plane/autonomy/kevin-work-selector-v1.1.py --programs control-plane/autonomy/standing-programs-v1.json --items inbox/autonomy/work-items.json --state inbox/autonomy/state.json --failure-families control-plane/autonomy/failure-families-v1.json --now 2026-09-02T00:12:00Z | ConvertFrom-Json
+          if($primary.status-ne'SELECTED' -or $primary.selection.id-ne'hq-direct-chat-real-roundtrip'){throw 'primary current-queue selection regressed'}
+          if([int]$primary.eligible_count-lt2){throw 'test requires an independent alternative'}
+          $doc=Get-Content 'inbox/autonomy/work-items.json' -Raw|ConvertFrom-Json
+          foreach($i in @($doc.items)){if([string]$i.id-eq'hq-direct-chat-real-roundtrip'){$i.blocked=$true;$i.block_reason='TEST_LOCAL_EXCLUSION'}}
+          $tmp=Join-Path $env:RUNNER_TEMP 'work-items-alt.json';$doc|ConvertTo-Json -Depth 30|Set-Content $tmp -Encoding utf8
+          $alt=python control-plane/autonomy/kevin-work-selector-v1.1.py --programs control-plane/autonomy/standing-programs-v1.json --items $tmp --state inbox/autonomy/state.json --failure-families control-plane/autonomy/failure-families-v1.json --now 2026-09-02T00:12:00Z | ConvertFrom-Json
+          if($alt.status-ne'SELECTED' -or $alt.selection.id-ne'staging-trajectory-reliability-v1'){throw ('alternative selection failed: '+[string]$alt.selection.id)}
+          $after=(Get-FileHash 'inbox/autonomy/work-items.json' -Algorithm SHA256).Hash.ToUpperInvariant();if($after-ne$before){throw 'canonical queue mutated by alternative proof'}
+          Write-Host ('WORK_CONSERVATION_QUEUE_PASS primary='+$primary.selection.id+' alternative='+$alt.selection.id+' canonical_unchanged=true')
+
+      - name: Source invariants and exact identity
+        shell: pwsh
+        run: |
+          $p='control-plane/autonomy/kevin-supervisor-v1.8.6.ps1';$t=[IO.File]::ReadAllText($p)
+          foreach($m in @('WORK-CONSERVATION PASS','fingerprint_scoped_cooldown=true','alternative_reselection=true','local_exclusion_only=true','canonical_queue_unchanged=true','no_global_idle_with_alternative=true','CONTROLLER_LOCAL_ANTI_SPIN_EXCLUSION','AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF','authority_effect = ''NONE_CONTROLLER_ONLY''')){if(-not$t.Contains($m)){throw "missing work-conservation invariant $m"}}
+          $sha=(Get-FileHash $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          Write-Host "SUPERVISOR_V186_CI_PROVEN sha256=$sha"
