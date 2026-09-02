@@ -1,447 +1,81 @@
 {
-  "schema": 1,
+  "schema": 2,
   "kind": "kevin-chat-handoff-checkpoint",
-  "generated_at": "2026-09-02T15:26:00Z",
-  "current_sprint": "Useful typed autonomy, durable retry history and outcome provenance",
-  "start_here_path": "KEVIN-START-HERE.md",
-  "handover_path": "AI-HANDOVER.md",
-  "current_task_path": "inbox/CURRENT_TASK.md",
-  "owner_authorization_path": "control-plane/OWNER-AUTHORIZATION-v1.md",
-  "proof_ladder": [
-    "DESIGNED",
-    "CI-PROVEN",
-    "INSTALLABLE THROUGH TYPED PATH",
-    "INSTALLED",
-    "OMEN-PROVEN",
-    "ROUND-TRIP-PROVEN",
-    "REPEATEDLY-PROVEN",
-    "SELF-RELIANT"
+  "generated_at": "2026-09-02T19:40:00Z",
+  "current_sprint": "Fixed-main recovery -> tool-capable bounded autonomy -> self-repair transfer",
+  "canonical_paths": {
+    "start_here": "KEVIN-START-HERE.md",
+    "handover": "AI-HANDOVER.md",
+    "current_task": "inbox/CURRENT_TASK.md",
+    "owner_directive": "docs/engineering/OWNER-CONTINUOUS-AUTONOMY-DIRECTIVE-2026-09-02.md",
+    "context_lesson": "docs/engineering/LESSON-fixed-main-qwen-context-overflow-2026-09-01.md",
+    "tool_evidence": "docs/engineering/KEVIN-TOOL-VISIBILITY-EVIDENCE-2026-09-02.md"
+  },
+  "owner_direction": {
+    "work_conserving": true,
+    "teach_and_transfer": true,
+    "shared_cross_ai_handover": true,
+    "green_execute": true,
+    "yellow_develop_and_prove": true,
+    "minimize_owner_terminal_relay": true
+  },
+  "fixed_main": {
+    "model": "ollama-chat-16k/qwen2.5:14b",
+    "context_tokens": 16384,
+    "num_ctx": 16384,
+    "reserve_tokens_floor": 2048,
+    "reserve_tokens": 2048,
+    "keep_recent_tokens": 4000,
+    "post_hardening_config_sha256": "23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5",
+    "fresh_text_reply": "PASS",
+    "manual_compact": "PASS",
+    "fresh_context_tool_inventory": "REPORTED_EMPTY"
+  },
+  "benchmark": {
+    "status": "FAIL_CRITICAL_REGRESSION",
+    "passed": 29,
+    "total": 30,
+    "critical": 1,
+    "only_failure": "R04 Production config frozen",
+    "interpretation": "expected stale baseline after intentional validated config mutation; preserve repair and use governed rebaseline"
+  },
+  "live_identities": {
+    "supervisor": "F5D8C9740D384CC576D4BD70A3940B51AA1FCF398C7085E59DB20C01E9180138",
+    "benchmark": "4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964",
+    "forge": "433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A",
+    "goal_os": "B20C7AC8EDC35C656ED544C4D13D3EB4FF4A79453AF0F49BD60B7DF31092AEF0",
+    "support_bridge": "E72A2A635326CF1AB036404E64E274D2F56CE79CA5CEB268DBF9B2EA4B67BEA5",
+    "maintenance_runner": "3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E"
+  },
+  "current_actions": [
+    "P0 governed R04 baseline reconciliation without reverting compaction settings",
+    "P0 fixed-input effective tool-policy diagnosis for main and minimal useful GREEN tool surface",
+    "P1 encode context failure detection/repair/verification into Kevin-owned governed path",
+    "P1 reconcile autonomy desired-state drift only after source/proof identity review",
+    "P2 continue independent useful GREEN/YELLOW development when a lane is blocked/cooling"
   ],
-  "production_proven": [
-    "Benchmark PASS30/30 critical0 at09:17 MDT; recovery mechanism not proven",
-    "Reader08:28 receipt reports2/2; source/typed closure unresolved",
-    "Supervisorv1.8.8 on existing5m scheduler; no autonomous useful outcome",
-    "Maintenance NO_MANIFEST/Intake errors0; latest main canary REJECT"
+  "in_flight": {
+    "runtime_capability_manifest": "bess-main-tool-policy-audit-20260902-1339",
+    "operation": "publish_runtime_capabilities",
+    "purpose": "obtain fresh sanitized fixed-main policy/model facts through existing Maintenance path",
+    "production_effect": "NONE"
+  },
+  "known_truth_defects": [
+    "Fresh owner /context detail proves fixed:main tool inventory empty despite older canary ambiguity",
+    "HQ dashboard context=8K/tools=false labels are hard-coded in repository helper source and are not trustworthy runtime telemetry",
+    "repository desired-state core hashes are stale relative to live Support; do not silently bless unknown Maintenance provenance"
   ],
-  "runtime_convergence": {
-    "gateway_rpc": true,
-    "main_exact_reply": false,
-    "main_useful_tool_execution": "NOT_PROVEN",
-    "maintenance_version": "FOREGROUND_LOCAL_V1_3_44_PREDICATE_PATCH_CLAIM_SOURCE_UNQUALIFIED",
-    "supervisor_live": "1.8.8_OBSERVED",
-    "supervisor_candidate": "NO_REINSTALL_NEEDED",
-    "local_desired_state_drift_resolved": false,
-    "forge_new_churn_observed": false,
-    "continuation_status": "IDLE_NO_ELIGIBLE_DEMAND",
-    "eligible_count": 0,
-    "continuation_tool_calls": null,
-    "main_effective_tool_visibility": "UNKNOWN_NOT_PROVEN_EMPTY",
-    "maintenance_sha256": "3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E",
-    "reader": "RECEIPT_2_OF_2_SOURCE_TYPED_CLOSURE_UNRESOLVED",
-    "benchmark": "PASS_30_OF_30_CRITICAL_0",
-    "main_acceptance": "REJECT_SEMANTIC_CONTRACT_TRANSCRIPT_INCOMPLETE_OR_UNCORRELATED",
-    "main_tool_calls": null,
-    "main_transcript_complete": false
+  "installed_source_constraint": "Do not overwrite live Maintenance runner 3CFC... with repository v1.3.44 merely to add a feature; exact installed-source provenance is unresolved.",
+  "proof_and_transfer": {
+    "technical": "context symptom repaired enough for fresh reply + manual compaction; tool execution and R04 closure not yet proven",
+    "responsibility": "context repair remains outside-assisted below T4; no transfer promotion claimed"
   },
-  "p0": [
-    {
-      "name": "Main request/session/transcript correlation",
-      "proof_level": "REJECT",
-      "next_boundary": "Before another main canary, obtain materially new fixed read-only evidence of installed source/version and exact request/session/transcript correlation. Determine whether missing user events arise from the invocation, returned session identity, transcript selection, recording or parser contract; none is yet established as root cause. Preserve fail-closed acceptance; no Gateway repair, model switch, tool-policy widening, correlation bypass, renamed retry or budget reset on this evidence. Reader's08:28 receipt still reports2/2; obtain existing typed terminal receipt and exact patched-source/negative-test evidence before FULL COMPLETE, not another canary solely to refresh the label."
-    },
-    {
-      "name": "Durable attempt provenance",
-      "proof_level": "SOURCE_AND_RECEIPT_CONFIRMED_HISTORY_REPLACEMENT_NOT_REPAIRED",
-      "next_boundary": "Authenticated complete migration/family provenance; fixed Supervisor/path/semantic-verifier binding; hard process and OS-I/O supervision; installed-runtime qualification; typed crossing and Omen outcomes."
-    },
-    {
-      "name": "Useful main-agent execution",
-      "proof_level": "EXACT_REPLY_PROVEN_USEFUL_TYPED_TOOL_OUTCOME_NOT_PROVEN",
-      "next_boundary": "Correlated actual typed action and independent useful semantic outcome."
-    },
-    {
-      "name": "Owner outcome evidence",
-      "proof_level": "FOREGROUND_COMPLETE_CLOSURES_REFERENCED_PROOFS_NOT_RETRIEVABLE",
-      "next_boundary": "Sanitized correlation/restart/replay/deduplication and independent trial receipts; preserve completed items."
-    }
-  ],
-  "cooled": [
-    "Forge family BLOCKED3; no manufactured demand",
-    "Workshop configuration COOLED2",
-    "Reader prior3 attempts preserved; Benchmark now passes, source/typed closure unresolved"
-  ],
-  "owner_checkpoints": [
-    "No new owner interaction requested by this review; publish existing foreground chat proof first",
-    "Gmail OAuth only when local adapter readiness is proved",
-    "Any model/provider authority checkpoint must be resolved from current owner records, not inferred from a passing canary"
-  ],
-  "latest_evidence_paths": [
-    "reports/support-latest.json",
-    "reports/dashboard-state.json",
-    "reports/control-plane-latest.json",
-    "reports/engineering/latest.json",
-    "reports/autonomy-latest.json",
-    "reports/skills.json",
-    "reports/runtime-capabilities-omen.json",
-    "reports/autonomy-master-scorecard.json",
-    "reports/main-agent-canary-omen.json",
-    "reports/autonomy-continuation-latest.json",
-    "docs/engineering/KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md",
-    "docs/engineering/KEVIN-SELECTOR-CI-RECOVERY-2026-09-02.md",
-    "docs/engineering/KEVIN-HISTORY-CONTRACT-EVAL-2026-09-02.md",
-    "docs/engineering/KEVIN-HISTORY-RECOVERY-CANDIDATE-2026-09-02.md",
-    "docs/engineering/history-recovery-proposal-20260902.json",
-    "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md",
-    "docs/engineering/KEVIN-INTAKE-TERMINAL-RETIREMENT-2026-09-02.md",
-    "docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md",
-    "docs/engineering/KEVIN-TOOL-VISIBILITY-EVIDENCE-2026-09-02.md",
-    "reports/reader-canary-omen.json",
-    "docs/engineering/KEVIN-READER-BENCHMARK-BOUNDARY-2026-09-02.md",
-    "docs/engineering/KEVIN-MAIN-CANARY-CORRELATION-2026-09-02.md"
-  ],
-  "privacy": {
-    "contains_secrets": false,
-    "contains_private_message_bodies": false,
-    "public_safe_metadata_only": true
-  },
-  "current_engineering_record": "docs/engineering/KEVIN-MAIN-CANARY-CORRELATION-2026-09-02.md",
-  "source_checkpoint": "51d4bcf7ff68e86978ad08190a377a8bf5d2b501",
-  "no_runtime_mutation": true,
-  "desired_state_review": {
-    "reported_state": "NEEDS_REVIEW",
-    "reported_drift_count": 1,
-    "reported_at": "2026-09-02T09:17:45.8672432-06:00",
-    "repo_pins_match_observed": false,
-    "source_provenance_resolved": false,
-    "anchor_change_authorized_by_this_review": false,
-    "observed_maintenance_sha256": "3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E"
-  },
-  "ci_repair": {
-    "source_commit": "dc368d0ab86fe5dae0af960cd0a0d3f2cf7a949c",
-    "run_id": 33597815086,
-    "status": "SUCCESS",
-    "tests": 13,
-    "scope": "CI_ONLY",
-    "runtime_selector_changed": false,
-    "budget_history_repaired": false
-  },
-  "scoped_hold": {
-    "status": "PRESERVED_PENDING_ISOLATION_RECEIPT",
-    "source_commit": "b632929b6dee535abd0e95bac3f007fc33b886c8",
-    "source_path": "reports/STATUS.md",
-    "scope": "isolation-dependent layer only",
-    "write_proof": "ALREADY_SATISFIED_DO_NOT_REPEAT",
-    "release_condition": "fresh correlated isolation receipt or explicit superseding owner directive",
-    "independent_green_work": "ALLOWED_WITH_CURRENT_AUTHORITY_AND_WIP",
-    "owner_attribution": "NOT_INFERRED_FROM_COMMIT_AUTHOR"
-  },
-  "continuity_review": {
-    "source_commit": "51d4bcf7ff68e86978ad08190a377a8bf5d2b501",
-    "evidence_at": "2026-09-02T15:26:00Z",
-    "scope": "BENCHMARK_RECOVERY_AND_NEW_MAIN_CORRELATION_REJECTION_CONTINUITY_ONLY",
-    "runtime_mutation": false,
-    "manifest_mutation": false,
-    "retry_budget_mutation": false,
-    "transfer_promotion": false
-  },
-  "history_contract_evaluation": {
-    "status": "CI_CHARACTERIZED_BASELINE_NONCONFORMANT_NOT_REPAIRED",
-    "consumer": "next governed controller qualification",
-    "report": "docs/engineering/KEVIN-HISTORY-CONTRACT-EVAL-2026-09-02.md",
-    "branch": "chief-engineer/history-contract-20260902",
-    "source_commit": "4cbad271fcd35a0437a30fbd804d0e0c53be6113",
-    "run_id": 33608179462,
-    "job_id": 100176896681,
-    "baseline_sha256": "F5D8C9740D384CC576D4BD70A3940B51AA1FCF398C7085E59DB20C01E9180138",
-    "cases": 14,
-    "conforming_cases": 8,
-    "contract_violations": 6,
-    "platforms": [
-      "Windows PowerShell 5.1",
-      "PowerShell 7"
-    ],
-    "strict_acceptance": "REJECTED_BASELINE",
-    "production_mutation": false,
-    "runtime_repaired": false,
-    "owner_outcome_proven": false,
-    "eval_lane": "COMPLETE",
-    "attempt_history": [
-      {
-        "run_id": 33608036212,
-        "result": "HARNESS_EXIT_PROPAGATION_FAILURE_AFTER_EXPECTED_NEGATIVE_ASSERTIONS"
-      },
-      {
-        "run_id": 33608179462,
-        "result": "EXPECTED_BASELINE_RESULTS_AND_STRICT_REJECTION_VERIFIED"
-      }
-    ],
-    "remaining": "Installed v1.8.8 remains nonconformant. Isolated journal family/crash/replay fixtures now pass; authenticated live migration, fixed controller/verifier integration, bounded resources and real tool outcomes still required."
-  },
-  "history_recovery_candidate": {
-    "status": "CI_PROVEN_READ_ONLY_RECOVERY_NOT_RUNTIME_REPAIR",
-    "source_commit": "e51132024dfd8b762506f4b0c66a03eafcd8d53f",
-    "branch": "chief-engineer/history-recovery-20260902",
-    "run_id": 33613649441,
-    "jobs": [
-      100194405092,
-      100194405322
-    ],
-    "platforms": [
-      "Linux",
-      "Windows"
-    ],
-    "tests": 18,
-    "tracked_files_unchanged": 489,
-    "report": "docs/engineering/KEVIN-HISTORY-RECOVERY-CANDIDATE-2026-09-02.md",
-    "proposal": "docs/engineering/history-recovery-proposal-20260902.json",
-    "consumer": "next governed Supervisor history-preservation/migration qualification",
-    "eval_lane": "COMPLETE",
-    "staging_observed_attempts_lower_bound": 4,
-    "hq_observed_attempts_lower_bound": 3,
-    "history_complete": false,
-    "family_mapping": "UNRESOLVED",
-    "remaining_budget": null,
-    "reopen_authorized": false,
-    "runtime_mutation": false,
-    "attempt_history": [
-      {
-        "run_id": 33613460730,
-        "result": "LINUX_TESTS_PASS_CHECKOUT_NORMALIZATION_INVALIDATED_GIT_DIFF_HARNESS_WINDOWS_CANCELLED"
-      },
-      {
-        "run_id": 33613649441,
-        "result": "LINUX_WINDOWS_18_TESTS_PASS_TRACKED_BYTES_UNCHANGED"
-      }
-    ]
-  },
-  "history_journal_candidate": {
-    "status": "CI_PROVEN_STORAGE_CANDIDATE_NOT_INTEGRATED_RUNTIME_REPAIR",
-    "source_commit": "672d9daabbb6a07e080ef05e7e5eb7559dfe8ef9",
-    "branch": "chief-engineer/history-recovery-20260902",
-    "run_id": 33629971001,
-    "jobs": [
-      100246723023,
-      100246723288
-    ],
-    "tests": 41,
-    "recovery_tests": 18,
-    "platforms": [
-      "Linux",
-      "Windows"
-    ],
-    "tracked_files_unchanged": 493,
-    "library_sha256": "1E6B9BDF6130FDB77BF139114E5BC7BE5DD6BFDB3494E78A49D3EFD5B22AFE32",
-    "report": "docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md",
-    "consumer": "next governed Supervisor history-preservation integration",
-    "eval_lane": "COMPLETE",
-    "real_process_death_fixtures": true,
-    "real_owner_effects": false,
-    "history_complete": false,
-    "family_mapping": "UNRESOLVED_FOR_LIVE_MIGRATION",
-    "migration_authorized": false,
-    "runtime_mutation": false,
-    "transfer_promotion": false,
-    "attempt_history": [
-      {
-        "run_id": 33618960623,
-        "result": "LINUX_PASS_WINDOWS_FIXTURE_HANDLE_LEAK_CLEANUP_FAILURE"
-      },
-      {
-        "run_id": 33619080134,
-        "result": "EXPLICIT_FIXTURE_CONNECTION_CLOSE_ALL_28_PLUS18_PASS_BOTH_PLATFORMS"
-      },
-      {
-        "run_id": 33629971001,
-        "result": "RESOURCE_BOUNDS_13_PLUS_JOURNAL28_PLUS_RECOVERY18_PASS_LINUX_WINDOWS_NO_NEW_FAILURE"
-      }
-    ],
-    "remaining": "Authenticated complete migration/family provenance; fixed Supervisor/path/semantic-verifier binding; hard process and OS-I/O supervision; installed-runtime qualification; typed crossing and Omen outcomes.",
-    "resource_bound_tests": 13,
-    "previous_qualifications": [
-      {
-        "source_commit": "b52d825649af9fbe8d3d7273d8ebdbdbbbe658be",
-        "run_id": 33619080134,
-        "tests": 28,
-        "library_sha256": "461E2C6C524FFC4CDF460367FAF82D441914392F840159E9E9E0D89B99D929A2",
-        "report": "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md"
-      }
-    ],
-    "resource_limits": {
-      "database_bytes": 16777216,
-      "mappings": 256,
-      "events": 4096,
-      "sqlite_value_sql_bytes": 4096,
-      "vm_steps": 2000000,
-      "progress_interval": 1000,
-      "cooperative_deadline_seconds": 2,
-      "hard_process_timeout_proven": false
-    }
-  },
-  "intake_terminal_retirement": {
-    "status": "OMEN_OBSERVED_EMPTY_QUEUE_RECOVERY",
-    "report": "docs/engineering/KEVIN-INTAKE-TERMINAL-RETIREMENT-2026-09-02.md",
-    "retired_id": "main-canary-reaffirm-16k-20260902-2300",
-    "manifest_blob": "34e0c37f1be661c14ac1f7636ab6fa853f8c2233",
-    "archive": "inbox/maintenance/archive/main-canary-reaffirm-16k-20260902-2300.json",
-    "archive_commit": "4d2d87eba3af6f280fb61b6e8d6ee401590a0b53",
-    "retirement_commit": "f46fce1fedeeb9a0d0fa6438ae664b04abb4b7c6",
-    "evidence_commit": "61ec1e48a9072b466a6948d949a3e58a561c1c9b",
-    "receipt_at": "2026-09-02T05:15:07.5402846-06:00",
-    "receipt_status": "NO_MANIFEST",
-    "intake_errors": 0,
-    "benchmark_at": "2026-09-02T05:17:17.7008085-06:00",
-    "benchmark": "PASS_30_OF_30_CRITICAL_0",
-    "canary_rerun": false,
-    "runtime_binary_mutation": false,
-    "retry_budget_reset": false,
-    "transfer_promotion": false
-  },
-  "migration_provenance_audit": {
-    "report": "docs/engineering/KEVIN-INTAKE-TERMINAL-RETIREMENT-2026-09-02.md",
-    "inventory_revisions_reviewed": 8,
-    "explicit_hq_family_found": false,
-    "explicit_staging_family_found": false,
-    "complete_bootstrap_found": false,
-    "history_complete": false,
-    "family_assignment_authorized": false
-  },
-  "tool_visibility_review": {
-    "status": "SOURCE_CONFIRMED_RECEIPT_AMBIGUITY_NOT_RUNTIME_REPAIR",
-    "report": "docs/engineering/KEVIN-TOOL-VISIBILITY-EVIDENCE-2026-09-02.md",
-    "reviewed_at": "2026-09-02T13:10:00Z",
-    "source_checkpoint": "9ad8f87cccb195e6db655bd729b0a47053115e23",
-    "source_blob_v1343": "404ba03ed0eb61d8d4b91e5213219b7b4daa003d",
-    "source_blob_v1344": "2e80d7f528a230f74e3bd8d7a16193911d50405b",
-    "canary_blob": "508ef5ca367c386cf5fd992def41770c252d3909",
-    "reported_visible_tool_count": 0,
-    "effective_tool_visibility": "UNKNOWN",
-    "inventory_presence_in_receipt": "NOT_RECORDED",
-    "correlated_canary_tool_calls": 0,
-    "canary_tool_calls_proven": true,
-    "useful_tool_execution_proven": false,
-    "installed_source_identity_qualified": false,
-    "runtime_mutation": false,
-    "policy_change_authorized": false,
-    "canary_retry_authorized": false,
-    "next": "Version-qualified fixed read-only presence/type/correlation diagnostic; then actual authorized useful tool action with independent semantics.",
-    "consumer": "fixed main-agent semantic/tool-evidence boundary",
-    "scope": "FIXED_MAIN_CANARY_ONLY_NOT_READER_PROFILE",
-    "historical_checkpoint": true,
-    "superseded_for_current_status_by": "docs/engineering/KEVIN-MAIN-CANARY-CORRELATION-2026-09-02.md"
-  },
-  "reader_benchmark_review": {
-    "acceptance_weakened": false,
-    "benchmark": {
-      "at": "2026-09-02T08:12:35.2273154-06:00",
-      "passed": 29,
-      "total": 30,
-      "critical_failures": 1,
-      "failures": [
-        "R05 Reader config frozen"
-      ],
-      "scheduler_consecutive_errors": 5,
-      "previous": {
-        "at": "2026-09-02T08:03:12.3181818-06:00",
-        "passed": 23,
-        "total": 25,
-        "critical_failures": 2,
-        "failures": [
-          "R05 Reader config frozen",
-          "R11 cron list exit=1"
-        ]
-      },
-      "r11_currently_failing": false
-    },
-    "foreground_contract_preserved": true,
-    "independent_full_semantic_verification": false,
-    "maintenance": {
-      "intake_errors": 0,
-      "state": "NO_MANIFEST"
-    },
-    "manifest_mutation": false,
-    "missing_patch_proof": "reports/engineering/PROOF-reader-status-canary-predicate-fix-2026-09-02-0802.md",
-    "observed_maintenance_sha256": "3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E",
-    "production_acceptance": "BLOCKED_NOT_COMPLETE",
-    "production_mutation": false,
-    "reader_family_history": {
-      "current_inventory": "benchmark-postcondition-R05-R11",
-      "previous": "reader-canary-runtime-path",
-      "reset_authorized": false,
-      "retained_failure_attempts": 3
-    },
-    "reader_receipt_at": "2026-09-02T08:02:30.7382354-06:00",
-    "reader_receipt_blob": "37812dee3522ac295c8916654be919026cd46924",
-    "reader_reported_calls_per_trial": 1,
-    "reader_reported_state": "REPEATEDLY_PROVEN",
-    "reader_reported_trials": 2,
-    "reader_source_qualified": false,
-    "report": "docs/engineering/KEVIN-READER-BENCHMARK-BOUNDARY-2026-09-02.md",
-    "repository_runner_blob": "2e80d7f528a230f74e3bd8d7a16193911d50405b",
-    "retry_budget_mutation": false,
-    "reviewed_at": "2026-09-02T14:20:00Z",
-    "source_commit": "8f86a8d33e772878545d21cd6e797ae42e13fcd5",
-    "status": "READER_RECEIPT_2_OF_2_PLATFORM_ACCEPTANCE_BLOCKED",
-    "transfer_promotion": false,
-    "latest_health_source_commit": "fbc5f324c0f0f30553513f51eec5d1d50ac96672",
-    "historical_checkpoint": true,
-    "superseded_for_current_status_by": "docs/engineering/KEVIN-MAIN-CANARY-CORRELATION-2026-09-02.md"
-  },
-  "main_correlation_review": {
-    "benchmark": {
-      "at": "2026-09-02T09:17:03.7378261-06:00",
-      "core_scheduler_errors": 0,
-      "critical_failures": 0,
-      "passed": 30,
-      "repair_mechanism": "NOT_ESTABLISHED_BY_RECEIPTS",
-      "source_sha256": "4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964",
-      "total": 30
-    },
-    "main": {
-      "agent_exit_code": 0,
-      "at": "2026-09-02T09:00:25.1588181-06:00",
-      "blob": "c75be414f0ee9948f2f8100327601abda703785d",
-      "effective_tool_visibility": "UNKNOWN",
-      "exact_expected_reply": false,
-      "failure_stage": "semantic_contract",
-      "gateway_probe_ok": true,
-      "partial_transcript_calls": 0,
-      "previous_pass": "HISTORICAL_2026_09_01_2302_NOT_CURRENT_ACCEPTANCE",
-      "state": "REJECT",
-      "tool_calls": null,
-      "transcript_assistant_messages": 1,
-      "transcript_complete": false,
-      "transcript_user_messages": 0
-    },
-    "maintenance": {
-      "installed_source_qualified": false,
-      "intake_errors": 0,
-      "observed_sha256": "3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E",
-      "state": "NO_MANIFEST"
-    },
-    "manifest_mutation": false,
-    "next": "Before another main canary, obtain materially new fixed read-only evidence of installed source/version and exact request/session/transcript correlation. Determine whether missing user events arise from the invocation, returned session identity, transcript selection, recording or parser contract; none is yet established as root cause. Preserve fail-closed acceptance; no Gateway repair, model switch, tool-policy widening, correlation bypass, renamed retry or budget reset on this evidence. Reader's08:28 receipt still reports2/2; obtain existing typed terminal receipt and exact patched-source/negative-test evidence before FULL COMPLETE, not another canary solely to refresh the label.",
-    "reader": {
-      "at": "2026-09-02T08:28:45.9587942-06:00",
-      "blob": "5123a111a7c5ef4cbbcae0ded517f3c752c295a4",
-      "full_acceptance": "SOURCE_AND_TYPED_TERMINAL_PROOF_UNRESOLVED",
-      "reported_trials": "2/2",
-      "work_item_preserved": true
-    },
-    "report": "docs/engineering/KEVIN-MAIN-CANARY-CORRELATION-2026-09-02.md",
-    "request": {
-      "archive": "inbox/maintenance/archive/main-canary-morning-reaffirm-20260902-0857.json",
-      "archive_blob": "c6e57d62acc2fbbc9a93d10c85439d4ae5bb0a3d",
-      "distinct_failure_attempts": "NOT_INFERRED",
-      "id": "main-canary-morning-reaffirm-20260902-0857",
-      "new_retry_authorized": false,
-      "observed_receipt_revisions": 4,
-      "removed_commit": "a0102328e28dc6f6dbc415b6454255f3a5469e28"
-    },
-    "retry_budget_reset": false,
-    "reviewed_at": "2026-09-02T15:26:00Z",
-    "runtime_mutation": false,
-    "source_commit": "51d4bcf7ff68e86978ad08190a377a8bf5d2b501",
-    "status": "BENCHMARK_RECOVERED_MAIN_SEMANTIC_AND_CORRELATION_REJECTED",
-    "transfer_promotion": false
+  "safety": {
+    "arbitrary_shell": false,
+    "authority_expansion": false,
+    "secret_publication": false,
+    "benchmark_weakening": false,
+    "silent_trust_anchor_blessing": false,
+    "protected_external_or_financial_effects": false
   }
 }
