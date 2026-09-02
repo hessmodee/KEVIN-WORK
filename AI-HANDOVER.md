@@ -1,169 +1,194 @@
 # Kevin AI Engineering Handover
 
-Reconciled 2026-09-02 after Matt completed the fixed:main context/compaction repair and explicitly directed all assisting engineers to keep Kevin moving, self-improving, self-repairing, work-conserving, and progressively independent of Bess/Grok/Matt.
+Reconciled 2026-09-02 15:30 MDT during Matt-directed foreground convergence work.
 
-**Canonical shared handover:** this file is the cross-AI engineering handover for Bess/ChatGPT, Grok Build, Grok Bot, and future replacement engineers. Enter through `KEVIN-START-HERE.md`. Read fresh runtime receipts before acting; fresh correlated evidence outranks this prose. After any substantive repair/proof/blocker/owner decision/production crossing/responsibility-transfer change, reconcile this file and the current task so Matt does not have to reconstruct the project from chat history.
+**Canonical shared handover:** this is the cross-AI engineering handover for Bess/ChatGPT, Grok Build, Grok Bot, Kevin-facing engineering automation, and future replacement engineers. Enter through `KEVIN-START-HERE.md`. Fresh correlated HESS-PC/OpenClaw evidence outranks this prose. Reconcile this file and `inbox/CURRENT_TASK.md` after every substantive repair, proof transition, blocker, owner decision, production crossing, rollback, or responsibility-transfer change so Matt never has to reconstruct the project from chat history.
 
-Standing owner direction is codified in `docs/engineering/OWNER-CONTINUOUS-AUTONOMY-DIRECTIVE-2026-09-02.md`.
+Standing owner direction is codified in `docs/engineering/OWNER-CONTINUOUS-AUTONOMY-DIRECTIVE-2026-09-02.md` and `control-plane/OWNER-AUTHORIZATION-v1.md`.
 
-## North star
+## North star and operating doctrine
 
-Kevin must independently:
+Kevin must progressively own:
 
 `NOTICE -> UNDERSTAND -> PLAN -> EXECUTE -> VERIFY -> RECOVER -> RECORD -> LEARN -> CONTINUE`
 
-The objective is a persistent local Chief of Staff/system worker that does useful authorized work, continuously improves its own reliability/capability, learns from each repair, and progressively eliminates routine dependence on Bess, Grok Build, Grok Bot, and owner keyboard relay.
+The goal is a persistent local Chief of Staff/system worker that performs useful authorized work, continuously learns and improves, repairs itself, develops GREEN capability, matures YELLOW candidates, and reduces routine dependence on Bess, Grok, and Matt's keyboard.
 
-Idle-without-reason is a defect; spinning/busywork is also a defect. If one failure family is blocked or cooling, Kevin should select another independent useful authorized lane. Technical proof and T0-T5 responsibility transfer remain separate.
+Idle-without-reason is a defect. Busywork/spin is also a defect. A blocked or cooled family is not permission to stop the whole program; Kevin should advance another independent useful authorized lane within WIP/resource bounds.
 
-## Owner work zone
-
-Matt has explicitly directed aggressive work in the GREEN and YELLOW development zones.
-
-- Legitimately GREEN actions may proceed through existing proven/typed contracts without repeated permission requests.
-- YELLOW capabilities should be researched, designed, simulated, staged, tested, proven, documented, and prepared rather than ignored.
-- A YELLOW production effect still requires a bounded explicit reversible contract for that exact effect. This does not silently authorize money movement, purchases, live trading, credential acquisition, permission widening, safety weakening, arbitrary shell/remote code, or unapproved third-party/owner-representing sends.
-
-The goal is maximum capability development inside real boundaries, not artificial caution and not artificial authority expansion.
-
-## Current fixed:main truth — context/compaction repair
-
-The owner reproduced the fixed:main OpenClaw auto-compaction/context failure on 2026-09-02 and completed two narrow validated configuration repairs.
-
-Known preconditions preserved:
-- main model: `ollama-chat-16k/qwen2.5:14b`
-- configured provider/model context: 16384
-- Ollama `num_ctx`: 16384
-- `agents.defaults.compaction.reserveTokensFloor=2048`
-
-Repair #1:
-- added `agents.defaults.compaction.reserveTokens=2048`
-- dry-run passed
-- OpenClaw config validation passed with no warnings
-- exact semantic diff from the pre-repair config was only the new reserveTokens leaf plus OpenClaw metadata timestamp
-- pre-repair config SHA256: `215AC88DF59FE91DD38580E8A77A488096CA77AFE840AACDBB1530DA760B5A84`
-- post-repair-1 config SHA256: `DDC2A7227087C20CD761493F4A8B15189FAA9A12730EC22DED54EDE1A700C602`
-- rollback backup: `~/.openclaw/backups/main-context-repair-20260902-131022/openclaw.json.before`
-
-Repair #2:
-- added `agents.defaults.compaction.keepRecentTokens=4000`
-- preserved reserveTokens/reserveTokensFloor at 2048
-- dry-run and full validation passed
-- post-hardening config SHA256: `23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5`
-- rollback backup: `~/.openclaw/backups/compaction-tail-repair-20260902-132325/openclaw.json.before`
-
-Observed functional proof after the repairs:
-- a fresh Kevin owner chat answered a direct identity question normally;
-- `/context detail` showed the new session operating below the 16,384-token ceiling;
-- manual `/compact` completed successfully rather than reproducing the earlier recovery failure.
-
-This proves the immediate symptom is repaired enough to continue testing. It does **not** yet prove Kevin-owned self-repair or a complete causal model. Preserve the exact failure family and transfer the repair into Kevin's own detector/recovery path.
-
-Durable teach-back was updated in `docs/engineering/LESSON-fixed-main-qwen-context-overflow-2026-09-01.md`.
-
-## Current live health / expected R04 drift
-
-Owner-reported fixed:main compaction repair preserves model/context16384, reserveTokensFloor2048, reserveTokens2048 and keepRecentTokens4000 at config SHA23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5; fresh text reply and manual compaction passed. The 09:00 rejected canary predates this repair and is not a post-repair failure. Benchmark14:02 MDT remains29/30 critical1, solely R04; Support14:09 corroborates NO_MANIFEST. Engineering14:13 reports stale UI heartbeat7579.5s and four proven composites. The13:45 capability audit completed but records policy-path presence, not effective inventory; owner reports an empty fresh /context inventory. No tool grant, baseline change, runtime repair or T-level promotion occurred in this review.
-
-R04 must be reconciled through an exact bounded governed contract. Published Maintenancev1.3.44/Intakev1.2.6 inspection did not establish a general R04 baseline operation; historical Forge/Supervisor baseline migrations are not substitutes. Preserve the good compaction settings and R04 acceptance. The installed runner's source is unqualified, so do not overwrite it to add this operation.
-
-## Shared/current owner execution contract
-
-`inbox/CURRENT_TASK.md` has been reconciled. The prior `write-proof / stop` instruction is retired by Matt's newer continuous-autonomy directive.
-
-Current order:
-1. close the intentional R04 baseline drift without undoing the context repair;
-2. diagnose fixed:main effective tool policy/inventory from version-qualified evidence, then only a narrow approved grant with real-turn and forbidden-tool negatives;
-3. teach/transfer this failure family into a Kevin-owned detector + bounded recovery + semantic verifier;
-4. if blocked/cooling, continue another useful authorized lane rather than idle;
-5. prioritize Maintenance/self-repair ownership, autonomous work selection, skill development/replay, owner<->Kevin communication, mobile HQ, Telegram repair/replacement, memory/restart-replay, and lawful owner-value/economic-output workflows.
-
-Default WIP remains 1 production/proof + 1 staging/eval + 1 research/design with a named consumer.
-
-## Teach-and-transfer obligation
-
-Outside repairs are incomplete until Kevin can own the next occurrence. For every meaningful Bess/Grok repair leave:
-- failure family/capability gap;
-- detection signal;
-- bounded diagnosis;
-- repair/avoidance procedure;
-- preconditions/rollback;
-- tests/evals/negative fixtures;
-- exact proof/receipt/hash;
-- durable lesson;
-- remaining outside-engineer step to retire next.
-
-Repeated Bess/Grok/Matt intervention is autonomy debt. Move each lane honestly through:
+Technical proof and responsibility transfer remain separate:
 
 `T0 BESS-DEPENDENT -> T1 BESS-BUILT/KEVIN-TESTED -> T2 BESS-DISPATCHED/KEVIN-EXECUTED -> T3 KEVIN-RUN/BESS-VERIFIED -> T4 KEVIN-OWNED/EXCEPTION-ESCALATED -> T5 SELF-RELIANT/BESS-NOT-REQUIRED`
 
-The context repair is currently below T4 because diagnosis and owner terminal execution were still required.
+Every outside repair is incomplete until its detector, procedure, verifier, rollback, negative tests, lesson, and next autonomous invocation path are transferred into Kevin.
 
-## Existing runtime/control-plane facts to preserve
+## Owner work zone
 
-- Supervisor v1.8.8 remains the latest known installed Supervisor identity: `F5D8C9740D384CC576D4BD70A3940B51AA1FCF398C7085E59DB20C01E9180138`.
-- Installed Maintenance runner latest observed identity: `3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E`.
-- Published `control-plane/maintenance/kevin-maintenance-runner-v1.3.44.ps1` is **not proven equivalent** to that installed local runner. Do not overwrite the installed runner merely to gain a feature until exact source/provenance or a safe equivalent migration is proven.
-- Latest known Forge identity remains `433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A`.
-- Latest known Benchmark runner identity remains `4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964`.
-- The repository's governed work-order intake can run fixed GREEN verbs such as Benchmark, Support, reconcile, typed Maintenance, autonomy telemetry and OS Awareness; use established remote paths before asking Matt to type commands.
-- Runtime convergence evidence from 10:34 MDT recorded local workspace policy hashes. Re-check fresh convergence before any exact-current runtime-policy replacement; do not assume repository source equals current installed bootstrap.
+Matt explicitly authorizes aggressive work in GREEN and YELLOW development zones.
 
-## Context-repair autonomy debt — required next engineering shape
+- Legitimately GREEN work may proceed through existing proven/typed contracts without repeated permission requests.
+- YELLOW capabilities should be researched, designed, simulated, staged, tested, proven, documented, and prepared instead of being ignored.
+- A YELLOW production effect still requires an exact bounded reversible contract for that effect.
 
-Build/prove a fixed-input, fail-closed context-health capability that can:
-1. detect the known auto-compaction/context failure family from protected metadata and/or explicit health signals;
-2. read fixed main provider/model/context, `num_ctx`, `reserveTokensFloor`, `reserveTokens`, `keepRecentTokens`, config identity and validation state without exposing private config content;
-3. distinguish known exact-precondition drift from unknown context causes;
-4. when exact preconditions match, apply only the known bounded repair with backup, hash-CAS, dry-run, semantic-diff verification and rollback;
-5. preserve the failed session/evidence before destructive reset;
-6. prove a fresh normal fixed:main turn and successful compaction behavior;
-7. re-establish R04 through the governed baseline path after intentional config acceptance;
-8. require Benchmark 30/30 and fresh Support evidence;
-9. record a reusable lesson/attempt family and avoid retry-budget reset by renaming;
-10. later demonstrate Kevin independently noticing/selecting/executing/verifying this path.
+This does not authorize arbitrary shell/remote code, money movement, purchases, live trading, credential acquisition, permission widening, safety weakening, secret/private-body publication, destructive non-Kevin user-data changes, or unapproved owner-representing/third-party sends.
 
-Negative fixtures must reject unexpected model/context values, unknown reserve values, stale pre-change hashes, unrelated semantic config diffs, failed validation, missing rollback, and attempts to weaken Benchmark.
+## Current fixed:main truth — context/compaction repair is functionally restored
 
-## Work-conserving campaign while P0/P1 is blocked
+Matt reproduced the fixed:main OpenClaw auto-compaction/context failure and performed two narrow validated repairs on 2026-09-02.
 
-Useful independent lanes include:
-- Maintenance self-ownership and exact installed-source/provenance recovery;
-- Supervisor selector/work-conservation truth and anti-idle behavior;
-- GREEN Skill Lab composite development and real-world replay;
-- YELLOW candidate research/staging with named consumers and no protected crossing;
-- mobile Kevin HQ and direct two-way owner chat;
-- Telegram diagnosis/repair or a better supported private channel;
-- durable memory, handoff, restart/replay, and postmortem learning;
-- lawful economic-output labs and owner-value workflows using already-proven capabilities.
+Known-good owner-observed configuration:
+- model `ollama-chat-16k/qwen2.5:14b`;
+- provider/model context `16384`;
+- Ollama `num_ctx=16384` verified live through `/api/ps`;
+- `agents.defaults.compaction.reserveTokensFloor=2048`;
+- `agents.defaults.compaction.reserveTokens=2048`;
+- `agents.defaults.compaction.keepRecentTokens=4000`;
+- post-hardening `openclaw.json` SHA256 `23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5`.
 
-Do not resurrect cooled Forge rotation without demand. Do not treat worker count, heartbeat churn, cycle numbers, candidate creation, or renamed requests as accomplishments.
+Repair #1 added explicit `reserveTokens=2048`. Pre-repair SHA was `215AC88DF59FE91DD38580E8A77A488096CA77AFE840AACDBB1530DA760B5A84`; post-repair-1 SHA was `DDC2A7227087C20CD761493F4A8B15189FAA9A12730EC22DED54EDE1A700C602`. The exact semantic config diff was only the intended reserve leaf plus OpenClaw metadata timestamp. Rollback exists at `~/.openclaw/backups/main-context-repair-20260902-131022/openclaw.json.before`.
 
-## Existing broader engineering debt
+Repair #2 added `keepRecentTokens=4000`, preserved reserve/floor at2048, validated cleanly, and produced the current `23DA...A93A5` config. Rollback exists at `~/.openclaw/backups/compaction-tail-repair-20260902-132325/openclaw.json.before`.
 
-Preserve these prior findings unless newer evidence supersedes them:
-- history/retry continuity remains a real autonomy debt; do not reset attempts through changing prose/fingerprints;
-- Reader had meaningful proof but was not fully self-reliant; avoid reruns merely to refresh labels;
-- owner chat/mobile, communications, Gmail/Telegram, memory, self-maintenance, Skill Lab, browser research, and business-value workflows remain master-scorecard lanes;
-- CI-proven candidates are not installed proof;
-- exact owner round-trip/restart/replay evidence must exist before claiming communication self-reliance;
-- external skill/coding experiments such as local Ollama/Aider remain isolated research unless actually installed and proven.
+Functional proof after repair:
+- fresh owner session returned exact `KEVIN_OWNER_CHAT_OK`;
+- normal owner conversation succeeded;
+- `/context detail` showed approximately 8.3k / 16,384 context rather than fresh-session overflow;
+- manual `/compact` completed successfully rather than looping/failing.
+
+Therefore the immediate owner-chat context blocker is repaired. The old 09:00 rejected canary predates this repair and must not be treated as a post-repair failure. The repair is still below T4 because diagnosis and terminal execution required Bess/Matt.
+
+Durable lesson: `docs/engineering/LESSON-fixed-main-qwen-context-overflow-2026-09-01.md`.
+
+## P0 live blocker — Benchmark R04 intentional drift
+
+Fresh Support at 15:24 MDT reports:
+- governance `ok=true`;
+- Supervisor, Support, HQ pulse, and Maintenance Intake healthy;
+- Maintenance `NO_MANIFEST`;
+- Benchmark **29/30, critical1**, with exactly one failed regression: R04 `Production config frozen`;
+- Benchmark scheduler has accumulated repeated errors only because R04 remains open.
+
+This is expected stale-baseline drift after the intentional validated `openclaw.json` repair. Do not revert the good compaction settings merely to satisfy the old frozen hash and do not weaken/skip R04.
+
+Required crossing: a narrow governed production-config baseline reconciliation that:
+1. verifies exact current config SHA `23DA...A93A5`;
+2. verifies the current baseline identity and expected old production-config anchor;
+3. changes only the fixed R04 production-config anchor;
+4. preserves every other baseline field/anchor exactly;
+5. keeps an exact rollback copy;
+6. runs fresh Benchmark and requires 30/30 critical0;
+7. publishes fresh Support evidence;
+8. rolls back if any invariant fails.
+
+The inspected published Maintenance v1.3.44 / Intake v1.2.6 do not currently establish a general R04 production-config baseline operation. Historical Forge/Supervisor migrations are not substitutes. The installed Maintenance runner SHA `3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E` is an unpublished/unqualified local identity relative to the published runner; do not overwrite it merely to gain a feature until exact source/provenance or a safe equivalent migration is proven.
+
+## Fixed:main effective tools — genuine empty fresh-session inventory, not permission for broad tools
+
+Fresh owner `/context detail` after the context repair reported:
+- tool list 0 chars / 0 tools;
+- tool schemas 0 chars / 0 tools;
+- `Tools: (none)`.
+
+That is real current-session evidence. Historical production Chat was intentionally tool-free/nearly-tool-free while Reader/action capabilities were isolated behind governed paths. The new autonomy objective requires a useful owner-intent/control surface, but **not** broad host authority.
+
+Version-qualified OpenClaw `2026.7.1-2` findings:
+- this installed version uses `agents.list[].tools.*` naming; newer docs often show `agents.entries.*`;
+- tool resolution is layered: profile, global allow/deny, provider, per-agent, agent+provider, sandbox/channel/sender/plugin/model support; deny wins;
+- `openclaw sandbox explain --agent main --json` exists in 2026.7.1-2 as a fixed read-only diagnostic surface;
+- upstream issue #111570 reports 2026.7.1-2 channel workers may retain stale `agents.list[*].tools` policy after hot reload until a full Gateway restart, so CLI/fresh-session proof and channel proof must be distinguished;
+- upstream issue #114065 reports agent-scoped allowlists in 2026.7.1-2 can leak built-in tool visibility, so protected-tool negative tests are mandatory after any policy change.
+
+Do not set `tools.profile=coding`, broad `exec`, filesystem mutation, browser-submit, messaging, subagent spawn, or other protected surfaces merely to make tool count nonzero.
+
+The desired first production-chat capability is the smallest surface that lets Kevin inspect safe state and create/update durable owner goals/tasks or invoke already-governed typed mechanisms while actual consequential execution stays behind the established control plane.
+
+Before any mutation, obtain exact-current fixed read-only evidence for root/per-agent/provider/sandbox/channel/sender/plugin layers and prove the real session-effective inventory. Production acceptance requires exact config backup/hash, dry-run, semantic diff, validation, appropriate reload/restart for 2026.7.1-2, fresh session inventory, one allowed useful action, forbidden-tool negatives, Benchmark30/30, Support proof, and rollback.
+
+Detailed record: `docs/engineering/KEVIN-TOOL-VISIBILITY-EVIDENCE-2026-09-02.md`.
+
+## Context-repair autonomy debt — candidate is merged, not installed
+
+PR37 `Candidate: fixed-main self-repair contract v1` was squash-merged into `main` at commit:
+
+`0906b6f90e5e303f5e9dbda16dbf8f0b941135b1`
+
+The merged-head proof run `33678067290` passed on Linux/Windows with Python3.12/3.13. The candidate includes deterministic/fail-closed configuration classification, exact compaction-contract checks, semantic leaf-diff verification, malformed-policy negatives, and authored tool-policy classification. It remains **candidate-only/uninstalled** and has no filesystem/network/process/OpenClaw mutation or authority expansion surface.
+
+Do not refer to PR37 as open/unmerged. Any later branch-only commits that were not part of the merged PR are not production truth unless separately reviewed/merged.
+
+Next transfer step:
+1. qualify candidate field/layout assumptions against installed 2026.7.1-2;
+2. build a fixed Windows/OpenClaw wrapper with exact config SHA, backup, dry-run, config validation, semantic diff and rollback;
+3. bind the known repair only to exact preconditions;
+4. include the governed R04 closeout;
+5. prove fresh main reply, compaction and protected tool boundary;
+6. seed/reproduce the failure in a safe test path and demonstrate Kevin selecting/executing/verifying the recovery without owner/Bess/Grok terminal relay.
+
+Failure family remains `fixed_main_context_overflow_compaction_budget`; do not rename it to reset attempts.
+
+## Current runtime/control-plane facts to preserve
+
+Latest trustworthy known component identities:
+- Supervisor v1.8.8: `F5D8C9740D384CC576D4BD70A3940B51AA1FCF398C7085E59DB20C01E9180138`;
+- Maintenance runner: `3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E`;
+- Forge: `433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A`;
+- Benchmark runner: `4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964`.
+
+The governed work-order intake can run fixed GREEN verbs including Benchmark, Support, reconcile, typed Maintenance, autonomy telemetry, and OS Awareness. Prefer those remote paths over Matt acting as PowerShell transport.
+
+Supervisor currently reports `NO_ELIGIBLE_MISSION`; autonomy has retained benchmark-not-pass/failure-budget evidence. This is not proof that Kevin's north star is complete. Work selection remains autonomy debt. Do not manufacture Forge rotation merely to look active; instead populate/recognize genuinely useful authorized work and prove scheduled selection/execution.
+
+## Low-hanging truth/reliability debt
+
+### HQ/dashboard context truth
+An older repository helper hard-codes `8K` and `tools=false`, while owner `/context detail` proves the current main context ceiling is 16,384 and tool inventory is currently empty. The live dashboard publisher emits schema5 while the older repo helper emits schema3, so source provenance must be recovered before deployment. Do not overwrite the live publisher with the unproven helper. Fix the publisher once exact source identity is known so HQ derives context/tool truth from runtime evidence rather than constants.
+
+### UI Bridge
+The task is present and the installed hash still matches the known identity, but the Engineering snapshot reports a materially stale heartbeat. Hash/task presence is not live health. Existing typed restart ends by requiring Benchmark30/30; therefore close R04 first or prove a separate restart contract whose acceptance can complete without manufacturing a known Benchmark failure.
+
+### Skill Lab replay preservation
+PR36 (`Skill Lab v1.0.6` proof-preservation repair) has successful CI for registry/replay safety, but it is currently not mergeable against the advanced main branch. Do not force-merge. Reconcile/rebase the small proof-preservation change onto current main, rerun proof, then consider promotion through the normal Skill Lab runner replacement path.
+
+## Work-conserving backlog while P0 is blocked/cooling
+
+Use independent WIP for:
+- Maintenance/self-repair ownership and exact installed-source provenance recovery;
+- durable retry/history preservation and work-selection correctness;
+- GREEN Skill Lab composites, replay preservation, regression testing, and real-world reuse;
+- YELLOW candidate research/design/staging with a named downstream consumer;
+- private Matt<->Kevin communication, mobile HQ, Telegram diagnosis/replacement;
+- memory/handoff/restart-replay/postmortems;
+- Reader and bounded research/browser evidence lanes;
+- lawful owner-value/economic-output workflows using already-proven capabilities.
+
+Default WIP: 1 production/proof + 1 staging/eval + 1 research/design. Heartbeats, cycle counts, renamed requests, model turns, candidate generation and uninstalled code are not owner outcomes.
+
+## Multi-writer coordination lesson
+
+During this foreground convergence pass, the scheduled ChatGPT Chief Engineer concurrently updated `CURRENT_TASK.md` with stale/nonexistent PR37 branch information after PR37 had been merged. The scheduled process was temporarily paused to prevent further handover collisions.
+
+Operational rule going forward:
+- a foreground human-directed engineering session that intends to mutate the shared repo/handover should first pause the scheduled ChatGPT Chief Engineer;
+- HESS-PC/Kevin local schedulers continue running;
+- foreground session reconciles handover/current task and records any in-flight manifests/requests;
+- only after the foreground mutation/proof crossing is complete should the scheduled Chief Engineer be re-enabled;
+- never allow two outside AI writers to treat themselves as the canonical handover editor simultaneously.
+
+`KEVIN-START-HERE.md` should preserve this coordination rule.
 
 ## Safety/truth boundary
 
 No arbitrary shell/remote-code transport, self-granted authority, secret/private-body publication, silent trust-anchor blessing, safety/verification weakening, purchases/trades/money movement, credential acquisition, permission widening, or unauthorized owner-representing third-party sends.
 
-Do not confuse Matt's broad permission to push GREEN/YELLOW development with permission to fabricate evidence or bypass a real protected boundary. Use direct remote execution when an existing proven path exists; when it does not, build/prove the narrow path rather than offloading avoidable troubleshooting to Matt.
+Matt's broad direction to push GREEN/YELLOW development is not permission to fabricate evidence or bypass a protected boundary. Use an existing governed remote path when available; when it does not exist, build/prove the narrow path instead of offloading avoidable troubleshooting to Matt.
 
-## What the next engineer should do immediately
+## Exact next execution order
 
-1. Read `KEVIN-START-HERE.md`, the owner continuous-autonomy directive, this handover, and `inbox/CURRENT_TASK.md`.
-2. Fetch fresh Support/Benchmark/Maintenance/control-plane/autonomy evidence and compare timestamps.
-3. If R04 is still the sole regression, use or construct the narrow governed baseline-reconciliation path; preserve compaction settings and require fresh 30/30.
-4. Within WIP, continue existing PR37 rather than create a duplicate candidate. It now passes23 safety tests; installed-schema and live-wrapper qualification remain. Do not overwrite the unknown installed Maintenance patch.
-5. When blocked, continue another useful authorized lane instead of stopping the program.
-6. Reconcile this handover after the next substantive transition.
-
-## Candidate safety qualification and current evidence
-
-Existing PR37 now contains commit 3b095f5e33a5c11dcd41b637f2bf34c5fd467ee9:28 tests pass on Linux/Windows Python3.12/3.13 in [CI33685149497](https://github.com/hessmodee/KEVIN-WORK/actions/runs/33685149497). It adds fail-closed validation for malformed root/per-agent/provider/sender/sandbox policy structures and allowed profiles; authored-policy classification still does not prove effective inventory. This remains unmerged/uninstalled candidate proof, not R04 recovery or tool execution. See [review and teach-back](docs/engineering/KEVIN-FIXED-MAIN-CANDIDATE-SAFETY-2026-09-02.md). Support15:21 MDT still reports Benchmark29/30, critical1 solely R04 at15:02, with six consecutive Benchmark scheduler errors; Maintenance is NO_MANIFEST and other listed core schedulers remain at zero errors. Engineering15:21 reports no request and a11663.6-second stale UI heartbeat. Autonomy remains NEEDS_REVIEW/drift2 with benchmark_not_pass attempts3 preserved; Supervisor continuation correctly idles with zero eligible items and proves no outcome. Owner compaction repair remains the newest semantic main evidence; no post-repair canary/tool execution is proven. Qualify an exact-current governed R04 baseline operation from installed baseline/Benchmark and unqualified Maintenance source before any mutation; preserve owner config23DA... and require fresh30/30. Diagnose effective fixed:main tool policy across profile, global/per-agent/provider/sender/channel/sandbox/plugin/model filters with a real session inventory before any narrow grant. UI restart remains independent but its existing typed operation ends by requiring Benchmark30/30, so do not manufacture a failed crossing while R04 is known open. Work selection staysT2; no budget resets or completed-work reopening.
+1. Close R04 through a narrow exact-current governed baseline reconciliation and restore Benchmark30/30 without touching the known-good compaction settings.
+2. Perform version-qualified fixed:main tool-policy diagnosis using fixed read-only surfaces; design the smallest owner-intent/control tool surface and prove allowed + forbidden behavior.
+3. Qualify/extend the merged fixed-main self-repair candidate into an installable typed wrapper and prove the full self-repair chain.
+4. After Benchmark is green, repair/prove the stale UI Bridge and fix HQ context/tool truth once live publisher provenance is recovered.
+5. Reconcile PR36 onto current main and continue GREEN Skill Lab reliability/replay work.
+6. Prove unattended scheduled selection of one real useful GREEN objective, semantic outcome, durable lesson, restart/replay, and a correct subsequent decision.
+7. Continue owner communications/mobile/Telegram, memory, Reader, browser/research and business-value lanes within WIP when higher-priority families are blocked.
+8. Reconcile this handover after each substantive transition.
