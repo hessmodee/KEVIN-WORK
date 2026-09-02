@@ -1,16 +1,14 @@
 # CURRENT_TASK
 
-## Active Bess continuation — 2026-09-02T17:00:50.945Z
+## Active Bess continuation — 2026-09-02T17:13:07.584Z
 
-Matt instructed Bess to continue building and training Kevin. The bootstrap audit `bess-bootstrap-evidence-20260902-1635` completed and was retired; fresh Support confirms NO_MANIFEST. Only HEARTBEAT matches the published five-file policy bundle. Preserve Grok's four unpublished policy files and his unavailable local turnover.
+Matt instructed Bess to continue building and training Kevin. PR35 is merged (`fec4da2086fcf30906e902255749670b448234b0`). Maintenance reports `bess-skill-registry-preservation-v105-20260902` APPLIED_PREAUTHORIZED_PROVEN at 11:01:19 MDT with fresh Benchmark30/30. Its exact manifest was archived and retired. Installed v1.0.5 source/after pin: `F3208DED6000325AC4446A6D960E8D8D199827D24D55790CF1943BB371A4FABC`; before pin: v1.0.4 `BCF21255F5D2BF1ED5B852DE26A06BB4FB5ACC14708539801E3E234A0968CE29`.
 
-PR35 merged as `fec4da2086fcf30906e902255749670b448234b0`. Skill Lab v1.0.5 prevents a corrupt registry or missing registry with prior receipts from being treated as empty learned history. Forty staged checks pass in each of Windows PowerShell 5.1 and PowerShell 7, including restart/replay, collision and byte preservation. Qualification run: https://github.com/hessmodee/KEVIN-WORK/actions/runs/33658106780.
+Current live proof: Engineering staged `bess-recovery-evidence-kit-v1-20260902` using only two create_text primitives. At 11:11 MDT the primitive queue has advanced from 12 to 14 DONE, the composite is still RUNNING, and no new failures are reported. Await the correlated composite PROVEN receipt; creating the files does not establish learner mastery or autonomous work selection.
 
-The sole production crossing is typed `replace_pinned_component`, manifest `bess-skill-registry-preservation-v105-20260902`: fixed alias `skill_lab_runner`; before must equal published v1.0.4 `BCF21255F5D2BF1ED5B852DE26A06BB4FB5ACC14708539801E3E234A0968CE29`; source/after must equal qualified v1.0.5 `F3208DED6000325AC4446A6D960E8D8D199827D24D55790CF1943BB371A4FABC`. The before pin is supported by the August 30 v1.0.4 deployment and its ALREADY_APPLIED_PROVEN receipt, not claimed as a fresh hash observation. Maintenance must check the actual current bytes before replacement, preserve its backup, and run fixed self-test plus fresh Benchmark30/30. A mismatch must stop; do not overwrite an unpublished variant or reset attempts.
+The staging receipt names `kevin-recovery-evidence-kit--1.json`, exposing an inherited replay bug in v1.0.5: StartSkill moves an ALREADY_PROVEN stub over the original same-named completed receipt. Do NOT replay this skill yet. An isolated v1.0.6 candidate will preserve the original receipt and consume only the redundant ready request after validating the matching PROVEN record. Qualify the exact real relay filename, demonstrate the old overwrite, retain registry/output bytes, and reject absent/corrupt/mismatched proof. Only after qualification and the current composite's completion may a new exact-hash typed upgrade run, followed by the live replay.
 
-After verifying the upgrade, stage `inbox/skills/kevin-recovery-evidence-kit-v1.json` through the existing Engineering Relay, correlate completion and exact replay, and retire terminal requests. Its two text artifacts contain recovery decisions and nine drills. File creation is not a learner pass, autonomous repair or model-weight training. Main canary remains REJECT and work selection T2.
-
-Kevin Chief Engineer should observe this foreground crossing and perform only noncompeting read-only work until the next checkpoint. Preserve any genuinely newer foreground ownership and the single-writer rule.
+WIP: one live composite proof and one isolated recovery candidate. Kevin Chief Engineer should observe this foreground work and perform only noncompeting read-only work until refreshed. Preserve any genuinely newer foreground ownership. Preserve Grok's four unpublished policy files and unavailable local turnover. The main-agent canary remains REJECT and work selection T2.
 
 ## Owner-relayed Grok turnover update — 2026-09-02T16:21:46.261Z
 
