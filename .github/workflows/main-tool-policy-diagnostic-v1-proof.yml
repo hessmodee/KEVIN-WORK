@@ -1,0 +1,72 @@
+name: Main Tool Policy Diagnostic v1 Proof
+
+on:
+  push:
+    branches:
+      - main
+      - bess/main-tool-policy-diagnostic-v1
+    paths:
+      - 'candidates/diagnostics/main-tool-policy-v1/**'
+      - '.github/workflows/main-tool-policy-diagnostic-v1-proof.yml'
+  pull_request:
+    paths:
+      - 'candidates/diagnostics/main-tool-policy-v1/**'
+      - '.github/workflows/main-tool-policy-diagnostic-v1-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.12', '3.13']
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Pure classifier tests
+        working-directory: candidates/diagnostics/main-tool-policy-v1
+        shell: pwsh
+        run: |
+          python -m unittest discover -v -p 'test*.py'
+          if($LASTEXITCODE -ne 0){throw 'tool-policy classifier tests failed'}
+          python -m py_compile classifier.py test_classifier.py
+          if($LASTEXITCODE -ne 0){throw 'tool-policy classifier compile failed'}
+      - name: Pure classifier has no execution authority
+        shell: pwsh
+        run: |
+          $code=Get-Content 'candidates/diagnostics/main-tool-policy-v1/classifier.py' -Raw
+          foreach($pattern in @('(?m)^\s*import\s+subprocess\b','(?m)^\s*import\s+os\b','(?m)^\s*import\s+socket\b','(?m)^\s*import\s+requests\b','\bopen\s*\(','\beval\s*\(','\bexec\s*\(')){if($code-match$pattern){throw "forbidden classifier authority surface $pattern"}}
+          Write-Host 'CLASSIFIER_AUTHORITY_PASS read_only_pure=true'
+
+  powershell:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse collector
+        shell: powershell
+        run: |
+          $p='candidates/diagnostics/main-tool-policy-v1/collect-main-tool-policy-v1.ps1'
+          $t=$null;$e=$null;[void][Management.Automation.Language.Parser]::ParseFile($p,[ref]$t,[ref]$e)
+          if($e.Count){throw('collector parser error '+$e[0].Message)}
+      - name: Collector self-test
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'candidates/diagnostics/main-tool-policy-v1/collect-main-tool-policy-v1.ps1' -SelfTest
+          if($LASTEXITCODE-ne0){throw 'collector selftest failed'}
+      - name: Static read-only boundary
+        shell: powershell
+        run: |
+          $code=Get-Content 'candidates/diagnostics/main-tool-policy-v1/collect-main-tool-policy-v1.ps1' -Raw
+          foreach($bad in @('Set-Content','Add-Content','Out-File','Move-Item','Copy-Item','Remove-Item','New-Item','Set-Item','Start-Process','Invoke-Expression','Invoke-WebRequest','Invoke-RestMethod','gh.exe','git.exe','config set','config unset')){if($code.Contains($bad)){throw "forbidden collector mutation surface $bad"}}
+          if($code-notmatch "sandbox','explain','--agent','main','--json") {throw 'fixed sandbox explain probe missing'}
+          if($code-notmatch "\.openclaw\\openclaw\.json") {throw 'fixed config path missing'}
+          Write-Host 'COLLECTOR_BOUNDARY_PASS read_only=true fixed_main=true arbitrary_path=false arbitrary_command=false'
