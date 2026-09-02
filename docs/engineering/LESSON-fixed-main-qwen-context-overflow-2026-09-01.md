@@ -1,23 +1,17 @@
-# Lesson: fixed:main Qwen context overflow → 16k pin (2026-09-01)
+# Lesson: fixed:main exact canary PROVEN via 16k (2026-09-01)
 
-Failure family resolved for exact canary: `response-behavior/context-overflow` on 8k.
+## Outcome
+`run_main_agent_canary` → **OMEN_PROVEN** exact `KEVIN_MAIN_AGENT_CANARY_OK` on `ollama-chat-16k/qwen2.5:14b` (hypothesis `main-qwen-16k-20260901`, then clean re-run after R04 rebaseline).
 
-## Hardware
-HESS-PC has **32GB RAM** (Corsair CMK32GX4M2E3200C16 2x16). See `NOTE-hess-pc-32gb-ram-2026-09-01.md`.
+## Cause chain Kevin must remember
+1. Unpinned main inherited llama3.1:8b.
+2. 8k Qwen pin overflowed even with lean bootstrap + empty skills + reserveTokensFloor 2048.
+3. HESS-PC now has **32GB RAM** (Corsair CMK32GX4M2E3200C16). Bounded 16k is feasible; VRAM still limits dual 14B.
+4. Production config hash changed intentionally → Benchmark R04 failed until `reports/benchmark-v1/baseline.json` `hashes.production_config` rebaselined to `30A60E3D…`.
 
-## Root cause chain
-1. Main had no model override → inherited llama3.1:8b (wrong brain).
-2. Pin to `ollama-chat/qwen2.5:14b` (8k) → correct model, but OpenClaw system+bootstrap exceeded 8192 → overflow banner.
-3. Lean AGENTS/TOOLS/MEMORY + `skills=[]` + `reserveTokensFloor=2048` still overflowed on 8k.
-4. Pin to `ollama-chat-16k/qwen2.5:14b` → **OMEN_PROVEN** exact `KEVIN_MAIN_AGENT_CANARY_OK` (session correlated, transcript complete, 0 tool calls).
-
-## Standing policy Kevin owns
-- Main primary model: `ollama-chat-16k/qwen2.5:14b` until a proven leaner path exists.
-- Keep always-injected bootstrap lean; full standing orders in `docs/engineering/KEVIN-AGENTS-FULL-v1.md`.
-- `main.skills=[]` unless budgeted.
-- `reserveTokensFloor=2048` on local ctx.
-- Never fake canary PASS by stripping output.
-- Do not run multiple Qwen 14B workloads casually; VRAM is still the tight constraint.
-
-## Teach-and-transfer
-This lesson is the durable ownership handoff so Kevin (not Bess) maintains the context/model policy next time.
+## Standing owned policy
+- Main model: `ollama-chat-16k/qwen2.5:14b`
+- `main.skills=[]`; lean AGENTS/TOOLS/MEMORY; full docs under `docs/engineering/`
+- `reserveTokensFloor=2048`
+- After intentional openclaw.json changes: rebaseline `baseline.hashes.production_config` to the new sha256 and require Benchmark 30/30 before calling maintenance APPLY clean
+- Never strip canary output to fake PASS
