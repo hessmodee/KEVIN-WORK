@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'control-plane/autonomy/**'
+      - 'tools/test-autonomy-os-fixtures.py'
       - 'inbox/autonomy/**'
       - 'workspace/AGENTS.md'
       - 'workspace/HEARTBEAT.md'
@@ -16,6 +17,7 @@ on:
   pull_request:
     paths:
       - 'control-plane/autonomy/**'
+      - 'tools/test-autonomy-os-fixtures.py'
       - 'inbox/autonomy/**'
       - 'workspace/AGENTS.md'
       - 'workspace/HEARTBEAT.md'
@@ -46,27 +48,11 @@ jobs:
           Write-Host $out
           if ($LASTEXITCODE -ne 0 -or $out -notmatch 'KEVIN WORK SELECTOR v1 SELFTEST PASS') { throw 'selector selftest failed' }
 
-      - name: Prove blocked work frees WIP and useful independent work wins
+      - name: Prove admission with fixed regression fixtures
         shell: powershell
         run: |
-          $ErrorActionPreference = 'Stop'
-          python .\control-plane\autonomy\kevin-work-selector-v1.py `
-            --programs .\control-plane\autonomy\standing-programs-v1.json `
-            --items .\inbox\autonomy\work-items.json `
-            --state .\inbox\autonomy\state.json `
-            --now 2026-08-31T19:10:00Z | Set-Content -LiteralPath .\work-selection-proof.json -Encoding utf8
-          if ($LASTEXITCODE -ne 0) { throw 'selector execution failed' }
-          $r = Get-Content .\work-selection-proof.json -Raw | ConvertFrom-Json
-          if ($r.status -ne 'SELECTED') { throw 'no useful work selected' }
-          if ($r.selection.id -ne 'runtime-owner-doctrine-v2') { throw "unexpected selected work: $($r.selection.id)" }
-          if ([int]$r.wip.production -ne 0) { throw 'blocked production family incorrectly consumes WIP' }
-          $forge = @($r.blocked | Where-Object { $_.id -eq 'finish-forge-v40-runtime-convergence' })
-          if ($forge.Count -ne 1) { throw 'blocked Forge family missing from selector evidence' }
-          $reasons = @($forge[0].reasons)
-          foreach ($required in @('DEPENDENCY_BLOCKED','EXPLICITLY_BLOCKED','COOLING_DOWN','FAILURE_BUDGET_EXHAUSTED')) {
-            if (-not ($reasons -contains $required)) { throw "Forge quarantine reason missing: $required" }
-          }
-          Write-Host "WORK_SELECTION_PASS selected=$($r.selection.id) blocked_work_consumes_wip=false forge_quarantined=true"
+          python tools/test-autonomy-os-fixtures.py
+          if ($LASTEXITCODE -ne 0) { throw 'deterministic admission regression failed' }
 
       - name: Validate permanent GREEN authority is broad but cannot self-widen
         shell: python
