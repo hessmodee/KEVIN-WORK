@@ -1,6 +1,6 @@
 # Current task — useful typed autonomy and truthful continuity
 
-Evidence checkpoint: 2026-09-02T05:10:31Z / September1 23:10 MDT.
+Evidence checkpoint: 2026-09-02T07:22:45Z / September2 01:22 MDT; selector CI33597815086 verified.
 Detailed evidence, hashes, CI classification and acceptance: docs/engineering/KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md.
 Owner authorization: control-plane/OWNER-AUTHORIZATION-v1.md.
 
@@ -12,21 +12,23 @@ Only Kevin Chief Engineer may act as a scheduled ChatGPT writer. Foreground owne
 
 ## Current boundary, not the old repair sequence
 
+Scoped hold preserved from reports/STATUS.md (commit b632929b6dee535abd0e95bac3f007fc33b886c8, 07:11 UTC): no isolation-dependent advance without the missing isolation receipt. The write-proof already contains OK-WRITE and must not be repeated. STATUS's claim that CURRENT_TASK is still the write-proof is stale, not a reason to resurrect that task. Independent authorized GREEN CI/design/continuity work remains allowed; no broad hold release or foreground-owner attribution is inferred.
+
 1. Main exact-response canary is OMEN_PROVEN at23:02:44 MDT: real fixed:main, healthy Gateway, exact reply, complete transcript proving zero canary tool calls; resolved ollama-chat-16k/qwen2.5:14b. Do not repeat the satisfied exact-reply test or revive the old Gateway diagnosis. Actual useful typed-tool execution remains unproven.
 2. Supervisor v1.8.8 is observed installed at F5D8C9740D384CC576D4BD70A3940B51AA1FCF398C7085E59DB20C01E9180138, using the ONE existing healthy5m Supervisor scheduler. Do not reinstall it or create another continuation job simply because older prose says candidate-only.
-3. Current continuation at23:09:17 is IDLE_NO_ELIGIBLE_DEMAND, eligible_count0, outcome_proven=false and tool_calls=null (UNKNOWN). Four inventory items are COMPLETE and three BLOCKED. Idle is consistent with that inventory, not proof all owner goals are done.
+3. Current continuation at01:19:24 September2 is IDLE_NO_ELIGIBLE_DEMAND, eligible_count0, outcome_proven=false and tool_calls=null (UNKNOWN). Four inventory items are COMPLETE and three BLOCKED. Idle is consistent with that inventory, not proof all owner goals are done.
 4. New source/receipt-confirmed retry-history gap: a changed fingerprint resets the turn budget and replaces the old per-item row; staging's prior3 attempts are absent after a new fingerprint with1 attempt. next_action/completion_evidence prose affects that fingerprint. This review does not prove an unsafe effect or a repaired controller.
-5. Current Maintenance manifest main-canary-reaffirm-16k-20260902-2300 has matching ALREADY_APPLIED_PROVEN at23:09:10 and expires11:01:17Z. Preserve it; no new request is needed. The scheduler still reports5 errors from22:44 despite the newer terminal receipt. Natural scheduled recovery has not yet been verified.
-6. Benchmark30/30 critical0 at23:07:03; independent UI heartbeat3.9s at23:10:05. No Forge evaluation after iteration391. Old expired Engineering snapshot request is terminal.
+5. Maintenance Intake scheduled recovery remains observed: Support01:19/Engineering01:22 show ok/0 errors; unchanged main-canary-reaffirm-16k-20260902-2300 has ALREADY_APPLIED_PROVEN at01:19:20 and expires11:01:17Z. Preserve it; no new request or retry is needed.
+6. Benchmark30/30 critical0 at01:17:03 September2; independent UI heartbeat4.4s at01:22:39. No Forge evaluation after iteration391. Old expired Engineering snapshot request is terminal.
 7. Foreground marked HQ chat and staging trajectory reliability COMPLETE. Do not reselect them or fabricate owner messages/trials. Their referenced proof files are not present in the reviewed GitHub tree, so independent restart/replay/deduplication and2/2 acceptance remain unverified remotely.
-8. Desired-state/source provenance remains unresolved: Support observes Maintenance FF9C5FDF217B0ED5F38A8566BD54D8A654CB8DFEF0093654DDBC23DC9A1BF956 and Benchmark4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964. Do not bless observed hashes or blindly restore old pins. Obtain exact qualified source/transaction/authorization evidence, including the local model/provider change, before any new production crossing.
+8. Autonomy now reports HEALTHY/drift_count0 at01:18, but repository desired pins still differ from observed hashes. Desired-state/source provenance remains unresolved: Support observes Maintenance FF9C5FDF217B0ED5F38A8566BD54D8A654CB8DFEF0093654DDBC23DC9A1BF956 and Benchmark4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964. Do not bless observed hashes or blindly restore old pins. Obtain exact qualified source/transaction/authorization evidence, including the local model/provider change, before any new production crossing.
 
 ## Next safe engineering work
 
 - Preserve/recover all per-item and per-failure-family historical attempts across evidence epochs. A prose edit, timestamp, renamed request, alternating work or process restart must not reset exhaustion. Require explicit validated materially new evidence for reopening; fail closed on missing/corrupt state.
 - Named research/design consumer: next governed controller qualification. Add executable regressions for prose-only change, A->B->A fingerprint replay, alternating items/family aliases, complete-item replay, corrupt/missing state and crash-before/after-effect. Keep attempts charged before effects, independent postconditions, rollback and exact hashes. No runtime repair/promotion until matching source/CI/typed transaction is qualified.
 - Publish missing sanitized outcome/tool/source receipts through the existing foreground/typed path, without private chat bodies or local credentials.
-- Correct CI's demonstrated mutable-inventory assumption with immutable positive/negative fixtures. Selector run33590422621 passed compilation/failure-family selftests and correctly excluded all closed/blocked items; its final hardcoded eligible_count>=1 failed. Do not reopen work or weaken eligibility to green this test.
+- Selector CI's mutable-inventory defect is corrected: dc368d0ab86fe5dae0af960cd0a0d3f2cf7a949c adds 13 fixed positive/negative tests and an independent current-inventory oracle. CI33597815086 passed without changing selector source, live inventory, failure-family rules or permissions. Preserve these gates. Other historical-controller workflow defects remain separately unresolved. See docs/engineering/KEVIN-SELECTOR-CI-RECOVERY-2026-09-02.md.
 - When an independently eligible unsatisfied GREEN item is admitted from current owner objectives, let Kevin's selector choose it without Bess supplying the immediate ID. Require useful typed execution, independent semantic verification, durable result/lesson, restart/replay and another correct scheduled decision. Work-selection transfer remains T2 until those outcomes are proved.
 
 ## Work state and remaining programs
