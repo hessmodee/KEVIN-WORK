@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-autonomy-master-scorecard",
-  "generated_at": "2026-09-02T10:22:28Z",
+  "generated_at": "2026-09-02T11:18:45Z",
   "safe_for_public_repo": true,
   "north_star": "Kevin owns routine goal execution, proof, recovery, learning, communication and computer work inside owner-approved boundaries while Bess/GrokBot routine intervention trends toward zero.",
   "wip_policy": {
@@ -11,10 +11,10 @@
     "round_robin_forge_without_demand": false
   },
   "global_health": {
-    "benchmark": "PASS30_OF30_CRITICAL0_AT0417_MDT",
+    "benchmark": "PASS30_OF30_CRITICAL0_AT0517_MDT",
     "autonomy": "V188_IDLE_NO_ELIGIBLE_DEMAND_IN_CURRENT_COMPLETE_BLOCKED_INVENTORY_NO_OUTCOME_PROOF",
-    "ui_bridge": "FRESH_HEARTBEAT2_1S_AT0420_MDT",
-    "maintenance": "SCHEDULED_RECOVERY_OBSERVED_OK_ERRORS0",
+    "ui_bridge": "FRESH_HEARTBEAT1_6S_AT0518_MDT",
+    "maintenance": "NO_MANIFEST_ERRORS0_AFTER_TERMINAL_QUEUE_RETIREMENT",
     "watchdog": "V1_6_0_PROBE_ONLY_HEALTHY_PROVEN_EARLIER_CHECKPOINT",
     "main_agent": "EXACT_REPLY_OMEN_PROVEN_TRANSCRIPT_ZERO_CANARY_TOOLS_USEFUL_ACTION_UNPROVEN",
     "design_forge_v40": "INSTALLED_NO_NEW_DEMANDLESS_EVALUATIONS",
@@ -147,8 +147,8 @@
     "external_temporal_orchestrator": "DEFER_USE_NATIVE_TASK_FLOW_PATTERN_FIRST",
     "unrestricted_windows_exec": "REJECT_FOR_NORMAL_CONTROL_PLANE"
   },
-  "current_engineering_record": "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md",
-  "source_checkpoint": "dde67b7be71a7ca732fd095de0ae5d71e8ac7d3e",
+  "current_engineering_record": "docs/engineering/KEVIN-INTAKE-TERMINAL-RETIREMENT-2026-09-02.md",
+  "source_checkpoint": "61ec1e48a9072b466a6948d949a3e58a561c1c9b",
   "transfer_promotions": [],
   "scoped_hold": {
     "status": "PRESERVED_PENDING_ISOLATION_RECEIPT",
@@ -161,11 +161,11 @@
     "owner_attribution": "NOT_INFERRED_FROM_COMMIT_AUTHOR"
   },
   "continuity_review": {
-    "source_commit": "dde67b7be71a7ca732fd095de0ae5d71e8ac7d3e",
-    "evidence_at": "2026-09-02T10:22:28Z",
-    "scope": "CANONICAL_CONTINUITY_ONLY",
+    "source_commit": "61ec1e48a9072b466a6948d949a3e58a561c1c9b",
+    "evidence_at": "2026-09-02T11:18:45Z",
+    "scope": "TERMINAL_QUEUE_RETIREMENT_AND_CONTINUITY_NO_RUNTIME_BINARY_CHANGE",
     "runtime_mutation": false,
-    "manifest_mutation": false,
+    "manifest_mutation": true,
     "retry_budget_mutation": false,
     "transfer_promotion": false
   },
@@ -277,5 +277,33 @@
       }
     ],
     "remaining": "Authenticated complete migration/family provenance; fixed Supervisor and semantic-verifier integration; operation/storage bounds; installed-runtime qualification; typed crossing and Omen outcomes."
+  },
+  "intake_terminal_retirement": {
+    "status": "OMEN_OBSERVED_EMPTY_QUEUE_RECOVERY",
+    "report": "docs/engineering/KEVIN-INTAKE-TERMINAL-RETIREMENT-2026-09-02.md",
+    "retired_id": "main-canary-reaffirm-16k-20260902-2300",
+    "manifest_blob": "34e0c37f1be661c14ac1f7636ab6fa853f8c2233",
+    "archive": "inbox/maintenance/archive/main-canary-reaffirm-16k-20260902-2300.json",
+    "archive_commit": "4d2d87eba3af6f280fb61b6e8d6ee401590a0b53",
+    "retirement_commit": "f46fce1fedeeb9a0d0fa6438ae664b04abb4b7c6",
+    "evidence_commit": "61ec1e48a9072b466a6948d949a3e58a561c1c9b",
+    "receipt_at": "2026-09-02T05:15:07.5402846-06:00",
+    "receipt_status": "NO_MANIFEST",
+    "intake_errors": 0,
+    "benchmark_at": "2026-09-02T05:17:17.7008085-06:00",
+    "benchmark": "PASS_30_OF_30_CRITICAL_0",
+    "canary_rerun": false,
+    "runtime_binary_mutation": false,
+    "retry_budget_reset": false,
+    "transfer_promotion": false
+  },
+  "migration_provenance_audit": {
+    "report": "docs/engineering/KEVIN-INTAKE-TERMINAL-RETIREMENT-2026-09-02.md",
+    "inventory_revisions_reviewed": 8,
+    "explicit_hq_family_found": false,
+    "explicit_staging_family_found": false,
+    "complete_bootstrap_found": false,
+    "history_complete": false,
+    "family_assignment_authorized": false
   }
 }
