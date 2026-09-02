@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "kind": "kevin-main-canary-diagnosis-public",
+  "classifier_version": "1.0.0",
+  "safe_for_public_repo": true,
+  "diagnosis": "RUNTIME_CONTEXT_OVERFLOW_SIGNATURE_MATCH",
+  "source_generated_at": "2026-09-02T09:00:25.1588181-06:00",
+  "source_state": "REJECT",
+  "source_failure_stage": "semantic_contract",
+  "signature_match": true,
+  "signature_id": "OPENCLAW_CONTEXT_OVERFLOW_BANNER_V1",
+  "source_output_sha256": "3C9BD342FA050017F16FF421A1288D97BE4F116174831E0A55A351C336112B4B",
+  "source_final_characters": 127,
+  "transcript_state": "INCOMPLETE_REPORTED",
+  "tool_calls": null,
+  "tool_inventory_state": "UNKNOWN",
+  "next_evidence": [
+    "QUALIFY_INSTALLED_RUNTIME_AND_COLLECTOR_SOURCE",
+    "READ_EFFECTIVE_MAIN_MODEL_AND_CONTEXT_CONFIGURATION",
+    "MEASURE_BOOTSTRAP_SKILLS_TOOLS_AND_RESERVED_OUTPUT_BUDGET",
+    "READ_EXISTING_CORRELATED_SESSION_ERROR_METADATA",
+    "REQUIRE_A_MATERIALLY_NEW_BOUNDED_REPAIR_HYPOTHESIS"
+  ],
+  "authority_effect": "NONE",
+  "retry_authorized": false,
+  "acceptance_changed": false,
+  "tool_policy_change_authorized": false,
+  "root_cause_determined": false,
+  "truth_boundary": "Deterministic classification of supplied metadata; no runtime repair, independent source authentication, complete-turn proof, or responsibility transfer is implied."
+}
