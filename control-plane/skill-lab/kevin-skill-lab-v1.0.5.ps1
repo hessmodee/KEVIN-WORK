@@ -23,22 +23,30 @@ function Age([string]$x){if([string]::IsNullOrWhiteSpace($x)){return[double]::Po
 function Init($s){Note $s 'recovery_attempts' 0;Note $s 'last_transition_at' ([string]$s.started_at);Note $s 'runner_heartbeat_at' '';Note $s 'last_recovery_reason' '';Note $s 'current_order_state' '';Note $s 'current_step_payload_sha256' '';Note $s 'current_semantic_key' '';Note $s 'failure_evidence_sha256' '';Note $s 'step_started_at' ''}
 function SaveT([string]$p,$s,[string]$why){$s.last_transition_at=(Get-Date).ToString('o');$s.runner_heartbeat_at=$s.last_transition_at;$s.last_recovery_reason=$why;W $p $s}
 function MoveR([string]$p,[string]$d){$z=Join-Path $d ([IO.Path]::GetFileName($p));Move-Item $p $z -Force;$z}
+function RegistryTimestampValid($value) {
+    # ConvertFrom-Json preserves ISO timestamps as strings in Windows PowerShell
+    # and may materialize DateTime values in PowerShell 7. Accept both without
+    # coercing numeric/boolean evidence into a timestamp or rewriting the file.
+    if($value-is[DateTime]-or$value-is[DateTimeOffset]){return $true}
+    if($value-isnot[string]-or$value.Length-gt40){return $false}
+    $stamp=[DateTimeOffset]::MinValue
+    return [DateTimeOffset]::TryParse($value,[ref]$stamp)
+}
 function Assert-RegistryValid($x) {
     if($null-eq$x-or$x-is[array]-or$x-is[string]-or$x-is[ValueType]){throw 'SKILL_REGISTRY_INVALID_ROOT'}
     if(($x.schema-isnot[int]-and$x.schema-isnot[long])-or[int]$x.schema-ne1-or[string]$x.kind-ne'kevin-composite-skill-registry'){throw 'SKILL_REGISTRY_INVALID_SCHEMA'}
     if($x.skills-isnot[array]-or@($x.skills).Count-gt2048){throw 'SKILL_REGISTRY_INVALID_SKILLS'}
-    $stamp=[DateTimeOffset]::MinValue
-    if($x.updated_at-isnot[string]-or$x.updated_at.Length-gt40-or-not[DateTimeOffset]::TryParse([string]$x.updated_at,[ref]$stamp)){throw 'SKILL_REGISTRY_INVALID_TIMESTAMP'}
+    if(-not(RegistryTimestampValid $x.updated_at)){throw 'SKILL_REGISTRY_INVALID_TIMESTAMP'}
     $seen=New-Object 'Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
     foreach($entry in @($x.skills)){
         if($null-eq$entry-or$entry-is[string]-or$entry-is[ValueType]-or$entry-is[array]){throw 'SKILL_REGISTRY_INVALID_ENTRY'}
-        foreach($field in @('id','version','key','authority','status','name','manifest_sha256','proof_sha256','proven_at','result_file')){if($entry.$field-isnot[string]){throw 'SKILL_REGISTRY_INVALID_FIELD_TYPE'}}
+        foreach($field in @('id','version','key','authority','status','name','manifest_sha256','proof_sha256','result_file')){if($entry.$field-isnot[string]){throw 'SKILL_REGISTRY_INVALID_FIELD_TYPE'}}
         if([string]$entry.id-notmatch'^[A-Za-z0-9._-]{4,80}$'-or[string]$entry.version-notmatch'^[A-Za-z0-9._-]{1,32}$'){throw 'SKILL_REGISTRY_INVALID_IDENTITY'}
         if([string]$entry.key-cne([string]$entry.id+'@'+[string]$entry.version)-or-not$seen.Add([string]$entry.key)){throw 'SKILL_REGISTRY_DUPLICATE_OR_MISMATCHED_KEY'}
         if([string]$entry.authority-cne'GREEN'-or[string]$entry.status-cne'PROVEN'){throw 'SKILL_REGISTRY_UNPROVEN_OR_UNAUTHORIZED_ENTRY'}
         if([string]::IsNullOrWhiteSpace([string]$entry.name)-or([string]$entry.name).Length-gt120){throw 'SKILL_REGISTRY_INVALID_NAME'}
         foreach($field in @('manifest_sha256','proof_sha256')){if([string]$entry.$field-notmatch'^[A-Fa-f0-9]{64}$'){throw 'SKILL_REGISTRY_INVALID_PROOF_HASH'}}
-        if($entry.proven_at.Length-gt40-or-not[DateTimeOffset]::TryParse([string]$entry.proven_at,[ref]$stamp)){throw 'SKILL_REGISTRY_INVALID_PROOF_TIMESTAMP'}
+        if(-not(RegistryTimestampValid $entry.proven_at)){throw 'SKILL_REGISTRY_INVALID_PROOF_TIMESTAMP'}
         $file=[string]$entry.result_file
         if($file.Length-gt160-or$file-notmatch'^[A-Za-z0-9._-]+\.json$'-or$file.Contains('..')){throw 'SKILL_REGISTRY_INVALID_RESULT_NAME'}
         if($entry.primitive_steps-isnot[array]-or@($entry.primitive_steps).Count-lt1-or@($entry.primitive_steps).Count-gt12){throw 'SKILL_REGISTRY_INVALID_PRIMITIVES'}
