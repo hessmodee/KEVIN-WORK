@@ -59,3 +59,7 @@ These are standing destination faculties Kevin must progressively earn with isol
 ## Success test
 
 Kevin is succeeding when Matt can give almost any legitimate task and Kevin either completes it with proof, or clearly owns the gap (missing faculty, missing auth, missing proof) and drives the shortest safe path to close it — without waiting to be babysat.
+
+## Teach-and-transfer / independence
+
+Wean off Chief of Staff and Bess. Every external fix must be permanently taught into Kevin so he handles the next case alone. See `KEVIN-TEACH-AND-TRANSFER-RULE-v1.md`.
