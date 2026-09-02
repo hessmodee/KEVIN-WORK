@@ -1,6 +1,6 @@
 """Synthetic, temporary storage/effect fixtures. Never bootstrap Omen history."""
 from datetime import datetime, timedelta, timezone
-import hashlib
+from contextlib import contextmanager
 from pathlib import Path
 import os
 import sqlite3
@@ -22,9 +22,21 @@ def timestamp(minutes=0):
     return (datetime(2026, 9, 2, tzinfo=timezone.utc) + timedelta(minutes=minutes)).isoformat()
 
 
+@contextmanager
+def fixture_db(path):
+    # sqlite3's transaction context commits/rolls back, but does not close.
+    # Explicit closure is required before Windows can remove fixture files.
+    db = sqlite3.connect(path)
+    try:
+        with db:
+            yield db
+    finally:
+        db.close()
+
+
 def fixture(path, opening=0):
     # Deliberately TEST-ONLY complete synthetic history, not recovered live state.
-    with sqlite3.connect(path) as db:
+    with fixture_db(path) as db:
         for sql in FORMAT:
             db.execute(sql)
         db.execute('INSERT INTO anchor VALUES (1,?,1)', (MIGRATION,))
@@ -33,7 +45,7 @@ def fixture(path, opening=0):
 
 
 def sink(path):
-    with sqlite3.connect(path) as db:
+    with fixture_db(path) as db:
         db.execute('CREATE TABLE IF NOT EXISTS effects(reservation TEXT PRIMARY KEY, value INTEGER)')
         db.execute('INSERT OR IGNORE INTO effects VALUES (?,1)', ('request-one',))
 
@@ -118,7 +130,7 @@ class JournalContract(unittest.TestCase):
         with self.assertRaises(Closed): Journal(self.path, 'D' * 64).snapshot()
 
     def test_incomplete_seed_rejected(self):
-        with sqlite3.connect(self.path) as db:
+        with fixture_db(self.path) as db:
             db.execute('DROP TRIGGER immutable_anchor_update')
             db.execute('UPDATE anchor SET complete=0')
             db.execute(next(s for s in FORMAT if s.startswith('CREATE TRIGGER immutable_anchor_update')))
@@ -173,12 +185,12 @@ class JournalContract(unittest.TestCase):
 
     def test_append_only_sql_guards(self):
         self.fail_attempt(0)
-        with sqlite3.connect(self.path) as db:
+        with fixture_db(self.path) as db:
             for sql in ['DELETE FROM events', 'UPDATE events SET fingerprint="x"', 'UPDATE mappings SET opening_attempts=0']:
                 with self.subTest(sql=sql), self.assertRaises(sqlite3.IntegrityError): db.execute(sql)
 
     def test_schema_tamper_rejected(self):
-        with sqlite3.connect(self.path) as db: db.execute('DROP TRIGGER immutable_events_delete')
+        with fixture_db(self.path) as db: db.execute('DROP TRIGGER immutable_events_delete')
         with self.assertRaises(Closed): self.j.snapshot()
 
     def test_metadata_only_inputs(self):
@@ -211,7 +223,7 @@ class JournalContract(unittest.TestCase):
         result = self.run_child('effect-crash')
         self.assertEqual(result.returncode, 66, result.stderr)
         self.assertFalse(self.j.reserve('request-one', 'alpha', FP, timestamp(1))['new_reservation'])
-        with sqlite3.connect(self.root / 'effect.db') as db:
+        with fixture_db(self.root / 'effect.db') as db:
             self.assertEqual(db.execute('SELECT * FROM effects').fetchall(), [('request-one', 1)])
         # Independent fixed fixture verifier finds committed sink evidence.
         self.j.record_terminal('request-one', 'VERIFIED', EVIDENCE, timestamp(2))
