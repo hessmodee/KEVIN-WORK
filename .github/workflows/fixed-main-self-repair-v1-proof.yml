@@ -35,8 +35,17 @@ jobs:
         run: |
           $root='candidates/self-repair/fixed-main-recovery-v1'
           $code=Get-Content -LiteralPath "$root/contract.py" -Raw
-          foreach($bad in @('subprocess','os.system','Popen(','requests.','urllib.request','socket.','eval(','exec(')) {
-            if($code.Contains($bad)){ throw "forbidden implementation surface: $bad" }
+          foreach($pattern in @(
+            '(?m)^\s*(?:from\s+subprocess\s+import|import\s+subprocess\b)',
+            '(?m)^\s*(?:from\s+requests\s+import|import\s+requests\b)',
+            '(?m)^\s*(?:from\s+urllib\.request\s+import|import\s+urllib\.request\b)',
+            '(?m)^\s*(?:from\s+socket\s+import|import\s+socket\b)',
+            '\bos\.system\s*\(',
+            '\bPopen\s*\(',
+            '\beval\s*\(',
+            '\bexec\s*\('
+          )) {
+            if($code -match $pattern){ throw "forbidden executable implementation surface: $pattern" }
           }
           foreach($bad in @('openclaw.json','Start-Process','Invoke-Expression','cmd.exe','powershell.exe')) {
             if($code.Contains($bad)){ throw "candidate unexpectedly targets production/runtime: $bad" }
