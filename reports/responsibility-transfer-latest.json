@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-responsibility-transfer-checkpoint",
-  "generated_at": "2026-08-31T08:58:00-06:00",
+  "generated_at": "2026-09-02T01:05:30Z",
   "north_star": "Transfer recurring operational responsibility from Bess to Kevin until Kevin owns normal authorized lifecycles end-to-end and Bess is not part of the routine operating loop.",
   "transfer_levels": {
     "T0": "BESS-DEPENDENT",
@@ -24,7 +24,7 @@
     "reader": "T1",
     "tick_work_conservation": "T2",
     "autonomy_work_selection": "T2",
-    "interactive_ui_bridge": "T1",
+    "interactive_ui_bridge": "T2",
     "staging_validation": "T1",
     "handoff_continuity": "T1",
     "scheduler_task_health": "T3",
@@ -79,5 +79,12 @@
     "public_safe_metadata_only": true,
     "contains_secrets": false,
     "contains_private_message_bodies": false
+  },
+  "current_engineering_record": "docs/engineering/KEVIN-RECOVERY-AND-CONTINUATION-2026-09-02.md",
+  "current_evidence": {
+    "ui_bridge": "TYPED_RECOVERY_INDEPENDENT_HEARTBEAT_FRESH",
+    "watchdog": "PROBE_ONLY_HEALTHY_NO_INTAKE_RECURSION",
+    "main_agent": "REAL_ISOLATED_TURN_ZERO_TOOLS_PROVEN_EXACT_REPLY_REJECTED",
+    "work_selection": "V188_CI_PROVEN_NOT_INSTALLED_NO_AUTONOMOUS_OUTCOME_CREDIT"
   }
 }

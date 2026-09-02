@@ -1,6 +1,6 @@
 # Current task — GREEN 100 / Direct Owner Communication / Work Conservation
 
-Updated: 2026-09-01 18:12 MDT
+Updated: 2026-09-02 01:05 UTC
 
 ## Owner directive
 Kevin must become self-reliant for legitimately GREEN work and continuously operate the lifecycle:
@@ -9,26 +9,26 @@ Kevin must become self-reliant for legitimately GREEN work and continuously oper
 
 Direct Matt <-> Kevin text communication is P0 owner value. Bess must be progressively removed from routine operation as Kevin proves responsibilities end-to-end. A model turn, commit, heartbeat, cycle, candidate, hash, or dashboard animation is never an accomplishment by itself.
 
-## Fresh proven truth — outranks older narrative
-- Maintenance v1.3.38 is INSTALLED + OMEN-PROVEN at SHA256 `0AD0A05E3F9DB4F1ED3C07B898B635A28915290D58762D11B63D07751B8B9153`.
-- Fresh Omen Gateway diagnosis after the wrapper fix is HEALTHY: config validation, `gateway status --require-rpc`, direct RPC status, and Gateway health all exit 0.
-- Fresh fixed-main-agent canary generated 2026-09-01 18:09 MDT proves `gateway_probe_ok=true`, fixed main agent exit code 0, zero tool calls, and a real Gateway-backed main-agent turn. It is nevertheless `REJECT` at `failure_stage=semantic_contract` because the exact expected reply was not produced.
-- The canary reports eight visible tools, zero visible Kevin tools, and `has_kevin_system_status=false`. This is semantic/tool-surface evidence, not a Gateway transport failure.
-- Therefore the retired `gateway_probe` failure must not be rediscovered or used to justify an OpenClaw downgrade. The active boundary is now main-agent semantic contract/tool-policy alignment.
-- Benchmark remains PASS 30/30 critical=0; governance remains OK.
-- Deterministic selector v1.1 SHA256 `9DF1F770E8855232758AC275FA2D3A82C6D484099B5B2D2185A999ACDE185DE4` has Windows proof against governed demand: `eligible=2`, selected `hq-direct-chat-real-roundtrip`, and no task ID was supplied by Bess.
+## Current production checkpoint — 2026-09-02 01:05 UTC
+
+Read `docs/engineering/KEVIN-RECOVERY-AND-CONTINUATION-2026-09-02.md` and fresh receipts before any mutation.
+
+- Maintenance v1.3.42 installed/proven: `2E2DC8EB03035993FF1F429210E38490EFF903CCF49537793B9232961348AD37`.
+- UI Bridge repaired; independent heartbeat 0.9 seconds. Watchdog v1.6.0 ProbeOnly is now OMEN_CLASSIFIER_PROOF / PROBE_ONLY_HEALTHY with both intake paths skipped. Benchmark remains 30/30, critical 0.
+- Isolated native main turn and zero tool calls are proven from correlated local transcript, but exact final reply still fails. Do not call the Gateway broken or claim the canary passed.
+- Supervisor v1.8.8, not v1.8.5/6, is the current CI-proven candidate. Durable per-item budgets and sanitized decision history are required. Live Supervisor remains v1.7.1 until an exact successful install receipt says otherwise.
+- Final Maintenance v1.3.43 candidate uses Qwen's documented no-think soft switch for one bounded isolated test, pins v1.8.8, and reuses the existing Supervisor scheduler at five minutes with payload preservation. It is being qualified; do not promote a superseded v1.3.43 hash.
 
 ## Immediate crossing sequence
-1. Classify the semantic-contract failure from bounded metadata-only evidence. Do not rerun an unchanged canary and do not treat Gateway as broken: the latest canary proves Gateway probe OK and agent exit 0.
-2. Determine whether the fixed expected-reply contract is wrong for the installed model/runtime or whether main-agent tool/policy exposure is missing. Prefer read-only installed runtime/schema/help evidence first. No caller-selected command/path/value.
-3. If a narrow typed GREEN repair is truly required, use exact preconditions, rollback, config validation, main-agent skills/runtime postconditions and fresh Benchmark 30/30.
-4. Rerun the fixed main-agent canary only after materially changed evidence. Acceptance remains Gateway probe OK, real fixed-main-agent execution, exact semantic reply, zero canary tool calls, and fresh Benchmark 30/30.
-5. Only after canary OMEN proof, install the CI-proven Supervisor v1.8.5 SHA256 `C3F781E4F722AF691D2B47A9CD0F06A4F6AD3134A826C5D657B9ED9D5AEBC400` plus selector v1.1 through the existing typed `install_autonomy_controller_v183` operation. The legacy operation name does not mean the target is v1.8.3; v1.3.38 pins v1.8.5.
-6. Prove live Supervisor identity and Benchmark 30/30 after the crossing, then ensure exactly one governed five-minute native OpenClaw continuation wake through the typed continuation operation. No duplicate steering schedules.
-7. Do NOT give Kevin a work-item ID. Let Kevin fetch standing programs/work-items/WIP/failure families and independently select the highest-value eligible UNSATISFIED GREEN item.
-8. Require a real fixed-main agent turn, typed GREEN execution where possible, semantic outcome verification, durable evidence/learning/next state, and a later independent continuation decision.
-9. If a selected item reaches a genuine owner checkpoint or scoped blocker, encode that state so another independent READY GREEN item can be selected. Never globally idle unrelated work because one item is waiting.
-10. Measure and fix any controller behavior that waits/cools globally while another eligible item exists. Safe anti-spin must be item/failure-family/lane scoped and work-conserving.
+
+1. Coordinate with the active foreground crossing: inspect the current manifest ID and terminal Omen receipt before replacing it. The hourly Chief Engineer must not compete for the slot.
+2. Require the final v1.3.43 Windows gate and exact source hash. Install through existing typed Maintenance, require independent live hash and Benchmark.
+3. Run the materially changed isolated canary once. Exact final reply and transcript-backed zero tools remain required. On failure record the response-behavior family and investigate installed model/provider capability evidence; no renamed unchanged retries or blind package downgrade.
+4. After the canary prerequisite is genuinely satisfied, install exact Supervisor v1.8.8 plus selector v1.1 through `install_autonomy_controller_v183`; the legacy operation name is retained but the pinned source is newer.
+5. Reconcile the existing Supervisor job to five minutes. Do not add a second continuation event. Require unchanged payload/session/delivery and exact one-owner readback.
+6. Supply no work-item ID. Observe scheduled Kevin selection and the next scheduled decision in `reports/autonomy-continuation-latest.json`. A model turn remains explicitly NOT_OUTCOME_PROOF.
+7. Require useful typed execution, semantic verification, durable outcome/lesson and restart/replay behavior before transfer credit.
+8. Diagnose local desired-state identities using the fixed convergence audit, then correct the specific collector mismatch. Reconcile HQ truth from fresh runtime evidence rather than manufacturing a healthy state.
 
 ## P0 — direct Matt <-> Kevin text communication
 Native OpenClaw Control UI/WebChat is the primary direct owner conversation surface. Gateway transport/RPC is now proven healthy; the remaining prerequisite is fixed-main-agent semantic proof:
@@ -54,7 +54,7 @@ Current scoped holds remain scoped only:
 - missing Ollama isolation evidence blocks only isolation-dependent work.
 
 ## HQ truth cleanup after controller proof
-The live desired-state file and some HQ semantics are stale. After Supervisor v1.8.5 is genuinely installed/proven:
+The live desired-state file and some HQ semantics are stale. After the current qualified Supervisor is genuinely installed/proven:
 - reconcile desired-state hashes/version/names to live proof;
 - retire stale `Gateway broken`, `Maintenance v1.3.22/33/36`, and old Supervisor labels;
 - restart/repair the UI Bridge through its typed operation if its heartbeat remains stale;

@@ -1,6 +1,6 @@
 # Bess -> Kevin Responsibility Transfer Ledger v1
 
-Baseline established: 2026-08-31
+Baseline established: 2026-08-31; reconciled: 2026-09-02 01:05 UTC
 
 Purpose: track whether Kevin is actually taking recurring operational responsibility away from Bess, not merely accumulating code or candidates.
 
@@ -30,8 +30,8 @@ Technical proof levels remain separate:
 | Telegram owner communication | T0 | root cause unproven | no trustworthy proven owner round trip | Bess still drives diagnosis | Kevin owns private channel health, receives/replies, detects polling/webhook/routing failures, repairs bounded failures, proves round trips |
 | Reader / evidence acquisition | T1 | candidate/baseline components; requested E2E not proven | isolated Reader workspace and helper/gateway components exist | Bess still drives what to read and validates interpretation | Kevin independently acquires approved evidence, interprets correctly, preserves provenance, and answers/feeds other workers without Bess |
 | Tick / work conservation | T2 | production infrastructure exists but current autonomy contradiction unresolved | periodic status infrastructure and typed dispatch components exist | Bess still notices stale orders, duplicate churn, idle backlog contradictions, stale heartbeat conflicts | Kevin detects and resolves/reroutes these conditions autonomously and demonstrates useful work conservation |
-| Autonomy work selection | T2 | installed components; latest state NEEDS_REVIEW | bounded mission catalog/dispatcher/actuator exist | Bess still frequently selects/queues mission and resolves drift | Kevin selects highest-value allowed work from owner backlog, respects cooldown/resources, dispatches and verifies without Bess |
-| Interactive UI Bridge | T1 | previously proven component but currently unhealthy/stale heartbeat | installed task/hash evidence exists | common availability issue not self-recovered; Bess diagnoses | Kevin detects actual interactive failure, gathers session/process evidence, repairs through typed path, verifies executable selftest/heartbeat |
+| Autonomy work selection | T2 | v1.8.8 CI-proven candidate; live compatibility sentinel idle | bounded mission catalog/dispatcher/actuator exist | Bess still frequently selects/queues mission and resolves drift | Kevin selects highest-value allowed work from owner backlog, respects cooldown/resources, dispatches and verifies without Bess |
+| Interactive UI Bridge | T2 | typed recovery and fresh independent heartbeat proven | executes typed restart and publishes READY heartbeat | Bess still detected and dispatched recovery | Kevin detects actual interactive failure, gathers session/process evidence, repairs through typed path, verifies executable selftest/heartbeat |
 | Staging validation lane | T1 | partial candidate/CI mechanics | CI, negative fixtures and isolated candidate concepts exist | Bess still assembles much of the promotion/replay reasoning | Kevin automatically runs replay, negative fixtures, rollback/idempotency/resource comparison and produces promote/reject evidence |
 | Handoff / continuity | T1 | durable GitHub protocol now exists | repository contains Start Here, handover, task, protocol/checkpoint format | Bess/Chief Engineer still reconciles the handover artifacts | Kevin itself maintains fresh public-safe handoff/checkpoint truth and can resume after interruption without Bess reconstructing state |
 | Scheduler/task health | T3 | recurring scheduled health evidence | core scheduled jobs can run and publish status | Bess still investigates contradictions and popup/stale-task incidents | Kevin detects scheduler/task drift, identifies exact known failure family, uses proven repair and independently confirms recovery |
@@ -80,3 +80,7 @@ Once a responsibility reaches T4 with repeated evidence, Bess should stop routin
 The goal of this ledger is to watch the operational dependency shrink:
 
 **Less Bess doing. More Kevin owning.**
+
+## Current proof checkpoint
+
+See `KEVIN-RECOVERY-AND-CONTINUATION-2026-09-02.md`. Watchdog ProbeOnly and UI recovery are proven; main exact reply remains rejected despite real zero-tool execution. No T4/T5 or completed autonomous owner outcome was added. Old Forge churn and Gateway-outage narratives are retired unless new evidence establishes a new incident.
