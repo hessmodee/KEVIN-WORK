@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-02T14:38:36.2062598-06:00",
-  "status": "working",
+  "generated_at": "2026-09-02T14:39:36.2169512-06:00",
+  "status": "ready",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -36,13 +36,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-02T01:05:13-06:00",
-        "estimated": false,
-        "ram": 28,
-        "cpu": 19,
-        "gpu": 21
-      },
       {
         "at": "2026-09-02T01:20:13-06:00",
         "estimated": false,
@@ -707,10 +700,16 @@
         "ram": 30,
         "cpu": 8,
         "gpu": 0
+      },
+      {
+        "at": "2026-09-02T14:38:37-06:00",
+        "estimated": false,
+        "ram": 30,
+        "cpu": 8,
+        "gpu": 0
       }
     ],
     "ram": [
-      28,
       27,
       28,
       28,
@@ -805,10 +804,10 @@
       30,
       31,
       31,
+      30,
       30
     ],
     "cpu": [
-      19,
       6,
       28,
       28,
@@ -903,10 +902,10 @@
       0,
       6,
       6,
+      8,
       8
     ],
     "gpu": [
-      21,
       33,
       39,
       39,
@@ -996,6 +995,7 @@
       41,
       14,
       14,
+      0,
       0,
       0,
       0,
@@ -1154,6 +1154,15 @@
     }
   ],
   "activity": [
+    {
+      "at": "2026-09-02T14:38:37-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 96037ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
     {
       "at": "2026-09-02T14:38:35-06:00",
       "source": "forge",
@@ -1366,15 +1375,6 @@
       "result": "pass",
       "task_id": "design-forge",
       "duration_ms": 119000
-    },
-    {
-      "at": "2026-09-02T07:37:01-06:00",
-      "source": "forge",
-      "component": "forge",
-      "event": "task_start",
-      "detail": "Night Forge cycle",
-      "result": "",
-      "task_id": "night-forge"
     }
   ],
   "owl": {
@@ -1382,7 +1382,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-02T14:38:36.2062598-06:00",
+    "last": "2026-09-02T14:39:36.2169512-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,22 +1419,22 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-02T14:38:36.2062598-06:00",
+    "generated_at": "2026-09-02T14:39:36.2169512-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
-    "forge_active": true,
+    "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
     "primary": {
-      "id": "design-forge",
-      "name": "Build Lab",
-      "title": "Design Forge active",
-      "category": "forge",
-      "state": "working",
-      "detail": "Design Forge candidate generation active.",
-      "what": "Generating and validating an isolated candidate.",
-      "engine": "Ollama | Qwen 2.5 14B",
-      "action": "Candidate engineering"
+      "id": "supervisor",
+      "name": "Supervisor",
+      "title": "Kevin autonomous system armed",
+      "category": "supervisor",
+      "state": "ready",
+      "detail": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
+      "what": "Waiting only for the next scheduled three-minute control cycle.",
+      "engine": "Supervisor v1.4",
+      "action": "Autonomous schedule armed"
     },
     "lanes": [
       {
@@ -1470,17 +1470,17 @@
     ]
   },
   "execution": {
-    "running": true,
-    "state": "working",
-    "phase": "Design Forge candidate generation active.",
-    "worker": "Build Lab",
-    "engine": "Ollama | Qwen 2.5 14B",
-    "action": "Candidate engineering"
+    "running": false,
+    "state": "ready",
+    "phase": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
+    "worker": "Supervisor",
+    "engine": "Supervisor v1.4",
+    "action": "Autonomous schedule armed"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Build Lab | WORKING | Design Forge candidate generation active.",
+      "text": "Supervisor | READY | No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
       "severity": "normal"
     }
   ]
