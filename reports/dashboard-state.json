@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T21:18:56.9000552-06:00",
+  "generated_at": "2026-09-01T21:20:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -12,14 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "benchmark",
-    "title": "Kevin Benchmark v1",
-    "category": "benchmark",
-    "phase": "Regression/capability fitness worker active.",
-    "started_at": "2026-09-01T21:10:39.1742775-06:00",
-    "source": "hq-live-ops"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -27,8 +20,8 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 25,
-    "cpu_pct": 30,
+    "memory_pct": 27,
+    "cpu_pct": 36,
     "gpu": "RTX 3060",
     "gpu_pct": 37
   },
@@ -36,13 +29,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-01T07:37:01-06:00",
-        "estimated": false,
-        "ram": 32,
-        "cpu": 9,
-        "gpu": 36
-      },
       {
         "at": "2026-09-01T07:38:38-06:00",
         "estimated": false,
@@ -707,10 +693,16 @@
         "ram": 25,
         "cpu": 30,
         "gpu": 37
+      },
+      {
+        "at": "2026-09-01T21:20:14-06:00",
+        "estimated": false,
+        "ram": 27,
+        "cpu": 36,
+        "gpu": 37
       }
     ],
     "ram": [
-      32,
       32,
       32,
       32,
@@ -805,10 +797,10 @@
       23,
       23,
       23,
-      25
+      25,
+      27
     ],
     "cpu": [
-      9,
       18,
       18,
       5,
@@ -903,10 +895,10 @@
       27,
       27,
       3,
-      30
+      30,
+      36
     ],
     "gpu": [
-      36,
       32,
       32,
       39,
@@ -1001,11 +993,12 @@
       21,
       21,
       41,
+      37,
       37
     ]
   },
   "weather": {
-    "summary": "Tonight 52 | Wind 9 to 14 mph | Scattered Showers And Thunderstorms then Isolated Showers And Thunderstorms"
+    "summary": "Tonight 52 | Wind 9 to 13 mph | Scattered Showers And Thunderstorms then Isolated Showers And Thunderstorms"
   },
   "capabilities": [
     {
@@ -1155,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-01T21:05:14-06:00",
+      "at": "2026-09-01T21:20:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1382,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-01T21:18:56.9000552-06:00",
+    "last": "2026-09-01T21:20:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,7 +1412,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-01T21:18:56.9000552-06:00",
+    "generated_at": "2026-09-01T21:19:56.8550518-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
