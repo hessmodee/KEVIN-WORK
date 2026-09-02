@@ -1,0 +1,49 @@
+name: Skill Lab completed proof preservation v1.0.6
+on:
+  push:
+    branches: [main, 'bess/skill-proof-replay-20260902']
+    paths:
+      - 'control-plane/skill-lab/kevin-skill-lab-v1.0.6.ps1'
+      - 'tools/test-skill-lab-registry-v105.ps1'
+      - 'tools/test-skill-lab-replay-v106.ps1'
+      - 'inbox/skills/kevin-recovery-evidence-kit-v1.json'
+      - '.github/workflows/skill-replay-v106-proof.yml'
+  pull_request:
+    paths:
+      - 'control-plane/skill-lab/kevin-skill-lab-v1.0.6.ps1'
+      - 'tools/test-skill-lab-registry-v105.ps1'
+      - 'tools/test-skill-lab-replay-v106.ps1'
+      - 'inbox/skills/kevin-recovery-evidence-kit-v1.json'
+      - '.github/workflows/skill-replay-v106-proof.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  powershell51:
+    name: Windows PowerShell 5.1
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fixed runner self-test and registry fault/restart/replay proof
+        shell: powershell
+        run: |
+          & ./control-plane/skill-lab/kevin-skill-lab-v1.0.6.ps1 -SelfTest
+          if ($LASTEXITCODE -ne 0) { throw 'Runner self-test failed' }
+          & ./tools/test-skill-lab-registry-v105.ps1 -CandidateVersion 1.0.6
+          if ($LASTEXITCODE -ne 0) { throw 'Registry qualification failed' }
+          & ./tools/test-skill-lab-replay-v106.ps1
+  powershell7:
+    name: PowerShell 7
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fixed runner self-test and registry fault/restart/replay proof
+        shell: pwsh
+        run: |
+          & ./control-plane/skill-lab/kevin-skill-lab-v1.0.6.ps1 -SelfTest
+          if ($LASTEXITCODE -ne 0) { throw 'Runner self-test failed' }
+          & ./tools/test-skill-lab-registry-v105.ps1 -CandidateVersion 1.0.6
+          if ($LASTEXITCODE -ne 0) { throw 'Registry qualification failed' }
+          & ./tools/test-skill-lab-replay-v106.ps1
