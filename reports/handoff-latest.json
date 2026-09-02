@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "kind": "kevin-chat-handoff-checkpoint",
-  "generated_at": "2026-09-02T19:40:00Z",
+  "generated_at": "2026-09-02T20:15:00Z",
   "current_sprint": "Fixed-main recovery -> tool-capable bounded autonomy -> self-repair transfer",
   "canonical_paths": {
     "start_here": "KEVIN-START-HERE.md",
@@ -37,7 +37,9 @@
     "total": 30,
     "critical": 1,
     "only_failure": "R04 Production config frozen",
-    "interpretation": "expected stale baseline after intentional validated config mutation; preserve repair and use governed rebaseline"
+    "interpretation": "expected stale baseline after intentional validated config mutation; preserve repair and use governed rebaseline",
+    "at": "2026-09-02T14:02:09.4150678-06:00",
+    "baseline_contract": "NOT_ESTABLISHED_BY_PUBLISHED_V1344_OR_INTAKE_V126"
   },
   "live_identities": {
     "supervisor": "F5D8C9740D384CC576D4BD70A3940B51AA1FCF398C7085E59DB20C01E9180138",
@@ -48,18 +50,9 @@
     "maintenance_runner": "3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E"
   },
   "current_actions": [
-    "P0 governed R04 baseline reconciliation without reverting compaction settings",
-    "P0 fixed-input effective tool-policy diagnosis for main and minimal useful GREEN tool surface",
-    "P1 encode context failure detection/repair/verification into Kevin-owned governed path",
-    "P1 reconcile autonomy desired-state drift only after source/proof identity review",
-    "P2 continue independent useful GREEN/YELLOW development when a lane is blocked/cooling"
+    "P0 qualify an exact-current bounded R04 baseline contract and fresh30/30 without reverting compaction; obtain installed-version-qualified effective tool policy/inventory before any narrow grant. Preserve unknown Maintenance source and runtime policy bytes. PR37 candidate hardening is CI-proven, not installable: qualify actual installed config schema, fixed wrapper/hash-CAS/backup/rollback and semantic real-turn/compaction/negative proof. Continue independent authorized work within WIP; do not reset history or repeat satisfied work."
   ],
-  "in_flight": {
-    "runtime_capability_manifest": "bess-main-tool-policy-audit-20260902-1339",
-    "operation": "publish_runtime_capabilities",
-    "purpose": "obtain fresh sanitized fixed-main policy/model facts through existing Maintenance path",
-    "production_effect": "NONE"
-  },
+  "in_flight": null,
   "known_truth_defects": [
     "Fresh owner /context detail proves fixed:main tool inventory empty despite older canary ambiguity",
     "HQ dashboard context=8K/tools=false labels are hard-coded in repository helper source and are not trustworthy runtime telemetry",
@@ -77,5 +70,48 @@
     "benchmark_weakening": false,
     "silent_trust_anchor_blessing": false,
     "protected_external_or_financial_effects": false
+  },
+  "completed_capability_audit": {
+    "manifest": "bess-main-tool-policy-audit-20260902-1339",
+    "at": "2026-09-02T13:45:02.9533780-06:00",
+    "state": "OMEN_AUDIT_PROVEN",
+    "effective_inventory": "NOT_RECORDED",
+    "retired_commit": "b65909b61b38b26db44c4b6157921fc00a2cfd47"
+  },
+  "candidate": {
+    "added_tests": 13,
+    "baseline_commit": "f092c891a68b3c943c03aa4b1276ace823fa35a8",
+    "baseline_reproduced_failures": 9,
+    "branch": "bess/fixed-main-self-repair-v1",
+    "consumer": "existing fixed-main self-repair PR37, then qualified typed Maintenance wrapper",
+    "contract_sha256": "60792F346FA15ECAF89A7CEB25A0D6E9B45A88EE567DD3C0CB846D4449D016AE",
+    "original_tests": 10,
+    "platforms": [
+      "Linux Python3.12",
+      "Linux Python3.13",
+      "Windows Python3.12",
+      "Windows Python3.13"
+    ],
+    "pull_request": 37,
+    "remaining": "P0 qualify an exact-current bounded R04 baseline contract and fresh30/30 without reverting compaction; obtain installed-version-qualified effective tool policy/inventory before any narrow grant. Preserve unknown Maintenance source and runtime policy bytes. PR37 candidate hardening is CI-proven, not installable: qualify actual installed config schema, fixed wrapper/hash-CAS/backup/rollback and semantic real-turn/compaction/negative proof. Continue independent authorized work within WIP; do not reset history or repeat satisfied work.",
+    "report": "docs/engineering/KEVIN-FIXED-MAIN-CANDIDATE-SAFETY-2026-09-02.md",
+    "run_id": 33678048287,
+    "runtime_mutation": false,
+    "source_commit": "481d1ac3f4ea4df0265b1bea2de40e985d9014cb",
+    "status": "CI_PROVEN_CANDIDATE_NOT_INSTALLED",
+    "tests": 23,
+    "transfer_promotion": false
+  },
+  "current_evidence": {
+    "source_commit": "0a252bfcfcdf1eb390e927609b1f74c2b49064f5",
+    "summary": "Owner-reported fixed:main compaction repair preserves model/context16384, reserveTokensFloor2048, reserveTokens2048 and keepRecentTokens4000 at config SHA23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5; fresh text reply and manual compaction passed. The 09:00 rejected canary predates this repair and is not a post-repair failure. Benchmark14:02 MDT remains29/30 critical1, solely R04; Support14:09 corroborates NO_MANIFEST. Engineering14:13 reports stale UI heartbeat7579.5s and four proven composites. The13:45 capability audit completed but records policy-path presence, not effective inventory; owner reports an empty fresh /context inventory. No tool grant, baseline change, runtime repair or T-level promotion occurred in this review."
+  },
+  "desired_state_truth": {
+    "observed_hashes_source": "reports/support-latest.json",
+    "observed_hashes_commit": "0a252bfcfcdf1eb390e927609b1f74c2b49064f5",
+    "repository_pin_status": "STALE_NOT_BLESSED_OR_MUTATED",
+    "local_drift_count": 2,
+    "exact_installed_maintenance_source": "UNQUALIFIED",
+    "policy_bundle_replacement": "NOT_AUTHORIZED_FROM_STALE_REPO_IDENTITIES"
   }
 }

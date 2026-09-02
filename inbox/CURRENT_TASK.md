@@ -15,7 +15,11 @@ Known owner-observed repair state:
 - fresh Kevin chat answered normally and manual `/compact` completed successfully after the repair;
 - latest Support evidence then showed Benchmark 29/30 with only critical R04 `Production config frozen`, which is expected drift after the intentional validated config mutation.
 
-Next: restore Benchmark 30/30 using the existing governed baseline contract. Do not fake R04, weaken Benchmark, or restore an older config merely to satisfy the old hash. Preserve the intentional compaction settings. Require fresh Benchmark and Support proof after any baseline crossing.
+Next: restore Benchmark30/30 through a qualified exact-current governed baseline contract. The inspected published Maintenancev1.3.44 and Intakev1.2.6 do not establish a general R04 update operation; do not misuse historical Forge/Supervisor migrations or overwrite the unqualified installed runner. Do not fake R04, weaken Benchmark, or restore an older config merely to satisfy the old hash. Preserve the intentional compaction settings. Require fresh Benchmark and Support proof after any baseline crossing.
+
+### P0 — Fixed:main effective tool inventory
+
+Owner's fresh /context detail reported empty tools. The completed13:45 runtime-capability audit shows root policy presence only, not effective policy or a tool-grant diagnosis. Obtain installed-version-qualified profile/allow/deny/provider/agent/channel/sandbox/plugin evidence; use a narrow reversible approved surface only after exact preconditions and require actual useful tool-use plus forbidden-tool negatives. No arbitrary shell widening. The09:00 canary predates the owner repair and is not post-repair failure evidence.
 
 ### P1 — Teach Kevin the repair so Bess/Grok/Matt are not required next time
 
@@ -45,3 +49,7 @@ Default WIP remains 1 production/proof + 1 staging/eval + 1 research/design. A h
 ### Shared handover requirement
 
 All Bess/ChatGPT, Grok Build, Grok Bot, and replacement engineering sessions must enter through `KEVIN-START-HERE.md`, read `AI-HANDOVER.md`, verify fresh evidence, and reconcile the shared handover after substantive changes. Do not make Matt reconstruct this work from chat history.
+
+### Qualified candidate and exact next step
+
+PR37 commit 481d1ac3f4ea4df0265b1bea2de40e985d9014cb repairs9 independently reproduced candidate safety failures;23 tests pass in CI33678048287 on Linux/Windows Python3.12/3.13. Continue this existing candidate: qualify installed schema, fixed wrapper/backup/hash-CAS/rollback and real-turn/compaction proof. It is not merged/installed and does not provide an R04 baseline operation. docs/engineering/KEVIN-FIXED-MAIN-CANDIDATE-SAFETY-2026-09-02.md records negatives and remaining outside-engineer work. No T-level promotion or retry reset.

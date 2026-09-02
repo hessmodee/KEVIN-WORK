@@ -63,17 +63,9 @@ Durable teach-back was updated in `docs/engineering/LESSON-fixed-main-qwen-conte
 
 ## Current live health / expected R04 drift
 
-Fresh Support at `2026-09-02T13:25:19-06:00` reported:
-- governance OK;
-- Support, HQ pulse, Supervisor and Maintenance intake scheduled jobs healthy;
-- Maintenance `NO_MANIFEST`;
-- Supervisor last result `NO_ELIGIBLE_MISSION`;
-- Benchmark latest `29/30`, critical failures 1;
-- only failing check: R04 `Production config frozen`.
+Owner-reported fixed:main compaction repair preserves model/context16384, reserveTokensFloor2048, reserveTokens2048 and keepRecentTokens4000 at config SHA23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5; fresh text reply and manual compaction passed. The 09:00 rejected canary predates this repair and is not a post-repair failure. Benchmark14:02 MDT remains29/30 critical1, solely R04; Support14:09 corroborates NO_MANIFEST. Engineering14:13 reports stale UI heartbeat7579.5s and four proven composites. The13:45 capability audit completed but records policy-path presence, not effective inventory; owner reports an empty fresh /context inventory. No tool grant, baseline change, runtime repair or T-level promotion occurred in this review.
 
-The R04 failure is expected after the intentional validated `openclaw.json` mutation. The correct next action is to re-establish the production-config baseline through the governed baseline path and then require fresh Benchmark 30/30. **Do not revert the known-good compaction settings merely to match the old baseline, and do not weaken/skip R04.**
-
-The old handover's 10:10 claim of Benchmark 30/30 is stale relative to this post-repair Support snapshot.
+R04 must be reconciled through an exact bounded governed contract. Published Maintenancev1.3.44/Intakev1.2.6 inspection did not establish a general R04 baseline operation; historical Forge/Supervisor baseline migrations are not substitutes. Preserve the good compaction settings and R04 acceptance. The installed runner's source is unqualified, so do not overwrite it to add this operation.
 
 ## Shared/current owner execution contract
 
@@ -81,9 +73,10 @@ The old handover's 10:10 claim of Benchmark 30/30 is stale relative to this post
 
 Current order:
 1. close the intentional R04 baseline drift without undoing the context repair;
-2. teach/transfer this failure family into a Kevin-owned detector + bounded recovery + semantic verifier;
-3. if blocked/cooling, continue another useful authorized lane rather than idle;
-4. prioritize Maintenance/self-repair ownership, autonomous work selection, skill development/replay, owner<->Kevin communication, mobile HQ, Telegram repair/replacement, memory/restart-replay, and lawful owner-value/economic-output workflows.
+2. diagnose fixed:main effective tool policy/inventory from version-qualified evidence, then only a narrow approved grant with real-turn and forbidden-tool negatives;
+3. teach/transfer this failure family into a Kevin-owned detector + bounded recovery + semantic verifier;
+4. if blocked/cooling, continue another useful authorized lane rather than idle;
+5. prioritize Maintenance/self-repair ownership, autonomous work selection, skill development/replay, owner<->Kevin communication, mobile HQ, Telegram repair/replacement, memory/restart-replay, and lawful owner-value/economic-output workflows.
 
 Default WIP remains 1 production/proof + 1 staging/eval + 1 research/design with a named consumer.
 
@@ -167,6 +160,10 @@ Do not confuse Matt's broad permission to push GREEN/YELLOW development with per
 1. Read `KEVIN-START-HERE.md`, the owner continuous-autonomy directive, this handover, and `inbox/CURRENT_TASK.md`.
 2. Fetch fresh Support/Benchmark/Maintenance/control-plane/autonomy evidence and compare timestamps.
 3. If R04 is still the sole regression, use or construct the narrow governed baseline-reconciliation path; preserve compaction settings and require fresh 30/30.
-4. In parallel only within WIP, turn the context repair into a fixed-input detector/recovery candidate and regression fixtures; do not overwrite the unknown installed Maintenance patch.
+4. Within WIP, continue existing PR37 rather than create a duplicate candidate. It now passes23 safety tests; installed-schema and live-wrapper qualification remain. Do not overwrite the unknown installed Maintenance patch.
 5. When blocked, continue another useful authorized lane instead of stopping the program.
 6. Reconcile this handover after the next substantive transition.
+
+## Candidate safety qualification and current evidence
+
+Existing PR37 now contains commit 481d1ac3f4ea4df0265b1bea2de40e985d9014cb: nine reproduced safety failures repaired,23 tests pass on Linux/Windows Python3.12/3.13, [CI33678048287](https://github.com/hessmodee/KEVIN-WORK/actions/runs/33678048287). This is unmerged/uninstalled candidate proof, not R04 recovery or tool execution. See [review and teach-back](docs/engineering/KEVIN-FIXED-MAIN-CANDIDATE-SAFETY-2026-09-02.md). The13:45 capability audit is terminal, not in flight. Current effective tool-policy values and exact installed-schema mapping remain unknown; owner's fresh session reported empty inventory. Work selection staysT2; no budget resets or completed-work reopening.
