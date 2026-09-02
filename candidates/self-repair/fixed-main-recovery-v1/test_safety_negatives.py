@@ -2,10 +2,70 @@ import copy
 import unittest
 
 from contract import ContractError, assert_only_known_repair_diff, build_known_repair_intents, classify_main_config, semantic_leaf_diff
+from contract import classify_tool_policy_surfaces
 from test_contract import base_config
 
 
 class SafetyNegatives(unittest.TestCase):
+    def test_malformed_tool_policy_objects_rejected(self):
+        cases = [
+            lambda c: c.update(tools=[]),
+            lambda c: c['agents']['entries']['main'].update(tools=[]),
+            lambda c: c['tools'].update(byProvider=[]),
+            lambda c: c['tools'].update(toolsBySender=[]),
+            lambda c: c['tools'].update(sandbox=[]),
+            lambda c: c['tools'].update(byProvider={'ollama-chat-16k': []}),
+            lambda c: c['tools'].update(toolsBySender={'*': []}),
+        ]
+        for mutate in cases:
+            with self.subTest(mutate=mutate):
+                cfg = base_config()
+                mutate(cfg)
+                with self.assertRaises(ContractError):
+                    classify_tool_policy_surfaces(cfg)
+
+    def test_unknown_profiles_rejected_at_each_policy_layer(self):
+        cases = [
+            lambda c: c['tools'].update(profile='unknown'),
+            lambda c: c['tools'].update(byProvider={'ollama-chat-16k': {'profile': 'unknown'}}),
+            lambda c: c['tools'].update(toolsBySender={'*': {'profile': 'unknown'}}),
+        ]
+        for mutate in cases:
+            with self.subTest(mutate=mutate):
+                cfg = base_config()
+                mutate(cfg)
+                with self.assertRaises(ContractError):
+                    classify_tool_policy_surfaces(cfg)
+
+    def test_allow_and_also_allow_rejected_even_when_empty(self):
+        cfg = base_config()
+        cfg['tools']['allow'] = []
+        cfg['tools']['alsoAllow'] = []
+        with self.assertRaises(ContractError):
+            classify_tool_policy_surfaces(cfg)
+
+    def test_explicit_empty_policy_is_distinguished_from_absence(self):
+        cfg = base_config()
+        cfg['agents']['entries']['main']['tools'] = {}
+        result = classify_tool_policy_surfaces(cfg)
+        self.assertTrue(result['main']['present'])
+        self.assertEqual(result['main']['profile'], 'UNSET')
+
+    def test_provider_sender_and_sandbox_presence_reported_without_effective_claim(self):
+        cfg = base_config()
+        cfg['tools'].update(
+            byProvider={'ollama-chat-16k': {'profile': 'minimal'}},
+            toolsBySender={'*': {'deny': ['group:runtime']}},
+            sandbox={},
+        )
+        result = classify_tool_policy_surfaces(cfg)
+        self.assertTrue(result['root']['provider_policy_present'])
+        self.assertEqual(result['root']['provider_policy_count'], 1)
+        self.assertTrue(result['root']['sender_policy_present'])
+        self.assertEqual(result['root']['sender_policy_count'], 1)
+        self.assertTrue(result['root']['sandbox_policy_present'])
+        self.assertIn('session-effective', result['truth_boundary'])
+
     def test_integer_contract_fields_reject_other_types(self):
         for field, value in [('reserveTokensFloor', 2048.0), ('reserveTokens', True), ('keepRecentTokens', 4000.5), ('keepRecentTokens', '4000')]:
             with self.subTest(field=field, value=value):
