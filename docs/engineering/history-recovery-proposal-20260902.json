@@ -1,0 +1,124 @@
+{
+  "authority_effect": "NONE",
+  "family_counter_sums_advisory_not_exact": {},
+  "history_complete": false,
+  "issues": [
+    {
+      "code": "FAMILY_MAPPING_UNRESOLVED",
+      "id": "hq-direct-chat-real-roundtrip"
+    },
+    {
+      "code": "FAMILY_MAPPING_UNRESOLVED",
+      "id": "staging-trajectory-reliability-v1"
+    }
+  ],
+  "items": [
+    {
+      "epoch_counter_sum_not_exact_total": 3,
+      "epochs": [
+        {
+          "fingerprint": "D531C4F1A687E48D81A47D0B40D4AF834956E27A63EDC73708A793C1790705B3",
+          "id": "hq-direct-chat-real-roundtrip",
+          "last_observed_turn_at": "2026-09-02T04:04:07.591153+00:00",
+          "observations": [
+            {
+              "commit": "85e1593c7a098a0c07d61b4c825b92d19603968c",
+              "last_turn_at": "2026-09-02T04:04:07.591153+00:00",
+              "snapshot_at": "2026-09-02T04:14:17.096636+00:00",
+              "status": "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF",
+              "turns": 3
+            },
+            {
+              "commit": "bed003fa48c83eb8c78169786777ba753115581f",
+              "last_turn_at": "2026-09-02T04:04:07.591153+00:00",
+              "snapshot_at": "2026-09-02T09:09:24.661524+00:00",
+              "status": "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF",
+              "turns": 3
+            }
+          ],
+          "observed_turns_lower_bound": 3,
+          "source_commits": [
+            "85e1593c7a098a0c07d61b4c825b92d19603968c",
+            "bed003fa48c83eb8c78169786777ba753115581f"
+          ],
+          "statuses_observed": [
+            "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF"
+          ]
+        }
+      ],
+      "family": null,
+      "id": "hq-direct-chat-real-roundtrip",
+      "observed_attempts_lower_bound": 3,
+      "remaining_budget": null,
+      "reopen_authorized": false
+    },
+    {
+      "epoch_counter_sum_not_exact_total": 4,
+      "epochs": [
+        {
+          "fingerprint": "2BFEF3F4341FA85EE7415CB8097334615FB80A1EC5E51E35D2522141FDBD25F6",
+          "id": "staging-trajectory-reliability-v1",
+          "last_observed_turn_at": "2026-09-02T04:09:07.028652+00:00",
+          "observations": [
+            {
+              "commit": "85e1593c7a098a0c07d61b4c825b92d19603968c",
+              "last_turn_at": "2026-09-02T04:09:07.028652+00:00",
+              "snapshot_at": "2026-09-02T04:14:17.096636+00:00",
+              "status": "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF",
+              "turns": 3
+            }
+          ],
+          "observed_turns_lower_bound": 3,
+          "source_commits": [
+            "85e1593c7a098a0c07d61b4c825b92d19603968c"
+          ],
+          "statuses_observed": [
+            "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF"
+          ]
+        },
+        {
+          "fingerprint": "C61984ED7DEF5FD8CB6BED423A2F9CCEF43C0B1039B394B1BF927541A0D2AAF8",
+          "id": "staging-trajectory-reliability-v1",
+          "last_observed_turn_at": "2026-09-02T04:24:16.660248+00:00",
+          "observations": [
+            {
+              "commit": "bed003fa48c83eb8c78169786777ba753115581f",
+              "last_turn_at": "2026-09-02T04:24:16.660248+00:00",
+              "snapshot_at": "2026-09-02T09:09:24.661524+00:00",
+              "status": "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF",
+              "turns": 1
+            }
+          ],
+          "observed_turns_lower_bound": 1,
+          "source_commits": [
+            "bed003fa48c83eb8c78169786777ba753115581f"
+          ],
+          "statuses_observed": [
+            "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF"
+          ]
+        }
+      ],
+      "family": null,
+      "id": "staging-trajectory-reliability-v1",
+      "observed_attempts_lower_bound": 4,
+      "remaining_budget": null,
+      "reopen_authorized": false
+    }
+  ],
+  "kind": "kevin-history-recovery-review-only",
+  "reopen_authorized": false,
+  "runtime_mutation": false,
+  "schema": 1,
+  "sources": [
+    {
+      "commit": "85e1593c7a098a0c07d61b4c825b92d19603968c",
+      "sha256": "9A0E8D477E7CA4880C2A3587BF2A3A0C33A0CB528CC724844D87628987F68EF6"
+    },
+    {
+      "commit": "bed003fa48c83eb8c78169786777ba753115581f",
+      "sha256": "9FE9107A37EA93AA46C2F6BAFE768318FD8102727CBCBB6E74671F226E7ED9A0"
+    }
+  ],
+  "status": "REQUIRES_VALIDATED_MIGRATION",
+  "truth_boundary": "Published observations only; gaps and overwritten history may remain. No outcome, tool use, exact lifetime total, trusted-family adoption, or budget reopening is inferred."
+}
