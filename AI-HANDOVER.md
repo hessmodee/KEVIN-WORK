@@ -1,44 +1,35 @@
 # Kevin AI Engineering Handover
 
-Reconciled 2026-09-02 ~01:53 UTC. Begin with `KEVIN-START-HERE.md`, the current `inbox/CURRENT_TASK.md`, fresh Omen receipts, and `docs/engineering/GROKBOT-TAKEOVER-HANDOVER-2026-09-02.md` for the foreground takeover brief. Fresh correlated runtime evidence and current exact source/receipt identities outrank this prose.
+Reconciled from 2026-09-02T05:10:31Z evidence. Read KEVIN-START-HERE.md, inbox/CURRENT_TASK.md and docs/engineering/KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md. Fresh correlated Omen receipts and exact identities outrank this prose; older takeover notes are historical.
 
-The owner requests continuous useful GREEN work, genuine direct Matt-to-Kevin communication, work conservation, and progressive transfer of routine responsibility away from Bess/GrokBot. Keep `NOTICE -> UNDERSTAND -> PLAN -> EXECUTE -> VERIFY -> RECOVER -> RECORD -> LEARN -> CONTINUE`. Technical proof and T0-T5 transfer are separate. No blanket GREEN-100 claim is supported.
+## Owner goal and single writer
 
-## Scheduled ChatGPT control
+Kevin must independently NOTICE -> UNDERSTAND -> PLAN -> EXECUTE -> VERIFY -> RECOVER -> RECORD -> LEARN -> CONTINUE useful owner-approved GREEN work. Technical proof and T0-T5 transfer are separate. Only Kevin Chief Engineer is enabled among scheduled ChatGPT Kevin processes. Foreground owner-directed engineering outranks it while holding the one production/proof crossing. Never overwrite running/unconsumed work, duplicate requests or clear retry budgets.
 
-Only `Kevin Chief Engineer` remains enabled. `Kevin Daily Surprise` was disabled at ~01:50 UTC; older Kevin Watchtower/Engineering Loop/Handover Refresh/scorecard/proof-push automations remain disabled. The Chief Engineer contract now explicitly makes a foreground owner-directed GrokBot/local engineering session the active writer for its one production/proof crossing and forbids scheduled competition/duplicate work.
+## Current evidence
 
-## Fresh proven state
+- Main exact-response canary is OMEN_PROVEN at23:02:44 MDT September1: fixed:main, healthy Gateway, exact case-sensitive reply, complete correlated transcript, zero canary tool calls; resolved provider/model ollama-chat-16k/qwen2.5:14b. Useful typed tool execution remains unproven. Earlier /no_think failure actually resolved llama per foreground diagnosis; do not resurrect a Gateway outage or mislabel it a Qwen test.
+- Supervisor v1.8.8 is observed installed at F5D8C9740D384CC576D4BD70A3940B51AA1FCF398C7085E59DB20C01E9180138. The existing kevin-supervisor-v1 scheduler is healthy at5m. Its legacy display name/cycle449 is not the current runtime result.
+- reports/autonomy-continuation-latest.json at23:09:17 reports IDLE_NO_ELIGIBLE_DEMAND, eligible_count0, outcome_proven=false, tool_calls=null (UNKNOWN). Inventory contains four COMPLETE and three BLOCKED items; do not manufacture demand or reopen completed work.
+- New unresolved retry-history defect: v1.8.8 resets turn count on any item fingerprint change and replaces the previous per-ID history row. Correlated staging receipts show prior3 attempts replaced by a new fingerprint with1 attempt. Prose fields participate in that fingerprint. No unsafe action is proved, and no fix is claimed.
+- Current Maintenance manifest main-canary-reaffirm-16k-20260902-2300 has matching ALREADY_APPLIED_PROVEN at23:09:10. Scheduler summary still shows5 errors from its older22:44 run; a newer manual/other-path receipt is not scheduled recovery proof. Wait for a natural scheduled result or new bounded failure evidence; do not rename/retry.
+- Benchmark PASS30/30 critical0 at23:07:03; independent Engineering heartbeat3.9s at23:10:05. Old expired Engineering request is terminal. Forge has no new evaluation after iteration391 at07:06.
+- Foreground recorded HQ owner chat and trajectory reliability COMPLETE, but referenced sanitized proof/trajectory files are absent from the reviewed tree. Preserve closures; independent replay/deduplication/2-of-2 proof remains unavailable. Do not invent another Matt message.
+- Maintenance observed FF9C5FDF217B0ED5F38A8566BD54D8A654CB8DFEF0093654DDBC23DC9A1BF956; Benchmark observed4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964. Exact local modification/source/transaction provenance remains to be published before any trust-anchor reconciliation. Existing desired-state pins are deliberately not blessed or reset by this review. Latest autonomy reports drift_count4.
+- HQ still contains old engine/cadence labels; fresh dashboard timestamps do not make those labels correct.
 
-- Fresh Support/Engineering around 19:50 MDT: governance healthy; Benchmark PASS 30/30 critical0; required listed jobs report ok/0 consecutive errors; active engineering workers=0.
-- Support reports Maintenance `ALREADY_APPLIED_PROVEN` for `runtime-convergence-v1343-20260902-0116`; published Maintenance runner SHA256 is `10F61948C428F1BC45D820D72355BE91A4E3E57C5ED7918FF6E260FE02F289A8`.
-- The v1.3.43 isolated fixed-main canary already ran at 19:15:10 MDT with `qwen_soft_no_think=true`. Gateway probe/agent execution succeeded and a complete correlated local transcript proves zero tool calls. The canary still REJECTED at `semantic_contract`: visible final length 145, contains expected token but is not exactly `KEVIN_MAIN_AGENT_CANARY_OK`. The `/no_think` hypothesis did not fix exact-response behavior. Do not repeat unchanged or weaken/post-process acceptance.
-- Main canary saw 8 visible tools, zero Kevin-prefixed tools and no `kevin_system_status`. Useful fixed-main Kevin action capability remains unproven. Do not call the Gateway broken.
-- Production Supervisor remains the legacy/compatibility hash `47A0A1D0E3F744E972E2F2239F100CA2B009ABD3928D0281E4587A364B7C27AC`; existing scheduled job is still named `Kevin Supervisor v1.6 High Gear` at 3m. Support cycle449 reports `NO_ELIGIBLE_MISSION` with zero workers. Supervisor v1.8.8 SHA `F5D8C9740D384CC576D4BD70A3940B51AA1FCF398C7085E59DB20C01E9180138` remains CI-proven candidate, not live-proven production.
-- Autonomy telemetry remains unresolved/stale at ~19:20 MDT: `NEEDS_REVIEW`, drift_count=3, no selected action, candidate-only `NO_DISPATCH_NEEDED`. Control-plane latest is terminal `IDLE_TERMINAL`, awaiting replacement. Do not treat either as active progress.
-- Engineering at 19:50:41 MDT reports UI Bridge task present but heartbeat age ~839.7s. Task/hash presence is not live health; diagnose and require fresh independent heartbeat/self-test before calling healthy. Existing typed `restart_ui_bridge` may be used if still applicable and WIP-safe.
-- Skill Lab retains 3 proven composites. Forge iteration391 remains historical reject; no new demandless Forge churn is occurring.
+## Immediate boundary
 
-## Active production/research boundary
+No repeat exact-reply test or duplicate controller install. Named downstream consumer for retry-history diagnosis is the next controller qualification. Preserve every item/family evidence epoch; require materially new evidence, not prose/fingerprint churn, for a new budget. Qualify executable negative tests for prose-only edits, A->B->A, alternation, restart, corrupt/missing state and COMPLETE replay before any typed reversible runtime fix.
 
-The primary blocker is now **fixed-main semantic behavior and tool exposure**, not generic Gateway transport. Use a named research/design slot to inspect the actual installed OpenClaw fixed-main model/provider/system-template/session/tool registry and form a materially new falsifiable hypothesis. Preserve the failed `/no_think` experiment as failure evidence. No blind package downgrade, renamed retry, output stripping, or test weakening.
+Obtain sanitized missing owner-outcome/tool/source receipts through the existing foreground/typed path. Only then prove Kevin selecting without a Bess-supplied ID, useful typed execution, independent semantic verification, durable outcome/lesson, restart/replay and a subsequent correct scheduled decision. Work-selection transfer remains T2; no T4/T5 or Bess responsibility retirement is added.
 
-Once the main prerequisite genuinely passes: install/prove exact current Supervisor v1.8.8 + selector v1.1 through existing typed Maintenance; reuse the ONE native Supervisor job and reconcile only to the qualified 5m cadence while preserving command/session/delivery; then give Kevin no work-item ID and require an independently selected useful typed task, semantic outcome, durable lesson/state, restart/replay persistence and a subsequent correct scheduled decision. That is the work-selection T2->T3 crossing; repeated ownership is required for T4.
+Selector CI33590422621 fails because its live-queue test insists on eligible work after all runnable items were closed. Do not undo closures to make CI pass; use fixed fixtures and truthful live-state assertions. The incident review records precise evidence and acceptance.
 
-Known owner-demand objectives remain direct HQ chat and staging trajectory reliability subject to their real prerequisites/WIP/failure-family admission. `NO_ELIGIBLE_MISSION` is not acceptable when independent eligible GREEN work exists without a deterministic blocker.
+## Other work and boundaries
 
-## Direct owner communication
+Reader remains BLOCKED with3 attempts; Workshop configuration cooled with2; Forge family remains blocked without new demand. These do not prohibit genuinely independent eligible GREEN work, but current inventory has none. Master plan still contains owner communications, private authenticated mobile, learning, Gmail/Telegram, continuity and business outcomes. Admit only a genuinely unsatisfied, bounded item with a named consumer, actual capability prerequisites, free WIP and current authority.
 
-Native private OpenClaw Control UI/WebChat is the preferred owner conversation surface. The existing CI-proven `candidates/communications/hq-direct-chat` bundle is fallback material, not live proof. Required acceptance remains a genuine Matt -> Kevin -> Matt message, correlation/session continuity, refresh/restart/replay, duplicate suppression, then authenticated private mobile reachability. Public GitHub Pages stays sanitized/read-only; never publish private messages/tokens/private endpoints. Telegram remains separately owner-authorized but secondary to proving the native HQ/local path.
+Native private Control UI is preferred; public HQ remains sanitized/read-only. Owner messages are intent, never shell. No arbitrary shell/remote-code transport, new permissions, secret/private-body publication, silent trust-anchor blessing, weakened controls, purchases/trades/money, unauthorized third-party/public sends or novel YELLOW/RED automatic production promotion.
 
-## Bridge model
-
-Bess has operated Kevin without arbitrary remote shell by using GitHub as a sanitized rendezvous/control plane: remote engineer writes/reads fixed typed work orders/Maintenance/Engineering requests and source; Omen-side scheduled Kevin/OpenClaw pollers consume only recognized contracts; local deterministic code performs allowlisted GREEN actions; sanitized Support/Engineering/control-plane/maintenance/canary receipts return to GitHub; the remote engineer verifies correlated semantic postconditions before the next step. GrokBot with local computer access may diagnose faster, but production mutation should still prefer Kevin's governed typed mechanism whenever one exists so the mechanism can become Kevin-owned rather than permanent human bypass.
-
-## Operating process
-
-Global WIP: 1 production/proof crossing, 1 staging/eval item, 1 research/design item with named consumer. Do not manufacture Forge demand. Blocked lanes do not justify idling independent eligible work. After three materially distinct unsuccessful attempts under materially unchanged evidence, cool/block that family until evidence changes and continue another useful lane.
-
-After controller proof, reconcile local desired-state identities and HQ semantic truth rather than manually hiding drift. Then accelerate responsibility transfer: work selection, direct HQ chat, Maintenance/self-heal, Reader, Skill learning, handoff/memory, Gmail, Telegram, broad computer fluency and accepted business-value workflows.
-
-Use existing typed GREEN paths with exact-current/exact-after identities, bounded execution, rollback and independent semantic postconditions. No arbitrary command/code transport, secret/private-body publication, self-granted permissions, silent trust-anchor blessing, purchases/trades/money movement, unauthorized third-party/public owner sends, safety weakening, or novel unqualified YELLOW/RED promotion. A model response, scheduler heartbeat, commit or passing30/30 suite is not an autonomous owner outcome.
+Global WIP remains production1/staging1/research1. Reconstruct current ownership before mutation. This commit reconciles continuity only: it does not enqueue work, mutate the Omen, reset attempts or claim repair.

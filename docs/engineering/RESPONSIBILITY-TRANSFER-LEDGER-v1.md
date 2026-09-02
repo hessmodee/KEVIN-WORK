@@ -1,6 +1,6 @@
 # Bess -> Kevin Responsibility Transfer Ledger v1
 
-Baseline established: 2026-08-31; reconciled: 2026-09-02 01:05 UTC
+Baseline established: 2026-08-31; reconciled from: 2026-09-02 05:10 UTC evidence
 
 Purpose: track whether Kevin is actually taking recurring operational responsibility away from Bess, not merely accumulating code or candidates.
 
@@ -25,14 +25,14 @@ Technical proof levels remain separate:
 | OS Awareness | T3 | OMEN-PROVEN | bounded read-only local observation and sanitized evidence | Bess still interprets some hardware/state questions and requests missing fields/upgrades | Kevin uses OS evidence directly in owner/task answers, detects stale/missing sensor coverage, and routes safe sensor upgrades through proof pipeline |
 | Skill Lab runtime | T3 | OMEN-PROVEN; 3 production-proven composites at baseline | scheduled Skill Lab execution/evaluation and proof generation | Bess still identifies/stages some useful composite manifests | Kevin detects repeated GREEN sequences, drafts/stages/evaluates useful composite candidates, rejects weak ones, and promotes only evidence-backed skills |
 | Business Budget Starter Pack | T3 | PROVEN composite | can execute the existing two-step create_spreadsheet + create_text composite | Bess created/staged the initial manifest and currently audits usefulness | Kevin independently selects and uses the skill for a real owner/business task and verifies outputs without Bess orchestration |
-| HQ direct chat | T1 | CI-PROVEN source; not installed | candidate protocol/spool/panel/loopback/installer/transport design exists | Bess/Chief Engineer still must close typed production crossing and installation | Kevin owns installed private chat service, monitors it, repairs common failures, and completes owner round trips without Bess |
+| HQ direct chat | T1 | foreground-recorded COMPLETE; independent full proof pending | native Control UI roundtrip recorded by foreground | referenced sanitized proof absent; restart/replay/deduplication not independently verified | Publish existing actual proof; then Kevin owns private channel health/recovery without Bess |
 | Gmail owner communication | T1 | CI-PROVEN candidate only | candidate adapter/proof architecture exists | Bess currently coordinates account setup/proof; local OAuth/install incomplete | Kevin polls owner mail, interprets authorized request, uses own tools, replies in-thread, handles duplicates/restarts, and records proof without Bess |
 | Telegram owner communication | T0 | root cause unproven | no trustworthy proven owner round trip | Bess still drives diagnosis | Kevin owns private channel health, receives/replies, detects polling/webhook/routing failures, repairs bounded failures, proves round trips |
 | Reader / evidence acquisition | T1 | candidate/baseline components; requested E2E not proven | isolated Reader workspace and helper/gateway components exist | Bess still drives what to read and validates interpretation | Kevin independently acquires approved evidence, interprets correctly, preserves provenance, and answers/feeds other workers without Bess |
-| Tick / work conservation | T2 | production infrastructure exists but current autonomy contradiction unresolved | periodic status infrastructure and typed dispatch components exist | Bess still notices stale orders, duplicate churn, idle backlog contradictions, stale heartbeat conflicts | Kevin detects and resolves/reroutes these conditions autonomously and demonstrates useful work conservation |
-| Autonomy work selection | T2 | v1.8.8 CI-proven candidate; live compatibility sentinel idle | bounded mission catalog/dispatcher/actuator exist | Bess still frequently selects/queues mission and resolves drift | Kevin selects highest-value allowed work from owner backlog, respects cooldown/resources, dispatches and verifies without Bess |
+| Tick / work conservation | T2 | v1.8.8 scheduled selection and current legitimate idle observed | one existing5m scheduler and selection receipts | Bess still audits provenance, budget continuity and semantic outcomes | Kevin owns useful work conservation, not just model turns |
+| Autonomy work selection | T2 | v1.8.8 observed installed; no autonomous useful outcome proof | scheduled deterministic selection; current inventory correctly yields zero eligible | fingerprint change replaces history/resets counter; Bess still verifies outcomes | Preserve all item/family history, then useful typed action, semantic verification, restart/replay and subsequent correct selection |
 | Interactive UI Bridge | T2 | typed recovery and fresh independent heartbeat proven | executes typed restart and publishes READY heartbeat | Bess still detected and dispatched recovery | Kevin detects actual interactive failure, gathers session/process evidence, repairs through typed path, verifies executable selftest/heartbeat |
-| Staging validation lane | T1 | partial candidate/CI mechanics | CI, negative fixtures and isolated candidate concepts exist | Bess still assembles much of the promotion/replay reasoning | Kevin automatically runs replay, negative fixtures, rollback/idempotency/resource comparison and produces promote/reject evidence |
+| Staging validation lane | T1 | foreground COMPLETE/2-of-2 claim; referenced results not retrievable | candidate/CI validation machinery exists | independent trial and negative-fixture evidence unavailable in reviewed repo | Publish sanitized real trial results; prove Kevin-owned validation/recovery rather than a completion flag |
 | Handoff / continuity | T1 | durable GitHub protocol now exists | repository contains Start Here, handover, task, protocol/checkpoint format | Bess/Chief Engineer still reconciles the handover artifacts | Kevin itself maintains fresh public-safe handoff/checkpoint truth and can resume after interruption without Bess reconstructing state |
 | Scheduler/task health | T3 | recurring scheduled health evidence | core scheduled jobs can run and publish status | Bess still investigates contradictions and popup/stale-task incidents | Kevin detects scheduler/task drift, identifies exact known failure family, uses proven repair and independently confirms recovery |
 | Performance optimization | T1 | performance doctrine/ledger foundations | some timing/resource evidence exists | Bess still chooses most speed experiments and interprets bottlenecks | Kevin measures queue/exec/total time, identifies bottlenecks, runs safe experiments, keeps only evidence-backed improvements |
@@ -65,7 +65,7 @@ Do not promote merely because Bess believes Kevin could do it.
 Highest-value near-term transfers:
 
 1. **Work selection T2 -> T3/T4:** Kevin must stop needing Bess to refill stale/duplicate control-plane slots when useful backlog exists.
-2. **HQ direct chat T1 -> T3:** typed production crossing, Omen install, local monitoring and real owner round trip.
+2. **HQ direct chat T1 -> T3:** preserve foreground closure; obtain missing actual correlation/replay/deduplication and local-monitoring evidence.
 3. **Reader T1 -> T3:** prove real E2E evidence acquisition/interpretation and let Kevin use Reader in other workflows.
 4. **Skill growth T3 -> T4:** Kevin identifies repeated GREEN sequences and advances useful composites without Bess hand-staging each one.
 5. **Maintenance T2 -> T4:** known failure -> Kevin detection -> typed repair -> independent Benchmark/postcondition -> durable lesson.
@@ -83,4 +83,6 @@ The goal of this ledger is to watch the operational dependency shrink:
 
 ## Current proof checkpoint
 
-See `KEVIN-RECOVERY-AND-CONTINUATION-2026-09-02.md`. Watchdog ProbeOnly and UI recovery are proven; main exact reply remains rejected despite real zero-tool execution. No T4/T5 or completed autonomous owner outcome was added. Old Forge churn and Gateway-outage narratives are retired unless new evidence establishes a new incident.
+See [current review](KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md). Main exact reply now passes with correlated zero-tool transcript; useful tool execution remains unproven. Supervisor v1.8.8 is observed installed on the existing5m scheduler, and current IDLE_NO_ELIGIBLE_DEMAND matches the complete/blocked inventory. Cross-fingerprint attempt history is not preserved; this is not repaired. Foreground chat/staging closures are not replay proof. Desired pins remain unblessed; scheduled Maintenance recovery awaits a natural result despite a newer successful manifest receipt.
+
+All T-levels remain unchanged. No T4/T5 or Bess-responsibility retirement is added. This reconciliation itself is Bess-maintained continuity, not Kevin autonomy.
