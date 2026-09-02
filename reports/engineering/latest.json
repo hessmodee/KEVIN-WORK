@@ -1,21 +1,17 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-02T11:07:26.7439803-06:00",
+    "generated_at":  "2026-09-02T11:09:26.0218242-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
                     "id":  "bess-recovery-evidence-kit-v1-20260902",
                     "operation":  "stage_composite_skill",
-                    "status":  "STAGED",
-                    "detail":  "Composite skill staged for Skill Lab."
+                    "status":  "DUPLICATE_IGNORED",
+                    "detail":  "Request id already processed."
                 },
     "result":  {
-                   "skill_id":  "kevin-recovery-evidence-kit",
-                   "version":  "1",
-                   "local_name":  "kevin-recovery-evidence-kit--1.json",
-                   "step_count":  2,
-                   "skill_sha256":  "9ED5D4B634728AB21CDF2DA4D79E4AAB915FA1C6A08C7ABD4698DB0147A14DDA"
+
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -31,17 +27,17 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  4.4
+                                     "heartbeat_age_seconds":  2.2
                                  },
                    "queues":  {
                                   "ready":  0,
                                   "running":  0,
-                                  "done":  12,
+                                  "done":  13,
                                   "failed":  1
                               },
                    "composite_skills":  {
-                                            "ready":  1,
-                                            "running":  0,
+                                            "ready":  0,
+                                            "running":  1,
                                             "done":  3,
                                             "failed":  1,
                                             "proven_count":  3,
@@ -79,13 +75,6 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-maintenance-intake-v1",
-                                    "enabled":  true,
-                                    "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-support-bridge-v1",
                                     "enabled":  true,
                                     "every_ms":  180000,
@@ -94,6 +83,13 @@
                                 },
                                 {
                                     "declaration_key":  "kevin-supervisor-v1",
+                                    "enabled":  true,
+                                    "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-maintenance-intake-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
                                     "last_status":  "ok",
