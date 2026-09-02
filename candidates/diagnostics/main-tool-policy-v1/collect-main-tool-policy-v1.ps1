@@ -16,15 +16,16 @@ function Get-TextSha256([string]$Text) {
 function Get-Prop([object]$Object,[string]$Name) {
     if ($null -eq $Object) { return $null }
     $prop = $Object.PSObject.Properties[$Name]
-    if ($null -ne $prop) { return $prop.Value }
+    # PowerShell otherwise enumerates arrays across the function boundary.
+    if ($null -ne $prop) { return ,$prop.Value }
     return $null
 }
 function Get-StringArray([object]$Value) {
-    if ($null -eq $Value) { return @() }
-    if ($Value -is [string]) { throw 'tool policy list must be an array' }
+    if ($null -eq $Value) { return ,@() }
+    if ($Value -isnot [array]) { throw 'tool policy list must be an array' }
     $items = @($Value)
     foreach ($item in $items) { if ($item -isnot [string]) { throw 'tool policy list item must be string' } }
-    return @($items | Sort-Object -Unique)
+    return ,@($items | Sort-Object -Unique)
 }
 function Get-PolicySummary([object]$Policy) {
     if ($null -eq $Policy) { $Policy = [pscustomobject]@{} }
@@ -37,14 +38,14 @@ function Get-PolicySummary([object]$Policy) {
     if ($allow.Count -gt 0 -and $alsoAllow.Count -gt 0) { throw 'allow and alsoAllow cannot coexist' }
     $effectiveAllow = @($allow) + @($alsoAllow)
     return [ordered]@{
-        present = ($Policy.PSObject.Properties.Count -gt 0)
+        present = (@($Policy.PSObject.Properties).Count -gt 0)
         profile = $profile
         allow_count = $allow.Count
         also_allow_count = $alsoAllow.Count
         deny_count = $deny.Count
-        allow_sha256 = Get-TextSha256 ($allow | ConvertTo-Json -Compress)
-        also_allow_sha256 = Get-TextSha256 ($alsoAllow | ConvertTo-Json -Compress)
-        deny_sha256 = Get-TextSha256 ($deny | ConvertTo-Json -Compress)
+        allow_sha256 = Get-TextSha256 (ConvertTo-Json -InputObject $allow -Compress)
+        also_allow_sha256 = Get-TextSha256 (ConvertTo-Json -InputObject $alsoAllow -Compress)
+        deny_sha256 = Get-TextSha256 (ConvertTo-Json -InputObject $deny -Compress)
         known_control_allowed = @($KnownControl | Where-Object { $effectiveAllow -contains $_ })
         protected_explicitly_allowed = @($Protected | Where-Object { $effectiveAllow -contains $_ })
         protected_explicitly_denied = @($Protected | Where-Object { $deny -contains $_ })
@@ -126,6 +127,25 @@ function Get-ProviderPolicy([object]$Container,[string]$Provider,[string]$Model)
 }
 
 if ($SelfTest) {
+    # Exercise parsed JSON too: callers must preserve 0/1/N collection shape.
+    foreach ($json in @('{}','{"allow":[]}','{"allow":["get_goal"]}','{"allow":["get_goal","exec"]}')) {
+        $p = $json | ConvertFrom-Json
+        $s = Get-PolicySummary $p
+        $v = Get-Prop $p 'allow'
+        $expectedCount = if ($null -eq $v) { 0 } else { $v.Count }
+        if ($s.allow_count -ne $expectedCount) { throw 'JSON array cardinality lost' }
+        $expectedJson = if ($expectedCount -eq 0) { '[]' } elseif ($expectedCount -eq 1) { '["get_goal"]' } else { '["exec","get_goal"]' }
+        if ($s.allow_sha256 -ne (Get-TextSha256 $expectedJson)) { throw 'JSON array hash shape lost' }
+    }
+    if ((Get-PolicySummary $null).present) { throw 'null policy must be absent' }
+    if ((Get-PolicySummary ([pscustomobject]@{})).present) { throw 'empty policy must be absent' }
+    $singletonConfig = '{"agents":{"list":[{"id":"main"}]}}' | ConvertFrom-Json
+    if ((Get-MainEntry $singletonConfig).id -ne 'main') { throw 'singleton agent list lost' }
+    foreach ($json in @('{"allow":"exec"}','{"allow":42}','{"allow":{}}','{"allow":[42]}','{"deny":"write"}')) {
+        $blocked = $false
+        try { Get-PolicySummary ($json | ConvertFrom-Json) | Out-Null } catch { $blocked = $true }
+        if (-not $blocked) { throw 'malformed list accepted' }
+    }
     $policy = [pscustomobject]@{ allow = @('get_goal','exec'); deny = @('write') }
     $summary = Get-PolicySummary $policy
     if ($summary.allow_count -ne 2 -or @($summary.protected_explicitly_allowed).Count -ne 1 -or $summary.protected_explicitly_allowed[0] -ne 'exec') { throw 'summary selftest failed' }
