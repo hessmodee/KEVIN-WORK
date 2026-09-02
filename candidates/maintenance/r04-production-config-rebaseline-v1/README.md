@@ -4,6 +4,8 @@ Status: **CANDIDATE ONLY / NOT INSTALLED**
 
 Purpose: close the single intentional Benchmark R04 drift created when Matt validated the fixed:main context/compaction repair on 2026-09-02, without reverting the good OpenClaw configuration and without weakening Benchmark.
 
+Proof workflow: `.github/workflows/r04-production-config-rebaseline-v1-proof.yml`.
+
 ## Exact approved identities
 
 - repaired `openclaw.json`: `23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5`
