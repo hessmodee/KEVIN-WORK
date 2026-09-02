@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-02T08:02:03.8299960-06:00",
+    "generated_at":  "2026-09-02T08:05:03.5446871-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,32 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788357537990,
-                                  "next_run_at_ms":  1788357717990
-                              },
-                              {
-                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
-                                  "declaration_key":  "kevin-hq-live-pulse-v15",
-                                  "name":  "Kevin HQ Live Pulse v1.5",
-                                  "enabled":  true,
-                                  "every_ms":  60000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788357699468,
-                                  "next_run_at_ms":  1788357759468
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788357567137,
-                                  "next_run_at_ms":  1788357867137
+                                  "last_run_at_ms":  1788357718014,
+                                  "next_run_at_ms":  1788357898014
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -103,6 +79,30 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788357608769,
                                   "next_run_at_ms":  1788357908769
+                              },
+                              {
+                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
+                                  "declaration_key":  "kevin-hq-live-pulse-v15",
+                                  "name":  "Kevin HQ Live Pulse v1.5",
+                                  "enabled":  true,
+                                  "every_ms":  60000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788357879529,
+                                  "next_run_at_ms":  1788357939529
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788357867159,
+                                  "next_run_at_ms":  1788358167159
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -134,19 +134,25 @@
                      "last_brief":  "20260901-070846-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-09-02T07:57:24.7437421-06:00",
+                      "at":  "2026-09-02T08:03:12.3181818-06:00",
                       "status":  "FAIL_CRITICAL_REGRESSION",
                       "regression":  {
-                                         "passed":  29,
-                                         "total":  30,
-                                         "percent":  96.7,
-                                         "critical_failures":  1,
+                                         "passed":  23,
+                                         "total":  25,
+                                         "percent":  92,
+                                         "critical_failures":  2,
                                          "failed":  [
                                                         {
                                                             "id":  "R05",
                                                             "category":  "config",
                                                             "critical":  true,
                                                             "detail":  "Reader config frozen"
+                                                        },
+                                                        {
+                                                            "id":  "R11",
+                                                            "category":  "scheduler",
+                                                            "critical":  true,
+                                                            "detail":  "cron list exit=1"
                                                         }
                                                     ]
                                      },
@@ -166,7 +172,7 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-09-02T07:59:28.0089491-06:00",
+                        "at":  "2026-09-02T08:04:28.1462308-06:00",
                         "status":  "NO_MANIFEST",
                         "manifest_id":  "",
                         "stage_path":  "",
@@ -178,5 +184,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "F6CB3FC4D66EFE01477867F78B044E0CEA0F400356993823FB4FA8A2EB861A76"
+    "semantic_hash":  "55D53FAA4537CEA4E115560AFD369FF32776917B3B456C18505214AE059C780B"
 }
