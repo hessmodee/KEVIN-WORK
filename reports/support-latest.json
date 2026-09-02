@@ -1,11 +1,11 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-01T21:29:56.5738567-06:00",
+    "generated_at":  "2026-09-01T21:33:38.4295133-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
-                   "supervisor":  "47A0A1D0E3F744E972E2F2239F100CA2B009ABD3928D0281E4587A364B7C27AC",
+                   "supervisor":  "F5D8C9740D384CC576D4BD70A3940B51AA1FCF398C7085E59DB20C01E9180138",
                    "benchmark":  "02447EE8F3302E3EA1EF00290DBA6804F30FAC9F46CAE8714F402EA2D013CC38",
                    "forge":  "433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A",
                    "goal_os":  "B20C7AC8EDC35C656ED544C4D13D3EB4FF4A79453AF0F49BD60B7DF31092AEF0",
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788319611203,
-                                  "next_run_at_ms":  1788319791203
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788319504275,
-                                  "next_run_at_ms":  1788319804275
+                                  "last_run_at_ms":  1788319791218,
+                                  "next_run_at_ms":  1788319971218
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,8 +77,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788319756899,
-                                  "next_run_at_ms":  1788319816899
+                                  "last_run_at_ms":  1788319939380,
+                                  "next_run_at_ms":  1788319999380
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788319804289,
+                                  "next_run_at_ms":  1788320104289
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -101,8 +101,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788319787350,
-                                  "next_run_at_ms":  1788319967350
+                                  "last_run_at_ms":  1788319967370,
+                                  "next_run_at_ms":  1788320147370
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -134,15 +134,20 @@
                      "last_brief":  "20260901-070846-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-09-01T21:28:57.3661695-06:00",
-                      "status":  "PASS",
+                      "at":  "2026-09-01T21:33:26.7927883-06:00",
+                      "status":  "FAIL_REGRESSION",
                       "regression":  {
-                                         "passed":  30,
+                                         "passed":  29,
                                          "total":  30,
-                                         "percent":  100,
+                                         "percent":  96.7,
                                          "critical_failures":  0,
                                          "failed":  [
-
+                                                        {
+                                                            "id":  "R14",
+                                                            "category":  "scheduler",
+                                                            "critical":  false,
+                                                            "detail":  "everyMs=300000"
+                                                        }
                                                     ]
                                      },
                       "model_status":  "SKIPPED_NOT_DUE"
@@ -161,11 +166,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-09-01T21:28:57.4705223-06:00",
-                        "status":  "APPLIED_PREAUTHORIZED_PROVEN",
-                        "manifest_id":  "main-canary-16k-clean-20260902-212813",
+                        "at":  "2026-09-01T21:33:38.1726500-06:00",
+                        "status":  "APPLY_FAILED",
+                        "manifest_id":  "ensure-autonomy-cadence-5m-20260902-213254",
                         "stage_path":  "",
-                        "detail":  "Applied/audited and independently verified."
+                        "detail":  "cadence reconciliation rejected: benchmark failed exit=1"
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -173,5 +178,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "5B52AA70AF846D8579E74CF317B50E25FFEE2D5601AEFBE35290EA80A0EF36ED"
+    "semantic_hash":  "2F94E7D80BCD1DDDB4C5B8C5F91D4AC1C0A30406E4954F0FB3C62FC2B676402F"
 }
