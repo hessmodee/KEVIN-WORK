@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-chat-handoff-checkpoint",
-  "generated_at": "2026-09-02T05:10:31Z",
+  "generated_at": "2026-09-02T07:22:45Z",
   "current_sprint": "Useful typed autonomy, durable retry history and outcome provenance",
   "start_here_path": "KEVIN-START-HERE.md",
   "handover_path": "AI-HANDOVER.md",
@@ -20,8 +20,9 @@
   "production_proven": [
     "Fixed-main exact reply and complete zero-tool transcript OMEN_PROVEN at23:02 MDT",
     "Supervisor v1.8.8 observed installed; existing scheduler5m; no useful autonomous outcome proved",
-    "UI heartbeat independently fresh at23:10 MDT",
-    "Benchmark30/30 critical0 at23:07 MDT"
+    "UI heartbeat4.4s independently fresh at01:22 MDT",
+    "Benchmark30/30 critical0 at01:17 MDT",
+    "Maintenance Intake scheduled recovery remains observed ok/0 errors in Support01:19 and Engineering01:22 MDT"
   ],
   "runtime_convergence": {
     "gateway_rpc": true,
@@ -51,11 +52,6 @@
       "name": "Owner outcome evidence",
       "proof_level": "FOREGROUND_COMPLETE_CLOSURES_REFERENCED_PROOFS_NOT_RETRIEVABLE",
       "next_boundary": "Sanitized correlation/restart/replay/deduplication and independent trial receipts; preserve completed items."
-    },
-    {
-      "name": "Maintenance scheduled health",
-      "proof_level": "LATEST_MANIFEST_TERMINAL_SCHEDULER_ERRORS5_OLDER_RUN",
-      "next_boundary": "Natural scheduled receipt after backoff or materially new diagnosis; no duplicate dispatch."
     }
   ],
   "cooled": [
@@ -79,14 +75,51 @@
     "reports/autonomy-master-scorecard.json",
     "reports/main-agent-canary-omen.json",
     "reports/autonomy-continuation-latest.json",
-    "docs/engineering/KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md"
+    "docs/engineering/KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md",
+    "docs/engineering/KEVIN-SELECTOR-CI-RECOVERY-2026-09-02.md"
   ],
   "privacy": {
     "contains_secrets": false,
     "contains_private_message_bodies": false,
     "public_safe_metadata_only": true
   },
-  "current_engineering_record": "docs/engineering/KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md",
-  "source_checkpoint": "b764d65bacd19f2b740b9f6421a7a7f8284a30f1",
-  "no_runtime_mutation": true
+  "current_engineering_record": "docs/engineering/KEVIN-SELECTOR-CI-RECOVERY-2026-09-02.md",
+  "source_checkpoint": "8a4d3b2eb05f39fe4d701971f5c9ea945cee5a7f",
+  "no_runtime_mutation": true,
+  "desired_state_review": {
+    "reported_state": "HEALTHY",
+    "reported_drift_count": 0,
+    "reported_at": "2026-09-02T01:18:05-06:00",
+    "repo_pins_match_observed": false,
+    "source_provenance_resolved": false,
+    "anchor_change_authorized_by_this_review": false
+  },
+  "ci_repair": {
+    "source_commit": "dc368d0ab86fe5dae0af960cd0a0d3f2cf7a949c",
+    "run_id": 33597815086,
+    "status": "SUCCESS",
+    "tests": 13,
+    "scope": "CI_ONLY",
+    "runtime_selector_changed": false,
+    "budget_history_repaired": false
+  },
+  "scoped_hold": {
+    "status": "PRESERVED_PENDING_ISOLATION_RECEIPT",
+    "source_commit": "b632929b6dee535abd0e95bac3f007fc33b886c8",
+    "source_path": "reports/STATUS.md",
+    "scope": "isolation-dependent layer only",
+    "write_proof": "ALREADY_SATISFIED_DO_NOT_REPEAT",
+    "release_condition": "fresh correlated isolation receipt or explicit superseding owner directive",
+    "independent_green_work": "ALLOWED_WITH_CURRENT_AUTHORITY_AND_WIP",
+    "owner_attribution": "NOT_INFERRED_FROM_COMMIT_AUTHOR"
+  },
+  "continuity_review": {
+    "source_commit": "8a4d3b2eb05f39fe4d701971f5c9ea945cee5a7f",
+    "evidence_at": "2026-09-02T07:22:45Z",
+    "scope": "CANONICAL_CONTINUITY_ONLY",
+    "runtime_mutation": false,
+    "manifest_mutation": false,
+    "retry_budget_mutation": false,
+    "transfer_promotion": false
+  }
 }
