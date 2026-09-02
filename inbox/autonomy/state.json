@@ -61,7 +61,8 @@
   "retry_history_review": {
     "status": "UNRESOLVED_NOT_REPAIRED",
     "record": "docs/engineering/KEVIN-CONTINUITY-REVIEW-2026-09-02-0510.md",
-    "reset_authorized": false
+    "reset_authorized": false,
+    "executable_regression_record": "docs/engineering/KEVIN-HISTORY-CONTRACT-EVAL-2026-09-02.md"
   },
   "ci_contract": {
     "status": "CI_PROVEN",
@@ -90,5 +91,39 @@
     "manifest_mutation": false,
     "retry_budget_mutation": false,
     "transfer_promotion": false
-  }
+  },
+  "history_contract_evaluation": {
+    "status": "CI_CHARACTERIZED_BASELINE_NONCONFORMANT_NOT_REPAIRED",
+    "consumer": "next governed controller qualification",
+    "report": "docs/engineering/KEVIN-HISTORY-CONTRACT-EVAL-2026-09-02.md",
+    "branch": "chief-engineer/history-contract-20260902",
+    "source_commit": "4cbad271fcd35a0437a30fbd804d0e0c53be6113",
+    "run_id": 33608179462,
+    "job_id": 100176896681,
+    "baseline_sha256": "F5D8C9740D384CC576D4BD70A3940B51AA1FCF398C7085E59DB20C01E9180138",
+    "cases": 14,
+    "conforming_cases": 8,
+    "contract_violations": 6,
+    "platforms": [
+      "Windows PowerShell 5.1",
+      "PowerShell 7"
+    ],
+    "strict_acceptance": "REJECTED_BASELINE",
+    "production_mutation": false,
+    "runtime_repaired": false,
+    "owner_outcome_proven": false,
+    "eval_lane": "COMPLETE",
+    "attempt_history": [
+      {
+        "run_id": 33608036212,
+        "result": "HARNESS_EXIT_PROPAGATION_FAILURE_AFTER_EXPECTED_NEGATIVE_ASSERTIONS"
+      },
+      {
+        "run_id": 33608179462,
+        "result": "EXPECTED_BASELINE_RESULTS_AND_STRICT_REJECTION_VERIFIED"
+      }
+    ],
+    "remaining": "Family alias aggregation, validated evidence reopening, legacy-history recovery, verified bootstrap, real crash/restart/effect replay, COMPLETE admission and useful tool outcomes still required."
+  },
+  "current_engineering_record": "docs/engineering/KEVIN-HISTORY-CONTRACT-EVAL-2026-09-02.md"
 }
