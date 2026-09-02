@@ -1860,7 +1860,7 @@ function Get-CanaryTranscriptEvidence([object]$Obj,[string]$ExpectedMessage,[dat
 }
 
 function Run-MainAgentCanary {
-    $message='Reply with exactly KEVIN_MAIN_AGENT_CANARY_OK and no other text. Do not call tools.'
+    $message='Reply with exactly KEVIN_MAIN_AGENT_CANARY_OK and no other text. Do not call tools. /no_think'
     $canarySession='agent:main:kevin-canary-'+[guid]::NewGuid().ToString('N')
     $canaryStarted=Get-Date
     $gw=$null
@@ -1907,6 +1907,12 @@ function Run-MainAgentCanary {
     $shape=Get-MainCanaryShape $o $finalText
     $trace=Get-CanaryTranscriptEvidence $o $message $canaryStarted
     $shape['isolated_session']=$true;$shape['thinking']='off';$shape['transcript']=$trace
+    $shape['qwen_soft_no_think']=$true
+    $shape['final_last_line_exact']=((@($finalText-split"`n")[-1]).Trim()-ceq'KEVIN_MAIN_AGENT_CANARY_OK')
+    $shape['final_line_count']=@($finalText-split"`n").Count
+    $shape['reasoning_preface']=($finalText-match'(?i)^(we need|i need|the user|okay|let me|i should|need to|alright)')
+    $actualModel=[string](Get-OptionalPathValue $o @('result','meta','agentMeta','model'))
+    $shape['qwen_model_reported']=($actualModel-match'(?i)qwen')
     if($trace.complete){
         if($shape.tool_evidence_present -and $shape.tool_evidence_calls-ne$trace.tool_calls){throw 'CLI and transcript tool evidence contradict'}
         $shape.tool_evidence_present=$true;$shape.tool_evidence_calls=$trace.tool_calls;$shape.tool_evidence_source='CORRELATED_LOCAL_TRANSCRIPT'
