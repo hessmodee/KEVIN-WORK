@@ -1,0 +1,56 @@
+name: Fixed Main Self-Repair v1 Proof
+
+on:
+  push:
+    branches:
+      - bess/fixed-main-self-repair-v1
+    paths:
+      - 'candidates/self-repair/fixed-main-recovery-v1/**'
+      - '.github/workflows/fixed-main-self-repair-v1-proof.yml'
+  pull_request:
+    paths:
+      - 'candidates/self-repair/fixed-main-recovery-v1/**'
+      - '.github/workflows/fixed-main-self-repair-v1-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.12', '3.13']
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Reject authority-expanding implementation surfaces
+        shell: pwsh
+        run: |
+          $root='candidates/self-repair/fixed-main-recovery-v1'
+          $code=Get-Content -LiteralPath "$root/contract.py" -Raw
+          foreach($bad in @('subprocess','os.system','Popen(','requests.','urllib.request','socket.','eval(','exec(')) {
+            if($code.Contains($bad)){ throw "forbidden implementation surface: $bad" }
+          }
+          foreach($bad in @('openclaw.json','Start-Process','Invoke-Expression','cmd.exe','powershell.exe')) {
+            if($code.Contains($bad)){ throw "candidate unexpectedly targets production/runtime: $bad" }
+          }
+          Write-Host 'AUTHORITY_BOUNDARY_PASS candidate=pure_function production_effect=NONE'
+      - name: Run deterministic and negative tests
+        working-directory: candidates/self-repair/fixed-main-recovery-v1
+        shell: pwsh
+        run: |
+          python -m unittest -v test_contract.py
+          if($LASTEXITCODE -ne 0){ throw 'fixed-main candidate tests failed' }
+      - name: Compile candidate
+        working-directory: candidates/self-repair/fixed-main-recovery-v1
+        shell: pwsh
+        run: |
+          python -m py_compile contract.py test_contract.py
+          if($LASTEXITCODE -ne 0){ throw 'candidate compile failed' }
