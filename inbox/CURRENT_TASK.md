@@ -1,5 +1,15 @@
 # CURRENT_TASK
 
+## Owner-relayed Grok turnover update — 2026-09-02T16:21:46.261Z
+
+Matt supplied Grok's cold-start handover protocol. New first read: `docs/engineering/KEVIN-TURNOVER-LATEST.md`, followed by `docs/engineering/KEVIN-TURNOVER-REFRESH-RULE-v1.md`. Grok reports refreshing the turnover after every material beat, making local CURRENT_TASK a short pointer, and wiring the entry point into lean MEMORY/AGENTS. Apply the actual refresh rule after obtaining and reading it; do not invent missing contents.
+
+Availability check: neither turnover file was present in GitHub main or the accessible local workspace at this checkpoint. GitHub CURRENT_TASK still contained Bess's prior checkpoint below. Their presence/content on Omen has therefore not been independently verified. Obtain the actual files through the approved sync/export or owner attachment before declaring the handover reconciled; do not create substitute turnover files over Grok's work.
+
+Grok's relayed note says the autonomy unlock was still running and its turnover would be refreshed when it landed. That note has no supplied execution timestamp; preserve it as owner-reported work, not verified current completion or inactivity. Reconcile the latest local turnover, active ownership and fresh receipts before another production/proof crossing. Bess's earlier release below does not establish that no newer foreground work exists. Independent authorized read-only/candidate work remains available.
+
+The weekday 9am/1pm/5pm Mountain Time refresh routine is also reported by Grok, not independently verified as a ChatGPT task. This update creates or changes no schedule and dispatches no machine action. Preserve the single-writer rule.
+
 ## Foreground checkpoint — 2026-09-02T16:15:48.891Z
 
 Matt resumed Bess after GrokBot exhausted credits. Bess completed this diagnostic crossing; both typed read-only Maintenance requests and the expired Engineering snapshot were archived and retired. Support 10:10 MDT confirms NO_MANIFEST; Engineering 10:01 confirms NO_REQUEST and a fresh UI heartbeat. No foreground production request is outstanding at this checkpoint. Kevin Chief Engineer remains the sole enabled scheduled Kevin coordinator and may continue the next authorized bounded step. A new active foreground session/request retains priority; never infer its absence solely from zero workers.
