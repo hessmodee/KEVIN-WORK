@@ -89,10 +89,9 @@ new=r'''        $deferReason=''
 if text.count(old)!=1:raise SystemExit('anti-spin block anchor mismatch')
 text=text.replace(old,new,1)
 
-self_anchor="""        Write-Host 'KEVIN SUPERVISOR v1.8.5 SELFTEST PASS selector_first=true gateway_agent=fixed-main gateway_rpc_only=true gateway_probe_retries=3 main_preflight=true no_forge_dispatch=true anti_spin=true openclaw_native_node=true shell_shim_bypassed=true native_timeout=180s arbitrary_shell=false authority_expansion=false'"""
-self_anchor=self_anchor.replace('v1.8.5','v1.8.6')
+self_anchor="""    Write-Host 'KEVIN SUPERVISOR v1.8.6 SELFTEST PASS selector_first=true gateway_agent=fixed-main gateway_rpc_only=true gateway_probe_retries=3 main_preflight=true no_forge_dispatch=true anti_spin=true openclaw_native_node=true shell_shim_bypassed=true native_timeout=180s arbitrary_shell=false authority_expansion=false'"""
 if text.count(self_anchor)!=1:raise SystemExit('selftest marker anchor mismatch')
-extra=self_anchor+"\n        Write-Host 'KEVIN SUPERVISOR v1.8.6 WORK-CONSERVATION PASS fingerprint_scoped_cooldown=true alternative_reselection=true local_exclusion_only=true canonical_queue_unchanged=true no_global_idle_with_alternative=true authority_expansion=false'"
+extra=self_anchor+"\n    Write-Host 'KEVIN SUPERVISOR v1.8.6 WORK-CONSERVATION PASS fingerprint_scoped_cooldown=true alternative_reselection=true local_exclusion_only=true canonical_queue_unchanged=true no_global_idle_with_alternative=true authority_expansion=false'"
 text=text.replace(self_anchor,extra,1)
 OUT.write_text(text,encoding='utf-8',newline='')
 print('SUPERVISOR_V186_GENERATED sha256='+sha(OUT.read_bytes()))
