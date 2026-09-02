@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-09-01T18:46:00.2643708-06:00",
+    "generated_at":  "2026-09-01T19:18:00.2622254-06:00",
     "request":  {
-                    "id":  "refresh-autonomy-after-proven-maintenance-20260902-0044",
-                    "verb":  "refresh_autonomy_telemetry",
-                    "target":  "autonomy-telemetry"
+                    "id":  "wake-convergence-audit-20260902-0117",
+                    "verb":  "run_typed_maintenance",
+                    "target":  "kevin-maintenance-v1"
                 },
-    "status":  "IDLE_TERMINAL",
-    "detail":  "Current work order is already terminal; awaiting replacement",
+    "status":  "SUCCESS",
+    "detail":  "maintenance proven status=ALREADY_APPLIED_PROVEN manifest=runtime-convergence-v1343-20260902-0116",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
