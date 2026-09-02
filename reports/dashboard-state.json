@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-02T03:14:54.0305641-06:00",
+  "generated_at": "2026-09-02T03:20:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 29,
-    "cpu_pct": 17,
+    "memory_pct": 27,
+    "cpu_pct": 12,
     "gpu": "RTX 3060",
-    "gpu_pct": 21
+    "gpu_pct": 30
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-01T13:37:01-06:00",
-        "estimated": false,
-        "ram": 26,
-        "cpu": 3,
-        "gpu": 45
-      },
       {
         "at": "2026-09-01T13:38:32-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 29,
         "cpu": 17,
         "gpu": 21
+      },
+      {
+        "at": "2026-09-02T03:20:14-06:00",
+        "estimated": false,
+        "ram": 27,
+        "cpu": 12,
+        "gpu": 30
       }
     ],
     "ram": [
-      26,
       25,
       25,
       26,
@@ -798,10 +797,10 @@
       28,
       28,
       28,
-      29
+      29,
+      27
     ],
     "cpu": [
-      3,
       7,
       7,
       3,
@@ -896,10 +895,10 @@
       32,
       32,
       11,
-      17
+      17,
+      12
     ],
     "gpu": [
-      45,
       10,
       10,
       63,
@@ -994,11 +993,12 @@
       24,
       24,
       38,
-      21
+      21,
+      30
     ]
   },
   "weather": {
-    "summary": "Overnight 52 | Wind 9 mph | Mostly Clear"
+    "summary": "Overnight 52 | Wind 12 mph | Mostly Clear"
   },
   "capabilities": [
     {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-02T03:05:15-06:00",
+      "at": "2026-09-02T03:20:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-02T03:14:54.0305641-06:00",
+    "last": "2026-09-02T03:20:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1412,7 +1412,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-02T03:14:54.0305641-06:00",
+    "generated_at": "2026-09-02T03:19:54.0852023-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
