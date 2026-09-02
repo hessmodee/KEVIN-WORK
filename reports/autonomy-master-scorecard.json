@@ -1,9 +1,9 @@
 {
   "schema": 1,
   "kind": "kevin-autonomy-master-scorecard",
-  "generated_at": "2026-09-02T01:05:30Z",
+  "generated_at": "2026-09-02T01:53:30Z",
   "safe_for_public_repo": true,
-  "north_star": "Kevin owns routine goal execution, proof, recovery, learning, communication and computer work inside owner-approved boundaries while Bess intervention trends toward zero.",
+  "north_star": "Kevin owns routine goal execution, proof, recovery, learning, communication and computer work inside owner-approved boundaries while Bess/GrokBot routine intervention trends toward zero.",
   "wip_policy": {
     "max_active_production_crossings": 1,
     "max_staging_eval": 1,
@@ -11,40 +11,41 @@
     "round_robin_forge_without_demand": false
   },
   "global_health": {
-    "benchmark": "PASS_30_OF_30_CRITICAL_0",
-    "autonomy": "NOT_OUTCOME_PROVEN_LEGACY_SUPERVISOR_IDLE",
-    "ui_bridge": "FRESH_AFTER_TYPED_RECOVERY",
-    "maintenance": "V1_3_42_INSTALLED_PROVEN",
-    "watchdog": "V1_6_0_PROBE_ONLY_HEALTHY_PROVEN",
-    "main_agent": "REAL_TURN_ZERO_TOOLS_PROVEN_EXACT_REPLY_REJECTED",
+    "benchmark": "PASS_30_OF_30_CRITICAL_0_AT_1950_MDT",
+    "autonomy": "NOT_OUTCOME_PROVEN_LEGACY_SUPERVISOR_IDLE_WITH_OWNER_DEMAND",
+    "ui_bridge": "TASK_PRESENT_HEARTBEAT_STALE_REQUIRES_FRESH_PROOF",
+    "maintenance": "RUNTIME_CONVERGENCE_V1343_ALREADY_APPLIED_PROVEN",
+    "watchdog": "V1_6_0_PROBE_ONLY_HEALTHY_PROVEN_EARLIER_CHECKPOINT",
+    "main_agent": "V1343_REAL_ISOLATED_TURN_ZERO_TOOLS_TRANSCRIPT_PROVEN_EXACT_REPLY_REJECTED_NO_KEVIN_TOOLS_VISIBLE",
     "design_forge_v40": "INSTALLED_NO_NEW_DEMANDLESS_EVALUATIONS",
-    "local_desired_state": "DRIFT_UNRESOLVED",
-    "current_candidate": "V1_3_43_FINAL_QUALIFICATION_AND_SUPERVISOR_V1_8_8"
+    "local_desired_state": "DRIFT_COUNT_3_UNRESOLVED",
+    "current_candidate": "FIXED_MAIN_ROOT_CAUSE_DIAGNOSIS_THEN_SUPERVISOR_V1_8_8_CONTROLLER_CROSSING",
+    "scheduled_chatgpt": "ONLY_KEVIN_CHIEF_ENGINEER_ENABLED_FOREGROUND_GROKBOT_OUTRANKS_WHILE_ACTIVE"
   },
   "lanes": [
     {
       "id": "runtime-convergence",
       "priority": 0,
-      "proof": "MAINTENANCE_V1342_AND_WATCHDOG_PROBE_OMEN_PROVEN",
+      "proof": "V1343_CANARY_EXECUTED_GATEWAY_AND_ZERO_TOOL_TRANSCRIPT_PROVEN_SEMANTIC_REJECT",
       "transfer": "T2",
-      "blocker": "Exact main reply still rejects; local desired-state collector mismatch unresolved.",
-      "next_evidence": "Final qualified runner install, fixed isolated canary, controller crossing."
+      "blocker": "Exact main reply still rejects after materially testing qwen /no_think; fixed-main exposes 8 tools but zero Kevin-prefixed tools; local desired-state drift remains unresolved.",
+      "next_evidence": "Materially new fixed-main model/provider/template/tool-registry diagnosis -> bounded qualified experiment -> exact semantic acceptance and explicit intended tool-surface proof."
     },
     {
       "id": "work-selection",
       "priority": 1,
-      "proof": "SUPERVISOR_V188_CI_PROVEN_NOT_INSTALLED",
+      "proof": "SUPERVISOR_V188_CI_PROVEN_NOT_LIVE_PROVEN",
       "transfer": "T2",
-      "blocker": "Live compatibility sentinel still idle. Autonomous useful outcomes unproven.",
-      "next_evidence": "Exact controller install and unattended selection/execution/semantic verification/next wake."
+      "blocker": "Legacy production Supervisor cycle 449 reports NO_ELIGIBLE_MISSION with zero workers while owner-demand objectives remain; autonomous useful outcomes unproven.",
+      "next_evidence": "After main prerequisite: exact controller/selector typed install, one existing scheduler at qualified 5m cadence, unattended selection with no supplied work-item ID, typed useful execution, semantic verification, restart/replay and subsequent decision."
     },
     {
       "id": "hq-direct-chat",
       "priority": 2,
-      "proof": "CI-PROVEN_SOURCE_ON_MAIN",
+      "proof": "CI-PROVEN_FALLBACK_SOURCE_ON_MAIN_NATIVE_PRIVATE_CHAT_PREFERRED",
       "transfer": "T1",
-      "blocker": "Native Gateway is healthy; main reply contract and genuine owner roundtrip remain unproven.",
-      "next_evidence": "Exact main canary; real Matt message and correlated response; restart/replay; private mobile transport."
+      "blocker": "Gateway transport is healthy but fixed-main semantic/tool boundary and genuine owner roundtrip remain unproven; UI Bridge heartbeat is currently stale evidence.",
+      "next_evidence": "Real Matt message -> correlated Kevin reply -> continuity/refresh/restart/replay/dedupe -> authenticated private mobile reachability."
     },
     {
       "id": "reader",
@@ -59,8 +60,8 @@
       "priority": 4,
       "proof": "OMEN-PROVEN_3_COMPOSITES_AND_LOCAL_WORKSHOP_CLI_OBSERVED",
       "transfer": "T3",
-      "blocker": "Workshop autonomous/approval policy is unset or unknown and no Kevin-originated useful proposal has been proven",
-      "next_evidence": "Kevin detects a repeated real GREEN procedure, proposes/evaluates a reusable procedure or executable composite and proves usefulness without Bess hand-authoring"
+      "blocker": "No Kevin-originated useful procedure/trajectory has yet been proven through proposal/evaluation/reuse without Bess hand-authoring.",
+      "next_evidence": "Kevin detects a repeated real GREEN procedure, proposes/evaluates a reusable procedure or executable composite and proves usefulness repeatedly."
     },
     {
       "id": "staging",
@@ -68,7 +69,7 @@
       "proof": "PARTIAL",
       "transfer": "T1",
       "blocker": "not yet an autonomous replay/negative/rollback/idempotency/resource comparison lane",
-      "next_evidence": "one candidate automatically produces promote/reject evidence including failure and recovery"
+      "next_evidence": "staging-trajectory-reliability-v1 produces real promote/reject evidence including failure and recovery"
     },
     {
       "id": "gmail",
@@ -97,10 +98,10 @@
     {
       "id": "handoff-memory",
       "priority": 9,
-      "proof": "DURABLE_REPO_PROTOCOL_AND_RECONCILED_BOOTSTRAP_SOURCE",
+      "proof": "DURABLE_REPO_PROTOCOL_RECONCILED_FOR_GROKBOT_TAKEOVER",
       "transfer": "T1",
-      "blocker": "repo source is reconciled but exact Omen bootstrap-byte consumption and native memory-flush behavior remain unproven",
-      "next_evidence": "Kevin automatically consumes/maintains native memory + handoff + transfer/master checkpoints after substantive work and replacement session resumes accurately"
+      "blocker": "Repository continuity is strong but Kevin-owned native memory/automatic handoff maintenance and replacement-session consumption remain unproven.",
+      "next_evidence": "Kevin automatically consumes/maintains native memory + handoff + transfer/master checkpoints after substantive work and a replacement session resumes accurately without Bess."
     },
     {
       "id": "business-value",
@@ -114,11 +115,12 @@
   "no_spin": {
     "count_as_progress": [
       "proof-level transition",
-      "transfer-level promotion with retired Bess action",
+      "transfer-level promotion with retired Bess/GrokBot action",
       "accepted useful owner deliverable",
       "verified failure recovery",
       "incident-derived eval added",
-      "measured performance improvement"
+      "measured performance improvement",
+      "repeated independently selected useful owner outcomes"
     ],
     "do_not_count": [
       "heartbeat/pulse/dashboard churn",
@@ -127,7 +129,9 @@
       "duplicate request replay",
       "unconsumed candidate generation",
       "CI-only code with no production path",
-      "task/hash presence without runtime semantic proof"
+      "task/hash presence without runtime semantic proof",
+      "successful model turn without owner outcome",
+      "synthetic owner conversation"
     ]
   },
   "research_adoption": {
@@ -142,5 +146,5 @@
     "external_temporal_orchestrator": "DEFER_USE_NATIVE_TASK_FLOW_PATTERN_FIRST",
     "unrestricted_windows_exec": "REJECT_FOR_NORMAL_CONTROL_PLANE"
   },
-  "current_engineering_record": "docs/engineering/KEVIN-RECOVERY-AND-CONTINUATION-2026-09-02.md"
+  "current_engineering_record": "docs/engineering/GROKBOT-TAKEOVER-HANDOVER-2026-09-02.md"
 }
