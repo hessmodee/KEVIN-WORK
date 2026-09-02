@@ -57,4 +57,4 @@ The [version-pinned model schema](https://github.com/openclaw/openclaw/blob/v202
 
 Source repair: CI-PROVEN. Live R04 repair: TRANSPORT/SOURCE BLOCKED. Lesson delivery: PROVEN by the runtime receipt, T2 outside-dispatched for this step. No learning score, platform repair, new permission, or autonomous outcome is inferred.
 
-The only scheduled outside engineer remains Kevin Chief Engineer. It was already paused on entry; complete this handoff before resuming it. Kevin's local schedulers remain running. No duplicate automation is needed.
+The only scheduled outside engineer remains Kevin Chief Engineer. It was already paused on entry and was re-enabled after this foreground crossing with the updated checkpoint. Its existing hourly schedule was preserved. Kevin's local schedulers remained running. No duplicate automation was created.
