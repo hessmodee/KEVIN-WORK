@@ -7,6 +7,7 @@ on:
       - 'control-plane/autonomy/candidates/attempt_journal.py'
       - 'tests/test_history_evidence_recovery.py'
       - 'tests/test_attempt_journal.py'
+      - 'tests/test_attempt_journal_bounds.py'
       - 'tests/fixtures/history-public-receipts.json'
       - 'tools/review-published-history.py'
       - 'tools/check-history-eval-immutability.py'
@@ -32,6 +33,8 @@ jobs:
         run: python -m unittest discover -s tests -p test_history_evidence_recovery.py -v
       - name: Durable reservations and real process-death fixtures
         run: python -m unittest discover -s tests -p test_attempt_journal.py -v
+      - name: Bounded storage and operation failure recovery
+        run: python -m unittest discover -s tests -p test_attempt_journal_bounds.py -v
       - name: Record tested interpreter and database runtime
         run: python -c "import sys,sqlite3; print(sys.version); print('SQLite',sqlite3.sqlite_version)"
       - name: Replay exact published evidence without mutation
