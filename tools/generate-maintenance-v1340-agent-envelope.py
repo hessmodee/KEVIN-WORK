@@ -2,6 +2,7 @@ from pathlib import Path
 import hashlib
 import re
 
+# CI trigger note: runtime output remains deterministic from the pinned v1.3.39 parent.
 SRC=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.39.ps1')
 OUT=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.40.ps1')
 EXPECTED='1863A86CE3E03492CF438A09575CF8B77F3BEB0FA43695AA3DDC532940F292D2'
