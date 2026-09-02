@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-desired-state",
-  "version": "1.3",
+  "version": "1.4",
   "authority": {
     "owner_authorization": "Kevin Owner Authorization v1",
     "green_only": true,
@@ -15,14 +15,34 @@
     "forge": "433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A",
     "goal_os": "B20C7AC8EDC35C656ED544C4D13D3EB4FF4A79453AF0F49BD60B7DF31092AEF0",
     "support_bridge": "E72A2A635326CF1AB036404E64E274D2F56CE79CA5CEB268DBF9B2EA4B67BEA5",
-    "maintenance_runner": "3F926629917D49BD28FD492C6698146461BA5F362F09146A160CB221CBAEEE4E"
+    "maintenance_runner": "05A351E0C6500CE84CE5A65F0DDE0E1099AFD95A72ED5269B188211915E997D3"
   },
   "required_automations": [
-    {"declaration_key":"kevin-support-bridge-v1","name":"Kevin Support Bridge v1.1d","must_be_enabled":true},
-    {"declaration_key":"kevin-hq-live-pulse-v15","name":"Kevin HQ Live Pulse v1.5","must_be_enabled":true},
-    {"declaration_key":"kevin-maintenance-intake-v1","name":"Kevin Maintenance Intake v1.1d","must_be_enabled":true},
-    {"declaration_key":"kevin-supervisor-v1","name":"Kevin Supervisor v1.6 High Gear","must_be_enabled":true},
-    {"declaration_key":"kevin-benchmark-v1","name":"Kevin Benchmark v1.1c","must_be_enabled":true}
+    {
+      "declaration_key": "kevin-support-bridge-v1",
+      "name": "Kevin Support Bridge v1.1d",
+      "must_be_enabled": true
+    },
+    {
+      "declaration_key": "kevin-hq-live-pulse-v15",
+      "name": "Kevin HQ Live Pulse v1.5",
+      "must_be_enabled": true
+    },
+    {
+      "declaration_key": "kevin-maintenance-intake-v1",
+      "name": "Kevin Maintenance Intake v1.1d",
+      "must_be_enabled": true
+    },
+    {
+      "declaration_key": "kevin-supervisor-v1",
+      "name": "Kevin Supervisor v1.6 High Gear",
+      "must_be_enabled": true
+    },
+    {
+      "declaration_key": "kevin-benchmark-v1",
+      "name": "Kevin Benchmark v1.1c",
+      "must_be_enabled": true
+    }
   ],
   "health_contract": {
     "support_snapshot_max_age_minutes": 10,
@@ -50,10 +70,13 @@
     ]
   },
   "reconciled_from_proof": {
-    "at": "2026-09-01T08:55:30-06:00",
+    "at": "2026-09-02T00:44:00Z",
     "supervisor": "OMEN_PROVEN_V1_7_1",
     "forge": "OMEN_PROVEN_V4_0",
-    "maintenance": "OMEN_PROVEN_V1_3_22",
-    "benchmark": "PASS_30_OF_30_CRITICAL_0"
+    "maintenance": "OMEN_PROVEN_V1_3_41",
+    "benchmark": "PASS_30_OF_30_CRITICAL_0",
+    "maintenance_ci": "https://github.com/hessmodee/KEVIN-WORK/actions/runs/33576018186",
+    "maintenance_receipt": "install-maintenance-v1341-20260902-0037",
+    "support_generated_at": "2026-09-01T18:41:14.4348629-06:00"
   }
 }
