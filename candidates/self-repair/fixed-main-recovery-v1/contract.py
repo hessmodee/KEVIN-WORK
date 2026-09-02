@@ -6,6 +6,7 @@ No filesystem access, subprocesses, network calls, config writes, or authority c
 from __future__ import annotations
 
 from dataclasses import dataclass, asdict
+import json
 from typing import Any, Dict, Iterable, List, Mapping, MutableMapping, Tuple
 
 EXPECTED_MODEL = "ollama-chat-16k/qwen2.5:14b"
@@ -42,6 +43,8 @@ class MainFacts:
     reserve_tokens: Any
     keep_recent_tokens: Any
     main_agent_found: bool
+    reserve_tokens_present: bool
+    keep_recent_tokens_present: bool
 
 
 @dataclass(frozen=True)
@@ -114,34 +117,35 @@ def extract_main_facts(cfg: Mapping[str, Any]) -> MainFacts:
         reserve_tokens=compaction.get("reserveTokens"),
         keep_recent_tokens=compaction.get("keepRecentTokens"),
         main_agent_found=found,
+        reserve_tokens_present="reserveTokens" in compaction,
+        keep_recent_tokens_present="keepRecentTokens" in compaction,
     )
 
 
-def _state(value: Any, expected: int) -> str:
-    if value is None:
+def _state(value: Any, expected: int, present: bool) -> str:
+    if not present:
         return "ABSENT"
-    if isinstance(value, bool):
-        return "UNEXPECTED"
-    try:
-        return "EXPECTED" if int(value) == expected else "UNEXPECTED"
-    except (TypeError, ValueError):
-        return "UNEXPECTED"
+    return "EXPECTED" if type(value) is int and value == expected else "UNEXPECTED"
+
+
+def _exact_integer(value: Any, expected: int) -> bool:
+    return type(value) is int and value == expected
 
 
 def classify_main_config(cfg: Mapping[str, Any]) -> Dict[str, Any]:
     facts = extract_main_facts(cfg)
     exact_model = facts.model_ref == EXPECTED_MODEL
-    exact_context = facts.context_tokens == EXPECTED_CONTEXT and facts.num_ctx == EXPECTED_NUM_CTX
-    exact_floor = facts.reserve_tokens_floor == EXPECTED_RESERVE_FLOOR
-    reserve_state = _state(facts.reserve_tokens, EXPECTED_RESERVE)
-    keep_state = _state(facts.keep_recent_tokens, EXPECTED_KEEP_RECENT)
+    exact_context = _exact_integer(facts.context_tokens, EXPECTED_CONTEXT) and _exact_integer(facts.num_ctx, EXPECTED_NUM_CTX)
+    exact_floor = _exact_integer(facts.reserve_tokens_floor, EXPECTED_RESERVE_FLOOR)
+    reserve_state = _state(facts.reserve_tokens, EXPECTED_RESERVE, facts.reserve_tokens_present)
+    keep_state = _state(facts.keep_recent_tokens, EXPECTED_KEEP_RECENT, facts.keep_recent_tokens_present)
 
     drift: List[str] = []
     if not exact_model:
         drift.append("model_ref")
-    if facts.context_tokens != EXPECTED_CONTEXT:
+    if not _exact_integer(facts.context_tokens, EXPECTED_CONTEXT):
         drift.append("context_tokens")
-    if facts.num_ctx != EXPECTED_NUM_CTX:
+    if not _exact_integer(facts.num_ctx, EXPECTED_NUM_CTX):
         drift.append("num_ctx")
     if not exact_floor:
         drift.append("reserve_tokens_floor")
@@ -190,38 +194,59 @@ def build_known_repair_intents(cfg: Mapping[str, Any]) -> List[Dict[str, Any]]:
     return intents
 
 
-def _leaf_map(value: Any, path: str = "$") -> Dict[str, Any]:
+def _leaf_map(value: Any, path: tuple = ()) -> Dict[tuple, Any]:
+    # Typed path segments and typed values are comparison identities, never
+    # display strings or sentinel strings that config input can impersonate.
     if isinstance(value, Mapping):
+        if any(not isinstance(key, str) for key in value):
+            raise ContractError("configuration object keys must be strings")
         if not value:
-            return {path: "<EMPTY_OBJECT>"}
-        out: Dict[str, Any] = {}
-        for key in sorted(value, key=lambda x: str(x)):
-            out.update(_leaf_map(value[key], f"{path}.{key}"))
+            return {path: ("object", None)}
+        out: Dict[tuple, Any] = {}
+        for key in sorted(value):
+            out.update(_leaf_map(value[key], path + (("key", key),)))
         return out
     if isinstance(value, list):
         if not value:
-            return {path: "<EMPTY_ARRAY>"}
-        out: Dict[str, Any] = {}
+            return {path: ("array", None)}
+        out: Dict[tuple, Any] = {}
         for index, item in enumerate(value):
-            out.update(_leaf_map(item, f"{path}[{index}]"))
+            out.update(_leaf_map(item, path + (("index", index),)))
         return out
-    return {path: value}
+    if value is not None and type(value) not in (str, bool, int, float):
+        raise ContractError("configuration leaves must be JSON values")
+    if type(value) is float and (value != value or value in (float('inf'), float('-inf'))):
+        raise ContractError("configuration numbers must be finite")
+    return {path: (type(value).__name__, value)}
+
+
+def _display_path(path: tuple) -> str:
+    result = "$"
+    for kind, part in path:
+        if kind == "index":
+            result += f"[{part}]"
+        elif part.isidentifier():
+            result += "." + part
+        else:
+            result += "[" + json.dumps(part, ensure_ascii=True) + "]"
+    return result
 
 
 def semantic_leaf_diff(before: Mapping[str, Any], after: Mapping[str, Any]) -> List[Dict[str, Any]]:
     left = _leaf_map(before)
     right = _leaf_map(after)
-    paths = sorted(set(left) | set(right))
+    paths = sorted(set(left) | set(right), key=_display_path)
     changes: List[Dict[str, Any]] = []
     for path in paths:
-        if path in IGNORED_METADATA_PATHS:
+        display_path = _display_path(path)
+        if display_path in IGNORED_METADATA_PATHS:
             continue
         if path not in left:
-            changes.append({"status": "ADDED", "path": path})
+            changes.append({"status": "ADDED", "path": display_path})
         elif path not in right:
-            changes.append({"status": "REMOVED", "path": path})
+            changes.append({"status": "REMOVED", "path": display_path})
         elif left[path] != right[path]:
-            changes.append({"status": "CHANGED", "path": path})
+            changes.append({"status": "CHANGED", "path": display_path})
     return changes
 
 

@@ -56,3 +56,11 @@ Do not rename this candidate or failure family to reset retries. The family is:
 `fixed_main_context_overflow_compaction_budget`
 
 Unknown model/provider/context/reserve values are a new diagnostic condition, not permission to force the known repair.
+
+## Candidate safety hardening — 2026-09-02
+
+An independent review reproduced nine failing safety assertions on commit f092c891a68b3c943c03aa4b1276ace823fa35a8 while its original ten tests passed. Fractional/numeric-string reserves were coerced to expected integers, explicit null was treated as absence, and flattened semantic paths/values could hide unrelated changes (boolean vs integer, empty container vs sentinel string, dotted/index-like keys).
+
+The candidate now uses exact integer types, explicit field presence, typed path segments and typed leaf values. Thirteen additional tests retain these negatives and cover non-finite values, context types and forged allowed-path names. CI discovers both test modules; no original acceptance test was removed.
+
+This closes the demonstrated pure-function defects only. The fixture's OpenClaw field layout still needs qualification against the installed 2026.7.1-2 schema and sanitized exact-current configuration. Authored tool-policy counts are not session-effective inventory. There is no production wrapper, baseline change, tool grant, runtime installation, or responsibility-transfer promotion.

@@ -55,11 +55,11 @@ jobs:
         working-directory: candidates/self-repair/fixed-main-recovery-v1
         shell: pwsh
         run: |
-          python -m unittest -v test_contract.py
+          python -m unittest discover -v -p 'test*.py'
           if($LASTEXITCODE -ne 0){ throw 'fixed-main candidate tests failed' }
       - name: Compile candidate
         working-directory: candidates/self-repair/fixed-main-recovery-v1
         shell: pwsh
         run: |
-          python -m py_compile contract.py test_contract.py
+          python -m py_compile contract.py test_contract.py test_safety_negatives.py
           if($LASTEXITCODE -ne 0){ throw 'candidate compile failed' }
