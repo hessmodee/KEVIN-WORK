@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "kind": "kevin-responsibility-transfer-checkpoint",
-  "generated_at": "2026-09-02T01:05:30Z",
-  "north_star": "Transfer recurring operational responsibility from Bess to Kevin until Kevin owns normal authorized lifecycles end-to-end and Bess is not part of the routine operating loop.",
+  "generated_at": "2026-09-02T01:54:00Z",
+  "north_star": "Transfer recurring operational responsibility from Bess/GrokBot to Kevin until Kevin owns normal authorized lifecycles end-to-end and remote human/AI operators are not part of the routine operating loop.",
   "transfer_levels": {
     "T0": "BESS-DEPENDENT",
     "T1": "BESS-BUILT / KEVIN-TESTED",
@@ -34,12 +34,12 @@
   },
   "highest_value_transfers": [
     "work selection T2 -> T3/T4",
-    "HQ direct chat T1 -> T3",
+    "HQ direct chat T1 -> T3/T4",
+    "Maintenance T2 -> T4",
     "Reader T1 -> T3",
     "Skill growth T3 -> T4",
-    "Maintenance T2 -> T4",
     "Gmail T1 -> T3/T4",
-    "Tick T2 -> T4",
+    "Tick/work conservation T2 -> T4",
     "Handoff continuity T1 -> T4"
   ],
   "promotion_test": [
@@ -73,6 +73,7 @@
     "ledger": "docs/engineering/RESPONSIBILITY-TRANSFER-LEDGER-v1.md",
     "current_task": "inbox/CURRENT_TASK.md",
     "handover": "AI-HANDOVER.md",
+    "takeover": "docs/engineering/GROKBOT-TAKEOVER-HANDOVER-2026-09-02.md",
     "start_here": "KEVIN-START-HERE.md"
   },
   "privacy": {
@@ -80,11 +81,13 @@
     "contains_secrets": false,
     "contains_private_message_bodies": false
   },
-  "current_engineering_record": "docs/engineering/KEVIN-RECOVERY-AND-CONTINUATION-2026-09-02.md",
+  "current_engineering_record": "docs/engineering/GROKBOT-TAKEOVER-HANDOVER-2026-09-02.md",
   "current_evidence": {
-    "ui_bridge": "TYPED_RECOVERY_INDEPENDENT_HEARTBEAT_FRESH",
-    "watchdog": "PROBE_ONLY_HEALTHY_NO_INTAKE_RECURSION",
-    "main_agent": "REAL_ISOLATED_TURN_ZERO_TOOLS_PROVEN_EXACT_REPLY_REJECTED",
-    "work_selection": "V188_CI_PROVEN_NOT_INSTALLED_NO_AUTONOMOUS_OUTCOME_CREDIT"
+    "scheduled_chatgpt": "ONLY_KEVIN_CHIEF_ENGINEER_ENABLED_FOREGROUND_GROKBOT_OUTRANKS_WHILE_ACTIVE",
+    "ui_bridge": "TYPED_RECOVERY_PROVEN_EARLIER_CURRENT_HEARTBEAT_STALE_REQUIRES_FRESH_PROOF",
+    "watchdog": "PROBE_ONLY_HEALTHY_NO_INTAKE_RECURSION_AT_EARLIER_CHECKPOINT",
+    "main_agent": "V1343_REAL_ISOLATED_TURN_ZERO_TOOLS_TRANSCRIPT_PROVEN_QWEN_NO_THINK_TESTED_EXACT_REPLY_REJECTED_NO_KEVIN_TOOLS_VISIBLE",
+    "work_selection": "V188_CI_PROVEN_NOT_LIVE_PROVEN_LEGACY_SUPERVISOR_IDLE_NO_AUTONOMOUS_OUTCOME_CREDIT",
+    "desired_state": "DRIFT_COUNT_3_UNRESOLVED"
   }
 }
