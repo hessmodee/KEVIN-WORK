@@ -1,5 +1,13 @@
 # CURRENT_TASK
 
+## Active Bess continuation — 2026-09-02T16:33:43.153Z
+
+Matt explicitly instructed Bess to continue building and training Kevin. Current bounded proof action: one existing read-only `publish_runtime_convergence` request, `bess-bootstrap-evidence-20260902-1635`, to refresh the September 1 bootstrap/source identities after Grok's reported lean-context changes. Named consumer: measure which known bootstrap bytes are actually installed for the context-overflow diagnosis. No model call, runtime/config replacement, canary retry or retry-budget reset.
+
+The independent staging lane will exercise a reusable recovery-evidence lesson through the existing Skill Lab primitives if its contract and semantic verification are satisfied. It will not imply that the main agent is fixed or that work selection has transferred beyond T2. Preserve Grok's unavailable local turnover and any newer active foreground work; do not overwrite his local files or launch competing production changes.
+
+Kevin Chief Engineer should observe this foreground activity and continue only noncompeting read-only work until this checkpoint is refreshed. Retire the audit request after verifying its terminal receipt.
+
 ## Owner-relayed Grok turnover update — 2026-09-02T16:21:46.261Z
 
 Matt supplied Grok's cold-start handover protocol. New first read: `docs/engineering/KEVIN-TURNOVER-LATEST.md`, followed by `docs/engineering/KEVIN-TURNOVER-REFRESH-RULE-v1.md`. Grok reports refreshing the turnover after every material beat, making local CURRENT_TASK a short pointer, and wiring the entry point into lean MEMORY/AGENTS. Apply the actual refresh rule after obtaining and reading it; do not invent missing contents.
