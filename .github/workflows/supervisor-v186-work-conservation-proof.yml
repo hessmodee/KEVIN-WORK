@@ -60,7 +60,12 @@ jobs:
           if($primary.status-ne'SELECTED' -or $primary.selection.id-ne'hq-direct-chat-real-roundtrip'){throw 'primary current-queue selection regressed'}
           if([int]$primary.eligible_count-lt2){throw 'test requires an independent alternative'}
           $doc=Get-Content 'inbox/autonomy/work-items.json' -Raw|ConvertFrom-Json
-          foreach($i in @($doc.items)){if([string]$i.id-eq'hq-direct-chat-real-roundtrip'){$i.blocked=$true;$i.block_reason='TEST_LOCAL_EXCLUSION'}}
+          foreach($i in @($doc.items)){
+            if([string]$i.id-eq'hq-direct-chat-real-roundtrip'){
+              if($i.PSObject.Properties.Name-contains'blocked'){$i.blocked=$true}else{$i|Add-Member -NotePropertyName blocked -NotePropertyValue $true}
+              if($i.PSObject.Properties.Name-contains'block_reason'){$i.block_reason='TEST_LOCAL_EXCLUSION'}else{$i|Add-Member -NotePropertyName block_reason -NotePropertyValue 'TEST_LOCAL_EXCLUSION'}
+            }
+          }
           $tmp=Join-Path $env:RUNNER_TEMP 'work-items-alt.json';$doc|ConvertTo-Json -Depth 30|Set-Content $tmp -Encoding utf8
           $alt=python control-plane/autonomy/kevin-work-selector-v1.1.py --programs control-plane/autonomy/standing-programs-v1.json --items $tmp --state inbox/autonomy/state.json --failure-families control-plane/autonomy/failure-families-v1.json --now 2026-09-02T00:12:00Z | ConvertFrom-Json
           if($alt.status-ne'SELECTED' -or $alt.selection.id-ne'staging-trajectory-reliability-v1'){throw ('alternative selection failed: '+[string]$alt.selection.id)}
