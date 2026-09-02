@@ -52,16 +52,41 @@ row. No actual Kevin tool or owner task is invoked. Unknown effects remain pendi
 and cannot silently replay. This is not universal exactly-once external execution,
 power-loss durability, authenticated verification or an installed runtime repair.
 
-Local Python 3.12 evaluation passed 28/28. Cross-platform CI is pending at this
-draft. The prior recovery tests and exact public-receipt replay remain mandatory;
-the strict 14-case v1.8.8 gate is unchanged and still rejects installed source.
+Local Python 3.12 evaluation passed 28/28 (59/59 including selector/recovery).
+[CI33619080134](https://github.com/hessmodee/KEVIN-WORK/actions/runs/33619080134)
+passed all28 journal tests plus18 recovery tests and exact public-receipt replay
+on Linux and Windows at [b52d825649af9fbe8d3d7273d8ebdbdbbbe658be](https://github.com/hessmodee/KEVIN-WORK/tree/b52d825649af9fbe8d3d7273d8ebdbdbbbe658be).
+Independently inspected jobs100211668149 and100211668353 report all492 tracked
+files byte-identical before/after evaluation at10:22 UTC September2. Both used
+CPython3.13.15; SQLite was3.45.1 on Linux and3.50.4 on Windows. No installed Omen
+interpreter identity is inferred. Library SHA256 is
+`461E2C6C524FFC4CDF460367FAF82D441914392F840159E9E9E0D89B99D929A2`;
+test SHA256 is `7806FE222AC707A75032A4C13302ED857CB77A5C44F2170DD2D435D4DFF9F9FF`.
+This is CI-PROVEN candidate storage behavior, not an integrated runtime repair.
+The strict14-case v1.8.8 gate is unchanged and still rejects installed source.
+
+Evaluation history is preserved: first run33618960623 at850d471b89e93d4f5ddb3e92ced3892d5bd6f2f0
+passed Linux but failed Windows with WinError32 on temporary database cleanup.
+The test fixtures used SQLite's transaction context without closing connections.
+The corrected fixture explicitly closes in a finally block, as required by the
+Python connection contract; it does not ignore cleanup errors or remove tests.
+Production candidate connection handling already closed its handles and was
+unchanged by that correction. The corrected second run passed on both platforms.
+
+Fresh source checkpoint 9f70f7ff8b0db21b6cee21fcf1850e775fa4ef1a and a later
+Support04:19/Engineering04:20 review confirm unchanged runtime hashes, all listed
+scheduler errors0, Benchmark30/30 critical0 at04:17, and UI heartbeat2.1s.
+The manifest remains main-canary-reaffirm-16k-20260902-2300 with a matching
+ALREADY_APPLIED_PROVEN receipt. Inventory closures and scoped isolation hold are
+unchanged. No new production request or main-agent turn was submitted.
 
 ## Next acceptance boundary
 
 Obtain complete, authenticated migration evidence and canonical family provenance;
 bind this storage contract to the existing selector/typed verifier and fixed
 Supervisor path; prove existing controller behavior and no new authority. Validate
-actual installed Python/SQLite, filesystem durability and old/new source hashes.
+actual installed Python/SQLite, filesystem durability, journal size/operation
+bounds, authenticated verifier receipts, and old/new source hashes.
 Require exact typed migration/install/rollback, privacy, original runtime negative
 cases, fresh Benchmark30/30 critical0 and correlated Omen postconditions. Never
 install the library merely because these synthetic storage fixtures pass.
