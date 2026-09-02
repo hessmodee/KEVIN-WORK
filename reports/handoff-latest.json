@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-chat-handoff-checkpoint",
-  "generated_at": "2026-09-02T14:20:00Z",
+  "generated_at": "2026-09-02T15:26:00Z",
   "current_sprint": "Useful typed autonomy, durable retry history and outcome provenance",
   "start_here_path": "KEVIN-START-HERE.md",
   "handover_path": "AI-HANDOVER.md",
@@ -18,14 +18,14 @@
     "SELF-RELIANT"
   ],
   "production_proven": [
-    "Fixed-main exact reply and complete zero-tool transcript at23:02 MDT September1; no main useful action proof",
-    "Reader public receipt reports2/2 tool-using trials at08:02 MDT; source/full acceptance pending",
-    "Supervisorv1.8.8 observed on existing5m scheduler; no autonomous useful outcome",
-    "Maintenance NO_MANIFEST/Intake errors0; Benchmark is NOT currently passing"
+    "Benchmark PASS30/30 critical0 at09:17 MDT; recovery mechanism not proven",
+    "Reader08:28 receipt reports2/2; source/typed closure unresolved",
+    "Supervisorv1.8.8 on existing5m scheduler; no autonomous useful outcome",
+    "Maintenance NO_MANIFEST/Intake errors0; latest main canary REJECT"
   ],
   "runtime_convergence": {
     "gateway_rpc": true,
-    "main_exact_reply": true,
+    "main_exact_reply": false,
     "main_useful_tool_execution": "NOT_PROVEN",
     "maintenance_version": "FOREGROUND_LOCAL_V1_3_44_PREDICATE_PATCH_CLAIM_SOURCE_UNQUALIFIED",
     "supervisor_live": "1.8.8_OBSERVED",
@@ -37,14 +37,17 @@
     "continuation_tool_calls": null,
     "main_effective_tool_visibility": "UNKNOWN_NOT_PROVEN_EMPTY",
     "maintenance_sha256": "3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E",
-    "reader": "RECEIPT_2_OF_2_FULL_ACCEPTANCE_BLOCKED",
-    "benchmark": "FAIL_29_OF_30_CRITICAL_1"
+    "reader": "RECEIPT_2_OF_2_SOURCE_TYPED_CLOSURE_UNRESOLVED",
+    "benchmark": "PASS_30_OF_30_CRITICAL_0",
+    "main_acceptance": "REJECT_SEMANTIC_CONTRACT_TRANSCRIPT_INCOMPLETE_OR_UNCORRELATED",
+    "main_tool_calls": null,
+    "main_transcript_complete": false
   },
   "p0": [
     {
-      "name": "Foreground Reader/Benchmark acceptance",
-      "proof_level": "READER_RECEIPT_2_OF_2_PLATFORM_ACCEPTANCE_BLOCKED",
-      "next_boundary": "Preserve foreground ownership. Obtain exact installed patch/receipt provenance and fixed R05 (R11 no longer fails in the latest run) diagnosis through the existing governed path, repair demonstrated failures without weakening the Benchmark gate, then fresh full Benchmark30/30 critical0 and typed postconditions. Preserve prior Reader family reader-canary-runtime-path and its three failures when recording benchmark-postcondition-R05-R11; relabeling is not budget replenishment. Main effective-tool visibility remains UNKNOWN; journal migration/controller integration remain uninstalled."
+      "name": "Main request/session/transcript correlation",
+      "proof_level": "REJECT",
+      "next_boundary": "Before another main canary, obtain materially new fixed read-only evidence of installed source/version and exact request/session/transcript correlation. Determine whether missing user events arise from the invocation, returned session identity, transcript selection, recording or parser contract; none is yet established as root cause. Preserve fail-closed acceptance; no Gateway repair, model switch, tool-policy widening, correlation bypass, renamed retry or budget reset on this evidence. Reader's08:28 receipt still reports2/2; obtain existing typed terminal receipt and exact patched-source/negative-test evidence before FULL COMPLETE, not another canary solely to refresh the label."
     },
     {
       "name": "Durable attempt provenance",
@@ -65,7 +68,7 @@
   "cooled": [
     "Forge family BLOCKED3; no manufactured demand",
     "Workshop configuration COOLED2",
-    "Reader remains blocked on Benchmark postconditions; prior family3 failures retained, no budget reset"
+    "Reader prior3 attempts preserved; Benchmark now passes, source/typed closure unresolved"
   ],
   "owner_checkpoints": [
     "No new owner interaction requested by this review; publish existing foreground chat proof first",
@@ -93,20 +96,21 @@
     "docs/engineering/KEVIN-JOURNAL-RESOURCE-BOUNDS-2026-09-02.md",
     "docs/engineering/KEVIN-TOOL-VISIBILITY-EVIDENCE-2026-09-02.md",
     "reports/reader-canary-omen.json",
-    "docs/engineering/KEVIN-READER-BENCHMARK-BOUNDARY-2026-09-02.md"
+    "docs/engineering/KEVIN-READER-BENCHMARK-BOUNDARY-2026-09-02.md",
+    "docs/engineering/KEVIN-MAIN-CANARY-CORRELATION-2026-09-02.md"
   ],
   "privacy": {
     "contains_secrets": false,
     "contains_private_message_bodies": false,
     "public_safe_metadata_only": true
   },
-  "current_engineering_record": "docs/engineering/KEVIN-READER-BENCHMARK-BOUNDARY-2026-09-02.md",
-  "source_checkpoint": "8f86a8d33e772878545d21cd6e797ae42e13fcd5",
+  "current_engineering_record": "docs/engineering/KEVIN-MAIN-CANARY-CORRELATION-2026-09-02.md",
+  "source_checkpoint": "51d4bcf7ff68e86978ad08190a377a8bf5d2b501",
   "no_runtime_mutation": true,
   "desired_state_review": {
     "reported_state": "NEEDS_REVIEW",
-    "reported_drift_count": 2,
-    "reported_at": "2026-09-02T08:02:32.7563858-06:00",
+    "reported_drift_count": 1,
+    "reported_at": "2026-09-02T09:17:45.8672432-06:00",
     "repo_pins_match_observed": false,
     "source_provenance_resolved": false,
     "anchor_change_authorized_by_this_review": false,
@@ -132,9 +136,9 @@
     "owner_attribution": "NOT_INFERRED_FROM_COMMIT_AUTHOR"
   },
   "continuity_review": {
-    "source_commit": "8f86a8d33e772878545d21cd6e797ae42e13fcd5",
-    "evidence_at": "2026-09-02T14:20:00Z",
-    "scope": "FOREGROUND_READER_RECEIPT_AND_FAILED_PLATFORM_GATE_CONTINUITY_ONLY",
+    "source_commit": "51d4bcf7ff68e86978ad08190a377a8bf5d2b501",
+    "evidence_at": "2026-09-02T15:26:00Z",
+    "scope": "BENCHMARK_RECOVERY_AND_NEW_MAIN_CORRELATION_REJECTION_CONTINUITY_ONLY",
     "runtime_mutation": false,
     "manifest_mutation": false,
     "retry_budget_mutation": false,
@@ -321,7 +325,9 @@
     "canary_retry_authorized": false,
     "next": "Version-qualified fixed read-only presence/type/correlation diagnostic; then actual authorized useful tool action with independent semantics.",
     "consumer": "fixed main-agent semantic/tool-evidence boundary",
-    "scope": "FIXED_MAIN_CANARY_ONLY_NOT_READER_PROFILE"
+    "scope": "FIXED_MAIN_CANARY_ONLY_NOT_READER_PROFILE",
+    "historical_checkpoint": true,
+    "superseded_for_current_status_by": "docs/engineering/KEVIN-MAIN-CANARY-CORRELATION-2026-09-02.md"
   },
   "reader_benchmark_review": {
     "acceptance_weakened": false,
@@ -376,6 +382,66 @@
     "source_commit": "8f86a8d33e772878545d21cd6e797ae42e13fcd5",
     "status": "READER_RECEIPT_2_OF_2_PLATFORM_ACCEPTANCE_BLOCKED",
     "transfer_promotion": false,
-    "latest_health_source_commit": "fbc5f324c0f0f30553513f51eec5d1d50ac96672"
+    "latest_health_source_commit": "fbc5f324c0f0f30553513f51eec5d1d50ac96672",
+    "historical_checkpoint": true,
+    "superseded_for_current_status_by": "docs/engineering/KEVIN-MAIN-CANARY-CORRELATION-2026-09-02.md"
+  },
+  "main_correlation_review": {
+    "benchmark": {
+      "at": "2026-09-02T09:17:03.7378261-06:00",
+      "core_scheduler_errors": 0,
+      "critical_failures": 0,
+      "passed": 30,
+      "repair_mechanism": "NOT_ESTABLISHED_BY_RECEIPTS",
+      "source_sha256": "4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964",
+      "total": 30
+    },
+    "main": {
+      "agent_exit_code": 0,
+      "at": "2026-09-02T09:00:25.1588181-06:00",
+      "blob": "c75be414f0ee9948f2f8100327601abda703785d",
+      "effective_tool_visibility": "UNKNOWN",
+      "exact_expected_reply": false,
+      "failure_stage": "semantic_contract",
+      "gateway_probe_ok": true,
+      "partial_transcript_calls": 0,
+      "previous_pass": "HISTORICAL_2026_09_01_2302_NOT_CURRENT_ACCEPTANCE",
+      "state": "REJECT",
+      "tool_calls": null,
+      "transcript_assistant_messages": 1,
+      "transcript_complete": false,
+      "transcript_user_messages": 0
+    },
+    "maintenance": {
+      "installed_source_qualified": false,
+      "intake_errors": 0,
+      "observed_sha256": "3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E",
+      "state": "NO_MANIFEST"
+    },
+    "manifest_mutation": false,
+    "next": "Before another main canary, obtain materially new fixed read-only evidence of installed source/version and exact request/session/transcript correlation. Determine whether missing user events arise from the invocation, returned session identity, transcript selection, recording or parser contract; none is yet established as root cause. Preserve fail-closed acceptance; no Gateway repair, model switch, tool-policy widening, correlation bypass, renamed retry or budget reset on this evidence. Reader's08:28 receipt still reports2/2; obtain existing typed terminal receipt and exact patched-source/negative-test evidence before FULL COMPLETE, not another canary solely to refresh the label.",
+    "reader": {
+      "at": "2026-09-02T08:28:45.9587942-06:00",
+      "blob": "5123a111a7c5ef4cbbcae0ded517f3c752c295a4",
+      "full_acceptance": "SOURCE_AND_TYPED_TERMINAL_PROOF_UNRESOLVED",
+      "reported_trials": "2/2",
+      "work_item_preserved": true
+    },
+    "report": "docs/engineering/KEVIN-MAIN-CANARY-CORRELATION-2026-09-02.md",
+    "request": {
+      "archive": "inbox/maintenance/archive/main-canary-morning-reaffirm-20260902-0857.json",
+      "archive_blob": "c6e57d62acc2fbbc9a93d10c85439d4ae5bb0a3d",
+      "distinct_failure_attempts": "NOT_INFERRED",
+      "id": "main-canary-morning-reaffirm-20260902-0857",
+      "new_retry_authorized": false,
+      "observed_receipt_revisions": 4,
+      "removed_commit": "a0102328e28dc6f6dbc415b6454255f3a5469e28"
+    },
+    "retry_budget_reset": false,
+    "reviewed_at": "2026-09-02T15:26:00Z",
+    "runtime_mutation": false,
+    "source_commit": "51d4bcf7ff68e86978ad08190a377a8bf5d2b501",
+    "status": "BENCHMARK_RECOVERED_MAIN_SEMANTIC_AND_CORRELATION_REJECTED",
+    "transfer_promotion": false
   }
 }
