@@ -25,7 +25,7 @@ function Load-Functions([string]$Path,[string[]]$Names){
         [ScriptBlock]::Create($found[0].Extent.Text)
     }
 }
-foreach($definition in @(Load-Functions $Candidate @('ReadJ','C','HT','HO','Assert-RegistryValid','Registry'))){. $definition}
+foreach($definition in @(Load-Functions $Candidate @('ReadJ','C','HT','HO','RegistryTimestampValid','Assert-RegistryValid','Registry'))){. $definition}
 $tokens=$null;$errors=$null
 $oldAst=[Management.Automation.Language.Parser]::ParseFile($Baseline,[ref]$tokens,[ref]$errors)
 $old=@($oldAst.FindAll({param($n) $n-is[Management.Automation.Language.FunctionDefinitionAst]-and$n.Name-ceq'Registry'},$true))[0]
@@ -97,6 +97,8 @@ try {
     Case 'missing proof field rejected' {$x=GoodRegistry;$x.skills[0].PSObject.Properties.Remove('manifest_sha256');Reject-Preserved (Json $x)}
     Case 'invalid registry timestamp rejected' {$x=GoodRegistry;$x.updated_at='yesterday';Reject-Preserved (Json $x)}
     Case 'invalid proof timestamp rejected' {$x=GoodRegistry;$x.skills[0].proven_at='never';Reject-Preserved (Json $x)}
+    Case 'numeric registry timestamp rejected' {$x=GoodRegistry;$x.updated_at=2026;Reject-Preserved (Json $x)}
+    Case 'boolean proof timestamp rejected' {$x=GoodRegistry;$x.skills[0].proven_at=$true;Reject-Preserved (Json $x)}
     Case 'unapproved primitive rejected' {$x=GoodRegistry;$x.skills[0].primitive_steps=@('shell');Reject-Preserved (Json $x)}
     Case 'result path escape rejected' {$x=GoodRegistry;$x.skills[0].result_file='../elsewhere.json';Reject-Preserved (Json $x)}
     Case 'empty name rejected' {$x=GoodRegistry;$x.skills[0].name='';Reject-Preserved (Json $x)}
@@ -189,3 +191,6 @@ try {
     $summary=[ordered]@{schema=1;kind='kevin-skill-registry-candidate-proof';tests_passed=$script:Cases;engine=$PSVersionTable.PSVersion.ToString();candidate_sha256=(Digest $Candidate);manifest_sha256=(Digest $SkillFile);manifest_canonical_sha256=(HO $Manifest);baseline_bug_reproduced=$true;authority_delta='NONE';omen_runtime_proven=$false;truth_boundary='Staged Windows runner tests with an independent fixture text operator; not live Omen repair or autonomous-learning proof.'}
     Write-Host ('PROOF_JSON='+(ConvertTo-Json -InputObject $summary -Depth 10 -Compress))
 }finally{Remove-Item -LiteralPath $TempRoot -Recurse -Force}
+# The last negative subprocess test intentionally exits 1. Report suite success
+# only after every assertion and cleanup has completed successfully.
+exit 0
