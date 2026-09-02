@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "kind": "kevin-skill-registry-qualification",
+  "generated_at": "2026-09-02T17:03:48.243Z",
+  "status": "CI_PROVEN",
+  "safe_for_public_repo": true,
+  "pull_request": "https://github.com/hessmodee/KEVIN-WORK/pull/35",
+  "qualified_head": "1abf10a6973e1e037f0b9e479cd35999880cd668",
+  "merged_commit": "fec4da2086fcf30906e902255749670b448234b0",
+  "qualification_run": "https://github.com/hessmodee/KEVIN-WORK/actions/runs/33658106780",
+  "runner": {
+    "path": "control-plane/skill-lab/kevin-skill-lab-v1.0.5.ps1",
+    "sha256": "F3208DED6000325AC4446A6D960E8D8D199827D24D55790CF1943BB371A4FABC"
+  },
+  "engines": [
+    {
+      "authority_delta": "NONE",
+      "baseline_bug_reproduced": true,
+      "candidate_sha256": "F3208DED6000325AC4446A6D960E8D8D199827D24D55790CF1943BB371A4FABC",
+      "engine": "5.1.26100.33296",
+      "kind": "kevin-skill-registry-candidate-proof",
+      "manifest_canonical_sha256": "E79E65B384E1B61152850A321B3AB4E4E0ADC445B7C0008C27C59AB538A073A0",
+      "manifest_sha256": "9ED5D4B634728AB21CDF2DA4D79E4AAB915FA1C6A08C7ABD4698DB0147A14DDA",
+      "omen_runtime_proven": false,
+      "schema": 1,
+      "tests_passed": 40,
+      "truth_boundary": "Staged Windows runner tests with an independent fixture text operator; not live Omen repair or autonomous-learning proof."
+    },
+    {
+      "authority_delta": "NONE",
+      "baseline_bug_reproduced": true,
+      "candidate_sha256": "F3208DED6000325AC4446A6D960E8D8D199827D24D55790CF1943BB371A4FABC",
+      "engine": "7.6.5",
+      "kind": "kevin-skill-registry-candidate-proof",
+      "manifest_canonical_sha256": "9E4116FB6D6404DD2718626976E151E722CBC8781C0F9244B0A565764CA36AB5",
+      "manifest_sha256": "9ED5D4B634728AB21CDF2DA4D79E4AAB915FA1C6A08C7ABD4698DB0147A14DDA",
+      "omen_runtime_proven": false,
+      "schema": 1,
+      "tests_passed": 40,
+      "truth_boundary": "Staged Windows runner tests with an independent fixture text operator; not live Omen repair or autonomous-learning proof."
+    }
+  ],
+  "canonical_hash_boundary": "Existing ConvertTo-Json canonicalization is retained. Its output differs between PowerShell 5.1 and PowerShell 7; use the matching engine's manifest digest. No engine migration is part of this change.",
+  "artifact_targets": {
+    "artifacts": [
+      {
+        "bytes": 3965,
+        "filename": "KEVIN-RECOVERY-DECISION-RULES-v1.md",
+        "operation": "create_text",
+        "order_id": "skill-kevin-recovery-evidence-kit-1-s01",
+        "sha256": "1E8FD79DF4059948300592C5A9568CA4E7C9701B15FC7D284ADBB4E4A5E9E97D",
+        "step": 1
+      },
+      {
+        "bytes": 2950,
+        "filename": "KEVIN-RECOVERY-EXERCISES-v1.md",
+        "operation": "create_text",
+        "order_id": "skill-kevin-recovery-evidence-kit-1-s02",
+        "sha256": "CB4664AC24CCC206EE3DE42A98D206B9F6C4A6B3513182613B00C8F04A7C1339",
+        "step": 2
+      }
+    ],
+    "id": "kevin-recovery-evidence-kit",
+    "version": "1"
+  },
+  "historical_before_identity": {
+    "sha256": "BCF21255F5D2BF1ED5B852DE26A06BB4FB5ACC14708539801E3E234A0968CE29",
+    "manifest_commit": "833bc793161f219191550143b2870afa87f3d26c",
+    "manifest_id": "typed-skill-lab-windows-runtime-v104-compat-20260830",
+    "support_commit": "3a57a03b6a4beca6c8503546acdd9219952f206b",
+    "support_at": "2026-08-30T17:31:55.0904156-06:00",
+    "status": "ALREADY_APPLIED_PROVEN",
+    "fresh_installed_hash": false
+  },
+  "truth_boundary": "Qualification uses temporary Windows fixture roots and an independent text operator. It does not establish live Omen installation, live fault recovery, learner mastery or autonomous work selection. Those outcomes require separate correlated receipts."
+}
