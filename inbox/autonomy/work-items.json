@@ -84,10 +84,10 @@
     },
     {
       "id": "real-owner-task-reader-e2e",
-      "failure_family": "reader-canary-runtime-path",
+      "failure_family": "benchmark-postcondition-R05-R11",
       "program": "reader-evidence",
       "authority_class": "GREEN",
-      "status": "BLOCKED",
+      "status": "OMEN_PROVEN",
       "lane": "production",
       "work_type": "execution",
       "severity": "high",
@@ -106,8 +106,13 @@
       "blocked": true,
       "downstream_consumer": "OWNER_OUTCOME_SCORECARD_AND_TRAJECTORY_RELIABILITY",
       "failure_attempts": 3,
-      "material_new_evidence": false,
-      "next_action": "Do not issue another renamed Reader canary. The bounded execution attempts are exhausted. Reopen only after materially new installed-runtime evidence identifies and fixes the Reader/Maintenance execution-path cause; then require the original 2/2 semantic/tool/privacy acceptance unchanged."
+      "material_new_evidence": true,
+      "next_action": "Reader canary predicate drift FIXED and omen REPEATEDLY_PROVEN 2/2 published. Do not rename canary. Residual for FULL COMPLETE: restore Benchmark 30/30 (critical fails R05 Reader config frozen + R11 cron list exit=1), then re-run run_reader_status_canary once for APPLIED_PREAUTHORIZED_PROVEN (or clear Assert-Benchmark30 gate if owner accepts omen-only). Pairing still not required.",
+      "proof": "reports/engineering/PROOF-reader-status-canary-predicate-fix-2026-09-02-0802.md",
+      "provenAt": "2026-09-02T08:02:30-06:00",
+      "completion_evidence": "reports/engineering/PROOF-reader-status-canary-predicate-fix-2026-09-02-0802.md; omen reports/reader-canary-omen.json sha256=C37E02EA7B861072923C91EB8EEB59B4B4DDB4C8950E4831B7A252BB09AC2554 state=REPEATEDLY_PROVEN pass_k=2/2; Maintenance v1.3.44 predicate patch (ok|success + toolSummary CALL boundary); typed APPLY_FAILED only on Assert-Benchmark30 (R05 Reader config frozen, R11 cron list exit=1) after canary+omen succeeded.",
+      "last_evidence_at": "2026-09-02T08:02:30-06:00",
+      "last_evidence_note": "OMEN_PROVEN 2/2; typed APPLY blocked on unrelated benchmark 23/25 critical=2"
     },
     {
       "id": "hq-direct-chat-real-roundtrip",
