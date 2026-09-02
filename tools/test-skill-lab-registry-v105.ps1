@@ -1,7 +1,7 @@
-param()
+param([ValidateSet('1.0.5','1.0.6')][string]$CandidateVersion='1.0.5')
 $ErrorActionPreference='Stop'
 $RepoRoot=Split-Path -Parent $PSScriptRoot
-$Candidate=Join-Path $RepoRoot 'control-plane/skill-lab/kevin-skill-lab-v1.0.5.ps1'
+$Candidate=Join-Path $RepoRoot ('control-plane/skill-lab/kevin-skill-lab-v'+$CandidateVersion+'.ps1')
 $Baseline=Join-Path $RepoRoot 'control-plane/skill-lab/kevin-skill-lab-v1.0.4.ps1'
 $SkillFile=Join-Path $RepoRoot 'inbox/skills/kevin-recovery-evidence-kit-v1.json'
 $Utf8=New-Object Text.UTF8Encoding($false)
