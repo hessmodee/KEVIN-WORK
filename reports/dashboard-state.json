@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T18:32:27.9712792-06:00",
+  "generated_at": "2026-09-01T18:35:15-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -12,14 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "supervisor",
-    "title": "Supervisor autonomous cycle",
-    "category": "supervisor",
-    "phase": "Goal-aware Supervisor cycle active.",
-    "started_at": "2026-09-01T18:20:06.4537436-06:00",
-    "source": "hq-live-ops"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -27,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 27,
-    "cpu_pct": 10,
+    "memory_pct": 23,
+    "cpu_pct": 36,
     "gpu": "RTX 3060",
-    "gpu_pct": 0
+    "gpu_pct": 23
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-01T06:24:09-06:00",
-        "estimated": false,
-        "ram": 36,
-        "cpu": 22,
-        "gpu": 37
-      },
       {
         "at": "2026-09-01T06:26:47-06:00",
         "estimated": false,
@@ -707,10 +693,16 @@
         "ram": 27,
         "cpu": 10,
         "gpu": 0
+      },
+      {
+        "at": "2026-09-01T18:35:15-06:00",
+        "estimated": false,
+        "ram": 23,
+        "cpu": 36,
+        "gpu": 23
       }
     ],
     "ram": [
-      36,
       36,
       36,
       32,
@@ -805,10 +797,10 @@
       24,
       25,
       27,
-      27
+      27,
+      23
     ],
     "cpu": [
-      22,
       1,
       1,
       21,
@@ -903,10 +895,10 @@
       19,
       20,
       16,
-      10
+      10,
+      36
     ],
     "gpu": [
-      37,
       22,
       22,
       39,
@@ -1001,11 +993,12 @@
       13,
       41,
       32,
-      0
+      0,
+      23
     ]
   },
   "weather": {
-    "summary": "This Afternoon 80 | Wind 15 mph | Isolated Showers And Thunderstorms"
+    "summary": "Tonight 52 | Wind 9 to 14 mph | Scattered Showers And Thunderstorms then Isolated Showers And Thunderstorms"
   },
   "capabilities": [
     {
@@ -1100,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 95,
-      "total": 97
+      "done": 94,
+      "total": 96
     }
   ],
   "roadmap": {
@@ -1155,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-01T18:20:14-06:00",
+      "at": "2026-09-01T18:35:15-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1382,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-01T18:32:27.9712792-06:00",
+    "last": "2026-09-01T18:35:15-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,7 +1412,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-01T18:32:27.9712792-06:00",
+    "generated_at": "2026-09-01T18:34:42.0325817-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
