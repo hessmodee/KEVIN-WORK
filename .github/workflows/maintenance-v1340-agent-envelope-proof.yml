@@ -61,8 +61,10 @@ jobs:
           if($LASTEXITCODE-ne0){throw 'operation parity failed'}
           $t=[IO.File]::ReadAllText('control-plane/maintenance/kevin-maintenance-runner-v1.3.40.ps1')
           foreach($m in @("version='1.3.40'",'openclaw_stable_envelope=true','top_level_final=true','top_level_payloads=true','status_ok=true','legacy_nested=true','exact_canary_semantics_preserved=true','zero_tools_required=true','four_independent_readonly_probes=true','supervisor_target=v1.8.5')){if(-not$t.Contains($m)){throw "missing invariant $m"}}
-          if(-not$t.Contains("$statusOk=($status-eq'ok' -or $status-eq'success')")){throw 'current OpenClaw status acceptance missing'}
-          if(-not$t.Contains("Get-OptionalPropertyValue $Obj 'final'")){throw 'top-level final parser missing'}
+          $statusLiteral='$statusOk=($status-eq''ok'' -or $status-eq''success'')'
+          if(-not$t.Contains($statusLiteral)){throw 'current OpenClaw status acceptance missing'}
+          $finalLiteral='Get-OptionalPropertyValue $Obj ''final'''
+          if(-not$t.Contains($finalLiteral)){throw 'top-level final parser missing'}
           Write-Host 'V1340_ENVELOPE_PASS current_openclaw=true legacy=true exact_reply=true zero_tools=true authority_expansion=false'
 
       - name: Emit exact identity
