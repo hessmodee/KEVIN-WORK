@@ -1,0 +1,46 @@
+name: Supervisor v1.8.7 Durable Budgets
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'control-plane/autonomy/kevin-supervisor-v1.8.7.ps1'
+      - 'tools/test-supervisor-durable-budgets.ps1'
+      - '.github/workflows/supervisor-v187-durable-budgets.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  proof:
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Parser and authority boundary
+        shell: pwsh
+        run: |
+          $p='control-plane/autonomy/kevin-supervisor-v1.8.7.ps1'
+          $tokens=$null;$errors=$null;$ast=[Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors.Count){throw $errors[0].Message}
+          $commands=@($ast.FindAll({param($n)$n-is[Management.Automation.Language.CommandAst]},$true)|ForEach-Object{$_.GetCommandName()}|Where-Object{$_}|ForEach-Object{$_.ToLowerInvariant()})
+          foreach($bad in @('invoke-expression','iex','cmd.exe','kevin_shell')){if($commands-contains$bad){throw "forbidden command $bad"}}
+          Write-Host ('SUPERVISOR_V187_SHA256='+ (Get-FileHash $p -Algorithm SHA256).Hash)
+      - name: Tests Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          & ./control-plane/autonomy/kevin-supervisor-v1.8.7.ps1 -SelfTest
+          if($LASTEXITCODE-ne0){throw 'PS5.1 selftest failed'}
+          & ./tools/test-supervisor-durable-budgets.ps1
+      - name: Tests PowerShell 7
+        shell: pwsh
+        run: |
+          & ./control-plane/autonomy/kevin-supervisor-v1.8.7.ps1 -SelfTest
+          if($LASTEXITCODE-ne0){throw 'PS7 selftest failed'}
+          & ./tools/test-supervisor-durable-budgets.ps1
+      - name: Governed selector regression
+        shell: pwsh
+        run: |
+          python control-plane/autonomy/kevin-work-selector-v1.1.py --selftest
+          if($LASTEXITCODE-ne0){throw 'selector regression failed'}
