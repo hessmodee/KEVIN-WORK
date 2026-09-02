@@ -7,12 +7,14 @@ on:
       - 'tests/test_history_evidence_recovery.py'
       - 'tests/fixtures/history-public-receipts.json'
       - 'tools/review-published-history.py'
+      - 'tools/check-history-eval-immutability.py'
       - '.github/workflows/history-evidence-recovery.yml'
 permissions:
   contents: read
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-2025]
     runs-on: ${{ matrix.os }}
@@ -22,9 +24,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - name: Record actual checkout bytes before evaluation
+        run: python tools/check-history-eval-immutability.py record
       - name: Recovery contracts and negative cases
         run: python -m unittest discover -s tests -p test_history_evidence_recovery.py -v
       - name: Replay exact published evidence without mutation
         run: python tools/review-published-history.py
       - name: Ensure replay did not alter tracked files
-        run: git diff --exit-code
+        run: python tools/check-history-eval-immutability.py verify
