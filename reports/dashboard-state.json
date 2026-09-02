@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-02T07:45:39.5224018-06:00",
+  "generated_at": "2026-09-02T07:50:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -12,14 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "night-forge",
-    "title": "Night Forge QA",
-    "category": "qa",
-    "phase": "Night Forge QA/regression cycle active.",
-    "started_at": "2026-09-02T07:38:39.3515185-06:00",
-    "source": "hq-live-ops"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -27,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 35,
-    "cpu_pct": 31,
+    "memory_pct": 34,
+    "cpu_pct": 34,
     "gpu": "RTX 3060",
-    "gpu_pct": 33
+    "gpu_pct": 38
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-01T18:20:14-06:00",
-        "estimated": false,
-        "ram": 27,
-        "cpu": 10,
-        "gpu": 0
-      },
       {
         "at": "2026-09-01T18:35:15-06:00",
         "estimated": false,
@@ -707,10 +693,16 @@
         "ram": 35,
         "cpu": 31,
         "gpu": 33
+      },
+      {
+        "at": "2026-09-02T07:50:14-06:00",
+        "estimated": false,
+        "ram": 34,
+        "cpu": 34,
+        "gpu": 38
       }
     ],
     "ram": [
-      27,
       23,
       23,
       22,
@@ -805,10 +797,10 @@
       32,
       32,
       35,
-      35
+      35,
+      34
     ],
     "cpu": [
-      10,
       36,
       36,
       21,
@@ -903,10 +895,10 @@
       45,
       45,
       31,
-      31
+      31,
+      34
     ],
     "gpu": [
-      0,
       23,
       23,
       27,
@@ -1001,7 +993,8 @@
       37,
       37,
       33,
-      33
+      33,
+      38
     ]
   },
   "weather": {
@@ -1155,6 +1148,13 @@
   ],
   "activity": [
     {
+      "at": "2026-09-02T07:50:14-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "pass"
+    },
+    {
       "at": "2026-09-02T07:39:03-06:00",
       "source": "forge",
       "component": "forge",
@@ -1181,13 +1181,6 @@
       "detail": "Night Forge cycle",
       "result": "",
       "task_id": "night-forge"
-    },
-    {
-      "at": "2026-09-02T07:35:14-06:00",
-      "component": "tick",
-      "event": "cycle",
-      "detail": "Health cycle",
-      "result": "pass"
     },
     {
       "at": "2026-09-02T06:39:10-06:00",
@@ -1382,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-02T07:45:39.5224018-06:00",
+    "last": "2026-09-02T07:50:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,7 +1412,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-02T07:45:39.5224018-06:00",
+    "generated_at": "2026-09-02T07:49:39.6442331-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
