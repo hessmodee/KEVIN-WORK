@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-09-01T19:20:00.2575017-06:00",
+    "generated_at":  "2026-09-02T13:33:06.4067810-06:00",
     "request":  {
-                    "id":  "wake-convergence-audit-20260902-0117",
-                    "verb":  "run_typed_maintenance",
-                    "target":  "kevin-maintenance-v1"
+                    "id":  "reconcile-owner-autonomy-20260902-1332",
+                    "verb":  "run_reconcile",
+                    "target":  "autonomy"
                 },
-    "status":  "IDLE_TERMINAL",
-    "detail":  "Current work order is already terminal; awaiting replacement",
+    "status":  "FAILED",
+    "detail":  "Fixed local action failed: KEVIN AUTONOMY v0.1 :: NEEDS_REVIEW :: drift=2 :: action=",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
