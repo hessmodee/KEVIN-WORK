@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-main-agent-canary-public",
-    "generated_at":  "2026-09-01T19:00:03.1437800-06:00",
+    "generated_at":  "2026-09-01T19:15:10.7201203-06:00",
     "state":  "REJECT",
     "safe_for_public_repo":  true,
     "gateway_probe_ok":  true,
@@ -84,10 +84,15 @@
                                             "assistant_messages":  1,
                                             "final_exact":  false,
                                             "failure":  "",
-                                            "sha256":  "FD085889068DC017894E63621910D896027DA1F8DBAD2EAD433B516CCFD1463B"
-                                        }
+                                            "sha256":  "0AA45B4DD4F7AC806D3ABAEC8D6B75FE44986509D07DF76566D77FE0F08BA6CB"
+                                        },
+                         "qwen_soft_no_think":  true,
+                         "final_last_line_exact":  false,
+                         "final_line_count":  1,
+                         "reasoning_preface":  false,
+                         "qwen_model_reported":  false
                      },
-    "runner_version":  "1.3.42",
+    "runner_version":  "1.3.43",
     "status":  "ok",
     "exact_expected_reply":  false,
     "tool_calls":  0,
@@ -95,8 +100,8 @@
     "visible_tool_names_sha256":  "EB003D1781978C34F4003B30A674E39411E30D5298218E702828C061EE0640C4",
     "visible_kevin_tool_count":  0,
     "has_kevin_system_status":  false,
-    "duration_ms":  13865,
-    "output_sha256":  "BC2526CEBC3B4F132F3DC8551BBB666D633C4575ABB1EFA0800CA8F0F917D268",
+    "duration_ms":  16975,
+    "output_sha256":  "165031011512EB1B0B52548591518BEA02ED79EEBD5C51E44A64E60B55DF36D0",
     "source_contract":  "One fixed Gateway-backed OpenClaw fixed-main-agent turn. No caller-selected prompt, agent id, profile, command, argv, path, recipient, or authority.",
     "truth_boundary":  "Metadata-only proof of one real fixed-main-agent turn and its prompt-reported visible tool surface. Raw prompt, model text, CLI output, tool output, tool names list, configuration, paths, usernames, ports, credentials, and secrets are not published."
 }
