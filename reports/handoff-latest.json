@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-chat-handoff-checkpoint",
-  "generated_at": "2026-09-02T07:22:45Z",
+  "generated_at": "2026-09-02T10:22:28Z",
   "current_sprint": "Useful typed autonomy, durable retry history and outcome provenance",
   "start_here_path": "KEVIN-START-HERE.md",
   "handover_path": "AI-HANDOVER.md",
@@ -20,9 +20,9 @@
   "production_proven": [
     "Fixed-main exact reply and complete zero-tool transcript OMEN_PROVEN at23:02 MDT",
     "Supervisor v1.8.8 observed installed; existing scheduler5m; no useful autonomous outcome proved",
-    "UI heartbeat4.4s independently fresh at01:22 MDT",
-    "Benchmark30/30 critical0 at01:17 MDT",
-    "Maintenance Intake scheduled recovery remains observed ok/0 errors in Support01:19 and Engineering01:22 MDT"
+    "UI heartbeat2.1s independently fresh at04:20 MDT",
+    "Benchmark30/30 critical0 at04:17 MDT",
+    "Maintenance Intake scheduled recovery remains observed ok/0 errors in Support04:19 and Engineering04:20 MDT"
   ],
   "runtime_convergence": {
     "gateway_rpc": true,
@@ -41,7 +41,7 @@
     {
       "name": "Durable attempt provenance",
       "proof_level": "SOURCE_AND_RECEIPT_CONFIRMED_HISTORY_REPLACEMENT_NOT_REPAIRED",
-      "next_boundary": "Use recovered lower-bound evidence; resolve completeness/family identity and qualify append-only runtime repair without resetting budgets."
+      "next_boundary": "Authenticated complete migration/family provenance; fixed Supervisor and semantic-verifier integration; operation/storage bounds; installed-runtime qualification; typed crossing and Omen outcomes."
     },
     {
       "name": "Useful main-agent execution",
@@ -79,20 +79,21 @@
     "docs/engineering/KEVIN-SELECTOR-CI-RECOVERY-2026-09-02.md",
     "docs/engineering/KEVIN-HISTORY-CONTRACT-EVAL-2026-09-02.md",
     "docs/engineering/KEVIN-HISTORY-RECOVERY-CANDIDATE-2026-09-02.md",
-    "docs/engineering/history-recovery-proposal-20260902.json"
+    "docs/engineering/history-recovery-proposal-20260902.json",
+    "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md"
   ],
   "privacy": {
     "contains_secrets": false,
     "contains_private_message_bodies": false,
     "public_safe_metadata_only": true
   },
-  "current_engineering_record": "docs/engineering/KEVIN-HISTORY-RECOVERY-CANDIDATE-2026-09-02.md",
-  "source_checkpoint": "8a4d3b2eb05f39fe4d701971f5c9ea945cee5a7f",
+  "current_engineering_record": "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md",
+  "source_checkpoint": "dde67b7be71a7ca732fd095de0ae5d71e8ac7d3e",
   "no_runtime_mutation": true,
   "desired_state_review": {
     "reported_state": "HEALTHY",
     "reported_drift_count": 0,
-    "reported_at": "2026-09-02T01:18:05-06:00",
+    "reported_at": "2026-09-02T04:09:05.7965735-06:00",
     "repo_pins_match_observed": false,
     "source_provenance_resolved": false,
     "anchor_change_authorized_by_this_review": false
@@ -117,8 +118,8 @@
     "owner_attribution": "NOT_INFERRED_FROM_COMMIT_AUTHOR"
   },
   "continuity_review": {
-    "source_commit": "8a4d3b2eb05f39fe4d701971f5c9ea945cee5a7f",
-    "evidence_at": "2026-09-02T07:22:45Z",
+    "source_commit": "dde67b7be71a7ca732fd095de0ae5d71e8ac7d3e",
+    "evidence_at": "2026-09-02T10:22:28Z",
     "scope": "CANONICAL_CONTINUITY_ONLY",
     "runtime_mutation": false,
     "manifest_mutation": false,
@@ -156,7 +157,7 @@
         "result": "EXPECTED_BASELINE_RESULTS_AND_STRICT_REJECTION_VERIFIED"
       }
     ],
-    "remaining": "Family alias aggregation, validated evidence reopening, legacy-history recovery, verified bootstrap, real crash/restart/effect replay, COMPLETE admission and useful tool outcomes still required."
+    "remaining": "Installed v1.8.8 remains nonconformant. Isolated journal family/crash/replay fixtures now pass; authenticated live migration, fixed controller/verifier integration, bounded resources and real tool outcomes still required."
   },
   "history_recovery_candidate": {
     "status": "CI_PROVEN_READ_ONLY_RECOVERY_NOT_RUNTIME_REPAIR",
@@ -194,5 +195,44 @@
         "result": "LINUX_WINDOWS_18_TESTS_PASS_TRACKED_BYTES_UNCHANGED"
       }
     ]
+  },
+  "history_journal_candidate": {
+    "status": "CI_PROVEN_STORAGE_CANDIDATE_NOT_INTEGRATED_RUNTIME_REPAIR",
+    "source_commit": "b52d825649af9fbe8d3d7273d8ebdbdbbbe658be",
+    "branch": "chief-engineer/history-recovery-20260902",
+    "run_id": 33619080134,
+    "jobs": [
+      100211668149,
+      100211668353
+    ],
+    "tests": 28,
+    "recovery_tests": 18,
+    "platforms": [
+      "Linux",
+      "Windows"
+    ],
+    "tracked_files_unchanged": 492,
+    "library_sha256": "461E2C6C524FFC4CDF460367FAF82D441914392F840159E9E9E0D89B99D929A2",
+    "report": "docs/engineering/KEVIN-ATTEMPT-JOURNAL-CANDIDATE-2026-09-02.md",
+    "consumer": "next governed Supervisor history-preservation integration",
+    "eval_lane": "COMPLETE",
+    "real_process_death_fixtures": true,
+    "real_owner_effects": false,
+    "history_complete": false,
+    "family_mapping": "UNRESOLVED_FOR_LIVE_MIGRATION",
+    "migration_authorized": false,
+    "runtime_mutation": false,
+    "transfer_promotion": false,
+    "attempt_history": [
+      {
+        "run_id": 33618960623,
+        "result": "LINUX_PASS_WINDOWS_FIXTURE_HANDLE_LEAK_CLEANUP_FAILURE"
+      },
+      {
+        "run_id": 33619080134,
+        "result": "EXPLICIT_FIXTURE_CONNECTION_CLOSE_ALL_28_PLUS18_PASS_BOTH_PLATFORMS"
+      }
+    ],
+    "remaining": "Authenticated complete migration/family provenance; fixed Supervisor and semantic-verifier integration; operation/storage bounds; installed-runtime qualification; typed crossing and Omen outcomes."
   }
 }
