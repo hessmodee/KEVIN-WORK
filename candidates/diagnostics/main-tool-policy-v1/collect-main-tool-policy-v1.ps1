@@ -1,49 +1,190 @@
 param([switch]$SelfTest)
 
 Set-StrictMode -Version 2.0
-$ErrorActionPreference='Stop'
-$ExpectedOpenClawVersion='2026.7.1-2'
-$Protected=@('exec','process','write','edit','apply_patch','browser','sessions_spawn','sessions_send','conversations_send','cron')
-$KnownControl=@('get_goal','create_goal','update_goal','update_plan','progress_card','session_status','sessions_list','sessions_history','read')
+$ErrorActionPreference = 'Stop'
+$ExpectedOpenClawVersion = '2026.7.1-2'
+$Protected = @('exec','process','write','edit','apply_patch','browser','sessions_spawn','sessions_send','conversations_send','cron')
+$KnownControl = @('get_goal','create_goal','update_goal','update_plan','progress_card','session_status','sessions_list','sessions_history','read')
 
-function H([string]$Text){$s=[Security.Cryptography.SHA256]::Create();try{return([BitConverter]::ToString($s.ComputeHash([Text.Encoding]::UTF8.GetBytes($Text)))).Replace('-','')}finally{$s.Dispose()}}
-function J([object]$O,[string]$N){if($null-eq$O){return$null};$p=$O.PSObject.Properties[$N];if($p){return$p.Value};return$null}
-function Arr([object]$V){if($null-eq$V){return@()};if($V-is[string]){throw'tool policy list must be array'};$a=@($V);foreach($x in$a){if($x-isnot[string]){throw'tool policy list item must be string'}};return@($a|Sort-Object -Unique)}
-function Summary([object]$P){
-  if($null-eq$P){$P=[pscustomobject]@{}}
-  $profile=[string](J $P 'profile');if(-not$profile){$profile='UNSET'}elseif($profile-notin@('minimal','coding','messaging','full')){$profile='OTHER'}
-  $allow=Arr(J $P 'allow');$also=Arr(J $P 'alsoAllow');$deny=Arr(J $P 'deny');if($allow.Count-and$also.Count){throw'allow and alsoAllow cannot coexist'}
-  $effectiveAllow=@($allow)+@($also)
-  [ordered]@{present=($P.PSObject.Properties.Count-gt0);profile=$profile;allow_count=$allow.Count;also_allow_count=$also.Count;deny_count=$deny.Count;allow_sha256=H(($allow|ConvertTo-Json -Compress));also_allow_sha256=H(($also|ConvertTo-Json -Compress));deny_sha256=H(($deny|ConvertTo-Json -Compress));known_control_allowed=@($KnownControl|Where-Object{$effectiveAllow-contains$_});protected_explicitly_allowed=@($Protected|Where-Object{$effectiveAllow-contains$_});protected_explicitly_denied=@($Protected|Where-Object{$deny-contains$_})}
+function Get-TextSha256([string]$Text) {
+    $sha = [Security.Cryptography.SHA256]::Create()
+    try {
+        $bytes = [Text.Encoding]::UTF8.GetBytes([string]$Text)
+        return ([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace('-','')
+    } finally { $sha.Dispose() }
 }
-function FixedRuntime {
-  if(-not$env:APPDATA){throw'APPDATA unavailable'}
-  $pkg=Join-Path $env:APPDATA 'npm\node_modules\openclaw\package.json';$cli=Join-Path $env:APPDATA 'npm\node_modules\openclaw\dist\index.js'
-  if(-not(Test-Path $pkg -PathType Leaf)-or-not(Test-Path $cli -PathType Leaf)){throw'fixed OpenClaw runtime missing'}
-  $version=[string](Get-Content $pkg -Raw|ConvertFrom-Json).version;if($version-ne$ExpectedOpenClawVersion){throw('unexpected OpenClaw version '+$version)}
-  $node=Get-Command node.exe -ErrorAction SilentlyContinue;if(-not$node){$node=Get-Command node -ErrorAction Stop}
-  [pscustomobject]@{node=$node.Source;cli=$cli;version=$version}
+function Get-Prop([object]$Object,[string]$Name) {
+    if ($null -eq $Object) { return $null }
+    $prop = $Object.PSObject.Properties[$Name]
+    if ($null -ne $prop) { return $prop.Value }
+    return $null
 }
-function Quote([string]$V){if($null-eq$V-or$V.Length-eq0){return'""'};if($V-notmatch'[\s"]'){return$V};return'"'+($V.Replace('\','\\').Replace('"','\"'))+'"'}
-function Run([object]$R,[string[]]$A,[int]$Seconds=60){
-  $psi=New-Object Diagnostics.ProcessStartInfo;$psi.FileName=$R.node;$psi.Arguments=((@($R.cli)+$A|ForEach-Object{Quote([string]$_)})-join' ');$psi.UseShellExecute=$false;$psi.CreateNoWindow=$true;$psi.RedirectStandardOutput=$true;$psi.RedirectStandardError=$true
-  $p=New-Object Diagnostics.Process;$p.StartInfo=$psi;if(-not$p.Start()){throw'fixed OpenClaw process start failed'};$ot=$p.StandardOutput.ReadToEndAsync();$et=$p.StandardError.ReadToEndAsync();if(-not$p.WaitForExit($Seconds*1000)){try{$p.Kill()}catch{};$p.WaitForExit();throw'fixed OpenClaw read-only probe timeout'};$o=[string]$ot.Result;$e=[string]$et.Result;$c=[int]$p.ExitCode;$p.Dispose();[pscustomobject]@{code=$c;out=$o;err=$e}
+function Get-StringArray([object]$Value) {
+    if ($null -eq $Value) { return @() }
+    if ($Value -is [string]) { throw 'tool policy list must be an array' }
+    $items = @($Value)
+    foreach ($item in $items) { if ($item -isnot [string]) { throw 'tool policy list item must be string' } }
+    return @($items | Sort-Object -Unique)
 }
-function MainEntry([object]$Cfg){$agents=J $Cfg 'agents';$list=J $agents 'list';if($null-eq$list){return$null};$rows=@($list|Where-Object{[string](J $_ 'id')-eq'main'});if($rows.Count-gt1){throw'multiple main entries'};if($rows.Count-eq1){return$rows[0]};return$null}
-function ProviderPolicy([object]$Container,[string]$Provider,[string]$Model){if($null-eq$Container){return$null};$by=J $Container 'byProvider';if($null-eq$by){return$null};$p=$by.PSObject.Properties[$Provider];if($p){return$p.Value};$m=$by.PSObject.Properties[$Model];if($m){return$m.Value};return$null}
+function Get-PolicySummary([object]$Policy) {
+    if ($null -eq $Policy) { $Policy = [pscustomobject]@{} }
+    $profile = [string](Get-Prop $Policy 'profile')
+    if (-not $profile) { $profile = 'UNSET' }
+    elseif ($profile -notin @('minimal','coding','messaging','full')) { $profile = 'OTHER' }
+    $allow = Get-StringArray (Get-Prop $Policy 'allow')
+    $alsoAllow = Get-StringArray (Get-Prop $Policy 'alsoAllow')
+    $deny = Get-StringArray (Get-Prop $Policy 'deny')
+    if ($allow.Count -gt 0 -and $alsoAllow.Count -gt 0) { throw 'allow and alsoAllow cannot coexist' }
+    $effectiveAllow = @($allow) + @($alsoAllow)
+    return [ordered]@{
+        present = ($Policy.PSObject.Properties.Count -gt 0)
+        profile = $profile
+        allow_count = $allow.Count
+        also_allow_count = $alsoAllow.Count
+        deny_count = $deny.Count
+        allow_sha256 = Get-TextSha256 ($allow | ConvertTo-Json -Compress)
+        also_allow_sha256 = Get-TextSha256 ($alsoAllow | ConvertTo-Json -Compress)
+        deny_sha256 = Get-TextSha256 ($deny | ConvertTo-Json -Compress)
+        known_control_allowed = @($KnownControl | Where-Object { $effectiveAllow -contains $_ })
+        protected_explicitly_allowed = @($Protected | Where-Object { $effectiveAllow -contains $_ })
+        protected_explicitly_denied = @($Protected | Where-Object { $deny -contains $_ })
+    }
+}
+function Get-FixedRuntime {
+    if (-not $env:APPDATA) { throw 'APPDATA unavailable' }
+    $pkg = Join-Path $env:APPDATA 'npm\node_modules\openclaw\package.json'
+    $cli = Join-Path $env:APPDATA 'npm\node_modules\openclaw\dist\index.js'
+    if (-not (Test-Path -LiteralPath $pkg -PathType Leaf) -or -not (Test-Path -LiteralPath $cli -PathType Leaf)) { throw 'fixed OpenClaw runtime missing' }
+    $version = [string](Get-Content -LiteralPath $pkg -Raw | ConvertFrom-Json).version
+    if ($version -ne $ExpectedOpenClawVersion) { throw ('unexpected OpenClaw version ' + $version) }
+    $node = Get-Command node.exe -ErrorAction SilentlyContinue
+    if (-not $node) { $node = Get-Command node -ErrorAction Stop }
+    return [pscustomobject]@{ node = $node.Source; cli = $cli; version = $version }
+}
+function ConvertTo-FixedArg([AllowEmptyString()][string]$Value) {
+    if ($null -eq $Value -or $Value.Length -eq 0) { return '""' }
+    if ($Value -notmatch '[\s"]') { return $Value }
+    $quote = [string][char]34
+    $slash = [string][char]92
+    $sb = New-Object Text.StringBuilder
+    [void]$sb.Append($quote)
+    $slashes = 0
+    for ($i = 0; $i -lt $Value.Length; $i++) {
+        $ch = $Value[$i]
+        if ($ch -eq [char]92) { $slashes++; continue }
+        if ($ch -eq [char]34) {
+            if ($slashes -gt 0) { [void]$sb.Append(($slash * ($slashes * 2))) }
+            [void]$sb.Append($slash); [void]$sb.Append($quote); $slashes = 0; continue
+        }
+        if ($slashes -gt 0) { [void]$sb.Append(($slash * $slashes)); $slashes = 0 }
+        [void]$sb.Append($ch)
+    }
+    if ($slashes -gt 0) { [void]$sb.Append(($slash * ($slashes * 2))) }
+    [void]$sb.Append($quote)
+    return $sb.ToString()
+}
+function Invoke-FixedReadOnly([object]$Runtime,[string[]]$Arguments,[int]$TimeoutSeconds = 60) {
+    $psi = New-Object Diagnostics.ProcessStartInfo
+    $psi.FileName = $Runtime.node
+    $psi.Arguments = ((@($Runtime.cli) + @($Arguments) | ForEach-Object { ConvertTo-FixedArg ([string]$_) }) -join ' ')
+    $psi.UseShellExecute = $false
+    $psi.CreateNoWindow = $true
+    $psi.RedirectStandardOutput = $true
+    $psi.RedirectStandardError = $true
+    $process = New-Object Diagnostics.Process
+    $process.StartInfo = $psi
+    if (-not $process.Start()) { throw 'fixed OpenClaw process start failed' }
+    $stdoutTask = $process.StandardOutput.ReadToEndAsync()
+    $stderrTask = $process.StandardError.ReadToEndAsync()
+    if (-not $process.WaitForExit($TimeoutSeconds * 1000)) {
+        try { $process.Kill() } catch {}
+        $process.WaitForExit()
+        throw 'fixed OpenClaw read-only probe timeout'
+    }
+    $result = [pscustomobject]@{ code = [int]$process.ExitCode; out = [string]$stdoutTask.Result; err = [string]$stderrTask.Result }
+    $process.Dispose()
+    return $result
+}
+function Get-MainEntry([object]$Config) {
+    $agents = Get-Prop $Config 'agents'
+    $list = Get-Prop $agents 'list'
+    if ($null -eq $list) { return $null }
+    $rows = @($list | Where-Object { [string](Get-Prop $_ 'id') -eq 'main' })
+    if ($rows.Count -gt 1) { throw 'multiple main entries' }
+    if ($rows.Count -eq 1) { return $rows[0] }
+    return $null
+}
+function Get-ProviderPolicy([object]$Container,[string]$Provider,[string]$Model) {
+    if ($null -eq $Container) { return $null }
+    $byProvider = Get-Prop $Container 'byProvider'
+    if ($null -eq $byProvider) { return $null }
+    $p = $byProvider.PSObject.Properties[$Provider]
+    if ($null -ne $p) { return $p.Value }
+    $m = $byProvider.PSObject.Properties[$Model]
+    if ($null -ne $m) { return $m.Value }
+    return $null
+}
 
-if($SelfTest){
-  $p=[pscustomobject]@{allow=@('get_goal','exec');deny=@('write')};$s=Summary $p;if($s.allow_count-ne2-or$s.protected_explicitly_allowed-ne'exec'-or$s.protected_explicitly_denied-ne'write'){throw'summary selftest failed'}
-  $bad=[pscustomobject]@{allow=@('get_goal');alsoAllow=@('read')};$blocked=$false;try{Summary $bad|Out-Null}catch{$blocked=$true};if(-not$blocked){throw'allow/alsoAllow negative failed'}
-  Write-Host 'KEVIN MAIN TOOL POLICY DIAGNOSTIC v1 SELFTEST PASS read_only=true fixed_main=true raw_config_output=false arbitrary_command=false'
-  exit 0
+if ($SelfTest) {
+    $policy = [pscustomobject]@{ allow = @('get_goal','exec'); deny = @('write') }
+    $summary = Get-PolicySummary $policy
+    if ($summary.allow_count -ne 2 -or @($summary.protected_explicitly_allowed).Count -ne 1 -or $summary.protected_explicitly_allowed[0] -ne 'exec') { throw 'summary selftest failed' }
+    $bad = [pscustomobject]@{ allow = @('get_goal'); alsoAllow = @('read') }
+    $blocked = $false
+    try { Get-PolicySummary $bad | Out-Null } catch { $blocked = $true }
+    if (-not $blocked) { throw 'allow/alsoAllow negative failed' }
+    Write-Host 'KEVIN MAIN TOOL POLICY DIAGNOSTIC v1 SELFTEST PASS read_only=true fixed_main=true raw_config_output=false arbitrary_command=false'
+    exit 0
 }
 
-$cfgPath=Join-Path $env:USERPROFILE '.openclaw\openclaw.json';if(-not(Test-Path $cfgPath -PathType Leaf)){throw'fixed OpenClaw config missing'}
-$cfg=Get-Content $cfgPath -Raw|ConvertFrom-Json;$main=MainEntry $cfg;$agents=J $cfg 'agents';$defaults=J $agents 'defaults';$model=J $main 'model';if($null-eq$model){$model=J $defaults 'model'};if($model-isnot[string]){$model=J $model 'primary'};$model=[string]$model;if(-not$model){$model='UNKNOWN'};$parts=$model-split'/',2;$provider=if($parts.Count-eq2){$parts[0]}else{'UNKNOWN'}
-$root=J $cfg 'tools';$mainTools=J $main 'tools';$rootProvider=ProviderPolicy $root $provider $model;$mainProvider=ProviderPolicy $mainTools $provider $model
-$runtime=FixedRuntime;$validate=Run $runtime @('config','validate','--json');if($validate.code-ne0){throw'OpenClaw config validation failed'}
-$explain=Run $runtime @('sandbox','explain','--agent','main','--json');$explainOk=($explain.code-eq0);$explainObj=$null;if($explainOk){try{$explainObj=$explain.out|ConvertFrom-Json}catch{$explainOk=$false}}
-$sandbox=J $main 'sandbox';$sandboxMode=[string](J $sandbox 'mode');if(-not$sandboxMode){$sandboxMode='UNSET'};$workspaceAccess=[string](J $sandbox 'workspaceAccess');if(-not$workspaceAccess){$workspaceAccess='UNSET'}
-$out=[ordered]@{schema=1;kind='kevin-main-tool-policy-diagnostic';state='READ_ONLY_DIAGNOSIS';safe_for_public_repo=$true;openclaw_version=$runtime.version;config_sha256=(Get-FileHash $cfgPath -Algorithm SHA256).Hash.ToUpperInvariant();main_entry_present=($null-ne$main);model_family=if($model-match'(?i)qwen2\.5'){'QWEN2_5'}else{'OTHER'};model_id_sha256=H $model;provider_id_sha256=H $provider;root=(Summary $root);main=(Summary $mainTools);root_provider=(Summary $rootProvider);main_provider=(Summary $mainProvider);sandbox=[ordered]@{mode=$sandboxMode;workspace_access=$workspaceAccess;explain_ok=$explainOk;explain_sha256=H($(if($explainOk){$explain.out}else{''}))};risk=[ordered]@{broad_profile=([string](J $root 'profile')-in@('coding','full')-or[string](J $mainTools 'profile')-in@('coding','full'));protected_explicit_allow=((Summary $root).protected_explicitly_allowed.Count-gt0-or(Summary $mainTools).protected_explicitly_allowed.Count-gt0)};truth_boundary='Fixed main/config + fixed sandbox explain only. No raw config, list contents outside small policy-owned known sets, paths, credentials, prompts, messages, or arbitrary command output are emitted.'}
-$out|ConvertTo-Json -Depth 20
+$configPath = Join-Path $env:USERPROFILE '.openclaw\openclaw.json'
+if (-not (Test-Path -LiteralPath $configPath -PathType Leaf)) { throw 'fixed OpenClaw config missing' }
+$config = Get-Content -LiteralPath $configPath -Raw | ConvertFrom-Json
+$main = Get-MainEntry $config
+$agents = Get-Prop $config 'agents'
+$defaults = Get-Prop $agents 'defaults'
+$model = Get-Prop $main 'model'
+if ($null -eq $model) { $model = Get-Prop $defaults 'model' }
+if ($model -isnot [string]) { $model = Get-Prop $model 'primary' }
+$model = [string]$model
+if (-not $model) { $model = 'UNKNOWN' }
+$parts = $model -split '/',2
+$provider = if ($parts.Count -eq 2) { $parts[0] } else { 'UNKNOWN' }
+$rootTools = Get-Prop $config 'tools'
+$mainTools = Get-Prop $main 'tools'
+$rootProvider = Get-ProviderPolicy $rootTools $provider $model
+$mainProvider = Get-ProviderPolicy $mainTools $provider $model
+$runtime = Get-FixedRuntime
+$validate = Invoke-FixedReadOnly $runtime @('config','validate','--json')
+if ($validate.code -ne 0) { throw 'OpenClaw config validation failed' }
+$explain = Invoke-FixedReadOnly $runtime @('sandbox','explain','--agent','main','--json')
+$explainOk = ($explain.code -eq 0)
+if ($explainOk) { try { $null = $explain.out | ConvertFrom-Json } catch { $explainOk = $false } }
+$sandbox = Get-Prop $main 'sandbox'
+$sandboxMode = [string](Get-Prop $sandbox 'mode'); if (-not $sandboxMode) { $sandboxMode = 'UNSET' }
+$workspaceAccess = [string](Get-Prop $sandbox 'workspaceAccess'); if (-not $workspaceAccess) { $workspaceAccess = 'UNSET' }
+$rootSummary = Get-PolicySummary $rootTools
+$mainSummary = Get-PolicySummary $mainTools
+$rootProviderSummary = Get-PolicySummary $rootProvider
+$mainProviderSummary = Get-PolicySummary $mainProvider
+$explainHashText = if ($explainOk) { [string]$explain.out } else { '' }
+$out = [ordered]@{
+    schema = 1
+    kind = 'kevin-main-tool-policy-diagnostic'
+    state = 'READ_ONLY_DIAGNOSIS'
+    safe_for_public_repo = $true
+    openclaw_version = $runtime.version
+    config_sha256 = (Get-FileHash -LiteralPath $configPath -Algorithm SHA256).Hash.ToUpperInvariant()
+    main_entry_present = ($null -ne $main)
+    model_family = $(if ($model -match '(?i)qwen2\.5') { 'QWEN2_5' } else { 'OTHER' })
+    model_id_sha256 = Get-TextSha256 $model
+    provider_id_sha256 = Get-TextSha256 $provider
+    root = $rootSummary
+    main = $mainSummary
+    root_provider = $rootProviderSummary
+    main_provider = $mainProviderSummary
+    sandbox = [ordered]@{ mode = $sandboxMode; workspace_access = $workspaceAccess; explain_ok = $explainOk; explain_sha256 = Get-TextSha256 $explainHashText }
+    risk = [ordered]@{ broad_profile = ($rootSummary.profile -in @('coding','full') -or $mainSummary.profile -in @('coding','full')); protected_explicit_allow = (@($rootSummary.protected_explicitly_allowed).Count -gt 0 -or @($mainSummary.protected_explicitly_allowed).Count -gt 0) }
+    truth_boundary = 'Fixed main/config + fixed sandbox explain only. No raw config, list contents outside small policy-owned known sets, paths, credentials, prompts, messages, or arbitrary command output are emitted.'
+}
+$out | ConvertTo-Json -Depth 20
