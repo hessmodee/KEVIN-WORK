@@ -52,4 +52,11 @@ All Bess/ChatGPT, Grok Build, Grok Bot, and replacement engineering sessions mus
 
 ### Qualified candidate and exact next step
 
-PR37 commit 481d1ac3f4ea4df0265b1bea2de40e985d9014cb repairs9 independently reproduced candidate safety failures;23 tests pass in CI33678048287 on Linux/Windows Python3.12/3.13. Continue this existing candidate: qualify installed schema, fixed wrapper/backup/hash-CAS/rollback and real-turn/compaction proof. It is not merged/installed and does not provide an R04 baseline operation. docs/engineering/KEVIN-FIXED-MAIN-CANDIDATE-SAFETY-2026-09-02.md records negatives and remaining outside-engineer work. No T-level promotion or retry reset.
+PR37 commit 3b095f5e33a5c11dcd41b637f2bf34c5fd467ee9 now repairs both semantic-diff identity loss and malformed authored tool-policy classification;28 tests pass in CI33685149497 on Linux/Windows Python3.12/3.13. Continue this existing candidate: qualify installed schema, effective per-turn inventory and fixed wrapper/backup/hash-CAS/rollback with real-turn/compaction proof. It is not merged/installed and does not provide an R04 baseline operation. docs/engineering/KEVIN-FIXED-MAIN-CANDIDATE-SAFETY-2026-09-02.md records negatives and remaining outside-engineer work. No T-level promotion or retry reset.
+
+
+### Fresh production facts
+
+Support15:21 MDT still reports Benchmark29/30, critical1 solely R04 at15:02, with six consecutive Benchmark scheduler errors; Maintenance is NO_MANIFEST and other listed core schedulers remain at zero errors. Engineering15:21 reports no request and a11663.6-second stale UI heartbeat. Autonomy remains NEEDS_REVIEW/drift2 with benchmark_not_pass attempts3 preserved; Supervisor continuation correctly idles with zero eligible items and proves no outcome. Owner compaction repair remains the newest semantic main evidence; no post-repair canary/tool execution is proven.
+
+Qualify an exact-current governed R04 baseline operation from installed baseline/Benchmark and unqualified Maintenance source before any mutation; preserve owner config23DA... and require fresh30/30. Diagnose effective fixed:main tool policy across profile, global/per-agent/provider/sender/channel/sandbox/plugin/model filters with a real session inventory before any narrow grant. UI restart remains independent but its existing typed operation ends by requiring Benchmark30/30, so do not manufacture a failed crossing while R04 is known open.

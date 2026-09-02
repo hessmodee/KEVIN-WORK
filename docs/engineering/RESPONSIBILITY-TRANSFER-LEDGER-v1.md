@@ -1,6 +1,6 @@
 # Bess -> Kevin Responsibility Transfer Ledger v1
 
-Baseline established: 2026-08-31; current reconciliation: 2026-09-02 20:15 UTC review
+Baseline established: 2026-08-31; current reconciliation: 2026-09-02 21:27 UTC review
 
 Purpose: track whether Kevin is actually taking recurring operational responsibility away from Bess, not merely accumulating code or candidates.
 
@@ -83,12 +83,10 @@ The goal of this ledger is to watch the operational dependency shrink:
 
 ## Current proof checkpoint
 
-Owner-reported fixed:main compaction repair preserves model/context16384, reserveTokensFloor2048, reserveTokens2048 and keepRecentTokens4000 at config SHA23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5; fresh text reply and manual compaction passed. The 09:00 rejected canary predates this repair and is not a post-repair failure. Benchmark14:02 MDT remains29/30 critical1, solely R04; Support14:09 corroborates NO_MANIFEST. Engineering14:13 reports stale UI heartbeat7579.5s and four proven composites. The13:45 capability audit completed but records policy-path presence, not effective inventory; owner reports an empty fresh /context inventory. No tool grant, baseline change, runtime repair or T-level promotion occurred in this review.
+Support15:21 MDT still reports Benchmark29/30, critical1 solely R04 at15:02, with six consecutive Benchmark scheduler errors; Maintenance is NO_MANIFEST and other listed core schedulers remain at zero errors. Engineering15:21 reports no request and a11663.6-second stale UI heartbeat. Autonomy remains NEEDS_REVIEW/drift2 with benchmark_not_pass attempts3 preserved; Supervisor continuation correctly idles with zero eligible items and proves no outcome. Owner compaction repair remains the newest semantic main evidence; no post-repair canary/tool execution is proven.
 
-P0 qualify an exact-current bounded R04 baseline contract and fresh30/30 without reverting compaction; obtain installed-version-qualified effective tool policy/inventory before any narrow grant. Preserve unknown Maintenance source and runtime policy bytes. PR37 candidate hardening is CI-proven, not installable: qualify actual installed config schema, fixed wrapper/hash-CAS/backup/rollback and semantic real-turn/compaction/negative proof. Continue independent authorized work within WIP; do not reset history or repeat satisfied work.
+Qualify an exact-current governed R04 baseline operation from installed baseline/Benchmark and unqualified Maintenance source before any mutation; preserve owner config23DA... and require fresh30/30. Diagnose effective fixed:main tool policy across profile, global/per-agent/provider/sender/channel/sandbox/plugin/model filters with a real session inventory before any narrow grant. UI restart remains independent but its existing typed operation ends by requiring Benchmark30/30, so do not manufacture a failed crossing while R04 is known open.
 
-Candidate PR37 commit 481d1ac3f4ea4df0265b1bea2de40e985d9014cb passes23 tests in [CI33678048287](https://github.com/hessmodee/KEVIN-WORK/actions/runs/33678048287), after9 independent failures were reproduced on its prior source. This is candidate safety hardening, not installed self-repair. Review/negatives/remaining wrapper gates: [current safety review](KEVIN-FIXED-MAIN-CANDIDATE-SAFETY-2026-09-02.md).
+PR37 commit 3b095f5e33a5c11dcd41b637f2bf34c5fd467ee9 passes28 tests across four OS/Python jobs in [CI33685149497](https://github.com/hessmodee/KEVIN-WORK/actions/runs/33685149497). It now rejects malformed global/per-agent/provider/sender/sandbox authored policy and unsupported profiles without claiming effective inventory. This is CI-proven candidate hardening, not installed repair or useful autonomous execution.
 
-Work selection staysT2. No promotions, demotions or retired Bess responsibilities are asserted. Prior09:00 canary rejection is pre-owner-repair history, not new failure evidence. Earlier partial-transcript zero never establishes full-turn zero. Reader staysT1 pending full provenance and autonomous evidence acquisition.
-
-Supervisor history replacement remains unresolved; the59-test journal candidate is uninstalled. Preserve all item/family evidence and completed HQ/staging closures. Local desired-state drift2 remains unblessed; no runtime hashes or five policy files were replaced. The owner retired the old write-proof/global-stop objective, not unrelated effect-specific safety prerequisites. This reconciliation is outside-engineer continuity work, not Kevin-owned memory proof.
+Work selection staysT2. No promotions, demotions or retired Bess responsibilities are asserted. All attempt/family history and completed statuses remain intact. Desired-state drift2 remains unblessed; installed Maintenance source remains unqualified; five policy files and the owner config were not changed. This reconciliation is an outside-engineer intervention, not Kevin-owned handoff proof.

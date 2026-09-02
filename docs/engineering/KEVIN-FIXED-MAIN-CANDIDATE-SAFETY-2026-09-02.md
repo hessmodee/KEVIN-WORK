@@ -4,7 +4,7 @@
 
 The existing [PR37](https://github.com/hessmodee/KEVIN-WORK/pull/37) candidate was hardened in place, without merging or installing it. Baseline f092c891a68b3c943c03aa4b1276ace823fa35a8 passed its original10 tests, but independent local Python3.12 testing reproduced9 safety failures. Commit 481d1ac3f4ea4df0265b1bea2de40e985d9014cb passes23 tests on Linux and Windows, Python3.12 and3.13; all four [CI jobs](https://github.com/hessmodee/KEVIN-WORK/actions/runs/33678048287) were checked for actual test output and the unchanged authority-boundary gate.
 
-Contract SHA256: 60792F346FA15ECAF89A7CEB25A0D6E9B45A88EE567DD3C0CB846D4449D016AE. Test module SHA256:53EF71C23BF534B882D5800CD2AE9DA74D235AA99181439A46842D251461DAF4.
+Contract SHA256: 509109E390D630B5AC6759470E78BFFBF49811A557F00AE3FB0575375E38C402. Test module SHA256:9D62CC1C49E0AD5248BD64E70063DC998415A09854D07560843C7DDC55CACCA6.
 
 ## Defects, detector and teach-back
 
@@ -42,3 +42,16 @@ One existing staging item(PR37) was reviewed and returned to CI-proven candidate
 P0 qualify an exact-current bounded R04 baseline contract and fresh30/30 without reverting compaction; obtain installed-version-qualified effective tool policy/inventory before any narrow grant. Preserve unknown Maintenance source and runtime policy bytes. PR37 candidate hardening is CI-proven, not installable: qualify actual installed config schema, fixed wrapper/hash-CAS/backup/rollback and semantic real-turn/compaction/negative proof. Continue independent authorized work within WIP; do not reset history or repeat satisfied work.
 
 Work-selection staysT2. This source repair and continuity reconciliation were outside-engineer interventions; no recurring Bess responsibility was retired. Preserve this negative-test lesson for Kevin-owned future qualification.
+
+
+## Tool-policy evidence hardening follow-up
+
+The follow-up reproduced a second fail-open family: malformed authored policy objects were silently normalized to absence and simultaneous allow/alsoAllow keys were accepted when both arrays were empty. Current official OpenClaw documentation says allow and alsoAllow cannot both be set in one scope, deny wins, policy order includes base/profile plus provider restrictions, and effective tools are additionally filtered by sandbox/plugin/runtime context. Source: [official tool configuration](https://docs.openclaw.ai/gateway/config-tools), reviewed2026-09-02.
+
+The candidate now rejects malformed root, per-main, byProvider, toolsBySender and sandbox objects; rejects unsupported profiles outside minimal/coding/messaging/full; rejects allow+alsoAllow by key presence; distinguishes explicit empty policy from absence; and reports provider/sender/sandbox presence without claiming effective availability. Five new test methods cover11 negative subcases. Contract and test hashes are pinned above.
+
+Support15:21 MDT still reports Benchmark29/30, critical1 solely R04 at15:02, with six consecutive Benchmark scheduler errors; Maintenance is NO_MANIFEST and other listed core schedulers remain at zero errors. Engineering15:21 reports no request and a11663.6-second stale UI heartbeat. Autonomy remains NEEDS_REVIEW/drift2 with benchmark_not_pass attempts3 preserved; Supervisor continuation correctly idles with zero eligible items and proves no outcome. Owner compaction repair remains the newest semantic main evidence; no post-repair canary/tool execution is proven.
+
+Qualify an exact-current governed R04 baseline operation from installed baseline/Benchmark and unqualified Maintenance source before any mutation; preserve owner config23DA... and require fresh30/30. Diagnose effective fixed:main tool policy across profile, global/per-agent/provider/sender/channel/sandbox/plugin/model filters with a real session inventory before any narrow grant. UI restart remains independent but its existing typed operation ends by requiring Benchmark30/30, so do not manufacture a failed crossing while R04 is known open.
+
+No config, baseline, policy, runtime, manifest, retry budget or completed work item changed. The candidate cannot prove which filter empties fixed:main tools and must not be used as authorization to widen tools. R04 and stale UI remain production facts, not candidate success.
