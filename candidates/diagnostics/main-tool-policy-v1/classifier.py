@@ -25,7 +25,17 @@ class PolicyError(ValueError):
 
 
 def _obj(value: Any) -> Dict[str, Any]:
-    return value if isinstance(value, dict) else {}
+    if value is None:
+        return {}
+    if not isinstance(value, dict):
+        raise PolicyError("policy scope must be an object")
+    return value
+
+
+def _enum(value: Any, allowed: set[str]) -> str:
+    if value is None:
+        return "UNSET"
+    return value if isinstance(value, str) and value in allowed else "OTHER"
 
 
 def _list(value: Any) -> List[str]:
@@ -93,10 +103,11 @@ def classify(config: Any) -> Dict[str, Any]:
     main_by = _obj(main_tools.get("byProvider"))
 
     def provider_scope(container: Dict[str, Any]) -> Dict[str, Any]:
-        if provider in container:
-            return _obj(container[provider])
+        # v2026.7.1-2 checks the full model key before the provider key.
         if model in container:
             return _obj(container[model])
+        if provider in container:
+            return _obj(container[provider])
         return {}
 
     sandbox = _obj(main.get("sandbox"))
@@ -117,8 +128,8 @@ def classify(config: Any) -> Dict[str, Any]:
         "root_provider": _policy(provider_scope(root_by)),
         "main_provider": _policy(provider_scope(main_by)),
         "sandbox": {
-            "mode": sandbox.get("mode", "UNSET") if isinstance(sandbox.get("mode", "UNSET"), str) else "OTHER",
-            "workspace_access": sandbox.get("workspaceAccess", "UNSET") if isinstance(sandbox.get("workspaceAccess", "UNSET"), str) else "OTHER",
+            "mode": _enum(sandbox.get("mode"), {"off", "all", "non-main"}),
+            "workspace_access": _enum(sandbox.get("workspaceAccess"), {"none", "ro", "rw"}),
             "tools": _policy(sandbox_tools),
         },
         "risk_flags": {

@@ -47,6 +47,28 @@ class Tests(unittest.TestCase):
         x = cfg(); x["tools"] = {"byProvider": {"ollama-chat-16k": {"allow": ["get_goal"]}}}
         self.assertEqual(classify(x)["root_provider"]["allow_count"], 1)
 
+    def test_model_policy_precedes_provider(self):
+        x = cfg(); x["tools"] = {"byProvider": {
+            "ollama-chat-16k": {"allow": ["exec"]},
+            "ollama-chat-16k/qwen2.5:14b": {"deny": ["exec"]},
+        }}
+        out = classify(x)["root_provider"]
+        self.assertEqual(out["allow_count"], 0)
+        self.assertEqual(out["protected_explicitly_denied"], ["exec"])
+
+    def test_unknown_sandbox_values_not_published(self):
+        x = cfg(); x["agents"]["list"][0]["sandbox"] = {
+            "mode": "private-fixture", "workspaceAccess": "private-fixture"}
+        out = classify(x)
+        self.assertNotIn("private-fixture", str(out))
+        self.assertEqual(out["sandbox"]["mode"], "OTHER")
+
+    def test_malformed_scope_is_not_empty_policy(self):
+        for value in ["", "exec", 42, [], True]:
+            with self.subTest(value=value):
+                x = cfg(); x["tools"] = value
+                with self.assertRaises(PolicyError): classify(x)
+
     def test_reject_allow_plus_also_allow(self):
         x = cfg(); x["tools"] = {"allow": ["get_goal"], "alsoAllow": ["session_status"]}
         with self.assertRaises(PolicyError): classify(x)

@@ -29,6 +29,7 @@ function Get-StringArray([object]$Value) {
 }
 function Get-PolicySummary([object]$Policy) {
     if ($null -eq $Policy) { $Policy = [pscustomobject]@{} }
+    if ($Policy -isnot [pscustomobject]) { throw 'tool policy must be an object' }
     $profile = [string](Get-Prop $Policy 'profile')
     if (-not $profile) { $profile = 'UNSET' }
     elseif ($profile -notin @('minimal','coding','messaging','full')) { $profile = 'OTHER' }
@@ -119,11 +120,17 @@ function Get-ProviderPolicy([object]$Container,[string]$Provider,[string]$Model)
     if ($null -eq $Container) { return $null }
     $byProvider = Get-Prop $Container 'byProvider'
     if ($null -eq $byProvider) { return $null }
-    $p = $byProvider.PSObject.Properties[$Provider]
-    if ($null -ne $p) { return $p.Value }
+    # Installed v2026.7.1-2 provider-tool-policy.ts checks model before provider.
     $m = $byProvider.PSObject.Properties[$Model]
     if ($null -ne $m) { return $m.Value }
+    $p = $byProvider.PSObject.Properties[$Provider]
+    if ($null -ne $p) { return $p.Value }
     return $null
+}
+function Get-PublicEnum([object]$Value,[string[]]$Allowed) {
+    if ($null -eq $Value) { return 'UNSET' }
+    if ($Value -is [string] -and $Allowed -ccontains $Value) { return $Value }
+    return 'OTHER'
 }
 
 if ($SelfTest) {
@@ -141,6 +148,10 @@ if ($SelfTest) {
     if ((Get-PolicySummary ([pscustomobject]@{})).present) { throw 'empty policy must be absent' }
     $singletonConfig = '{"agents":{"list":[{"id":"main"}]}}' | ConvertFrom-Json
     if ((Get-MainEntry $singletonConfig).id -ne 'main') { throw 'singleton agent list lost' }
+    $providerFixture = '{"byProvider":{"ollama-chat-16k":{"allow":["exec"]},"ollama-chat-16k/qwen2.5:14b":{"deny":["exec"]}}}' | ConvertFrom-Json
+    $chosen = Get-PolicySummary (Get-ProviderPolicy $providerFixture 'ollama-chat-16k' 'ollama-chat-16k/qwen2.5:14b')
+    if ($chosen.deny_count -ne 1 -or $chosen.allow_count -ne 0) { throw 'model-specific policy precedence lost' }
+    if ((Get-PublicEnum 'private-fixture' @('off','all','non-main')) -ne 'OTHER') { throw 'unknown enum leaked' }
     foreach ($json in @('{"allow":"exec"}','{"allow":42}','{"allow":{}}','{"allow":[42]}','{"deny":"write"}')) {
         $blocked = $false
         try { Get-PolicySummary ($json | ConvertFrom-Json) | Out-Null } catch { $blocked = $true }
@@ -181,8 +192,8 @@ $explain = Invoke-FixedReadOnly $runtime @('sandbox','explain','--agent','main',
 $explainOk = ($explain.code -eq 0)
 if ($explainOk) { try { $null = $explain.out | ConvertFrom-Json } catch { $explainOk = $false } }
 $sandbox = Get-Prop $main 'sandbox'
-$sandboxMode = [string](Get-Prop $sandbox 'mode'); if (-not $sandboxMode) { $sandboxMode = 'UNSET' }
-$workspaceAccess = [string](Get-Prop $sandbox 'workspaceAccess'); if (-not $workspaceAccess) { $workspaceAccess = 'UNSET' }
+$sandboxMode = Get-PublicEnum (Get-Prop $sandbox 'mode') @('off','all','non-main')
+$workspaceAccess = Get-PublicEnum (Get-Prop $sandbox 'workspaceAccess') @('none','ro','rw')
 $rootSummary = Get-PolicySummary $rootTools
 $mainSummary = Get-PolicySummary $mainTools
 $rootProviderSummary = Get-PolicySummary $rootProvider
