@@ -1,6 +1,6 @@
 # Kevin AI Engineering Handover
 
-Reconciled 2026-09-02 15:30 MDT during Matt-directed foreground convergence work.
+Reconciled 2026-09-02T23:46:21.872Z during Matt-directed foreground convergence work.
 
 **Canonical shared handover:** this is the cross-AI engineering handover for Bess/ChatGPT, Grok Build, Grok Bot, Kevin-facing engineering automation, and future replacement engineers. Enter through `KEVIN-START-HERE.md`. Fresh correlated HESS-PC/OpenClaw evidence outranks this prose. Reconcile this file and `inbox/CURRENT_TASK.md` after every substantive repair, proof transition, blocker, owner decision, production crossing, rollback, or responsibility-transfer change so Matt never has to reconstruct the project from chat history.
 
@@ -61,12 +61,12 @@ Durable lesson: `docs/engineering/LESSON-fixed-main-qwen-context-overflow-2026-0
 
 ## P0 live blocker — Benchmark R04 intentional drift
 
-Fresh Support at 15:24 MDT reports:
+Support at 17:39 MDT (Benchmark result at 17:02 MDT) reports:
 - governance `ok=true`;
-- Supervisor, Support, HQ pulse, and Maintenance Intake healthy;
+- listed Supervisor, Support, HQ pulse, and Maintenance Intake schedulers report zero consecutive errors; this is scheduler evidence, not end-to-end capability proof;
 - Maintenance `NO_MANIFEST`;
 - Benchmark **29/30, critical1**, with exactly one failed regression: R04 `Production config frozen`;
-- Benchmark scheduler has accumulated repeated errors only because R04 remains open.
+- Benchmark scheduler reports eight consecutive errors while R04 remains open.
 
 This is expected stale-baseline drift after the intentional validated `openclaw.json` repair. Do not revert the good compaction settings merely to satisfy the old frozen hash and do not weaken/skip R04.
 
@@ -81,6 +81,14 @@ Required crossing: a narrow governed production-config baseline reconciliation t
 8. rolls back if any invariant fails.
 
 The inspected published Maintenance v1.3.44 / Intake v1.2.6 do not currently establish a general R04 production-config baseline operation. Historical Forge/Supervisor migrations are not substitutes. The installed Maintenance runner SHA `3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E` is an unpublished/unqualified local identity relative to the published runner; do not overwrite it merely to gain a feature until exact source/provenance or a safe equivalent migration is proven.
+
+## R04 candidate repair and remaining production gate
+
+PR39 is merged as `e57bf5b013bbbbad98a4c34b0e933c8d2912bfe5`. The candidate previously accepted missing Benchmark rows, failed to compare the baseline runner anchor, and could omit empty-container changes from its non-target fingerprint. It now validates all 30 distinct R01-R30 rows, strict verdict/count types, exact prior config and runner anchors, and complete non-target structure including literal keys. The real PowerShell predicate tests were extended too.
+
+CI run `33696303871` passed for `a087abb1ef4030ea54f276b877daf3a6d8df2ad8`: 23 tests on Linux/Windows Python3.12/3.13 plus Windows PowerShell5.1 parser/self-tests. This is **CI-PROVEN CANDIDATE, NOT INSTALLED**. It does not close live R04.
+
+Next production qualification must establish exact local baseline/config layout, fresh precondition evidence, transaction race/rollback behavior and a registered execution path. Version-pinned OpenClaw models distinguish required `contextWindow`, optional `contextTokens` and `params`; do not infer the installed values from the provider alias. Recover the exact local `kevin-maintenance-runner.ps1` with SHA `3CFC...B0D6E` before extending it; no supported generic source-export or R04 invocation operation has been established in the current bridge. Broad owner authorization does not create a missing technical connection.
 
 ## Fixed:main effective tools — genuine empty fresh-session inventory, not permission for broad tools
 
@@ -146,8 +154,12 @@ An older repository helper hard-codes `8K` and `tools=false`, while owner `/cont
 ### UI Bridge
 The task is present and the installed hash still matches the known identity, but the Engineering snapshot reports a materially stale heartbeat. Hash/task presence is not live health. Existing typed restart ends by requiring Benchmark30/30; therefore close R04 first or prove a separate restart contract whose acceptance can complete without manufacturing a known Benchmark failure.
 
-### Skill Lab replay preservation
-PR36 (`Skill Lab v1.0.6` proof-preservation repair) has successful CI for registry/replay safety, but it is currently not mergeable against the advanced main branch. Do not force-merge. Reconcile/rebase the small proof-preservation change onto current main, rerun proof, then consider promotion through the normal Skill Lab runner replacement path.
+### Skill Lab replay preservation and lesson delivery
+PR36 was merged at `354e74383f93182d2b92ea6ac0f6897d230c46cb` on 2026-09-02 23:27 UTC. Do not reopen/rebase completed source work. Production runner replacement still requires exact installed identity and the normal typed postconditions.
+
+Engineering at 17:37 MDT reports five proven composites, including `kevin-context-recovery-teachback@1` at 17:32 MDT with proof `AA8ED5EE558A6A9A469FE804B57E3EEF7BD5472496043D50DCF2E31B43F4831C`. This establishes creation of the earlier lesson/drill files, not learner mastery or self-repair independence.
+
+PR38 main-policy diagnostics merged at `7907d40b326c903e9307b5b1dd0044230971098b`; candidate collector still needs a registered read-only runtime path. It preserves PowerShell array cardinality and does not claim full effective tool resolution.
 
 ## Work-conserving backlog while P0 is blocked/cooling
 
@@ -188,7 +200,7 @@ Matt's broad direction to push GREEN/YELLOW development is not permission to fab
 2. Perform version-qualified fixed:main tool-policy diagnosis using fixed read-only surfaces; design the smallest owner-intent/control tool surface and prove allowed + forbidden behavior.
 3. Qualify/extend the merged fixed-main self-repair candidate into an installable typed wrapper and prove the full self-repair chain.
 4. After Benchmark is green, repair/prove the stale UI Bridge and fix HQ context/tool truth once live publisher provenance is recovered.
-5. Reconcile PR36 onto current main and continue GREEN Skill Lab reliability/replay work.
+5. Qualify already-merged PR36/PR38 against installed source; continue GREEN Skill Lab reliability/replay and tool-policy diagnosis without duplicating completed source work.
 6. Prove unattended scheduled selection of one real useful GREEN objective, semantic outcome, durable lesson, restart/replay, and a correct subsequent decision.
 7. Continue owner communications/mobile/Telegram, memory, Reader, browser/research and business-value lanes within WIP when higher-priority families are blocked.
 8. Reconcile this handover after each substantive transition.
