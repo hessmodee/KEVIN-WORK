@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "kind": "kevin-chat-handoff-checkpoint",
-  "generated_at": "2026-09-02T21:27:00Z",
+  "generated_at": "2026-09-02T23:49:14.063Z",
   "current_sprint": "Fixed-main recovery -> tool-capable bounded autonomy -> self-repair transfer",
   "canonical_paths": {
     "start_here": "KEVIN-START-HERE.md",
@@ -38,9 +38,19 @@
     "critical": 1,
     "only_failure": "R04 Production config frozen",
     "interpretation": "expected stale baseline after intentional validated config mutation; preserve repair and use governed rebaseline",
-    "at": "2026-09-02T15:02:17.6795410-06:00",
-    "baseline_contract": "NOT_ESTABLISHED_BY_PUBLISHED_V1344_OR_INTAKE_V126",
-    "consecutive_scheduler_errors": 6
+    "at": "2026-09-02T17:02:35.2116512-06:00",
+    "baseline_contract": "CI_PROVEN_CANDIDATE_NO_REGISTERED_PRODUCTION_TRANSPORT",
+    "consecutive_scheduler_errors": 8,
+    "critical_failures": 1,
+    "failed": [
+      {
+        "category": "config",
+        "critical": true,
+        "detail": "Production config frozen",
+        "id": "R04"
+      }
+    ],
+    "percent": 96.7
   },
   "live_identities": {
     "supervisor": "F5D8C9740D384CC576D4BD70A3940B51AA1FCF398C7085E59DB20C01E9180138",
@@ -51,9 +61,16 @@
     "maintenance_runner": "3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E"
   },
   "current_actions": [
-    "Qualify an exact-current governed R04 baseline operation from installed baseline/Benchmark and unqualified Maintenance source before any mutation; preserve owner config23DA... and require fresh30/30. Diagnose effective fixed:main tool policy across profile, global/per-agent/provider/sender/channel/sandbox/plugin/model filters with a real session inventory before any narrow grant. UI restart remains independent but its existing typed operation ends by requiring Benchmark30/30, so do not manufacture a failed crossing while R04 is known open."
+    "Recover exact installed Maintenance source; qualify fixed R04 transport and actual config/baseline layout; fresh Benchmark30/30 then Support.",
+    "Qualify merged PR38 diagnostic; prove bounded useful main tools without broad grants.",
+    "Verify R04/tool teach-back output and later independent recurrence/replay; no T4/T5 credit for file delivery."
   ],
-  "in_flight": null,
+  "in_flight": {
+    "request_id": "bess-r04-tool-teachback-20260902234453",
+    "status": "STAGED_RUNNING",
+    "receipt": "reports/engineering/r04-tool-teachback-20260902.json",
+    "request_retired": true
+  },
   "known_truth_defects": [
     "Fresh owner /context detail proves fixed:main tool inventory empty despite older canary ambiguity",
     "HQ dashboard context=8K/tools=false labels are hard-coded in repository helper source and are not trustworthy runtime telemetry",
@@ -81,28 +98,61 @@
   },
   "candidate": {
     "status": "CI_PROVEN_CANDIDATE_NOT_INSTALLED",
-    "pull_request": 37,
-    "branch": "bess/fixed-main-self-repair-v1",
-    "source_commit": "3b095f5e33a5c11dcd41b637f2bf34c5fd467ee9",
-    "run_id": 33685149497,
-    "tests": 28,
-    "platforms": [
-      "Linux Python3.12",
-      "Linux Python3.13",
-      "Windows Python3.12",
-      "Windows Python3.13"
-    ],
-    "contract_sha256": "509109E390D630B5AC6759470E78BFFBF49811A557F00AE3FB0575375E38C402",
-    "test_sha256": "9D62CC1C49E0AD5248BD64E70063DC998415A09854D07560843C7DDC55CACCA6",
-    "new_policy_test_methods": 5,
-    "policy_negative_subcases": 11,
+    "pull_request": 39,
+    "source_commit": "e57bf5b013bbbbad98a4c34b0e933c8d2912bfe5",
+    "tested_head": "a087abb1ef4030ea54f276b877daf3a6d8df2ad8",
+    "run_id": 33696303871,
+    "python_test_methods": 23,
+    "windows_powershell_selftests": "PASS",
     "production_effect": false,
-    "transfer_promotion": false,
-    "remaining": "Qualify an exact-current governed R04 baseline operation from installed baseline/Benchmark and unqualified Maintenance source before any mutation; preserve owner config23DA... and require fresh30/30. Diagnose effective fixed:main tool policy across profile, global/per-agent/provider/sender/channel/sandbox/plugin/model filters with a real session inventory before any narrow grant. UI restart remains independent but its existing typed operation ends by requiring Benchmark30/30, so do not manufacture a failed crossing while R04 is known open."
+    "transport": "BLOCKED_EXACT_INSTALLED_MAINTENANCE_SOURCE_AND_REGISTERED_OPERATION_REQUIRED"
   },
   "current_evidence": {
-    "source_commit": "017909dddffaa703bbd54204e8881bcb3793f6e4",
-    "summary": "Support15:21 MDT still reports Benchmark29/30, critical1 solely R04 at15:02, with six consecutive Benchmark scheduler errors; Maintenance is NO_MANIFEST and other listed core schedulers remain at zero errors. Engineering15:21 reports no request and a11663.6-second stale UI heartbeat. Autonomy remains NEEDS_REVIEW/drift2 with benchmark_not_pass attempts3 preserved; Supervisor continuation correctly idles with zero eligible items and proves no outcome. Owner compaction repair remains the newest semantic main evidence; no post-repair canary/tool execution is proven."
+    "at": "2026-09-02T23:49:14.063Z",
+    "source_commit": "420dda758d5d171864801a24abe9f99a9545d470",
+    "record": "docs/engineering/KEVIN-RESUMPTION-REVIEW-2026-09-02.md",
+    "benchmark": {
+      "at": "2026-09-02T17:02:35.2116512-06:00",
+      "status": "FAIL_CRITICAL_REGRESSION",
+      "critical_failures": 1,
+      "failed": [
+        {
+          "category": "config",
+          "critical": true,
+          "detail": "Production config frozen",
+          "id": "R04"
+        }
+      ],
+      "passed": 29,
+      "percent": 96.7,
+      "total": 30
+    },
+    "support_at": "2026-09-02T17:45:35.8232781-06:00",
+    "engineering_at": "2026-09-02T17:47:45.3950358-06:00",
+    "ui_bridge_heartbeat_age_seconds": 20439.9,
+    "proven_composites": 5,
+    "work_selection": "IDLE_NO_ELIGIBLE_DEMAND_NO_AUTONOMOUS_OUTCOME_PROVEN",
+    "r04_candidate": {
+      "status": "CI_PROVEN_CANDIDATE_NOT_INSTALLED",
+      "pull_request": 39,
+      "source_commit": "e57bf5b013bbbbad98a4c34b0e933c8d2912bfe5",
+      "tested_head": "a087abb1ef4030ea54f276b877daf3a6d8df2ad8",
+      "run_id": 33696303871,
+      "python_test_methods": 23,
+      "windows_powershell_selftests": "PASS",
+      "production_effect": false,
+      "transport": "BLOCKED_EXACT_INSTALLED_MAINTENANCE_SOURCE_AND_REGISTERED_OPERATION_REQUIRED"
+    },
+    "teachback": {
+      "request_id": "bess-r04-tool-teachback-20260902234453",
+      "status": "STAGED_RUNNING",
+      "receipt": "reports/engineering/r04-tool-teachback-20260902.json",
+      "request_retired": true
+    },
+    "promotions": [],
+    "retired_bess_responsibilities": [],
+    "runtime_config_mutated": false,
+    "maintenance_runner_replaced": false
   },
   "desired_state_truth": {
     "observed_hashes_source": "reports/support-latest.json",
@@ -113,34 +163,68 @@
     "policy_bundle_replacement": "NOT_AUTHORIZED_FROM_STALE_REPO_IDENTITIES"
   },
   "fixed_main_candidate": {
-    "status": "CI_PROVEN_CANDIDATE_NOT_INSTALLED",
+    "status": "MERGED_CI_PROVEN_CANDIDATE_NOT_INSTALLED",
     "pull_request": 37,
-    "branch": "bess/fixed-main-self-repair-v1",
-    "source_commit": "3b095f5e33a5c11dcd41b637f2bf34c5fd467ee9",
-    "run_id": 33685149497,
-    "tests": 28,
-    "platforms": [
-      "Linux Python3.12",
-      "Linux Python3.13",
-      "Windows Python3.12",
-      "Windows Python3.13"
-    ],
-    "contract_sha256": "509109E390D630B5AC6759470E78BFFBF49811A557F00AE3FB0575375E38C402",
-    "test_sha256": "9D62CC1C49E0AD5248BD64E70063DC998415A09854D07560843C7DDC55CACCA6",
-    "new_policy_test_methods": 5,
-    "policy_negative_subcases": 11,
-    "production_effect": false,
-    "transfer_promotion": false,
-    "remaining": "Qualify an exact-current governed R04 baseline operation from installed baseline/Benchmark and unqualified Maintenance source before any mutation; preserve owner config23DA... and require fresh30/30. Diagnose effective fixed:main tool policy across profile, global/per-agent/provider/sender/channel/sandbox/plugin/model filters with a real session inventory before any narrow grant. UI restart remains independent but its existing typed operation ends by requiring Benchmark30/30, so do not manufacture a failed crossing while R04 is known open."
+    "source_commit": "0906b6f90e5e303f5e9dbda16dbf8f0b941135b1",
+    "record": "docs/engineering/KEVIN-RESUMPTION-REVIEW-2026-09-02.md"
   },
-  "current_engineering_record": "docs/engineering/KEVIN-FIXED-MAIN-CANDIDATE-SAFETY-2026-09-02.md",
+  "current_engineering_record": "docs/engineering/KEVIN-RESUMPTION-REVIEW-2026-09-02.md",
   "current_evidence_review": {
-    "source_commit": "017909dddffaa703bbd54204e8881bcb3793f6e4",
-    "summary": "Support15:21 MDT still reports Benchmark29/30, critical1 solely R04 at15:02, with six consecutive Benchmark scheduler errors; Maintenance is NO_MANIFEST and other listed core schedulers remain at zero errors. Engineering15:21 reports no request and a11663.6-second stale UI heartbeat. Autonomy remains NEEDS_REVIEW/drift2 with benchmark_not_pass attempts3 preserved; Supervisor continuation correctly idles with zero eligible items and proves no outcome. Owner compaction repair remains the newest semantic main evidence; no post-repair canary/tool execution is proven.",
-    "next": "Qualify an exact-current governed R04 baseline operation from installed baseline/Benchmark and unqualified Maintenance source before any mutation; preserve owner config23DA... and require fresh30/30. Diagnose effective fixed:main tool policy across profile, global/per-agent/provider/sender/channel/sandbox/plugin/model filters with a real session inventory before any narrow grant. UI restart remains independent but its existing typed operation ends by requiring Benchmark30/30, so do not manufacture a failed crossing while R04 is known open.",
-    "runtime_mutation": false,
-    "manifest_mutation": false,
-    "retry_budget_reset": false,
-    "transfer_promotion": false
+    "at": "2026-09-02T23:49:14.063Z",
+    "source_commit": "420dda758d5d171864801a24abe9f99a9545d470",
+    "record": "docs/engineering/KEVIN-RESUMPTION-REVIEW-2026-09-02.md",
+    "benchmark": {
+      "at": "2026-09-02T17:02:35.2116512-06:00",
+      "status": "FAIL_CRITICAL_REGRESSION",
+      "critical_failures": 1,
+      "failed": [
+        {
+          "category": "config",
+          "critical": true,
+          "detail": "Production config frozen",
+          "id": "R04"
+        }
+      ],
+      "passed": 29,
+      "percent": 96.7,
+      "total": 30
+    },
+    "support_at": "2026-09-02T17:45:35.8232781-06:00",
+    "engineering_at": "2026-09-02T17:47:45.3950358-06:00",
+    "ui_bridge_heartbeat_age_seconds": 20439.9,
+    "proven_composites": 5,
+    "work_selection": "IDLE_NO_ELIGIBLE_DEMAND_NO_AUTONOMOUS_OUTCOME_PROVEN",
+    "r04_candidate": {
+      "status": "CI_PROVEN_CANDIDATE_NOT_INSTALLED",
+      "pull_request": 39,
+      "source_commit": "e57bf5b013bbbbad98a4c34b0e933c8d2912bfe5",
+      "tested_head": "a087abb1ef4030ea54f276b877daf3a6d8df2ad8",
+      "run_id": 33696303871,
+      "python_test_methods": 23,
+      "windows_powershell_selftests": "PASS",
+      "production_effect": false,
+      "transport": "BLOCKED_EXACT_INSTALLED_MAINTENANCE_SOURCE_AND_REGISTERED_OPERATION_REQUIRED"
+    },
+    "teachback": {
+      "request_id": "bess-r04-tool-teachback-20260902234453",
+      "status": "STAGED_RUNNING",
+      "receipt": "reports/engineering/r04-tool-teachback-20260902.json",
+      "request_retired": true
+    },
+    "promotions": [],
+    "retired_bess_responsibilities": [],
+    "runtime_config_mutated": false,
+    "maintenance_runner_replaced": false
+  },
+  "r04_candidate": {
+    "status": "CI_PROVEN_CANDIDATE_NOT_INSTALLED",
+    "pull_request": 39,
+    "source_commit": "e57bf5b013bbbbad98a4c34b0e933c8d2912bfe5",
+    "tested_head": "a087abb1ef4030ea54f276b877daf3a6d8df2ad8",
+    "run_id": 33696303871,
+    "python_test_methods": 23,
+    "windows_powershell_selftests": "PASS",
+    "production_effect": false,
+    "transport": "BLOCKED_EXACT_INSTALLED_MAINTENANCE_SOURCE_AND_REGISTERED_OPERATION_REQUIRED"
   }
 }
