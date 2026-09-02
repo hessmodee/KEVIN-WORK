@@ -7,7 +7,7 @@ if($errors.Count){throw $errors[0].Message}
 foreach($name in @('Get-OptionalPropertyValue','Get-OptionalPathValue','Get-MainCanaryShape')){
     $fn=$ast.Find({param($n)$n-is[Management.Automation.Language.FunctionDefinitionAst]-and$n.Name-eq$name},$true)
     if(-not$fn){throw "Missing function $name"}
-    Set-Item -Path ('function:'+ $name) -Value $fn.Body.GetScriptBlock()
+    . ([scriptblock]::Create($fn.Extent.Text))
 }
 $token='KEVIN_MAIN_AGENT_CANARY_OK'
 $explicit=[pscustomobject]@{result=[pscustomobject]@{meta=[pscustomobject]@{toolSummary=[pscustomobject]@{calls=0}}}}
