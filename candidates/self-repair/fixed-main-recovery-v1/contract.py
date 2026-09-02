@@ -17,6 +17,7 @@ EXPECTED_NUM_CTX = 16384
 EXPECTED_RESERVE_FLOOR = 2048
 EXPECTED_RESERVE = 2048
 EXPECTED_KEEP_RECENT = 4000
+KNOWN_TOOL_PROFILES = {"minimal", "coding", "messaging", "full"}
 
 ALLOWED_REPAIR_PATHS = {
     "$.agents.defaults.compaction.reserveTokens",
@@ -275,35 +276,71 @@ def _list_of_strings(value: Any) -> Tuple[str, ...]:
 
 def classify_tool_policy_surfaces(cfg: Mapping[str, Any]) -> Dict[str, Any]:
     """Classify authored surfaces only; never claim the runtime-effective inventory."""
+    if not isinstance(cfg, Mapping):
+        raise ContractError("config root must be an object")
     agents = _get_map(cfg.get("agents"))
     main, found = _main_agent(cfg)
-    root_tools = _get_map(cfg.get("tools"))
-    main_tools = _get_map(main.get("tools"))
 
-    def scope(name: str, tools: Mapping[str, Any]) -> Dict[str, Any]:
+    def optional_map(owner: Mapping[str, Any], key: str, label: str) -> Tuple[Mapping[str, Any], bool]:
+        if key not in owner:
+            return {}, False
+        value = owner[key]
+        if not isinstance(value, Mapping):
+            raise ContractError(f"{label} must be an object")
+        return value, True
+
+    root_tools, root_present = optional_map(cfg, "tools", "root tools")
+    main_tools, main_present = optional_map(main, "tools", "main tools")
+
+    def policy_map(name: str, value: Any) -> Mapping[str, Any]:
+        if not isinstance(value, Mapping):
+            raise ContractError(f"{name} policy must be an object")
+        if "allow" in value and "alsoAllow" in value:
+            raise ContractError(f"{name} sets allow and alsoAllow together")
+        _list_of_strings(value.get("allow"))
+        _list_of_strings(value.get("alsoAllow"))
+        _list_of_strings(value.get("deny"))
+        profile = value.get("profile")
+        if profile is not None and profile not in KNOWN_TOOL_PROFILES:
+            raise ContractError(f"{name} profile is unsupported")
+        return value
+
+    def scope(name: str, tools: Mapping[str, Any], present: bool) -> Dict[str, Any]:
         allow = _list_of_strings(tools.get("allow"))
         also = _list_of_strings(tools.get("alsoAllow"))
         deny = _list_of_strings(tools.get("deny"))
-        if allow and also:
+        if "allow" in tools and "alsoAllow" in tools:
             raise ContractError(f"{name} sets allow and alsoAllow together")
         profile = tools.get("profile")
-        if profile is not None and not isinstance(profile, str):
-            raise ContractError(f"{name} profile must be a string")
-        by_provider = _get_map(tools.get("byProvider"))
-        sandbox = _get_map(tools.get("sandbox"))
+        if profile is not None and profile not in KNOWN_TOOL_PROFILES:
+            raise ContractError(f"{name} profile is unsupported")
+        by_provider, by_provider_present = optional_map(tools, "byProvider", f"{name} byProvider")
+        for key, value in by_provider.items():
+            if not isinstance(key, str):
+                raise ContractError(f"{name} provider key must be a string")
+            policy_map(f"{name} provider", value)
+        by_sender, by_sender_present = optional_map(tools, "toolsBySender", f"{name} toolsBySender")
+        for key, value in by_sender.items():
+            if not isinstance(key, str):
+                raise ContractError(f"{name} sender key must be a string")
+            policy_map(f"{name} sender", value)
+        sandbox, sandbox_present = optional_map(tools, "sandbox", f"{name} sandbox")
         return {
-            "present": bool(tools),
+            "present": present,
             "profile": profile or "UNSET",
             "allow_count": len(allow),
             "also_allow_count": len(also),
             "deny_count": len(deny),
             "provider_policy_count": len(by_provider),
-            "sandbox_policy_present": bool(sandbox),
+            "provider_policy_present": by_provider_present,
+            "sender_policy_count": len(by_sender),
+            "sender_policy_present": by_sender_present,
+            "sandbox_policy_present": sandbox_present,
         }
 
     return {
         "main_agent_found": found,
-        "root": scope("root", root_tools),
-        "main": scope("main", main_tools),
+        "root": scope("root", root_tools, root_present),
+        "main": scope("main", main_tools, main_present),
         "truth_boundary": "Authored policy surfaces only; tools.catalog/tools.effective or /context detail is required for session-effective proof.",
     }

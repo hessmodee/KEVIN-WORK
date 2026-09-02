@@ -64,3 +64,10 @@ An independent review reproduced nine failing safety assertions on commit f092c8
 The candidate now uses exact integer types, explicit field presence, typed path segments and typed leaf values. Thirteen additional tests retain these negatives and cover non-finite values, context types and forged allowed-path names. CI discovers both test modules; no original acceptance test was removed.
 
 This closes the demonstrated pure-function defects only. The fixture's OpenClaw field layout still needs qualification against the installed 2026.7.1-2 schema and sanitized exact-current configuration. Authored tool-policy counts are not session-effective inventory. There is no production wrapper, baseline change, tool grant, runtime installation, or responsibility-transfer promotion.
+
+
+## Tool-policy evidence hardening — 2026-09-02
+
+A follow-up review against current official OpenClaw tool-policy documentation added five test methods with multiple negative subcases. The candidate now rejects malformed root, per-main, provider, sender and sandbox policy objects; unsupported profile values; and simultaneous allow/alsoAllow keys even when their lists are empty. It distinguishes an explicitly empty policy object from an absent scope and records provider/sender/sandbox presence without claiming session-effective availability.
+
+The candidate still cannot determine effective tools from authored config alone. The installed runtime's provider/model, per-turn sender/channel, sandbox, plugin state and actual inventory must be correlated in a fixed read-only receipt. No tool policy is changed or widened by this code.
