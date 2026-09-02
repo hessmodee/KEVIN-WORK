@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-autonomy-master-scorecard",
-  "generated_at": "2026-09-02T23:49:14.063Z",
+  "generated_at": "2026-09-02T23:53:36.643Z",
   "safe_for_public_repo": true,
   "north_star": "Kevin owns routine goal execution, proof, recovery, learning, communication and computer work inside owner-approved boundaries while Bess/GrokBot routine intervention trends toward zero.",
   "wip_policy": {
@@ -20,7 +20,7 @@
     "design_forge_v40": "INSTALLED_NO_NEW_DEMANDLESS_EVALUATIONS",
     "local_desired_state": "NEEDS_REVIEW_DRIFT2_PINS_NOT_BLESSED",
     "current_candidate": "PR39_R04_EVIDENCE_HARDENING_CI_PROVEN_MERGED_NOT_INSTALLED",
-    "scheduled_chatgpt": "PAUSED_DURING_FOREGROUND_RESUME_AFTER_HANDOFF",
+    "scheduled_chatgpt": "ONLY_CHIEF_ENGINEER_ENABLED",
     "selector_ci": "13_TESTS_PASSED_RUN33597815086_NO_RUNTIME_CHANGE",
     "reader": "SOURCE_AND_TYPED_TERMINAL_PROOF_UNRESOLVED",
     "tool_visibility": "OWNER_REPORTED_EMPTY_EFFECTIVE_FILTER_ROOT_CAUSE_UNPROVEN"
@@ -61,7 +61,7 @@
     {
       "id": "skill-learning",
       "priority": 4,
-      "proof": "FIVE_PROVEN_COMPOSITES_LESSON_DELIVERY_NOT_MASTERY",
+      "proof": "SIX_PROVEN_COMPOSITES_LESSON_DELIVERY_NOT_MASTERY",
       "transfer": "T3",
       "blocker": "No Kevin-originated useful procedure/trajectory has yet been proven through proposal/evaluation/reuse without Bess hand-authoring.",
       "next_evidence": "Kevin detects a repeated real GREEN procedure, proposes/evaluates a reusable procedure or executable composite and proves usefulness repeatedly."
@@ -517,9 +517,9 @@
       "total": 30
     },
     "support_at": "2026-09-02T17:45:35.8232781-06:00",
-    "engineering_at": "2026-09-02T17:47:45.3950358-06:00",
-    "ui_bridge_heartbeat_age_seconds": 20439.9,
-    "proven_composites": 5,
+    "engineering_at": "2026-09-02T17:51:45.7063360-06:00",
+    "ui_bridge_heartbeat_age_seconds": 20680.3,
+    "proven_composites": 6,
     "work_selection": "IDLE_NO_ELIGIBLE_DEMAND_NO_AUTONOMOUS_OUTCOME_PROVEN",
     "r04_candidate": {
       "status": "CI_PROVEN_CANDIDATE_NOT_INSTALLED",
@@ -534,14 +534,26 @@
     },
     "teachback": {
       "request_id": "bess-r04-tool-teachback-20260902234453",
-      "status": "STAGED_RUNNING",
+      "status": "PROVEN_FILE_DELIVERY",
+      "proof": {
+        "key": "kevin-r04-evidence-and-tool-curriculum@1",
+        "manifest_sha256": "C6492F189D8AFC3E515FC1174792E763709A753915A41BC2F9FA367D8E80D900",
+        "primitive_steps": [
+          "create_text",
+          "create_text"
+        ],
+        "proof_sha256": "C2DFEC282C5188AF5C3DAD31905F762CB9BF6E26D631099A36F51D7A3A52E53F",
+        "proven_at": "2026-09-02T17:50:04.0975506-06:00"
+      },
       "receipt": "reports/engineering/r04-tool-teachback-20260902.json",
-      "request_retired": true
+      "request_retired": true,
+      "learner_mastery_proven": false
     },
     "promotions": [],
     "retired_bess_responsibilities": [],
     "runtime_config_mutated": false,
-    "maintenance_runner_replaced": false
+    "maintenance_runner_replaced": false,
+    "scheduled_engineer": "ENABLED_HOURLY_EXISTING_TASK"
   },
   "r04_candidate": {
     "status": "CI_PROVEN_CANDIDATE_NOT_INSTALLED",
@@ -553,5 +565,10 @@
     "windows_powershell_selftests": "PASS",
     "production_effect": false,
     "transport": "BLOCKED_EXACT_INSTALLED_MAINTENANCE_SOURCE_AND_REGISTERED_OPERATION_REQUIRED"
+  },
+  "scheduled_engineer": {
+    "id": "6a93bbc4a3c881918086d43b5aa30871",
+    "enabled": true,
+    "duplicate_created": false
   }
 }
