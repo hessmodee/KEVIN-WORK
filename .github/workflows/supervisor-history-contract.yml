@@ -35,3 +35,6 @@ jobs:
           $output | ForEach-Object { Write-Host $_ }
           if($code -eq 0 -or (($output | Out-String) -notmatch 'HISTORY_CONTRACT_NOT_CONFORMANT')){throw 'Strict gate did not reject baseline as required'}
           Write-Host 'NEGATIVE_CONTROL_PASS: strict runtime acceptance is RED, not bypassed'
+          # GitHub's PowerShell wrapper otherwise propagates the expected child exit 1.
+          # Only the verified negative-control harness succeeds; the child stays rejected above.
+          exit 0
