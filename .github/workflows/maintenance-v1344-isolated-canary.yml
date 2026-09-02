@@ -8,6 +8,7 @@ on:
       - 'tools/test-canary-transcript.ps1'
       - 'tools/test-single-governed-wake.ps1'
       - 'tools/test-main-model-contract.ps1'
+      - 'tools/test-maintenance-exclusion.ps1'
       - '.github/workflows/maintenance-v1344-isolated-canary.yml'
   workflow_dispatch:
 permissions:
@@ -42,6 +43,7 @@ jobs:
           & ./tools/test-canary-transcript.ps1 -Runner ./control-plane/maintenance/kevin-maintenance-runner-v1.3.44.ps1
           & ./tools/test-single-governed-wake.ps1 -Runner ./control-plane/maintenance/kevin-maintenance-runner-v1.3.44.ps1
           & ./tools/test-main-model-contract.ps1
+          & ./tools/test-maintenance-exclusion.ps1
       - name: Inherited tests PowerShell 7
         shell: pwsh
         run: |
@@ -52,3 +54,4 @@ jobs:
           & ./tools/test-canary-transcript.ps1 -Runner ./control-plane/maintenance/kevin-maintenance-runner-v1.3.44.ps1
           & ./tools/test-single-governed-wake.ps1 -Runner ./control-plane/maintenance/kevin-maintenance-runner-v1.3.44.ps1
           & ./tools/test-main-model-contract.ps1
+          & ./tools/test-maintenance-exclusion.ps1

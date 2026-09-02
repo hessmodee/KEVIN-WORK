@@ -124,7 +124,20 @@ function Get-RemoteBytes([string]$RepoPath,[string]$Alias) {
     return Get-RemoteFixedBytes $RepoPath
 }
 
-function Read-Attempts { if (-not (Test-Path -LiteralPath $AttemptPath -PathType Leaf)) { return [pscustomobject]@{schema=1;items=@()} }; try { return Get-Content -LiteralPath $AttemptPath -Raw | ConvertFrom-Json } catch { return [pscustomobject]@{schema=1;items=@()} } }
+function Read-Attempts {
+    if(-not(Test-Path -LiteralPath $AttemptPath -PathType Leaf)){return [pscustomobject]@{schema=1;items=@()}}
+    try{$state=Get-Content -LiteralPath $AttemptPath -Raw|ConvertFrom-Json}catch{throw 'maintenance attempt history corrupt; refusing budget reset'}
+    if(-not($state.PSObject.Properties.Name-contains'items')-or[int]$state.schema-ne1){throw 'maintenance attempt history schema invalid'}
+    foreach($entry in @($state.items)){if([int]$entry.attempts-lt0-or[int]$entry.attempts-gt$MaxAttempts){throw 'maintenance attempt history count invalid'}}
+    return $state
+}
+function Enter-MaintenanceMutex {
+    $mutex=New-Object Threading.Mutex($false,'Global\KevinMaintenance')
+    $owned=$false
+    try{$owned=$mutex.WaitOne(0)}catch [Threading.AbandonedMutexException]{$owned=$true}
+    if(-not$owned){$mutex.Dispose();return $null}
+    return $mutex
+}
 function Get-AttemptRecord([object]$State,[string]$Id) { $hits=@($State.items|Where-Object{[string]$_.id -eq $Id}); if($hits.Count -gt 1){throw 'duplicate maintenance attempt state'}; if($hits.Count -eq 1){return $hits[0]}; return $null }
 function Save-Attempt([string]$Id,[int]$Attempts,[string]$Status,[string]$FailureFamily='') { $state=Read-Attempts; $items=@($state.items|Where-Object{[string]$_.id -ne $Id}); $items+=,[pscustomobject]@{id=$Id;attempts=$Attempts;status=$Status;failure_family=$FailureFamily;updated_at=(Get-Date).ToString('o')}; Write-JsonAtomic $AttemptPath ([ordered]@{schema=1;kind='kevin-typed-maintenance-attempts';items=$items}) }
 
@@ -2064,6 +2077,7 @@ function Process-Typed([object]$m) {
     if($rec -and [string]$rec.status -eq 'PROVEN'){Save-State 'ALREADY_APPLIED_PROVEN' ([string]$m.id) 'Maintenance previously proven.' @{attempts=$attempts};return}
     if($attempts -ge $MaxAttempts){Save-State 'BLOCKED_FAILURE_BUDGET' ([string]$m.id) 'Failure budget exhausted.' @{attempts=$attempts};return}
     $attempts++
+    Save-Attempt ([string]$m.id) $attempts 'IN_PROGRESS'
     try{
         $result=switch([string]$m.operation){
             'replace_pinned_component' { Install-Pinned $m; break }
@@ -2274,4 +2288,9 @@ function Invoke-SelfTest {
 }
 
 if($SelfTest){Invoke-SelfTest;exit 0}
+$maintenanceMutex=Enter-MaintenanceMutex
+if($null-eq$maintenanceMutex){Write-Host 'MAINTENANCE_BUSY_DEFERRED no_effect=true';exit 0}
+try{
 try{$text=Get-RemoteManifestText;if($null -eq $text){Save-State 'NO_MANIFEST' '' 'No maintenance proposal is waiting.';exit 0};$m=$text|ConvertFrom-Json;if([int]$m.schema -eq 3 -and [string]$m.kind -eq 'kevin-self-maintenance-manifest'){Process-Typed $m;exit 0};if([int]$m.schema -eq 2 -and [string]$m.kind -eq 'kevin-typed-maintenance-manifest'){Save-State 'SCHEMA2_NEEDS_MIGRATION' ([string]$m.id) 'v1.3.4 requires schema-3 aliases for self-maintenance transport.';exit 0};Legacy-Stage $text ([bool]$ApplyOnce);exit 0}catch{if(-not(Test-Path $LatestPath) -or (Get-Content $LatestPath -Raw) -notmatch 'APPLY_FAILED'){Save-State 'ERROR' '' $_.Exception.Message};Write-Host('MAINTENANCE ERROR '+(Safe-Text $_.Exception.Message 600));exit 1}
+
+}finally{try{$maintenanceMutex.ReleaseMutex()}catch{};$maintenanceMutex.Dispose()}
