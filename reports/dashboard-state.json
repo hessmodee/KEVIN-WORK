@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-01T18:20:06.4537436-06:00",
+  "generated_at": "2026-09-01T18:20:14-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -28,21 +28,14 @@
   },
   "system": {
     "memory_pct": 27,
-    "cpu_pct": 16,
+    "cpu_pct": 10,
     "gpu": "RTX 3060",
-    "gpu_pct": 32
+    "gpu_pct": 0
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-01T06:23:42-06:00",
-        "estimated": false,
-        "ram": 36,
-        "cpu": 22,
-        "gpu": 37
-      },
       {
         "at": "2026-09-01T06:24:09-06:00",
         "estimated": false,
@@ -707,10 +700,16 @@
         "ram": 27,
         "cpu": 16,
         "gpu": 32
+      },
+      {
+        "at": "2026-09-01T18:20:14-06:00",
+        "estimated": false,
+        "ram": 27,
+        "cpu": 10,
+        "gpu": 0
       }
     ],
     "ram": [
-      36,
       36,
       36,
       36,
@@ -805,10 +804,10 @@
       24,
       24,
       25,
+      27,
       27
     ],
     "cpu": [
-      22,
       22,
       1,
       1,
@@ -903,10 +902,10 @@
       19,
       19,
       20,
-      16
+      16,
+      10
     ],
     "gpu": [
-      37,
       37,
       22,
       22,
@@ -1001,7 +1000,8 @@
       13,
       13,
       41,
-      32
+      32,
+      0
     ]
   },
   "weather": {
@@ -1100,8 +1100,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 94,
-      "total": 96
+      "done": 95,
+      "total": 97
     }
   ],
   "roadmap": {
@@ -1155,7 +1155,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-01T18:05:14-06:00",
+      "at": "2026-09-01T18:20:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1382,7 +1382,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-01T18:20:06.4537436-06:00",
+    "last": "2026-09-01T18:20:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
