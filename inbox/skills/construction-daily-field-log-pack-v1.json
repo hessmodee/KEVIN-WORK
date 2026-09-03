@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "construction-daily-field-log-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Construction Daily Field Log Pack",
+  "description": "Creates a repeatable daily construction field log for manpower, work completed, equipment, deliveries, issues, safety observations and tomorrow's plan.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin Construction Daily Field Log Pack.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Daily Summary",
+              "rows": [
+                ["Date", "Project / Site", "Weather", "Superintendent / Lead", "Crew Count", "Start", "Finish", "Overall Status", "Primary Accomplishment", "Primary Blocker"],
+                ["", "", "", "", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Work and Manpower",
+              "rows": [
+                ["Trade / Crew", "Company", "Headcount", "Area", "Work Performed", "Quantity / Progress", "Hours", "Constraint", "Tomorrow"],
+                ["", "", "", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Equipment Deliveries",
+              "rows": [
+                ["Time", "Type", "Asset / Delivery", "From / Vendor", "To / Area", "Received By", "Condition", "Missing / Damage", "Action"],
+                ["", "Equipment / Material / Pickup", "", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Issues Safety RFI",
+              "rows": [
+                ["Time", "Category", "Issue / Observation", "Impact", "Responsible", "Immediate Action", "Needs Follow-up?", "Due", "Closed?", "Evidence"],
+                ["", "Issue / Safety / RFI / Quality", "", "", "", "", "YES", "", "NO", ""]
+              ]
+            },
+            {
+              "name": "Tomorrow Plan",
+              "rows": [
+                ["Priority", "Task", "Crew / Owner", "Equipment / Tools", "Materials", "Delivery / Pickup", "Dependency", "Ready?", "Required By", "Note"],
+                ["P1", "", "", "", "", "", "", "NO", "", ""]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Construction Daily Field Log Pack - SOP.md",
+        "content": "# Kevin Construction Daily Field Log Pack\n\nThe daily log is both a record and tomorrow's control surface. Record facts while they are fresh. Separate observed facts from assumptions. Preserve unresolved issues until there is closure evidence.\n\nAt the end of the day Kevin should be able to answer: what happened, who was there, what moved, what went wrong, what is still open, and what must be ready tomorrow.\n\nProtective rule: an unresolved safety, quality, schedule, material, equipment or access issue that can affect tomorrow must appear in Tomorrow Plan or be explicitly marked escalated. This GREEN skill does not authorize external notices, contractual commitments, purchases or safety-critical decisions on the owner's behalf.\n"
+      }
+    }
+  ]
+}
