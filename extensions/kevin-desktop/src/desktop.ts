@@ -13,10 +13,11 @@ export type DesktopResult = {
 
 export type SpawnFn = (
   command: string,
-  args?: readonly string[],
-  options?: SpawnOptions,
+  args: string[],
+  options: SpawnOptions,
 ) => Pick<ChildProcess, "unref">;
 
+const nodeSpawn: SpawnFn = (command, args, options) => spawn(command, args, options);
 const FORBIDDEN_NAME = /[\\/:*?"<>|\u0000-\u001F]/;
 
 export const APP_ALLOWLIST = Object.freeze({
@@ -91,9 +92,9 @@ export async function findDesktopFolder(
   return { ok: true, action: "find_folder", name, matches: 1 };
 }
 
-function launchDetached(exe: string, args: readonly string[], spawnFn: SpawnFn = spawn): boolean {
+function launchDetached(exe: string, args: readonly string[], spawnFn: SpawnFn = nodeSpawn): boolean {
   try {
-    const child = spawnFn(exe, args, {
+    const child = spawnFn(exe, [...args], {
       shell: false,
       detached: true,
       windowsHide: false,
@@ -109,9 +110,9 @@ function launchDetached(exe: string, args: readonly string[], spawnFn: SpawnFn =
 export async function openDesktopFolder(
   name: string,
   roots: readonly string[] = defaultDesktopRoots(),
-  spawnFn: SpawnFn = spawn,
+  spawnFn: SpawnFn = nodeSpawn,
 ): Promise<DesktopResult> {
-  if (process.platform !== "win32" && spawnFn === spawn) {
+  if (process.platform !== "win32" && spawnFn === nodeSpawn) {
     return { ok: false, action: "open_folder", name, error: "unsupported_platform" };
   }
   if (!isSafeDesktopName(name)) return { ok: false, action: "open_folder", error: "invalid_name" };
@@ -124,8 +125,8 @@ export async function openDesktopFolder(
     : { ok: false, action: "open_folder", name, matches: 1, error: "launch_failed" };
 }
 
-export function launchAllowedApp(app: string, spawnFn: SpawnFn = spawn): DesktopResult {
-  if (process.platform !== "win32" && spawnFn === spawn) {
+export function launchAllowedApp(app: string, spawnFn: SpawnFn = nodeSpawn): DesktopResult {
+  if (process.platform !== "win32" && spawnFn === nodeSpawn) {
     return { ok: false, action: "launch_app", app, error: "unsupported_platform" };
   }
   if (!Object.prototype.hasOwnProperty.call(APP_ALLOWLIST, app)) {
