@@ -3,8 +3,8 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-03T10:53:25.9990382-06:00",
-  "semantic_fingerprint_sha256": "99BCB63882249CDDF2089264A836A471F5EB9A851CD52AAEAEBBBB6294FAEEAC",
+  "evidence_updated_at": "2026-09-03T10:56:26.0581392-06:00",
+  "semantic_fingerprint_sha256": "3A5C506AD75C5E402D00BB561A0E6E4C4C6E5CED29C0A51469D7E1E1E271EDA8",
   "semantic_checkpoint": {
     "current_task_sha256": "A683B6A081DC5A64EA8BC4A8DB1957FE62C93E0F23BD131FD223C77EABB48B1D",
     "benchmark": {
@@ -19,8 +19,8 @@
     "autonomy_status": "IDLE_NO_ELIGIBLE_DEMAND",
     "autonomy_eligible_count": 0,
     "maintenance": {
-      "status": "ALREADY_APPLIED_PROVEN",
-      "detail": "Maintenance previously proven."
+      "status": "APPLY_FAILED",
+      "detail": "The property 'declarationKey' cannot be found on this object. Verify that the property exists."
     },
     "queues": {
       "ready": 0,
@@ -73,8 +73,8 @@
   },
   "source_hashes": {
     "current_task_sha256": "A683B6A081DC5A64EA8BC4A8DB1957FE62C93E0F23BD131FD223C77EABB48B1D",
-    "engineering_sha256_at_checkpoint": "77EBACF6D705CF4F9D2FBA038588E7C87ACDD0E088EF1BE5D3FC3F9F5E82168E",
-    "support_sha256_at_checkpoint": "B473F575FE97CF1CD1B1D0847EDAE7CE4B004B0774F834CE03ED88C72DA0571A",
+    "engineering_sha256_at_checkpoint": "AA775E64A05C115E4FF4BF03103A26083C9BCFA07D0066CF84657C1D566A66D6",
+    "support_sha256_at_checkpoint": "6F8B120A5D0FEBF9DFA24FE80928CA3433F214AFB6605C5857F17713436A45E5",
     "autonomy_sha256_at_checkpoint": "996DAD27D1E6A33AE7B7782449111B6730E63F7653BA74800C98677D7F313BB7"
   },
   "universal_access": {
@@ -91,8 +91,8 @@
     "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at_checkpoint": "2026-09-03T10:52:43.6074330-06:00",
-    "support_at_checkpoint": "2026-09-03T10:53:25.9990382-06:00",
+    "engineering_at_checkpoint": "2026-09-03T10:54:43.6344411-06:00",
+    "support_at_checkpoint": "2026-09-03T10:56:26.0581392-06:00",
     "autonomy_at_checkpoint": "2026-09-03T10:52:33.3580636-06:00",
     "benchmark": {
       "status": "PASS",
@@ -100,11 +100,11 @@
       "total": 30,
       "critical": 0
     },
-    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 3.6,
+    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 2.1,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
-    "maintenance_status": "ALREADY_APPLIED_PROVEN",
-    "maintenance_detail": "Maintenance previously proven.",
+    "maintenance_status": "APPLY_FAILED",
+    "maintenance_detail": "The property 'declarationKey' cannot be found on this object. Verify that the property exists.",
     "proven_composite_skills": 9,
     "maintenance_runner_sha256": "AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D"
   },
