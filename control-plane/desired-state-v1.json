@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-desired-state",
-  "version": "1.7",
+  "version": "1.8",
   "authority": {
     "owner_authorization": "Kevin Owner Authorization v1",
     "green_only": true,
@@ -15,7 +15,7 @@
     "forge": "433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A",
     "goal_os": "B20C7AC8EDC35C656ED544C4D13D3EB4FF4A79453AF0F49BD60B7DF31092AEF0",
     "support_bridge": "E72A2A635326CF1AB036404E64E274D2F56CE79CA5CEB268DBF9B2EA4B67BEA5",
-    "maintenance_runner": "3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E"
+    "maintenance_runner": "AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D"
   },
   "required_automations": [
     {
@@ -70,13 +70,14 @@
     ]
   },
   "reconciled_from_proof": {
-    "at": "2026-09-03T02:20:00Z",
+    "at": "2026-09-03T18:08:51Z",
     "supervisor": "OMEN_PROVEN_V1_8_8",
     "forge": "OMEN_PROVEN_V4_0",
-    "maintenance": "EXACT_OWNER_EVIDENCE_3CFC7717",
-    "benchmark": "INSTALLED_RUNNER_EXACT_4C766122_R04_OPEN",
-    "support_generated_at": "2026-09-02T20:15:47.2304917-06:00",
-    "owner_evidence_bundle": "Kevin-Evidence-20260902-201039-807c69.zip",
-    "note": "Pins reconciled to exact current runtime identities; health acceptance remains Benchmark PASS and R04 is not waived."
+    "maintenance": "OMEN_PROVEN_V1_3_45_AC55B481",
+    "benchmark": "PASS_30_OF_30_CRITICAL_0",
+    "support_generated_at": "2026-09-03T12:08:45.8185808-06:00",
+    "engineering_generated_at": "2026-09-03T12:08:51.2987152-06:00",
+    "proof": "reports/engineering/PROOF-maintenance-v1345-desired-state-reconciliation-2026-09-03.md",
+    "note": "Repository desired-state Maintenance pin reconciled to the already-installed and proven v1.3.45 identity. No production binary mutation or authority expansion."
   }
 }
