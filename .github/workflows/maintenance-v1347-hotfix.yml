@@ -1,0 +1,75 @@
+name: Maintenance v1.3.47 Hotfix
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/scripts/build-maintenance-v1347.py'
+      - '.github/workflows/maintenance-v1347-hotfix.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: maintenance-v1347-hotfix
+  cancel-in-progress: false
+
+jobs:
+  windows-qualify:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build candidate
+        shell: pwsh
+        run: |
+          python .github/scripts/build-maintenance-v1347.py
+          if (-not (Test-Path control-plane/maintenance/kevin-maintenance-runner-v1.3.47.ps1)) { throw 'candidate missing' }
+      - name: PowerShell parse and self-test
+        shell: powershell
+        run: |
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.47.ps1'
+          $tokens=$null; $errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors.Count -gt 0){ throw $errors[0].Message }
+          $out = powershell.exe -NoProfile -ExecutionPolicy Bypass -File $p -SelfTest 2>&1 | Out-String
+          if($LASTEXITCODE -ne 0){ throw "selftest exit=$LASTEXITCODE $out" }
+          if($out -notmatch 'KEVIN MAINTENANCE v1\.3\.47 SELFTEST PASS'){ throw 'v1.3.47 marker missing' }
+          if($out -notmatch 'arbitrary_shell=false' -or $out -notmatch 'authority_expansion=false'){ throw 'authority invariants missing' }
+          Write-Host $out
+      - name: Verify exact repair anchors
+        shell: pwsh
+        run: |
+          $t=Get-Content control-plane/maintenance/kevin-maintenance-runner-v1.3.47.ps1 -Raw
+          if(($t.Split("82C47FAD288CA6FFD69EEF5678C8262065F04C739AACCACEE889005486A5FA15").Count-1) -lt 1){throw 'current Maintenance identity missing'}
+          if($t -notmatch 'installed Maintenance identity is not qualified v1\.3\.46'){throw 'qualification message not updated'}
+
+  publish:
+    needs: windows-qualify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build and publish candidate to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Kevin Maintenance Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git fetch origin main
+          git reset --hard origin/main
+          python .github/scripts/build-maintenance-v1347.py
+          git add control-plane/maintenance/kevin-maintenance-runner-v1.3.47.ps1
+          if git diff --cached --quiet; then
+            echo 'Candidate already published.'
+            exit 0
+          fi
+          git commit -m 'publish Maintenance v1.3.47 self-identity hotfix'
+          git push origin HEAD:main
