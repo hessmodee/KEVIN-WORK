@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-02T22:38:53-06:00",
+  "generated_at": "2026-09-02T22:39:49.7111936-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,11 +13,11 @@
     "tools": false
   },
   "current_task": {
-    "id": "night-forge",
-    "title": "Night Forge QA",
-    "category": "qa",
-    "phase": "Night Forge QA/regression cycle active.",
-    "started_at": "2026-09-02T22:38:49.6905793-06:00",
+    "id": "benchmark",
+    "title": "Kevin Benchmark v1",
+    "category": "benchmark",
+    "phase": "Regression/capability fitness worker active.",
+    "started_at": "2026-09-02T22:39:49.7111936-06:00",
     "source": "hq-live-ops"
   },
   "services": {
@@ -1382,7 +1382,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-02T22:38:53-06:00",
+    "last": "2026-09-02T22:39:49.7111936-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,22 +1419,22 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-02T22:38:49.6905793-06:00",
+    "generated_at": "2026-09-02T22:39:49.7111936-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
-    "benchmark_active": false,
+    "benchmark_active": true,
     "primary": {
-      "id": "night-forge",
-      "name": "Night Forge",
-      "title": "Night Forge QA",
-      "category": "qa",
+      "id": "benchmark",
+      "name": "Benchmark",
+      "title": "Kevin Benchmark v1",
+      "category": "benchmark",
       "state": "working",
-      "detail": "Night Forge QA/regression cycle active.",
-      "what": "Running safety and regression checks.",
-      "engine": "Night Forge",
-      "action": "QA / regression"
+      "detail": "Regression/capability fitness worker active.",
+      "what": "Checking that Kevin preserves proven behavior.",
+      "engine": "Deterministic benchmark",
+      "action": "Regression evaluation"
     },
     "lanes": [
       {
@@ -1451,11 +1451,11 @@
         "id": "benchmark",
         "name": "Benchmark",
         "role": "Regression + capability fitness",
-        "state": "ready",
-        "detail": "Cheap regression watchdog armed; heavy model suite remains resource-gated.",
+        "state": "working",
+        "detail": "Benchmark v1 deterministic worker is active.",
         "what": "Protects proven behavior and measures challenger quality.",
         "engine": "Kevin Benchmark v1",
-        "action": "10-minute watchdog armed"
+        "action": "Regression evaluation"
       },
       {
         "id": "staging",
@@ -1472,15 +1472,15 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "Night Forge QA/regression cycle active.",
-    "worker": "Night Forge",
-    "engine": "Night Forge",
-    "action": "QA / regression"
+    "phase": "Regression/capability fitness worker active.",
+    "worker": "Benchmark",
+    "engine": "Deterministic benchmark",
+    "action": "Regression evaluation"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Night Forge | WORKING | Night Forge QA/regression cycle active.",
+      "text": "Benchmark | WORKING | Regression/capability fitness worker active.",
       "severity": "normal"
     }
   ]
