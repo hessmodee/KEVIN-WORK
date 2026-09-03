@@ -3,8 +3,8 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-03T13:35:46.4394351-06:00",
-  "semantic_fingerprint_sha256": "529E259116D26AC9E8C7DF01632035DA4ACF439AEC89D294C4BD897BF8DFF896",
+  "evidence_updated_at": "2026-09-03T13:41:46.7367234-06:00",
+  "semantic_fingerprint_sha256": "C8412A4EB19DD881DD523EE3148099089BF7C08280025322EA705D58E7F9D931",
   "semantic_checkpoint": {
     "current_task_sha256": "3CC2979B38122DC5805E6B30291E9ACA67EEC2828FF1C8F36F9539CEDDB93585",
     "benchmark": {
@@ -19,8 +19,8 @@
     "autonomy_status": "WAITING_ITEM_BUDGETS",
     "autonomy_eligible_count": 1,
     "maintenance": {
-      "status": "APPLY_FAILED",
-      "detail": "installed Maintenance identity is not qualified v1.3.45 actual=82C47FAD288CA6FFD69EEF5678C8262065F04C739AACCACEE889005486A5FA15"
+      "status": "BLOCKED_FAILURE_BUDGET",
+      "detail": "Failure budget exhausted."
     },
     "queues": {
       "ready": 0,
@@ -73,9 +73,9 @@
   },
   "source_hashes": {
     "current_task_sha256": "3CC2979B38122DC5805E6B30291E9ACA67EEC2828FF1C8F36F9539CEDDB93585",
-    "engineering_sha256_at_checkpoint": "6C1D6D7EE1B9DF9A093C3642299477D6760817A8830C3410649C06646F24FE63",
-    "support_sha256_at_checkpoint": "1695D69985E440798C25362235BDA22EB7585AA459AFB353C4B38C3DF56FEFD3",
-    "autonomy_sha256_at_checkpoint": "8A4932111DDC572FC55EBA6E8321EA5D829065C7A7E3A3107EEB4D234B89946C"
+    "engineering_sha256_at_checkpoint": "FAC8ABCF928585F4B57820E91B28E7DB9D6D1736DC9D95AC85E56B5656E2A557",
+    "support_sha256_at_checkpoint": "D20840A2F94400C0BE9A2A43DDAD68E94170D298F112F1F106A6C587D1E1725F",
+    "autonomy_sha256_at_checkpoint": "DF7C27F897A1A35EE952B4F00B656FCF5127BEE95DA8F3617DC9B5C2ED972339"
   },
   "universal_access": {
     "github": "https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md",
@@ -91,9 +91,9 @@
     "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at_checkpoint": "2026-09-03T13:34:54.2362562-06:00",
-    "support_at_checkpoint": "2026-09-03T13:35:46.4394351-06:00",
-    "autonomy_at_checkpoint": "2026-09-03T13:32:33.3402612-06:00",
+    "engineering_at_checkpoint": "2026-09-03T13:40:54.3696508-06:00",
+    "support_at_checkpoint": "2026-09-03T13:41:46.7367234-06:00",
+    "autonomy_at_checkpoint": "2026-09-03T13:37:34.0064797-06:00",
     "benchmark": {
       "status": "PASS",
       "passed": 30,
@@ -103,8 +103,8 @@
     "ui_bridge_heartbeat_age_seconds_at_checkpoint": 4.1,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
-    "maintenance_status": "APPLY_FAILED",
-    "maintenance_detail": "installed Maintenance identity is not qualified v1.3.45 actual=82C47FAD288CA6FFD69EEF5678C8262065F04C739AACCACEE889005486A5FA15",
+    "maintenance_status": "BLOCKED_FAILURE_BUDGET",
+    "maintenance_detail": "Failure budget exhausted.",
     "proven_composite_skills": 9,
     "maintenance_runner_sha256": "82C47FAD288CA6FFD69EEF5678C8262065F04C739AACCACEE889005486A5FA15"
   },
