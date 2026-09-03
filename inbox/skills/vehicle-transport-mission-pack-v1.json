@@ -1,0 +1,66 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "vehicle-transport-mission-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Vehicle Transport Mission Pack",
+  "description": "Creates a structured transport planning, inspection and delivery workbook for dealer trades, customer deliveries, auction pickups and inter-store vehicle movement.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin Vehicle Transport Mission Pack.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Transport Queue",
+              "rows": [
+                ["Priority", "Mission ID", "Type", "Pickup", "Delivery", "Vehicle", "VIN Last 8", "Deadline", "Driver", "Truck / Trailer", "Status", "Blocker"],
+                ["P1", "", "Dealer Trade / Customer / Auction / Inter-store", "", "", "", "", "", "", "", "PLANNED", ""]
+              ]
+            },
+            {
+              "name": "Vehicle Detail",
+              "rows": [
+                ["Mission ID", "Year", "Make", "Model", "VIN", "Stock / Unit", "Keys", "Fuel / Charge", "Runs / Drives", "Special Handling", "Paperwork", "Notes"],
+                ["", "", "", "", "", "", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Route and Stops",
+              "rows": [
+                ["Mission ID", "Sequence", "Stop", "Address", "Purpose", "Appointment / Deadline", "Contact", "Phone", "ETA", "Notes"],
+                ["", 1, "", "", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Condition Handoff",
+              "rows": [
+                ["Mission ID", "Stage", "Odometer", "Fuel / Charge", "Exterior Condition", "Interior Condition", "Warning Lights", "Keys Count", "Docs Received", "Photos / Evidence", "Confirmed By"],
+                ["", "PICKUP", "", "", "", "", "", "", "", "", ""],
+                ["", "DELIVERY", "", "", "", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Trip Record",
+              "rows": [
+                ["Mission ID", "Depart", "Arrive", "Miles", "Fuel", "Tolls / Parking", "Other Expense", "Delay", "Cause", "Completed?", "Completion Evidence"],
+                ["", "", "", "", "", "", "", "", "", "NO", ""]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Vehicle Transport Mission Pack - SOP.md",
+        "content": "# Kevin Vehicle Transport Mission Pack\n\nUse this pack to turn a transport request into a verified mission rather than a string of assumptions.\n\n## Required sequence\n1. Capture pickup, destination, vehicle identity and required delivery time.\n2. Resolve driver and truck/trailer suitability.\n3. Confirm keys, paperwork, run/drive condition and special handling before departure.\n4. Record pickup condition and evidence.\n5. Track delays and changes explicitly.\n6. Record delivery condition and completion evidence.\n\n## Protective behavior\nKevin should flag VIN/vehicle mismatches, missing keys or documents, impossible timing, unknown pickup/delivery location, unverified trailer suitability, unresolved warning conditions and conflicting instructions. Kevin may prepare calls/messages or purchase needs but may not send, purchase or commit on Matt's behalf without the required authority.\n"
+      }
+    }
+  ]
+}
