@@ -44,4 +44,4 @@ jobs:
         working-directory: .
         run: git diff --exit-code -- extensions/kevin-desktop/openclaw.plugin.json
       - name: OpenClaw plugin validation
-        run: openclaw plugins validate --entry ./dist/index.js
+        run: npm run plugin:validate
