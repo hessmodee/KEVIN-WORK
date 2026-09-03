@@ -43,10 +43,9 @@ jobs:
           assert 'Invoke-Expression' not in t
           print('V1346_STATIC_PASS sha256='+hashlib.sha256(b).hexdigest().upper())
           PY
-      - name: Commit generated candidate on branch push
-        if: github.event_name == 'push'
+      - name: Commit exact generated candidate to head branch
         run: |
-          if git diff --quiet -- control-plane/maintenance/kevin-maintenance-runner-v1.3.46.ps1; then
+          if git ls-files --error-unmatch control-plane/maintenance/kevin-maintenance-runner-v1.3.46.ps1 >/dev/null 2>&1 && git diff --quiet -- control-plane/maintenance/kevin-maintenance-runner-v1.3.46.ps1; then
             echo 'Candidate already exact.'
             exit 0
           fi
@@ -54,13 +53,18 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           git add control-plane/maintenance/kevin-maintenance-runner-v1.3.46.ps1
           git commit -m 'generate exact Maintenance v1.3.46 candidate'
-          git push origin HEAD:${{ github.ref_name }}
+          target='${{ github.head_ref }}'
+          if [ -z "$target" ]; then target='${{ github.ref_name }}'; fi
+          git push origin HEAD:"$target"
 
   windows-selftest:
     if: github.event_name == 'pull_request'
+    needs: generate
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -68,7 +72,10 @@ jobs:
         shell: pwsh
         run: |
           python .github/scripts/build-maintenance-v1346.py
-          if (git diff --exit-code -- control-plane/maintenance/kevin-maintenance-runner-v1.3.46.ps1) { } else { throw 'tracked candidate differs from deterministic generator' }
+          $tracked = git ls-files --error-unmatch control-plane/maintenance/kevin-maintenance-runner-v1.3.46.ps1 2>$null
+          if ($LASTEXITCODE -ne 0) { throw 'generated candidate is not tracked' }
+          git diff --exit-code -- control-plane/maintenance/kevin-maintenance-runner-v1.3.46.ps1
+          if($LASTEXITCODE -ne 0){throw 'tracked candidate differs from deterministic generator'}
       - name: PowerShell parser and selftest
         shell: powershell
         run: |
