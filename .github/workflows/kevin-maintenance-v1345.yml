@@ -23,6 +23,19 @@ jobs:
         with:
           ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0
+      - name: Publish checkout byte diagnostics
+        if: github.event_name == 'push'
+        shell: powershell
+        run: |
+          python -c "from pathlib import Path; import hashlib,json; p=Path(r'control-plane/maintenance/kevin-maintenance-runner-v1.3.44.ps1'); b=p.read_bytes(); lf=b.replace(b'\r\n',b'\n'); crlf=lf.replace(b'\n',b'\r\n'); d={'raw_size':len(b),'raw_sha256':hashlib.sha256(b).hexdigest().upper(),'lf_size':len(lf),'lf_sha256':hashlib.sha256(lf).hexdigest().upper(),'crlf_size':len(crlf),'crlf_sha256':hashlib.sha256(crlf).hexdigest().upper()}; q=Path(r'reports/engineering/maintenance-v1345-ci-bytes.json'); q.parent.mkdir(parents=True,exist_ok=True); q.write_text(json.dumps(d,indent=2)+'\n',encoding='utf-8')"
+          git add reports/engineering/maintenance-v1345-ci-bytes.json
+          git config user.name 'Kevin Engineering CI'
+          git config user.email 'actions@users.noreply.github.com'
+          git diff --cached --quiet
+          if ($LASTEXITCODE -ne 0) {
+            git commit -m 'Record Maintenance v1.3.45 transfer byte diagnostics'
+            git push origin HEAD:${{ github.ref_name }}
+          }
       - name: Normalize checkout transport and generate exact candidate
         shell: powershell
         run: |
