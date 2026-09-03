@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-autonomy-master-scorecard",
-  "generated_at": "2026-09-03T00:28:23.414Z",
+  "generated_at": "2026-09-03T01:29:08.759Z",
   "safe_for_public_repo": true,
   "north_star": "Kevin owns routine goal execution, proof, recovery, learning, communication and computer work inside owner-approved boundaries while Bess/GrokBot routine intervention trends toward zero.",
   "wip_policy": {
@@ -13,13 +13,13 @@
   "global_health": {
     "benchmark": "FAIL29_OF30_CRITICAL1_R04",
     "autonomy": "FRESH_V188_SELECTION_IDLE_NO_ELIGIBLE_DEMAND_FULL_AUDIT_OLD",
-    "ui_bridge": "STALE_AT_2026-09-02T18:25:47.0096240-06:00",
-    "maintenance": "NO_MANIFEST_INTAKE_ERRORS0_UNQUALIFIED_INSTALLED_SOURCE",
+    "ui_bridge": "STALE_AFTER_ONE_FAILED_TYPED_RESTART",
+    "maintenance": "NO_MANIFEST_FAILED_UI_ATTEMPT_RETIRED_SOURCE_GAP_REMAINS",
     "watchdog": "V1_6_0_PROBE_ONLY_HEALTHY_PROVEN_EARLIER_CHECKPOINT",
     "main_agent": "OWNER_REPAIRED_TEXT_AND_MANUAL_COMPACTION_POST_REPAIR_TOOL_EXECUTION_UNPROVEN",
     "design_forge_v40": "INSTALLED_NO_NEW_DEMANDLESS_EVALUATIONS",
     "local_desired_state": "NEEDS_REVIEW_DRIFT2_PINS_NOT_BLESSED",
-    "current_candidate": "R04_CANDIDATE_PR39_MERGED_UNINSTALLED_SOURCE_TRANSPORT_BLOCKED",
+    "current_candidate": "R04_SOURCE_TRANSPORT_BLOCKED_OWNER_COLLECTOR_PR43_CI_PASSED",
     "scheduled_chatgpt": "ONLY_CHIEF_ENGINEER_ENABLED",
     "selector_ci": "13_TESTS_PASSED_RUN33597815086_NO_RUNTIME_CHANGE",
     "reader": "SOURCE_AND_TYPED_TERMINAL_PROOF_UNRESOLVED",
@@ -596,12 +596,11 @@
     "duplicate_created": false
   },
   "current_evidence": {
-    "at": "2026-09-03T00:28:23.414Z",
-    "source_commit": "782ad082b526071d516757fb41c5ba91acf2feb7",
-    "record": "docs/engineering/KEVIN-HQ-REPAIR-REVIEW-2026-09-03.md",
-    "receipt": "reports/engineering/hq-repair-20260903.json",
+    "at": "2026-09-03T01:29:08.759Z",
+    "record": "docs/engineering/KEVIN-BRIDGE-REPAIR-AUDIT-2026-09-03.md",
+    "receipt": "reports/engineering/bridge-repair-audit-20260903.json",
     "benchmark": {
-      "at": "2026-09-02T18:02:45.0525681-06:00",
+      "at": "2026-09-02T19:15:19.0724114-06:00",
       "model_status": "SKIPPED_NOT_DUE",
       "regression": {
         "critical_failures": 1,
@@ -619,62 +618,67 @@
       },
       "status": "FAIL_CRITICAL_REGRESSION"
     },
-    "support_at": "2026-09-02T18:24:41.5780787-06:00",
-    "engineering_at": "2026-09-02T18:25:47.0096240-06:00",
-    "ui_bridge_heartbeat_age_seconds": 22721.5,
-    "proven_composites": 7,
-    "work_selection": "IDLE_NO_ELIGIBLE_DEMAND_NO_AUTONOMOUS_OUTCOME_PROVEN",
-    "hq_repair": {
-      "prs": [
-        40,
-        41,
-        42
-      ],
-      "deployed": true,
-      "newswire": "FRESH_16_HEADLINES_ALL_REGIONS",
-      "served_source_verified": true,
-      "current_selection_source": "reports/autonomy-continuation-latest.json",
-      "full_audit_still_old": true
-    },
+    "support_at": "2026-09-02T19:24:47.0732393-06:00",
+    "engineering_at": "2026-09-02T19:27:52.3786184-06:00",
+    "ui_bridge_heartbeat_age_seconds": 758.2,
+    "proven_composites": 8,
     "teachback": {
-      "request_id": "bess-hq-teachback-20260903002008",
-      "manifest_transport_sha256": "86CE952954913E05D34B39CB80C4AB97E6C588F76E80F01A97DEB3D7DB9006A9",
-      "status": "PROVEN_FILE_DELIVERY",
-      "proven_composites": 7,
+      "mastery_proven": false,
       "proof": {
-        "key": "kevin-hq-newswire-worker-truth@1",
-        "manifest_sha256": "A4005B4D010EED8482E1FE5CAABC4AED3E5267E0A804BA7DB80423D7F3D8298D",
+        "key": "kevin-ui-recovery-diagnosis@1",
+        "manifest_sha256": "56A5C87F36CEAFACC6389ECFFE62E40FF9796AB997D186D6BAD5E5491E79E64A",
         "primitive_steps": [
           "create_text"
         ],
-        "proof_sha256": "843AA39B242CD8BA05311A3243B3031AAF91501F63AFCC4EA41A64373C3D7989",
-        "proven_at": "2026-09-02T18:24:19.9591679-06:00"
+        "proof_sha256": "4B6BD82F5E2829196DD52602826075A79A1A010E6A287108AB424D86582472CD",
+        "proven_at": "2026-09-02T19:26:20.4276005-06:00"
       },
+      "proven_composites": 8,
+      "request_id": "bess-ui-lesson-20260903012326",
       "request_retired": true,
-      "learner_mastery_proven": false,
-      "transfer": "T2_OUTSIDE_DISPATCHED"
+      "skill_id": "kevin-ui-recovery-diagnosis",
+      "status": "PROVEN_FILE_DELIVERY",
+      "transfer": "T2_OUTSIDE_DISPATCHED",
+      "transport_sha256": "1AF78CD39358472354AEBFD879364EABD4606A3DD10501B65211B8617D119611"
     },
-    "promotions": [],
-    "retired_bess_responsibilities": [],
+    "source_audit": {
+      "branch_heads_examined": 62,
+      "exact_matches": [],
+      "historical_unique_powershell_blobs": 226,
+      "installed_maintenance_sha256": "3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E",
+      "scan_method": "git fetch all branch heads and unshallow; SHA256 raw PowerShell blob bytes from complete reachable history",
+      "unique_powershell_blobs_at_heads": 155
+    },
+    "ui_recovery": {
+      "attempts_this_incident": 1,
+      "postcheck": "reports/engineering/ui-recovery-postcheck-20260903.json",
+      "postcheck_age_seconds": 402.9,
+      "postcheck_at": "2026-09-02T19:21:57.1564263-06:00",
+      "reason": "UI Bridge did not produce fresh READY heartbeat",
+      "receipt": "reports/engineering/ui-recovery-attempt-20260903.json",
+      "recovered": false,
+      "request": "bess-ui-recovery-20260903011136",
+      "request_retired": true,
+      "result": "APPLY_FAILED"
+    },
+    "collector": {
+      "ci_pass": true,
+      "ci_runs": [
+        33703281681,
+        33703284372,
+        33703387638
+      ],
+      "merge": "13e5a3ed919c7d2af12350e89b5e92403dab6c59",
+      "path": "tools/Collect-Kevin-Evidence.ps1",
+      "pr": 43,
+      "production_executed": false,
+      "sha256": "DBDE7C6DAA9CC877A3D423C6382017053F82E5D2ADBF86B435FA439BDB055FC1",
+      "windows_powershell": "5.1"
+    },
     "runtime_config_mutated": false,
     "maintenance_runner_replaced": false,
-    "source_audit": {
-      "additional_control_branch_ps_blobs": 47,
-      "installed_maintenance_matches": 0,
-      "prior_main_ps_blobs": 104
-    },
-    "matched_runtime_sources": {
-      "autonomy_actuator": {
-        "branch": "kevin-control-plane-v1",
-        "path": "control-plane/actuator/kevin-autonomy-actuator-v0.1.ps1",
-        "sha256": "6C2D1356AC01FA784A83FD8DA1D88AC6DEFDB1E01B311A6499C68B28644C5827"
-      },
-      "autonomy_bridge": {
-        "branch": "kevin-control-plane-v1",
-        "path": "control-plane/actuator/kevin-autonomy-bridge-v0.1l.ps1",
-        "sha256": "44EA2B599A50D06B61C3890DFB559A4A763C65846E1C8432F59CCEBFA5D416A1"
-      }
-    }
+    "promotions": [],
+    "retired_bess_responsibilities": []
   },
   "hq_repair": {
     "record": "docs/engineering/KEVIN-HQ-REPAIR-REVIEW-2026-09-03.md",
@@ -686,6 +690,15 @@
     ],
     "technical": "DEPLOYED_AND_SERVED_BYTES_VERIFIED",
     "learning": "SEVEN_COMPOSITES_FILE_DELIVERY_PROVEN_MASTERY_UNPROVEN",
+    "transfer_promotions": []
+  },
+  "bridge_repair": {
+    "record": "docs/engineering/KEVIN-BRIDGE-REPAIR-AUDIT-2026-09-03.md",
+    "receipt": "reports/engineering/bridge-repair-audit-20260903.json",
+    "technical": "REMOTE_SELFTESTS_PASS_UI_RESTART_FAILED_COLLECTOR_CI_PASS",
+    "learning": "EIGHT_COMPOSITES_FILE_DELIVERY_PROVEN_MASTERY_UNPROVEN",
+    "owner_input_required": "COLLECTOR_ZIP_EXACT_SOURCES_AND_UI_TASK_METADATA",
+    "requests_retired": true,
     "transfer_promotions": []
   }
 }
