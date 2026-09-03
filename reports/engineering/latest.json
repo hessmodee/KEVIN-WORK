@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-02T22:30:37.2101509-06:00",
+    "generated_at":  "2026-09-02T22:32:37.2173357-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
@@ -27,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  3
+                                     "heartbeat_age_seconds":  1.4
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -37,17 +37,17 @@
                               },
                    "composite_skills":  {
                                             "ready":  0,
-                                            "running":  1,
-                                            "done":  8,
+                                            "running":  0,
+                                            "done":  9,
                                             "failed":  1,
-                                            "proven_count":  8,
+                                            "proven_count":  9,
                                             "latest_proven":  {
-                                                                  "key":  "kevin-ui-recovery-diagnosis@1",
-                                                                  "proven_at":  "2026-09-02T19:26:20.4276005-06:00",
-                                                                  "manifest_sha256":  "56A5C87F36CEAFACC6389ECFFE62E40FF9796AB997D186D6BAD5E5491E79E64A",
-                                                                  "proof_sha256":  "4B6BD82F5E2829196DD52602826075A79A1A010E6A287108AB424D86582472CD",
+                                                                  "key":  "kevin-ui-recovery-functional-proof@1",
+                                                                  "proven_at":  "2026-09-02T22:30:46.9962000-06:00",
+                                                                  "manifest_sha256":  "14FDB4891493C99A47A4021807C944F95CCA1A289CEAEE9179E612FABDD17BC3",
+                                                                  "proof_sha256":  "01B222DAF11F3948C9C0C73C58BC96AE680D61AF10E239228EC3BC5DC4BF76CC",
                                                                   "primitive_steps":  [
-                                                                                          "create_text"
+                                                                                          "ui_notepad_write"
                                                                                       ]
                                                               }
                                         },
@@ -74,16 +74,16 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-maintenance-intake-v1",
+                                    "declaration_key":  "kevin-support-bridge-v1",
                                     "enabled":  true,
-                                    "every_ms":  300000,
+                                    "every_ms":  180000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "declaration_key":  "kevin-maintenance-intake-v1",
                                     "enabled":  true,
-                                    "every_ms":  180000,
+                                    "every_ms":  300000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
