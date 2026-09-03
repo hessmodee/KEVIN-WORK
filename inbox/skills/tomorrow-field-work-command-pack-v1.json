@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "tomorrow-field-work-command-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Tomorrow Field Work Command Pack",
+  "description": "Creates a practical next-day field-work planning workbook and operating brief for construction, equipment movement, deliveries and job-site coordination using only proven GREEN creation primitives.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin Tomorrow Field Work Command Pack.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Tomorrow Jobs",
+              "rows": [
+                ["Priority", "Job / Site", "City / State", "Start / Deadline", "Contact", "Phone", "Mission", "Status", "Blocker", "Next Action"],
+                ["P1", "", "", "", "", "", "", "PLANNED", "", ""]
+              ]
+            },
+            {
+              "name": "Loadout",
+              "rows": [
+                ["Job / Site", "Truck", "Trailer", "Equipment", "Tools", "Materials / Parts", "Documents / Keys", "Loaded?", "Verified By"],
+                ["", "", "", "", "", "", "", "NO", ""]
+              ]
+            },
+            {
+              "name": "Equipment Check",
+              "rows": [
+                ["Asset", "ID / Unit", "Fuel / Charge", "Condition", "Maintenance Due", "Required Tomorrow?", "Ready?", "Problem / Missing Item"],
+                ["", "", "", "", "", "YES", "NO", ""]
+              ]
+            },
+            {
+              "name": "Route and Stops",
+              "rows": [
+                ["Sequence", "Stop", "Address / Location", "Purpose", "Must Arrive By", "Contact", "Load / Unload", "Notes"],
+                [1, "", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Morning Gate",
+              "rows": [
+                ["Check", "Pass?", "Evidence / Note"],
+                ["All job addresses confirmed", "NO", ""],
+                ["Contacts and phone numbers confirmed", "NO", ""],
+                ["Truck and trailer matched to mission", "NO", ""],
+                ["Equipment and tools loaded", "NO", ""],
+                ["Fuel / charge sufficient", "NO", ""],
+                ["Keys / paperwork / delivery documents present", "NO", ""],
+                ["Known blockers resolved or escalated", "NO", ""],
+                ["Route order reviewed", "NO", ""]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Tomorrow Field Work Command Pack - README.md",
+        "content": "# Kevin Tomorrow Field Work Command Pack\n\nPurpose: turn scattered next-day work into one executable field plan.\n\n## Kevin procedure\n1. Capture every known job, delivery, pickup and site obligation for tomorrow.\n2. Resolve the truck, trailer, equipment, tools, materials, documents, contacts and timing needed for each mission.\n3. Put stops in a workable order and surface conflicts instead of hiding them.\n4. Run the Morning Gate. Any NO is a blocker requiring resolution, owner clarification or a clearly stated contingency.\n5. Produce a short owner brief: first mission, departure target, critical loadout, known risks and first unresolved decision.\n\nDo not invent missing addresses, contacts, equipment assignments or deadlines. Mark unknowns explicitly. Purchases, external sends, credential use and owner-representing commitments remain outside this GREEN skill.\n"
+      }
+    }
+  ]
+}
