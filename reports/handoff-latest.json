@@ -3,8 +3,8 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-03T13:26:54.1470571-06:00",
-  "semantic_fingerprint_sha256": "0AD56381AED62AD62E2F3DD93333592AF55BD3A9CD9623C878F2A7AFCE6C3D32",
+  "evidence_updated_at": "2026-09-03T13:35:46.4394351-06:00",
+  "semantic_fingerprint_sha256": "529E259116D26AC9E8C7DF01632035DA4ACF439AEC89D294C4BD897BF8DFF896",
   "semantic_checkpoint": {
     "current_task_sha256": "3CC2979B38122DC5805E6B30291E9ACA67EEC2828FF1C8F36F9539CEDDB93585",
     "benchmark": {
@@ -19,8 +19,8 @@
     "autonomy_status": "WAITING_ITEM_BUDGETS",
     "autonomy_eligible_count": 1,
     "maintenance": {
-      "status": "NO_MANIFEST",
-      "detail": "No maintenance proposal is waiting."
+      "status": "APPLY_FAILED",
+      "detail": "installed Maintenance identity is not qualified v1.3.45 actual=82C47FAD288CA6FFD69EEF5678C8262065F04C739AACCACEE889005486A5FA15"
     },
     "queues": {
       "ready": 0,
@@ -73,9 +73,9 @@
   },
   "source_hashes": {
     "current_task_sha256": "3CC2979B38122DC5805E6B30291E9ACA67EEC2828FF1C8F36F9539CEDDB93585",
-    "engineering_sha256_at_checkpoint": "5E1B845C508A5DF2696A9ACD694F3F71E3180BF16E3FF62FFEB19F095AF0080C",
-    "support_sha256_at_checkpoint": "39D199DC436B3DD26415EC35E236297E9522178B21902E7A07BFC9CC4C0A6D24",
-    "autonomy_sha256_at_checkpoint": "EEA16245CF1CF467613743CCFBA15B25B3329444DAE856C4D6032BD55C5A31CD"
+    "engineering_sha256_at_checkpoint": "6C1D6D7EE1B9DF9A093C3642299477D6760817A8830C3410649C06646F24FE63",
+    "support_sha256_at_checkpoint": "1695D69985E440798C25362235BDA22EB7585AA459AFB353C4B38C3DF56FEFD3",
+    "autonomy_sha256_at_checkpoint": "8A4932111DDC572FC55EBA6E8321EA5D829065C7A7E3A3107EEB4D234B89946C"
   },
   "universal_access": {
     "github": "https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md",
@@ -91,20 +91,20 @@
     "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at_checkpoint": "2026-09-03T13:26:54.1470571-06:00",
-    "support_at_checkpoint": "2026-09-03T13:26:46.3898287-06:00",
-    "autonomy_at_checkpoint": "2026-09-03T13:22:33.2553528-06:00",
+    "engineering_at_checkpoint": "2026-09-03T13:34:54.2362562-06:00",
+    "support_at_checkpoint": "2026-09-03T13:35:46.4394351-06:00",
+    "autonomy_at_checkpoint": "2026-09-03T13:32:33.3402612-06:00",
     "benchmark": {
       "status": "PASS",
       "passed": 30,
       "total": 30,
       "critical": 0
     },
-    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 0.1,
+    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 4.1,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
-    "maintenance_status": "NO_MANIFEST",
-    "maintenance_detail": "No maintenance proposal is waiting.",
+    "maintenance_status": "APPLY_FAILED",
+    "maintenance_detail": "installed Maintenance identity is not qualified v1.3.45 actual=82C47FAD288CA6FFD69EEF5678C8262065F04C739AACCACEE889005486A5FA15",
     "proven_composite_skills": 9,
     "maintenance_runner_sha256": "82C47FAD288CA6FFD69EEF5678C8262065F04C739AACCACEE889005486A5FA15"
   },
