@@ -2,13 +2,13 @@
 
 ## Current HQ repair checkpoint — 2026-09-03T00:28:23.414Z
 
-[Review](docs/engineering/KEVIN-HQ-REPAIR-REVIEW-2026-09-03.md) · [proof receipt](reports/engineering/hq-repair-20260903.json) · PR40/41/42 merged and deployed. Regional news publication is restored (16 stories, all categories, errors0); ticker no longer repeats the historical Reader E2E objective. HQ now separates fresh Supervisor selection from the old full audit, reports actual Benchmark degradation, and rejects stale/terminal worker activity. Served code matches tested bytes; the obsolete v1 asset-validation gate was repaired and passed.
+[Review](https://github.com/hessmodee/KEVIN-WORK/blob/main/docs/engineering/KEVIN-HQ-REPAIR-REVIEW-2026-09-03.md) · [proof receipt](https://github.com/hessmodee/KEVIN-WORK/blob/main/reports/engineering/hq-repair-20260903.json) · PR40/41/42 merged and deployed. Regional news publication is restored (16 stories, all categories, errors0); ticker no longer repeats the historical Reader E2E objective. HQ now separates fresh Supervisor selection from the old full audit, reports actual Benchmark degradation, and rejects stale/terminal worker activity. Served code matches tested bytes; the obsolete v1 asset-validation gate was repaired and passed.
 
 Kevin completed `kevin-hq-newswire-worker-truth@1` at 2026-09-02T18:24:19.9591679-06:00; **seven** reported proven composites. Proof SHA256 `843AA39B242CD8BA05311A3243B3031AAF91501F63AFCC4EA41A64373C3D7989`. This is GREEN lesson delivery/T2, not mastery or a new T4/T5 transfer. Foreground publication-refresh and teaching requests are archived and retired.
 
 Remaining P0: Benchmark29/30, sole R04; fixed:main effective tool access still unproved/owner-reported empty; Windows UI Bridge heartbeat still stale. Both newly uploaded files are exact older Maintenance v1.3.43/v1.3.32 sources, not installed `3CFC...B0D6E`. Obtain the current unsuffixed local Maintenance script before extending its typed path. An additional47 control-branch PowerShell blobs had no match. Installed autonomy bridge44EA... and actuator6C2D... sources are now hash-matched; refresh returned SUCCESS/AUTONOMY_UNCHANGED, which does not rerun the full audit. Preserve the16K chat repair, trust pins and three-attempt failure budget. No duplicate Reader canary or arbitrary alias substitution.
 
-Reconciled 2026-09-02T23:46:21.872Z during Matt-directed foreground convergence work.
+Reconciled 2026-09-03T00:28:23.414Z during Matt-directed HQ repair work.
 
 **Canonical shared handover:** this is the cross-AI engineering handover for Bess/ChatGPT, Grok Build, Grok Bot, Kevin-facing engineering automation, and future replacement engineers. Enter through `KEVIN-START-HERE.md`. Fresh correlated HESS-PC/OpenClaw evidence outranks this prose. Reconcile this file and `inbox/CURRENT_TASK.md` after every substantive repair, proof transition, blocker, owner decision, production crossing, rollback, or responsibility-transfer change so Matt never has to reconstruct the project from chat history.
 
