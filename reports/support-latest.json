@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-03T14:38:46.8196951-06:00",
+    "generated_at":  "2026-09-03T14:41:46.8241309-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788467742367,
-                                  "next_run_at_ms":  1788467922367
+                                  "last_run_at_ms":  1788467922379,
+                                  "next_run_at_ms":  1788468102379
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,20 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788467891248,
-                                  "next_run_at_ms":  1788467951248
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788467655352,
-                                  "next_run_at_ms":  1788467955352
+                                  "last_run_at_ms":  1788468071304,
+                                  "next_run_at_ms":  1788468131304
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -103,6 +91,18 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1788467852386,
                                   "next_run_at_ms":  1788468152386
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788467955375,
+                                  "next_run_at_ms":  1788468255375
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -161,11 +161,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-09-03T14:34:16.2582607-06:00",
-                        "status":  "ALREADY_APPLIED_PROVEN",
-                        "manifest_id":  "bess-install-maint-v1347-20260903-2000",
+                        "at":  "2026-09-03T14:39:16.8218931-06:00",
+                        "status":  "APPLY_FAILED",
+                        "manifest_id":  "bess-sync-local-desired-v19-20260903-2034",
                         "stage_path":  "",
-                        "detail":  "Maintenance previously proven."
+                        "detail":  "local desired-state Maintenance pin is not an approved predecessor actual=FF9C5FDF217B0ED5F38A8566BD54D8A654CB8DFEF0093654DDBC23DC9A1BF956"
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -173,5 +173,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "FDF5A388660903AF7862DAB334410B74664693E30F787D545AC6701D31397DDA"
+    "semantic_hash":  "8AA7A07239B0167CFF4D00C71AB916FD124AF2AD0F0E5C533342728CCDE0F061"
 }
