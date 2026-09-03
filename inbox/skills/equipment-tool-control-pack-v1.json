@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "equipment-tool-control-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Equipment and Tool Control Pack",
+  "description": "Creates a field-ready equipment, tool, movement and maintenance control workbook for tracking company assets across job sites.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin Equipment and Tool Control Pack.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Asset Register",
+              "rows": [
+                ["Asset ID", "Category", "Description", "Make", "Model", "Serial / VIN", "Current Site", "Assigned To", "Status", "Last Verified", "Notes"],
+                ["", "", "", "", "", "", "", "", "AVAILABLE", "", ""]
+              ]
+            },
+            {
+              "name": "Movements",
+              "rows": [
+                ["Date / Time", "Asset ID", "From", "To", "Moved By", "Truck / Trailer", "Reason / Job", "Condition Out", "Condition In", "Confirmed By"],
+                ["", "", "", "", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Maintenance",
+              "rows": [
+                ["Asset ID", "Service / Repair", "Due Date", "Due Hours / Miles", "Current Hours / Miles", "Priority", "Parts Needed", "Status", "Last Update", "Next Action"],
+                ["", "", "", "", "", "", "", "OPEN", "", ""]
+              ]
+            },
+            {
+              "name": "Site Inventory",
+              "rows": [
+                ["Site", "Asset ID", "Description", "Expected?", "Physically Verified?", "Verified Date", "Missing / Extra", "Action"],
+                ["", "", "", "YES", "NO", "", "", ""]
+              ]
+            },
+            {
+              "name": "Exceptions",
+              "rows": [
+                ["Severity", "Asset ID", "Exception", "Operational Impact", "Owner / Responsible", "Detected", "Due", "Resolved?", "Resolution Evidence"],
+                ["HIGH", "", "", "", "", "", "", "NO", ""]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Equipment and Tool Control Pack - SOP.md",
+        "content": "# Kevin Equipment and Tool Control Pack\n\n## Operating rule\nEvery material asset should answer four questions quickly: **what is it, where is it, what condition is it in, and what must happen next?**\n\nKevin should prefer evidence over assumption. A movement is not complete until destination and condition are recorded. A maintenance item is not closed until the repair outcome or verification is recorded. A site inventory discrepancy becomes an exception, not a silent overwrite.\n\n## Protective checks\n- Flag equipment required for a job but not verified at the expected site.\n- Flag maintenance due before a planned assignment.\n- Flag conflicting locations for the same asset.\n- Flag movement records lacking destination confirmation.\n- Preserve prior movement history; do not replace history with current-state edits.\n\nThis skill does not authorize purchases, external messages, credentials, destructive file operations or arbitrary system access.\n"
+      }
+    }
+  ]
+}
