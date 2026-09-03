@@ -1,0 +1,47 @@
+name: Kevin Desktop Candidate Gate
+
+on:
+  pull_request:
+    paths:
+      - 'extensions/kevin-desktop/**'
+      - '.github/workflows/kevin-desktop-candidate-gate.yml'
+  push:
+    branches:
+      - 'bess-local-computer-fluency-v2-20260903'
+    paths:
+      - 'extensions/kevin-desktop/**'
+      - '.github/workflows/kevin-desktop-candidate-gate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: extensions/kevin-desktop
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: extensions/kevin-desktop/package.json
+      - name: Install
+        run: npm install --ignore-scripts
+      - name: Unit tests
+        run: npm test
+      - name: TypeScript build
+        run: npm run build
+      - name: Generate OpenClaw plugin metadata
+        run: npm run plugin:build
+      - name: Require committed metadata to match generated metadata
+        working-directory: .
+        run: git diff --exit-code -- extensions/kevin-desktop/openclaw.plugin.json
+      - name: OpenClaw plugin validation
+        run: npm run plugin:validate
