@@ -1,0 +1,25 @@
+name: Kevin platform bootstrap
+on:
+  push:
+    paths:
+      - tools/Repair-Kevin-Platform-20260903.ps1
+      - .github/workflows/kevin-platform-bootstrap.yml
+  pull_request:
+    paths:
+      - tools/Repair-Kevin-Platform-20260903.ps1
+      - .github/workflows/kevin-platform-bootstrap.yml
+permissions:
+  contents: read
+jobs:
+  windows-powershell:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse and self-test with Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $tokens=$null; $errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD 'tools/Repair-Kevin-Platform-20260903.ps1'), [ref]$tokens, [ref]$errors)
+          if ($errors.Count) { throw ($errors | Out-String) }
+          & .\tools\Repair-Kevin-Platform-20260903.ps1 -SelfTest
+          if ($LASTEXITCODE -ne 0) { throw 'Platform bootstrap self-test failed' }
