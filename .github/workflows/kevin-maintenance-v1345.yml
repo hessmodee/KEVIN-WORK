@@ -23,11 +23,15 @@ jobs:
         with:
           ref: ${{ github.head_ref || github.ref_name }}
           fetch-depth: 0
-      - name: Deterministically generate candidate from exact v1.3.44
+      - name: Normalize checkout transport and generate exact candidate
         shell: powershell
         run: |
+          python -c "from pathlib import Path; p=Path(r'control-plane/maintenance/kevin-maintenance-runner-v1.3.44.ps1'); b=p.read_bytes(); p.write_bytes(b.replace(b'\r\n',b'\n'))"
           python .\tools\generate-maintenance-v1.3.45.py
           if ($LASTEXITCODE -ne 0) { throw 'deterministic candidate generation failed' }
+          $baseExpected='3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E'
+          $baseActual=(Get-FileHash .\control-plane\maintenance\kevin-maintenance-runner-v1.3.44.ps1 -Algorithm SHA256).Hash
+          if ($baseActual -ne $baseExpected) { throw "base identity mismatch actual=$baseActual" }
           $expected='9615BE7D546F0482A0D295CABD01D87411C4FC93159349CEFC40594FDD6E8CD2'
           $actual=(Get-FileHash .\control-plane\maintenance\kevin-maintenance-runner-v1.3.45.ps1 -Algorithm SHA256).Hash
           if ($actual -ne $expected) { throw "candidate hash mismatch actual=$actual" }
@@ -45,6 +49,7 @@ jobs:
         if: github.event_name == 'push'
         shell: powershell
         run: |
+          git checkout -- control-plane/maintenance/kevin-maintenance-runner-v1.3.44.ps1
           git add control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1
           git diff --cached --quiet
           if ($LASTEXITCODE -eq 0) { Write-Host 'Generated source already materialized'; exit 0 }
