@@ -3,23 +3,47 @@ on:
   push:
     paths:
       - tools/Repair-Kevin-Platform-20260903.ps1
+      - tools/Repair-Kevin-Platform-20260903-v2.ps1
+      - candidates/maintenance/r04-production-config-rebaseline-v2/kevin-r04-production-config-rebaseline-v2.ps1
       - .github/workflows/kevin-platform-bootstrap.yml
   pull_request:
     paths:
       - tools/Repair-Kevin-Platform-20260903.ps1
+      - tools/Repair-Kevin-Platform-20260903-v2.ps1
+      - candidates/maintenance/r04-production-config-rebaseline-v2/kevin-r04-production-config-rebaseline-v2.ps1
       - .github/workflows/kevin-platform-bootstrap.yml
 permissions:
   contents: read
 jobs:
   windows-powershell:
     runs-on: windows-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
-      - name: Parse and self-test with Windows PowerShell 5.1
+      - name: Parse legacy bootstrap with Windows PowerShell 5.1
         shell: powershell
         run: |
           $tokens=$null; $errors=$null
           [void][System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD 'tools/Repair-Kevin-Platform-20260903.ps1'), [ref]$tokens, [ref]$errors)
           if ($errors.Count) { throw ($errors | Out-String) }
           & .\tools\Repair-Kevin-Platform-20260903.ps1 -SelfTest
-          if ($LASTEXITCODE -ne 0) { throw 'Platform bootstrap self-test failed' }
+          if ($LASTEXITCODE -ne 0) { throw 'Legacy platform bootstrap self-test failed' }
+      - name: Parse and self-test corrected R04 v2 wrapper
+        shell: powershell
+        run: |
+          $tokens=$null; $errors=$null
+          $p = Join-Path $PWD 'candidates/maintenance/r04-production-config-rebaseline-v2/kevin-r04-production-config-rebaseline-v2.ps1'
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if ($errors.Count) { throw ($errors | Out-String) }
+          & $p -SelfTest
+          if ($LASTEXITCODE -ne 0) { throw 'R04 v2 self-test failed' }
+      - name: Parse and self-test platform bootstrap v2
+        shell: powershell
+        run: |
+          $tokens=$null; $errors=$null
+          $p = Join-Path $PWD 'tools/Repair-Kevin-Platform-20260903-v2.ps1'
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if ($errors.Count) { throw ($errors | Out-String) }
+          & $p -SelfTest
+          if ($LASTEXITCODE -ne 0) { throw 'Platform bootstrap v2 self-test failed' }
