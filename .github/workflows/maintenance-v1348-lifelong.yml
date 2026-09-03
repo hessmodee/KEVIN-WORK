@@ -1,0 +1,72 @@
+name: Maintenance v1.3.48 Lifelong Candidate
+
+on:
+  push:
+    branches:
+      - bess-maintenance-v1348-lifelong-20260903
+    paths:
+      - '.github/scripts/generate-maintenance-v1348.py'
+      - '.github/workflows/maintenance-v1348-lifelong.yml'
+  pull_request:
+    paths:
+      - '.github/scripts/generate-maintenance-v1348.py'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.48.ps1'
+      - '.github/workflows/maintenance-v1348-lifelong.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  generate-test-publish:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate exact-source candidate
+        shell: pwsh
+        run: |
+          python .github/scripts/generate-maintenance-v1348.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Parse and self-test in Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.48.ps1'
+          $tokens=$null; $errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count -ne 0){ throw $errors[0].Message }
+          $out = & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1 | Out-String
+          if($LASTEXITCODE -ne 0){ throw "v1.3.48 selftest exit=$LASTEXITCODE`n$out" }
+          if($out -notmatch 'KEVIN MAINTENANCE v1\.3\.48 SELFTEST PASS'){ throw "v1.3.48 selftest marker missing`n$out" }
+          if($out -notmatch 'arbitrary_shell=false' -or $out -notmatch 'authority_expansion=false'){ throw 'safety selftest markers missing' }
+          Write-Host $out
+      - name: Determinism and semantic anchors
+        shell: pwsh
+        run: |
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.48.ps1'
+          $h1=(Get-FileHash $p -Algorithm SHA256).Hash
+          python .github/scripts/generate-maintenance-v1348.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $h2=(Get-FileHash $p -Algorithm SHA256).Hash
+          if($h1 -ne $h2){ throw 'candidate generation is not deterministic' }
+          $t=Get-Content $p -Raw
+          foreach($m in @('FF9C5FDF217B0ED5F38A8566BD54D8A654CB8DFEF0093654DDBC23DC9A1BF956','Retire-LegacyNightForge','KevinNightForge','Export-ScheduledTask','Disable-ScheduledTask','Assert-Benchmark30','legacy_night_forge_retirement_failure')){if(-not$t.Contains($m)){throw "missing anchor $m"}}
+          if(($t|Select-String -Pattern "retire_legacy_night_forge" -AllMatches).Matches.Count -lt 4){throw 'legacy operation parity missing'}
+          if($t -match "retire_legacy_night_forge.{0,200}(Invoke-Expression|cmd\.exe)"){throw 'legacy retirement widened command authority'}
+          Write-Host "MAINTENANCE_V1348_CANDIDATE_PASS sha256=$h2"
+      - name: Commit generated candidate to branch
+        if: github.event_name == 'push'
+        shell: pwsh
+        run: |
+          git config user.name 'Kevin Candidate Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add control-plane/maintenance/kevin-maintenance-runner-v1.3.48.ps1
+          if (git diff --cached --quiet) {
+            Write-Host 'Generated candidate already committed.'
+            exit 0
+          }
+          git commit -m 'materialize Maintenance v1.3.48 candidate'
+          git push origin HEAD:${{ github.ref_name }}
