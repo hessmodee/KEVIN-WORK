@@ -1,0 +1,81 @@
+name: Maintenance v1.3.45 Proof
+
+on:
+  push:
+    branches:
+      - main
+      - bess-maint-v1345-recovery-20260903
+    paths:
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1'
+      - '.github/workflows/maintenance-v1345-proof.yml'
+  pull_request:
+    paths:
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1'
+      - '.github/workflows/maintenance-v1345-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-boundary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact source identity and typed boundary
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib,re
+          p=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1')
+          raw=p.read_bytes()
+          expected='AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D'
+          actual=hashlib.sha256(raw).hexdigest().upper()
+          if actual != expected:
+              raise SystemExit(f'V1345_SOURCE_IDENTITY_FAIL expected={expected} actual={actual}')
+          s=raw.decode('utf-8')
+          for marker in [
+              "version='1.3.45'",
+              "'diagnose_main_tool_policy'",
+              "'ensure_ui_bridge_watchdog'",
+              "'refresh_full_autonomy_assessment'",
+              'Kevin UI Bridge Watchdog v1',
+              'MAIN_AGENT_TOOL_SURFACE_EMPTY',
+              "authority_effect='NONE_AUDIT_ONLY'"
+          ]:
+              if marker not in s:
+                  raise SystemExit('missing required marker: '+marker)
+          if re.search(r'(?mi)^\s*Invoke-Expression\b',s):
+              raise SystemExit('forbidden executable Invoke-Expression call present')
+          print(f'V1345_SOURCE_IDENTITY_PASS sha256={actual} bytes={len(raw)}')
+          print('V1345_TYPED_BOUNDARY_PASS arbitrary_invoke_expression_call=false')
+          PY
+
+  powershell-51:
+    runs-on: windows-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: Windows PowerShell 5.1 parser
+        shell: powershell
+        run: |
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1'
+          $t=$null;$e=$null
+          [void][Management.Automation.Language.Parser]::ParseFile($p,[ref]$t,[ref]$e)
+          if($e.Count){$e|ForEach-Object{Write-Host $_.Message};throw 'PowerShell 5.1 parser gate failed'}
+          $sha=(Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          if($sha -ne 'AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D'){throw "source identity mismatch $sha"}
+          Write-Host "V1345_PS51_PARSE_PASS sha256=$sha"
+      - name: Isolated self-test
+        shell: powershell
+        run: |
+          $env:KEVIN_MAINT_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'kevin-maint-v1345-selftest'
+          New-Item -ItemType Directory -Force -Path $env:KEVIN_MAINT_TEST_ROOT|Out-Null
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1' -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'Maintenance v1.3.45 self-test failed'}
+          Write-Host 'V1345_SELFTEST_PASS'
