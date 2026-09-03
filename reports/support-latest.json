@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-02T19:09:41.6694592-06:00",
+    "generated_at":  "2026-09-02T19:15:41.7379488-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788397597286,
-                                  "next_run_at_ms":  1788397777286
+                                  "last_run_at_ms":  1788397957317,
+                                  "next_run_at_ms":  1788398137317
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -77,20 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788397738002,
-                                  "next_run_at_ms":  1788397798002
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788397514881,
-                                  "next_run_at_ms":  1788397814881
+                                  "last_run_at_ms":  1788398103429,
+                                  "next_run_at_ms":  1788398163429
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -101,8 +89,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1788397633296,
-                                  "next_run_at_ms":  1788397933296
+                                  "last_run_at_ms":  1788397933320,
+                                  "next_run_at_ms":  1788398233320
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1788398114908,
+                                  "next_run_at_ms":  1788398414908
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -134,7 +134,7 @@
                      "last_brief":  "20260901-070846-round1.json"
                  },
     "benchmark":  {
-                      "at":  "2026-09-02T19:02:54.3699274-06:00",
+                      "at":  "2026-09-02T19:15:19.0724114-06:00",
                       "status":  "FAIL_CRITICAL_REGRESSION",
                       "regression":  {
                                          "passed":  29,
@@ -166,11 +166,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-09-02T19:09:08.8991685-06:00",
-                        "status":  "NO_MANIFEST",
-                        "manifest_id":  "",
+                        "at":  "2026-09-02T19:15:32.3154896-06:00",
+                        "status":  "APPLY_FAILED",
+                        "manifest_id":  "bess-ui-recovery-20260903011136",
                         "stage_path":  "",
-                        "detail":  "No maintenance proposal is waiting."
+                        "detail":  "UI Bridge did not produce fresh READY heartbeat"
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -178,5 +178,5 @@
                            "supervisor":  0,
                            "benchmark":  0
                        },
-    "semantic_hash":  "6106414A6E6AF76159CAF65D986FD72897E2CA12A39719AA95AA5F6D5788EB84"
+    "semantic_hash":  "C9D7A3574D401DC4460115A307E84CC680653BA232580E086C20A80E58618059"
 }
