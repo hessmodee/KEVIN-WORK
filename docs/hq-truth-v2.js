@@ -8,7 +8,8 @@ const SOURCES={
   dashboard:{label:'Live dashboard',path:'reports/dashboard-state.json',kind:'periodic',fresh:120,delayed:360,claim:'current task / services / load'},
   support:{label:'Support',path:'reports/support-latest.json',kind:'periodic',fresh:360,delayed:900,claim:'platform / benchmark / workers'},
   engineering:{label:'Engineering',path:'reports/engineering/latest.json',kind:'periodic',fresh:300,delayed:720,claim:'relay / skills / UI Bridge'},
-  autonomy:{label:'Autonomy',path:'reports/autonomy-latest.json',kind:'periodic',fresh:900,delayed:1800,claim:'work selection / drift'},
+  autonomy:{label:'Full reconciliation',path:'reports/autonomy-latest.json',kind:'event',claim:'last full drift / repair assessment'},
+  continuation:{label:'Scheduled selection',path:'reports/autonomy-continuation-latest.json',kind:'periodic',fresh:900,delayed:1800,claim:'current Supervisor selection; outcome proof is separate'},
   news:{label:'Public newswire',path:'reports/newswire-latest.json',kind:'periodic',fresh:21600,delayed:21600,claim:'local / national / international headlines'},
   control:{label:'Control plane',path:'reports/control-plane-latest.json',kind:'event',claim:'latest typed outcome'},
   desired:{label:'Desired state',path:'control-plane/desired-state-v1.json',kind:'checkpoint',claim:'owner-approved core identities'},
@@ -93,6 +94,13 @@ function workTelemetryConflict(d,s){
   return supportAt>=dashAt;
 }
 function autonomyTruth(a){
+  const current=cache.continuation;
+  if(current){
+    const freshness=sourceState('continuation',current);
+    if(freshness.state!=='FRESH')return{headline:'STALE SELECTION',detail:`${ageText(freshness.age)} old · last ${current.status||'unknown'}`,cls:'warn'};
+    const idle=current.status==='IDLE_NO_ELIGIBLE_DEMAND';
+    return{headline:idle?'NO ELIGIBLE WORK':String(current.status||'UNKNOWN'),detail:`Supervisor ${current.version||'?'} · ${ageText(freshness.age)} old · ${current.eligible_count??'?'} eligible · outcome ${current.outcome_proven===true?'proven':'unproven'}`,cls:idle?'warn':'neutral'};
+  }
   if(!a)return{headline:'UNKNOWN',detail:'Autonomy snapshot missing',cls:'bad'};
   const st=sourceState('autonomy',a),live=liveCoreDrift(cache.support||{},cache.desired||{}),reported=Number(a.drift_count||0);
   if(st.state==='STALE')return{headline:'STALE EVIDENCE',detail:`${ageText(st.age)} old · last ${a.state||'unknown'}`,cls:'bad'};
@@ -137,8 +145,9 @@ function issueRows(){
   if(['STALE','MISSING'].includes(news.state))out.push({sev:'warn',title:'Public newswire needs attention',detail:`Last published feed ${ageText(news.age)} old. Check the Newswire publication workflow.`});
   const hb=Number(e?.action?.ui_bridge?.heartbeat_age_seconds)+ageSec(e.generated_at);
   if(Number.isFinite(hb)&&hb>60)out.push({sev:'bad',title:'UI Bridge heartbeat is not fresh',detail:`Heartbeat ${ageText(hb)} old.`});
+  if(ageSec(a.generated_at)>1800)out.push({sev:'warn',title:'Full autonomy audit needs refresh',detail:`Last full assessment ${ageText(ageSec(a.generated_at))} old; current scheduled selection is tracked separately. A publication-only check does not rerun the audit.`});
   const ast=sourceState('autonomy',a),live=liveCoreDrift(s,cache.desired||{}),reported=Number(a?.drift_count||0),knownForgeOnly=live.count===1&&live.keys[0]==='forge'&&blocked;
-  if(ast.state==='FRESH'&&cache.desired&&reported!==live.count)out.push({sev:'warn',title:'Autonomy and repository pins differ',detail:`Autonomy reports ${reported}; current desired-state vs live Support has ${live.count} mismatch(es): ${live.keys.join(', ')||'none'}.`});
+  if(ast.state==='RECENT'&&cache.desired&&reported!==live.count)out.push({sev:'warn',title:'Autonomy and repository pins differ',detail:`Autonomy reports ${reported}; current desired-state vs live Support has ${live.count} mismatch(es): ${live.keys.join(', ')||'none'}.`});
   if(cache.desired&&live.count>0&&!knownForgeOnly)out.push({sev:'warn',title:'Repository desired-state pins differ',detail:`Compare approved migration receipts before updating these pins. Mismatches: ${live.keys.join(', ')}.`});
   if(String(c?.status||'').toUpperCase()==='DUPLICATE_IGNORED')out.push({sev:'neutral',title:'Latest control receipt is terminal duplicate',detail:`${c?.request?.id||'request'} is not active work.`});
   if(!out.length)out.push({sev:'ok',title:'No high-signal contradiction detected',detail:'Current sanitized sources expose no major contradiction.'});

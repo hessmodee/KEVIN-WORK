@@ -47,3 +47,18 @@ assert.equal(vm.runInContext('workerState(key,d,s)',scope),'working');
 d.generated_at=new Date(now-3600000).toISOString();
 assert.equal(vm.runInContext('workerState(key,d,s)',scope),'ready','fresh Support does not make an old Dashboard task current');
 console.log('PASS news freshness/categories/R04/URL safety and real worker/terminal/stale attribution');
+
+const truthSource=fs.readFileSync('docs/hq-truth-v2.js','utf8');
+let truthCode=truthSource.replace("const frame=document.getElementById('kevinCore');",'const frame={};');
+const stop="frame.addEventListener('load',()=>{bind();refresh()});";
+assert.ok(truthCode.includes(stop));
+truthCode=truthCode.replace(stop,"globalThis.testTruth={setCache:x=>cache=x,autonomyTruth,issueRows};return;"+stop);
+const truthScope={Date,document:{getElementById:()=>({})},window:{},setTimeout:()=>0,setInterval:()=>0};
+vm.createContext(truthScope);vm.runInContext(truthCode,truthScope);
+const oldAudit={generated_at:new Date(now-7200000).toISOString(),state:'NEEDS_REVIEW'};
+truthScope.testTruth.setCache({autonomy:oldAudit,continuation:{generated_at:at,status:'IDLE_NO_ELIGIBLE_DEMAND',version:'1.8.8',eligible_count:0,outcome_proven:false}});
+assert.equal(truthScope.testTruth.autonomyTruth(oldAudit).headline,'NO ELIGIBLE WORK');
+assert.ok(truthScope.testTruth.issueRows().some(x=>x.title==='Full autonomy audit needs refresh'),'old full audit remains visible');
+truthScope.testTruth.setCache({continuation:{generated_at:oldAudit.generated_at,status:'IDLE_NO_ELIGIBLE_DEMAND'}});
+assert.equal(truthScope.testTruth.autonomyTruth(oldAudit).headline,'STALE SELECTION');
+console.log('PASS current Supervisor selection is distinct from old full reconciliation and outcome proof');

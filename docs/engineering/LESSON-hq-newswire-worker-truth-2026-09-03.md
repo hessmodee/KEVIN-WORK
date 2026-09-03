@@ -34,3 +34,9 @@ Current independent machine-side outcomes remain unproved: R04 closure; fresh UI
 - [Git read-tree](https://git-scm.com/docs/git-read-tree) documents index-only reads without worktree updates. [GitHub schedule behavior](https://docs.github.com/actions/using-workflows/events-that-trigger-workflows#schedule) documents delayed/dropped scheduled runs; the 15-minute schedule is offset from the top of the hour and is not advertised as a guaranteed deadline.
 
 Technical proof and deployment receipts are recorded in the shared handover after CI and publication. No responsibility promotion is implied by these outside-engineered fixes.
+
+## Current selection versus old full reconciliation
+
+A fixed publication refresh returned `SUCCESS / AUTONOMY_UNCHANGED` at 2026-09-02T18:13:06-06:00. Published bridge v0.1l exactly matches installed SHA256 `44EA2B599A50D06B61C3890DFB559A4A763C65846E1C8432F59CCEBFA5D416A1`; it copies the local assessment timestamp and skips identical semantic hashes. It does not run the actuator's assessment. Published actuator source also matches installed `6C2D1356AC01FA784A83FD8DA1D88AC6DEFDB1E01B311A6499C68B28644C5827`. This is source evidence, not permission to substitute an arbitrary invocation.
+
+Supervisor v1.8.8 publishes a separate, fresh `reports/autonomy-continuation-latest.json`. At 18:17 MDT it reported `IDLE_NO_ELIGIBLE_DEMAND`, eligible_count0 and outcome_proven=false. HQ should use this for **current scheduled selection**, show the full reconciliation as dated assessment evidence, and retain an explicit warning when that audit is old. Never relabel a publication refresh as a new assessment or idle selection as a completed owner outcome.
