@@ -5,331 +5,143 @@ param(
 )
 
 Set-StrictMode -Version 2.0
-$ErrorActionPreference = 'Stop'
-$Utf8 = New-Object Text.UTF8Encoding($false)
+$ErrorActionPreference='Stop'
+$Utf8=New-Object Text.UTF8Encoding($false)
 
-# Exact evidence/pins from Matt's 2026-09-02 HESS-PC collector and the merged PR39 repair.
-$Repo = 'hessmodee/KEVIN-WORK'
-$RepairCommit = 'e57bf5b013bbbbad98a4c34b0e933c8d2912bfe5'
-$R04Path = 'candidates/maintenance/r04-production-config-rebaseline-v1/kevin-r04-production-config-rebaseline-v1.ps1'
-$R04Blob = '3a3289d1ab4cb4d92062638cda01a3548b7e6cd2'
-$ConfigSha = '23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5'
-$BaselineSha = '1396897473D874154FF24DB933D4B4FB643298652FC3C0C05097971DC2336B30'
-$BenchmarkSha = '4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964'
-$UiSha = '5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42'
-$TaskName = 'Kevin UI Bridge v0.3'
+# Exact HESS-PC evidence collected 2026-09-02. This v2 matches the ACTUAL installed
+# Benchmark v1.1c baseline contract; that runner does not consume hashes.benchmark_runner.
+$ConfigSha='23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5'
+$OldConfigSha='215AC88DF59FE91DD38580E8A77A488096CA77AFE840AACDBB1530DA760B5A84'
+$BaselineSha='1396897473D874154FF24DB933D4B4FB643298652FC3C0C05097971DC2336B30'
+$BenchmarkSha='4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964'
+$SupervisorSha='F5D8C9740D384CC576D4BD70A3940B51AA1FCF398C7085E59DB20C01E9180138'
+$ForgeSha='433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A'
+$ReaderSha='C107FEEDA4CA7B330FF44B7E9083DDAA854D9057085F165797B3EAF6FC458C5D'
+$Workspace=Join-Path $env:USERPROFILE '.openclaw\workspace'
+$ConfigPath=Join-Path $env:USERPROFILE '.openclaw\openclaw.json'
+$BaselinePath=Join-Path $Workspace 'reports\benchmark-v1\baseline.json'
+$BenchmarkPath=Join-Path $Workspace 'kevin-benchmark-v1.ps1'
+$LatestPath=Join-Path $Workspace 'reports\benchmark-v1\latest.json'
+$BackupRoot=Join-Path $Workspace 'reports\maintenance\backups'
+$ReceiptPath=Join-Path $Workspace 'reports\maintenance\r04-production-config-rebaseline-latest.json'
 
-$Workspace = Join-Path $env:USERPROFILE '.openclaw\workspace'
-$ConfigPath = Join-Path $env:USERPROFILE '.openclaw\openclaw.json'
-$BaselinePath = Join-Path $Workspace 'reports\benchmark-v1\baseline.json'
-$BenchmarkPath = Join-Path $Workspace 'kevin-benchmark-v1.ps1'
-$BenchmarkLatest = Join-Path $Workspace 'reports\benchmark-v1\latest.json'
-$UiBridgePath = Join-Path $Workspace 'kevin-ui-bridge.ps1'
-$UiRoot = Join-Path $Workspace 'reports\action-era\ui-bridge'
-$HeartbeatPath = Join-Path $UiRoot 'heartbeat.json'
-$UiInbox = Join-Path $UiRoot 'inbox'
-$UiResults = Join-Path $UiRoot 'results'
-$RepairRoot = Join-Path $Workspace 'reports\maintenance\platform-repair-20260903'
-$ReceiptPath = Join-Path $Workspace 'reports\maintenance\platform-repair-20260903-latest.json'
-
-function Get-Sha([string]$Path) {
-    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return '' }
+function Get-Sha([string]$Path){
+    if(-not(Test-Path -LiteralPath $Path -PathType Leaf)){return ''}
     return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToUpperInvariant()
 }
-
-function Read-Json([string]$Path) {
-    return (Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json)
-}
-
-function Write-JsonAtomic([string]$Path, [object]$Value) {
-    $dir = Split-Path -Parent $Path
-    if (-not (Test-Path -LiteralPath $dir -PathType Container)) {
-        New-Item -ItemType Directory -Path $dir -Force | Out-Null
-    }
-    $tmp = $Path + '.tmp-' + $PID + '-' + [guid]::NewGuid().ToString('N')
-    [IO.File]::WriteAllText($tmp, ($Value | ConvertTo-Json -Depth 30), $Utf8)
+function Read-Json([string]$Path){return (Get-Content -LiteralPath $Path -Raw|ConvertFrom-Json)}
+function Write-JsonAtomic([string]$Path,[object]$Value){
+    $dir=Split-Path -Parent $Path
+    if(-not(Test-Path -LiteralPath $dir -PathType Container)){New-Item -ItemType Directory -Path $dir -Force|Out-Null}
+    $tmp=$Path+'.tmp-'+$PID+'-'+[guid]::NewGuid().ToString('N')
+    [IO.File]::WriteAllText($tmp,($Value|ConvertTo-Json -Depth 30),$Utf8)
     Move-Item -LiteralPath $tmp -Destination $Path -Force
 }
-
-function Invoke-FixedPowerShell([string]$Path, [string[]]$Arguments) {
-    $old = $ErrorActionPreference
-    try {
-        $ErrorActionPreference = 'Continue'
-        $output = (& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $Path @Arguments 2>&1 | Out-String).Trim()
-        $exitCode = [int]$LASTEXITCODE
+function Get-NonTargetJson([object]$Baseline){
+    $copy=$Baseline|ConvertTo-Json -Depth 30|ConvertFrom-Json
+    $copy.hashes.production_config='TARGET_IGNORED'
+    return ($copy|ConvertTo-Json -Depth 30 -Compress)
+}
+function Assert-Baseline([object]$b){
+    if($null-eq$b -or [int]$b.schema-ne1 -or [string]$b.kind-cne'kevin-benchmark-v1-baseline'){throw 'Baseline schema/kind mismatch'}
+    if($null-eq$b.hashes){throw 'Baseline hashes missing'}
+    foreach($n in @('supervisor','forge','production_config','reader_config','benchmark_spec','goal_os','promotion_policy')){
+        $p=$b.hashes.PSObject.Properties[$n]
+        if($null-eq$p -or [string]$p.Value-cnotmatch'^[A-Fa-f0-9]{64}$'){throw('Baseline hash missing/invalid: '+$n)}
     }
-    finally {
-        $ErrorActionPreference = $old
+    if(([string]$b.hashes.production_config).ToUpperInvariant()-cne$OldConfigSha){throw 'Baseline production_config anchor mismatch'}
+    if(([string]$b.hashes.supervisor).ToUpperInvariant()-cne$SupervisorSha){throw 'Baseline supervisor anchor mismatch'}
+    if(([string]$b.hashes.forge).ToUpperInvariant()-cne$ForgeSha){throw 'Baseline forge anchor mismatch'}
+    if(([string]$b.hashes.reader_config).ToUpperInvariant()-cne$ReaderSha){throw 'Baseline reader anchor mismatch'}
+}
+function Assert-BenchmarkSource{
+    if((Get-Sha $BenchmarkPath)-cne$BenchmarkSha){throw 'Benchmark identity changed'}
+    $src=Get-Content -LiteralPath $BenchmarkPath -Raw
+    if($src-notmatch'(?s)Add-Result\s+\$reg\s+"R04".*?baseline\.hashes\.production_config'){throw 'Installed R04 contract not found'}
+    if($src-match'baseline\.hashes\.benchmark_runner'){throw 'Installed Benchmark contract changed; re-qualification required'}
+    $actual=@([regex]::Matches($src,'baseline\.hashes\.([A-Za-z0-9_]+)')|ForEach-Object{$_.Groups[1].Value}|Sort-Object -Unique)
+    $expected=@('benchmark_spec','forge','goal_os','production_config','promotion_policy','reader_config','supervisor')
+    if(($actual-join',')-cne($expected-join',')){throw('Installed baseline-field contract changed: '+($actual-join','))}
+}
+function Assert-R04Only([object]$latest){
+    if($null-eq$latest -or $null-eq$latest.regression){throw 'Benchmark evidence missing'}
+    if([string]$latest.status-cne'FAIL_CRITICAL_REGRESSION' -or [int]$latest.regression.passed-ne29 -or [int]$latest.regression.total-ne30 -or [int]$latest.regression.critical_failures-ne1){throw 'Benchmark is not exact 29/30 critical1'}
+    $rows=@($latest.regression.rows)
+    if($rows.Count-ne30){throw 'Benchmark rows incomplete'}
+    $failed=@($rows|Where-Object{-not[bool]$_.pass})
+    if($failed.Count-ne1 -or [string]$failed[0].id-cne'R04' -or -not[bool]$failed[0].critical){throw 'Benchmark failure is not exactly critical R04'}
+}
+function Get-Preflight{
+    if((Get-Sha $ConfigPath)-cne$ConfigSha){throw('Production config identity changed: '+(Get-Sha $ConfigPath))}
+    if((Get-Sha $BaselinePath)-cne$BaselineSha){throw('Baseline identity changed: '+(Get-Sha $BaselinePath))}
+    Assert-BenchmarkSource
+    $b=Read-Json $BaselinePath
+    Assert-Baseline $b
+    Assert-R04Only (Read-Json $LatestPath)
+    return [pscustomobject]@{baseline=$b;non_target=(Get-NonTargetJson $b)}
+}
+function Invoke-FreshBenchmark{
+    for($attempt=1;$attempt-le4;$attempt++){
+        $started=[DateTime]::UtcNow
+        $old=$ErrorActionPreference
+        try{$ErrorActionPreference='Continue';$out=(& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $BenchmarkPath 2>&1|Out-String).Trim();$code=[int]$LASTEXITCODE}
+        finally{$ErrorActionPreference=$old}
+        if($out-match'(?i)BENCHMARK\s+SKIP_(ACTIVE_WORK|OVERLAP)'){Start-Sleep -Seconds 5;continue}
+        if($code-ne0){throw('Post-change Benchmark failed exit='+$code+' '+$out)}
+        if((Get-Item -LiteralPath $LatestPath).LastWriteTimeUtc-lt$started.AddSeconds(-3)){throw 'Benchmark evidence not fresh'}
+        $latest=Read-Json $LatestPath
+        if([string]$latest.status-cne'PASS' -or [int]$latest.regression.passed-ne30 -or [int]$latest.regression.total-ne30 -or [int]$latest.regression.critical_failures-ne0){throw 'Post-change Benchmark not 30/30 critical0'}
+        return
     }
-    if ($exitCode -ne 0) {
-        throw ('Fixed PowerShell child failed exit=' + $exitCode + ' ' + $output)
-    }
-    return $output
+    throw 'Benchmark retry budget exhausted'
+}
+function Invoke-SelfTest{
+    foreach($h in @($ConfigSha,$OldConfigSha,$BaselineSha,$BenchmarkSha,$SupervisorSha,$ForgeSha,$ReaderSha)){if($h-cnotmatch'^[A-F0-9]{64}$'){throw 'SHA pin malformed'}}
+    $b=[pscustomobject]@{schema=1;kind='kevin-benchmark-v1-baseline';hashes=[pscustomobject]@{supervisor=$SupervisorSha;forge=$ForgeSha;production_config=$OldConfigSha;reader_config=$ReaderSha;benchmark_spec=('A'*64);goal_os=('B'*64);promotion_policy=('C'*64)}}
+    Assert-Baseline $b
+    if($b.hashes.PSObject.Properties['benchmark_runner']){throw 'Legacy fixture unexpectedly has benchmark_runner'}
+    $before=Get-NonTargetJson $b
+    $x=$b|ConvertTo-Json -Depth 30|ConvertFrom-Json;$x.hashes.production_config=$ConfigSha
+    if((Get-NonTargetJson $x)-cne$before){throw 'Target-only semantic proof failed'}
+    $x.hashes.goal_os=('D'*64)
+    if((Get-NonTargetJson $x)-ceq$before){throw 'Non-target mutation not detected'}
+    $latest=[pscustomobject]@{status='FAIL_CRITICAL_REGRESSION';regression=[pscustomobject]@{passed=29;total=30;critical_failures=1;rows=@(1..30|ForEach-Object{[pscustomobject]@{id=('R{0:d2}'-f$_);pass=($_-ne4);critical=($_-eq4)}})}}
+    Assert-R04Only $latest
+    Write-Host 'KEVIN R04 BOOTSTRAP v2 SELFTEST PASS legacy_baseline=true benchmark_runner_assumption=false one_leaf=true rollback=true arbitrary_shell=false'
 }
 
-function Get-PinnedR04Candidate {
-    $gh = Get-Command gh.exe -ErrorAction SilentlyContinue
-    if (-not $gh) { $gh = Get-Command gh -ErrorAction Stop }
-    $endpoint = 'repos/' + $Repo + '/contents/' + $R04Path + '?ref=' + $RepairCommit
-    $raw = (& $gh.Source api $endpoint -H 'Accept: application/vnd.github+json' 2>&1 | Out-String).Trim()
-    if ($LASTEXITCODE -ne 0) { throw ('Pinned R04 fetch failed: ' + $raw) }
-    $meta = $raw | ConvertFrom-Json
-    if ([string]$meta.sha -cne $R04Blob) {
-        throw ('Pinned R04 Git blob mismatch actual=' + [string]$meta.sha)
+if($SelfTest){Invoke-SelfTest;exit 0}
+if($Apply-and$CheckOnly){throw 'Choose only one of -Apply or -CheckOnly'}
+if(-not$Apply){$CheckOnly=$true}
+if($env:OS-ne'Windows_NT'){throw 'Run this on the Windows PC that hosts Kevin'}
+$mutex=New-Object Threading.Mutex($false,'Global\KevinR04BootstrapV2')
+$owned=$false
+try{
+    try{$owned=$mutex.WaitOne(0)}catch [Threading.AbandonedMutexException]{$owned=$true}
+    if(-not$owned){throw 'R04 bootstrap already active'}
+    $pre=Get-Preflight
+    if($CheckOnly){Write-Host 'KEVIN_R04_BOOTSTRAP_V2_READY installed_contract=benchmark-v1.1c target=hashes.production_config';exit 0}
+    $stamp=Get-Date -Format 'yyyyMMdd-HHmmss'
+    $dir=Join-Path $BackupRoot ('r04-bootstrap-v2-'+$stamp);New-Item -ItemType Directory -Path $dir -Force|Out-Null
+    $backup=Join-Path $dir 'baseline.json.before';Copy-Item -LiteralPath $BaselinePath -Destination $backup -Force
+    if((Get-Sha $backup)-cne$BaselineSha){throw 'Baseline backup verification failed'}
+    $after=$pre.baseline|ConvertTo-Json -Depth 30|ConvertFrom-Json;$after.hashes.production_config=$ConfigSha
+    if((Get-NonTargetJson $after)-cne$pre.non_target){throw 'Non-target baseline semantics changed before write'}
+    $stage=Join-Path $dir 'baseline.json.stage';[IO.File]::WriteAllText($stage,($after|ConvertTo-Json -Depth 30),$Utf8)
+    $stageObj=Read-Json $stage
+    if(([string]$stageObj.hashes.production_config).ToUpperInvariant()-cne$ConfigSha -or (Get-NonTargetJson $stageObj)-cne$pre.non_target){throw 'Serialized stage verification failed'}
+    try{
+        $tmp=$BaselinePath+'.r04-'+[guid]::NewGuid().ToString('N');Copy-Item -LiteralPath $stage -Destination $tmp -Force;Move-Item -LiteralPath $tmp -Destination $BaselinePath -Force
+        $installed=Read-Json $BaselinePath
+        if(([string]$installed.hashes.production_config).ToUpperInvariant()-cne$ConfigSha -or (Get-NonTargetJson $installed)-cne$pre.non_target){throw 'Installed baseline verification failed'}
+        if((Get-Sha $ConfigPath)-cne$ConfigSha -or (Get-Sha $BenchmarkPath)-cne$BenchmarkSha){throw 'Protected production identity changed during crossing'}
+        Invoke-FreshBenchmark
+        Write-JsonAtomic $ReceiptPath ([ordered]@{schema=2;kind='kevin-r04-production-config-rebaseline-receipt';at=(Get-Date).ToString('o');status='APPLIED_PROVEN';config_sha256=$ConfigSha;baseline_before_sha256=$BaselineSha;baseline_after_sha256=(Get-Sha $BaselinePath);target_leaf='hashes.production_config';previous_anchor=$OldConfigSha;current_anchor=$ConfigSha;non_target_semantics_preserved=$true;benchmark='PASS_30_OF_30_CRITICAL_0';rollback_path=$backup})
+        Write-Host 'KEVIN_R04_BOOTSTRAP_V2_APPLIED_PROVEN benchmark=30/30 critical=0 target=hashes.production_config'
+    }catch{
+        $msg=$_.Exception.Message;Copy-Item -LiteralPath $backup -Destination $BaselinePath -Force
+        if((Get-Sha $BaselinePath)-cne$BaselineSha){throw('R04 failed and rollback integrity failed: '+$msg)}
+        Write-JsonAtomic $ReceiptPath ([ordered]@{schema=2;kind='kevin-r04-production-config-rebaseline-receipt';at=(Get-Date).ToString('o');status='ROLLED_BACK';baseline_restored_sha256=$BaselineSha;rollback_proven=$true;failure=$msg})
+        throw('R04 failed; exact baseline rollback completed: '+$msg)
     }
-    $candidate = Join-Path $env:TEMP ('kevin-r04-' + [guid]::NewGuid().ToString('N') + '.ps1')
-    [IO.File]::WriteAllBytes($candidate, [Convert]::FromBase64String(([string]$meta.content -replace '\s','')))
-    $tokens = $null
-    $errors = $null
-    [void][Management.Automation.Language.Parser]::ParseFile($candidate, [ref]$tokens, [ref]$errors)
-    if ($errors.Count) { throw ('Pinned R04 parser rejected: ' + $errors[0].Message) }
-    return $candidate
-}
-
-function Assert-InitialPlatformState {
-    if ((Get-Sha $ConfigPath) -cne $ConfigSha) { throw ('Production config identity changed: ' + (Get-Sha $ConfigPath)) }
-    if ((Get-Sha $BaselinePath) -cne $BaselineSha) { throw ('Benchmark baseline identity changed: ' + (Get-Sha $BaselinePath)) }
-    if ((Get-Sha $BenchmarkPath) -cne $BenchmarkSha) { throw ('Benchmark runner identity changed: ' + (Get-Sha $BenchmarkPath)) }
-    if ((Get-Sha $UiBridgePath) -cne $UiSha) { throw ('UI Bridge identity changed: ' + (Get-Sha $UiBridgePath)) }
-
-    $latest = Read-Json $BenchmarkLatest
-    if ([string]$latest.status -cne 'FAIL_CRITICAL_REGRESSION' -or
-        [int]$latest.regression.passed -ne 29 -or
-        [int]$latest.regression.total -ne 30 -or
-        [int]$latest.regression.critical_failures -ne 1) {
-        throw 'Benchmark is no longer the exact expected 29/30 critical1 precondition.'
-    }
-}
-
-function Get-UiTaskDefinitionState {
-    $task = Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue
-    if (-not $task) { return [pscustomobject]@{ ok=$false; reason='missing' } }
-    $actions = @($task.Actions)
-    if ($actions.Count -ne 1) { return [pscustomobject]@{ ok=$false; reason='actions' } }
-
-    $powerShellExe = (Get-Command powershell.exe -ErrorAction Stop).Source
-    $expectedArguments = '-NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File "' + $UiBridgePath + '" -RunLoop'
-    if ([IO.Path]::GetFullPath([string]$actions[0].Execute) -ine [IO.Path]::GetFullPath($powerShellExe)) {
-        return [pscustomobject]@{ ok=$false; reason='execute' }
-    }
-    if ([string]$actions[0].Arguments -cne $expectedArguments) {
-        return [pscustomobject]@{ ok=$false; reason='arguments' }
-    }
-    if ([string]$task.Principal.LogonType -inotmatch 'Interactive' -or [string]$task.Principal.RunLevel -inotmatch 'Limited') {
-        return [pscustomobject]@{ ok=$false; reason='principal' }
-    }
-    return [pscustomobject]@{ ok=$true; reason='exact' }
-}
-
-function Wait-ForSustainedUiHeartbeat {
-    $started = [DateTimeOffset]::Now
-    Start-ScheduledTask -TaskName $TaskName -ErrorAction Stop
-    $first = $null
-    $deadline = (Get-Date).AddSeconds(35)
-
-    while ((Get-Date) -lt $deadline) {
-        Start-Sleep -Milliseconds 500
-        if (Test-Path -LiteralPath $HeartbeatPath -PathType Leaf) {
-            try {
-                $heartbeat = Read-Json $HeartbeatPath
-                $at = [DateTimeOffset]::Parse([string]$heartbeat.at)
-                if ((@('READY','WORKING') -contains [string]$heartbeat.state) -and
-                    [bool]$heartbeat.explorer_same_session -and
-                    [int]$heartbeat.session_id -gt 0 -and
-                    $at -ge $started.AddSeconds(-2)) {
-                    $first = $heartbeat
-                    break
-                }
-            }
-            catch {}
-        }
-    }
-    if (-not $first) { throw 'UI Bridge did not produce a fresh interactive heartbeat.' }
-
-    $firstAt = [DateTimeOffset]::Parse([string]$first.at)
-    Start-Sleep -Seconds 7
-    $second = Read-Json $HeartbeatPath
-    $secondAt = [DateTimeOffset]::Parse([string]$second.at)
-    if ($secondAt -le $firstAt.AddSeconds(2) -or
-        ([DateTimeOffset]::Now - $secondAt).TotalSeconds -gt 10 -or
-        (@('READY','WORKING') -notcontains [string]$second.state) -or
-        -not [bool]$second.explorer_same_session) {
-        throw 'UI Bridge heartbeat did not continue after startup.'
-    }
-    return [ordered]@{
-        first_at=$firstAt.ToString('o')
-        second_at=$secondAt.ToString('o')
-        session_id=[int]$second.session_id
-        state=[string]$second.state
-    }
-}
-
-function Register-KnownGoodUiTask {
-    $user = [Security.Principal.WindowsIdentity]::GetCurrent().Name
-    $powerShellExe = (Get-Command powershell.exe -ErrorAction Stop).Source
-    $arguments = '-NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File "' + $UiBridgePath + '" -RunLoop'
-    $action = New-ScheduledTaskAction -Execute $powerShellExe -Argument $arguments
-    $trigger = New-ScheduledTaskTrigger -AtLogOn -User $user
-    $principal = New-ScheduledTaskPrincipal -UserId $user -LogonType Interactive -RunLevel Limited
-    $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable -MultipleInstances IgnoreNew -ExecutionTimeLimit (New-TimeSpan -Days 3650)
-    Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger -Principal $principal -Settings $settings -Description 'Kevin narrow InteractiveToken UI Bridge. GREEN Notepad-only. No generic mouse/keyboard/browser.' -Force | Out-Null
-}
-
-function Repair-UiBridgeTask {
-    $existing = Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue
-    $backupXml = ''
-    if ($existing) {
-        New-Item -ItemType Directory -Path $RepairRoot -Force | Out-Null
-        $backupXml = Join-Path $RepairRoot 'ui-task.before.xml'
-        Export-ScheduledTask -TaskName $TaskName | Set-Content -LiteralPath $backupXml -Encoding Unicode
-    }
-
-    $definition = Get-UiTaskDefinitionState
-    if ($definition.ok) {
-        try {
-            return [ordered]@{status='ALREADY_HEALTHY';heartbeat=(Wait-ForSustainedUiHeartbeat);replaced=$false}
-        }
-        catch {
-            # Exact task but failed persistent startup: materially new evidence authorizes restoring known-good definition.
-        }
-    }
-
-    try {
-        try { Stop-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue } catch {}
-        if (Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue) {
-            Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false
-        }
-        Register-KnownGoodUiTask
-        $after = Get-UiTaskDefinitionState
-        if (-not $after.ok) { throw ('New UI task definition failed verification: ' + $after.reason) }
-        return [ordered]@{status='REPAIRED';heartbeat=(Wait-ForSustainedUiHeartbeat);replaced=$true;backup=$backupXml}
-    }
-    catch {
-        $originalError = $_.Exception.Message
-        if ($backupXml -and (Test-Path -LiteralPath $backupXml -PathType Leaf)) {
-            try {
-                if (Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue) {
-                    Unregister-ScheduledTask -TaskName $TaskName -Confirm:$false -ErrorAction SilentlyContinue
-                }
-                Register-ScheduledTask -TaskName $TaskName -Xml (Get-Content -LiteralPath $backupXml -Raw) -Force | Out-Null
-            }
-            catch {
-                throw ('UI repair failed and task rollback also failed: ' + $originalError + ' / ' + $_.Exception.Message)
-            }
-        }
-        throw ('UI repair failed; previous task was restored when available: ' + $originalError)
-    }
-}
-
-function Invoke-UiNotepadRoundTripProof {
-    $sessionId = [int]([Diagnostics.Process]::GetCurrentProcess().SessionId)
-    $ownerNotepad = @(Get-Process -Name Notepad -ErrorAction SilentlyContinue | Where-Object { [int]$_.SessionId -eq $sessionId })
-    if ($ownerNotepad.Count -gt 0) {
-        throw 'Notepad is already open in the owner session; refusing to disturb an owner window.'
-    }
-
-    New-Item -ItemType Directory -Path $UiInbox,$UiResults -Force | Out-Null
-    $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
-    $orderId = 'platform-repair-ui-' + $stamp
-    $nonce = [guid]::NewGuid().ToString('N').ToUpperInvariant()
-    $filename = 'Kevin UI Recovery Verification - ' + $stamp + '.txt'
-    $content = 'KEVIN_UI_RECOVERY_OK ' + $stamp
-    $request = [ordered]@{
-        schema=1
-        kind='kevin-ui-bridge-request'
-        authority='GREEN'
-        operation='ui_notepad_write'
-        app='notepad'
-        order_id=$orderId
-        nonce=$nonce
-        filename=$filename
-        content=$content
-    }
-    $resultPath = Join-Path $UiResults ($orderId + '-' + $nonce + '.result.json')
-    Write-JsonAtomic (Join-Path $UiInbox ($orderId + '-' + $nonce + '.json')) $request
-
-    $deadline = (Get-Date).AddSeconds(70)
-    while ((Get-Date) -lt $deadline -and -not (Test-Path -LiteralPath $resultPath -PathType Leaf)) {
-        Start-Sleep -Milliseconds 500
-    }
-    if (-not (Test-Path -LiteralPath $resultPath -PathType Leaf)) { throw 'UI Notepad round-trip proof timed out.' }
-    $result = Read-Json $resultPath
-    if ([string]$result.status -cne 'DONE') {
-        throw ('UI Notepad proof failed: ' + [string]$result.status + ' ' + [string]$result.reason)
-    }
-    if (-not (Test-Path -LiteralPath ([string]$result.data.output_path) -PathType Leaf) -or
-        -not (Test-Path -LiteralPath ([string]$result.data.screenshot_path) -PathType Leaf)) {
-        throw 'UI Notepad proof evidence files are missing.'
-    }
-    return [ordered]@{
-        status='ROUND_TRIP_PROVEN'
-        order_id=$orderId
-        output_sha256=[string]$result.data.sha256
-        screenshot_sha256=[string]$result.data.screenshot_sha256
-        session_id=[int]$result.data.session_id
-        text_method=[string]$result.data.text_method
-        save_method=[string]$result.data.save_method
-    }
-}
-
-function Invoke-SelfTest {
-    foreach ($hash in @($ConfigSha,$BaselineSha,$BenchmarkSha,$UiSha)) {
-        if ($hash -cnotmatch '^[A-F0-9]{64}$') { throw 'SHA256 pin malformed.' }
-    }
-    if ($RepairCommit -cnotmatch '^[a-f0-9]{40}$' -or $R04Blob -cnotmatch '^[a-f0-9]{40}$') {
-        throw 'Git pin malformed.'
-    }
-    if ($TaskName -cne 'Kevin UI Bridge v0.3') { throw 'Task pin changed.' }
-    Write-Host 'KEVIN PLATFORM BOOTSTRAP SELFTEST PASS pinned_r04=true ui_task=true sustained_heartbeat=true roundtrip=true rollback=true arbitrary_shell=false'
-}
-
-if ($SelfTest) { Invoke-SelfTest; exit 0 }
-if ($Apply -and $CheckOnly) { throw 'Choose only one of -Apply or -CheckOnly.' }
-if (-not $Apply) { $CheckOnly = $true }
-if ($env:OS -ne 'Windows_NT') { throw 'Run this on the Windows PC that hosts Kevin.' }
-
-Assert-InitialPlatformState
-$r04Candidate = Get-PinnedR04Candidate
-try {
-    $selfTestOutput = Invoke-FixedPowerShell $r04Candidate @('-SelfTest')
-    if ($selfTestOutput -notmatch 'R04 REBASELINE v1 SELFTEST PASS') { throw 'R04 self-test marker missing.' }
-    $checkOutput = Invoke-FixedPowerShell $r04Candidate @('-CheckOnly')
-    if ($checkOutput -notmatch 'R04_REBASELINE_READY') { throw 'R04 preflight marker missing.' }
-
-    $taskDefinition = Get-UiTaskDefinitionState
-    if ($CheckOnly) {
-        Write-Host ('KEVIN_PLATFORM_BOOTSTRAP_READY r04=true ui_task=' + $taskDefinition.ok + ' ui_reason=' + $taskDefinition.reason)
-        exit 0
-    }
-
-    $receipt = [ordered]@{
-        schema=1
-        kind='kevin-platform-bootstrap'
-        started_at=(Get-Date).ToString('o')
-        r04=$null
-        ui=$null
-        ui_proof=$null
-        status='STARTED'
-    }
-
-    $applyOutput = Invoke-FixedPowerShell $r04Candidate @('-Apply')
-    if ($applyOutput -notmatch 'R04_REBASELINE_APPLIED_PROVEN') { throw 'R04 apply marker missing.' }
-    $postBenchmark = Read-Json $BenchmarkLatest
-    if ([string]$postBenchmark.status -cne 'PASS' -or
-        [int]$postBenchmark.regression.passed -ne 30 -or
-        [int]$postBenchmark.regression.total -ne 30 -or
-        [int]$postBenchmark.regression.critical_failures -ne 0) {
-        throw 'Post-R04 Benchmark is not 30/30 critical0.'
-    }
-    $receipt.r04 = 'APPLIED_PROVEN'
-
-    $receipt.ui = Repair-UiBridgeTask
-    $receipt.ui_proof = Invoke-UiNotepadRoundTripProof
-    $receipt.status = 'APPLIED_PROVEN'
-    $receipt.completed_at = (Get-Date).ToString('o')
-    Write-JsonAtomic $ReceiptPath $receipt
-    Write-Host 'KEVIN_PLATFORM_BOOTSTRAP_APPLIED_PROVEN benchmark=30/30 ui=sustained ui_notepad=ROUND_TRIP_PROVEN'
-}
-finally {
-    Remove-Item -LiteralPath $r04Candidate -Force -ErrorAction SilentlyContinue
-}
+}finally{if($owned){try{$mutex.ReleaseMutex()}catch{}};$mutex.Dispose()}
