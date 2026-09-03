@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "kind": "kevin-maintenance-repair-qualification-plan",
+  "candidate": "v1.3.46",
+  "authority_class": "GREEN",
+  "production_effect": "NONE",
+  "status": "DESIGNED",
+  "source": "control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1",
+  "runtime_expected_current_sha256": "AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D",
+  "repairs": [
+    {
+      "id": "maintenance-cron-response-shape",
+      "failed_operation": "reconcile_maintenance_cron_backoff",
+      "failure": "root declarationKey property assumption is not valid for installed OpenClaw cron get JSON",
+      "required": [
+        "fixed declaration key only",
+        "bounded JSON response-shape normalization",
+        "exactly one enabled matching declaration",
+        "fail closed on ambiguous, missing, duplicate, disabled or malformed state",
+        "fixed disable-enable reset only",
+        "post-reset verification"
+      ]
+    },
+    {
+      "id": "ui-watchdog-staged-selftest-extension",
+      "failed_operation": "ensure_ui_bridge_watchdog",
+      "failure": "generated staged watchdog selftest failed before installation",
+      "required": [
+        "stage watchdog candidate with .ps1 suffix",
+        "preserve fixed UI Bridge hash and task name",
+        "exercise PowerShell -File SelfTest",
+        "preserve heartbeat, Benchmark and rollback postconditions"
+      ]
+    }
+  ],
+  "negative_invariants": [
+    "no arbitrary shell",
+    "no caller-selected executable or command",
+    "no caller-selected path or cron key",
+    "no authority expansion",
+    "no Benchmark weakening",
+    "no retry-budget reset"
+  ],
+  "production_crossing_requires": [
+    "exact installed source qualification",
+    "CI proof",
+    "exact-current compare-and-swap",
+    "backup and rollback",
+    "selftest",
+    "fresh Benchmark PASS 30/30 critical0",
+    "fresh Support and Engineering evidence"
+  ]
+}
