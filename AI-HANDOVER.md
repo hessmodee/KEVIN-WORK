@@ -1,142 +1,141 @@
 # Kevin AI Engineering Handover
 
-**Reconciled:** 2026-09-03 ~21:05 MT  
+**Reconciled:** 2026-09-03 ~22:00 MT  
 **Foreground engineer:** Bess / ChatGPT  
 **Owner:** Matt  
 **Canonical entrypoint:** `KEVIN-START-HERE.md`
 
-Fresh correlated HESS-PC/OpenClaw evidence outranks this prose. This file is intentionally compact and replaces stale narrative rather than preserving contradictory checkpoints inline. Historical details remain in the linked engineering reviews/receipts and Git history.
+Fresh correlated HESS-PC/OpenClaw evidence outranks this prose. This is the shared cross-AI checkpoint; do not make Matt reconstruct project state from chat history.
 
-## 1. North star and standing owner direction
+## North star / authority
 
 Kevin must progressively own:
 
 `NOTICE -> UNDERSTAND -> PLAN -> EXECUTE -> VERIFY -> RECOVER -> RECORD -> LEARN -> CONTINUE`
 
-Matt has standing authorization for aggressive GREEN work and active YELLOW research/staging. Outside engineers should do safe work directly through existing governed paths and ask Matt only for a genuine owner-only/physical/technical bootstrap step. Every outside repair is autonomy debt until it is encoded as a Kevin-owned detector, typed action, verifier, rollback, lesson and recurrence path.
+Matt authorizes aggressive GREEN execution through existing proven typed paths and active YELLOW research/staging. Ask Matt only for a genuine physical/credential/authority/technical-bootstrap dependency. Every outside repair is autonomy debt until encoded as a Kevin-owned detector, typed action, verifier, rollback, lesson and recurrence path.
 
-Technical proof and responsibility transfer remain separate:
+Never widen to arbitrary shell/remote code, money movement, purchases/live trading, credentials, permission/authority expansion, safety weakening, secret publication, or unapproved owner-representing sends.
+
+Technical proof and responsibility transfer are separate:
 
 `T0 BESS-DEPENDENT -> T1 BESS-BUILT/KEVIN-TESTED -> T2 BESS-DISPATCHED/KEVIN-EXECUTED -> T3 KEVIN-RUN/BESS-VERIFIED -> T4 KEVIN-OWNED/EXCEPTION-ESCALATED -> T5 SELF-RELIANT/BESS-NOT-REQUIRED`
 
-Do not widen to arbitrary shell/remote code, money movement, purchases, live trading, credentials, authority expansion, safety weakening, secret publication or unapproved owner-representing sends.
+## Exact HESS-PC evidence recovered
 
-## 2. Exact HESS-PC source/config evidence is now recovered
+Matt supplied the read-only collector ZIP. Missing-source blocker is CLOSED; do not ask for old suffixed Maintenance backups again.
 
-Matt ran the read-only collector from PR43 and supplied `Kevin-Evidence-20260902-201039-807c69(1).zip`. The earlier missing-source blocker is CLOSED. Do not ask for the old suffixed Maintenance backups again.
+Exact collected identities:
+- Maintenance `3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E`
+- UI Bridge `5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42`
+- Benchmark `4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964`
+- Engineering Relay `5C67BCB568414C38D5B3D20A6AF9D31974C09A48F711236EB816FCC87B799337`
+- validated current `openclaw.json` `23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5`
+- collected Benchmark baseline `1396897473D874154FF24DB933D4B4FB643298652FC3C0C05097971DC2336B30`
 
-Collected exact identities:
+Preserve the fixed:main repair: `ollama-chat-16k/qwen2.5:14b`, context / `num_ctx` 16384, `reserveTokensFloor=2048`, `reserveTokens=2048`, `keepRecentTokens=4000`.
 
-- installed Maintenance: `3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E`;
-- UI Bridge: `5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42`;
-- Benchmark: `4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964`;
-- Engineering Relay: `5C67BCB568414C38D5B3D20A6AF9D31974C09A48F711236EB816FCC87B799337`;
-- current `openclaw.json`: `23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5`;
-- collected Benchmark baseline: `1396897473D874154FF24DB933D4B4FB643298652FC3C0C05097971DC2336B30`.
+## P0 live truth
 
-The config still proves the intended fixed:main repair:
+Fresh Support/Engineering before the next crossing still show Benchmark **29/30, critical1, sole R04 `Production config frozen`** and a materially stale UI Bridge heartbeat. The collected baseline pins production config `215AC88DF59FE91DD38580E8A77A488096CA77AFE840AACDBB1530DA760B5A84`; the validated current config is `23DA...A93A5`. Treat this as intentional validated-config drift, not evidence to revert the good config.
 
-- model `ollama-chat-16k/qwen2.5:14b`;
-- context / `num_ctx` = 16384;
-- `reserveTokensFloor=2048`;
-- `reserveTokens=2048`;
-- `keepRecentTokens=4000`.
+The installed Maintenance runner cannot close R04: it has no production-config rebaseline operation, and its component-replacement path requires final Benchmark 30/30. Work Order Intake/Engineering Relay execute fixed allowlisted operations, not caller-provided PowerShell. This is a technical bootstrap boundary, not missing owner authorization.
 
-Global tool policy is still intentionally narrow: root profile is `coding` but broad execution/mutation/search/session/Workshop surfaces are denied; no main/default tools policy was found. Effective real-turn main tool availability still requires later positive + forbidden-action proof. Do not make tools nonzero by granting broad `exec` or equivalent authority.
+## First local bootstrap attempt — FAIL-CLOSED, NO MUTATION
 
-## 3. P0 live blocker — R04 bootstrap crossing
+Matt ran the PR44 bootstrap. `-CheckOnly` rejected with:
 
-Fresh Support at 20:59 MT still reports Benchmark `FAIL_CRITICAL_REGRESSION`, **29/30, critical1, sole R04 `Production config frozen`**. The collected baseline still pins production config to the pre-repair SHA `215AC88DF59FE91DD38580E8A77A488096CA77AFE840AACDBB1530DA760B5A84`, while the validated current config is `23DA...A93A5`.
+`R04 baseline Benchmark runner anchor mismatch`
 
-This is expected governance drift after the intentional fixed:main repair. Preserve the repaired 16K/compaction config. Do not weaken R04 or restore the old config merely to make Benchmark green.
+Matt then also launched `-Apply`; it rejected at the **same preflight** before any backup/baseline/config write. No production baseline/config mutation from either invocation. Do not ask Matt to restore anything.
 
-The exact installed Maintenance source proves a real bootstrap limitation: it has no R04 production-config reconciliation operation; `replace_pinned_component` requires final Benchmark 30/30 and rolls replacement back when Benchmark is red; `restart_ui_bridge` also ends through the whole-platform 30/30 gate. Engineering Relay and Work Order Intake expose fixed operations, not caller-provided PowerShell. Therefore current bridges cannot invoke the PR39 R04 candidate or upgrade Maintenance while R04 is red. This is a missing execution path, not missing owner authorization.
+Root cause: PR39's candidate assumed a newer baseline field `hashes.benchmark_runner`. The exact installed Benchmark v1.1c (`4C7661...97964`) does **not consume that field**. Exact source inspection shows the installed baseline contract consumes only:
 
-## 4. PR44 — qualified one-time bootstrap
+`benchmark_spec, forge, goal_os, production_config, promotion_policy, reader_config, supervisor`
 
-PR44, **Repair: fail-closed R04 + UI Bridge bootstrap**, was squash-merged to main as:
+The old bootstrap correctly failed closed, but its candidate/schema assumption was wrong for this installed runtime. Do not run the PR44/v1 bootstrap again.
 
-`e2c716caeaffbff60d9f5a5ec9bef559a306528a`
+## PR45 — corrected installed-contract R04 bootstrap v2
 
-The Windows PowerShell 5.1 workflow passed on the PR and again after merge; post-merge run `33709967151` concluded SUCCESS.
+PR45 **Fix R04 bootstrap for installed Benchmark v1.1c** was squash-merged to main as:
 
-Tool: `tools/Repair-Kevin-Platform-20260903.ps1`  
-Lesson: `docs/engineering/LESSON-platform-r04-ui-bootstrap-recovery-2026-09-03.md`
+`41ba61bb0381923ec369c7770dd3effa6f2ed660`
 
-The bootstrap is fail-closed and has no caller-selected command/path. It pins the exact collected config/baseline/Benchmark/UI identities, fetches the already-merged PR39 R04 candidate from commit `e57bf5b013bbbbad98a4c34b0e933c8d2912bfe5` with exact blob `3a3289d1ab4cb4d92062638cda01a3548b7e6cd2`, parses/self-tests/checks it, and under `-Apply` lets PR39 change only the governed production-config baseline leaf with backup/rollback and fresh 30/30 acceptance.
+Corrected tool remains:
 
-After R04 closes, the same bootstrap verifies the UI Bridge task against the known-good Action Era contract (`powershell.exe`, exact UI script, `-RunLoop`, Interactive, Limited). It requires sustained heartbeat, not one fresh timestamp. If the definition/startup is bad, it backs up task XML, restores the known-good narrow task, verifies continuing heartbeat, and finally runs the already-allowlisted GREEN Notepad round-trip requiring typed DONE + output/screenshot evidence. It refuses the Notepad proof if an owner Notepad window is already open.
+`tools/Repair-Kevin-Platform-20260903.ps1`
 
-### Exact next machine crossing
+The v2 script is now intentionally **R04-only** so Matt's unavoidable local action is minimized. It:
+- pins exact current config, baseline bytes, Benchmark SHA and known supervisor/forge/Reader anchors;
+- inspects the exact installed Benchmark source at runtime and refuses if its R04/baseline-field contract differs;
+- requires exact 29/30 critical1 with R04 as sole failure;
+- does not require/invent `hashes.benchmark_runner`;
+- backs up the exact baseline;
+- changes only `hashes.production_config` from `215A...A84` to `23DA...A93A5`;
+- compares all non-target baseline semantics before/after;
+- requires protected config/Benchmark identities remain unchanged;
+- runs a fresh installed Benchmark and requires PASS 30/30 critical0;
+- restores the exact old baseline and writes a ROLLED_BACK receipt on any post-write failure;
+- exposes no caller-selected command/path or arbitrary shell authority.
 
-This is the **one genuine local bootstrap step presently required** because no existing remote typed operation can cross R04. Matt should run the merged/tested bootstrap on HESS-PC. First `-CheckOnly`, then `-Apply` if ready. Do not invent a second local procedure or another blind UI restart.
+Windows PowerShell 5.1 parser/self-test failed once on branch due a literal parser typo (`catch[...]`), that demonstrated failure was repaired to `catch [...]`; subsequent push CI run `33713308495` passed. The PR-triggered Windows PowerShell gate also passed before merge. Do not weaken the tests or resurrect the failed branch revision.
 
-Acceptance marker:
+### Exact next crossing
 
-`KEVIN_PLATFORM_BOOTSTRAP_APPLIED_PROVEN benchmark=30/30 ui=sustained ui_notepad=ROUND_TRIP_PROVEN`
+If fresh Benchmark is still 29/30 R04 and no v2 APPLIED_PROVEN receipt exists, Matt should run the **merged v2** tool once with `-Apply`. The script self-preflights; do not run the old PR44 file/candidate.
 
-Local receipt target:
+Success marker:
 
-`reports/maintenance/platform-repair-20260903-latest.json`
+`KEVIN_R04_BOOTSTRAP_V2_APPLIED_PROVEN benchmark=30/30 critical=0 target=hashes.production_config`
 
-After Matt provides the console result, immediately read fresh Support/Engineering evidence before claiming success.
+Receipt:
 
-## 5. Work already completed directly through the bridge this foreground session
+`reports/maintenance/r04-production-config-rebaseline-latest.json`
 
-Bess used the existing Maintenance path instead of asking Matt for routine evidence collection:
+After Matt returns the console output, first read fresh Support/Engineering and receipt. Do not claim R04 closed from console text alone.
 
-- submitted fixed `publish_runtime_capabilities` manifest `bess-runtime-capabilities-20260903-0252`;
-- Maintenance consumed it and Support reported `ALREADY_APPLIED_PROVEN` at ~20:57 MT;
-- fresh `reports/runtime-capabilities-omen.json` at 20:56 MT reports config valid, Gateway deep probe OK, Task Flow CLI available, one Task Flow, root tools policy present, no main/default tools path, and the explicit truth boundary that actual per-turn tool availability still requires real-turn proof;
-- the consumed Maintenance manifest was retired from main;
-- the auxiliary control-plane work order was also retired from `kevin-control-plane-v1`.
+## What Bess already completed through remote typed paths
 
-Do not recreate those requests just to refresh timestamps.
+- used existing Maintenance directly to refresh `publish_runtime_capabilities`; config valid, Gateway deep probe OK, Task Flow available;
+- retired consumed Maintenance/control-plane requests;
+- recovered exact installed sources via the one collector owner step;
+- diagnosed the first bootstrap schema mismatch from exact installed Benchmark source;
+- built, Windows-tested and merged PR45 v2 rather than weakening R04;
+- kept the scheduled outside Chief Engineer paused during foreground repository mutation.
 
-## 6. UI Bridge current truth before bootstrap
+## Immediate queue after v2 R04 success — do remotely, not through Matt
 
-The collected scheduled task is present/enabled, Interactive/Limited, last task result 0, but the live heartbeat remained materially stale. Earlier Bess bridge attempt `bess-ui-recovery-20260903011136` failed to produce fresh READY; later observations saw only non-continuing heartbeat. Do not call task/hash presence health and do not repeat that unchanged restart.
+1. Verify fresh Benchmark 30/30/critical0 + fresh Support; preserve the repaired config.
+2. Use the now-unblocked typed Maintenance path to repair/restart UI Bridge. Do not ask Matt for a separate UI PowerShell step unless all existing fixed paths genuinely fail.
+3. Require multiple continuing READY/WORKING heartbeats, not task/hash presence.
+4. Run a unique typed GREEN `ui_notepad_write` round-trip with output + screenshot evidence; do not disturb an owner Notepad window.
+5. Convert the recovered R04/UI procedures into narrow Kevin-owned Maintenance operations, with source pins, rollback and recurrence tests, so this bootstrap dependency is retired.
+6. Refresh the genuine autonomy assessment through its qualified path; publication refresh alone is not a new assessment.
+7. Diagnose fixed:main effective tool layers. Expose only the smallest useful governed owner-intent/control surface; require one allowed useful action plus protected-tool negatives. No broad `exec`/filesystem/browser/session authority.
+8. Prove unattended useful work selection: real owner demand, no Bess-supplied item ID, typed execution, independent semantic verification, durable lesson, restart/replay survival and a correct subsequent scheduled decision.
+9. Continue high-value WIP: private Matt↔Kevin HQ/mobile communication, Telegram repair/replacement, memory/handoff/replay, GREEN skill real-world reuse, Reader and lawful economic-output workflows.
 
-The installed UI Bridge source itself requires `-RunLoop` for persistent service and refreshes heartbeat about every five seconds. Historical Action Era installation proves the known-good InteractiveToken task used `-RunLoop`, `MultipleInstances IgnoreNew`, long execution limit and AtLogOn trigger. PR44 now inspects/repairs this exact startup contract only after R04 is green.
+## Current proof / transfer truth
 
-## 7. Current capability / transfer truth
-
-- Operator + Initiative self-tests: PASS / installed hashes match.
-- Skill Lab: eight reported proven composites; latest delivered UI recovery diagnosis is still T2, not mastery.
-- Reader: earlier repeated 2/2 proof remains historical earned evidence; do not rerun merely to refresh a label.
-- fixed:main owner chat/context repair: functionally restored, but recovery ownership remains below T4.
-- Newswire/HQ truth fixes from PR40/41/42 remain deployed.
-- Supervisor scheduler is alive but latest current selection is `NO_ELIGIBLE_MISSION`; this is not proof that owner objectives are finished.
+- Operator + Initiative self-tests PASS / installed hashes match.
+- Skill Lab reports eight proven composites; latest UI recovery lesson is delivered procedure/T2, not mastery.
+- fixed:main owner chat/context is functionally restored but recovery ownership remains below T4.
+- Newswire/HQ truth repairs remain deployed.
 - main effective useful tool/intent surface remains unproved.
-- full autonomy audit remains stale relative to current platform state.
+- full autonomy assessment remains stale relative to current platform state.
+- current R04 recovery is still Bess-built until Kevin owns detection/selection/execution/verification/recovery on recurrence.
 
-## 8. Immediate queue after bootstrap success
+## Coordination / single writer
 
-1. Verify fresh Benchmark 30/30/critical0 and fresh Support evidence; preserve the repaired config.
-2. Verify multiple continuing UI heartbeats and the unique typed Notepad result/output/screenshot hashes.
-3. Re-run/refresh the genuine autonomy assessment through its fixed qualified path; do not relabel a publication refresh as a new assessment.
-4. Use the now-unblocked Maintenance replacement path to convert the recovered source/procedure into narrow Kevin-owned R04/UI recovery operations; keep UI service recovery truth separate from unrelated whole-platform gate truth.
-5. Diagnose effective fixed:main tool policy using current installed-version read-only evidence. Add only the smallest useful governed owner-intent/control surface, then prove one allowed useful action and protected-tool negatives in a fresh session.
-6. Prove unattended useful work selection: real owner demand, no Bess-supplied work-item ID, deterministic selection, typed execution, independent semantic verification, durable result/lesson, restart/replay survival and a subsequent correct scheduled decision.
-7. Continue high-value independent lanes within WIP: private Matt↔Kevin HQ/mobile communication, Telegram repair/replacement, memory/handoff/replay, GREEN skill replay, Reader, and lawful economic-output workflows.
+The scheduled ChatGPT `Kevin Chief Engineer` is paused while this foreground Bess session mutates shared state. HESS-PC local schedulers stay running. Before handing the foreground session back while waiting only on Matt's unavoidable v2 R04 invocation, re-enable the **single** Chief Engineer with this checkpoint and instruct it not to compete with active foreground work or fabricate a remote R04 path.
 
-## 9. Single-writer state
-
-The scheduled ChatGPT automation `Kevin Chief Engineer` is intentionally paused while this foreground Bess session mutates shared state. HESS-PC local schedulers remain running. Re-enable the sole scheduled Chief Engineer only after this foreground crossing is reconciled/handed back or when waiting solely on Matt's unavoidable local bootstrap step; never run two outside AI writers concurrently.
-
-## 10. Key references
-
+Key references:
 - `KEVIN-START-HERE.md`
 - `docs/engineering/OWNER-CONTINUOUS-AUTONOMY-DIRECTIVE-2026-09-02.md`
-- `docs/engineering/KEVIN-BRIDGE-REPAIR-AUDIT-2026-09-03.md`
-- `docs/engineering/KEVIN-HQ-REPAIR-REVIEW-2026-09-03.md`
-- `docs/engineering/LESSON-ui-bridge-recovery-2026-09-03.md`
-- `docs/engineering/LESSON-platform-r04-ui-bootstrap-recovery-2026-09-03.md`
-- `candidates/maintenance/r04-production-config-rebaseline-v1/kevin-r04-production-config-rebaseline-v1.ps1`
 - `tools/Repair-Kevin-Platform-20260903.ps1`
 - `reports/support-latest.json`
 - `reports/engineering/latest.json`
 - `reports/runtime-capabilities-omen.json`
 - `inbox/CURRENT_TASK.md`
 
-**Do not make Matt reconstruct this from chat history.** On the next turn, fresh runtime evidence comes first; then continue the queue above.
+**Fresh runtime evidence first; then continue.**
