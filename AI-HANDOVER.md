@@ -1,6 +1,17 @@
 # Kevin AI Engineering Handover
 
-## Current HQ repair checkpoint — 2026-09-03T00:28:23.414Z
+## Current bridge repair checkpoint — 2026-09-03T01:29:08.759Z
+
+[Audit](https://github.com/hessmodee/KEVIN-WORK/blob/main/docs/engineering/KEVIN-BRIDGE-REPAIR-AUDIT-2026-09-03.md) · [receipt](https://github.com/hessmodee/KEVIN-WORK/blob/main/reports/engineering/bridge-repair-audit-20260903.json). Bess used the bridge: Operator/Initiative self-tests PASS; one hash-pinned UI restart returned APPLY_FAILED (no fresh heartbeat). Independent postcheck and later observations still show a non-continuing heartbeat. The failed manifest and all foreground requests are archived/retired. Do not submit another unchanged restart.
+
+Kevin completed `kevin-ui-recovery-diagnosis@1` at2026-09-02T19:26:20.4276005-06:00, **eight** reported proven composites, proofSHA256`4B6BD82F5E2829196DD52602826075A79A1A010E6A287108AB424D86582472CD`. This proves GREEN procedure-file delivery/T2, not UI recovery, mastery or responsibility promotion.
+
+Benchmark remains29/30, critical1, soleR04. Preserve the owner-proven16K config and all other anchors. Full reachable-history source search examined62 branch heads and226 historical PS blobs; none matches installed Maintenance3CFC...B0D6E. Existing bridges run fixed PowerShell jobs but expose no established arbitrary source-export/R04 invocation. Missing owner authorization is not the blocker.
+
+PR43 merged `13e5a3ed919c7d2af12350e89b5e92403dab6c59`; Windows PowerShell5.1 tests passed before/after merge. The read-only `tools/Collect-Kevin-Evidence.ps1` creates one Desktop ZIP with the exact fixed Kevin scripts and bounded config/baseline/UI-task metadata. This is the one owner assistance step now required; do not request the same suffixed backups again. On receipt, verify exact source identities, diagnose UI startup, and qualify the bounded R04/tool path. Collector SHA256`DBDE7C6DAA9CC877A3D423C6382017053F82E5D2ADBF86B435FA439BDB055FC1`. Prior HQ news/worker truth repairs remain deployed; no new runtime authority or baseline change was made.
+
+
+## Prior HQ repair checkpoint — 2026-09-03T00:28:23.414Z
 
 [Review](https://github.com/hessmodee/KEVIN-WORK/blob/main/docs/engineering/KEVIN-HQ-REPAIR-REVIEW-2026-09-03.md) · [proof receipt](https://github.com/hessmodee/KEVIN-WORK/blob/main/reports/engineering/hq-repair-20260903.json) · PR40/41/42 merged and deployed. Regional news publication is restored (16 stories, all categories, errors0); ticker no longer repeats the historical Reader E2E objective. HQ now separates fresh Supervisor selection from the old full audit, reports actual Benchmark degradation, and rejects stale/terminal worker activity. Served code matches tested bytes; the obsolete v1 asset-validation gate was repaired and passed.
 
