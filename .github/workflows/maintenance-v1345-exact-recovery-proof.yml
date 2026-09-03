@@ -1,0 +1,163 @@
+name: Maintenance v1.3.45 Exact Recovery Proof
+
+on:
+  push:
+    branches:
+      - bess-maint-v1345-recovery-20260903
+    paths:
+      - 'tools/recovery/v1345-payload/**'
+      - '.github/workflows/maintenance-v1345-exact-recovery-proof.yml'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: maintenance-v1345-exact-recovery-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  exact-reconstruction:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconstruct exact candidate and prove byte identity
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64, gzip, hashlib
+
+          root = Path('tools/recovery/v1345-payload')
+          names = ['00.b64part','01-02.b64part','03-04.b64part','05-06.b64part','07.b64part','08.b64part','09.b64part']
+          expected = 'AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D'
+          parts = []
+          for name in names:
+              p = root / name
+              if not p.is_file():
+                  raise SystemExit(f'missing payload part {name}')
+              text = ''.join(p.read_text(encoding='utf-8').split())
+              if not text:
+                  raise SystemExit(f'empty payload part {name}')
+              parts.append(text)
+          packed = base64.b64decode(''.join(parts), validate=True)
+          raw = gzip.decompress(packed)
+          actual = hashlib.sha256(raw).hexdigest().upper()
+          if actual != expected:
+              raise SystemExit(f'candidate sha mismatch expected={expected} actual={actual}')
+          target = Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1')
+          target.parent.mkdir(parents=True, exist_ok=True)
+          target.write_bytes(raw)
+          print(f'V1345_EXACT_RECONSTRUCTION_PASS sha256={actual} bytes={len(raw)} parts={len(names)}')
+          PY
+      - name: Static contract boundary
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1').read_text(encoding='utf-8')
+          required=[
+            "version='1.3.45'",
+            "'diagnose_main_tool_policy'",
+            "'ensure_ui_bridge_watchdog'",
+            "'refresh_full_autonomy_assessment'",
+            "MAIN_AGENT_TOOL_SURFACE_EMPTY",
+            "Kevin UI Bridge Watchdog v1",
+            "authority_effect='NONE_AUDIT_ONLY'"
+          ]
+          for x in required:
+            if x not in s:
+              raise SystemExit('missing required v1.3.45 contract marker: '+x)
+          if 'Invoke-Expression' in s:
+            raise SystemExit('forbidden arbitrary Invoke-Expression surface present')
+          print('V1345_STATIC_BOUNDARY_PASS typed_only=true arbitrary_invoke_expression=false')
+          PY
+
+  windows-powershell-51:
+    runs-on: windows-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconstruct exact candidate
+        shell: powershell
+        run: |
+          @'
+          from pathlib import Path
+          import base64, gzip, hashlib
+          root=Path('tools/recovery/v1345-payload')
+          names=['00.b64part','01-02.b64part','03-04.b64part','05-06.b64part','07.b64part','08.b64part','09.b64part']
+          expected='AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D'
+          packed=base64.b64decode(''.join(''.join((root/n).read_text(encoding='utf-8').split()) for n in names),validate=True)
+          raw=gzip.decompress(packed)
+          actual=hashlib.sha256(raw).hexdigest().upper()
+          if actual != expected: raise SystemExit(f'sha mismatch {actual}')
+          target=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1')
+          target.parent.mkdir(parents=True,exist_ok=True)
+          target.write_bytes(raw)
+          print(f'V1345_WINDOWS_RECONSTRUCTION_PASS sha256={actual} bytes={len(raw)}')
+          '@ | python -
+          if($LASTEXITCODE -ne 0){throw 'exact reconstruction failed'}
+      - name: Windows PowerShell 5.1 parser gate
+        shell: powershell
+        run: |
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1'
+          $tokens=$null;$errors=$null
+          [void][Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if($errors.Count){$errors|ForEach-Object{Write-Host $_.Message};throw 'PowerShell 5.1 parser gate failed'}
+          $sha=(Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToUpperInvariant()
+          if($sha -ne 'AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D'){throw 'post-parse sha mismatch'}
+          Write-Host "V1345_PS51_PARSE_PASS sha256=$sha"
+      - name: Isolated self-test
+        shell: powershell
+        run: |
+          $env:KEVIN_MAINT_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'kevin-maint-v1345-selftest'
+          New-Item -ItemType Directory -Force -Path $env:KEVIN_MAINT_TEST_ROOT|Out-Null
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1' -SelfTest
+          if($LASTEXITCODE -ne 0){throw 'Maintenance v1.3.45 self-test failed'}
+          Write-Host 'V1345_ISOLATED_SELFTEST_PASS'
+
+  materialize-qualified-source:
+    needs: [exact-reconstruction, windows-powershell-51]
+    if: github.ref == 'refs/heads/bess-maint-v1345-recovery-20260903' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Materialize exact proven source
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64,gzip,hashlib
+          root=Path('tools/recovery/v1345-payload')
+          names=['00.b64part','01-02.b64part','03-04.b64part','05-06.b64part','07.b64part','08.b64part','09.b64part']
+          expected='AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D'
+          raw=gzip.decompress(base64.b64decode(''.join(''.join((root/n).read_text().split()) for n in names),validate=True))
+          actual=hashlib.sha256(raw).hexdigest().upper()
+          if actual != expected: raise SystemExit(f'sha mismatch {actual}')
+          p=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1')
+          p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(raw)
+          PY
+          git add control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1
+          if git diff --cached --quiet; then
+            echo 'V1345_SOURCE_ALREADY_MATERIALIZED'
+            exit 0
+          fi
+          git config user.name 'Kevin Qualification Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git commit -m 'Materialize exact qualified Maintenance v1.3.45 source'
+          git push origin HEAD:${GITHUB_REF_NAME}
+          echo 'V1345_SOURCE_MATERIALIZED_AND_PUSHED'
