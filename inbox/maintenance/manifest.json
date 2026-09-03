@@ -1,17 +1,12 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "bess-maint-v1345-install-20260903-1340",
+  "id": "bess-ui-watchdog-20260903-1342",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "replace_pinned_component",
-  "target_alias": "maintenance_runner",
-  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1",
-  "source_sha256": "AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D",
-  "expected_current_sha256": "3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E",
-  "expected_after_sha256": "AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D",
+  "operation": "ensure_ui_bridge_watchdog",
   "expires_at": "2026-09-03T15:00:00Z"
 }
