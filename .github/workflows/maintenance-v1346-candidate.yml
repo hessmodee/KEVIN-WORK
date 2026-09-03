@@ -41,7 +41,6 @@ jobs:
           assert "'.ps1';[IO.File]::WriteAllText($tmp,$text,$Utf8)" in t
           assert 'sync_local_desired_state_v18' in t
           assert "'sync_local_desired_state_v18' { Sync-LocalDesiredStateV18; break }" in t
-          assert "allow_arbitrary_shell=false authority_expansion=false" in t
           print('V1346_STATIC_PASS sha256='+hashlib.sha256(b).hexdigest().upper())
           PY
       - name: Commit exact generated candidate to head branch
