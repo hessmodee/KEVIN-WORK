@@ -1,0 +1,69 @@
+name: Canonical Kevin Handover
+
+on:
+  pull_request:
+    paths:
+      - '.github/scripts/build-canonical-handover.py'
+      - '.github/scripts/test-canonical-handover.py'
+      - '.github/workflows/canonical-handover.yml'
+      - 'inbox/CURRENT_TASK.md'
+      - 'docs/engineering/CHAT-HANDOFF-PROTOCOL-v1.md'
+      - 'workspace/AGENTS.md'
+      - 'docs/handover.html'
+      - 'docs/index.html'
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'AI-HANDOVER.md'
+      - 'reports/handoff-latest.json'
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: canonical-kevin-handover-${{ github.event.pull_request.number || 'main' }}
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build and test canonical handover
+        run: |
+          python .github/scripts/build-canonical-handover.py
+          python .github/scripts/test-canonical-handover.py
+      - name: Publish changed checkpoint safely
+        if: github.event_name != 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Kevin Handover Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python .github/scripts/build-canonical-handover.py
+            python .github/scripts/test-canonical-handover.py
+            if git diff --quiet -- AI-HANDOVER.md reports/handoff-latest.json; then
+              echo 'Canonical handover already current.'
+              exit 0
+            fi
+            git add AI-HANDOVER.md reports/handoff-latest.json
+            git commit -m 'refresh canonical AI handover'
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Concurrent main update; retrying canonical refresh ($attempt/3)."
+            sleep $((attempt * 2))
+          done
+          echo 'Failed to publish canonical handover after bounded retries.' >&2
+          exit 1

@@ -1,59 +1,80 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-03 ~22:00 MT  
-**Owner priority:** close R04 with the exact installed Benchmark contract, then finish UI/autonomy repairs remotely with minimum Matt intervention.
+**Updated:** 2026-09-03 ~08:45 MT  
+**Owner priority:** establish one automatic cross-AI handover/source-convergence system first; then continue Kevin computer fluency, UI reliability, tool exposure, and autonomous learning with minimum Matt intervention.
 
-## P0 — corrected one-time R04 bootstrap v2
+## P0 — canonical handover and cross-AI convergence
 
-Exact HESS-PC source/config evidence is recovered. Preserve:
-- Maintenance `3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E`
-- validated fixed:main config `23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5`
-- baseline bytes `1396897473D874154FF24DB933D4B4FB643298652FC3C0C05097971DC2336B30`
-- old baseline production-config anchor `215AC88DF59FE91DD38580E8A77A488096CA77AFE840AACDBB1530DA760B5A84`
-- Benchmark `4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964`
-- UI Bridge `5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42`
+Matt requires one current handover that survives abrupt ChatGPT/Grok/model/token/credit/session turnover and is accessible to ChatGPT, ChatGPT Work, Grok, Grok Build, Grokbot, Kevin and other agents.
 
-Fresh runtime before this crossing remains Benchmark 29/30 critical1 sole R04 and stale UI heartbeat. Do not revert the good 16K/compaction config, weaken R04, reset attempts, or repeat the old blind UI restart.
+Target contract:
 
-### First bootstrap attempt: fail-closed, no production mutation
+- `AI-HANDOVER.md` is the **only human current handover**.
+- `reports/handoff-latest.json` is its machine twin only, never a competing authority.
+- `.github/scripts/build-canonical-handover.py` derives the handover from current task + published Support/Engineering/autonomy evidence.
+- `.github/workflows/canonical-handover.yml` refreshes after `main` changes and every ten minutes as a backstop, with bounded race retry and no unchanged-state churn.
+- Kevin HQ exposes `docs/handover.html`, which displays the raw canonical file from `main` and links GitHub/raw access.
+- Every AI checkpoints after every material repair/proof/production/task transition rather than waiting for an end-of-chat handoff.
+- **Local-only durable work is unfinished work.** Grokbot/local agents must publish the corresponding repository source and sanitized proof/receipt after direct HESS-PC work. Remote GitHub work is not production until HESS-PC proves it installed.
+- One outside AI writer at a time; Kevin's qualified local schedulers may continue.
 
-The PR44/v1 tool rejected both Matt's `-CheckOnly` and later `-Apply` at preflight with `R04 baseline Benchmark runner anchor mismatch`. No baseline/config mutation occurred. Root cause: PR39's candidate assumed `hashes.benchmark_runner`, but the exact installed Benchmark v1.1c does not consume that field. Do **not** run the PR44/v1 bootstrap again and do not ask Matt to restore anything.
+Current implementation branch: `bess-canonical-handover-v1-20260903`. Finish CI/PR, merge, verify the automatic refresh commits a current `AI-HANDOVER.md`, and verify the HQ route loads it.
 
-### Corrected crossing
+## P1 — current live platform truth
 
-PR45 `Fix R04 bootstrap for installed Benchmark v1.1c` is merged to main as:
+Fresh published HESS-PC evidence now shows:
 
-`41ba61bb0381923ec369c7770dd3effa6f2ed660`
+- Benchmark **PASS 30/30, critical 0**. The old R04 29/30 handover state is obsolete and must not be resurrected.
+- Support/Engineering scheduled jobs are enabled and reporting `ok` with zero consecutive errors.
+- Supervisor last result remains `NO_ELIGIBLE_MISSION`; current useful computer-fluency demand must be put into the governed selector instead of manufacturing cycles.
+- Engineering reports UI Bridge task/hash present but heartbeat materially stale (about 5,853 seconds at the 08:40 MT snapshot). Do not call it healthy from task/hash presence.
+- Skill Lab reports 9 proven composites; latest proven `kevin-ui-recovery-functional-proof@1` uses `ui_notepad_write`.
+- Installed Maintenance identity reported by fresh Support is `AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D`.
 
-Use only the merged current:
+## P1 — Kevin Desktop / local computer fluency
 
-`tools/Repair-Kevin-Platform-20260903.ps1`
+Candidate branch: `bess-local-computer-fluency-v1-20260903`  
+PR: **#47 — Add bounded local desktop control for Kevin**
 
-The v2 tool is R04-only. It self-preflights the exact installed Benchmark source/baseline contract, exact bytes/hashes and exact 29/30 sole-R04 condition, makes an exact backup, changes only `hashes.production_config`, preserves all non-target semantics, runs a fresh Benchmark requiring 30/30 critical0, and restores the old baseline on any failure. It does not add arbitrary shell/authority.
+Candidate adds:
 
-Windows PowerShell 5.1 push CI `33713308495` passed after repairing a parser typo found by the first branch CI. PR-triggered Windows PowerShell gate also passed before merge.
+- `kevin_desktop_find_folder`
+- `kevin_desktop_open_folder`
+- `kevin_app_launch` for fixed reviewed apps (Notepad, Calculator, Paint, Explorer)
+- durable local-computer-fluency curriculum and cross-platform plugin validation.
 
-If fresh Benchmark is still 29/30 and there is no v2 APPLIED_PROVEN receipt, Matt's one remaining local step is to run the exact merged v2 with `-Apply` once. No separate `-CheckOnly` is required; Apply performs the same fail-closed preflight first.
+Push candidate gate run `33766748609` passed on Ubuntu and Windows, including unit tests, TypeScript build, generated metadata identity, and OpenClaw plugin validation. This is **CI-PROVEN candidate only**.
 
-Expected success:
+PR #47 became non-mergeable after `main` advanced. Reconcile/rebase the candidate with current main, rerun CI, review the resulting diff, then merge only if green. Do not call it installed yet.
 
-`KEVIN_R04_BOOTSTRAP_V2_APPLIED_PROVEN benchmark=30/30 critical=0 target=hashes.production_config`
+After merge, build/use a typed, pinned, reversible installation crossing; expose only the smallest intended fixed:main surface (`kevin_system_status` plus the three bounded Desktop tools); preserve protected denies; then prove real HESS-PC owner-intent round trips and forbidden negative cases.
 
-Receipt:
+## P1 — fixed:main tool surface
 
-`reports/maintenance/r04-production-config-rebaseline-latest.json`
+Current diagnosis proved fixed:main effectively has no useful Kevin tool inventory despite the root coding profile. Do not solve this by granting broad `exec`, arbitrary filesystem, arbitrary process/browser/session or caller-selected shell authority.
 
-## Immediately after R04 succeeds — Bess/Chief Engineer should do this remotely
+Required crossing after qualified Desktop install:
 
-1. Read fresh Support, Engineering and R04 receipt; require actual fresh 30/30/critical0.
-2. Use existing typed Maintenance to restart/repair UI Bridge rather than sending Matt another PowerShell task.
-3. Require multiple advancing READY/WORKING heartbeats and then a unique typed GREEN `ui_notepad_write` result with output/screenshot evidence.
-4. Extend/upgrade Maintenance through its now-unblocked typed replacement path to encode narrow Kevin-owned R04 and UI-task recovery operations with source pins, rollback and recurrence tests.
-5. Refresh the genuine full autonomy assessment.
-6. Diagnose fixed:main effective tool policy; expose only the smallest governed intent/control surface and require positive + forbidden-action real-turn proof.
-7. Prove unattended useful work selection without Bess supplying a work-item ID, including semantic verification, lesson, restart/replay and next correct decision.
-8. Continue private HQ/mobile communication, Telegram repair/replacement, memory/handoff, GREEN replay, Reader and lawful economic-output lanes within WIP.
+1. expose only intended typed Kevin tools;
+2. prove a useful allowed natural-language action;
+3. prove forbidden/action-negative cases fail closed;
+4. independently verify the real desktop/app postcondition on HESS-PC;
+5. keep Benchmark 30/30 critical0.
+
+## P1 — UI Bridge liveness/watchdog
+
+The UI Bridge liveness watchdog candidate currently fails closed at its staged self-test before installation. Repair the watchdog generator/contract, validate it, install only through a typed/reversible path, and require multiple advancing READY/WORKING heartbeats plus a unique Notepad round trip that does not disturb an owner window.
+
+Do not equate the proven `ui_notepad_write` composite or UI task presence with current bridge liveness.
+
+## P2 — teach Kevin to own the work
+
+For every successful outside repair/crossing:
+
+`detect -> classify -> gather evidence -> select qualified action -> execute -> verify semantic postcondition -> recover/rollback -> record -> create/revise procedure -> replay on a second representative task -> promote responsibility`
+
+Put real `computer-fluency` owner demand into the governed selector so Supervisor/Tick can select and continue it without Bess supplying a work-item ID. Treat each step still performed by Bess/Grok as autonomy debt until Kevin reaches T4/T5 with repeated evidence.
 
 ## Coordination
 
-`AI-HANDOVER.md` is canonical and contains full rationale/evidence. Fresh runtime evidence outranks prose. Keep only one outside AI writer. The scheduled ChatGPT Chief Engineer is paused during this foreground mutation and should be re-enabled once the handoff is reconciled while waiting only on Matt's v2 invocation; it must not invent a remote R04 path or compete with a live foreground engineer.
+`AI-HANDOVER.md` is canonical. Fresh runtime evidence outranks prose. The scheduled ChatGPT `Kevin Chief Engineer` is paused while this foreground Bess session mutates shared state; re-enable it only after the handover branch is merged/reconciled and update its prompt so it obeys the automatic canonical handover/local-work convergence contract rather than the obsolete R04 bootstrap checkpoint.

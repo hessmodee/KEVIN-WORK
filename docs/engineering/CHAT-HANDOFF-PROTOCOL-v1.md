@@ -1,147 +1,111 @@
-# Kevin Chat Handoff Protocol v1
+# Kevin Cross-AI Handover Protocol v2
 
-Purpose: make ChatGPT context-window transitions, deleted-chat recovery, new-model turnover, and engineering handoff **fast, deterministic, evidence-first, and low-friction for Matt**.
+Purpose: guarantee that Matt can replace ChatGPT, ChatGPT Work, Grok, Grok Build, Grokbot, Kevin, or another engineering agent without rebuilding Kevin's state from chat history.
 
-## Why `AI-HANDOVER.md` alone is not enough
+## One handover, permanently
 
-`AI-HANDOVER.md` is the canonical narrative turnover sheet, but a narrative file can be stale, can grow large, and cannot by itself prove what is live on the Omen at the moment a new chat begins. A clean transition therefore needs four layers:
+There is exactly **one human current handover**:
 
-1. **Stable entrypoint** — `KEVIN-START-HERE.md` tells every new AI exactly what to read and in what order.
-2. **Narrative state** — `AI-HANDOVER.md` explains the current engineering truth, proof levels, decisions, blockers, and exact next boundary.
-3. **Execution contract** — `inbox/CURRENT_TASK.md` captures the owner's current goals and priority order independently of chat history.
-4. **Fresh evidence** — Support, Dashboard, control-plane, Engineering Relay, autonomy, Skill Lab, Maintenance, Benchmark, PR/CI, and receipts determine what is actually current.
+`AI-HANDOVER.md`
 
-A fifth optional layer, `reports/handoff-latest.json`, provides a compact machine-readable checkpoint to accelerate reconstruction; it never overrides fresher source evidence.
+Do not create a new dated/current handover when an agent changes. Historical engineering/audit documents may exist as evidence, but they must never compete with `AI-HANDOVER.md` as the current turnover surface.
 
-## Trigger conditions
+`reports/handoff-latest.json` is only the machine-readable twin of the same checkpoint. It is not an independent authority.
 
-Perform a handoff checkpoint when any of these occurs:
+Universal public access:
 
-- the current ChatGPT conversation is getting long or close to a context limit;
-- Matt says he is starting a new Kevin chat;
-- a model/session is being replaced;
-- substantive capability proof changes (for example CI-PROVEN -> INSTALLED or OMEN-PROVEN);
-- a production promotion/rollback occurs;
-- a new owner authority boundary or credential checkpoint is established;
-- a major blocker/root cause is isolated;
-- a scheduled executor/automation topology changes;
-- important chat history is deleted or unavailable.
+- GitHub: `https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md`
+- Raw text: `https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/AI-HANDOVER.md`
+- Kevin HQ: `https://hessmodee.github.io/KEVIN-WORK/handover.html`
 
-Do **not** wait for a catastrophic context failure if a clean checkpoint can be written beforehand.
+## Automatic refresh
 
-## Outgoing AI procedure
+`.github/scripts/build-canonical-handover.py` rebuilds the handover from the current execution contract and published runtime evidence.
 
-Before turnover, the outgoing AI should:
+`.github/workflows/canonical-handover.yml` runs:
 
-1. Read the newest trustworthy evidence relevant to active P0/P1 work.
-2. Reconcile `AI-HANDOVER.md` so current truth replaces stale/contradictory statements instead of accumulating append-only history.
-3. Confirm `inbox/CURRENT_TASK.md` still represents Matt's latest objective.
-4. Refresh `reports/handoff-latest.json` if that artifact is in use.
-5. Record exact identities where relevant: SHA256, Git commit, branch, PR number/head, workflow run/result, request ID, idempotency key, receipt, installed identity, timestamp, Benchmark result, and proof level.
-6. Explicitly separate:
-   - proven production truth;
-   - current in-flight work;
-   - CI/candidate-only work;
-   - blocked/cooled failure families;
-   - owner-local checkpoints;
-   - next safe action.
-7. Preserve privacy: no passwords, tokens, OAuth secrets, chat IDs, private message bodies, recovery codes, or sensitive Omen data in public handoff artifacts.
-8. Do not create a second scheduled steering loop merely for handoff continuity. The single canonical Chief Engineer executor remains the scheduled writer unless the owner explicitly changes that topology.
+- after changes land on `main`;
+- every ten minutes as a reconciliation backstop;
+- on manual dispatch;
+- as a pull-request validation gate for the handover machinery itself.
+
+The workflow writes only the canonical `AI-HANDOVER.md` and its machine twin, uses bounded retry on concurrent `main` movement, and does not create churn when source evidence is unchanged.
+
+Fresh correlated HESS-PC/OpenClaw evidence always outranks generated prose.
+
+## Mandatory material-change checkpoint
+
+Because model sessions, credits, token windows, browsers and apps can end without warning, **checkpoint continuously instead of waiting for an end-of-chat handoff**.
+
+After every material repair, proof transition, production install/rollback, owner decision, blocker change, task-priority change, responsibility-transfer change, or substantial new source artifact:
+
+1. publish the durable source/receipt to `hessmodee/KEVIN-WORK`;
+2. update `inbox/CURRENT_TASK.md` when the execution objective/next boundary changed;
+3. allow the canonical handover workflow to reconcile the shared handover;
+4. never leave the only useful explanation in chat context.
+
+## Local Grokbot / HESS-PC convergence rule
+
+A local desktop agent can see machine state that a remote agent cannot. A remote agent can see repository/connector state that the local agent may not have pulled. Neither plane is sufficient alone.
+
+**Repository/source truth** includes reviewed source, procedures, PR/CI, owner execution contract and public-safe receipts.
+
+**HESS-PC runtime truth** includes installed hashes, configuration state, scheduled tasks, heartbeats, local files and visible/semantic outcomes.
+
+The convergence contract is mandatory:
+
+1. Before substantive source work, read/pull current `main` and `AI-HANDOVER.md`.
+2. Develop durable source on a repository branch whenever practical.
+3. If testing requires a direct local production/runtime change, publish the corresponding source and a sanitized result/receipt immediately after the bounded crossing.
+4. **Local-only durable work is not complete.** No AI may say a repair/capability is complete while its only copy exists on HESS-PC or only in its chat/session.
+5. Do not publish secrets, credentials, private message bodies, recovery codes or sensitive local content merely to achieve convergence.
+6. A remote repository change is not an installed production change until fresh HESS-PC evidence proves installation/postconditions.
+7. An unexplained local/runtime hash or behavior that differs from repository source is drift to reconcile, not something another agent may silently bless.
+
+This prevents a Grokbot-only build from becoming invisible to Bess and prevents a Bess-only GitHub build from being mistaken for something already installed on HESS-PC.
 
 ## Incoming AI procedure
 
-A fresh AI must not rely on a copied chat summary as authoritative truth. It must:
+A replacement AI should not ask Matt for a project recap until it has attempted the durable bootstrap itself:
 
-1. Read `KEVIN-START-HERE.md`.
-2. Read `AI-HANDOVER.md`.
-3. Read `inbox/CURRENT_TASK.md`.
-4. Read the applicable owner authorization/doctrine.
-5. Inspect fresh live evidence and open PR/CI state.
-6. Classify each important capability using the proof ladder.
-7. Identify stale evidence, duplicate/expired requests, current in-flight work, and cooled failure families.
-8. Avoid overwriting fresh outstanding requests/manifests/active work.
-9. Continue from the highest-value safe next action instead of restarting research or redesign from scratch.
+1. Read `AI-HANDOVER.md`.
+2. Read `KEVIN-START-HERE.md` and `inbox/CURRENT_TASK.md`.
+3. Read fresh `reports/support-latest.json` and `reports/engineering/latest.json` plus relevant autonomy/runtime receipts.
+4. Inspect relevant open PR/CI state.
+5. Compare timestamps, hashes, request IDs, proof levels, branch heads and in-flight work.
+6. Identify the highest-value safe next action and continue from there.
+7. Do not recreate old fixes, reuse expired requests, overwrite another writer's active work or infer production from CI.
 
-### Required proof ladder
+Matt's minimal instruction should be enough:
+
+**Resume Kevin from the canonical GitHub handover.**
+
+## Single-writer coordination
+
+Only one outside AI writer should mutate shared Kevin repository/control-plane state at a time. A foreground Bess/Grok/ChatGPT engineering session should pause the scheduled outside `Kevin Chief Engineer` before shared mutations, leave Kevin's HESS-PC schedulers running, reconcile the crossing, and re-enable the scheduled Chief Engineer afterward.
+
+This rule does not prevent Kevin's own qualified local schedulers from running.
+
+## Proof boundaries
+
+Technical proof:
 
 `DESIGNED -> CI-PROVEN -> INSTALLABLE THROUGH TYPED PATH -> INSTALLED -> OMEN-PROVEN -> ROUND-TRIP-PROVEN -> REPEATEDLY-PROVEN -> SELF-RELIANT`
 
-The incoming AI must not infer higher proof from lower proof.
+Responsibility transfer:
 
-## Matt's minimal new-chat action
+`T0 BESS-DEPENDENT -> T1 BESS-BUILT/KEVIN-TESTED -> T2 BESS-DISPATCHED/KEVIN-EXECUTED -> T3 KEVIN-RUN/BESS-VERIFIED -> T4 KEVIN-OWNED/EXCEPTION-ESCALATED -> T5 SELF-RELIANT/BESS-NOT-REQUIRED`
 
-Matt should not need a giant copy/paste prompt. In a new conversation inside the Kevin Build Project, the preferred bootstrap is simply:
+A handover must preserve these distinctions. CI success is not production installation; task/hash presence is not semantic health; an agent's statement is not postcondition evidence.
 
-**Resume Kevin Build from the GitHub handoff.**
+## Privacy boundary
 
-or
+The repository is publicly accessible so replacement agents can reach it. Therefore public continuity artifacts must contain sanitized engineering state only. Never include passwords, API/OAuth tokens, recovery codes, private email/message bodies, credential material, private local documents, or other sensitive content.
 
-**Continue Kevin from the handoff.**
+## Failure mode
 
-The new AI should then reconstruct context itself using the startup protocol. Matt only needs to supply information if a current owner preference/decision is genuinely absent from the durable project artifacts.
-
-## First response from a replacement AI
-
-After reconstruction, the new AI should give Matt a short orientation, not a giant recap. It should answer five things:
-
-1. What Kevin is trying to accomplish right now.
-2. What has actually reached production/proven status.
-3. What is currently in flight.
-4. What is blocked/cooling and why.
-5. What action the AI is taking next.
-
-If repository prose conflicts with fresher telemetry, say so and use the fresher independently supported evidence.
-
-## `reports/handoff-latest.json` recommended schema
-
-This compact checkpoint is an accelerator, not an authority source. Suggested fields:
-
-- `schema`
-- `kind`
-- `generated_at`
-- `current_sprint`
-- `start_here_path`
-- `handover_path`
-- `current_task_path`
-- `owner_authorization_path`
-- `proof_ladder`
-- `production_proven[]`
-- `p0[]` with `name`, `proof_level`, `next_boundary`, `blocker`
-- `in_flight[]` with exact request/branch/PR identifiers when public-safe
-- `cooled[]`
-- `owner_checkpoints[]`
-- `latest_evidence_paths[]`
-- `privacy` flags confirming no secrets/private bodies
-
-The file should stay compact. Detailed narrative belongs in `AI-HANDOVER.md`.
-
-## Scheduled automation continuity
-
-Scheduled tasks survive independently of chat history, but a deleted chat or user action can disable them. Therefore after a significant chat deletion/migration or unexplained loss of momentum, explicitly inspect automation state.
-
-Current operating pattern should prefer:
-
-- one canonical scheduled **Chief Engineer** that may steer/mutate Kevin;
-- read-only scorecard/report tasks as needed;
-- old/overlapping steering loops disabled.
-
-Do not assume an automation is enabled merely because its prompt still exists.
-
-## Failure recovery
-
-If a new AI cannot access GitHub/connected tools:
-
-1. Tell Matt exactly which durable files are needed.
-2. Ask for the minimum missing artifact, ideally `KEVIN-START-HERE.md` plus `AI-HANDOVER.md`, rather than the entire old chat.
-3. Do not reconstruct specific hashes/proof claims from memory.
-4. Resume evidence-first work once access is restored.
-
-If the handover itself appears stale:
-
-1. Treat it as a hypothesis.
-2. Inspect fresh telemetry/PR/CI/control-plane state.
-3. Correct the handover after reconciling current truth.
+If the automatic handover workflow is failing, continuity itself becomes a P0 infrastructure defect. Repair it before relying on chat context. The previous valid `AI-HANDOVER.md` remains the fallback, with fresh runtime evidence used to correct stale claims.
 
 ## Success criterion
 
-A handoff is successful when a new AI can enter a new chat, recover Kevin's mission/current proof/blockers/in-flight work, avoid duplicate or conflicting actions, and continue useful engineering **without Matt having to retell the project**.
+At any arbitrary moment — including an abrupt model/session/token/credit cutoff — a new agent can open one public file, reconstruct Kevin's current mission and proof boundaries, inspect fresh machine evidence, see what remains next, and continue without Matt retelling the project.

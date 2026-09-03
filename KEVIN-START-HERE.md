@@ -1,166 +1,136 @@
 # Kevin Build — START HERE
 
-This is the canonical entrypoint for any **new ChatGPT conversation, Bess session, Grok Build session, Grok Bot session, replacement engineer, or recovered Kevin Build session**.
+This is the stable entrypoint for any new ChatGPT conversation, ChatGPT Work session, Bess session, Grok session, Grok Build/Grokbot session, Kevin recovery, or replacement engineer.
 
-If you are a fresh AI helping Matt with Kevin, do **not** ask Matt to reconstruct the project from memory and do not assume an old chat summary is current. Rebuild context from the repository and fresh evidence in this order.
+Matt should not have to reconstruct Kevin from chat history.
 
-## Shared cross-AI handover rule
+## First: open the one canonical handover
 
-`AI-HANDOVER.md` is the canonical shared engineering handover for Bess/ChatGPT, Grok Build, Grok Bot, and future replacement engineers. It is not owned by one model or one chat.
+There is exactly **one human current handover**:
 
-Every assisting engineer must read it before substantive work and reconcile it after a substantive repair, proof transition, owner decision, blocker change, production crossing/rollback, responsibility-transfer change, or major queue change. Also reconcile `inbox/CURRENT_TASK.md` when the active owner execution objective changes.
+`AI-HANDOVER.md`
 
-Read `docs/engineering/OWNER-CONTINUOUS-AUTONOMY-DIRECTIVE-2026-09-02.md` as standing owner direction. It codifies work conservation, GREEN + YELLOW capability development, teach-and-transfer, owner-intervention minimization, and the requirement that outside engineers progressively make themselves unnecessary.
+Universal access:
 
-## North star — train Kevin to replace Bess operationally
+- GitHub: `https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md`
+- Raw: `https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/AI-HANDOVER.md`
+- Kevin HQ: `https://hessmodee.github.io/KEVIN-WORK/handover.html`
 
-Read `docs/engineering/KEVIN-AUTONOMY-MASTER-PLAN-v1.md`, `docs/engineering/BESS-TO-KEVIN-AUTONOMY-TRANSFER-DOCTRINE-v1.md`, `docs/engineering/KEVIN-TEACH-AND-TRANSFER-RULE-v1.md`, and `docs/engineering/RESPONSIBILITY-TRANSFER-LEDGER-v1.md` as first-class project doctrine.
+`reports/handoff-latest.json` is only a machine twin of the same checkpoint; it is not a second handover authority.
 
-The long-term goal is not for Bess/ChatGPT, Grok Build, or Grok Bot to remain Kevin's remote operators. The goal is to progressively transfer routine planning, execution, verification, monitoring, repair, learning, communication, handoff, and work-selection responsibilities to Kevin until outside AI engineering is unnecessary in Kevin's normal authorized operating loop.
-
-Track this separately from technical proof using:
-
-`T0 BESS-DEPENDENT -> T1 BESS-BUILT/KEVIN-TESTED -> T2 BESS-DISPATCHED/KEVIN-EXECUTED -> T3 KEVIN-RUN/BESS-VERIFIED -> T4 KEVIN-OWNED/EXCEPTION-ESCALATED -> T5 SELF-RELIANT/BESS-NOT-REQUIRED`
-
-Whenever an outside engineer repeatedly performs a useful action, treat that recurring action as autonomy debt and ask how to encode it as an observable, typed, testable, reversible Kevin responsibility. Once a responsibility reaches T4 with repeated evidence, outside engineers should stop routinely doing it.
+Do **not** create a dated or agent-specific replacement handover. Historical engineering documents are evidence only.
 
 ## Mandatory startup sequence
 
-1. Read this file completely.
-2. Read `docs/engineering/OWNER-CONTINUOUS-AUTONOMY-DIRECTIVE-2026-09-02.md` for Matt's standing continuous-autonomy, GREEN/YELLOW-development, no-unnecessary-idle, and teach-transfer direction.
-3. Read `docs/engineering/KEVIN-AUTONOMY-MASTER-PLAN-v1.md` for the research-backed target architecture, no-spin/WIP rules and phased execution plan.
-4. Read `AI-HANDOVER.md` for the current engineering narrative, proof levels, blockers, exact hashes/PRs, and immediate queue.
-5. Read `inbox/CURRENT_TASK.md` for the owner's current execution contract and priority order.
-6. Read `docs/engineering/BESS-TO-KEVIN-AUTONOMY-TRANSFER-DOCTRINE-v1.md`, `docs/engineering/KEVIN-TEACH-AND-TRANSFER-RULE-v1.md`, `docs/engineering/RESPONSIBILITY-TRANSFER-LEDGER-v1.md`, `reports/responsibility-transfer-latest.json`, and `reports/autonomy-master-scorecard.json` for current outside-AI dependency/transfer and master-lane state.
-7. Read `control-plane/OWNER-AUTHORIZATION-v1.md` plus any narrowly applicable authorization file before consequential work.
-8. Inspect the newest trustworthy live evidence before acting:
-   - `reports/support-latest.json`
-   - `reports/dashboard-state.json`
-   - `reports/control-plane-latest.json`
-   - `reports/engineering/latest.json`
-   - `reports/autonomy-latest.json`
-   - `reports/skills.json`
-   - current maintenance/Benchmark evidence when relevant
-   - open PR/CI state when a candidate or production crossing is relevant
-9. Compare timestamps, request IDs, idempotency keys, hashes, PR heads, CI conclusions, active-worker state, and postconditions. **Fresh evidence outranks handover prose.**
-10. State internally what is current, what is stale, what is blocked, what WIP slots are occupied, what routine outside-engineer responsibility can be transferred next, and the single highest-value safe next action before mutating anything.
-11. Preserve the single-writer rule. **Kevin Chief Engineer is the only scheduled ChatGPT Kevin process allowed to steer/mutate Kevin execution state. If a foreground human-directed Bess/Grok/ChatGPT session will mutate shared repository/handover/control-plane state, pause the scheduled ChatGPT Chief Engineer first, leave HESS-PC/Kevin local schedulers running, complete/reconcile the foreground crossing, then re-enable the scheduled Chief Engineer before the foreground session ends.** Do not allow two outside AI writers to edit the canonical handover/control plane concurrently.
+Before substantive Kevin work:
 
-## Foreground/scheduled handoff protocol
+1. Read `AI-HANDOVER.md`.
+2. Read `inbox/CURRENT_TASK.md`.
+3. Read `docs/engineering/OWNER-CONTINUOUS-AUTONOMY-DIRECTIVE-2026-09-02.md` and the narrowly applicable owner authorization/doctrine.
+4. Read fresh `reports/support-latest.json` and `reports/engineering/latest.json`, then applicable autonomy/runtime/maintenance evidence.
+5. Inspect relevant open PR/CI state.
+6. Compare timestamps, hashes, request IDs, branch heads, proof level, in-flight work and postconditions. **Fresh correlated HESS-PC evidence outranks handover prose.**
+7. Identify the single highest-value safe next action and continue. Do not restart research/fixes already settled by durable evidence.
 
-This rule exists because concurrent outside writers have already produced a stale handover reference after a foreground merge.
+Matt's minimal recovery instruction should be sufficient:
 
-When a foreground owner-directed session intends to write:
-1. inspect whether the scheduled ChatGPT Chief Engineer is enabled;
-2. pause only that outside ChatGPT automation before repository/control-plane mutation;
-3. do **not** stop Kevin's local HESS-PC Support/Supervisor/Maintenance/Benchmark/etc. merely to gain editor exclusivity;
-4. inspect current in-flight manifests/requests/locks before writing;
-5. complete the bounded foreground change and its proof/rollback bookkeeping;
-6. reconcile `AI-HANDOVER.md` + `inbox/CURRENT_TASK.md` and any affected compact scorecard/transfer state;
-7. remove/retire any foreground-only stale requests/manifests that would execute later unexpectedly;
-8. re-enable the scheduled ChatGPT Chief Engineer after publishing the new checkpoint.
+**Resume Kevin from the canonical GitHub handover.**
 
-If the foreground session is read-only, no pause is needed.
+## Automatic continuity system
 
-## Architecture convergence rules
+The handover is no longer supposed to depend on an outgoing agent remembering to write a final turnover note.
 
-Prefer native OpenClaw durability where it cleanly replaces bespoke orchestration:
+- `.github/scripts/build-canonical-handover.py` builds `AI-HANDOVER.md` from the current execution contract plus published Support/Engineering/autonomy evidence.
+- `.github/workflows/canonical-handover.yml` reconciles it after `main` changes and every ten minutes as a backstop.
+- `docs/handover.html` exposes the exact canonical file from `main` on Kevin HQ.
+- `docs/engineering/CHAT-HANDOFF-PROTOCOL-v1.md` codifies the cross-AI continuity and local/runtime convergence rules.
 
-- Standing Orders for permanent programs;
-- Automations for recurring scheduled work;
-- Heartbeat for ambient monitoring only;
-- Task Flow for durable multi-step work;
-- Lobster for constrained deterministic pipelines/approval-resume flows;
-- Skill Workshop/self-learning for governed procedural learning;
-- Kevin Skill Lab for executable composites composed only from proven GREEN primitives;
-- native workspace memory + pre-compaction memory flush for always-loaded continuity;
-- GitHub for source, doctrine, PR/CI and sanitized durable evidence rather than the long-term primary live task queue.
+Agents must checkpoint continuously after material changes rather than waiting for a context/token/credit/session limit.
 
-Do not rip out proven components merely to use a native feature. Migrate only with evidence and rollback.
+## Local Grokbot / remote AI convergence — mandatory
 
-## No-spin / WIP rule
+A local desktop agent can see HESS-PC state a remote AI cannot. A remote AI can see repository/connector state a local agent may not have pulled. The system therefore keeps two truth planes explicit:
+
+- **Repository/source truth:** source, procedures, PR/CI, current task, public-safe receipts.
+- **HESS-PC runtime truth:** installed hashes, configuration, scheduled tasks, heartbeats, local files and real outcomes.
+
+Rules:
+
+1. Read/pull current `main` before durable source work.
+2. Use a repository branch for durable development whenever practical.
+3. If Grokbot or another local agent directly changes HESS-PC, publish the corresponding durable source and sanitized evidence/receipt immediately after the bounded crossing.
+4. **Local-only durable work is unfinished work.** Do not leave the only copy of a repair, script, config intent or proof on the desktop or in chat context.
+5. Remote GitHub code is not installed production until HESS-PC evidence proves installation and the semantic postcondition.
+6. Never publish passwords, tokens, OAuth material, private message bodies, recovery codes or sensitive local content to this public repository.
+7. Unexplained repo/runtime divergence is a defect to reconcile, never something to silently bless.
+
+This rule specifically prevents Grokbot from building local-only things that Bess cannot see and prevents Bess from assuming a GitHub candidate is already live on HESS-PC.
+
+## Single outside writer
+
+Only one outside AI writer should mutate Kevin's shared repository/control-plane state at a time.
+
+`Kevin Chief Engineer` is the one scheduled ChatGPT engineering writer. If a foreground Bess/Grok/ChatGPT session will mutate shared state:
+
+1. inspect/pause that outside ChatGPT automation;
+2. leave Kevin's qualified HESS-PC schedulers running;
+3. inspect outstanding requests/locks before writing;
+4. complete the bounded crossing and proof/rollback bookkeeping;
+5. update `inbox/CURRENT_TASK.md` when the objective/next boundary changed;
+6. let the automatic handover system reconcile `AI-HANDOVER.md`;
+7. retire stale foreground requests;
+8. re-enable the scheduled Chief Engineer with a current prompt after the foreground crossing.
+
+Read-only foreground work does not require pausing it.
+
+## North star
+
+Kevin must progressively own:
+
+`NOTICE -> UNDERSTAND -> PLAN -> EXECUTE -> VERIFY -> RECOVER -> RECORD -> LEARN -> CONTINUE`
+
+Outside engineers are temporary scaffolding. Every recurring Bess/Grok action is autonomy debt until Kevin owns detection, selection, typed execution, semantic verification, recovery, lesson/replay and recurrence handling.
+
+Responsibility transfer:
+
+`T0 BESS-DEPENDENT -> T1 BESS-BUILT/KEVIN-TESTED -> T2 BESS-DISPATCHED/KEVIN-EXECUTED -> T3 KEVIN-RUN/BESS-VERIFIED -> T4 KEVIN-OWNED/EXCEPTION-ESCALATED -> T5 SELF-RELIANT/BESS-NOT-REQUIRED`
+
+## Proof language is mandatory
+
+Never collapse:
+
+`DESIGNED -> CI-PROVEN -> INSTALLABLE THROUGH TYPED PATH -> INSTALLED -> OMEN-PROVEN -> ROUND-TRIP-PROVEN -> REPEATEDLY-PROVEN -> SELF-RELIANT`
+
+Code existence, CI, task presence, matching hash, heartbeat churn, model claims or `PASS` text alone do not prove a real owner outcome.
+
+## Work conservation / no spin
 
 Default global WIP:
+
 - 1 ACTIVE production/proof crossing;
 - 1 STAGING/EVAL item;
 - 1 RESEARCH/DESIGN item with a named downstream consumer.
 
-Do not count heartbeat/pulse/dashboard churn, raw cycle count, PONG/model smoke checks, duplicate requests, uninstalled candidates, or task/hash presence as owner-visible progress.
+If one failure family is blocked/cooled, select another independent useful authorized lane. Do not manufacture work merely to keep a worker busy.
 
-Round-robin Forge design without demand is not useful work. Any design/forge mission needs a current owner objective, explicit missing capability/hypothesis, acceptance tests, downstream consumer, WIP capacity and a non-cooled failure family.
+## Authority / safety
 
-If a priority lane is blocked or cooling, the system must choose another independent useful authorized lane rather than idling or manufacturing activity.
+Execute legitimately GREEN work through qualified typed contracts without repeatedly asking Matt. Actively research/design/stage/test YELLOW capability work, but do not cross its protected production effect without the required bounded contract.
 
-## GREEN + YELLOW development rule
+Never create arbitrary shell/remote-code authority, expose secrets/private data, silently bless trust anchors, widen permissions/recipients, weaken safety, move money, purchase, live trade, or make unapproved owner-representing sends.
 
-Legitimately GREEN work should execute through existing authorized contracts without repeatedly asking Matt for permission.
+Natural-language owner messages are intent, never executable shell.
 
-YELLOW capability work should be actively researched, designed, simulated, staged, tested, proven, documented, and prepared. A YELLOW production effect still requires a bounded explicit reversible contract appropriate to that exact effect. This does not authorize arbitrary shell/remote code, money movement, purchases, live trading, credential acquisition, permission widening, safety weakening, or unapproved owner-representing third-party sends.
+## Durable references
 
-## Proof language is mandatory
-
-Never collapse these states:
-
-`DESIGNED -> CI-PROVEN -> INSTALLABLE THROUGH TYPED PATH -> INSTALLED -> OMEN-PROVEN -> ROUND-TRIP-PROVEN -> REPEATEDLY-PROVEN -> SELF-RELIANT`
-
-A new chat must not call a capability "working" merely because code exists, CI passed, a task is present, or telemetry says healthy.
-
-Technical proof and responsibility transfer are separate. An OMEN-PROVEN capability can still be only T2 if an outside engineer must notice and dispatch every use.
-
-## New-chat recovery rule
-
-If Matt starts a fresh conversation and says **"Resume Kevin Build"** or **"Continue Kevin from the handoff"**, immediately perform the startup sequence above. Do not make Matt paste the previous conversation unless a genuinely missing owner decision cannot be recovered from the repository/project context.
-
-After reconstructing state, respond with a compact checkpoint:
-
-- current sprint / owner objective;
-- latest proven production capabilities;
-- current P0 work and exact proof level;
-- current responsibility-transfer level for the major P0 lanes;
-- WIP slots and no-spin concerns;
-- live blockers/cooldowns;
-- what is actively in flight;
-- what outside-engineer responsibility is being retired next;
-- the next safe action you will take.
-
-Then continue the work.
-
-## Before a long chat ends
-
-When context is getting crowded, or after any substantive proof transition, repair, owner decision, blocker, production promotion/rollback, new authority boundary, responsibility-transfer promotion/demotion, or master-plan/WIP change:
-
-1. Re-check fresh evidence.
-2. Update `AI-HANDOVER.md` by **reconciling** current truth, not appending contradictory history.
-3. Ensure `inbox/CURRENT_TASK.md` still reflects the active owner objective.
-4. Refresh `reports/handoff-latest.json` with compact pointers/status if available.
-5. Reconcile `docs/engineering/RESPONSIBILITY-TRANSFER-LEDGER-v1.md`, `reports/responsibility-transfer-latest.json`, and `reports/autonomy-master-scorecard.json` when evidence changes responsibility or master-lane truth.
-6. Record exact hashes, request IDs, PR/CI heads, proof levels, transfer levels, WIP state and owner-required checkpoints needed by the next AI.
-7. Encode any outside repair as a Kevin-owned lesson/detector/procedure/test when feasible; do not leave the next recurrence as another manual chat fix.
-8. Retire/clear foreground requests that would execute later unexpectedly.
-9. Re-enable the scheduled ChatGPT Chief Engineer if this foreground session paused it.
-10. Never store secrets/private message bodies in handoff artifacts.
-
-## Durable project sources
-
-- Owner continuous-autonomy directive: `docs/engineering/OWNER-CONTINUOUS-AUTONOMY-DIRECTIVE-2026-09-02.md`
-- Master architecture: `docs/engineering/KEVIN-AUTONOMY-MASTER-PLAN-v1.md`
-- Master scorecard: `reports/autonomy-master-scorecard.json`
-- Canonical shared narrative handoff: `AI-HANDOVER.md`
+- Canonical handover: `AI-HANDOVER.md`
 - Current execution contract: `inbox/CURRENT_TASK.md`
-- Stable owner authority: `control-plane/OWNER-AUTHORIZATION-v1.md`
-- Capability roadmap: `docs/engineering/OWNER-CAPABILITY-ROADMAP-v1.md`
-- Full-steam doctrine: `docs/engineering/FULL-STEAM-CONTINUOUS-IMPROVEMENT-DOCTRINE-v1.md`
-- Teach-and-transfer rule: `docs/engineering/KEVIN-TEACH-AND-TRANSFER-RULE-v1.md`
-- Direct comms/Green mastery campaign: `docs/engineering/OWNER-DIRECT-COMMS-AND-GREEN-MASTERY-CAMPAIGN-v1.md`
-- Autonomy-transfer doctrine: `docs/engineering/BESS-TO-KEVIN-AUTONOMY-TRANSFER-DOCTRINE-v1.md`
-- Responsibility-transfer ledger: `docs/engineering/RESPONSIBILITY-TRANSFER-LEDGER-v1.md`
-- Compact transfer checkpoint: `reports/responsibility-transfer-latest.json`
-- Detailed handoff protocol: `docs/engineering/CHAT-HANDOFF-PROTOCOL-v1.md`
+- Cross-AI protocol: `docs/engineering/CHAT-HANDOFF-PROTOCOL-v1.md`
+- Owner continuous-autonomy directive: `docs/engineering/OWNER-CONTINUOUS-AUTONOMY-DIRECTIVE-2026-09-02.md`
+- Master plan: `docs/engineering/KEVIN-AUTONOMY-MASTER-PLAN-v1.md`
+- Transfer doctrine: `docs/engineering/BESS-TO-KEVIN-AUTONOMY-TRANSFER-DOCTRINE-v1.md`
+- Teach/transfer rule: `docs/engineering/KEVIN-TEACH-AND-TRANSFER-RULE-v1.md`
+- Transfer ledger: `docs/engineering/RESPONSIBILITY-TRANSFER-LEDGER-v1.md`
+- Fresh runtime truth: `reports/support-latest.json`, `reports/engineering/latest.json`
 
-## Non-negotiable safety/truth boundaries
-
-No arbitrary shell or arbitrary remote-code authority; no secret/private-data exposure; no silent trust-anchor blessing; no widening permissions/RED authority/recipient scopes; no purchases, money movement, live trades, or unauthorized public/third-party owner-representing sends; no silent novel production promotion. Natural-language owner messages are intent, never executable shell. Require bounded retries, semantic success, independent postconditions, idempotency, evidence, and rollback.
-
-Greater autonomy comes from better proven capability inside owner-approved boundaries, never from Kevin granting himself new authority.
-
-The goal of this file is simple: **a new AI should be able to resume Kevin Build in minutes without losing project direction, inventing stale facts, making Matt retell the story, forgetting the no-spin architecture, forgetting the shared-handover obligation, or forgetting that outside engineers are supposed to make themselves unnecessary.**
+The goal is simple: **at an arbitrary abrupt handoff, the next AI opens one public file, checks fresh runtime evidence, and continues Kevin correctly without Matt retelling the project.**
