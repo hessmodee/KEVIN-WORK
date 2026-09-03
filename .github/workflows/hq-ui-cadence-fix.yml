@@ -1,0 +1,48 @@
+name: HQ UI Liveness Cadence Fix
+
+on:
+  push:
+    branches: [bess-hq-truth-cadence-fix2-20260903]
+    paths:
+      - '.github/scripts/patch-hq-ui-cadence.py'
+      - '.github/workflows/hq-ui-cadence-fix.yml'
+  pull_request:
+    paths:
+      - '.github/scripts/patch-hq-ui-cadence.py'
+      - 'docs/hq-truth-v2.js'
+      - 'docs/index.html'
+      - '.github/workflows/hq-ui-cadence-fix.yml'
+permissions:
+  contents: write
+jobs:
+  repair-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Apply deterministic patch
+        run: python .github/scripts/patch-hq-ui-cadence.py
+      - name: Assert truthful cadence semantics
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          t=Path('docs/hq-truth-v2.js').read_text()
+          i=Path('docs/index.html').read_text()
+          assert "fresh:180,delayed:360,claim:'relay / skills / UI Bridge'" in t
+          assert "+ageSec(e.generated_at)" not in t
+          assert "UI Bridge heartbeat was stale at last engineering sample" in t
+          assert "UI Bridge liveness evidence is delayed" in t
+          assert "hbSample>60" in t
+          assert 'hq-truth-v2.js?v=4' in i
+          print('HQ_UI_CADENCE_TEST_PASS false_between_samples_warning=false stale_sample_detected=true delayed_source_detected=true')
+          PY
+      - name: Commit generated repair to branch
+        if: github.event_name == 'push'
+        run: |
+          git config user.name 'Kevin HQ Truth Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add docs/hq-truth-v2.js docs/index.html
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'repair HQ UI liveness cadence truth'
+          git push origin HEAD:${{ github.ref_name }}
