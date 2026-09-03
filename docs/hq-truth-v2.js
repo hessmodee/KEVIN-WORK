@@ -7,7 +7,7 @@ const BASE='https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/';
 const SOURCES={
   dashboard:{label:'Live dashboard',path:'reports/dashboard-state.json',kind:'periodic',fresh:120,delayed:360,claim:'current task / services / load'},
   support:{label:'Support',path:'reports/support-latest.json',kind:'periodic',fresh:360,delayed:900,claim:'platform / benchmark / workers'},
-  engineering:{label:'Engineering',path:'reports/engineering/latest.json',kind:'periodic',fresh:300,delayed:720,claim:'relay / skills / UI Bridge'},
+  engineering:{label:'Engineering',path:'reports/engineering/latest.json',kind:'periodic',fresh:180,delayed:360,claim:'relay / skills / UI Bridge'},
   autonomy:{label:'Full reconciliation',path:'reports/autonomy-latest.json',kind:'event',claim:'last full drift / repair assessment'},
   continuation:{label:'Scheduled selection',path:'reports/autonomy-continuation-latest.json',kind:'periodic',fresh:900,delayed:1800,claim:'current Supervisor selection; outcome proof is separate'},
   news:{label:'Public newswire',path:'reports/newswire-latest.json',kind:'periodic',fresh:21600,delayed:21600,claim:'local / national / international headlines'},
@@ -143,8 +143,10 @@ function issueRows(){
   }
   const news=sourceState('news',cache.news);
   if(['STALE','MISSING'].includes(news.state))out.push({sev:'warn',title:'Public newswire needs attention',detail:`Last published feed ${ageText(news.age)} old. Check the Newswire publication workflow.`});
-  const hb=Number(e?.action?.ui_bridge?.heartbeat_age_seconds)+ageSec(e.generated_at);
-  if(Number.isFinite(hb)&&hb>60)out.push({sev:'bad',title:'UI Bridge heartbeat is not fresh',detail:`Heartbeat ${ageText(hb)} old.`});
+  const engState=sourceState('engineering',e),hbSample=Number(e?.action?.ui_bridge?.heartbeat_age_seconds);
+  if(!Number.isFinite(hbSample))out.push({sev:'warn',title:'UI Bridge liveness evidence is unavailable',detail:'Latest Engineering sample does not contain a usable UI Bridge heartbeat age.'});
+  else if(hbSample>60)out.push({sev:'bad',title:'UI Bridge heartbeat was stale at last engineering sample',detail:`Sampled heartbeat ${ageText(hbSample)} old when Engineering published.`});
+  else if(engState.state!=='FRESH')out.push({sev:engState.state==='STALE'?'bad':'warn',title:'UI Bridge liveness evidence is delayed',detail:`Engineering evidence ${ageText(engState.age)} old; the last sampled UI heartbeat itself was fresh (${ageText(hbSample)}).`});
   if(ageSec(a.generated_at)>1800)out.push({sev:'warn',title:'Full autonomy audit needs refresh',detail:`Last full assessment ${ageText(ageSec(a.generated_at))} old; current scheduled selection is tracked separately. A publication-only check does not rerun the audit.`});
   const ast=sourceState('autonomy',a),live=liveCoreDrift(s,cache.desired||{}),reported=Number(a?.drift_count||0),knownForgeOnly=live.count===1&&live.keys[0]==='forge'&&blocked;
   if(ast.state==='RECENT'&&cache.desired&&reported!==live.count)out.push({sev:'warn',title:'Autonomy and repository pins differ',detail:`Autonomy reports ${reported}; current desired-state vs live Support has ${live.count} mismatch(es): ${live.keys.join(', ')||'none'}.`});
