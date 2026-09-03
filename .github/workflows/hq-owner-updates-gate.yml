@@ -6,12 +6,18 @@ on:
     paths:
       - docs/**
       - .github/scripts/build-hq-newswire.py
+      - .github/scripts/publish-hq-newswire.py
+      - .github/scripts/test-newswire-publish.py
+      - .github/scripts/test-hq-live-data.cjs
       - .github/scripts/test-hq-owner-invariants.cjs
       - .github/workflows/hq-owner-updates-gate.yml
   pull_request:
     paths:
       - docs/**
       - .github/scripts/build-hq-newswire.py
+      - .github/scripts/publish-hq-newswire.py
+      - .github/scripts/test-newswire-publish.py
+      - .github/scripts/test-hq-live-data.cjs
       - .github/scripts/test-hq-owner-invariants.cjs
       - .github/workflows/hq-owner-updates-gate.yml
 
@@ -43,6 +49,10 @@ jobs:
             assert got==want,(title,source,got,want)
           print('PASS newswire publisher appears once')
           PY
+      - name: Newswire isolated publication regression
+        run: python .github/scripts/test-newswire-publish.py
+      - name: HQ live data regressions
+        run: node .github/scripts/test-hq-live-data.cjs
       - name: JavaScript syntax
         run: |
           node --check docs/hq-overrides-v1.js

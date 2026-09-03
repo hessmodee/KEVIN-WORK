@@ -9,6 +9,7 @@ const SOURCES={
   support:{label:'Support',path:'reports/support-latest.json',kind:'periodic',fresh:360,delayed:900,claim:'platform / benchmark / workers'},
   engineering:{label:'Engineering',path:'reports/engineering/latest.json',kind:'periodic',fresh:300,delayed:720,claim:'relay / skills / UI Bridge'},
   autonomy:{label:'Autonomy',path:'reports/autonomy-latest.json',kind:'periodic',fresh:900,delayed:1800,claim:'work selection / drift'},
+  news:{label:'Public newswire',path:'reports/newswire-latest.json',kind:'periodic',fresh:21600,delayed:21600,claim:'local / national / international headlines'},
   control:{label:'Control plane',path:'reports/control-plane-latest.json',kind:'event',claim:'latest typed outcome'},
   desired:{label:'Desired state',path:'control-plane/desired-state-v1.json',kind:'checkpoint',claim:'owner-approved core identities'},
   workItems:{label:'Autonomy work items',path:'inbox/autonomy/work-items.json',kind:'checkpoint',claim:'blocked / eligible owner work'},
@@ -69,8 +70,9 @@ function workTruth(d,s){
 }
 function platformTruth(s,d){
   const b=s?.benchmark||{};
+  if(sourceState('support',s).state!=='FRESH'||sourceState('dashboard',d).state!=='FRESH')return{headline:'UNVERIFIED',detail:'Current platform evidence is delayed or stale.',cls:'warn'};
   const badSvc=Object.values(d?.services||{}).some(v=>v&&String(v).toLowerCase()!=='healthy');
-  const ok=s?.governance?.ok!==false&&s?.cron?.ok!==false&&String(b.status||'').toUpperCase()==='PASS'&&Number(b?.regression?.critical_failures||0)===0&&!badSvc;
+  const ok=s?.governance?.ok!==false&&s?.cron?.ok!==false&&String(b.status||'').toUpperCase()==='PASS'&&b?.regression?.passed===30&&b?.regression?.total===30&&b?.regression?.critical_failures===0&&ageSec(b.at)<=1800&&!badSvc;
   return{headline:ok?'HEALTHY':'DEGRADED',detail:`Benchmark ${b?.regression?.passed??'?'}/${b?.regression?.total??'?'} · critical ${b?.regression?.critical_failures??'?'}`,cls:ok?'ok':'bad'};
 }
 function workItem(id){return (cache.workItems?.items||[]).find(x=>String(x.id||'')===id)||null}
@@ -94,14 +96,15 @@ function autonomyTruth(a){
   if(!a)return{headline:'UNKNOWN',detail:'Autonomy snapshot missing',cls:'bad'};
   const st=sourceState('autonomy',a),live=liveCoreDrift(cache.support||{},cache.desired||{}),reported=Number(a.drift_count||0);
   if(st.state==='STALE')return{headline:'STALE EVIDENCE',detail:`${ageText(st.age)} old · last ${a.state||'unknown'}`,cls:'bad'};
-  if(cache.desired&&cache.support&&reported!==live.count)return{headline:'RECONCILE',detail:`autonomy reports drift ${reported} · live desired/support comparison ${live.count}`,cls:'warn'};
+  if(cache.desired&&cache.support&&reported!==live.count)return{headline:'RECONCILE',detail:`autonomy reports drift ${reported} · repository desired/support comparison ${live.count}`,cls:'warn'};
   if(live.count===1&&live.keys[0]==='forge'&&forgeBlocked())return{headline:'KNOWN DRIFT',detail:`Forge trust pin intentionally held while replacement lane is blocked · ${a?.work_conserving?.status||'selection unknown'}`,cls:'neutral'};
   const v=String(a.state||'UNKNOWN').toUpperCase();
   return{headline:v,detail:`live drift ${live.count} · ${a?.work_conserving?.status||'selection unknown'}`,cls:v==='HEALTHY'?'ok':v==='NEEDS_REVIEW'?'warn':'neutral'};
 }
 function benchmarkTruth(s){
   const b=s?.benchmark||{};
-  const ok=String(b.status||'').toUpperCase()==='PASS'&&Number(b?.regression?.critical_failures||0)===0;
+  const ok=String(b.status||'').toUpperCase()==='PASS'&&b?.regression?.passed===30&&b?.regression?.total===30&&b?.regression?.critical_failures===0;
+  if(ageSec(b.at)>1800)return{headline:'STALE RESULT',detail:`last ${b.status||'unknown'} · ${ageText(ageSec(b.at))} old`,cls:'warn'};
   return{headline:ok?`${b?.regression?.passed??'?'} / ${b?.regression?.total??'?'}`:'NOT PASS',detail:`critical ${b?.regression?.critical_failures??'?'} · ${ageText(ageSec(b.at))} old`,cls:ok?'ok':'bad'};
 }
 function skillTruth(e){
@@ -130,22 +133,24 @@ function issueRows(){
   if(workTelemetryConflict(d,s)){
     out.push({sev:'warn',title:'Current-work telemetry conflicts',detail:`Dashboard says “${d.current_task?.title||d.current_task?.id||'task'}” is active and an equally-new or newer Support snapshot still reports 0 active workers.`});
   }
-  const hb=Number(e?.action?.ui_bridge?.heartbeat_age_seconds);
+  const news=sourceState('news',cache.news);
+  if(['STALE','MISSING'].includes(news.state))out.push({sev:'warn',title:'Public newswire needs attention',detail:`Last published feed ${ageText(news.age)} old. Check the Newswire publication workflow.`});
+  const hb=Number(e?.action?.ui_bridge?.heartbeat_age_seconds)+ageSec(e.generated_at);
   if(Number.isFinite(hb)&&hb>60)out.push({sev:'bad',title:'UI Bridge heartbeat is not fresh',detail:`Heartbeat ${ageText(hb)} old.`});
   const ast=sourceState('autonomy',a),live=liveCoreDrift(s,cache.desired||{}),reported=Number(a?.drift_count||0),knownForgeOnly=live.count===1&&live.keys[0]==='forge'&&blocked;
-  if(ast.state==='FRESH'&&cache.desired&&reported!==live.count)out.push({sev:'warn',title:'Autonomy drift telemetry is stale',detail:`Autonomy reports ${reported}; current desired-state vs live Support has ${live.count} mismatch(es): ${live.keys.join(', ')||'none'}.`});
-  if(cache.desired&&live.count>0&&!knownForgeOnly)out.push({sev:'warn',title:'Live desired-state mismatch',detail:`Current mismatches: ${live.keys.join(', ')}.`});
+  if(ast.state==='FRESH'&&cache.desired&&reported!==live.count)out.push({sev:'warn',title:'Autonomy and repository pins differ',detail:`Autonomy reports ${reported}; current desired-state vs live Support has ${live.count} mismatch(es): ${live.keys.join(', ')||'none'}.`});
+  if(cache.desired&&live.count>0&&!knownForgeOnly)out.push({sev:'warn',title:'Repository desired-state pins differ',detail:`Compare approved migration receipts before updating these pins. Mismatches: ${live.keys.join(', ')}.`});
   if(String(c?.status||'').toUpperCase()==='DUPLICATE_IGNORED')out.push({sev:'neutral',title:'Latest control receipt is terminal duplicate',detail:`${c?.request?.id||'request'} is not active work.`});
   if(!out.length)out.push({sev:'ok',title:'No high-signal contradiction detected',detail:'Current sanitized sources expose no major contradiction.'});
   return out.slice(0,6);
 }
 function proofRows(){
   const s=cache.support||{},e=cache.engineering||{},c=cache.control||{},out=[];
-  if(s?.maintenance?.status)out.push({title:'Maintenance',value:s.maintenance.status,detail:`${s.maintenance.manifest_id||'—'} · ${ageText(ageSec(s.maintenance.at))} old`});
-  if(s?.benchmark?.status)out.push({title:'Benchmark',value:`${s.benchmark.status} ${s?.benchmark?.regression?.passed??'?'}/${s?.benchmark?.regression?.total??'?'}`,detail:`critical ${s?.benchmark?.regression?.critical_failures??'?'}`});
+  if(s?.maintenance?.status)out.push({cls:'neutral',title:'Maintenance',value:s.maintenance.status,detail:`${s.maintenance.manifest_id||'—'} · ${ageText(ageSec(s.maintenance.at))} old`});
+  if(s?.benchmark?.status)out.push({cls:s.benchmark.status==='PASS'?'ok':'bad',title:'Benchmark',value:`${s.benchmark.status} ${s?.benchmark?.regression?.passed??'?'}/${s?.benchmark?.regression?.total??'?'}`,detail:`critical ${s?.benchmark?.regression?.critical_failures??'?'}`});
   const p=e?.action?.composite_skills?.latest_proven;
-  if(p)out.push({title:'Skill Lab',value:p.key,detail:`PROVEN · ${ageText(ageSec(p.proven_at))} old`});
-  if(c?.status&&c.status!=='DUPLICATE_IGNORED')out.push({title:'Control plane',value:c.status,detail:c?.request?.verb||'—'});
+  if(p)out.push({cls:'ok',title:'Skill Lab',value:p.key,detail:`PROVEN · ${ageText(ageSec(p.proven_at))} old`});
+  if(c?.status&&c.status!=='DUPLICATE_IGNORED')out.push({cls:'neutral',title:'Control plane',value:c.status,detail:c?.request?.verb||'—'});
   return out.slice(0,4);
 }
 function laneRows(){
@@ -222,7 +227,8 @@ function currentFingerprint(){
       x?.status,
       x?.drift_count,
       x?.latest_evaluation?.iteration,
-      x?.maintenance?.status
+      x?.maintenance?.status,
+      sourceState(k,x).state,Math.floor(ageSec(tsOf(x))/60)
     ]];
   });
   return JSON.stringify(Object.fromEntries(pairs));
@@ -256,7 +262,7 @@ function render(force=false){
 <div class="hqtc-grid">${metric('Platform',truth.platform)}${metric('Work now',truth.work)}${metric('Autonomy',truth.autonomy)}${metric('Benchmark',truth.bench)}${metric('Proven skills',truth.skills)}${metric('Data quality',truth.data)}</div>
 <div class="hqtc-columns">
   <div class="hqtc-box"><h4>Attention</h4>${issues.map(x=>`<div class="hqtc-item ${esc(x.sev)}"><b>${esc(x.title)}</b><div>${esc(x.detail)}</div></div>`).join('')}</div>
-  <div class="hqtc-box"><h4>Recent proof</h4>${proof.length?proof.map(x=>`<div class="hqtc-item ok"><b>${esc(x.title)} · ${esc(x.value)}</b><div>${esc(x.detail)}</div></div>`).join(''):'<div class="hqtc-item"><b>No current proof item</b></div>'}</div>
+  <div class="hqtc-box"><h4>Latest evidence</h4>${proof.length?proof.map(x=>`<div class="hqtc-item ${esc(x.cls||'neutral')}"><b>${esc(x.title)} · ${esc(x.value)}</b><div>${esc(x.detail)}</div></div>`).join(''):'<div class="hqtc-item"><b>No current proof item</b></div>'}</div>
 </div>
 <details class="hqtc-detail" data-key="lanes"><summary>Proof / responsibility lanes</summary><div class="hqtc-lanes">${lanes.map(l=>`<div class="hqtc-lane"><b>${esc(l.id.replace(/-/g,' '))}</b><span>${esc(l.transfer)} · ${esc(l.proof)}</span><div>${esc(l.detail)}</div></div>`).join('')}</div></details>
 <details class="hqtc-detail" data-key="sources"><summary>Source ledger</summary><div>${sourceRows()}</div></details>`;

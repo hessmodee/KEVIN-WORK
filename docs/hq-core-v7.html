@@ -189,7 +189,7 @@
 <script>
 // KEVIN HQ LIVE OPS v1
 const TABS=[["overview","Overview"],["ops","Ops Floor"],["talk","Talk · Exp"],["activity","Activity"],["system","System"],["build","Roadmap"],["capabilities","Capabilities"],["diagnostics","Diagnostics"]];
-let S=null,EXT_NEWS=null,tab=(location.hash||"#overview").slice(1),selectedCrew="kevin",activityFilter="all";
+let S=null,EXT_NEWS=null,HQ_SUPPORT=null,tab=(location.hash||"#overview").slice(1),selectedCrew="kevin",activityFilter="all";
 if(!TABS.some(x=>x[0]===tab))tab="overview";
 
 const $=id=>document.getElementById(id);
@@ -440,34 +440,43 @@ function deriveNewswire(){
   if(verified) items.push({id:"verified",text:"Verified: "+(verified.detail||verified.event||"recent work"),severity:"success"});
   return items.slice(0,6);
 }
+function reportFresh(report,maxAgeMs){
+  const at=Date.parse(report?.generated_at||'');
+  const age=Date.now()-at;
+  return Number.isFinite(at)&&age>=-60000&&age<=maxAgeMs;
+}
+function supportBenchmark(){
+  if(!reportFresh(HQ_SUPPORT,10*60*1000))return null;
+  return HQ_SUPPORT?.benchmark||null;
+}
 function newswireStories(){
   const out=[];
-  const add=x=>{if(x&&x.text)out.push(x)};
-  const attention=deriveAttention();
-  for(const a of (attention.items||[])) add({id:'kevin-attn-'+String(a.id||''),text:'KEVIN · '+String(a.label||a.id||'Needs attention'),severity:attention.level==='fail'?'fail':'caution'});
-  for(const i of deriveNewswire()){
-    if(['mission','health','verified','roadmap'].includes(String(i.id||''))) add({...i,text:'KEVIN · '+i.text});
+  const bench=supportBenchmark();
+  if(bench){
+    const r=bench.regression||{};
+    const failed=(r.failed||[]).map(x=>x.id).join(', ');
+    const pass=bench.status==='PASS'&&r.passed===30&&r.total===30&&r.critical_failures===0;
+    out.push({id:'kevin-benchmark',text:`KEVIN · Benchmark ${r.passed??'?'}/${r.total??'?'}${failed?' · '+failed+' needs repair':''}`,severity:pass?'normal':'caution'});
+  }else out.push({id:'kevin-status-unverified',text:'KEVIN · Platform evidence unavailable or stale',severity:'caution'});
+  // Publisher build[] is a historical plan, not current Reader proof or demand.
+  for(const item of deriveNewswire().filter(x=>['mission','verified'].includes(x.id)).slice(0,1)){
+    out.push({...item,text:'KEVIN · '+item.text});
   }
-  const ext=EXT_NEWS||{};
-  const generated=Date.parse(ext.generated_at||'');
-  const fresh=Number.isFinite(generated) && (Date.now()-generated)<6*60*60*1000;
-  if(fresh && ext?.weather?.summary)add({id:'public-weather',text:'WEATHER · '+ext.weather.summary,severity:'normal'});
-  const labels={local:'LOCAL',national:'U.S.',world:'WORLD',top:'TOP'};
+  const ext=EXT_NEWS||{},fresh=reportFresh(ext,6*60*60*1000);
+  const labels={local:'LOCAL',national:'NATIONAL',world:'INTERNATIONAL',top:'TOP'};
   if(fresh){
-    for(const h of (ext.headlines||[])){
-      const cat=String(h.category||'top').toLowerCase();
-      const label=labels[cat]||'TOP';
+    // Interleave categories so every region gets a turn early in the rotation.
+    const groups=Object.keys(labels).map(cat=>(ext.headlines||[]).filter(h=>h.category===cat));
+    for(let i=0;i<4;i++)for(const group of groups){
+      const h=group[i];if(!h?.title)continue;
       const source=String(h.source||'').trim();
-      add({id:'news-'+cat+'-'+String(h.title||'').slice(0,80),text:`${label} · ${h.title}${source?' — '+source:''}`,severity:'normal',url:h.url||''});
+      let url='';try{const u=new URL(h.url);if(u.protocol==='https:')url=u.href}catch(_e){}
+      out.push({id:'news-'+h.category+'-'+h.title,text:`${labels[h.category]} · ${h.title}${source?' — '+source:''}`,severity:'normal',url});
     }
-  }
-  if(!out.some(x=>x.id==='public-weather')){
-    const wx=String(S?.weather?.summary||'').trim();
-    if(wx)add({id:'weather-fallback',text:'WEATHER · '+wx,severity:'normal'});
-  }
-  if(freshness().disconnected && !out.some(i=>i.id==='disconnected'))out.unshift({id:'disconnected',text:'KEVIN · Telemetry lost · showing last known snapshot',severity:'disconnected'});
+    if(!['local','national','world'].every(cat=>(ext.headlines||[]).some(h=>h.category===cat)))out.unshift({id:'news-incomplete',text:'NEWS · Some regional feeds are unavailable',severity:'caution'});
+  }else out.push({id:'news-stale',text:'NEWS · Local, national and international feed is stale or unavailable',severity:'caution'});
   const seen=new Set();
-  return out.filter(x=>{const k=String(x.text||'').toLowerCase().replace(/\W+/g,'').slice(0,180);if(!k||seen.has(k))return false;seen.add(k);return true}).slice(0,18);
+  return out.filter(x=>{const k=x.text.toLowerCase().replace(/\W+/g,'');if(seen.has(k))return false;seen.add(k);return true}).slice(0,18);
 }
 function paintNewswire(){
   const el=$("newswire");
@@ -512,9 +521,11 @@ function applyChrome(){
  const f=freshness(),lvl=avatarLevel(),mode=avatarMode();
  $("headerKevin").innerHTML=avatarSvg(lvl,mode,false);
  $("owlLabel").textContent=`Evolution ${lvl}/5 · ${mode==="working"?"working":mode==="degraded"?"needs attention":mode==="disconnected"?"telemetry lost":"ready"}`;
- $("wx").textContent=S?.weather?.summary||"";
- $("statusPill").textContent=f.disconnected?`TELEMETRY · ${f.label}`:`${String(S?.status||"unknown").toUpperCase()} · ${f.label}`;
- $("statusPill").className=`pill ${f.disconnected?"bad":S?.health?.overall==="healthy"?f.cls:"bad"}`;
+ $("wx").textContent=reportFresh(EXT_NEWS,6*60*60*1000)&&EXT_NEWS?.weather?.summary?EXT_NEWS.weather.summary:S?.weather?.summary||"";
+ const bench=supportBenchmark(),r=bench?.regression||{};
+ const platformOK=bench?.status==='PASS'&&r.passed===30&&r.total===30&&r.critical_failures===0&&S?.health?.overall==='healthy';
+ $("statusPill").textContent=f.disconnected?`TELEMETRY · ${f.label}`:bench?(platformOK?'HEALTHY':'NEEDS ATTENTION'):'STATUS UNVERIFIED';
+ $("statusPill").className=`pill ${platformOK&&!f.disconnected?f.cls:'bad'}`;
  const d=S?.diagnostics||{},svc=S?.services||{};
  $("serviceRail").innerHTML=f.disconnected?serviceChip("Telemetry","disconnected"):[serviceChip("Reader",d.reader_boundary==="green"?"green":"testing"),serviceChip("Night Forge",forgeState()),serviceChip("Build Lab",buildLabState()),serviceChip("Ollama",svc.ollama),serviceChip("Bridge",svc.bridge)].join("");
  $("foot").textContent=`Kevin HQ · ${f.text}`;
@@ -826,10 +837,16 @@ async function fetchExternalNewswire(){
   return await r.json();
 }
 
+async function fetchSupport(){
+  const r=await fetch(`https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/support-latest.json?ts=${Date.now()}`,{cache:'no-store'});
+  if(!r.ok)throw new Error('support '+r.status);
+  return r.json();
+}
+
 async function load(){
  try{
-  const pair=await Promise.all([fetchState(),fetchExternalNewswire().catch(()=>null)]);
-  S=pair[0];EXT_NEWS=pair[1];
+  const pair=await Promise.all([fetchState(),fetchExternalNewswire().catch(()=>null),fetchSupport().catch(()=>null)]);
+  S=pair[0];if(pair[1])EXT_NEWS=pair[1];if(pair[2])HQ_SUPPORT=pair[2];
   renderNav();
   draw();
  }catch(e){
