@@ -1,0 +1,25 @@
+name: Kevin evidence collector
+on:
+  push:
+    paths:
+      - tools/Collect-Kevin-Evidence.ps1
+      - .github/workflows/kevin-evidence-collector.yml
+  pull_request:
+    paths:
+      - tools/Collect-Kevin-Evidence.ps1
+      - .github/workflows/kevin-evidence-collector.yml
+permissions:
+  contents: read
+jobs:
+  windows-powershell:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse and exercise fixture collection with Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $tokens=$null; $errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD 'tools/Collect-Kevin-Evidence.ps1'), [ref]$tokens, [ref]$errors)
+          if ($errors.Count) { throw ($errors | Out-String) }
+          & .\tools\Collect-Kevin-Evidence.ps1 -SelfTest
+          if ($LASTEXITCODE -ne 0) { throw 'Collector self-test failed' }
