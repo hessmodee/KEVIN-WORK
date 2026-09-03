@@ -117,7 +117,7 @@ if($env:OS-ne'Windows_NT'){throw 'Run this on the Windows PC that hosts Kevin'}
 $mutex=New-Object Threading.Mutex($false,'Global\KevinR04BootstrapV2')
 $owned=$false
 try{
-    try{$owned=$mutex.WaitOne(0)}catch[Threading.AbandonedMutexException]{$owned=$true}
+    try{$owned=$mutex.WaitOne(0)}catch [Threading.AbandonedMutexException]{$owned=$true}
     if(-not$owned){throw 'R04 bootstrap already active'}
     $pre=Get-Preflight
     if($CheckOnly){Write-Host 'KEVIN_R04_BOOTSTRAP_V2_READY installed_contract=benchmark-v1.1c target=hashes.production_config';exit 0}
