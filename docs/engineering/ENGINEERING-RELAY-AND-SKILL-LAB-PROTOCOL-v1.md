@@ -29,7 +29,7 @@ Allowed v1 operations:
 
 1. `snapshot` — publish a fresh sanitized engineering snapshot.
 2. `benchmark` — run the existing pinned Benchmark job and return the exact fresh result.
-3. `action_selftests` — run Operator, Initiative, and UI Bridge self-tests only.
+3. `action_selftests` — run the fixed Operator and Initiative self-tests; inspect UI Bridge hash, task presence and heartbeat metadata. The UI portion does **not** run an interactive self-test.
 4. `action_status` — inspect Action Era queue/proof/status metadata.
 5. `stage_composite_skill` — fetch and validate a declarative composite skill made solely from proven GREEN primitives and stage it for Skill Lab.
 
@@ -98,3 +98,11 @@ Every proven composite skill must retain:
 ## Human involvement target
 
 Matt should not be the transport layer for logs or ordinary repair evidence. The expected human checkpoints are limited to true owner-authority events such as administrative credentials, privileged installation, new primitive authority, or consequential Yellow/Red actions.
+
+## Observed implementation boundary — 2026-09-03
+
+Remote request `bess-bridge-selftests-20260903010943` completed with Operator and Initiative exit0/PASS while the UI heartbeat remained more than seven hours old. See `reports/engineering/bridge-action-selftests-20260903.json`. A response's collection time never refreshes an embedded source observation.
+
+The bridge executes fixed PowerShell operations on HESS-PC. It is not a general PowerShell session: this v1 request schema has no arbitrary command, argument, file-read or source-export operation. A connection gap must be distinguished from missing owner authorization. If an operation is absent, do not send an invented verb or substitute an unrelated component alias.
+
+Use the existing typed `restart_ui_bridge` maintenance operation for an eligible stalled UI episode. Verify a newer continuing heartbeat independently, then a bounded Notepad output when appropriate. Its final platform Benchmark check is separate: a recovered heartbeat with failed Benchmark must not be labeled a fully accepted maintenance transaction. Retire terminal manifests to prevent repeat restarts caused by unrelated platform failure.
