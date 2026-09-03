@@ -2,7 +2,7 @@
 
 > **THIS IS THE ONE CURRENT HANDOVER FOR KEVIN.** Do not create a competing dated handover. Update the source task/evidence and let the canonical handover refresh replace stale state.
 
-**Semantic checkpoint evidence through:** 2026-09-03T11:42:45.4119425-06:00  
+**Semantic checkpoint evidence through:** 2026-09-03T11:47:33.5276609-06:00  
 **Canonical repository:** `hessmodee/KEVIN-WORK` / `main`  
 **Machine twin:** `reports/handoff-latest.json` (not a second authority)
 
@@ -29,11 +29,11 @@ If an agent cannot access one route, use another. Matt should never need to reco
 
 ## Automatic semantic snapshot
 
-- Engineering evidence at checkpoint: `2026-09-03T11:42:45.4119425-06:00`
-- Support evidence at checkpoint: `2026-09-03T11:41:45.8049120-06:00`
-- Autonomy evidence at checkpoint: `2026-09-03T11:42:33.0033035-06:00`
+- Engineering evidence at checkpoint: `2026-09-03T11:46:51.0667988-06:00`
+- Support evidence at checkpoint: `2026-09-03T11:44:45.8955127-06:00`
+- Autonomy evidence at checkpoint: `2026-09-03T11:47:33.5276609-06:00`
 - Benchmark: **PASS — 30/30, critical 0**
-- UI Bridge health at checkpoint: **FRESH** (age then: 2.4 seconds)
+- UI Bridge health at checkpoint: **FRESH** (age then: 5 seconds)
 - Maintenance: **NO_MANIFEST** — No maintenance proposal is waiting.
 - Supervisor last result: **NO_ELIGIBLE_MISSION**
 - Proven composite skills: **9**
@@ -51,7 +51,7 @@ The block below is pulled from `inbox/CURRENT_TASK.md`. That file is an executio
 
 # CURRENT_TASK
 
-**Updated:** 2026-09-03 ~11:45 MT  
+**Updated:** 2026-09-03 ~11:47 MT  
 **Owner priority:** push Kevin computer fluency, self-repair, governed work selection and cross-AI convergence toward repeated real owner outcomes with minimum Matt intervention.
 
 ## P0 continuity — COMPLETE / AUTOMATED
@@ -76,7 +76,7 @@ Fresh HESS-PC evidence at ~11:42 MT shows:
 - Maintenance Intake recovered to **NO_MANIFEST** after the failed UI-watchdog manifest was retired. Do not resurrect that failed request unchanged.
 - Installed Maintenance identity remains `AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D`.
 - The existing `reconcile_maintenance_cron_backoff` implementation has a latent installed/OpenClaw response-shape defect (`declarationKey` root-property assumption). It is not currently blocking because intake recovered naturally, but it must be repaired before relying on that recovery operation.
-- `ensure_ui_bridge_watchdog` failed closed at its staged self-test. A v1.3.46 repair design is now durable in `docs/engineering/KEVIN-MAINTENANCE-V1346-DESIGN-2026-09-03.md` and its machine qualification plan. Do not call the watchdog installed.
+- `ensure_ui_bridge_watchdog` failed closed at its staged self-test. A v1.3.46 repair design is durable in `docs/engineering/KEVIN-MAINTENANCE-V1346-DESIGN-2026-09-03.md` plus `docs/engineering/KEVIN-MAINTENANCE-V1346-QUALIFICATION-PLAN.json`. Do not call the watchdog installed.
 
 ## P1 — Kevin Desktop / local computer fluency
 
@@ -90,16 +90,18 @@ Merged bounded tools:
 
 This source is **MERGED / CI-PROVEN, NOT INSTALLED OR OMEN-PROVEN**.
 
-The governed work item `computer-fluency-desktop-install-qualification` is real GREEN owner work. Supervisor independently selected it and ran the fixed main agent three times; the public continuation record now shows turns=3 and `WAITING_ITEM_BUDGETS`. A model turn is not an accomplishment and there is no durable qualification artifact yet. Treat that as evidence that the current main-agent surface still cannot complete the research contract, not as permission to reset the budget by renaming the task.
+The governed work item `computer-fluency-desktop-install-qualification` is real GREEN owner work. Supervisor independently selected it and ran the fixed main agent three times; the public continuation record shows turns=3 and `WAITING_ITEM_BUDGETS`. A model turn is not an accomplishment and there is no durable qualification artifact from those turns. Treat that as evidence that the current main-agent surface cannot complete the research contract, not as permission to reset the budget by renaming the task.
 
-Next Desktop boundary:
+Fresh `reports/main-tool-policy-diagnosis-omen.json` proves the root coding profile and protected global denies are present, but the real fixed:main canary has zero visible tools including no `kevin_system_status`.
 
-1. recover/qualify the exact installed OpenClaw plugin/config/tool-policy contract using bounded read-only evidence;
-2. define an exact-current reversible crossing exposing only `kevin_system_status` plus the three Desktop tools;
-3. preserve protected denies: no arbitrary shell, unrestricted filesystem/process/browser/session control, generic keyboard/mouse, downloads/installs, credentials, permission widening or owner-representing sends;
-4. install only after exact-current qualification and deterministic negative tests;
-5. prove real HESS-PC owner-intent round trips and forbidden negatives;
-6. keep Benchmark 30/30 critical0.
+The exact target contract is now durable at `docs/engineering/KEVIN-DESKTOP-TYPED-CROSSING-CONTRACT-2026-09-03.md`:
+
+1. qualify installed OpenClaw plugin/config/tool-policy schema and exact-current identities;
+2. expose exactly `kevin_system_status` plus the three Desktop tools;
+3. preserve protected denies and reject arbitrary shell/filesystem/process/browser/session/keyboard/mouse/download/install/credential/permission authority;
+4. use exact-current backup/rollback/config-validation/semantic-diff gates;
+5. prove allowed real HESS-PC owner-intent actions and forbidden negatives;
+6. require fresh Benchmark 30/30 critical0 and restart/replay before transfer credit.
 
 ## P1 — Maintenance v1.3.46 repair candidate
 
@@ -112,9 +114,9 @@ Important: repository v1.3.45 bytes are **not assumed** to equal the installed M
 
 ## P2 — autonomy / work conservation
 
-The deterministic Supervisor has now proven it can independently select the real computer-fluency item without Bess supplying an immediate work ID. That is a meaningful selection proof, but not outcome proof or T4/T5 transfer.
+The deterministic Supervisor proved it can independently select the real computer-fluency item without Bess supplying an immediate work ID. That is meaningful selection proof, but not outcome proof or T4/T5 transfer.
 
-Do not manufacture cycles. When the desktop qualification item is budget-exhausted, admit a genuinely distinct owner-valued GREEN item only if it has independent acceptance criteria and a real downstream consumer. Highest-value next independent work is the Maintenance v1.3.46 CI repair/qualification and exact installed-source qualification, followed by the Desktop typed crossing.
+Do not manufacture cycles. When that item is budget-exhausted, admit a genuinely distinct owner-valued GREEN item only if it has independent acceptance criteria and a real downstream consumer. Highest-value next independent work is Maintenance v1.3.46 CI repair/qualification and exact installed-source qualification, followed by the Desktop typed crossing.
 
 For every successful repair/crossing:
 
@@ -126,7 +128,7 @@ Build a bounded approved-root convergence watchdog so Grokbot/local durable work
 
 ## Coordination
 
-The foreground Bess session is the current outside writer. Keep the scheduled ChatGPT `Kevin Chief Engineer` paused while this foreground session mutates shared state. Before ending foreground work, update/re-enable that single scheduled writer with this exact continuation; keep obsolete Kevin scheduled engineers disabled.
+Foreground Bess mutation is complete for this checkpoint. The single scheduled ChatGPT `Kevin Chief Engineer` is re-enabled with this current queue and may resume canonical outside-engineer ownership. Keep all obsolete/duplicate scheduled Kevin engineers disabled. If a future foreground Bess/Grok session begins mutating shared state, the scheduled engineer should observe only until that foreground writer hands control back.
 
 ---
 
@@ -164,6 +166,6 @@ Never infer a higher state from a lower one. Never widen authority merely to mak
 
 This handover is generated by `.github/scripts/build-canonical-handover.py` and refreshed by `.github/workflows/canonical-handover.yml`.
 
-Semantic fingerprint: `DB63EE9A85C0B7234C848205FE02ABE0030BB081727851E88282BA98EAB31AA1`
+Semantic fingerprint: `80BE937482B124E0F34E113F55C9DE003BBA43C6E23D8EBE35C144BC9498067F`
 
 **Fresh runtime evidence first; one handover; publish every durable local change; then continue.**
