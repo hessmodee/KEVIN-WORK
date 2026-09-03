@@ -38,5 +38,10 @@ jobs:
         run: npm test
       - name: TypeScript build
         run: npm run build
+      - name: Generate OpenClaw plugin metadata
+        run: npm run plugin:build
+      - name: Require committed metadata to match generated metadata
+        working-directory: .
+        run: git diff --exit-code -- extensions/kevin-desktop/openclaw.plugin.json
       - name: OpenClaw plugin validation
-        run: npm run plugin:validate
+        run: openclaw plugins validate --entry ./dist/index.js
