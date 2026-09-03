@@ -1,18 +1,24 @@
 name: Maintenance v1.3.47 Hotfix
 
 on:
+  pull_request:
+    paths:
+      - '.github/scripts/build-maintenance-v1347.py'
+      - '.github/workflows/maintenance-v1347-hotfix.yml'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.46.ps1'
   push:
     branches: [main]
     paths:
       - '.github/scripts/build-maintenance-v1347.py'
       - '.github/workflows/maintenance-v1347-hotfix.yml'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.46.ps1'
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: maintenance-v1347-hotfix
+  group: maintenance-v1347-hotfix-${{ github.event.pull_request.number || 'main' }}
   cancel-in-progress: false
 
 jobs:
@@ -23,11 +29,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Build candidate
+      - name: Build candidate deterministically
         shell: pwsh
         run: |
           python .github/scripts/build-maintenance-v1347.py
-          if (-not (Test-Path control-plane/maintenance/kevin-maintenance-runner-v1.3.47.ps1)) { throw 'candidate missing' }
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.47.ps1'
+          if (-not (Test-Path $p)) { throw 'candidate missing' }
+          $first=(Get-FileHash $p -Algorithm SHA256).Hash
+          Remove-Item $p -Force
+          python .github/scripts/build-maintenance-v1347.py
+          $second=(Get-FileHash $p -Algorithm SHA256).Hash
+          if($first -ne $second){throw "nondeterministic candidate $first != $second"}
+          Write-Host "MAINTENANCE_V1347_DETERMINISTIC SHA256=$second"
       - name: PowerShell parse and self-test
         shell: powershell
         run: |
@@ -38,16 +51,37 @@ jobs:
           $out = powershell.exe -NoProfile -ExecutionPolicy Bypass -File $p -SelfTest 2>&1 | Out-String
           if($LASTEXITCODE -ne 0){ throw "selftest exit=$LASTEXITCODE $out" }
           if($out -notmatch 'KEVIN MAINTENANCE v1\.3\.47 SELFTEST PASS'){ throw 'v1.3.47 marker missing' }
+          if($out -notmatch 'desired_state_sync=live_identity_cas'){ throw 'dynamic sync selftest marker missing' }
           if($out -notmatch 'arbitrary_shell=false' -or $out -notmatch 'authority_expansion=false'){ throw 'authority invariants missing' }
           Write-Host $out
-      - name: Verify exact repair anchors
+      - name: Verify dynamic desired-state repair contract
         shell: pwsh
         run: |
-          $t=Get-Content control-plane/maintenance/kevin-maintenance-runner-v1.3.47.ps1 -Raw
-          if(($t.Split("82C47FAD288CA6FFD69EEF5678C8262065F04C739AACCACEE889005486A5FA15").Count-1) -lt 1){throw 'current Maintenance identity missing'}
-          if($t -notmatch 'installed Maintenance identity is not qualified v1\.3\.46'){throw 'qualification message not updated'}
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.47.ps1'
+          $t=Get-Content $p -Raw
+          $m=[regex]::Match($t,'(?s)function Sync-LocalDesiredStateV18 \{.*?(?=\r?\nfunction Refresh-FullAutonomyAssessment \{)')
+          if(-not$m.Success){throw 'dynamic sync function not found'}
+          $s=$m.Value
+          foreach($old in @(
+            '3CFC77177324564DBE9632D078385119AB41831760212BD6A4FA3F613A7B0D6E',
+            'AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D',
+            'installed Maintenance identity is not qualified v1.3.45',
+            'installed Maintenance identity is not qualified v1.3.46'
+          )){if($s.Contains($old)){throw "generation-specific sync anchor remained: $old"}}
+          foreach($required in @(
+            "Get-Sha (Join-Path `$Workspace 'kevin-maintenance-runner.ps1')",
+            '`$remoteMaint-ne`$live',
+            'desired-state non-target sections differ',
+            'installed desired-state bytes do not match canonical remote',
+            'Assert-Governance',
+            'Assert-Benchmark30',
+            'desired-state sync rollback completed'
+          )){if($s -notmatch [regex]::Escape($required.Replace('`$','$'))){throw "dynamic sync marker missing: $required"}}
+          if($s -match '(?i)Invoke-Expression|Start-Process\s+cmd\.exe|kevin_shell'){throw 'forbidden execution marker introduced'}
+          Write-Host 'DYNAMIC_DESIRED_STATE_SYNC_CONTRACT_PASS generation_pin=false cas=live_identity rollback=true'
 
   publish:
+    if: github.event_name != 'pull_request'
     needs: windows-qualify
     runs-on: ubuntu-latest
     steps:
@@ -57,19 +91,27 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Build and publish candidate to main
+      - name: Build and publish qualified candidate to main
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'Kevin Maintenance Bot'
           git config user.email 'actions@users.noreply.github.com'
-          git fetch origin main
-          git reset --hard origin/main
-          python .github/scripts/build-maintenance-v1347.py
-          git add control-plane/maintenance/kevin-maintenance-runner-v1.3.47.ps1
-          if git diff --cached --quiet; then
-            echo 'Candidate already published.'
-            exit 0
-          fi
-          git commit -m 'publish Maintenance v1.3.47 self-identity hotfix'
-          git push origin HEAD:main
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            python .github/scripts/build-maintenance-v1347.py
+            git add control-plane/maintenance/kevin-maintenance-runner-v1.3.47.ps1
+            if git diff --cached --quiet; then
+              echo 'Candidate already published.'
+              exit 0
+            fi
+            git commit -m 'publish Maintenance v1.3.47 dynamic desired-state sync'
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "main moved while publishing; retry $attempt/3"
+            sleep $((attempt * 2))
+          done
+          echo 'Failed to publish Maintenance v1.3.47 after bounded retries.' >&2
+          exit 1
