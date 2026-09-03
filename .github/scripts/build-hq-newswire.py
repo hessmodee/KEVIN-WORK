@@ -126,6 +126,24 @@ def weather() -> dict:
     }
 
 
+def google_news_search(query: str) -> str:
+    return 'https://news.google.com/rss/search?' + urllib.parse.urlencode({
+        'q': query,
+        'hl': 'en-US',
+        'gl': 'US',
+        'ceid': 'US:en',
+    })
+
+
+def append_unique(headlines: list[dict], seen: set[str], rows: list[dict]) -> None:
+    for item in rows:
+        key = re.sub(r'\W+', '', item['title'].lower())[:180]
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        headlines.append(item)
+
+
 def main() -> None:
     generated = datetime.now(timezone.utc).isoformat()
     errors: list[str] = []
@@ -135,10 +153,9 @@ def main() -> None:
     except Exception as exc:
         errors.append('weather: ' + str(exc)[:180])
 
+    local_terms = '("Preston Idaho" OR "Franklin County Idaho" OR "Cache Valley" OR "Logan Utah")'
     feeds = [
-        ('local', 'https://news.google.com/rss/search?' + urllib.parse.urlencode({
-            'q': '(Preston Idaho OR Franklin County Idaho OR Cache Valley) when:2d',
-            'hl': 'en-US', 'gl': 'US', 'ceid': 'US:en'}), 4),
+        ('local', google_news_search(local_terms + ' when:2d'), 4),
         ('national', 'https://news.google.com/rss/headlines/section/topic/NATION?hl=en-US&gl=US&ceid=US:en', 4),
         ('world', 'https://news.google.com/rss/headlines/section/topic/WORLD?hl=en-US&gl=US&ceid=US:en', 4),
         ('top', 'https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en', 4),
@@ -147,14 +164,23 @@ def main() -> None:
     seen: set[str] = set()
     for category, url, limit in feeds:
         try:
-            for item in rss(url, category, limit):
-                key = re.sub(r'\W+', '', item['title'].lower())[:180]
-                if not key or key in seen:
-                    continue
-                seen.add(key)
-                headlines.append(item)
+            append_unique(headlines, seen, rss(url, category, limit))
         except Exception as exc:
             errors.append(f'{category}: {str(exc)[:180]}')
+
+    # Local news can legitimately be quiet for a 48-hour window. HQ still
+    # requires a local lane, so widen only that lane to one week before failing
+    # the publication contract. This preserves local relevance rather than
+    # weakening validation or relabeling unrelated national stories as local.
+    if not any(item.get('category') == 'local' for item in headlines):
+        try:
+            append_unique(
+                headlines,
+                seen,
+                rss(google_news_search(local_terms + ' when:7d'), 'local', 4),
+            )
+        except Exception as exc:
+            errors.append('local_fallback: ' + str(exc)[:180])
 
     payload = {
         'schema': 1,
