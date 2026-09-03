@@ -2,7 +2,7 @@
 
 > **THIS IS THE ONE CURRENT HANDOVER FOR KEVIN.** Do not create a competing dated handover. Update the source task/evidence and let the canonical handover refresh replace stale state.
 
-**Semantic checkpoint evidence through:** 2026-09-03T11:42:33.0033035-06:00  
+**Semantic checkpoint evidence through:** 2026-09-03T11:42:45.4119425-06:00  
 **Canonical repository:** `hessmodee/KEVIN-WORK` / `main`  
 **Machine twin:** `reports/handoff-latest.json` (not a second authority)
 
@@ -29,11 +29,11 @@ If an agent cannot access one route, use another. Matt should never need to reco
 
 ## Automatic semantic snapshot
 
-- Engineering evidence at checkpoint: `2026-09-03T11:40:45.4159138-06:00`
+- Engineering evidence at checkpoint: `2026-09-03T11:42:45.4119425-06:00`
 - Support evidence at checkpoint: `2026-09-03T11:41:45.8049120-06:00`
 - Autonomy evidence at checkpoint: `2026-09-03T11:42:33.0033035-06:00`
 - Benchmark: **PASS — 30/30, critical 0**
-- UI Bridge health at checkpoint: **FRESH** (age then: 4 seconds)
+- UI Bridge health at checkpoint: **FRESH** (age then: 2.4 seconds)
 - Maintenance: **NO_MANIFEST** — No maintenance proposal is waiting.
 - Supervisor last result: **NO_ELIGIBLE_MISSION**
 - Proven composite skills: **9**
@@ -51,90 +51,82 @@ The block below is pulled from `inbox/CURRENT_TASK.md`. That file is an executio
 
 # CURRENT_TASK
 
-**Updated:** 2026-09-03 ~08:50 MT  
-**Owner priority:** canonical cross-AI continuity is now installed; continue Kevin computer fluency, UI reliability, tool exposure, and autonomous learning with minimum Matt intervention.
+**Updated:** 2026-09-03 ~11:45 MT  
+**Owner priority:** push Kevin computer fluency, self-repair, governed work selection and cross-AI convergence toward repeated real owner outcomes with minimum Matt intervention.
 
 ## P0 continuity — COMPLETE / AUTOMATED
 
-The canonical turnover system is now merged on `main` through PR #48 (`Make Kevin handover automatic and universal`). Its PR validation and HQ gate passed, and the first `main` automation run completed successfully.
+`AI-HANDOVER.md` is the one canonical human current handover. Root `AGENTS.md` is the universal repo-aware agent bootstrap. PR #50 hardened the handover builder to semantic no-churn checkpoints so telemetry-only timestamp movement does not continually move `main`.
 
-Permanent contract:
+Permanent rules:
 
-- `AI-HANDOVER.md` is the **only human current handover**.
-- `reports/handoff-latest.json` is its machine twin only, never a competing authority.
-- `.github/scripts/build-canonical-handover.py` derives the handover from current task + published Support/Engineering/autonomy evidence.
-- `.github/workflows/canonical-handover.yml` refreshes after `main` changes and every ten minutes as a backstop, with bounded race retry and unchanged-state no-churn behavior.
-- Kevin HQ exposes `docs/handover.html` plus the persistent `AI Handover` launcher.
-- Every AI checkpoints after every material repair/proof/production/task transition rather than waiting for an end-of-chat handoff.
-- **Local-only durable work is unfinished work.** Grokbot/local agents must publish the corresponding repository source and sanitized proof/receipt after direct HESS-PC work. Remote GitHub work is not production until HESS-PC proves it installed.
-- One outside AI writer at a time; Kevin's qualified local schedulers may continue.
-
-Universal canonical addresses:
-
-- `https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md`
-- `https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/AI-HANDOVER.md`
-- `https://hessmodee.github.io/KEVIN-WORK/handover.html`
-
-Do not create new dated/agent-specific current handover documents.
+- Fresh correlated HESS-PC evidence outranks prose.
+- Local-only durable work is unfinished until its source/configuration intent and sanitized proof are published.
+- GitHub source/CI is not production until HESS-PC proves the installed result.
+- One outside AI writer at a time; qualified Kevin-local schedulers may continue.
+- Never create competing current handover documents.
 
 ## P1 — current live platform truth
 
-Fresh published HESS-PC evidence shows:
+Fresh HESS-PC evidence at ~11:42 MT shows:
 
-- Benchmark **PASS 30/30, critical 0**. The old R04 29/30 state is obsolete and must not be resurrected.
-- Support/Engineering scheduled jobs are enabled and reporting `ok` with zero consecutive errors.
-- Supervisor last result remains `NO_ELIGIBLE_MISSION`; useful computer-fluency demand must be placed into the governed selector rather than manufacturing cycles.
-- Engineering reports UI Bridge task/hash present but heartbeat materially stale (over 6,300 seconds in the latest snapshot). Do not call it healthy from task/hash presence.
-- Skill Lab reports 9 proven composites; latest proven `kevin-ui-recovery-functional-proof@1` uses `ui_notepad_write`.
-- Installed Maintenance identity reported by fresh Support is `AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D`.
+- Benchmark **PASS 30/30, critical 0**.
+- UI Bridge exact hash matches, scheduled task is present, and heartbeat age is about **2.4 seconds**. The earlier multi-hour stale state is repaired.
+- Engineering Relay, Skill Lab, Maintenance Intake, Support Bridge, Benchmark and Supervisor jobs are all enabled and currently report `ok`, zero consecutive errors.
+- Maintenance Intake recovered to **NO_MANIFEST** after the failed UI-watchdog manifest was retired. Do not resurrect that failed request unchanged.
+- Installed Maintenance identity remains `AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D`.
+- The existing `reconcile_maintenance_cron_backoff` implementation has a latent installed/OpenClaw response-shape defect (`declarationKey` root-property assumption). It is not currently blocking because intake recovered naturally, but it must be repaired before relying on that recovery operation.
+- `ensure_ui_bridge_watchdog` failed closed at its staged self-test. A v1.3.46 repair design is now durable in `docs/engineering/KEVIN-MAINTENANCE-V1346-DESIGN-2026-09-03.md` and its machine qualification plan. Do not call the watchdog installed.
 
 ## P1 — Kevin Desktop / local computer fluency
 
-Candidate branch: `bess-local-computer-fluency-v1-20260903`  
-PR: **#47 — Add bounded local desktop control for Kevin**
+PR #49 **Add bounded local Desktop fluency for Kevin** is merged on `main`.
 
-Candidate adds:
+Merged bounded tools:
 
 - `kevin_desktop_find_folder`
 - `kevin_desktop_open_folder`
-- `kevin_app_launch` for fixed reviewed apps (Notepad, Calculator, Paint, Explorer)
-- durable local-computer-fluency curriculum and cross-platform plugin validation.
+- `kevin_app_launch` with fixed reviewed apps only: Notepad, Calculator, Paint, Explorer.
 
-Push candidate gate run `33766748609` passed on Ubuntu and Windows, including unit tests, TypeScript build, generated metadata identity, and OpenClaw plugin validation. This remains **CI-PROVEN candidate only**.
+This source is **MERGED / CI-PROVEN, NOT INSTALLED OR OMEN-PROVEN**.
 
-PR #47 is currently non-mergeable after `main` advanced. Reconcile/rebase the candidate with current main, rerun CI, review the resulting diff, then merge only if green. Do not call it installed yet.
+The governed work item `computer-fluency-desktop-install-qualification` is real GREEN owner work. Supervisor independently selected it and ran the fixed main agent three times; the public continuation record now shows turns=3 and `WAITING_ITEM_BUDGETS`. A model turn is not an accomplishment and there is no durable qualification artifact yet. Treat that as evidence that the current main-agent surface still cannot complete the research contract, not as permission to reset the budget by renaming the task.
 
-After merge, build/use a typed, pinned, reversible installation crossing; expose only the smallest intended fixed:main surface (`kevin_system_status` plus the three bounded Desktop tools); preserve protected denies; then prove real HESS-PC owner-intent round trips and forbidden negative cases.
+Next Desktop boundary:
 
-## P1 — fixed:main tool surface
+1. recover/qualify the exact installed OpenClaw plugin/config/tool-policy contract using bounded read-only evidence;
+2. define an exact-current reversible crossing exposing only `kevin_system_status` plus the three Desktop tools;
+3. preserve protected denies: no arbitrary shell, unrestricted filesystem/process/browser/session control, generic keyboard/mouse, downloads/installs, credentials, permission widening or owner-representing sends;
+4. install only after exact-current qualification and deterministic negative tests;
+5. prove real HESS-PC owner-intent round trips and forbidden negatives;
+6. keep Benchmark 30/30 critical0.
 
-Current diagnosis proved fixed:main effectively has no useful Kevin tool inventory despite the root coding profile. Do not solve this by granting broad `exec`, arbitrary filesystem, arbitrary process/browser/session or caller-selected shell authority.
+## P1 — Maintenance v1.3.46 repair candidate
 
-Required crossing after qualified Desktop install:
+Repair two evidence-proven defects without widening authority:
 
-1. expose only intended typed Kevin tools;
-2. prove a useful allowed natural-language action;
-3. prove forbidden/action-negative cases fail closed;
-4. independently verify the real desktop/app postcondition on HESS-PC;
-5. keep Benchmark 30/30 critical0.
+- normalize the fixed Maintenance cron query response instead of assuming root `.declarationKey`; require exactly one enabled fixed declaration and fail closed on ambiguity;
+- stage generated UI-watchdog self-test scripts with a `.ps1` filename before the existing bounded PowerShell `-File` self-test.
 
-## P1 — UI Bridge liveness/watchdog
+Important: repository v1.3.45 bytes are **not assumed** to equal the installed Maintenance SHA. CI engineering may proceed against repo source, but production crossing requires separate exact-installed-source qualification plus compare-and-swap, backup, rollback, self-test and fresh Benchmark 30/30 critical0.
 
-The UI Bridge liveness watchdog candidate currently fails closed at its staged self-test before installation. Repair the watchdog generator/contract, validate it, install only through a typed/reversible path, and require multiple advancing READY/WORKING heartbeats plus a unique Notepad round trip that does not disturb an owner window.
+## P2 — autonomy / work conservation
 
-Do not equate the proven `ui_notepad_write` composite or UI task presence with current bridge liveness.
+The deterministic Supervisor has now proven it can independently select the real computer-fluency item without Bess supplying an immediate work ID. That is a meaningful selection proof, but not outcome proof or T4/T5 transfer.
 
-## P2 — teach Kevin to own the work
+Do not manufacture cycles. When the desktop qualification item is budget-exhausted, admit a genuinely distinct owner-valued GREEN item only if it has independent acceptance criteria and a real downstream consumer. Highest-value next independent work is the Maintenance v1.3.46 CI repair/qualification and exact installed-source qualification, followed by the Desktop typed crossing.
 
-For every successful outside repair/crossing:
+For every successful repair/crossing:
 
 `detect -> classify -> gather evidence -> select qualified action -> execute -> verify semantic postcondition -> recover/rollback -> record -> create/revise procedure -> replay on a second representative task -> promote responsibility`
 
-Put real `computer-fluency` owner demand into the governed selector so Supervisor/Tick can select and continue it without Bess supplying a work-item ID. Treat each step still performed by Bess/Grok as autonomy debt until Kevin reaches T4/T5 with repeated evidence.
+## P2 — cross-AI convergence
+
+Build a bounded approved-root convergence watchdog so Grokbot/local durable work cannot remain invisible. It may report only sanitized path/hash/drift metadata for explicitly approved Kevin roots. It must not crawl arbitrary user files, publish private content, expose credentials or gain generic file/shell authority.
 
 ## Coordination
 
-`AI-HANDOVER.md` is canonical. Fresh runtime evidence outranks prose. The scheduled ChatGPT `Kevin Chief Engineer` is paused while this foreground Bess session mutates shared state. Before ending foreground work, update/re-enable that single scheduled writer with the current handover contract and current P1 queue; do not revive the obsolete R04 bootstrap instructions.
+The foreground Bess session is the current outside writer. Keep the scheduled ChatGPT `Kevin Chief Engineer` paused while this foreground session mutates shared state. Before ending foreground work, update/re-enable that single scheduled writer with this exact continuation; keep obsolete Kevin scheduled engineers disabled.
 
 ---
 
@@ -172,6 +164,6 @@ Never infer a higher state from a lower one. Never widen authority merely to mak
 
 This handover is generated by `.github/scripts/build-canonical-handover.py` and refreshed by `.github/workflows/canonical-handover.yml`.
 
-Semantic fingerprint: `CB73710DB4521B9D1567969E93119C8CDAA5CB7DB3685EA94EF6E82A55547B67`
+Semantic fingerprint: `DB63EE9A85C0B7234C848205FE02ABE0030BB081727851E88282BA98EAB31AA1`
 
 **Fresh runtime evidence first; one handover; publish every durable local change; then continue.**
