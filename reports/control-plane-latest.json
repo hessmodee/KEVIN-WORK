@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-09-03T10:59:06.6555104-06:00",
+    "generated_at":  "2026-09-03T11:02:00.2528985-06:00",
     "request":  {
-                    "id":  "bess-support-refresh-20260903-1058",
-                    "verb":  "run_support_bridge",
-                    "target":  "kevin-support-bridge-v1"
+                    "id":  "bess-run-ui-watchdog-20260903-1102",
+                    "verb":  "run_typed_maintenance",
+                    "target":  "kevin-maintenance-v1"
                 },
-    "status":  "IDLE_TERMINAL",
-    "detail":  "Current work order is already terminal; awaiting replacement",
+    "status":  "FAILED",
+    "detail":  "Maintenance terminal state not proven: APPLY_FAILED",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
