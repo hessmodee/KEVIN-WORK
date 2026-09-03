@@ -2,7 +2,7 @@
 
 > **THIS IS THE ONE CURRENT HANDOVER FOR KEVIN.** Do not create a competing dated handover. Update the source task/evidence and let the canonical handover refresh replace stale state.
 
-**Semantic checkpoint evidence through:** 2026-09-03T15:05:46.7403220-06:00  
+**Semantic checkpoint evidence through:** 2026-09-03T15:37:34.2248409-06:00  
 **Canonical repository:** `hessmodee/KEVIN-WORK` / `main`  
 **Machine twin:** `reports/handoff-latest.json` (not a second authority)
 
@@ -29,11 +29,11 @@ If an agent cannot access one route, use another. Matt should never need to reco
 
 ## Automatic semantic snapshot
 
-- Engineering evidence at checkpoint: `2026-09-03T15:04:54.9641972-06:00`
-- Support evidence at checkpoint: `2026-09-03T15:05:46.7403220-06:00`
-- Autonomy evidence at checkpoint: `2026-09-03T15:02:33.4459653-06:00`
+- Engineering evidence at checkpoint: `2026-09-03T15:36:55.2525705-06:00`
+- Support evidence at checkpoint: `2026-09-03T15:35:46.9122815-06:00`
+- Autonomy evidence at checkpoint: `2026-09-03T15:37:34.2248409-06:00`
 - Benchmark: **PASS — 30/30, critical 0**
-- UI Bridge health at checkpoint: **FRESH** (age then: 0.1 seconds)
+- UI Bridge health at checkpoint: **FRESH** (age then: 2.8 seconds)
 - Maintenance: **ALREADY_APPLIED_PROVEN** — Maintenance previously proven.
 - Supervisor last result: **NO_ELIGIBLE_MISSION**
 - Proven composite skills: **9**
@@ -51,84 +51,128 @@ The block below is pulled from `inbox/CURRENT_TASK.md`. That file is an executio
 
 # CURRENT_TASK
 
-**Updated:** 2026-09-03 ~11:47 MT  
-**Owner priority:** push Kevin computer fluency, self-repair, governed work selection and cross-AI convergence toward repeated real owner outcomes with minimum Matt intervention.
+**Updated:** 2026-09-03 ~15:40 MT  
+**Owner priority:** stop optimizing Kevin for infrastructure activity alone. Deliver visible, useful owner outcomes tonight and make Kevin materially useful for Matt's work tomorrow while preserving the bounded/local-first authority model.
 
-## P0 continuity — COMPLETE / AUTOMATED
+## P0 — value-first operating rule
 
-`AI-HANDOVER.md` is the one canonical human current handover. Root `AGENTS.md` is the universal repo-aware agent bootstrap. PR #50 hardened the handover builder to semantic no-churn checkpoints so telemetry-only timestamp movement does not continually move `main`.
+Infrastructure is a means, not the finish line. From this checkpoint, prioritize work in this order:
 
-Permanent rules:
+1. owner-useful executable skills and computer fluency;
+2. blockers that directly prevent those owner outcomes;
+3. protective/recovery capabilities that keep those skills dependable;
+4. platform polish only when it materially improves the above.
 
-- Fresh correlated HESS-PC evidence outranks prose.
-- Local-only durable work is unfinished until its source/configuration intent and sanitized proof are published.
-- GitHub source/CI is not production until HESS-PC proves the installed result.
-- One outside AI writer at a time; qualified Kevin-local schedulers may continue.
-- Never create competing current handover documents.
+Do not count model turns, cron cycles, heartbeat commits, hashes, CI alone, or dashboards as owner accomplishments. A useful capability needs an executable path, a real output/postcondition, evidence, replay, and a clear owner use case.
 
-## P1 — current live platform truth
+Permanent loop:
 
-Fresh HESS-PC evidence at ~11:42 MT shows:
+`NOTICE -> UNDERSTAND -> PLAN -> EXECUTE -> VERIFY -> RECOVER -> RECORD -> LEARN -> CONTINUE`
+
+Repeated Bess/Grok/Matt intervention is autonomy debt and must become a bounded Kevin detection/repair/verification responsibility when feasible.
+
+## P0 — live platform truth
+
+Fresh HESS-PC Support evidence at ~15:32 MT shows:
 
 - Benchmark **PASS 30/30, critical 0**.
-- UI Bridge exact hash matches, scheduled task is present, and heartbeat age is about **2.4 seconds**. The earlier multi-hour stale state is repaired.
-- Engineering Relay, Skill Lab, Maintenance Intake, Support Bridge, Benchmark and Supervisor jobs are all enabled and currently report `ok`, zero consecutive errors.
-- Maintenance Intake recovered to **NO_MANIFEST** after the failed UI-watchdog manifest was retired. Do not resurrect that failed request unchanged.
-- Installed Maintenance identity remains `AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D`.
-- The existing `reconcile_maintenance_cron_backoff` implementation has a latent installed/OpenClaw response-shape defect (`declarationKey` root-property assumption). It is not currently blocking because intake recovered naturally, but it must be repaired before relying on that recovery operation.
-- `ensure_ui_bridge_watchdog` failed closed at its staged self-test. A v1.3.46 repair design is durable in `docs/engineering/KEVIN-MAINTENANCE-V1346-DESIGN-2026-09-03.md` plus `docs/engineering/KEVIN-MAINTENANCE-V1346-QUALIFICATION-PLAN.json`. Do not call the watchdog installed.
+- Maintenance runner is **v1.3.48** with SHA256 `DFF72850E1BBBB2E18397AF38EB593E7234EEB634B596A4651F4537A688B77A9`.
+- Support Bridge, HQ Live Pulse, Maintenance Intake, Benchmark and Supervisor OpenClaw jobs are enabled, currently `ok`, zero consecutive errors.
+- desired-state v19 synchronization is **ALREADY_APPLIED_PROVEN**.
+- governance is intact; Kevin must not self-authorize permissions, arbitrary shell, production chat tools, financial transactions, purchases, external sends, credential access, safety weakening or automatic production promotion.
 
-## P1 — Kevin Desktop / local computer fluency
+A new typed GREEN Maintenance request is now queued to execute `retire_legacy_night_forge`. v1.3.48 binds this operation to the fixed `KevinNightForge` Windows task, backs it up, disables rather than deletes it, verifies modern Supervisor/Forge remain unchanged, requires Benchmark 30/30 and rolls back on failed verification. Do not replace this with arbitrary Task Scheduler access.
 
-PR #49 **Add bounded local Desktop fluency for Kevin** is merged on `main`.
+## P0 — tonight's visible owner skills
 
-Merged bounded tools:
+Four new GREEN composite skills were admitted through the existing Skill Lab path using only the already-proven `create_spreadsheet` and `create_text` primitives:
 
+- `tomorrow-field-work-command-pack@1`
+- `equipment-tool-control-pack@1`
+- `vehicle-transport-mission-pack@1`
+- `construction-daily-field-log-pack@1`
+
+The Engineering Relay / Skill Lab should stage, execute, prove and add these to the composite-skill registry without widening authority. Require real completed receipts and output hashes before calling them PROVEN. These are intended to give Matt useful files to inspect tonight, not merely demonstrate synthetic skill execution.
+
+After they prove, exercise at least one second-run/replay path without overwriting original proof receipts. Track which skills become repeatable owner procedures, not just one-time generated files.
+
+## P0 — Kevin Desktop / normal-chat hands
+
+Kevin Desktop source is merged and bounded. Intended fixed:main inventory remains exactly:
+
+- `kevin_system_status`
 - `kevin_desktop_find_folder`
 - `kevin_desktop_open_folder`
-- `kevin_app_launch` with fixed reviewed apps only: Notepad, Calculator, Paint, Explorer.
+- `kevin_app_launch` (Notepad, Calculator, Paint, Explorer only)
 
-This source is **MERGED / CI-PROVEN, NOT INSTALLED OR OMEN-PROVEN**.
+The Desktop plugin is still **NOT claimed installed/OMEN-proven** until fresh HESS-PC evidence proves the crossing. Existing diagnosis showed fixed:main had zero visible tools.
 
-The governed work item `computer-fluency-desktop-install-qualification` is real GREEN owner work. Supervisor independently selected it and ran the fixed main agent three times; the public continuation record shows turns=3 and `WAITING_ITEM_BUDGETS`. A model turn is not an accomplishment and there is no durable qualification artifact from those turns. Treat that as evidence that the current main-agent surface cannot complete the research contract, not as permission to reset the budget by renaming the task.
+Use `docs/engineering/KEVIN-DESKTOP-TYPED-CROSSING-CONTRACT-2026-09-03.md` as the production contract. Matt has explicitly adopted these exact bounded tools for the current mission. That owner adoption permits an exact-purpose OWNER-DIRECTED crossing, but it does not authorize Kevin to add arbitrary future production tools himself.
 
-Fresh `reports/main-tool-policy-diagnosis-omen.json` proves the root coding profile and protected global denies are present, but the real fixed:main canary has zero visible tools including no `kevin_system_status`.
+Crossing requirements remain exact-current config/plugin identity, backup, semantic-diff allowlist, validation, minimum restart, exact four-tool visible inventory, positive owner-intent tests, forbidden negative tests, Benchmark 30/30, rollback on failure and second representative replay.
 
-The exact target contract is now durable at `docs/engineering/KEVIN-DESKTOP-TYPED-CROSSING-CONTRACT-2026-09-03.md`:
+## P1 — next owner-value capability bus
 
-1. qualify installed OpenClaw plugin/config/tool-policy schema and exact-current identities;
-2. expose exactly `kevin_system_status` plus the three Desktop tools;
-3. preserve protected denies and reject arbitrary shell/filesystem/process/browser/session/keyboard/mouse/download/install/credential/permission authority;
-4. use exact-current backup/rollback/config-validation/semantic-diff gates;
-5. prove allowed real HESS-PC owner-intent actions and forbidden negatives;
-6. require fresh Benchmark 30/30 critical0 and restart/replay before transfer credit.
+Research from current local-agent systems converges on a useful pattern: a local model should gain many small typed tools, persistent structured memory, explicit tool sequencing, sandboxed experimentation and deterministic workflow automation rather than one unlimited host shell.
 
-## P1 — Maintenance v1.3.46 repair candidate
+Build toward the following capability families, in this order, only through bounded typed interfaces:
 
-Repair two evidence-proven defects without widening authority:
+1. approved-root Document/File Scout: find/read/summarize/compare job files, manuals, spreadsheets and notes; no arbitrary delete/write outside existing primitives;
+2. Tomorrow Work Brief: turn approved job/site/transport data into priorities, route/loadout, equipment/tools, contacts, blockers and morning gate;
+3. Equipment/Tool Locator: structured registry query + audited movement/maintenance workflow;
+4. Maintenance Troubleshooter: asset/VIN/symptom/manual evidence -> diagnostic checklist, likely causes, parts/tools and verification steps; no unsafe mechanical actuation;
+5. Research Scout: public web/manual/vendor/compliance research with citations; prepare recommendations but no purchases/sends;
+6. Browser Scout: isolated/profile-scoped browser with domain/action allowlists; start read/extract-only, then carefully add deterministic interactions;
+7. Job/Transport Logistics Planner: route/stops/timing/load checks using structured inputs; external commitments remain owner-gated;
+8. Protective Readiness Guardian: detect missing equipment, stale maintenance, conflicting locations/instructions, unresolved blockers and next-day readiness gaps.
 
-- normalize the fixed Maintenance cron query response instead of assuming root `.declarationKey`; require exactly one enabled fixed declaration and fail closed on ambiguity;
-- stage generated UI-watchdog self-test scripts with a `.ps1` filename before the existing bounded PowerShell `-File` self-test.
+Exploratory coding/browser work belongs in a sandbox. Production Kevin gets only reviewed, typed, tested primitives with explicit allowed roots/domains/actions and negative tests.
 
-Important: repository v1.3.45 bytes are **not assumed** to equal the installed Maintenance SHA. CI engineering may proceed against repo source, but production crossing requires separate exact-installed-source qualification plus compare-and-swap, backup, rollback, self-test and fresh Benchmark 30/30 critical0.
+## P1 — lifelong skill system upgrade
 
-## P2 — autonomy / work conservation
+Extend Kevin's current Skill Lab into a durable competency ledger. Each future capability should carry at minimum: stable ID/version, owner value/use case, authority class, required tools, allowed roots/domains/actions, prerequisites, positive acceptance tests, forbidden negative tests, proof receipt, real-use count, success/failure rate, last successful use, known failure families and retirement/supersession state.
 
-The deterministic Supervisor proved it can independently select the real computer-fluency item without Bess supplying an immediate work ID. That is meaningful selection proof, but not outcome proof or T4/T5 transfer.
+Preferred lifecycle:
 
-Do not manufacture cycles. When that item is budget-exhausted, admit a genuinely distinct owner-valued GREEN item only if it has independent acceptance criteria and a real downstream consumer. Highest-value next independent work is Maintenance v1.3.46 CI repair/qualification and exact installed-source qualification, followed by the Desktop typed crossing.
+`PLANNED -> LEARNING -> CANDIDATE -> PROVEN -> REPEATEDLY_PROVEN -> RESPONSIBILITY_TRANSFERRED -> RETIRED/SUPERSEDED`
 
-For every successful repair/crossing:
+The Supervisor should select the highest-value eligible skill gap or prerequisite. If blocked, work the prerequisite or another independent owner-valued item; do not manufacture activity.
 
-`detect -> classify -> gather evidence -> select qualified action -> execute -> verify semantic postcondition -> recover/rollback -> record -> create/revise procedure -> replay on a second representative task -> promote responsibility`
+HQ should eventually emphasize **skills proven, real uses, success rate, last use, owner minutes saved, unresolved blocker and next eligible upgrade**, not raw activity counts.
 
-## P2 — cross-AI convergence
+## P1 — autonomy / protective behavior
 
-Build a bounded approved-root convergence watchdog so Grokbot/local durable work cannot remain invisible. It may report only sanitized path/hash/drift metadata for explicitly approved Kevin roots. It must not crawl arbitrary user files, publish private content, expose credentials or gain generic file/shell authority.
+Kevin should increasingly protect Matt from avoidable misses, not merely answer when asked. Build bounded guardians for:
+
+- tomorrow-readiness gaps;
+- computer/service degradation;
+- approved-root local/repository drift;
+- equipment maintenance/inspection deadlines;
+- contradictory job/site/equipment instructions;
+- unresolved failed work that silently disappears.
+
+Protectiveness means surface the issue, evidence, impact, recommended next step and safe preparation. It does not mean sending messages, buying parts, changing permissions, moving money, accessing credentials or making owner commitments without authority.
+
+## P2 — architecture lessons from other local-agent builds
+
+Adopt the patterns, not wholesale third-party authority:
+
+- MCP/OpenAPI-style narrow tool servers for composable capabilities;
+- per-project/profile capability scoping;
+- durable memory blocks plus searchable archive/evidence;
+- declarative tool rules such as required-before-exit, parent/child sequences, max-call limits and approval gates;
+- Docker/sandboxed code execution for untrusted/generated work;
+- browser automation through isolated/profile-scoped sessions and explicit domain/action limits;
+- deterministic workflow engines for recurring logistics, with the LLM used at interpretation/decision points;
+- skill loading on demand rather than injecting every procedure into every prompt.
+
+Never import community tools/functions merely because they are popular. Review source and wrap the useful primitive behind Kevin's own authority boundary.
 
 ## Coordination
 
-Foreground Bess mutation is complete for this checkpoint. The single scheduled ChatGPT `Kevin Chief Engineer` is re-enabled with this current queue and may resume canonical outside-engineer ownership. Keep all obsolete/duplicate scheduled Kevin engineers disabled. If a future foreground Bess/Grok session begins mutating shared state, the scheduled engineer should observe only until that foreground writer hands control back.
+The scheduled ChatGPT `Kevin Chief Engineer` is currently **disabled**; foreground Bess is the outside writer for this value sprint. Qualified Kevin-local schedulers may continue. Do not enable competing outside writers while this session is actively mutating shared state.
+
+Fresh correlated HESS-PC evidence outranks this prose. Local-only durable work is unfinished until its intent and sanitized proof are published. Repository/CI work is not production until HESS-PC proves the installed result.
 
 ---
 
@@ -166,6 +210,6 @@ Never infer a higher state from a lower one. Never widen authority merely to mak
 
 This handover is generated by `.github/scripts/build-canonical-handover.py` and refreshed by `.github/workflows/canonical-handover.yml`.
 
-Semantic fingerprint: `551E20D37B7129FD32FFC6A4C1CF5C6BE46DBE7A708145F16CB26CB2D3AE3411`
+Semantic fingerprint: `B69E1BE168962FB3991EC30115C846DF7A7756AA21B4AAFFA7D19DB3C230B1D3`
 
 **Fresh runtime evidence first; one handover; publish every durable local change; then continue.**
