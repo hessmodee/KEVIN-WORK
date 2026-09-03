@@ -1,0 +1,82 @@
+name: Kevin Maintenance v1.3.46 Candidate
+
+on:
+  push:
+    branches: [bess-maintenance-v1346-20260903]
+    paths:
+      - '.github/scripts/build-maintenance-v1346.py'
+      - '.github/workflows/maintenance-v1346-candidate.yml'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1'
+  pull_request:
+    paths:
+      - '.github/scripts/build-maintenance-v1346.py'
+      - '.github/workflows/maintenance-v1346-candidate.yml'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.46.ps1'
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate exact candidate
+        run: python .github/scripts/build-maintenance-v1346.py
+      - name: Candidate invariants
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          p=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.46.ps1')
+          b=p.read_bytes(); t=b.decode('utf-8')
+          assert "version='1.3.46'" in t
+          assert "if(-not $benchOk)" in t and "if(-not $hbFresh)" in t
+          assert "'.ps1';[IO.File]::WriteAllText($tmp,$text,$Utf8)" in t
+          assert 'sync_local_desired_state_v18' in t
+          assert 'Invoke-Expression' not in t
+          print('V1346_STATIC_PASS sha256='+hashlib.sha256(b).hexdigest().upper())
+          PY
+      - name: Commit generated candidate on branch push
+        if: github.event_name == 'push'
+        run: |
+          if git diff --quiet -- control-plane/maintenance/kevin-maintenance-runner-v1.3.46.ps1; then
+            echo 'Candidate already exact.'
+            exit 0
+          fi
+          git config user.name 'Kevin Candidate Builder'
+          git config user.email 'actions@users.noreply.github.com'
+          git add control-plane/maintenance/kevin-maintenance-runner-v1.3.46.ps1
+          git commit -m 'generate exact Maintenance v1.3.46 candidate'
+          git push origin HEAD:${{ github.ref_name }}
+
+  windows-selftest:
+    if: github.event_name == 'pull_request'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Regenerate and require tracked bytes
+        shell: pwsh
+        run: |
+          python .github/scripts/build-maintenance-v1346.py
+          if (git diff --exit-code -- control-plane/maintenance/kevin-maintenance-runner-v1.3.46.ps1) { } else { throw 'tracked candidate differs from deterministic generator' }
+      - name: PowerShell parser and selftest
+        shell: powershell
+        run: |
+          $p='control-plane/maintenance/kevin-maintenance-runner-v1.3.46.ps1'
+          $tokens=$null;$errors=$null
+          [void][Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p),[ref]$tokens,[ref]$errors)
+          if($errors.Count -gt 0){$errors|ForEach-Object{Write-Error $_.Message};exit 1}
+          $env:KEVIN_MAINT_TEST_ROOT=Join-Path $env:RUNNER_TEMP 'kevin-maint-v1346-test'
+          New-Item -ItemType Directory -Force -Path $env:KEVIN_MAINT_TEST_ROOT|Out-Null
+          powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest
+          if($LASTEXITCODE -ne 0){exit $LASTEXITCODE}
