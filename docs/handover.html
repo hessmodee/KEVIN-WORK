@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="color-scheme" content="dark"/>
+<title>Kevin Canonical Handover</title>
+<style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:#e8eee4;background:#0b0e0b}*{box-sizing:border-box}body{margin:0;background:#0b0e0b;color:#e8eee4}.bar{position:sticky;top:0;z-index:2;display:flex;gap:10px;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(11,14,11,.96);border-bottom:1px solid #334033}.title{font-weight:800;letter-spacing:.02em}.sub{font-size:12px;color:#a7b6a1}.actions{display:flex;gap:8px;flex-wrap:wrap}a,button{border:1px solid #4b5e49;background:#151c15;color:#dce8d7;border-radius:9px;padding:8px 10px;text-decoration:none;font:700 12px/1 system-ui;cursor:pointer}.primary{background:#c2d5b6;color:#10150f;border-color:#c2d5b6}.wrap{max-width:1180px;margin:0 auto;padding:18px}.status{padding:12px 14px;border:1px solid #334033;border-radius:12px;background:#111611;margin-bottom:14px;font-size:13px}.status strong{color:#c2d5b6}pre{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.52 ui-monospace,SFMono-Regular,Consolas,monospace;background:#0f140f;border:1px solid #334033;border-radius:12px;padding:18px;min-height:55vh}.error{color:#ffb4ab}@media(max-width:650px){.bar{align-items:flex-start;flex-direction:column}.wrap{padding:10px}pre{font-size:12px;padding:12px}}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div><div class="title">Kevin — Canonical AI Handover</div><div class="sub">One current turnover surface for every AI agent</div></div>
+  <div class="actions">
+    <a href="./" aria-label="Return to Kevin HQ">HQ</a>
+    <a href="https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a class="primary" href="https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/AI-HANDOVER.md" target="_blank" rel="noopener noreferrer">Raw</a>
+    <button id="refresh" type="button">Refresh</button>
+  </div>
+</header>
+<main class="wrap">
+  <div class="status" id="status"><strong>Loading</strong> the canonical handover from GitHub main…</div>
+  <pre id="handover" aria-live="polite"></pre>
+</main>
+<script>
+const RAW='https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/AI-HANDOVER.md';
+const out=document.getElementById('handover');
+const status=document.getElementById('status');
+async function load(){
+  status.innerHTML='<strong>Loading</strong> the canonical handover from GitHub main…';
+  out.textContent='';
+  try{
+    const r=await fetch(RAW+'?t='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const text=await r.text();
+    out.textContent=text;
+    status.innerHTML='<strong>LIVE SHARED SOURCE:</strong> AI-HANDOVER.md from KEVIN-WORK/main. Fresh HESS-PC evidence can still outrank prose as stated in the document.';
+  }catch(e){
+    status.innerHTML='<strong class="error">Could not load the raw handover.</strong> Use the GitHub or Raw button above. '+String(e);
+  }
+}
+document.getElementById('refresh').addEventListener('click',load);
+load();
+</script>
+</body>
+</html>
