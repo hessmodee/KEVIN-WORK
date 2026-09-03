@@ -1,17 +1,41 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-02T19:07:49.6968718-06:00",
+    "generated_at":  "2026-09-02T19:09:51.4894994-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
-                    "id":  "",
-                    "operation":  "",
-                    "status":  "NO_REQUEST",
-                    "detail":  "No engineering request is waiting."
+                    "id":  "bess-bridge-selftests-20260903010943",
+                    "operation":  "action_selftests",
+                    "status":  "DONE",
+                    "detail":  "Action self-tests completed."
                 },
     "result":  {
-
+                   "operator":  {
+                                    "exit_code":  0,
+                                    "summary":  "GREEN OPERATOR v0.3.3 SELFTEST PASS allowlist=3 ui_bridge=InteractiveToken negative_blocks=5 generic_mouse_keyboard=false"
+                                },
+                   "initiative":  {
+                                      "exit_code":  0,
+                                      "summary":  "INITIATIVE ENGINE v0.3 SELFTEST PASS green_only=true ui_bridge_first_win=valid nested_rows=true daily_budget=4"
+                                  },
+                   "ui_bridge":  {
+                                     "hash_match":  true,
+                                     "task_present":  true,
+                                     "heartbeat":  {
+                                                       "schema":  1,
+                                                       "kind":  "kevin-ui-bridge-heartbeat",
+                                                       "version":  "0.3.3",
+                                                       "at":  "2026-09-02T12:07:05.4885347-06:00",
+                                                       "state":  "READY",
+                                                       "detail":  "Interactive UI Bridge online; Notepad-only GREEN requests accepted.",
+                                                       "session_id":  1,
+                                                       "explorer_same_session":  true,
+                                                       "user":  "HESS-PC\\hessm",
+                                                       "process_id":  126160,
+                                                       "authority":  "GREEN_NOTEPAD_ONLY"
+                                                   }
+                                 }
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -27,7 +51,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  25244.2
+                                     "heartbeat_age_seconds":  25366
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -67,20 +91,6 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-skill-lab-v1",
-                                    "enabled":  true,
-                                    "every_ms":  120000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-support-bridge-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-maintenance-intake-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
@@ -88,9 +98,23 @@
                                     "consecutive_errors":  0
                                 },
                                 {
+                                    "declaration_key":  "kevin-skill-lab-v1",
+                                    "enabled":  true,
+                                    "every_ms":  120000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
                                     "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
