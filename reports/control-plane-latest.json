@@ -1,10 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-09-02T22:26:00.2452992-06:00",
-    "request":  null,
-    "status":  "IDLE_NO_ORDER",
-    "detail":  "No current work order; awaiting next bounded GREEN order",
+    "generated_at":  "2026-09-03T10:51:06.6480636-06:00",
+    "request":  {
+                    "id":  "bess-run-maint-ui-20260903-1050",
+                    "verb":  "run_typed_maintenance",
+                    "target":  "kevin-maintenance-v1"
+                },
+    "status":  "SUCCESS",
+    "detail":  "maintenance proven status=ALREADY_APPLIED_PROVEN manifest=bess-ui-bridge-restart-20260903-1045",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
