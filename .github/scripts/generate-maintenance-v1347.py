@@ -94,7 +94,7 @@ new_fn = newline.join(fn_lines)
 text = text[:start] + new_fn + text[end:]
 
 text = replace_exact(text, "version='1.3.46'", "version='1.3.47'")
-text = replace_exact(text, "'sync_local_desired_state_v18'", "'sync_local_desired_state_v19'", count=2)
+text = replace_exact(text, "'sync_local_desired_state_v18'", "'sync_local_desired_state_v19'", count=5)
 text = replace_exact(text, "Sync-LocalDesiredStateV18", "Sync-LocalDesiredStateV19", count=1)
 text = replace_exact(
     text,
