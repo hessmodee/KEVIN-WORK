@@ -1,0 +1,54 @@
+name: Kevin Maintenance v1.3.45 transfer
+on:
+  push:
+    branches:
+      - kevin-maintenance-v1345-transfer
+    paths:
+      - tools/generate-maintenance-v1.3.45.py
+      - control-plane/maintenance/kevin-maintenance-runner-v1.3.44.ps1
+      - control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1
+      - .github/workflows/kevin-maintenance-v1345.yml
+  pull_request:
+    paths:
+      - tools/generate-maintenance-v1.3.45.py
+      - control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1
+      - .github/workflows/kevin-maintenance-v1345.yml
+permissions:
+  contents: write
+jobs:
+  windows-powershell51:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+          fetch-depth: 0
+      - name: Deterministically generate candidate from exact v1.3.44
+        shell: powershell
+        run: |
+          python .\tools\generate-maintenance-v1.3.45.py
+          if ($LASTEXITCODE -ne 0) { throw 'deterministic candidate generation failed' }
+          $expected='9615BE7D546F0482A0D295CABD01D87411C4FC93159349CEFC40594FDD6E8CD2'
+          $actual=(Get-FileHash .\control-plane\maintenance\kevin-maintenance-runner-v1.3.45.ps1 -Algorithm SHA256).Hash
+          if ($actual -ne $expected) { throw "candidate hash mismatch actual=$actual" }
+      - name: Parse and self-test on Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $p=Join-Path $PWD 'control-plane\maintenance\kevin-maintenance-runner-v1.3.45.ps1'
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile($p,[ref]$tokens,[ref]$errors)
+          if ($errors.Count) { throw ($errors | Out-String) }
+          $out=(& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File $p -SelfTest 2>&1 | Out-String)
+          Write-Host $out
+          if ($LASTEXITCODE -ne 0 -or $out -notmatch 'KEVIN MAINTENANCE v1.3.45 SELFTEST PASS') { throw 'Maintenance v1.3.45 self-test failed' }
+      - name: Materialize generated source on transfer branch
+        if: github.event_name == 'push'
+        shell: powershell
+        run: |
+          git add control-plane/maintenance/kevin-maintenance-runner-v1.3.45.ps1
+          git diff --cached --quiet
+          if ($LASTEXITCODE -eq 0) { Write-Host 'Generated source already materialized'; exit 0 }
+          git config user.name 'Kevin Engineering CI'
+          git config user.email 'actions@users.noreply.github.com'
+          git commit -m 'Materialize Maintenance v1.3.45 candidate'
+          git push origin HEAD:${{ github.ref_name }}
