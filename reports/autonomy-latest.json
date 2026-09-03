@@ -1,32 +1,43 @@
 {
-    "schema":  1,
-    "kind":  "kevin-autonomy-public",
-    "generated_at":  "2026-09-03T11:20:08.7128564-06:00",
+    "schema":  2,
+    "kind":  "kevin-full-autonomy-assessment",
+    "generated_at":  "2026-09-03T12:19:08.4301829-06:00",
     "state":  "NEEDS_REVIEW",
-    "fingerprint":  "9987CD34AF96F0415E970F9A8D4045CF8302EDD22B75244FC930F3F46201428B",
+    "safe_for_public_repo":  true,
+    "benchmark":  {
+                      "status":  "PASS",
+                      "passed":  30,
+                      "total":  30,
+                      "critical":  0,
+                      "at":  "2026-09-03T12:17:19.3460539-06:00"
+                  },
     "drift_count":  1,
-    "selected_action":  null,
-    "action_ok":  null,
-    "failure_budget":  {
-                           "family":  "benchmark_not_pass",
-                           "attempts":  3,
-                           "cooldown_until":  null
-                       },
-    "work_conserving":  {
-                            "schema":  1,
-                            "generated_at":  "2026-09-03T11:20:08.6850433-06:00",
-                            "active_engineering_workers":  0,
-                            "supervisor_blocked_or_cooling":  false,
-                            "next_suggested_candidate":  null,
-                            "status":  "NO_DISPATCH_NEEDED",
-                            "candidate_only":  true,
-                            "note":  "This queue is advisory in v0.1. It never grants authority and never executes arbitrary code."
-                        },
-    "safety":  {
-                   "green_only":  true,
-                   "arbitrary_shell":  false,
-                   "authority_expansion":  false,
-                   "novel_production_promotion":  false
-               },
-    "semantic_hash":  "D8149232A30D7CEF7BB8919B50D2D2467E787C2A31E39ABB0A0EFA85BCC1051C"
+    "drift":  [
+                  "maintenance_runner"
+              ],
+    "ui_bridge":  {
+                      "fresh":  true,
+                      "heartbeat_age_seconds":  2.6
+                  },
+    "main_agent":  {
+                       "latest_canary_at":  "2026-09-02T22:39:46.1070092-06:00",
+                       "visible_tool_count":  0
+                   },
+    "scheduled_selection":  {
+                                "at":  "2026-09-03T12:17:33.4987953-06:00",
+                                "status":  "WAITING_ITEM_BUDGETS"
+                            },
+    "active_blockers":  [
+                            "BENCHMARK_NOT_PASS",
+                            "CORE_IDENTITY_DRIFT",
+                            "UI_BRIDGE_STALE",
+                            "MAIN_AGENT_TOOL_SURFACE_EMPTY"
+                        ],
+    "legacy_failure_budget":  {
+                                  "preserved_as_history":  true,
+                                  "active_blocker":  false,
+                                  "note":  "Historical exhausted incidents are not treated as current platform blockers after independent recovery evidence."
+                              },
+    "authority_effect":  "NONE_AUDIT_ONLY",
+    "truth_boundary":  "Fresh local assessment of current Benchmark/core identities/UI heartbeat/main canary/scheduled selection. Historical failures remain records but do not override current evidence."
 }
