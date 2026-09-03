@@ -3,8 +3,8 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-03T11:03:47.6767175-06:00",
-  "semantic_fingerprint_sha256": "09CC548B7A464BCCCF412F0FA45E4F439B163F69AE2AAF510601AACCBBCD362D",
+  "evidence_updated_at": "2026-09-03T11:05:26.1145311-06:00",
+  "semantic_fingerprint_sha256": "CC65E3FB08040744B158AC53B3217BAFF4879808843A8A89044A152BAA1C18B0",
   "semantic_checkpoint": {
     "current_task_sha256": "A683B6A081DC5A64EA8BC4A8DB1957FE62C93E0F23BD131FD223C77EABB48B1D",
     "benchmark": {
@@ -19,8 +19,8 @@
     "autonomy_status": "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF",
     "autonomy_eligible_count": 1,
     "maintenance": {
-      "status": "APPLY_FAILED",
-      "detail": "UI watchdog staged selftest failed"
+      "status": "BLOCKED_FAILURE_BUDGET",
+      "detail": "Failure budget exhausted."
     },
     "queues": {
       "ready": 0,
@@ -74,7 +74,7 @@
   "source_hashes": {
     "current_task_sha256": "A683B6A081DC5A64EA8BC4A8DB1957FE62C93E0F23BD131FD223C77EABB48B1D",
     "engineering_sha256_at_checkpoint": "397F5D99473ACB926D346CEB4893F3B6B934DEDF7A54743A7795E96F19AA40CD",
-    "support_sha256_at_checkpoint": "181ACADF02DE63BB0DC777EC7E74D9441C8629673C032AA0BFB1D52FA0B6D109",
+    "support_sha256_at_checkpoint": "3F82F8146B0BD12D801BF7A994419BEBB1DAC9286EBAB1C6D3ADA03490A05A45",
     "autonomy_sha256_at_checkpoint": "8F727FB92BB7BA8EF6BDA7E554374F6D628BC9EE55E868EFE920B4E9D2C83FED"
   },
   "universal_access": {
@@ -92,7 +92,7 @@
   },
   "runtime_snapshot": {
     "engineering_at_checkpoint": "2026-09-03T11:03:47.6767175-06:00",
-    "support_at_checkpoint": "2026-09-03T11:02:26.1001505-06:00",
+    "support_at_checkpoint": "2026-09-03T11:05:26.1145311-06:00",
     "autonomy_at_checkpoint": "2026-09-03T11:03:42.2685216-06:00",
     "benchmark": {
       "status": "PASS",
@@ -103,8 +103,8 @@
     "ui_bridge_heartbeat_age_seconds_at_checkpoint": 4.3,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
-    "maintenance_status": "APPLY_FAILED",
-    "maintenance_detail": "UI watchdog staged selftest failed",
+    "maintenance_status": "BLOCKED_FAILURE_BUDGET",
+    "maintenance_detail": "Failure budget exhausted.",
     "proven_composite_skills": 9,
     "maintenance_runner_sha256": "AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D"
   },
