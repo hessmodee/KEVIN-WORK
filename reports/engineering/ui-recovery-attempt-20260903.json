@@ -1,0 +1,50 @@
+{
+  "attempts_this_incident": 1,
+  "benchmark": {
+    "at": "2026-09-02T19:15:19.0724114-06:00",
+    "model_status": "SKIPPED_NOT_DUE",
+    "regression": {
+      "critical_failures": 1,
+      "failed": [
+        {
+          "category": "config",
+          "critical": true,
+          "detail": "Production config frozen",
+          "id": "R04"
+        }
+      ],
+      "passed": 29,
+      "percent": 96.7,
+      "total": 30
+    },
+    "status": "FAIL_CRITICAL_REGRESSION"
+  },
+  "decision": "Retire after first failed heartbeat recovery; no automatic retry or lesson UI execution.",
+  "kind": "kevin-ui-recovery-attempt-evidence",
+  "maintenance": {
+    "at": "2026-09-02T19:15:32.3154896-06:00",
+    "detail": "UI Bridge did not produce fresh READY heartbeat",
+    "manifest_id": "bess-ui-recovery-20260903011136",
+    "stage_path": "",
+    "status": "APPLY_FAILED"
+  },
+  "manifest": {
+    "authority_class": "GREEN",
+    "authority_delta": "NONE",
+    "expected_current_sha256": "5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42",
+    "expires_at": "2026-09-03T01:31:36.835Z",
+    "heartbeat_timeout_seconds": 15,
+    "id": "bess-ui-recovery-20260903011136",
+    "kind": "kevin-self-maintenance-manifest",
+    "operation": "restart_ui_bridge",
+    "owner_policy": "Kevin Owner Authorization v1",
+    "preauthorized": true,
+    "production_effect": "NONE",
+    "schema": 3,
+    "target_alias": "ui_bridge_runner",
+    "task_name": "Kevin UI Bridge v0.3"
+  },
+  "recorded_at": "2026-09-03T01:16:09.552Z",
+  "schema": 1,
+  "source_generated_at": "2026-09-02T19:15:41.7379488-06:00"
+}
