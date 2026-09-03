@@ -1,15 +1,81 @@
 {
-  "schema": 3,
+  "schema": 4,
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
   "evidence_updated_at": "2026-09-03T10:44:43.4878856-06:00",
-  "source_fingerprint_sha256": "5B228AC364D74A82FA02AC81477C8EE8758C539C0B5FCA2896C9317D865414E4",
+  "semantic_fingerprint_sha256": "495A88D46BB651117500B9AFAFB07E6441428813813E5C23B07E7DD2560314E0",
+  "semantic_checkpoint": {
+    "current_task_sha256": "A683B6A081DC5A64EA8BC4A8DB1957FE62C93E0F23BD131FD223C77EABB48B1D",
+    "benchmark": {
+      "status": "PASS",
+      "passed": 30,
+      "total": 30,
+      "critical": 0
+    },
+    "ui_bridge_health": "STALE",
+    "ui_bridge_task_present": true,
+    "supervisor_last_result": "NO_ELIGIBLE_MISSION",
+    "autonomy_status": "IDLE_NO_ELIGIBLE_DEMAND",
+    "autonomy_eligible_count": 0,
+    "maintenance": {
+      "status": "ERROR",
+      "detail": "manifest expired"
+    },
+    "queues": {
+      "ready": 0,
+      "running": 0,
+      "failed": 1
+    },
+    "composite_skills": {
+      "proven_count": 9,
+      "failed": 1,
+      "latest_proven_key": "kevin-ui-recovery-functional-proof@1"
+    },
+    "maintenance_runner_sha256": "AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D",
+    "cron": [
+      {
+        "key": "kevin-benchmark-v1",
+        "enabled": true,
+        "last_status": "ok",
+        "consecutive_errors": 0,
+        "every_ms": 600000
+      },
+      {
+        "key": "kevin-hq-live-pulse-v15",
+        "enabled": true,
+        "last_status": "ok",
+        "consecutive_errors": 0,
+        "every_ms": 60000
+      },
+      {
+        "key": "kevin-maintenance-intake-v1",
+        "enabled": true,
+        "last_status": "error",
+        "consecutive_errors": 6,
+        "every_ms": 300000
+      },
+      {
+        "key": "kevin-supervisor-v1",
+        "enabled": true,
+        "last_status": "ok",
+        "consecutive_errors": 0,
+        "every_ms": 300000
+      },
+      {
+        "key": "kevin-support-bridge-v1",
+        "enabled": true,
+        "last_status": "ok",
+        "consecutive_errors": 0,
+        "every_ms": 180000
+      }
+    ]
+  },
   "source_hashes": {
     "current_task_sha256": "A683B6A081DC5A64EA8BC4A8DB1957FE62C93E0F23BD131FD223C77EABB48B1D",
-    "engineering_sha256": "67C06491C171AF38584E0BD9A0388EC73F5CDA268BC01E32F47C292E9459A98D",
-    "support_sha256": "B6D6B76F670EE6B14BA17D16EAFD891CEF1D4C1E7AD3162865C1FC6AA82C6C6A",
-    "autonomy_sha256": "7472531555FF62DB0A715B2449D64A52A2B7C2FE28FE3D16B2EEA82744244F5E"
+    "engineering_sha256_at_checkpoint": "67C06491C171AF38584E0BD9A0388EC73F5CDA268BC01E32F47C292E9459A98D",
+    "support_sha256_at_checkpoint": "B6D6B76F670EE6B14BA17D16EAFD891CEF1D4C1E7AD3162865C1FC6AA82C6C6A",
+    "autonomy_sha256_at_checkpoint": "7472531555FF62DB0A715B2449D64A52A2B7C2FE28FE3D16B2EEA82744244F5E"
   },
   "universal_access": {
     "github": "https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md",
@@ -21,24 +87,33 @@
     "no_dated_replacement_handoffs": true,
     "durable_local_work_must_be_published": true,
     "local_only_changes_are_not_complete": true,
-    "required_checkpoint_after_material_change": true
+    "required_checkpoint_after_material_change": true,
+    "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at": "2026-09-03T10:44:43.4878856-06:00",
-    "support_at": "2026-09-03T10:44:26.1614532-06:00",
-    "autonomy_at": "2026-09-03T10:42:33.0293771-06:00",
+    "engineering_at_checkpoint": "2026-09-03T10:44:43.4878856-06:00",
+    "support_at_checkpoint": "2026-09-03T10:44:26.1614532-06:00",
+    "autonomy_at_checkpoint": "2026-09-03T10:42:33.0293771-06:00",
     "benchmark": {
       "status": "PASS",
       "passed": 30,
       "total": 30,
       "critical": 0
     },
-    "ui_bridge_heartbeat_age_seconds": 13294.2,
+    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 13294.2,
+    "ui_bridge_health": "STALE",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
+    "maintenance_status": "ERROR",
+    "maintenance_detail": "manifest expired",
     "proven_composite_skills": 9,
     "maintenance_runner_sha256": "AC55B4813F39642E82E8C19B2CB0CEFB6D7D5BCF953470B66B33773909436A0D"
   },
   "current_task_path": "inbox/CURRENT_TASK.md",
+  "fresh_runtime_sources": [
+    "reports/support-latest.json",
+    "reports/engineering/latest.json",
+    "reports/autonomy-continuation-latest.json"
+  ],
   "privacy": {
     "public_safe_metadata_only": true,
     "secrets_allowed": false,
