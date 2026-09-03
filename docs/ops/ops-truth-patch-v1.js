@@ -15,7 +15,7 @@ function job(s,key){return supportJobs(s).find(j=>j?.declaration_key===key)||nul
 function livePulseHealthy(s){const j=job(s,'kevin-hq-live-pulse-v15'),at=ms(j?.last_run_at_ms);return !!(j?.enabled&&norm(j?.last_status)==='ok'&&norm(j?.last_run_status||j?.last_status)==='ok'&&Number(j?.consecutive_errors||0)===0&&at>0&&Math.max(0,Date.now()-at)<=180000)}
 function normalizedEvidenceAgeMs(d,s){const vals=[parseTimestamp(d?.generated_at),parseTimestamp(s?.generated_at),ms(job(s,'kevin-hq-live-pulse-v15')?.last_run_at_ms)].filter(v=>Number.isFinite(v)&&v>0);return vals.length?Math.max(0,Date.now()-Math.max(...vals)):Infinity}
 function explicitActiveStates(d,s){
- const out=new Set(),aw=s?.active_workers||{},t=d?.current_task||null,tt=`${norm(t?.id)} ${norm(t?.title)} ${norm(t?.category)} ${norm(t?.phase)} ${norm(t?.source)}`;
+ const out=new Set(),aw=ageSeconds(s?.generated_at)<=600?s?.active_workers||{}:{},t=ageSeconds(d?.generated_at)<=600?d?.current_task||null:null,tt=`${norm(t?.id)} ${norm(t?.title)} ${norm(t?.category)} ${norm(t?.phase)} ${norm(t?.source)}`;
  if(Number(aw?.design_forge||0)>0)out.add('BUILDING');
  if(Number(aw?.night_forge||0)>0||Number(aw?.supervisor||0)>0||Number(aw?.benchmark||0)>0)out.add('WORKING');
  if(taskActive(t)){

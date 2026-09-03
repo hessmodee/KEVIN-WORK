@@ -73,6 +73,7 @@ async function classify(fixture) {
     ['governance failure', f => {f.support.governance.ok = false;}, ['DEGRADED']],
     ['cooldown', f => {f.support.supervisor = {last_result: 'WAIT'};}, ['COOLDOWN']],
     ['no scheduler', f => {f.support.cron.jobs = [];}, ['READY']],
+    ['stale active evidence', f => {f.dashboard.generated_at = f.support.generated_at = new Date(now - 7200000).toISOString(); f.dashboard.current_task={phase:'executing',title:'Reader'}; f.support.active_workers={supervisor:1};}, ['OFFLINE']],
     ['stale evidence', f => {f.dashboard.generated_at = f.support.generated_at = new Date(now - 7200000).toISOString();}, ['OFFLINE']],
   ];
   for (const [name, modify, expected] of cases) {
@@ -80,5 +81,5 @@ async function classify(fixture) {
     modify(fixture);
     assert.deepEqual(await classify(fixture), expected, name);
   }
-  console.log('PASS HQ overview destination and 9 real-overlay status scenarios');
+  console.log('PASS HQ overview destination and 10 real-overlay status scenarios');
 })().catch(error => {console.error(error); process.exitCode = 1;});

@@ -3,11 +3,12 @@ name: Kevin HQ Newswire
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '7,22,37,52 * * * *'
   push:
     branches: [main]
     paths:
       - .github/scripts/build-hq-newswire.py
+      - .github/scripts/publish-hq-newswire.py
       - .github/workflows/hq-newswire.yml
 
 permissions:
@@ -46,18 +47,4 @@ jobs:
         run: |
           git config user.name 'Kevin Newswire'
           git config user.email 'actions@users.noreply.github.com'
-          git add reports/newswire-latest.json
-          if git diff --cached --quiet; then
-            echo 'Newswire unchanged.'
-            exit 0
-          fi
-          git commit -m 'kevin hq newswire'
-          for n in 1 2 3; do
-            if git pull --rebase origin main && git push origin HEAD:main; then
-              exit 0
-            fi
-            git rebase --abort || true
-            sleep $((n*3))
-          done
-          echo 'Could not publish newswire after bounded retries.' >&2
-          exit 1
+          python .github/scripts/publish-hq-newswire.py

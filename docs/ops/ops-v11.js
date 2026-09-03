@@ -13,7 +13,7 @@ const WORKERS=[
  {key:'ollama',name:'Ollama',role:'Local inference',c:'#7fe38d'},
  {key:'bridge',name:'Bridge',role:'GitHub sync',c:'#4ad3ff'},
  {key:'tick',name:'Tick',role:'Health + telemetry',c:'#f56bd0'},
- {key:'build',name:'Build Lab',role:'Design Forge v3.6',c:'#ff9a3d'},
+ {key:'build',name:'Build Lab',role:'Candidate design',c:'#ff9a3d'},
  {key:'benchmark',name:'Benchmark',role:'Regression + fitness',c:'#68d8ce'},
  {key:'staging',name:'Staging',role:'Policy-gated champion',c:'#ffe06b'},
  {key:'night',name:'Night Forge',role:'QA gate',c:'#b38cff'},
@@ -35,7 +35,7 @@ function kevinProd(mode='ready',small=false){return `<div class="kevin-avatar-pr
 function msOf(v){const n=Number(v||0);return Number.isFinite(n)?n:0}
 function cronJob(s,key){return (s?.cron?.jobs||[]).find(j=>j?.declaration_key===key)||null}
 function recentlyRan(job,withinMs){const at=msOf(job?.last_run_at_ms);return at>0 && Math.abs(Date.now()-at)<=withinMs}
-function taskActive(t){if(!t)return false;const p=norm(t.phase);return !/yield|cooldown|wait|skip|queued|idle|armed|complete|completed|done|stopped/.test(p)}
+function taskActive(t){if(!t)return false;const p=norm(t.phase);return !/yield|cooldown|wait|skip|queued|idle|armed|complete|completed|done|stopped|failed|rejected|cancelled/.test(p)}
 function taskText(t){return `${norm(t?.id)} ${norm(t?.title)} ${norm(t?.category)} ${norm(t?.phase)} ${norm(t?.source)}`}
 function telemetryAgeMs(d,s){const vals=[d?.generated_at,s?.generated_at].map(v=>Date.parse(v||'')).filter(Number.isFinite);return vals.length?Math.max(0,Date.now()-Math.max(...vals)):Infinity}
 function telemetryOffline(d,s){return telemetryAgeMs(d,s)>15*60*1000}
@@ -76,44 +76,45 @@ function workerProgress(key,state,d,s){
 
 
 function workerState(key,d,s){
- const bw=s?.active_workers||{};
- const t=d?.current_task||null;
+ const fresh=x=>{const age=Date.now()-Date.parse(x?.generated_at||'');return Number.isFinite(age)&&age>=-60000&&age<=600000};
+ const bw=fresh(s)?s?.active_workers||{}:{};
+ const t=fresh(d)?d?.current_task||null:null;
  const tt=taskText(t);
  if(telemetryOffline(d,s)) return 'offline';
  if(key==='bridge'){
    if(norm(d?.services?.bridge)!=='healthy')return 'degraded';
-   return recentlyRan(cronJob(s,'kevin-support-bridge-v1'),45000)?'working':'ready';
+   return Number(bw.bridge)>0?'working':'ready';
  }
  if(key==='tick'){
    if(norm(d?.services?.tick)!=='healthy')return 'degraded';
-   return recentlyRan(cronJob(s,'kevin-hq-live-pulse-v15'),20000)?'working':'ready';
+   return Number(bw.tick)>0?'working':'ready';
  }
  if(key==='ollama'){
    if(norm(d?.services?.ollama)!=='healthy')return 'degraded';
    return taskActive(t)&&Number(d?.system?.gpu_pct||0)>=20?'working':'ready';
  }
  if(key==='benchmark'){
-   if((bw?.benchmark||0)>0||/benchmark/.test(tt))return 'working';
+   if((bw?.benchmark||0)>0||(taskActive(t)&&/benchmark/.test(tt)))return 'working';
    return norm(s?.benchmark?.status)==='pass'?'ready':'degraded';
  }
  if(key==='build'){
-   if((bw?.design_forge||0)>0||/design forge|forge|build|builder/.test(tt))return 'building';
+   if((bw?.design_forge||0)>0||(taskActive(t)&&/design forge|forge|build|builder/.test(tt)))return 'building';
    return 'ready';
  }
  if(key==='night'){
-   if((bw?.night_forge||0)>0||/night[- ]forge|night forge|qa\/regression/.test(tt))return 'working';
+   if((bw?.night_forge||0)>0||(taskActive(t)&&/night[- ]forge|night forge|qa\/regression/.test(tt)))return 'working';
    return 'ready';
  }
  if(key==='reader'){
-   if(taskActive(t)&&/reader|read-only|research|source review/.test(tt))return 'working';
+   if(Number(bw.reader)>0||(taskActive(t)&&/reader|read-only|research|source review/.test(tt)))return 'working';
    return 'ready';
  }
  if(key==='staging'){
-   if(taskActive(t)&&/staging|promotion|champion/.test(tt))return 'working';
+   if(Number(bw.staging)>0||(taskActive(t)&&/staging|promotion|champion/.test(tt)))return 'working';
    return 'ready';
  }
  if(key==='chat'){
-   if(taskActive(t)&&/chat|reasoning|analysis|planning|conversation/.test(tt))return 'working';
+   if(Number(bw.chat)>0||(taskActive(t)&&/chat|reasoning|analysis|planning|conversation/.test(tt)))return 'working';
    return 'ready';
  }
  return 'ready';
@@ -177,6 +178,7 @@ async function load(){
  const top=document.getElementById('topology');top.querySelectorAll('.worker,.line').forEach(x=>x.remove());
  const center={x:top.clientWidth/2,y:top.clientHeight/2},positions=ringPositions(top,WORKERS.length),active=[];
  WORKERS.forEach((w,i)=>{const st=workerState(w.key,d,s),p=positions[i];if(['working','building'].includes(st))active.push({w,st});lineBetween(top,center,p,st);const prog=workerProgress(w.key,st,d,s),el=document.createElement('div');el.className=`worker ${st}`;el.style.cssText=`left:${(p.x/top.clientWidth)*100}%;top:${(p.y/top.clientHeight)*100}%;--idc:${w.c};--statec:${stateColor(st)}`;const progressHtml=prog?`<div class="worker-progress ${prog.measured?'measured':'checkpoint-wait'}" title="${esc(prog.detail)}"><div class="worker-progress-fill" style="width:${prog.percent}%"></div><span>${prog.percent}%</span></div>`:'';el.innerHTML=`<div class="box">${owl(w.c,w.key)}<div class="worker-copy"><b>${w.name}</b><small>${w.role}</small><span class="state">${stateLabel(st)}</span></div></div>${progressHtml}`;el.onclick=()=>selectWorker(w,st,d,s);top.appendChild(el)});
+ window.__kevinLaneSnapshot={dashboard:d,support:s};
  const kstates=kevinStates(d,s),ks=kstates[0],kmode=ks==='offline'?'disconnected':ks==='degraded'?'degraded':kstates.some(x=>['working','building'].includes(x))?'working':'ready';
  document.getElementById('headerKevinProd').innerHTML=kevinProd(kmode,true);document.getElementById('hubKevinProd').innerHTML=kevinProd(kmode,false);renderKevinCenter(d,s,kstates);
  const liveTask=taskActive(d?.current_task)?d.current_task:null;
@@ -188,6 +190,15 @@ async function load(){
  const at=new Date(d.generated_at||s.generated_at||Date.now()),age=Math.max(0,Math.round((Date.now()-at)/60000));document.getElementById('age').textContent=age+' min';document.getElementById('benchmark').textContent=bench.status?`Benchmark ${bench.status} · ${bench.regression?.passed||0}/${bench.regression?.total||0} · critical ${bench.regression?.critical_failures||0}`:'Benchmark unavailable';
  document.getElementById('load').textContent=`RAM ${d?.system?.memory_pct??'—'}% · CPU ${d?.system?.cpu_pct??'—'}%`;document.getElementById('loadDetail').textContent=`GPU ${d?.system?.gpu||'—'} ${d?.system?.gpu_pct??'—'}% · Brain ${d?.brain?.name||'—'}`;
  document.getElementById('selectedStatus').textContent=`${kstates.map(stateLabel).join(' + ')} · cycle ${sup.cycle??'—'}`;document.getElementById('selectedDetail').textContent=`Kevin aggregate state from live worker lanes. ${detail}`;document.getElementById('updated').textContent=`Kevin HQ · telemetry ${at.toLocaleTimeString()} · schema ${d.schema??'—'}`;
+}
+function workerEvidenceDetail(key,d,s){
+ const jobs=s?.cron?.jobs||[],j=jobs.find(x=>x.declaration_key===(key==='tick'?'kevin-hq-live-pulse-v15':'kevin-support-bridge-v1'));
+ const stamp=value=>{const t=Number(value);return t>0?new Date(t).toLocaleString():'not reported'};
+ if(key==='tick'||key==='bridge')return `${key==='tick'?'Health and telemetry':'GitHub sync'} is a scheduled service. Last run: ${stamp(j?.last_run_at_ms)}; result: ${j?.last_run_status||j?.last_status||'unknown'}. A completed cycle is not a currently running task.`;
+ const state=workerState(key,d,s),working=state==='working'||state==='building';
+ const reports={reader:'Reader has an isolated read-only tool path. Its historical E2E receipt and main-chat access are separate proofs.',staging:'Staging validates candidates through policy gates. No active candidate means no staging work.',chat:'Chat responds to owner conversations. Private chat activity is not published as a live worker counter.'};
+ if(reports[key])return `${reports[key]} ${working?'Current execution is attributed to this lane.':'No current execution is attributed to this lane; READY alone does not prove tool access or autonomous use.'}`;
+ return '';
 }
 function selectWorker(w,st,d,s){document.getElementById('selectedName').textContent=`${w.name} — ${w.role}`;document.getElementById('selectedStatus').textContent=stateLabel(st);let detail='Telemetry-backed worker state.';if(w.key==='benchmark')detail=`Regression ${s?.benchmark?.regression?.passed||0}/${s?.benchmark?.regression?.total||0}, critical failures ${s?.benchmark?.regression?.critical_failures||0}.`;if(w.key==='bridge')detail=`GitHub sync service: ${d?.services?.bridge||'unknown'}. A recent Bridge run is WORKING; otherwise a healthy Bridge is READY.`;if(w.key==='build')detail=`Design Forge workers active: ${s?.active_workers?.design_forge||0}.`;if(w.key==='ollama')detail=`Primary local inference service: ${d?.services?.ollama||'unknown'}.`;document.getElementById('selectedDetail').textContent=detail}
 
