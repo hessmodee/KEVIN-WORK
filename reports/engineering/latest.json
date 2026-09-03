@@ -1,104 +1,21 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-02T19:21:57.1564263-06:00",
+    "generated_at":  "2026-09-02T19:23:52.4827402-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
-                    "id":  "bess-ui-postcheck-20260903011949",
-                    "operation":  "action_status",
-                    "status":  "DONE",
-                    "detail":  "Fresh sanitized engineering snapshot captured."
+                    "id":  "bess-ui-lesson-20260903012326",
+                    "operation":  "stage_composite_skill",
+                    "status":  "STAGED",
+                    "detail":  "Composite skill staged for Skill Lab."
                 },
     "result":  {
-                   "phase2b_proof_present":  true,
-                   "hashes":  {
-                                  "operator":  "19EEA6749FB70EB18A6ACC2DC0C9DF4313C0AC0D893F646A6D1170044E4C282F",
-                                  "initiative":  "8AA0DC8F5A1502A3E4D0150EB073DC77C29D47F153E066B32D6B8E4B2ACB7CD3",
-                                  "ui_bridge":  "5516F60E118D9714A969322C930E525DF722DB099CF10BF5EB23822557598B42"
-                              },
-                   "hashes_match":  {
-                                        "operator":  true,
-                                        "initiative":  true,
-                                        "ui_bridge":  true
-                                    },
-                   "ui_bridge":  {
-                                     "task_present":  true,
-                                     "heartbeat_age_seconds":  397.7
-                                 },
-                   "queues":  {
-                                  "ready":  0,
-                                  "running":  0,
-                                  "done":  19,
-                                  "failed":  1
-                              },
-                   "composite_skills":  {
-                                            "ready":  0,
-                                            "running":  0,
-                                            "done":  7,
-                                            "failed":  1,
-                                            "proven_count":  7,
-                                            "latest_proven":  {
-                                                                  "key":  "kevin-hq-newswire-worker-truth@1",
-                                                                  "proven_at":  "2026-09-02T18:24:19.9591679-06:00",
-                                                                  "manifest_sha256":  "A4005B4D010EED8482E1FE5CAABC4AED3E5267E0A804BA7DB80423D7F3D8298D",
-                                                                  "proof_sha256":  "843AA39B242CD8BA05311A3243B3031AAF91501F63AFCC4EA41A64373C3D7989",
-                                                                  "primitive_steps":  [
-                                                                                          "create_text"
-                                                                                      ]
-                                                              }
-                                        },
-                   "benchmark":  {
-                                     "status":  "FAIL_CRITICAL_REGRESSION",
-                                     "passed":  29,
-                                     "total":  30,
-                                     "critical":  1,
-                                     "at":  "2026-09-02T19:15:19.0724114-06:00"
-                                 },
-                   "cron":  [
-                                {
-                                    "declaration_key":  "kevin-engineering-relay-v1",
-                                    "enabled":  true,
-                                    "every_ms":  120000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-supervisor-v1",
-                                    "enabled":  true,
-                                    "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-skill-lab-v1",
-                                    "enabled":  true,
-                                    "every_ms":  120000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-support-bridge-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-maintenance-intake-v1",
-                                    "enabled":  true,
-                                    "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-benchmark-v1",
-                                    "enabled":  true,
-                                    "every_ms":  600000,
-                                    "last_status":  "error",
-                                    "consecutive_errors":  10
-                                }
-                            ]
+                   "skill_id":  "kevin-ui-recovery-diagnosis",
+                   "version":  "1",
+                   "local_name":  "kevin-ui-recovery-diagnosis--1.json",
+                   "step_count":  1,
+                   "skill_sha256":  "1AF78CD39358472354AEBFD879364EABD4606A3DD10501B65211B8617D119611"
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -114,7 +31,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  402.9
+                                     "heartbeat_age_seconds":  518.3
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -123,7 +40,7 @@
                                   "failed":  1
                               },
                    "composite_skills":  {
-                                            "ready":  0,
+                                            "ready":  1,
                                             "running":  0,
                                             "done":  7,
                                             "failed":  1,
@@ -154,13 +71,6 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-supervisor-v1",
-                                    "enabled":  true,
-                                    "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-skill-lab-v1",
                                     "enabled":  true,
                                     "every_ms":  120000,
@@ -176,6 +86,13 @@
                                 },
                                 {
                                     "declaration_key":  "kevin-maintenance-intake-v1",
+                                    "enabled":  true,
+                                    "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
                                     "last_status":  "ok",
