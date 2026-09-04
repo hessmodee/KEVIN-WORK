@@ -2,7 +2,7 @@
 
 > **THIS IS THE ONE CURRENT HANDOVER FOR KEVIN.** Do not create a competing dated handover. Update the source task/evidence and let the canonical handover refresh replace stale state.
 
-**Semantic checkpoint evidence through:** 2026-09-04T09:38:23.3367631-06:00  
+**Semantic checkpoint evidence through:** 2026-09-04T09:39:46.5188926-06:00  
 **Canonical repository:** `hessmodee/KEVIN-WORK` / `main`  
 **Machine twin:** `reports/handoff-latest.json` (not a second authority)
 
@@ -30,14 +30,14 @@ If an agent cannot access one route, use another. Matt should never need to reco
 ## Automatic semantic snapshot
 
 - Engineering evidence at checkpoint: `2026-09-04T09:38:23.3367631-06:00`
-- Support evidence at checkpoint: `2026-09-04T09:36:46.1305093-06:00`
+- Support evidence at checkpoint: `2026-09-04T09:39:46.5188926-06:00`
 - Autonomy evidence at checkpoint: `2026-09-04T09:30:08.9498393-06:00`
 - Benchmark: **FAIL_CRITICAL_REGRESSION — 29/30, critical 1**
 - UI Bridge health at checkpoint: **FRESH** (age then: 2.2 seconds)
 - Maintenance: **NO_MANIFEST** — No maintenance proposal is waiting.
 - Supervisor last result: **NO_ELIGIBLE_MISSION**
 - Proven composite skills: **18**
-- Installed Maintenance identity reported by Support: `DFF72850E1BBBB2E18397AF38EB593E7234EEB634B596A4651F4537A688B77A9`
+- Installed Maintenance identity reported by Support: `715E40DF0CFDC94FC8D470A83273467A6B10CC6CB9A2956E3A94FADC69B9646B`
 
 The builder runs after `main` changes and on a ten-minute reconciliation schedule, but it writes a new checkpoint only when turnover-relevant semantic state changes. Heartbeat timestamps alone do not move `main`. Incoming agents still read fresh runtime reports directly.
 
@@ -51,15 +51,16 @@ The block below is pulled from `inbox/CURRENT_TASK.md`. That file is an executio
 
 # CURRENT_TASK
 
-**Updated:** 2026-09-04 09:40 MT
+**Updated:** 2026-09-04 09:42 MT
 **Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
 
 ## Latest applied (2026-09-04 ~09:00-09:13 MT)
+- **PASS:** P0.1 Desktop LIVE on HESS-PC (PR#77 receipts; exact 4 tools on fixed:main; openclaw.json after hash 4126AFE6…; Benchmark 30/30). Do NOT widen tools or rewrite Desktop config.
 
-- **PASS:** YELLOW install Supervisor v1.8.9 + selector v1.2 together (PR#74 pins; installed Superv SHA 7BE40357├óΓé¼┬ª; selector 52EADBCA├óΓé¼┬ª). SelfTest PASS; admission router/admission/selector PASS; Benchmark **30/30 critical 0**.
-- **FAIL/REFUSED:** budget-unlock typed morning package apply ├óΓé¼ΓÇ¥ scripts hard-refuse; identity-key Supervisor + Maintenance op still unauthored; qual/preflight NOT_READY vs new Superv pin.
-- **FAIL/REFUSED:** Forge M1 typed package apply ├óΓé¼ΓÇ¥ scripts hard-refuse; Maintenance migrate-retirement rewrite still unauthored; desired maint pin already matches live DFF72850├óΓé¼┬ª.
-- **Residual:** merge/publish PR#74 sources to `main`; author identity-key Superv + M1 Maintenance rewrite if still desired; keep P0.1 Desktop crossing on separate Matt gate; do not invent Forge CURRENT.
+- **PASS:** YELLOW install Supervisor v1.8.9 + selector v1.2 together (PR#74 pins; installed Superv SHA 7BE40357Γö£├│╬ô├⌐┬╝Γö¼┬¬; selector 52EADBCAΓö£├│╬ô├⌐┬╝Γö¼┬¬). SelfTest PASS; admission router/admission/selector PASS; Benchmark **30/30 critical 0**.
+- **FAIL/REFUSED:** budget-unlock typed morning package apply Γö£├│╬ô├⌐┬╝╬ô├ç┬Ñ scripts hard-refuse; identity-key Supervisor + Maintenance op still unauthored; qual/preflight NOT_READY vs new Superv pin.
+- **FAIL/REFUSED:** Forge M1 typed package apply Γö£├│╬ô├⌐┬╝╬ô├ç┬Ñ scripts hard-refuse; Maintenance migrate-retirement rewrite still unauthored; desired maint pin already matches live DFF72850Γö£├│╬ô├⌐┬╝Γö¼┬¬.
+- **Residual:** PR#74/#75/#76 merged; Desktop LIVE; next = wire P0.3 lease heartbeats into Superv/Skill Lab.
 
 ## Owner objective
 
@@ -129,9 +130,9 @@ These are **not open blockers unless fresher machine evidence regresses them**:
 8. **Production Crossing v2 candidate:** a YELLOW source-only contract and tests exist for exactly two protected future operations: install the four-tool Kevin Desktop v0.1 surface, and retire only the legacy `KevinNightForge` scheduled task. CI proves the candidate validator; it has ZERO production effect and grants no new authority.
 9. **HQ cross-lane truth repair:** owner Command must count Skill Lab running/ready/blocked work in global state, not only Supervisor/dashboard workers. A fail-closed source repair + regression assertion was launched during this shift; Grok must verify the resulting HQ gate/Pages deployment before treating it as complete.
 
-## Current P0 blockers ├óΓé¼ΓÇ¥ pursue in this order
+## Current P0 blockers Γö£├│╬ô├⌐┬╝╬ô├ç┬Ñ pursue in this order
 
-### P0.1 ├óΓé¼ΓÇ¥ fixed:main still has no usable production tools
+### P0.1 Γö£├│╬ô├⌐┬╝╬ô├ç┬Ñ fixed:main still has no usable production tools
 
 Fresh dashboard/full-autonomy evidence still shows `fixed:main` with zero effective tools / `tools:false`.
 
@@ -146,27 +147,27 @@ Next engineering step: finish/qualify the **live Windows/OpenClaw production cro
 
 Do not widen authority to solve this. Engineering Relay remains GREEN and does not authorize arbitrary production mutation. Existing Maintenance v1 staging also does not by itself authorize this new protected Desktop crossing; use the separately-reviewed YELLOW crossing and explicit owner approval before production application.
 
-### P0.2 ├óΓé¼ΓÇ¥ capability-aware work routing and Work Supply -> Supervisor
+### P0.2 Γö£├│╬ô├⌐┬╝╬ô├ç┬Ñ capability-aware work routing and Work Supply -> Supervisor
 
 Integrate supplied owner demand into live selection without inventing work and without routing every task through an agent that lacks the needed tool. Dispatch to the qualified worker/lane or deterministic executor that owns the typed capability. Preserve completed occurrence history and bounded retry/cooldown.
 
-### P0.3 ├óΓé¼ΓÇ¥ leases, checkpoints and truthful overnight continuation
+### P0.3 Γö£├│╬ô├⌐┬╝╬ô├ç┬Ñ leases, checkpoints and truthful overnight continuation
 
 `WORKING` requires a live lease plus evidence-producing execution. Long jobs need checkpoint/resume and orphan recovery so real work survives restarts and can continue without fake busy status.
 
-### P0.4 ├óΓé¼ΓÇ¥ authoritative evidence freshness
+### P0.4 Γö£├│╬ô├⌐┬╝╬ô├ç┬Ñ authoritative evidence freshness
 
 Prevent older telemetry writers from overwriting newer authoritative assessments. Separate controller telemetry from authoritative state where necessary and enforce monotonic/event-aware publication.
 
-### P0.5 ├óΓé¼ΓÇ¥ global blocked-vs-idle truth
+### P0.5 Γö£├│╬ô├⌐┬╝╬ô├ç┬Ñ global blocked-vs-idle truth
 
 HQ and control-plane status must aggregate all relevant execution lanes. Supervisor `NO_ELIGIBLE_MISSION` is only Supervisor truth; it must not erase active/ready/blocked Skill Lab or other owner work. `TRUE IDLE` is valid only when no active execution, eligible owner work, blocked owner backlog, or due maintenance/growth work exists across the governed system.
 
-### P0.6 ├óΓé¼ΓÇ¥ continuous-growth live crossing
+### P0.6 Γö£├│╬ô├⌐┬╝╬ô├ç┬Ñ continuous-growth live crossing
 
 After tool routing/supply/leases are healthy, install/enable recurring self-heal, self-maintenance, blocked-work recovery, knowledge-integrity, capability-growth and owner-value scans through already-qualified scheduling/control surfaces. Prove multiple scheduled windows with real leases/checkpoints and no false WORKING state.
 
-### P0.7 ├óΓé¼ΓÇ¥ exact retirement of legacy KevinNightForge
+### P0.7 Γö£├│╬ô├⌐┬╝╬ô├ç┬Ñ exact retirement of legacy KevinNightForge
 
 Do not delete/disable arbitrary scheduled tasks. Use the YELLOW Production Crossing v2 contract to design a live exact-target retirement wrapper for `KevinNightForge`: verify modern replacement schedulers first, disable-first observation, Benchmark 30/30, then remove only the exact legacy task with rollback proof.
 
@@ -258,6 +259,6 @@ Never infer a higher state from a lower one. Never widen authority merely to mak
 
 This handover is generated by `.github/scripts/build-canonical-handover.py` and refreshed by `.github/workflows/canonical-handover.yml`.
 
-Semantic fingerprint: `34988DD9F78B80EE2161F2F34047ECF813E87FE3D0FC08873DAD162AB829E760`
+Semantic fingerprint: `74780412EF15ECFFD7158CEE3BD4DECA514630C350B9DBF81EF7B1B3A6074CFC`
 
 **Fresh runtime evidence first; one handover; publish every durable local change; then continue.**
