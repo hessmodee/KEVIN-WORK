@@ -1,0 +1,43 @@
+name: Autonomy Work Supply v1 Proof
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/autonomy/kevin-work-supply-v1.py'
+      - 'control-plane/autonomy/standing-work-supply-v1.json'
+      - 'tools/test-autonomy-work-supply-v1.py'
+      - '.github/workflows/autonomy-work-supply-v1-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run deterministic self-tests
+        run: python tools/test-autonomy-work-supply-v1.py
+      - name: Evaluate current repository backlog truth
+        run: |
+          python control-plane/autonomy/kevin-work-supply-v1.py \
+            --items inbox/autonomy/work-items.json \
+            --catalog control-plane/autonomy/standing-work-supply-v1.json \
+            --support reports/support-latest.json \
+            --engineering reports/engineering/latest.json \
+            --skills-dir inbox/skills \
+            --output-items /tmp/work-items-supplied.json \
+            --output-state /tmp/work-supply-state.json
+          python - <<'PY'
+          import json
+          s=json.load(open('/tmp/work-supply-state.json',encoding='utf-8'))
+          assert s['truth_state'] in {'ELIGIBLE_WORK','BLOCKED_WORK_PRESENT','TRUE_IDLE'}
+          assert s['authority_effect']=='NONE_PLANNER_ONLY'
+          assert s['activity_claim_policy']=='WORKING_REQUIRES_ACTIVE_LEASE_AND_MACHINE_EVIDENCE'
+          assert s['truth_state']!='TRUE_IDLE', 'current repository has real unresolved backlog; TRUE_IDLE would be false'
+          print(json.dumps({k:s[k] for k in ('truth_state','eligible_count','blocked_count','generated_count','top_blocker')},indent=2))
+          PY
