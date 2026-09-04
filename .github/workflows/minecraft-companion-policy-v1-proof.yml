@@ -1,0 +1,32 @@
+name: Minecraft Companion Policy v1 Proof
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/game/minecraft-companion-policy-v1.py'
+      - 'tools/test-minecraft-companion-policy-v1.py'
+      - '.github/workflows/minecraft-companion-policy-v1-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python tools/test-minecraft-companion-policy-v1.py
+      - name: Static no-executor proof
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text=Path('control-plane/game/minecraft-companion-policy-v1.py').read_text().lower()
+          forbidden=['subprocess','os.system','child_process','socket.','requests.','http.client','powershell','cmd.exe']
+          hits=[x for x in forbidden if x in text]
+          assert not hits, hits
+          print('no process/network executor surface')
+          PY
