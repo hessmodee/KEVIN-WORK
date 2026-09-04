@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-04T08:09:22.6210307-06:00",
+    "generated_at":  "2026-09-04T08:11:22.6164083-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
@@ -27,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  4
+                                     "heartbeat_age_seconds":  1.1
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -37,15 +37,15 @@
                               },
                    "composite_skills":  {
                                             "ready":  0,
-                                            "running":  1,
-                                            "done":  11,
+                                            "running":  0,
+                                            "done":  12,
                                             "failed":  2,
-                                            "proven_count":  11,
+                                            "proven_count":  12,
                                             "latest_proven":  {
-                                                                  "key":  "vehicle-diagnostic-research-pack@1",
-                                                                  "proven_at":  "2026-09-04T07:27:42.3445395-06:00",
-                                                                  "manifest_sha256":  "0C597FF6E54FFAC0591B142757BE51A6506D4681A0A5B057D16DEE18303E80AA",
-                                                                  "proof_sha256":  "1878A573CC69B19C129A88C49C0627A1FE19D179DC2888108136B6FEE13485E6",
+                                                                  "key":  "home-garage-organization-pack@1",
+                                                                  "proven_at":  "2026-09-04T08:09:45.0061874-06:00",
+                                                                  "manifest_sha256":  "ABC949A271E60D2AC0E9216D95E9BDA5FBE6A21133ABB70606DFE7F09C87AB90",
+                                                                  "proof_sha256":  "457D139037BEE95ADF62210B83AD9D9B693E3086BE44BA4B19B25981ECE74B3F",
                                                                   "primitive_steps":  [
                                                                                           "create_spreadsheet",
                                                                                           "create_text"
@@ -75,13 +75,6 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-supervisor-v1",
-                                    "enabled":  true,
-                                    "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-support-bridge-v1",
                                     "enabled":  true,
                                     "every_ms":  180000,
@@ -90,6 +83,13 @@
                                 },
                                 {
                                     "declaration_key":  "kevin-maintenance-intake-v1",
+                                    "enabled":  true,
+                                    "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
                                     "last_status":  "ok",
