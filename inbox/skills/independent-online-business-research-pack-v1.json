@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "independent-online-business-research-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Independent Online Business Research Pack",
+  "description": "Creates a five-sheet workbook and SOP that turns independent online business ideas into zero-spend tests, offer evidence, a 7-day action list, and kill criteria so Matt can pick a real path without paid ads or live spend.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin Independent Online Business Research Pack.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Idea Pipeline",
+              "rows": [
+                ["Priority", "Idea ID", "Audience", "Problem", "Offer", "Channel", "Why Matt Fit", "Status", "Next Proof", "Notes"],
+                ["P1", "", "Local / online", "", "", "Content / listing / service", "", "HYPOTHESIS", "", "Zero spend until named go-ahead"]
+              ]
+            },
+            {
+              "name": "Zero Spend Tests",
+              "rows": [
+                ["Idea ID", "Test Name", "Free Surface", "Hours Budget", "Signal to Collect", "Pass Bar", "Fail Bar", "Result", "Date"],
+                ["", "", "Post / listing / DM ask", "2", "Replies or saves", "1 real reply", "Silence after 3 days", "NOT_RUN", ""]
+              ]
+            },
+            {
+              "name": "Offer Evidence",
+              "rows": [
+                ["Idea ID", "Claim", "Evidence Type", "Source", "Date Seen", "Strength", "Secret Risk", "Keep?", "Notes"],
+                ["", "", "Public page / conversation / price", "", "", "WEAK", "NO", "REVIEW", "No secrets in this sheet"]
+              ]
+            },
+            {
+              "name": "Seven Day Actions",
+              "rows": [
+                ["Day", "Idea ID", "Action", "Owner", "Minutes", "Done?", "Blocker", "Evidence Path"],
+                ["1", "", "Pick one idea and write the offer in one sentence", "Matt + Kevin", "20", "NO", "", ""]
+              ]
+            },
+            {
+              "name": "Kill Criteria",
+              "rows": [
+                ["Idea ID", "Kill If", "Observed By", "Decision", "Date", "Replacement Idea", "Lesson", "Status"],
+                ["", "No reply after two free tests", "", "KEEP_WATCHING", "", "", "", "OPEN"]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Independent Online Business Research Pack - SOP.md",
+        "content": "# Kevin Independent Online Business Research Pack\n\nUse this pack to turn independent online business ideas into zero-spend tests with evidence and kill criteria.\n\n## Operating rule\nAn idea is real work when it can be tested without paid ads, purchases, live crypto, or outbound spam. Prefer one idea, one free test, one evidence row.\n\n## Required sequence\n1. Capture the idea with audience, problem, offer, and why it fits Matt.\n2. Design a zero-spend test with a pass bar and a fail bar.\n3. Log offer evidence from public or owner-approved sources only.\n4. Run a 7-day action list with minutes and blockers.\n5. Kill or keep using written criteria. Do not keep dead ideas as fake busywork.\n\n## Protective behavior\nKevin must not buy ads, take payments, send unsolicited email or SMS, trade live crypto, widen Chat tools, or store secrets in the workbook. Sheet count stays at or below five. Payloads stay ASCII-safe.\n"
+      }
+    }
+  ]
+}

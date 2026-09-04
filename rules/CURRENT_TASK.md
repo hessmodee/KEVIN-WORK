@@ -1,4 +1,4 @@
-# CURRENT_TASK
+﻿# CURRENT_TASK
 
 **Updated:** 2026-09-04 13:17 MT
 **Role:** current execution contract only. AI-HANDOVER.md remains the one human canonical handover.
@@ -16,6 +16,19 @@ eports/engineering/RECEIPT-indie-biz-research-20260904-1317.md. Not appliance@3.
 - **Resume receipt:** 
 eports/engineering/RECEIPT-cos-gap-resume-20260904-1317.json.
 - **NEXT:** typed kevin_desktop_list_folder under proof bar; P0.2/P0.4–P0.6; do not kill Chat/Reader; no live trades/purchases/calls.
+
+## Super-AI north star MAX (2026-09-04 ~11:15 MT)
+
+PLAN: `docs/engineering/PLAN-kevin-north-star-max-2026-09-04.md` (sequenced P0-P6).
+Recipes: `docs/engineering/KEVIN-RECIPE-mineflayer-scratch-v1.md`, `docs/engineering/KEVIN-RECIPE-discordjs-scratch-v1.md`.
+P0 DONE (prove): Chat/fixed:main USES Desktop exact-4 on fresh sessions; overflow FAIL MODE taught. Next: list_folder typed tool. Do not rewrite openclaw.json / kill Chat/Reader.
+P1 notepad+explorer already inside kevin_app_launch; chrome-url is YELLOW new typed tool (not today).
+P2 Minecraft v0 = Mineflayer + local flying-squid in scratch (no paid server; Matt server not documented).
+P3 Discord text library scratch only; no login unless Kevin-owned secret already on disk. Voice/headset later, local STT/TTS, not paid realtime.
+P4 email destination-only (no secrets in repo).
+P5 paper crypto already GREEN (`reports/coinbase-paper-v0` + pack@1). No live trades.
+P6 GREEN composites already proven_count 20; next unproven owner pack: independent-online-business-research-pack@1 (sheet cap 5).
+HARD NOS unchanged. No GROK-HANDOVER. Kevin owns faculties.
 
 ## Owner objective
 
@@ -85,9 +98,9 @@ These are **not open blockers unless fresher machine evidence regresses them**:
 8. **Production Crossing v2 candidate:** a YELLOW source-only contract and tests exist for exactly two protected future operations: install the four-tool Kevin Desktop v0.1 surface, and retire only the legacy `KevinNightForge` scheduled task. CI proves the candidate validator; it has ZERO production effect and grants no new authority.
 9. **HQ cross-lane truth repair:** owner Command must count Skill Lab running/ready/blocked work in global state, not only Supervisor/dashboard workers. A fail-closed source repair + regression assertion was launched during this shift; Grok must verify the resulting HQ gate/Pages deployment before treating it as complete.
 
-## Current P0 blockers ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ pursue in this order
+## Current P0 blockers â”œÃ¢â”¼â•œâ”œÃ³Î“Ã©Â¼â”¼Ã´â”œÃ¢â•žÃ†â”œÃ©â”¬â•¢â”œÃ¢Î“Ã‡Ãœâ”œÃ©â”¬Ãºâ”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ³Î“Ã©Â¼â”¼Ã­â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ©â”¬â”¤â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â”¬Ã³â”œÃ Î“Ã‡Ã–â”œÃ©â”¬Ã‰â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ©â”¬Â¼â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¥â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ©â”¬â”¤â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â•žÃ†â”œÃ©â”¬Âºâ”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ³Î“Ã©Â¼â•¦Â£ pursue in this order
 
-### P0.1 ├óΓé¼ΓÇ¥ FIXED LIVE (2026-09-04): Desktop exact-4 on fixed:main (NOT owner-gated)
+### P0.1 â”œÃ³Î“Ã©Â¼Î“Ã‡Â¥ FIXED LIVE (2026-09-04): Desktop exact-4 on fixed:main (NOT owner-gated)
 
 Desktop is **LIVE** on HESS-PC via PR #77. Effective inventory is exactly:
 
@@ -101,27 +114,27 @@ Evidence: Benchmark 30/30 critical 0; openclaw.json after SHA256 4126AFE64EF809B
 
 **Do not** treat Desktop as owner-gated or HOLD. **Do not** widen tools or rewrite Desktop/openclaw.json config.
 
-### P0.2 ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ capability-aware work routing and Work Supply -> Supervisor
+### P0.2 â”œÃ¢â”¼â•œâ”œÃ³Î“Ã©Â¼â”¼Ã´â”œÃ¢â•žÃ†â”œÃ©â”¬â•¢â”œÃ¢Î“Ã‡Ãœâ”œÃ©â”¬Ãºâ”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ³Î“Ã©Â¼â”¼Ã­â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ©â”¬â”¤â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â”¬Ã³â”œÃ Î“Ã‡Ã–â”œÃ©â”¬Ã‰â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ©â”¬Â¼â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¥â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ©â”¬â”¤â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â•žÃ†â”œÃ©â”¬Âºâ”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ³Î“Ã©Â¼â•¦Â£ capability-aware work routing and Work Supply -> Supervisor
 
 Integrate supplied owner demand into live selection without inventing work and without routing every task through an agent that lacks the needed tool. Dispatch to the qualified worker/lane or deterministic executor that owns the typed capability. Preserve completed occurrence history and bounded retry/cooldown.
 
-### P0.3 ├óΓé¼ΓÇ¥ leases/checkpoints (library + live Superv/Skill Lab wire PASS 2026-09-04)
+### P0.3 â”œÃ³Î“Ã©Â¼Î“Ã‡Â¥ leases/checkpoints (library + live Superv/Skill Lab wire PASS 2026-09-04)
 
 `WORKING` requires a live lease plus evidence-producing execution. Long jobs need checkpoint/resume and orphan recovery so real work survives restarts and can continue without fake busy status.
 
-### P0.4 ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ authoritative evidence freshness
+### P0.4 â”œÃ¢â”¼â•œâ”œÃ³Î“Ã©Â¼â”¼Ã´â”œÃ¢â•žÃ†â”œÃ©â”¬â•¢â”œÃ¢Î“Ã‡Ãœâ”œÃ©â”¬Ãºâ”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ³Î“Ã©Â¼â”¼Ã­â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ©â”¬â”¤â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â”¬Ã³â”œÃ Î“Ã‡Ã–â”œÃ©â”¬Ã‰â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ©â”¬Â¼â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¥â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ©â”¬â”¤â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â•žÃ†â”œÃ©â”¬Âºâ”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ³Î“Ã©Â¼â•¦Â£ authoritative evidence freshness
 
 Prevent older telemetry writers from overwriting newer authoritative assessments. Separate controller telemetry from authoritative state where necessary and enforce monotonic/event-aware publication.
 
-### P0.5 ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ global blocked-vs-idle truth
+### P0.5 â”œÃ¢â”¼â•œâ”œÃ³Î“Ã©Â¼â”¼Ã´â”œÃ¢â•žÃ†â”œÃ©â”¬â•¢â”œÃ¢Î“Ã‡Ãœâ”œÃ©â”¬Ãºâ”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ³Î“Ã©Â¼â”¼Ã­â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ©â”¬â”¤â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â”¬Ã³â”œÃ Î“Ã‡Ã–â”œÃ©â”¬Ã‰â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ©â”¬Â¼â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¥â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ©â”¬â”¤â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â•žÃ†â”œÃ©â”¬Âºâ”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ³Î“Ã©Â¼â•¦Â£ global blocked-vs-idle truth
 
 HQ and control-plane status must aggregate all relevant execution lanes. Supervisor `NO_ELIGIBLE_MISSION` is only Supervisor truth; it must not erase active/ready/blocked Skill Lab or other owner work. `TRUE IDLE` is valid only when no active execution, eligible owner work, blocked owner backlog, or due maintenance/growth work exists across the governed system.
 
-### P0.6 ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ continuous-growth live crossing
+### P0.6 â”œÃ¢â”¼â•œâ”œÃ³Î“Ã©Â¼â”¼Ã´â”œÃ¢â•žÃ†â”œÃ©â”¬â•¢â”œÃ¢Î“Ã‡Ãœâ”œÃ©â”¬Ãºâ”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ³Î“Ã©Â¼â”¼Ã­â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ©â”¬â”¤â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â”¬Ã³â”œÃ Î“Ã‡Ã–â”œÃ©â”¬Ã‰â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ©â”¬Â¼â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¥â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ©â”¬â”¤â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â•žÃ†â”œÃ©â”¬Âºâ”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ³Î“Ã©Â¼â•¦Â£ continuous-growth live crossing
 
 After tool routing/supply/leases are healthy, install/enable recurring self-heal, self-maintenance, blocked-work recovery, knowledge-integrity, capability-growth and owner-value scans through already-qualified scheduling/control surfaces. Prove multiple scheduled windows with real leases/checkpoints and no false WORKING state.
 
-### P0.7 ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ exact retirement of legacy KevinNightForge
+### P0.7 â”œÃ¢â”¼â•œâ”œÃ³Î“Ã©Â¼â”¼Ã´â”œÃ¢â•žÃ†â”œÃ©â”¬â•¢â”œÃ¢Î“Ã‡Ãœâ”œÃ©â”¬Ãºâ”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ³Î“Ã©Â¼â”¼Ã­â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ©â”¬â”¤â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â”¬Ã³â”œÃ Î“Ã‡Ã–â”œÃ©â”¬Ã‰â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ©â”¬Â¼â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¥â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Ã³â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ©â”¬â”¤â”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ Î“Ã‡Â£â”œÃ¢â•žÃ†â”œÃ©â”¬Âºâ”œÃ¢â”¬Ã³â”œÃ³Î“Ã©Â¼â”¬Â¥â”œÃ©â”¬Â¼â”œÃ¢â•žÃ†â”œÃ³Î“Ã©Â¼â•¦Â£ exact retirement of legacy KevinNightForge
 
 Do not delete/disable arbitrary scheduled tasks. Use the YELLOW Production Crossing v2 contract to design a live exact-target retirement wrapper for `KevinNightForge`: verify modern replacement schedulers first, disable-first observation, Benchmark 30/30, then remove only the exact legacy task with rollback proof.
 
@@ -175,19 +188,19 @@ Do not generate churn merely to look active.
 
 ## Current live platform repair targets
 
-1. **Desktop exact-4 LIVE** — preserved on HESS-PC (PR#77); do not widen tools or rewrite openclaw/Desktop/Chat/Owl.
-2. **HQ max Phase 0 truth** — WAITING_/BLOCKED/NEEDS_/DEFERRED/COOLDOWN = BLOCKED WORK; Skill Lab queue fallback; Command truth chips; gate greps rotated.
-3. **Work Supply / capability routing** — P0.2 still open: connect owner demand to live selection without false idle.
-4. **Continuous-growth live crossing** — P0.6 remains YELLOW until recurring windows prove lease + machine evidence (source ready is not LIVE).
+1. **Desktop exact-4 LIVE** â€” preserved on HESS-PC (PR#77); do not widen tools or rewrite openclaw/Desktop/Chat/Owl.
+2. **HQ max Phase 0 truth** â€” WAITING_/BLOCKED/NEEDS_/DEFERRED/COOLDOWN = BLOCKED WORK; Skill Lab queue fallback; Command truth chips; gate greps rotated.
+3. **Work Supply / capability routing** â€” P0.2 still open: connect owner demand to live selection without false idle.
+4. **Continuous-growth live crossing** â€” P0.6 remains YELLOW until recurring windows prove lease + machine evidence (source ready is not LIVE).
 
 ## Owner-value skill wave
 
-1. **Dealer Recon** — proven/replayable composite skill.
-2. **Vehicle Diagnostics** — proven research pack.
-3. **Appliance Repair** — Cache Valley launch packs; budget/MIN_REPEAT residual.
-4. **Creator Pipeline** — drafts/experiments under GREEN lane.
-5. **Crypto Research** — watchlists/paper trades with risk discipline.
-6. **Home & Garage** — inventory/zones/maintenance.
+1. **Dealer Recon** â€” proven/replayable composite skill.
+2. **Vehicle Diagnostics** â€” proven research pack.
+3. **Appliance Repair** â€” Cache Valley launch packs; budget/MIN_REPEAT residual.
+4. **Creator Pipeline** â€” drafts/experiments under GREEN lane.
+5. **Crypto Research** â€” watchlists/paper trades with risk discipline.
+6. **Home & Garage** â€” inventory/zones/maintenance.
 
 ## Continuity invariant
 
@@ -197,7 +210,7 @@ Do not weaken authority boundaries, evidence requirements, or rollback readiness
 
 Source-only HQ Command truth upgrade on branch `grok/hq-max-20260904` (PR pending):
 
-- `docs/hq-owner-refinement-v3.js`: Skill Lab queue fallback (`skill_lab.queue` → `composite_skills` → `queues`); WAITING_/BLOCKED/NEEDS_/DEFERRED/COOLDOWN continuation = BLOCKED WORK (not READY/IDLE even if eligible_count>0); Command truth chips (Superv/Tools/Lease/Proven/Benchmark/Skill Lab R/Q/B) from named public sources only — absent stays unknown; never invent exact-4 / lease ACTIVE / Drive INTERIM / grants_budget_unlock; chips after v3stats; `.v3chips`/`.v3chip` + stateLine pulse with `prefers-reduced-motion` none; `stateLine` uses `truth().cls`.
+- `docs/hq-owner-refinement-v3.js`: Skill Lab queue fallback (`skill_lab.queue` â†’ `composite_skills` â†’ `queues`); WAITING_/BLOCKED/NEEDS_/DEFERRED/COOLDOWN continuation = BLOCKED WORK (not READY/IDLE even if eligible_count>0); Command truth chips (Superv/Tools/Lease/Proven/Benchmark/Skill Lab R/Q/B) from named public sources only â€” absent stays unknown; never invent exact-4 / lease ACTIVE / Drive INTERIM / grants_budget_unlock; chips after v3stats; `.v3chips`/`.v3chip` + stateLine pulse with `prefers-reduced-motion` none; `stateLine` uses `truth().cls`.
 - `docs/index.html` cache bump `hq-owner-refinement-v3.js?v=3`.
 - `.github/workflows/hq-owner-updates-gate.yml` greps rotated to `kevinHandoverLaunch` / `kevinTalkLaunch` in `docs/index.html` (CI grep rot fix).
 - Teach-and-transfer: `docs/engineering/PLAN-hq-max-upgrade-2026-09-04.md`, `docs/engineering/LESSON-hq-max-upgrade-2026-09-04.md`.
