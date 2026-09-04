@@ -1,6 +1,6 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-04 10:40 MT
+**Updated:** 2026-09-04 13:12 MT
 **Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
 **Cold-start:** `docs/engineering/KEVIN-TURNOVER-LATEST.md`.
 
@@ -199,3 +199,7 @@ Source-only HQ Command truth upgrade on branch `grok/hq-max-20260904` (PR pendin
 **Preserved Desktop LIVE facts (unchanged by Phase 0):** P0.1 Desktop LIVE on HESS-PC (PR#77). Exact 4 tools on fixed:main. openclaw.json after SHA256 4126AFE64EF809B9A4747D70B9868F0FAB94F554F213C88B0DA832FBF8C5E794. Backup `reports/engineering/backups/p01-desktop-20260904-0809`. Benchmark 30/30. **NOT owner-gated.** Do NOT widen tools or rewrite Desktop/openclaw.json / Chat ports / Owl geometry. No GROK-HANDOVER; `AI-HANDOVER.md` remains canonical.
 
 **Phase boundary:** Phase 0 = HQ shell + gate hygiene. Phase A publishers (Skill Lab / lease projection into snapshots) are out of scope here.
+
+## Layer hold (Kevin wire)
+
+No ollama-isolate-latest.json → CURRENT_TASK remains write-proof. Do not advance. Await isolate PASS on llama3.1:8b and qwen2.5:14b.
