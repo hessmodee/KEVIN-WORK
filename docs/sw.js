@@ -1,11 +1,11 @@
-/* Kevin HQ resilient app shell v2
+/* Kevin HQ resilient app shell v3
  * Scope: GitHub Pages /KEVIN-WORK/
  * Public static assets + sanitized public telemetry only.
  * Network remains authoritative; cache is outage fallback, never proof of freshness.
  */
 'use strict';
 
-const VERSION='kevin-hq-shell-v2';
+const VERSION='kevin-hq-shell-v3';
 const SHELL_CACHE=`${VERSION}-static`;
 const DATA_CACHE=`${VERSION}-public-data`;
 const BASE='/KEVIN-WORK/';
@@ -16,6 +16,7 @@ const SHELL=[
   `${BASE}hq-overrides-v1.js`,
   `${BASE}hq-owner-refinement-v2.js`,
   `${BASE}hq-owner-refinement-v3.js`,
+  `${BASE}hq-growth-v1.js`,
   `${BASE}hq-fun-v2.js`,
   `${BASE}hq-truth-v2.js`,
   `${BASE}ops/index.html`,
