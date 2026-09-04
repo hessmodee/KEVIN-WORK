@@ -1,10 +1,10 @@
 {
   "schema": 1,
   "kind": "kevin-standing-work-supply-catalog",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "authority_effect": "NONE",
   "policy": {
-    "true_idle_definition": "No eligible owner-approved work, no blocked owner-approved backlog, and no due guardian/capability-learning work.",
+    "true_idle_definition": "No eligible owner-approved work, no blocked owner-approved backlog, and no due guardian/maintenance/capability-learning/growth work.",
     "working_definition": "An active mission lease exists and the current action is producing machine evidence.",
     "owner_priority_domains": [
       "west-motor-dealer-recon-and-lot-readiness",
@@ -16,7 +16,8 @@
       "broad-computer-fluency",
       "minecraft-game-companion",
       "capability-learning",
-      "platform-guardians"
+      "platform-guardians",
+      "continuous-self-heal-maintain-improve"
     ],
     "legacy_deprioritized_domains": [
       "construction-field-operations"
@@ -38,6 +39,8 @@
       "production_chat_send",
       "automatic_promotion",
       "safety_weakening",
+      "governance_edit",
+      "authority_boundary_change",
       "game_public_server_join",
       "game_public_chat",
       "pvp_real_player"
@@ -61,6 +64,129 @@
         "No status changes to WORKING without an active mission lease and machine evidence."
       ],
       "next_action": "Run the qualified full-autonomy assessment tool and publish its receipt."
+    },
+    {
+      "id": "platform-self-heal-watch-v1",
+      "program": "self-heal",
+      "lane": "guardian",
+      "work_type": "recovery",
+      "severity": "high",
+      "owner_value": 5,
+      "worker": "guardian",
+      "required_capabilities": ["kevin_full_autonomy_audit"],
+      "effects": [],
+      "trigger": {"kind": "always"},
+      "recurrence": {"kind": "interval_hours", "hours": 2},
+      "acceptance_criteria": [
+        "Inspect fresh platform/runtime truth for broken, stale, contradictory or repeatedly failing Kevin-owned components.",
+        "If an already-qualified typed recovery verb exists, route the smallest bounded repair and require an independent semantic postcondition.",
+        "If no qualified repair exists, publish the exact blocker and candidate recovery contract instead of improvising authority.",
+        "Repeated identical failures obey the bounded retry/cooldown policy and do not hot-loop."
+      ],
+      "verification_plan": ["Compare pre/post fresh runtime evidence and benchmark state."],
+      "retry_policy": {"max_attempts_without_material_new_evidence": 3, "cooldown_seconds_after_exhaustion": 300},
+      "next_action": "Audit for the highest-impact self-healable platform defect and route only an already-qualified bounded recovery or a precise repair candidate."
+    },
+    {
+      "id": "runtime-self-maintenance-audit-v1",
+      "program": "self-maintenance",
+      "lane": "guardian",
+      "work_type": "verification",
+      "severity": "medium",
+      "owner_value": 4,
+      "worker": "guardian",
+      "required_capabilities": ["kevin_system_status"],
+      "effects": [],
+      "trigger": {"kind": "always"},
+      "recurrence": {"kind": "interval_hours", "hours": 6},
+      "acceptance_criteria": [
+        "Review Kevin-owned service health, resource pressure, checkpoint/backup evidence, queue consistency and stale artifacts without destructive cleanup.",
+        "Create a bounded maintenance/recovery item for any actionable defect; otherwise record a truthful healthy result.",
+        "Do not claim self-care from heartbeat churn alone."
+      ],
+      "verification_plan": ["Use fresh system/service evidence and record the exact maintenance findings."],
+      "next_action": "Run the bounded runtime self-maintenance audit and route any safe repair prerequisite."
+    },
+    {
+      "id": "blocked-work-recovery-v1",
+      "program": "blocked-work-recovery",
+      "lane": "guardian",
+      "work_type": "planning",
+      "severity": "high",
+      "owner_value": 5,
+      "worker": "guardian",
+      "required_capabilities": ["kevin_full_autonomy_audit"],
+      "effects": [],
+      "trigger": {"kind": "always"},
+      "recurrence": {"kind": "interval_hours", "hours": 4},
+      "acceptance_criteria": [
+        "Inspect the highest-value/oldest real blocked owner item and identify the smallest safe missing prerequisite.",
+        "Create or route a bounded prerequisite when already authorized, otherwise state the exact owner/engineering dependency.",
+        "Never rename/reset an exhausted item or erase failure history merely to make it eligible again."
+      ],
+      "verification_plan": ["Show the blocker before state and the new prerequisite/escalation after state."],
+      "next_action": "Recover one meaningful blocked owner item without resetting its history or widening authority."
+    },
+    {
+      "id": "knowledge-integrity-sweep-v1",
+      "program": "knowledge-integrity",
+      "lane": "guardian",
+      "work_type": "verification",
+      "severity": "medium",
+      "owner_value": 4,
+      "worker": "reviewer",
+      "required_capabilities": ["kevin_vault_note_validate"],
+      "effects": [],
+      "trigger": {"kind": "always"},
+      "recurrence": {"kind": "interval_hours", "hours": 12},
+      "acceptance_criteria": [
+        "Audit a bounded batch of settled private-vault claims for source presence, freshness and contradiction state.",
+        "A falsified/stale load-bearing source invalidates dependent settled claims or returns them to review.",
+        "No private source content or secrets are published to the public repository."
+      ],
+      "verification_plan": ["Validate note/provenance contract and dependent-claim state changes mechanically."],
+      "next_action": "Run a bounded provenance/freshness integrity sweep on the private vault and quarantine invalid settled claims."
+    },
+    {
+      "id": "capability-gap-growth-v1",
+      "program": "capability-growth",
+      "lane": "skill-lab",
+      "work_type": "capability-learning",
+      "severity": "medium",
+      "owner_value": 4,
+      "worker": "skill-lab",
+      "required_capabilities": ["kevin_skill_lab_execute"],
+      "effects": [],
+      "trigger": {"kind": "always"},
+      "recurrence": {"kind": "interval_hours", "hours": 8},
+      "acceptance_criteria": [
+        "Select one measurable capability gap that blocks a current owner outcome or reduces repeated intervention.",
+        "Build/test the smallest candidate using GREEN primitives, positive tests, forbidden tests and explicit verification.",
+        "Do not automatically promote a newly learned capability into a protected production boundary.",
+        "Require replay before REPEATEDLY_PROVEN credit."
+      ],
+      "verification_plan": ["Run deterministic/negative tests and record replayable proof."],
+      "next_action": "Advance the highest-owner-value unproven capability one evidence level without self-promoting authority."
+    },
+    {
+      "id": "owner-value-opportunity-scan-v1",
+      "program": "owner-value-scan",
+      "lane": "research",
+      "work_type": "research",
+      "severity": "medium",
+      "owner_value": 4,
+      "worker": "sensor",
+      "required_capabilities": ["kevin_source_research"],
+      "effects": [],
+      "trigger": {"kind": "always"},
+      "recurrence": {"kind": "interval_hours", "hours": 12},
+      "acceptance_criteria": [
+        "Identify one concrete evidence-backed opportunity to save Matt time, reduce waste, unblock work or advance a legitimate income experiment.",
+        "Tie the output to a current owner domain and a clear next action rather than generic AI busywork.",
+        "Public posting, sending, purchasing, money movement and live trading remain owner-gated."
+      ],
+      "verification_plan": ["Record sources, owner-value hypothesis, expected benefit and a bounded next experiment."],
+      "next_action": "Produce one source-backed owner-value opportunity brief for the highest-value current domain."
     },
     {
       "id": "owner-composite-skill-proof-wave-v1",
