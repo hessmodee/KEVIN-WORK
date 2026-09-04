@@ -1,0 +1,53 @@
+﻿{
+    "schema":  1,
+    "kind":  "kevin-p03-lease-wire-receipt",
+    "id":  "RECEIPT-p03-lease-wire-superv-skilllab-20260904-0948",
+    "at_boise":  "2026-09-04T09:52:25.4837405-06:00",
+    "actor":  "Grok Bot",
+    "auth":  "Matt undying GREEN+YELLOW",
+    "openclaw_json_touched":  false,
+    "merges":  {
+                   "PR74":  "a5a55c2c56f29e67ff16852a1990af79375e9f77",
+                   "PR77":  "7bd4e1d0897f52700e940294fd1a4afe84c4f438",
+                   "PR75":  "e05399c6dd502cdd3a5eb0799253d6826b1b53ea",
+                   "PR76":  "15a098ddd10d0447812a4091529ad3fdecdf4a89"
+               },
+    "desktop":  {
+                    "pr":  77,
+                    "status":  "LIVE",
+                    "openclaw_after_sha256":  "4126AFE64EF809B9A4747D70B9868F0FAB94F554F213C88B0DA832FBF8C5E794",
+                    "backup":  "reports/engineering/backups/p01-desktop-20260904-0809",
+                    "note":  "P0.1 Desktop LIVE exact-4 on fixed:main; NOT owner-gated; do not widen tools"
+                },
+    "supervisor_visibility":  {
+                                  "eligible_count":  1,
+                                  "after_status":  "WAITING_ITEM_BUDGETS",
+                                  "note":  "owner-value-skills / Skill Lab programs visible; residual is item budgets/MIN_REPEAT not missing supply",
+                                  "version":  "1.8.9-\u003e1.8.10",
+                                  "before_blocker":  "IDLE_NO_ELIGIBLE_DEMAND until PR74"
+                              },
+    "lease_wire":  {
+                       "library_version":  "1.0.1",
+                       "hashes":  {
+                                      "supervisor":  "D77BCAA7E2CB76B0F477F7CBAC0C93CC1ABF010F24373EC2F0207D73A1B76810",
+                                      "skill_lab":  "0C1AF239FE43C967A502EE93DB77062B2D56E8B9C04215CB3C4EC02110453E18",
+                                      "lease_lib":  "F2DCFE32F34BA372B14069E17C31E76EE61CBF241CA31A8B6CE8B5F64B26E863",
+                                      "bridge":  "4A219990C5382272984491F49FA67ECAC274B5C01B910EFFC927E38B1CD3C01E"
+                                  },
+                       "store":  "reports/autonomy-runtime/mission-leases-v1.json",
+                       "result":  "PASS",
+                       "proofs":  [
+                                      "python --selftest PASS",
+                                      "Invoke-KevinMissionLease SelfTest PASS",
+                                      "kevin-supervisor -SelfTest MISSION-LEASE WIRE PASS",
+                                      "kevin-skill-lab -SelfTest MISSION-LEASE WIRE PASS"
+                                  ],
+                       "backup":  "reports/engineering/backups/p03-lease-wire-20260904-0946"
+                   },
+    "residual":  [
+                     "Skill Lab eligible item deferred MIN_REPEAT/WAITING_ITEM_BUDGETS",
+                     "HQ continuous-growth/hq-gate CI still unstable on some PRs (pre-existing)",
+                     "budget-unlock/Forge M1 typed applies still refused"
+                 ],
+    "next_safe_move":  "Let Superv/Skill Lab cycles exercise live lease acquire/heartbeat under real demand; keep Desktop exact-4 frozen; chase WAITING_ITEM_BUDGETS / MIN_REPEAT only if owner wants faster Skill Lab proves"
+}
