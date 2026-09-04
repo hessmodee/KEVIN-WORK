@@ -1,0 +1,33 @@
+﻿{
+    "schema":  1,
+    "kind":  "kevin-yellow-apply-summary",
+    "at_boise":  "2026-09-04T09:17:59.9014383-06:00",
+    "applies":  [
+                    {
+                        "name":  "supervisor_v189_selector_v12",
+                        "result":  "PASS",
+                        "before_supervisor":  "F5D8C9740D384CC576D4BD70A3940B51AA1FCF398C7085E59DB20C01E9180138",
+                        "after_supervisor":  "7BE403577762FAD630CB71E4DA897437475366940B15DBA10F27A9AE759BF314",
+                        "selector_v12":  "52EADBCA27070F3FF845ADF1E989F7E570AECC25D2C3F11EF7E0FF80DA000C6A",
+                        "pr74_source":  "C6E3CEF6901E005DD8AF4AFD5252718C5A580C789940A20E056BF1105EB7047B",
+                        "benchmark":  "PASS_30_30_CRITICAL_0",
+                        "openclaw_json_touched":  false
+                    },
+                    {
+                        "name":  "budget_unlock_typed",
+                        "result":  "FAIL",
+                        "detail":  "APPLY_REFUSED_PENDING_MATT; identity-key source + Maintenance op unauthored; qual NOT_READY after Superv pin move"
+                    },
+                    {
+                        "name":  "forge_m1_typed",
+                        "result":  "FAIL",
+                        "detail":  "APPLY_REFUSED_PENDING_MATT; M1 Maintenance rewrite unauthored; desired maint already live DFF72850"
+                    }
+                ],
+    "residuals":  [
+                      "Live Supervisor fetches programs/items from GitHub main; merge PR#74 for live owner-value-skills registry",
+                      "Offline admission proved ROUTE_TO_SKILL_LAB; live continuation IDLE until main carries programs/annotations",
+                      "Budget-unlock and Forge M1 remain path-ready docs only until LARGE packages are authored"
+                  ],
+    "safe_for_public_repo":  true
+}

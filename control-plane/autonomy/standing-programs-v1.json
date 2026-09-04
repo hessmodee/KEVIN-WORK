@@ -4,24 +4,105 @@
   "authority": "GREEN_SELECTION_ONLY",
   "note": "This registry prioritizes already-authorized work. It never grants primitive authority or makes a reserved action GREEN.",
   "programs": [
-    {"id":"platform-reliability","base_priority":100,"purpose":"Restore broken, stale, contradictory, regressed or misleading Kevin-owned production truth and known services."},
-    {"id":"self-heal","base_priority":99,"purpose":"Detect and repair bounded Kevin-owned failures through already-qualified recovery verbs, then independently verify the semantic postcondition."},
-    {"id":"owner-goal-execution","base_priority":96,"purpose":"Advance an authenticated owner objective toward explicit semantic acceptance criteria."},
-    {"id":"blocked-work-recovery","base_priority":95,"purpose":"Inspect real blocked owner work, identify the smallest safe prerequisite and route recovery without resetting exhausted failure budgets."},
-    {"id":"autonomy-debt","base_priority":94,"purpose":"Replace recurring Bess notice/dispatch/verify/repair steps with typed Kevin-owned mechanisms."},
-    {"id":"owner-communications","base_priority":92,"purpose":"Advance private owner↔Kevin HQ/Gmail/Telegram channel proof and reliability inside existing channel policy."},
-    {"id":"reader-evidence","base_priority":90,"purpose":"Acquire and interpret authorized evidence with provenance, freshness and contradiction handling for a real task."},
-    {"id":"capability-reuse","base_priority":88,"purpose":"Use an already-PROVEN GREEN capability on a useful real-world owner task and measure the result."},
-    {"id":"self-maintenance","base_priority":86,"purpose":"Keep Kevin healthy through bounded audits, checkpoints, backup/integrity verification, resource budgets and queue/service reconciliation."},
-    {"id":"self-improvement","base_priority":84,"purpose":"Choose a measurable weakness, build a bounded candidate fix, test it, preserve rollback and prove the postcondition without self-widening authority."},
-    {"id":"skill-learning","base_priority":82,"purpose":"Turn a stable repeated real procedure/recovery pattern into a governed reusable skill/eval."},
-    {"id":"capability-growth","base_priority":81,"purpose":"Advance the highest-owner-value missing capability through staged learning, deterministic tests, negative tests and replayable evidence."},
-    {"id":"computer-fluency","base_priority":80,"purpose":"Advance bounded typed file/Office/app/browser/printer/local-computer capabilities through real representative tasks."},
-    {"id":"business-value","base_priority":78,"purpose":"Produce useful owner-ready business analysis, documents, spreadsheets, research, SOPs or opportunity intelligence."},
-    {"id":"knowledge-integrity","base_priority":76,"purpose":"Audit source provenance, freshness, contradictions and dependent settled claims so stale/falsified knowledge cannot remain authoritative."},
-    {"id":"owner-value-scan","base_priority":74,"purpose":"Proactively identify one concrete safe way to save Matt time, reduce waste, unblock work or advance a legitimate income experiment."},
-    {"id":"app-builder","base_priority":72,"purpose":"Build/test a useful local app/game feature with explicit E2E acceptance and a named consumer."},
-    {"id":"knowledge-continuity","base_priority":70,"purpose":"Improve memory, provenance, handoff and Second Brain continuity when tied to a real retrieval/continuity defect."},
-    {"id":"bounded-research-design","base_priority":60,"purpose":"Research/design an explicit missing capability only with acceptance criteria and a named downstream consumer."}
+    {
+      "id": "platform-reliability",
+      "base_priority": 100,
+      "purpose": "Restore broken, stale, contradictory, regressed or misleading Kevin-owned production truth and known services."
+    },
+    {
+      "id": "self-heal",
+      "base_priority": 99,
+      "purpose": "Detect and repair bounded Kevin-owned failures through already-qualified recovery verbs, then independently verify the semantic postcondition."
+    },
+    {
+      "id": "owner-goal-execution",
+      "base_priority": 96,
+      "purpose": "Advance an authenticated owner objective toward explicit semantic acceptance criteria."
+    },
+    {
+      "id": "blocked-work-recovery",
+      "base_priority": 95,
+      "purpose": "Inspect real blocked owner work, identify the smallest safe prerequisite and route recovery without resetting exhausted failure budgets."
+    },
+    {
+      "id": "owner-value-skills",
+      "base_priority": 93,
+      "purpose": "Stage and prove GREEN owner-value composite skills through the Skill Lab lane using already-PROVEN primitives; never force these jobs through tool-less fixed:main."
+    },
+    {
+      "id": "autonomy-debt",
+      "base_priority": 94,
+      "purpose": "Replace recurring Bess notice/dispatch/verify/repair steps with typed Kevin-owned mechanisms."
+    },
+    {
+      "id": "owner-communications",
+      "base_priority": 92,
+      "purpose": "Advance private owner\u2194Kevin HQ/Gmail/Telegram channel proof and reliability inside existing channel policy."
+    },
+    {
+      "id": "reader-evidence",
+      "base_priority": 90,
+      "purpose": "Acquire and interpret authorized evidence with provenance, freshness and contradiction handling for a real task."
+    },
+    {
+      "id": "capability-reuse",
+      "base_priority": 88,
+      "purpose": "Use an already-PROVEN GREEN capability on a useful real-world owner task and measure the result."
+    },
+    {
+      "id": "self-maintenance",
+      "base_priority": 86,
+      "purpose": "Keep Kevin healthy through bounded audits, checkpoints, backup/integrity verification, resource budgets and queue/service reconciliation."
+    },
+    {
+      "id": "self-improvement",
+      "base_priority": 84,
+      "purpose": "Choose a measurable weakness, build a bounded candidate fix, test it, preserve rollback and prove the postcondition without self-widening authority."
+    },
+    {
+      "id": "skill-learning",
+      "base_priority": 82,
+      "purpose": "Turn a stable repeated real procedure/recovery pattern into a governed reusable skill/eval."
+    },
+    {
+      "id": "capability-growth",
+      "base_priority": 81,
+      "purpose": "Advance the highest-owner-value missing capability through staged learning, deterministic tests, negative tests and replayable evidence."
+    },
+    {
+      "id": "computer-fluency",
+      "base_priority": 80,
+      "purpose": "Advance bounded typed file/Office/app/browser/printer/local-computer capabilities through real representative tasks."
+    },
+    {
+      "id": "business-value",
+      "base_priority": 78,
+      "purpose": "Produce useful owner-ready business analysis, documents, spreadsheets, research, SOPs or opportunity intelligence."
+    },
+    {
+      "id": "knowledge-integrity",
+      "base_priority": 76,
+      "purpose": "Audit source provenance, freshness, contradictions and dependent settled claims so stale/falsified knowledge cannot remain authoritative."
+    },
+    {
+      "id": "owner-value-scan",
+      "base_priority": 74,
+      "purpose": "Proactively identify one concrete safe way to save Matt time, reduce waste, unblock work or advance a legitimate income experiment."
+    },
+    {
+      "id": "app-builder",
+      "base_priority": 72,
+      "purpose": "Build/test a useful local app/game feature with explicit E2E acceptance and a named consumer."
+    },
+    {
+      "id": "knowledge-continuity",
+      "base_priority": 70,
+      "purpose": "Improve memory, provenance, handoff and Second Brain continuity when tied to a real retrieval/continuity defect."
+    },
+    {
+      "id": "bounded-research-design",
+      "base_priority": 60,
+      "purpose": "Research/design an explicit missing capability only with acceptance criteria and a named downstream consumer."
+    }
   ]
 }

@@ -1,0 +1,55 @@
+{
+  "schema": 1,
+  "kind": "kevin-engineering-receipt",
+  "id": "RECEIPT-p02-capability-aware-routing-2026-09-04",
+  "generated_at_boise": "2026-09-04T08:30:00-06:00",
+  "timezone": "America/Boise",
+  "actor": "Grok Bot",
+  "machine": "HESS-PC diagnosis + box CI fixtures",
+  "mission": "P0.2 capability-aware Work Supply -> Supervisor routing",
+  "owner_value": "Prevent false IDLE; route Skill Lab owner demand to Skill Lab; never Desktop->toolless fixed:main",
+  "root_cause": [
+    "OPEN owner composites used program owner-value-skills missing from standing-programs -> selector UNKNOWN_PROGRAM (eligible=0, blocked~9-13)",
+    "Supervisor v1.8.8 always dispatches selection to openclaw agent --agent main",
+    "Work Supply not integrated before live selection; Supervisor NO_ELIGIBLE_MISSION narrative erased Skill Lab ready/blocked truth"
+  ],
+  "before": {
+    "autonomy_continuation_status": "IDLE_NO_ELIGIBLE_DEMAND",
+    "eligible_count": 0,
+    "blocked_count_observed": "8-10+",
+    "selector_reason_for_appliance": "UNKNOWN_PROGRAM",
+    "fixed_main_tools": false
+  },
+  "landed": [
+    "control-plane/autonomy/standing-programs-v1.json (+owner-value-skills)",
+    "control-plane/autonomy/kevin-capability-router-v1.py",
+    "control-plane/autonomy/kevin-work-admission-v1.py",
+    "control-plane/autonomy/kevin-work-selector-v1.2.py",
+    "control-plane/autonomy/kevin-supervisor-v1.8.9.ps1 (YELLOW source only; not installed)",
+    "inbox/autonomy/work-items.json skill-lab annotations for OPEN owner composites",
+    "docs/engineering/KEVIN-CAPABILITY-AWARE-ROUTING-v1.md",
+    "tools/test-kevin-capability-router-v1.py",
+    "tools/test-kevin-work-admission-v1.py",
+    ".github/workflows/autonomy-capability-routing-v1-proof.yml"
+  ],
+  "proven_postcondition": {
+    "selected_id": "owner-composite-appliance-repair-pack-v2-prove",
+    "supervisor_action": "DEFER_TO_SKILL_LAB_DO_NOT_CALL_MAIN",
+    "dispatch": "ROUTE_TO_SKILL_LAB",
+    "truth_state": "ELIGIBLE_WORK",
+    "forbid_fixed_main": true,
+    "tests": "router 5/5, admission 3/3, selector v1.2 selftest PASS"
+  },
+  "residual": [
+    "Live Supervisor remains v1.8.8 until typed YELLOW install of v1.8.9",
+    "Live selector remains v1.1 pin; skill-lab lane stays UNKNOWN_LANE on production until Maintenance updates ControlPlane selector+supervisor together",
+    "P0.1 Desktop production crossing still HARD-BLOCKED on Matt approval",
+    "Skill Lab continues via Relay/cron independently; admission makes demand truthful"
+  ],
+  "rollback": "Revert PR / restore prior standing-programs + work-items lane annotations; delete new router/admission/selector-v1.2/supervisor-v1.8.9 sources",
+  "authority_effect": "NONE",
+  "production_desktop_install": false,
+  "relay_arbitrary_shell": false,
+  "live_supervisor_install_v189": false,
+  "safe_for_public_repo": true
+}

@@ -59,7 +59,7 @@ The initial standing catalog deliberately exposes the current blockers instead o
 3. Cross the already-reviewed bounded Kevin Desktop plugin into fixed:main and prove positive and negative tests.
 4. Integrate Work Supply before selection so the Supervisor selects from base items plus owner-approved supplied items.
 5. Add mission leases and expose `BLOCKED_WORK_PRESENT` / queue depth / top blocker in HQ Truth.
-6. Route eligible work to the worker that actually owns the qualified tool surface rather than forcing every job through a zero-tool main agent.
+6. Route eligible work to the worker that actually owns the qualified tool surface rather than forcing every job through a zero-tool main agent. See `docs/engineering/KEVIN-CAPABILITY-AWARE-ROUTING-v1.md` and `kevin-work-admission-v1.py` (Supply → Selector v1.2 → Router).
 7. Re-run owner composite skills through Skill Lab and require a second semantic replay before `REPEATEDLY_PROVEN`.
 8. Port receipt verification, tool budget, checkpoint/resume, provenance, and postcondition protections from older candidate PRs onto fresh main in small current-base slices rather than wholesale-merging stale branches.
 
