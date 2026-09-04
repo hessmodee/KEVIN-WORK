@@ -1,0 +1,37 @@
+﻿{
+    "schema":  1,
+    "kind":  "kevin-yellow-apply-summary",
+    "at_boise":  "2026-09-04T09:42:47.6157389-06:00",
+    "auth":  "OWNER-UNDYING-GREEN-YELLOW-AUTH-2026-09-04",
+    "applies":  [
+                    {
+                        "backup":  "reports/maintenance/backups/budget-unlock-identity-key-20260904-093429",
+                        "receipt":  "reports/engineering/RECEIPT-budget-unlock-identity-key-apply-20260904-093429.json",
+                        "package":  "control-plane/staging/kevin-budget-unlock-identity-key-apply-v1.ps1",
+                        "before_supervisor":  "7BE403577762FAD630CB71E4DA897437475366940B15DBA10F27A9AE759BF314",
+                        "name":  "budget_unlock_identity_key",
+                        "grants_budget_unlock":  true,
+                        "after_supervisor":  "D131003E01890E442824C04925047A50EA71C77EF686D64D3B591FE44AFE48E8",
+                        "semantics":  "identity-only fingerprint; annotation prose + bare material_new_evidence excluded",
+                        "result":  "PASS"
+                    },
+                    {
+                        "after_maintenance":  "715E40DF0CFDC94FC8D470A83273467A6B10CC6CB9A2956E3A94FADC69B9646B",
+                        "result":  "PASS",
+                        "before_maintenance":  "DFF72850E1BBBB2E18397AF38EB593E7234EEB634B596A4651F4537A688B77A9",
+                        "backup":  "reports/maintenance/backups/forge-m1-retire-v16-20260904-093732",
+                        "name":  "forge_m1_maintenance_retire",
+                        "receipt":  "reports/engineering/RECEIPT-forge-m1-maintenance-retire-apply-20260904-093732.json",
+                        "state":  "v1.3.49; migrate/repair retired_vs_live_v189; cron dual-accept; Ensure accepts Superv identity-key + selector v1.2",
+                        "package":  "control-plane/staging/kevin-forge-m1-maintenance-retire-apply-v1.ps1"
+                    },
+                    {
+                        "result":  "PASS_30_30_CRITICAL_0",
+                        "name":  "benchmark",
+                        "note":  "after pin refresh baseline supervisor -\u003e D131003E"
+                    }
+                ],
+    "openclaw_json_touched":  false,
+    "desktop_touched":  false,
+    "safe_for_public_repo":  true
+}
