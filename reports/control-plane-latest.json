@@ -1,14 +1,10 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-09-04T15:00:00.3066888-06:00",
-    "request":  {
-                    "id":  "bess-run-ui-watchdog-20260903-1102",
-                    "verb":  "run_typed_maintenance",
-                    "target":  "kevin-maintenance-v1"
-                },
-    "status":  "IDLE_TERMINAL",
-    "detail":  "Current work order is already terminal; awaiting replacement",
+    "generated_at":  "2026-09-04T15:27:07.2425962-06:00",
+    "request":  null,
+    "status":  "IDLE_NO_ORDER",
+    "detail":  "No current work order; awaiting next bounded GREEN order",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
