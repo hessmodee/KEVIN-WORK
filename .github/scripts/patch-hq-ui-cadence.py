@@ -4,6 +4,7 @@ from pathlib import Path
 root=Path(__file__).resolve().parents[2]
 js=root/'docs'/'hq-truth-v2.js'
 index=root/'docs'/'index.html'
+hq3=root/'docs'/'hq-owner-refinement-v3.js'
 text=js.read_text(encoding='utf-8')
 old_src="engineering:{label:'Engineering',path:'reports/engineering/latest.json',kind:'periodic',fresh:300,delayed:720,claim:'relay / skills / UI Bridge'},"
 new_src="engineering:{label:'Engineering',path:'reports/engineering/latest.json',kind:'periodic',fresh:180,delayed:360,claim:'relay / skills / UI Bridge'},"
@@ -48,4 +49,20 @@ if old_q in idx:
 elif idx.count(new_q)!=1:
     raise SystemExit(f'index cache-bust is neither old nor desired; desired count={idx.count(new_q)}')
 
-print(f'HQ_UI_CADENCE_PATCH_PASS engineering_fresh=180 delayed=360 extrapolation=false cache=v4 changed={str(changed).lower()}')
+# Command Center v3 originally parsed only numbered items that used an em-dash/colon
+# delimiter. CURRENT_TASK legitimately uses the common "**Title.** Detail" form for P0
+# repair targets, causing HQ to fall back to canned priorities. Accept both forms so HQ
+# really follows the canonical current task instead of silently presenting a fallback.
+h3=hq3.read_text(encoding='utf-8')
+old_md="""function mdSection(needle,limit){const lines=String(taskMd||'').split(/\\r?\\n/);let on=false,out=[];for(const raw of lines){const line=raw.trim();if(/^##\\s+/.test(line)){if(on)break;on=line.toLowerCase().includes(needle.toLowerCase());continue}if(!on)continue;const m=line.match(/^\\d+\\.\\s+(?:\\*\\*)?(.+?)(?:\\*\\*)?(?:\\s+[—–-]\\s+|:\\s+)(.+)$/);if(!m)continue;out.push([m[1].replace(/[\\*`]/g,'').trim(),m[2].replace(/\\*\\*/g,'').trim()]);if(out.length>=limit)break}return out}"""
+new_md="""function mdSection(needle,limit){const lines=String(taskMd||'').split(/\\r?\\n/);let on=false,out=[];for(const raw of lines){const line=raw.trim();if(/^##\\s+/.test(line)){if(on)break;on=line.toLowerCase().includes(needle.toLowerCase());continue}if(!on)continue;let m=line.match(/^\\d+\\.\\s+(?:\\*\\*)?(.+?)(?:\\*\\*)?(?:\\s+[—–-]\\s+|:\\s+)(.+)$/);if(!m){const b=line.match(/^\\d+\\.\\s+\\*\\*(.+?)\\*\\*\\s+(.+)$/);if(b)m=[b[0],b[1].replace(/\\.$/,'').trim(),b[2]]}if(!m)continue;out.push([m[1].replace(/[\\*`]/g,'').trim(),m[2].replace(/\\*\\*/g,'').trim()]);if(out.length>=limit)break}return out}"""
+if old_md in h3:
+    if h3.count(old_md)!=1:
+        raise SystemExit(f'HQ v3 mdSection old anchor mismatch count={h3.count(old_md)}')
+    h3=h3.replace(old_md,new_md)
+    hq3.write_text(h3,encoding='utf-8',newline='\n')
+    changed=True
+elif h3.count(new_md)!=1:
+    raise SystemExit(f'HQ v3 mdSection is neither old nor desired; desired count={h3.count(new_md)}')
+
+print(f'HQ_UI_CADENCE_PATCH_PASS engineering_fresh=180 delayed=360 extrapolation=false cache=v4 current_task_parser=live changed={str(changed).lower()}')
