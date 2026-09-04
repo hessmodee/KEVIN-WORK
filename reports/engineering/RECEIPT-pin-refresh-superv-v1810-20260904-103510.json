@@ -1,0 +1,24 @@
+{
+    "schema":  1,
+    "kind":  "kevin-pin-refresh-receipt",
+    "id":  "RECEIPT-pin-refresh-superv-v1810-20260904-103510",
+    "at_boise":  "2026-09-04T10:35:10.5136217-06:00",
+    "actor":  "Grok Bot",
+    "mission":  "P0.4 / Benchmark R02 supervisor pin refresh after Superv v1.8.10",
+    "backup_dir":  "reports/maintenance/backups/pin-refresh-superv-v1810-20260904-103510",
+    "before":  {
+                   "desired_supervisor":  "D131003E01890E442824C04925047A50EA71C77EF686D64D3B591FE44AFE48E8",
+                   "baseline_supervisor":  "D131003E01890E442824C04925047A50EA71C77EF686D64D3B591FE44AFE48E8",
+                   "desired_maintenance":  "715E40DF0CFDC94FC8D470A83273467A6B10CC6CB9A2956E3A94FADC69B9646B"
+               },
+    "after":  {
+                  "live_maintenance":  "715E40DF0CFDC94FC8D470A83273467A6B10CC6CB9A2956E3A94FADC69B9646B",
+                  "desired_maintenance":  "715E40DF0CFDC94FC8D470A83273467A6B10CC6CB9A2956E3A94FADC69B9646B",
+                  "live_supervisor":  "D77BCAA7E2CB76B0F477F7CBAC0C93CC1ABF010F24373EC2F0207D73A1B76810",
+                  "baseline_supervisor":  "D77BCAA7E2CB76B0F477F7CBAC0C93CC1ABF010F24373EC2F0207D73A1B76810",
+                  "live_forge":  "433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A",
+                  "desired_supervisor":  "D77BCAA7E2CB76B0F477F7CBAC0C93CC1ABF010F24373EC2F0207D73A1B76810"
+              },
+    "openclaw_json_touched":  false,
+    "rollback":  "Copy backup baseline.json (and desired-state-v1.json) from backup_dir over live paths; re-run kevin-benchmark-v1.ps1"
+}
