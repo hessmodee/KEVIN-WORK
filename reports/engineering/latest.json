@@ -1,21 +1,17 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-04T08:33:23.6653833-06:00",
+    "generated_at":  "2026-09-04T08:35:22.8886262-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
                     "id":  "grok-stage-appliance-repair-v3-202609040832",
                     "operation":  "stage_composite_skill",
-                    "status":  "STAGED",
-                    "detail":  "Composite skill staged for Skill Lab."
+                    "status":  "DUPLICATE_IGNORED",
+                    "detail":  "Request id already processed."
                 },
     "result":  {
-                   "skill_id":  "cache-valley-appliance-repair-launch-pack",
-                   "version":  "3",
-                   "local_name":  "cache-valley-appliance-repair-launch-pack--3.json",
-                   "step_count":  2,
-                   "skill_sha256":  "8F7F416D332A92F5E13A9BAEDA2A72BF65EA417A25B673EC4599499659EC78D3"
+
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -31,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  0.2
+                                     "heartbeat_age_seconds":  1.6
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -41,15 +37,15 @@
                               },
                    "composite_skills":  {
                                             "ready":  1,
-                                            "running":  1,
-                                            "done":  13,
+                                            "running":  0,
+                                            "done":  14,
                                             "failed":  3,
-                                            "proven_count":  13,
+                                            "proven_count":  14,
                                             "latest_proven":  {
-                                                                  "key":  "creator-monetization-pipeline-pack@1",
-                                                                  "proven_at":  "2026-09-04T08:17:45.1071818-06:00",
-                                                                  "manifest_sha256":  "A1AA786290A245EEC3C281218EC26798E31F98CDAF53CA204ADA20E524A106D1",
-                                                                  "proof_sha256":  "BD7EF0DC467FD52FE829EA6C77079F92CD762392005C7E4ECC5C943F5B4EAAF2",
+                                                                  "key":  "cache-valley-appliance-repair-launch-pack@3",
+                                                                  "proven_at":  "2026-09-04T08:33:45.2450942-06:00",
+                                                                  "manifest_sha256":  "B27FC43F61DDD591D68D1EFD2397CB3175344F405BC67B0BE04312E1D52B790B",
+                                                                  "proof_sha256":  "972332A6DD49BC8C0B7433CF523DEFCAB9F64AAC87D2C4932B919CF2C752EC01",
                                                                   "primitive_steps":  [
                                                                                           "create_spreadsheet",
                                                                                           "create_text"
@@ -79,20 +75,6 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-maintenance-intake-v1",
-                                    "enabled":  true,
-                                    "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-supervisor-v1",
-                                    "enabled":  true,
-                                    "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-support-bridge-v1",
                                     "enabled":  true,
                                     "every_ms":  180000,
@@ -103,6 +85,20 @@
                                     "declaration_key":  "kevin-benchmark-v1",
                                     "enabled":  true,
                                     "every_ms":  600000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-maintenance-intake-v1",
+                                    "enabled":  true,
+                                    "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-supervisor-v1",
+                                    "enabled":  true,
+                                    "every_ms":  300000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 }
