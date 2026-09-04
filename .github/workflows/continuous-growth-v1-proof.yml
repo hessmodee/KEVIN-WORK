@@ -1,0 +1,68 @@
+name: Kevin Continuous Growth v1 Proof
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/autonomy/continuous-growth-policy-v1.json'
+      - 'control-plane/autonomy/kevin-continuous-growth-v1.py'
+      - 'control-plane/autonomy/standing-programs-v1.json'
+      - 'control-plane/autonomy/standing-work-supply-v1.json'
+      - 'tools/test-continuous-growth-v1.py'
+      - 'docs/architecture/KEVIN-CONTINUOUS-GROWTH-v1.md'
+      - 'AGENTS.md'
+      - 'inbox/CURRENT_TASK.md'
+      - '.github/workflows/continuous-growth-v1-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile and run deterministic growth tests
+        run: |
+          python -m py_compile control-plane/autonomy/kevin-continuous-growth-v1.py tools/test-continuous-growth-v1.py
+          python tools/test-continuous-growth-v1.py
+      - name: Cross-check standing supply and protected boundaries
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('control-plane/autonomy/continuous-growth-policy-v1.json').read_text())
+          supply=json.loads(Path('control-plane/autonomy/standing-work-supply-v1.json').read_text())
+          programs=json.loads(Path('control-plane/autonomy/standing-programs-v1.json').read_text())
+          protected=set(p['protected_effects'])
+          ids={x['id'] for x in programs['programs']}
+          needed={'self-heal','self-maintenance','self-improvement','knowledge-integrity','blocked-work-recovery','capability-growth','owner-value-scan'}
+          assert needed.issubset(ids), needed-ids
+          standing={x['id']:x for x in supply['standing_work']}
+          expected={
+            'platform-self-heal-watch-v1',
+            'runtime-self-maintenance-audit-v1',
+            'blocked-work-recovery-v1',
+            'knowledge-integrity-sweep-v1',
+            'capability-gap-growth-v1',
+            'owner-value-opportunity-scan-v1'
+          }
+          assert expected.issubset(standing), expected-set(standing)
+          for sid in expected:
+            item=standing[sid]
+            assert item['program'] in needed
+            assert str(item.get('authority_class','GREEN')).upper()=='GREEN'
+            assert not (set(map(str,item.get('effects',[]))) & protected), sid
+            assert item.get('acceptance_criteria'), sid
+            assert item.get('next_action'), sid
+          handoff_source=Path('inbox/CURRENT_TASK.md').read_text()
+          for phrase in ['maximum bounded autonomy','Self-heal','Self-maintain','Self-improve','24/7','Do not weaken']:
+            assert phrase.lower() in handoff_source.lower(), phrase
+          print('CONTINUOUS_GROWTH_CROSSCHECK_PASS standing_programs=7 protected_effects_enforced=true handover_source=true')
+          PY
+      - name: Existing work-supply regression suite
+        run: python tools/test-autonomy-work-supply-v1.py
