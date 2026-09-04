@@ -1,10 +1,10 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-03T20:14:33.7134500-06:00",
-  "status": "ready",
+  "generated_at": "2026-09-03T20:20:13-06:00",
+  "status": "degraded",
   "health": {
-    "overall": "healthy",
-    "failed_checks": 0
+    "overall": "degraded",
+    "failed_checks": 1
   },
   "brain": {
     "name": "Qwen 2.5 14B",
@@ -15,27 +15,20 @@
   "current_task": null,
   "services": {
     "tick": "healthy",
-    "bridge": "healthy",
+    "bridge": "degraded",
     "ollama": "healthy",
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 42,
-    "cpu_pct": 6,
+    "memory_pct": 39,
+    "cpu_pct": 0,
     "gpu": "RTX 3060",
-    "gpu_pct": 42
+    "gpu_pct": 3
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-03T04:38:43-06:00",
-        "estimated": false,
-        "ram": 33,
-        "cpu": 10,
-        "gpu": 13
-      },
       {
         "at": "2026-09-03T04:50:14-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 42,
         "cpu": 6,
         "gpu": 42
+      },
+      {
+        "at": "2026-09-03T20:20:13-06:00",
+        "estimated": false,
+        "ram": 39,
+        "cpu": 0,
+        "gpu": 3
       }
     ],
     "ram": [
-      33,
       33,
       34,
       33,
@@ -798,10 +797,10 @@
       41,
       40,
       38,
-      42
+      42,
+      39
     ],
     "cpu": [
-      10,
       11,
       16,
       9,
@@ -896,10 +895,10 @@
       11,
       8,
       2,
-      6
+      6,
+      0
     ],
     "gpu": [
-      13,
       38,
       21,
       31,
@@ -994,7 +993,8 @@
       18,
       18,
       18,
-      42
+      42,
+      3
     ]
   },
   "weather": {
@@ -1093,7 +1093,7 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 97,
+      "done": 96,
       "total": 97
     }
   ],
@@ -1148,11 +1148,11 @@
   ],
   "activity": [
     {
-      "at": "2026-09-03T20:05:14-06:00",
+      "at": "2026-09-03T20:20:13-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
-      "result": "pass"
+      "result": "fail"
     },
     {
       "at": "2026-09-03T15:38:43-06:00",
@@ -1372,15 +1372,15 @@
   ],
   "owl": {
     "level": 1,
-    "state": "idle"
+    "state": "warning"
   },
   "sync": {
-    "last": "2026-09-03T20:14:33.7134500-06:00",
+    "last": "2026-09-03T20:20:13-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
-    "fails": 0,
-    "summary": "All checks passed"
+    "fails": 1,
+    "summary": "1 check(s) failed"
   },
   "autonomy": {
     "mode": "hourly_design",
@@ -1412,7 +1412,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-03T20:14:33.7134500-06:00",
+    "generated_at": "2026-09-03T20:19:33.7732279-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
