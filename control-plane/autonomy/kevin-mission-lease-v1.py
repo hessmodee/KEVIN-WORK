@@ -12,9 +12,10 @@ import copy
 import hashlib
 import json
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 AUTHORITY = "NONE_LEASE_CHECKPOINT_ONLY"
 SCHEMA = "kevin.mission_lease.v1"
 
@@ -425,14 +426,103 @@ def selftest() -> int:
     return 0
 
 
+def load_store(path: str) -> Dict[str, Any]:
+    pth = Path(path)
+    if not pth.exists():
+        return new_store()
+    data = json.loads(pth.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError("store root must be object")
+    data.setdefault("schema", SCHEMA)
+    data.setdefault("version", VERSION)
+    data.setdefault("authority_effect", AUTHORITY)
+    data.setdefault("leases", {})
+    data.setdefault("checkpoints", {})
+    return data
+
+
+def save_store(path: str, store: Dict[str, Any]) -> None:
+    pth = Path(path)
+    pth.parent.mkdir(parents=True, exist_ok=True)
+    tmp = pth.with_suffix(pth.suffix + ".tmp")
+    tmp.write_text(json.dumps(store, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    tmp.replace(pth)
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     p = argparse.ArgumentParser(description="Kevin Mission Lease + Checkpoint v1")
     p.add_argument("--selftest", action="store_true")
+    p.add_argument("--store", default="")
+    p.add_argument("--action", default="", choices=["", "acquire", "heartbeat", "release", "recover", "truth", "checkpoint"])
+    p.add_argument("--mission-id", default="")
+    p.add_argument("--holder", default="")
+    p.add_argument("--evidence-uri", default="")
+    p.add_argument("--ttl-seconds", type=int, default=900)
+    p.add_argument("--reason", default="COMPLETE")
+    p.add_argument("--stage", default="")
+    p.add_argument("--resume-hint", default="")
+    p.add_argument("--payload-json", default="{}")
     args = p.parse_args(argv)
     if args.selftest:
         return selftest()
-    p.print_help()
-    return 2
+    if not args.action or not args.store:
+        p.print_help()
+        return 2
+
+    store = load_store(args.store)
+    if args.action == "acquire":
+        result = acquire_lease(
+            store,
+            mission_id=args.mission_id,
+            holder=args.holder,
+            ttl_seconds=args.ttl_seconds,
+            evidence_uri=args.evidence_uri or None,
+        )
+    elif args.action == "heartbeat":
+        result = heartbeat(
+            store,
+            mission_id=args.mission_id,
+            holder=args.holder,
+            evidence_uri=args.evidence_uri,
+        )
+    elif args.action == "release":
+        result = release_lease(
+            store,
+            mission_id=args.mission_id,
+            holder=args.holder,
+            reason=args.reason,
+        )
+    elif args.action == "recover":
+        result = recover_orphans(store)
+    elif args.action == "truth":
+        if args.mission_id:
+            result = {
+                "ok": True,
+                "mission_id": args.mission_id,
+                "truth_state": truth_for_mission(store, args.mission_id),
+                "lease": store.get("leases", {}).get(args.mission_id),
+            }
+        else:
+            result = {"ok": True, **global_truth(store)}
+    elif args.action == "checkpoint":
+        payload = json.loads(args.payload_json or "{}")
+        result = save_checkpoint(
+            store,
+            mission_id=args.mission_id,
+            holder=args.holder,
+            stage=args.stage,
+            payload=payload,
+            resume_hint=args.resume_hint or args.stage,
+        )
+    else:
+        p.print_help()
+        return 2
+
+    # Persist for mutating actions
+    if args.action in {"acquire", "heartbeat", "release", "recover", "checkpoint"}:
+        save_store(args.store, store)
+    print(json.dumps(result, sort_keys=True))
+    return 0 if result.get("ok", True) or args.action in {"truth", "recover"} else 1
 
 
 if __name__ == "__main__":
