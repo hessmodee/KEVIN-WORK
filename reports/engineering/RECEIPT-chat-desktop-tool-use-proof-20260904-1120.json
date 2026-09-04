@@ -1,0 +1,101 @@
+﻿{
+    "schema":  1,
+    "kind":  "kevin-chat-desktop-tool-use-proof",
+    "at_mt":  "2026-09-04 11:19:03 MT",
+    "actor":  "GrokBot-executor",
+    "machine":  "HESS-PC",
+    "openclaw_sha256":  "4126AFE64EF809B9A4747D70B9868F0FAB94F554F213C88B0DA832FBF8C5E794",
+    "chat_18789":  "UP",
+    "reader_19001":  "UP_untouched",
+    "inventory_exact_4":  [
+                              "kevin_system_status",
+                              "kevin_desktop_find_folder",
+                              "kevin_desktop_open_folder",
+                              "kevin_app_launch"
+                          ],
+    "supportsTools_ollama_chat_16k_qwen":  true,
+    "path_tested":  "openclaw agent --agent main (fixed:main; same agent as OpenClaw Control Chat)",
+    "prompts":  {
+                    "A_open_calculator":  {
+                                              "verdict":  "PASS",
+                                              "emitted_tool_calls":  true,
+                                              "tools":  [
+                                                            "kevin_app_launch"
+                                                        ],
+                                              "os_proof":  "CalculatorApp process_count 1-\u003e2",
+                                              "text":  "The Windows Calculator app has been launched."
+                                          },
+                    "B_desktop_coached":  {
+                                              "verdict":  "PASS",
+                                              "emitted_tool_calls":  true,
+                                              "tools":  [
+                                                            "kevin_desktop_find_folder",
+                                                            "kevin_desktop_open_folder"
+                                                        ],
+                                              "os_proof":  "Desktop listing captured; MATT exists=true",
+                                              "note":  "Opened MATT; did not list names (no list tool)"
+                                          },
+                    "C_uncoached_long_session":  {
+                                                     "verdict":  "FAIL_MODE",
+                                                     "emitted_tool_calls":  false,
+                                                     "error":  "Context overflow: prompt too large for the model",
+                                                     "root_cause":  "16k context overflow on accumulated main session"
+                                                 },
+                    "C2_uncoached_after_reset":  {
+                                                     "verdict":  "PASS_no_invent",
+                                                     "emitted_tool_calls":  true,
+                                                     "tools":  [
+                                                                   "kevin_desktop_find_folder",
+                                                                   "kevin_desktop_open_folder"
+                                                               ],
+                                                     "args":  [
+                                                                  {
+                                                                      "name":  "all"
+                                                                  },
+                                                                  {
+                                                                      "name":  "all"
+                                                                  }
+                                                              ],
+                                                     "tool_results":  "not_found",
+                                                     "note":  "Did not invent listing; mis-used find(name=all). Capability gap: no list tool."
+                                                 }
+                },
+    "os_desktop_now":  {
+                           "path":  "C:\\Users\\hessm\\OneDrive\\Desktop",
+                           "calculator_processes":  2,
+                           "names":  [
+                                         "CACHE VALLEY APPLIANCE REPAIR",
+                                         "MATT",
+                                         "mssdk",
+                                         "AGENT-HANDOFF-2026-08-28-1408.md",
+                                         "Collect-Kevin-Evidence.ps1",
+                                         "desktop.ini",
+                                         "DxDiag.txt",
+                                         "Kevin Control UI.lnk",
+                                         "KEVIN TASKS.txt",
+                                         "KEVIN-CAPABILITY-DISCOVERY-20260828-203900.txt",
+                                         "Kevin-Evidence-20260902-201039-807c69.zip",
+                                         "KEVIN-RESUMPTION-REVIEW-2026-09-02.md",
+                                         "openclaw agent --agent main --messa.txt",
+                                         "PS CUsershessm irm httpsollama.comi.txt",
+                                         "Screenshot 2026-08-31 000510.png"
+                                     ]
+                       },
+    "root_cause_hallucination":  "Not tools:false. Long Chat sessions overflow 16k → zero tool_calls; plus no list-directory tool so list intents cannot be truthfully answered from tools. Fresh sessions DO call exact-4.",
+    "teach_paths":  [
+                        "SOUL.md (hard rule)",
+                        "AGENTS.md",
+                        "TOOLS.md",
+                        "MEMORY.md",
+                        "docs/engineering/LESSON-chat-desktop-tools-vs-hallucination-2026-09-04.md",
+                        "docs/engineering/evals/NEG-hallucinated-desktop-success-v1.json"
+                    ],
+    "next_typed_tool":  "kevin_desktop_list_folder (then notepad/explorer/chrome allowlist under proof bar)",
+    "related":  {
+                    "A_B":  "RECEIPT-chat-tool-proof-20260904-111334.json",
+                    "C2":  "RECEIPT-chat-tool-proof-C2-20260904-111640.json",
+                    "C":  "RECEIPT-chat-tool-proof-C-uncoached-20260904-111607.json",
+                    "lesson":  "docs/engineering/LESSON-chat-desktop-tools-vs-hallucination-2026-09-04.md"
+                },
+    "overall":  "PASS_fresh_session_tools; FAIL_MODE_long_session_overflow; TEACH_APPLIED"
+}

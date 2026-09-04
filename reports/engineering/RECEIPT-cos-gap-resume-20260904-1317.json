@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "kind": "kevin-cos-gap-resume",
+  "at_mt": "2026-09-04 13:17 MT",
+  "actor": "GrokBot-executor",
+  "machine": "HESS-PC",
+  "gap": "~2h CoS resource_exhausted on routines",
+  "health": {
+    "chat_18789": "UP pid=116896",
+    "reader_19001": "UP pid=62308",
+    "operator_19101": "UP pid=32676",
+    "nightforge": "Disabled",
+    "desktop_exact_4": [
+      "kevin_system_status",
+      "kevin_desktop_find_folder",
+      "kevin_desktop_open_folder",
+      "kevin_app_launch"
+    ],
+    "openclaw_sha256_prefix": "4126AFE6",
+    "benchmark_latest": "PASS 30/30 critical 0 at 2026-09-04T13:07:01-06:00"
+  },
+  "chat_honesty_prove": {
+    "verdict": "PASS",
+    "root_cause": "Long Chat 16k context overflow -> zero tool_calls; not tools:false. Fresh sessions emit exact-4. No list tool -> list intents cannot be truthfully answered.",
+    "master_receipt": "reports/engineering/RECEIPT-chat-desktop-tool-use-proof-20260904-1120.json",
+    "teach": "SOUL/AGENTS/TOOLS/MEMORY + LESSON-chat-desktop-tools-vs-hallucination-2026-09-04.md + NEG eval",
+    "incomplete": false
+  },
+  "minecraft_v0": {
+    "verdict": "PASS",
+    "marker": "KEVIN_MC_V0_OK",
+    "receipt": "reports/engineering/RECEIPT-minecraft-v0-local-prove-20260904-1314.json",
+    "port": 25565,
+    "offline_only": true
+  },
+  "skill_lab": {
+    "was_free": true,
+    "proven": "independent-online-business-research-pack@1",
+    "proven_count": 21,
+    "receipt": "reports/engineering/RECEIPT-indie-biz-research-20260904-1317.md"
+  },
+  "untouched": [
+    "Chat 18789",
+    "Reader 19001",
+    "openclaw.json Desktop exact-4"
+  ],
+  "no": [
+    "live trades",
+    "purchases",
+    "calls",
+    "GROK-HANDOVER"
+  ]
+}\n

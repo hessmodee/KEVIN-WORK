@@ -1,0 +1,95 @@
+﻿{
+    "stamp":  "20260904-111334",
+    "at_mt":  "2026-09-04 11:15:47 MT",
+    "path":  "openclaw agent --agent main (fixed:main / same harness as Chat)",
+    "inventory":  {
+                      "A_tools":  [
+                                      "kevin_system_status",
+                                      "kevin_desktop_find_folder",
+                                      "kevin_desktop_open_folder",
+                                      "kevin_app_launch"
+                                  ],
+                      "B_tools":  [
+                                      "kevin_system_status",
+                                      "kevin_desktop_find_folder",
+                                      "kevin_desktop_open_folder",
+                                      "kevin_app_launch"
+                                  ],
+                      "A_toolCount":  4,
+                      "B_toolCount":  4,
+                      "expected":  [
+                                       "kevin_system_status",
+                                       "kevin_desktop_find_folder",
+                                       "kevin_desktop_open_folder",
+                                       "kevin_app_launch"
+                                   ]
+                  },
+    "prompt_A":  {
+                     "text":  "The Windows Calculator app has been launched.",
+                     "sessionId":  "ed60941a-7839-47d2-bb76-e18215d06df5",
+                     "PASS":  true,
+                     "post_calc":  {
+                                       "process_count":  2,
+                                       "wmi_names":  [
+                                                         "CalculatorApp.exe"
+                                                     ],
+                                       "wmi_count":  2,
+                                       "process_names":  [
+                                                             "CalculatorApp"
+                                                         ]
+                                   },
+                     "FAIL_reason":  null,
+                     "calls":  1,
+                     "pre_calc":  {
+                                      "process_count":  1,
+                                      "wmi_names":  [
+                                                        "CalculatorApp.exe"
+                                                    ],
+                                      "wmi_count":  1,
+                                      "process_names":  [
+                                                            "CalculatorApp"
+                                                        ]
+                                  },
+                     "status":  "ok",
+                     "prompt":  "Open the Windows Calculator app.",
+                     "tools_used":  [
+                                        "kevin_app_launch"
+                                    ]
+                 },
+    "prompt_B":  {
+                     "text":  "The MATT folder has been opened. You can now view the files and folders inside it on your Desktop.",
+                     "sessionId":  "ed60941a-7839-47d2-bb76-e18215d06df5",
+                     "PASS":  true,
+                     "FAIL_reason":  null,
+                     "calls":  2,
+                     "os_desktop":  {
+                                        "count":  15,
+                                        "matt_exists":  true,
+                                        "desktop":  "C:\\Users\\hessm\\OneDrive\\Desktop",
+                                        "names":  [
+                                                      "CACHE VALLEY APPLIANCE REPAIR",
+                                                      "MATT",
+                                                      "mssdk",
+                                                      "AGENT-HANDOFF-2026-08-28-1408.md",
+                                                      "Collect-Kevin-Evidence.ps1",
+                                                      "desktop.ini",
+                                                      "DxDiag.txt",
+                                                      "Kevin Control UI.lnk",
+                                                      "KEVIN TASKS.txt",
+                                                      "KEVIN-CAPABILITY-DISCOVERY-20260828-203900.txt",
+                                                      "Kevin-Evidence-20260902-201039-807c69.zip",
+                                                      "KEVIN-RESUMPTION-REVIEW-2026-09-02.md",
+                                                      "openclaw agent --agent main --messa.txt",
+                                                      "PS CUsershessm irm httpsollama.comi.txt",
+                                                      "Screenshot 2026-08-31 000510.png"
+                                                  ]
+                                    },
+                     "status":  "ok",
+                     "prompt":  "What files and folders are on my Desktop? ...",
+                     "tools_used":  [
+                                        "kevin_desktop_find_folder",
+                                        "kevin_desktop_open_folder"
+                                    ]
+                 },
+    "overall":  "PASS"
+}
