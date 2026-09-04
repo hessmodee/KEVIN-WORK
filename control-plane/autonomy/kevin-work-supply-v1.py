@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 TERMINAL={"COMPLETE","COMPLETED","CLOSED","PROVEN","OMEN_PROVEN","REPEATEDLY_PROVEN","RESPONSIBILITY_TRANSFERRED","RETIRED","SUPERSEDED"}
-PROTECTED={"arbitrary_shell","credential_access","permission_widening","external_send","purchase","financial_transaction","production_chat_send","automatic_promotion","safety_weakening"}
+PROTECTED={"arbitrary_shell","credential_access","permission_widening","external_send","purchase","financial_transaction","live_crypto_trade","production_chat_send","automatic_promotion","safety_weakening"}
 SEVERITY={"critical":5,"high":4,"medium":3,"low":2,"info":1}
 
 def parse_time(v:Any)->Optional[dt.datetime]:
@@ -141,7 +141,7 @@ def build_supply(base:Dict[str,Any],catalog:Dict[str,Any],inventory:Dict[str,Any
     top=None
     if blocked:
         b=blocked[0];top={"id":b.get("id"),"reason":block_reason(b,now),"next_action":b.get("next_action","")}
-    state={"schema":1,"kind":"kevin-autonomy-work-supply-state","version":"1.0.1","at":now.isoformat(),"truth_state":truth,
+    state={"schema":1,"kind":"kevin-autonomy-work-supply-state","version":"1.1.0","at":now.isoformat(),"truth_state":truth,
            "authority_effect":"NONE_PLANNER_ONLY","activity_claim_policy":"WORKING_REQUIRES_ACTIVE_LEASE_AND_MACHINE_EVIDENCE",
            "eligible_count":len(elig),"blocked_count":len(blocked),"generated_count":len(generated),"skill_manifest_count":len(skills),
            "effective_capabilities":sorted(caps),"selected_candidate":elig[0].get("id") if elig else None,"top_blocker":top,
@@ -150,7 +150,7 @@ def build_supply(base:Dict[str,Any],catalog:Dict[str,Any],inventory:Dict[str,Any
     material={k:v for k,v in state.items() if k not in {"at","fingerprint"}}
     state["fingerprint"]=hashlib.sha256(json.dumps(material,sort_keys=True,separators=(",",":")).encode()).hexdigest().upper()
     merged={"schema":int(base.get("schema",1) or 1),"kind":base.get("kind","kevin-work-items"),
-            "safe_for_public_repo":bool(base.get("safe_for_public_repo",True)),"supply_version":"1.0.1","items":items}
+            "safe_for_public_repo":bool(base.get("safe_for_public_repo",True)),"supply_version":"1.1.0","items":items}
     return merged,state
 
 def write(path:Optional[str],value:Any):
