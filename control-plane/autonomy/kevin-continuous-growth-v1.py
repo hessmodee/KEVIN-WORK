@@ -54,7 +54,8 @@ def assess(candidate: Dict[str, Any], policy: Dict[str, Any]) -> Dict[str, Any]:
         reasons.append("PROGRAM_NOT_CONTINUOUS_GROWTH")
 
     for field in _strings(policy.get("required_candidate_fields")):
-        if field not in candidate or candidate.get(field) in (None, "", []):
+        value = candidate.get(field)
+        if field not in candidate or value is None or (isinstance(value, str) and not value.strip()):
             reasons.append("MISSING_REQUIRED_FIELD:" + field)
 
     if str(candidate.get("authority_class", "")).upper() != "GREEN":
