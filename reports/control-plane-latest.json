@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-09-04T16:03:06.7161981-06:00",
+    "generated_at":  "2026-09-04T16:04:00.2706744-06:00",
     "request":  {
                     "id":  "bess-run-ui-watchdog-20260903-1102",
                     "verb":  "run_typed_maintenance",
                     "target":  "kevin-maintenance-v1"
                 },
-    "status":  "FAILED",
-    "detail":  "GitHub GET failed: gh: HTTP 504",
+    "status":  "IDLE_TERMINAL",
+    "detail":  "Current work order is already terminal; awaiting replacement",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
