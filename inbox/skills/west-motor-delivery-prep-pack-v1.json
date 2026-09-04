@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "west-motor-delivery-prep-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "West Motor Delivery Prep Pack",
+  "description": "Creates a five-sheet delivery and customer-pickup prep board plus SOP so West Motor units leave recon ready for handoff without purchases or live DMS writes.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin West Motor Delivery Prep Board.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Delivery Board",
+              "rows": [
+                ["Stock / Unit", "Customer / Deal", "Target Delivery", "Stage", "Open Blockers", "Owner", "Keys Ready", "Docs Ready", "Detail Done", "Front Line OK", "Next Action"],
+                ["", "", "", "RECON / DETAIL / PAPERWORK / READY", "", "", "NO", "NO", "NO", "NO", ""]
+              ]
+            },
+            {
+              "name": "Paperwork Checklist",
+              "rows": [
+                ["Stock / Unit", "Bill of Sale", "Title / Lien", "Warranty Forms", "Trade Docs", "Temp Tag", "Disclosure", "Signed?", "Missing Item", "Owner"],
+                ["", "NO", "NO", "NO", "NO", "NO", "NO", "NO", "", ""]
+              ]
+            },
+            {
+              "name": "Unit Condition",
+              "rows": [
+                ["Stock / Unit", "Fuel", "Charge / Battery", "Clean Inside", "Clean Outside", "Tire / Spare", "Accessories", "Known Issues", "Photos Taken", "OK to Deliver"],
+                ["", "", "", "NO", "NO", "NO", "NO", "", "NO", "NO"]
+              ]
+            },
+            {
+              "name": "Handoff Log",
+              "rows": [
+                ["Date", "Stock / Unit", "Customer Contacted", "Pickup Window", "Who Briefed Customer", "Walkaround Done", "Issues Raised", "Resolved?", "Delivered?"],
+                ["", "", "NO", "", "", "NO", "", "NO", "NO"]
+              ]
+            },
+            {
+              "name": "Blockers Chase",
+              "rows": [
+                ["Stock / Unit", "Blocker", "Blocks Delivery?", "Vendor / Desk", "Asked At", "ETA", "Chase Owner", "Status", "Notes"],
+                ["", "", "YES", "", "", "", "", "OPEN", "No auto purchase"]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin West Motor Delivery Prep - SOP.md",
+        "content": "# Kevin West Motor Delivery Prep\n\nUse this pack so a sold or promised unit is honestly ready for customer pickup or delivery.\n\n## Operating rule\nDelivery readiness is false until paperwork, unit condition, and handoff walkaround are true. Prefer the smallest chase that clears the next blocker.\n\n## Required sequence\n1. Rank units on Delivery Board with stage, blockers, and owners.\n2. Complete Paperwork Checklist without inventing signed status.\n3. Verify Unit Condition (fuel/charge, clean, tires, accessories, photos).\n4. Log customer handoff contact and walkaround outcomes.\n5. Chase Blockers without placing paid orders unless Matt names the purchase.\n\n## Protective behavior\nKevin must not purchase parts, write live DMS, post listings, widen Chat tools beyond Desktop exact-5, or claim READY while blockers remain. Sheet count stays at or below five. Payloads stay ASCII-safe.\n"
+      }
+    }
+  ]
+}
