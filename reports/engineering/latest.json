@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-04T14:46:39.2047181-06:00",
+    "generated_at":  "2026-09-04T14:48:29.6147996-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
-                    "id":  "",
-                    "operation":  "",
-                    "status":  "FETCH_ERROR",
-                    "detail":  "gh.exe : invalid character \u0027u\u0027 looking for beginning of value  At ~\\.openclaw\\workspace\\kevin-engineering-relay.ps1:89 char:15  +         $out=(\u0026 $gh @Arguments 2\u003e\u00261|Out-String).Trim()  +               ~~~~~~~~~~~~~~~~~~~~~      + CategoryInfo          : NotSpecified: (invalid charact...inning of value:String) [], RemoteException      + FullyQualifiedErrorId : NativeCommandError"
+                    "id":  "grok-stage-dealership-friction-20260904-20260904-103510",
+                    "operation":  "stage_composite_skill",
+                    "status":  "DUPLICATE_IGNORED",
+                    "detail":  "Request id already processed."
                 },
     "result":  {
 
@@ -27,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  0.5
+                                     "heartbeat_age_seconds":  4
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -68,16 +68,16 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-skill-lab-v1",
+                                    "declaration_key":  "kevin-support-bridge-v1",
                                     "enabled":  true,
-                                    "every_ms":  120000,
+                                    "every_ms":  180000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "declaration_key":  "kevin-skill-lab-v1",
                                     "enabled":  true,
-                                    "every_ms":  180000,
+                                    "every_ms":  120000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
