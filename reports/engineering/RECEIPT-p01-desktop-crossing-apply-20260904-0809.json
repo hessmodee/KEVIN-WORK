@@ -1,0 +1,113 @@
+﻿{
+    "schema":  1,
+    "kind":  "kevin-p01-desktop-crossing-apply-receipt",
+    "request_id":  "desktop-hesspc-apply-20260904-0809",
+    "machine":  "HESS-PC",
+    "zone":  "America/Boise",
+    "applied_at":  "2026-09-04 09:16:57 MT",
+    "actor":  "GrokBot-executor",
+    "crossing":  "candidates/maintenance/production-crossing-v2",
+    "operation":  "install_kevin_desktop_v0_1",
+    "result":  "PASS",
+    "approval_binding":  {
+                             "request_id":  "desktop-hesspc-apply-20260904-0809",
+                             "undying_auth_at":  "2026-09-04 08:51 MT",
+                             "evidence":  "RECEIPT-p01-desktop-crossing-approval-binding-20260904-0809.md",
+                             "owner_text_bound":  true
+                         },
+    "before":  {
+                   "config_sha256":  "23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5",
+                   "kevin_desktop_installed":  false,
+                   "visible_tool_count":  0
+               },
+    "after":  {
+                  "visible_kevin_tool_count":  4,
+                  "plugins_entries":  [
+                                          "ollama",
+                                          "kevin-core",
+                                          "kevin-desktop"
+                                      ],
+                  "root_alsoAllow_exact_four":  true,
+                  "root_denies_preserved":  true,
+                  "config_sha256":  "4126AFE64EF809B9A4747D70B9868F0FAB94F554F213C88B0DA832FBF8C5E794",
+                  "main_tools_allow_exact_four":  true,
+                  "visible_tool_count":  4,
+                  "supportsTools_main_qwen":  true,
+                  "visible_tools":  [
+                                        "kevin_system_status",
+                                        "kevin_desktop_find_folder",
+                                        "kevin_desktop_open_folder",
+                                        "kevin_app_launch"
+                                    ],
+                  "root_deny_count":  15
+              },
+    "canaries":  {
+                     "negative":  {
+                                      "caller_argv":  {
+                                                          "text":  "REFUSED to pass additional arguments as the schema does not accept extra parameters. The Notepad application has been launched without additional arguments.",
+                                                          "refused_extra_args":  true
+                                                      },
+                                      "cmd_exe":  {
+                                                      "refused":  true,
+                                                      "text":  "REFUSED",
+                                                      "calls":  0
+                                                  },
+                                      "reader_19001_alive":  true,
+                                      "network_credential_widen":  false,
+                                      "exact_four_no_extra":  {
+                                                                  "exactFour":  true,
+                                                                  "toolCount":  4
+                                                              },
+                                      "traversal":  {
+                                                        "refused":  true,
+                                                        "text":  "REFUSED to open parent folder due to an invalid name error.",
+                                                        "calls":  1
+                                                    },
+                                      "nightforge_untouched":  true
+                                  },
+                     "positive":  {
+                                      "kevin_desktop_find_folder":  {
+                                                                        "status":  "ok",
+                                                                        "target":  "MATT",
+                                                                        "calls":  1
+                                                                    },
+                                      "kevin_system_status":  {
+                                                                  "status":  "ok",
+                                                                  "calls":  1
+                                                              },
+                                      "kevin_app_launch":  {
+                                                               "app":  "calculator",
+                                                               "status":  "ok",
+                                                               "calls":  1
+                                                           },
+                                      "kevin_desktop_open_folder":  {
+                                                                        "status":  "ok",
+                                                                        "target":  "MATT",
+                                                                        "calls":  1
+                                                                    }
+                                  }
+                 },
+    "benchmark":  {
+                      "status":  "PASS",
+                      "at":  "2026-09-04T09:15:58.4427016-06:00",
+                      "critical":  0,
+                      "total":  30,
+                      "passed":  30
+                  },
+    "rollback":  {
+                     "dry_restore_hash_match":  true,
+                     "before_sha256":  "23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5",
+                     "procedure":  "Copy backups/p01-desktop-20260904-0809/openclaw.json.before over ~/.openclaw/openclaw.json; remove plugins.entries kevin-desktop (+ optional kevin-core if desired); remove extensions/kevin-desktop; gateway reload; re-canary visible_kevin_tool_count=0; Benchmark 30/30",
+                     "backup_path":  "C:\\Users\\hessm\\.openclaw\\workspace\\reports\\engineering\\backups\\p01-desktop-20260904-0809",
+                     "required":  true,
+                     "tested_path":  true
+                 },
+    "source_pin":  "4a481497f04df1bfab4db27922c355d6c6ba9833",
+    "notes":  [
+                  "Used agents.list[main].tools.allow exact-four (Reader-style) plus root tools.alsoAllow exact-four to satisfy exact inventory; coding profile alone would leak builtins.",
+                  "compat.supportsTools flipped true only on ollama-chat-16k/qwen2.5:14b.",
+                  "No plugins.allow introduced (would restrict stock plugins).",
+                  "NightForge not modified.",
+                  "Reader 19001 left running (PID unchanged intent)."
+              ]
+}
