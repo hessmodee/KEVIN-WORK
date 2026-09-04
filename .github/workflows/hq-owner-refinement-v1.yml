@@ -5,8 +5,10 @@ on:
     paths:
       - 'docs/index.html'
       - 'docs/hq-owner-refinement-v2.js'
+      - 'docs/hq-owner-refinement-v3.js'
       - 'docs/hq-fun-v2.js'
       - 'docs/hq-overrides-v1.js'
+      - 'docs/sw.js'
       - 'docs/ops/embed.html'
       - 'docs/ops/ops-truth-patch-v1.js'
       - 'docs/ops/ops-owner-refinement-v1.js'
@@ -26,11 +28,13 @@ jobs:
       - name: JavaScript syntax
         run: |
           node --check docs/hq-owner-refinement-v2.js
+          node --check docs/hq-owner-refinement-v3.js
           node --check docs/hq-fun-v2.js
           node --check docs/ops/ops-truth-patch-v1.js
           node --check docs/ops/ops-owner-refinement-v1.js
           node --check docs/ops/ops-fun-v2.js
           node --check docs/hq-overrides-v1.js
+          node --check docs/sw.js
       - name: PowerShell timestamp compatibility
         run: |
           node - <<'NODE'
@@ -45,6 +49,7 @@ jobs:
           from pathlib import Path
           idx=Path('docs/index.html').read_text()
           hq=Path('docs/hq-owner-refinement-v2.js').read_text()
+          hq3=Path('docs/hq-owner-refinement-v3.js').read_text()
           hqfun=Path('docs/hq-fun-v2.js').read_text()
           emb=Path('docs/ops/embed.html').read_text()
           truth=Path('docs/ops/ops-truth-patch-v1.js').read_text()
@@ -52,6 +57,7 @@ jobs:
           opsfun=Path('docs/ops/ops-fun-v2.js').read_text()
           css=Path('docs/ops/ops-owner-refinement-v1.css').read_text()
           over=Path('docs/hq-overrides-v1.js').read_text()
+          sw=Path('docs/sw.js').read_text()
           from html.parser import HTMLParser
           from urllib.parse import urlsplit
           class Assets(HTMLParser):
@@ -69,8 +75,10 @@ jobs:
           assert './hq-core-v7.html' in shell
           tag,attrs,url=shell['./hq-core-v7.html']
           assert tag=='iframe' and attrs.get('id')=='kevinCore' and url.fragment=='overview'
-          for name in ['hq-overrides-v1.js','hq-owner-refinement-v2.js','hq-fun-v2.js']:
+          for name in ['hq-overrides-v1.js','hq-owner-refinement-v2.js','hq-fun-v2.js','hq-truth-v2.js','hq-owner-refinement-v3.js']:
               assert './'+name in shell and Path('docs',name).is_file()
+          assert idx.index('hq-owner-refinement-v3.js') > idx.index('hq-truth-v2.js')
+          assert 'hqDock' in idx and 'Talk to Kevin' in idx and 'Handover' in idx
           embedded=Assets(emb).sources
           for name in ['ops-owner-refinement-v1.css','ops-truth-patch-v1.js','ops-owner-refinement-v1.js','ops-fun-v2.js']:
               assert './'+name in embedded and Path('docs/ops',name).is_file()
@@ -82,6 +90,23 @@ jobs:
           assert 'livePulseHealthy' in hq and "kevin-hq-live-pulse-v15" in hq
           assert 'observer.observe(x,{childList:true})' in hq and 'subtree:true' not in hq
           assert 'function setText' in hq and "setText(card.querySelector('.k')" in hq
+          # v3 owner-first presentation contract: five purposeful views, stale tabs hidden,
+          # current owner task drives priorities, and engineering detail is drill-down only.
+          for token in ["['overview','Command']","['ops','Ops Floor']","['activity','Work Log']","['capabilities','Skills']","['system','System']"]:
+              assert token in hq3, token
+          for hidden in ["'talk'","'build'","'diagnostics'"]:
+              assert hidden in hq3
+          assert 'inbox/CURRENT_TASK.md' in hq3
+          assert 'current live platform repair targets' in hq3
+          assert "tonight's owner-value skill wave" in hq3
+          assert 'BLOCKED WORK' in hq3 and 'TRUE IDLE' in hq3
+          assert '#hqHandoverCard,#attentionBanner' in hq3
+          assert '#hqTruthConsole{display:none!important}' in hq3
+          assert 'hqV3TruthToggle' in hq3 and 'Show deep truth & diagnostics' in hq3
+          assert 'construction is legacy context' in hq3
+          assert "setInterval(refresh,12000)" in hq3
+          assert "hq-owner-refinement-v3.js" in sw and "kevin-hq-shell-v2" in sw
+          # Preserve the animated Ops Floor and its existing truth/state invariants.
           for status in ['READY','ARMED','ACTIVE','WORKING','BUILDING','COOLDOWN','DEGRADED','OFFLINE']:
               assert status in emb
           assert 'function authoritativeStates' in truth and 'function explicitActiveStates' in truth
@@ -119,7 +144,7 @@ jobs:
           assert 'setInterval(refreshTruth,15000)' in hq
           assert 'setInterval(refreshBase,4000)' in opsfun
           assert "type:'kevin-ops-state'" in truth and "type!=='kevin-ops-state'" in hq
-          print('HQ_OWNER_REFINEMENT_PASS single_state_arbiter=true selected_status_stable=true no_cycle_flash=true no_offline_flash=true active_outranks_offline=true aggregate_building_working=true header_avatar_sync=true timestamp_parser_override=true gaze_current_workers_only=true worker_beak_cutout=true hub_layout_stable=true')
+          print('HQ_OWNER_REFINEMENT_PASS command_center_v3=true owner_task_driven=true progressive_disclosure=true ops_floor_preserved=true deep_truth_preserved=true')
       - name: Behavioral shell and stale-evidence protection
         run: |
           node .github/scripts/test-hq-owner-invariants.cjs
