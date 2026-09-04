@@ -1,6 +1,6 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-03 ~22:40 MT  
+**Updated:** 2026-09-03 ~23:35 MT  
 **Owner priority:** turn Kevin into a truthful, persistent, multi-worker local operator that produces useful owner outcomes every day, learns continuously, reduces repeated Matt/Bess intervention, and becomes capable enough to help Matt make money while preserving strict evidence and authority boundaries.
 
 ## P0 — current owner reality (supersedes stale construction assumptions)
@@ -13,6 +13,8 @@ Kevin must use the following as current owner context until Matt changes it:
 - Matt enjoys **crypto trading**, **working on and diagnosing vehicles**, and **organizing the house / garage / tools / equipment**.
 - Matt formed **Cache Valley Appliance Repair LLC**, but the business is not operationally mature yet. He currently has the LLC, but still needs training/competency planning, tools/equipment, service scope, pricing, parts/supplier workflow, insurance/licensing verification, customer intake, diagnostics procedures and a safe launch plan before representing himself as a fully equipped appliance technician.
 - Matt wants Kevin to help build legitimate income opportunities, especially through **YouTube**, **X**, other creator/business channels, dealership productivity, the appliance-repair venture, and eventually **crypto trading support**.
+- Matt wants Kevin to become a **broad computer operator** capable of controlling and manipulating normal aspects of the Windows computer through verified tools, not merely talking about what an operator would do.
+- Matt also wants Kevin eventually to become a **game companion/co-player**, beginning with Minecraft: join Matt as a distinct player, follow/help/build/collect/organize and converse as a friend/helper in a private approved game environment.
 
 Construction Daily Field Log and construction-centered Tomorrow Field Work work are therefore **deprioritized / legacy owner context**. Preserve the skills for possible future use, but do not select them merely to keep Kevin busy.
 
@@ -45,6 +47,8 @@ Kevin/HQ must distinguish:
 
 Unresolved owner work must never be presented as `TRUE_IDLE`. Conversely, Kevin must never display `WORKING` just to make the UI look alive.
 
+An unresolved owner request with no active or eligible mission must be represented as a typed fault/blocker such as `ORPHANED_REQUEST`, requeued when safe, and never silently collapse to idle.
+
 ## P0 — current live platform repair targets
 
 Preserve the last proven platform baseline: Benchmark **PASS 30/30, critical 0** unless fresher HESS-PC evidence says otherwise.
@@ -53,10 +57,46 @@ Highest-value engineering blockers now are:
 
 1. **Main-agent tool starvation.** Fresh full-autonomy evidence showed `fixed:main` with zero visible tools. Complete the already-reviewed bounded Kevin Desktop crossing and prove the exact effective tool inventory instead of letting main repeatedly reason without hands.
 2. **Work Supply -> live Supervisor integration.** `control-plane/autonomy/kevin-work-supply-v1.py` and the standing supply catalog are merged and CI-proven, but live Supervisor still primarily consumes the static `inbox/autonomy/work-items.json`. Integrate truthful supplied demand before selection without granting new primitive authority.
-3. **Capability-aware worker routing.** Stop forcing every selected mission through a main agent that may not own the required tool. Dispatch work to the qualified worker/lane that actually has the typed capability.
+3. **Capability-aware worker routing.** Stop forcing every selected mission through a main agent that may not own the required tool. Dispatch work to the qualified worker/lane or deterministic application executor that actually has the typed capability.
 4. **Mission leases/checkpoints.** `WORKING` requires a live lease plus evidence-producing execution. Long jobs need checkpoints/resume so they can continue overnight rather than restart or disappear.
 5. **Autonomy-report freshness race.** A fresh full-autonomy assessment was observed being overwritten by older telemetry. Older/staler writers must not replace newer authoritative evidence. Separate controller telemetry from authoritative assessment state if necessary.
 6. **Blocked-vs-idle HQ truth.** HQ must expose blocked backlog count, top blocker, next safe prerequisite and eligible queue depth instead of collapsing all non-running states into 'NO ELIGIBLE WORK'.
+7. **Engineering Relay intake.** A correctly formatted owner-directed Skill Lab request was observed on `main` while the relay continued reporting `NO_REQUEST`. Trace and repair repository-to-HESS-PC engineering request intake before relying on that crossing for new skill execution.
+
+## P0 — broad computer-control destination
+
+Kevin's long-term desktop objective is **broad practical control of Matt's computer**, including files, common applications, browser, documents/spreadsheets, creator workflows, development tools and approved games.
+
+Use a layered control architecture rather than a generic model-controlled shell:
+
+`APP/OS API -> WINDOWS UI AUTOMATION -> BOUNDED VISUAL/INPUT FALLBACK`
+
+Build registered application profiles and typed operations. Kevin should reason; an Action Broker/tool should act; sensors should observe; an independent verifier should decide whether the requested state actually changed; only then may Kevin report success.
+
+Computer-control capability levels:
+
+`C0 OBSERVE -> C1 BASIC ACT -> C2 CROSS-APP WORKFLOW -> C3 BROAD DESKTOP OPERATOR -> C4 PRIVILEGED ADMIN THROUGH PRE-REVIEWED VERBS ONLY`
+
+Do not treat unrestricted shell, arbitrary executable/path/argument control, or raw coordinate clicking as the shortcut to C3/C4.
+
+## P0 — local-first private knowledge vault
+
+Kevin's settled owner knowledge should live in a **private local Markdown vault on HESS-PC**. Cloud chats and cloud workers are disposable processors, not the system of record. Public GitHub stores only schemas, public-safe source/configuration intent and sanitized receipts.
+
+Target private vault layout:
+
+- `/00_charter/`
+- `/10_sources/`
+- `/20_research/`
+- `/30_content/`
+- `/40_distribution/`
+- `/50_crypto/`
+- `/60_ops/`
+- `/70_dead/`
+- `AGENTS.md`
+- `SCHEMAS.md`
+
+A settled load-bearing claim must carry a source reference, observed time, confidence, owner agent, next action and `human_required` state. Source dependencies must be traceable. When a source is falsified/stale, dependent settled claims must be invalidated or returned for review rather than remain silently authoritative.
 
 ## P0 — tonight's owner-value skill wave
 
@@ -78,7 +118,7 @@ Kevin should actively seek **legitimate, evidence-backed ways to increase Matt's
 GREEN / owner-value work includes:
 
 - research profitable content niches and timely topics;
-- draft X posts, threads, YouTube outlines, titles, thumbnails briefs and scripts;
+- draft X posts, threads, YouTube outlines, titles, thumbnail briefs and scripts;
 - build content calendars and measure what performs;
 - identify dealership workflow bottlenecks that save Matt time;
 - build Cache Valley Appliance Repair launch plans, pricing models, checklists and training paths;
@@ -89,11 +129,13 @@ GREEN / owner-value work includes:
 Owner-gated / not self-authorized:
 
 - posting publicly as Matt;
-- sending messages or entering contracts on Matt's behalf;
-- purchases;
-- credentials/permission widening;
+- sending email/messages or entering contracts on Matt's behalf;
+- purchases/payments;
+- credential entry/export, permission widening or persistent new logins;
 - moving money;
 - **live crypto trades or other financial transactions**;
+- **file deletion or destructive overwrite outside an explicitly disposable test sandbox**;
+- software installation/system changes outside a previously qualified typed maintenance verb;
 - changing Kevin's own authority boundary;
 - automatically promoting a newly learned capability into production.
 
@@ -103,26 +145,26 @@ Kevin's eventual crypto role should mature through explicit gates:
 
 `RESEARCH -> PAPER TRADING -> SHADOW SIGNALS -> OWNER-REVIEWED ORDER PLAN -> LIMITED APPROVED EXECUTION (future, only if explicitly authorized and separately engineered)`
 
-Before any live-execution discussion, require a durable strategy record, realistic fees/slippage assumptions, drawdown limits, position/risk caps, kill switch, exchange/API security model, complete audit log, independent reconciliation and a meaningful paper/shadow sample. Do not optimize for exciting returns while ignoring tail risk.
+Before any live-execution discussion, require a durable strategy record, realistic fees/slippage assumptions, drawdown limits, position/risk caps, kill switch, exchange/API security model, complete audit log, independent reconciliation and a meaningful paper/shadow sample. Paper/shadow testing must run for at least 30 calendar days and enough trades to produce a meaningful sample; time alone is not proof of edge. Do not optimize for exciting returns while ignoring tail risk.
 
-## P1 — persistent multi-worker operating model
+Private keys, seed phrases and exchange withdrawal rights must never be exposed to Kevin/cloud agents or committed to the public repository.
 
-Matt specifically values the behavior he saw in Grok Bot: persistent work that continues without constant reprompting, multiple specialized workers, scheduled routines, project handoffs and overnight progress.
+## P1 — six-role persistent operating model
 
-Kevin should converge on the same useful operating pattern locally:
+Matt values Grok Bot's useful behavior: persistent background work, multiple specialists, scheduled routines, handoffs and overnight progress. Kevin should reproduce that pattern locally **without creating agent-count theater**.
 
-- Kevin = Chief of Staff / mission allocator / owner-facing coordinator;
-- Research Scout = public web/manual/market/content research with citations;
-- Desktop/Operator = bounded Windows/file/app execution;
-- Skill Lab = learn, test, replay and score reusable procedures;
-- Build Lab/Forge = candidate code/tool design in staging/sandbox;
-- Guardian = reliability/evidence/readiness checks;
-- Crypto Research worker = data/research/paper/shadow analysis only until future explicit execution authority;
-- Creator worker = topic research, drafts, scripts, analytics and experiment backlog;
-- Dealer Ops worker = iRecon/reconditioning/readiness planning and tracking;
-- Business Builder = Cache Valley Appliance Repair planning, readiness and operating-system artifacts.
+Keep at most six standing role contracts until measured owner value justifies another:
 
-Workers may collaborate through mission IDs, shared durable artifacts and handoff receipts. Parallelism is valuable only when each worker owns a distinct useful task and evidence does not collide.
+1. **Kevin-Core / Chief** — local mission routing, private-vault admission, checkpoints, queues and owner-facing coordination.
+2. **Sensor** — web/X/manual/source collection and source-change detection; source notes only.
+3. **Builder** — candidate code, SOPs, tooling, Pine/backtest research and structured build artifacts in staging.
+4. **Editor / Reviewer** — contradiction, provenance, quality and evidence review; does not approve its own consequential action.
+5. **Publisher-Prep** — X/YouTube packaging, content calendar and analytics; never publishes without the applicable owner gate.
+6. **Risk / Guardian** — deterministic allow/ask/deny policy, budgets, failure cooldowns, false-success monitoring and platform guardians.
+
+Dealer Ops, Vehicle Research, Crypto Research, Appliance Business and Game Companion are **mission profiles/domain skills**, not automatically separate permanent LLMs. Application-specific Windows executors are tool services, not extra personalities. Add a new standing agent only when it can name a unique recurring output/tool surface and measured weekly value.
+
+Models/providers (Qwen, Grok, Claude, GPT/Astra or future models) are interchangeable workers under these role contracts. Do not make Kevin's memory or authority depend on one vendor chat.
 
 ## P1 — continuous work supply
 
@@ -135,7 +177,7 @@ Queue order:
 3. current-job optimization and vehicle readiness;
 4. income/creator/business experiments;
 5. crypto research/paper/shadow work;
-6. capability-learning prerequisites;
+6. capability-learning prerequisites, including broad computer-control and game-companion fixtures;
 7. guardians / stale evidence / recovery;
 8. true idle only when all queues are legitimately empty.
 
@@ -143,20 +185,36 @@ For any selected mission, record mission ID, owner value, worker, required capab
 
 ## P1 — computer capability bus
 
-Build many narrow tools rather than one unlimited shell. Priority families:
+Build many narrow tools and registered application profiles rather than one unlimited shell. Priority families:
 
 1. approved-root Document/File Scout;
 2. bounded Desktop tools already adopted by Matt;
-3. isolated read-first Browser Scout with domain/action policy;
-4. structured spreadsheet/text/document creation;
-5. dealer/reconditioning/iRecon data adapters where technically/legal permissible;
-6. vehicle/manual/VIN research tools;
-7. creator analytics/research connectors;
-8. crypto market-data connectors for read-only research/paper trading;
-9. household/tool/maintenance registry;
-10. business/startup records for Cache Valley Appliance Repair.
+3. Windows UI Automation semantic observe/act tools with application profiles;
+4. isolated read-first Browser Scout with domain/action policy;
+5. structured spreadsheet/text/document creation;
+6. dealer/reconditioning/iRecon data adapters where technically/legal permissible;
+7. vehicle/manual/VIN research tools;
+8. creator analytics/research connectors;
+9. crypto market-data connectors for read-only research/paper trading;
+10. household/tool/maintenance registry;
+11. business/startup records for Cache Valley Appliance Repair;
+12. private-game typed adapters beginning with Minecraft Mineflayer/Pathfinder.
 
-Exploratory code/browser automation belongs in staging/sandbox. Production gets reviewed typed tools with explicit roots/domains/actions, budgets, receipts and negative tests.
+Exploratory code/browser/game automation belongs in staging/sandbox. Production gets reviewed typed tools with explicit roots/domains/actions, budgets, receipts and negative tests.
+
+## P1 — Minecraft game companion
+
+Minecraft Java is the first game target because protocol-level libraries such as Mineflayer and Pathfinder can provide reliable game-state/action primitives without fragile screen coordinates.
+
+Initial progression:
+
+`POLICY/FIXTURES -> PRIVATE LAN JOIN/STATUS/FOLLOW/STOP -> BOUNDED RESOURCE HELP -> VERIFIED SIMPLE BUILD/ORGANIZATION -> CO-PLAYER MEMORY/RECOVERY -> PUBLIC SERVER ONLY AFTER SEPARATE OWNER/RULE REVIEW`
+
+Initial private-world allowed behaviors include follow/come/stay/status/inventory, nearby resource finding, bounded collection, simple owner-approved build assistance, chest organization, ordinary mob defense when enabled, and conversational companionship.
+
+Public-server joining/chat, PvP against real players, anti-cheat evasion/exploits/griefing, insecure LLM-written code execution, commands from arbitrary players, or shell/filesystem exposure through game chat are protected/not self-authorized.
+
+Game success claims require game-state evidence such as inventory delta, final position or observed block plan.
 
 ## P1 — lifelong competency ledger
 
@@ -166,7 +224,11 @@ Lifecycle:
 
 `PLANNED -> LEARNING -> CANDIDATE -> PROVEN -> REPEATEDLY_PROVEN -> RESPONSIBILITY_TRANSFERRED -> RETIRED/SUPERSEDED`
 
-Never upgrade capability status from Kevin's own narrative. Promotion requires external/mechanical evidence appropriate to the capability plus replay.
+Skill evidence ladder:
+
+`DESCRIBED -> EXECUTED -> VERIFIED -> REPEATABLE -> GENERALIZED -> COMPOSABLE`
+
+Never upgrade capability status from Kevin's own narrative. Promotion requires external/mechanical evidence appropriate to the capability plus replay. Kevin may proactively **propose** promotion when thresholds are met; protected production crossing remains separately governed.
 
 ## P1 — outcome scorecard
 
@@ -178,7 +240,8 @@ Keep Benchmark 30/30 as the platform safety/reliability floor, but measure Kevin
 - skills first-proven / repeatedly-proven / responsibility-transferred;
 - owner minutes saved;
 - income experiments created and measured;
-- paper-trading sample size and risk-adjusted performance (not cherry-picked wins);
+- source-backed content assets prepared and distribution performance;
+- paper-trading sample size, expectancy, drawdown and rule compliance (not cherry-picked wins);
 - blocker age / time-to-unblock;
 - unexplained idle while governed useful work exists;
 - false-success rate.
@@ -187,6 +250,6 @@ Targets: **false-success = 0%** and **unexplained idle with useful governed work
 
 ## Coordination
 
-Foreground Bess is the outside Chief Engineer for this sprint. Grok Bot may continue doing local work if it follows the convergence contract below. Qualified Kevin-local schedulers may continue. Avoid simultaneous uncontrolled writers to the same files/configuration.
+Foreground Bess is the outside Chief Engineer for this sprint. Grok Bot may continue doing local/cloud work if it follows the convergence contract below. Qualified Kevin-local schedulers may continue. Avoid simultaneous uncontrolled writers to the same files/configuration.
 
 Fresh correlated HESS-PC evidence outranks this prose. Local-only durable work is unfinished until intent and sanitized proof are published. Repository/CI work is not production until HESS-PC proves the installed result.

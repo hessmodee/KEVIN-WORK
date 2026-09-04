@@ -19,11 +19,18 @@ def test_eligible_when_capability_effective():
 def test_missing_capability_is_blocked_not_idle():
     _,s=run(cat(["missing_tool"]));assert s["truth_state"]=="BLOCKED_WORK_PRESENT";assert s["top_blocker"]["reason"].startswith("MISSING_EFFECTIVE_CAPABILITY:")
 
-def test_protected_effect_never_auto_eligible():
-    _,s=run(cat([], ["arbitrary_shell"]));assert s["truth_state"]=="BLOCKED_WORK_PRESENT";assert s["top_blocker"]["reason"]=="PROTECTED_EFFECT_REQUIRES_OWNER"
-
-def test_live_crypto_trade_never_auto_eligible():
-    _,s=run(cat([], ["live_crypto_trade"]));assert s["truth_state"]=="BLOCKED_WORK_PRESENT";assert s["top_blocker"]["reason"]=="PROTECTED_EFFECT_REQUIRES_OWNER"
+def test_all_protected_effects_never_auto_eligible():
+    expected={
+      "arbitrary_shell","credential_access","credential_entry","permission_widening",
+      "external_send","email_send","public_post","purchase","financial_transaction","live_crypto_trade",
+      "file_delete","destructive_overwrite","software_install","production_chat_send","automatic_promotion","safety_weakening",
+      "game_public_server_join","game_public_chat","pvp_real_player"
+    }
+    assert expected.issubset(m.PROTECTED)
+    for effect in sorted(expected):
+        _,s=run(cat([], [effect]))
+        assert s["truth_state"]=="BLOCKED_WORK_PRESENT", effect
+        assert s["top_blocker"]["reason"]=="PROTECTED_EFFECT_REQUIRES_OWNER", effect
 
 def test_existing_blocked_backlog_is_not_true_idle():
     x=empty_items();x["items"].append({"id":"blocked-real-work","program":"test","authority_class":"GREEN","status":"BLOCKED","blocked":True,"dependencies_ready":False,"owner_value":5,"severity":"high","next_action":"install bounded tool"})
