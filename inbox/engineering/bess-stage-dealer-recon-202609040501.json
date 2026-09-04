@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "request_type": "engineering",
+  "request_id": "bess-stage-dealer-recon-202609040501",
+  "created_at": "2026-09-04T05:01:00Z",
+  "authority_class": "GREEN",
+  "operation": "stage_composite_skill",
+  "allowlist": {
+    "source_path": "inbox/skills/dealer-vehicle-recon-command-pack-v1.json",
+    "source_sha256": "4C1C25D7F72462D6338C259142C43308BBC5134D75EE4B4F2E6D9B5791AB222A"
+  },
+  "constraints": {
+    "staging_only": true,
+    "no_production_config": true,
+    "no_permissions_or_tool_surface_change": true,
+    "live_fixture_input": null,
+    "extra_note": "Stage and execute Matt's current-owner West Motor Co CDJR / iRecon dealer vehicle recon command pack through the existing bounded Skill Lab. Preserve every protected boundary: no arbitrary shell, external send/posting, purchase, credentials, permission widening, financial transaction, live crypto trading, or production tool-surface widening."
+  },
+  "acceptance": [
+    "result.status == PROVEN and success == true",
+    "all requested output_files exist and artifact hashes are returned",
+    "execution remains inside the existing OPEN/ALLOW/FIXED Skill Lab gate",
+    "no production configuration, permissions, external sends, purchases, credentials, financial transactions, live trades, or tool-surface widening occurs",
+    "returned proof identifies the exact composite skill id/version and HESS-PC execution evidence"
+  ],
+  "expires_at": "2026-09-04T07:01:00Z"
+}
