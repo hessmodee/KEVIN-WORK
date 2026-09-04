@@ -50,7 +50,7 @@ Peer lesson: scoped typed effectors beat unattended OS agents on always-on cowor
 - flying-squid: YES. JS server, online-mode false, localhost 25565. Preferred v0 server. No paid host. No Microsoft login.
 - Baritone: Java client-side; hard to drive from Mineflayer. SKIP v0. Pathfinder is enough.
 - yearn-for-mines / Amelia / mc-agent: architecture references (perceive, plan, execute). Steal the loop; do not vendor the whole monorepo.
-- Matt Realms: edition **UNKNOWN** (Java vs Bedrock). Prefer invite to existing Realm. Active PLAN docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md. Local flying-squid v0 already PROVEN.
+- Matt Realms: edition **Bedrock LOCKED** (Matt screenshots 2026-09-04). Mineflayer = **NON-PATH for Realms** (Java side gym only). Active path: bedrock-protocol + prismarine-auth. Account model: Matt Xbox hessmodee; Kevin MS on Omen. Prefer invite to existing Realm. PLAN docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md. Local Java flying-squid v0 gym PROVEN.
 
 LLM on 14B: high-level chat and goals only. Movement must be deterministic pathfinder, not free-form JSON. Do not keep 14B loaded just for the bot.
 
@@ -117,12 +117,12 @@ Progress equals isolated proof, then a recipe Kevin can re-run, then a typed cro
 
 ### P2 - Minecraft player -> Realms co-op (Mineflayer Java; edition UNKNOWN)
 
-- **Active PLAN (2026-09-04):** `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md` - status **READY_FOR_OWNER_EDITION_AND_ACCOUNT**. End-state: Kevin plays on Realms **with Matt** as **Kevin's own account**; prefer invite to Matt's existing Realm; no new paid Realms without separate auth.
-- **Edition fork:** Java Realms vs Bedrock Realms differ. Mineflayer = Java protocol only. Matt's Realm edition = **UNKNOWN** until Matt says - do not guess in live apply. LESSON `docs/engineering/LESSON-mineflayer-java-not-bedrock-realms-fork-2026-09-04.md`.
+- **Active PLAN (2026-09-04):** `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md` - status **READY_FOR_OWNER_EDITION_AND_ACCOUNT**. End-state: Kevin plays on Realms **with Matt** as **Kevin's own account** (Omen MS; Matt Xbox hessmodee); prefer invite to Matt's existing Realm; no new paid Realms without separate auth.
+- **Edition LOCKED Bedrock.** Mineflayer = Java only = **NON-PATH for Realms** (side gym). Realms path: bedrock-protocol + prismarine-auth (+ NetherNet gate). Account: Matt Xbox hessmodee; Kevin MS on Omen. LESSON `docs/engineering/LESSON-mineflayer-java-not-bedrock-realms-fork-2026-09-04.md`.
 - Owner value: Kevin as fun coworker in Matt's world: chat, pathfind, follow, basic build; later Discord headset.
 - Existing Kevin code: YES scratch. `scratch/kevin-minecraft-v0` Mineflayer + pathfinder + flying-squid; localhost offline **KEVIN_MC_V0_OK** PASS (~13:14 MT). Recipe `docs/engineering/KEVIN-RECIPE-mineflayer-scratch-v1.md`.
-- Ladder: A Desktop list_folder (elsewhere) -> B optional typed launcher UI -> C harden Mineflayer auth/skills fail-closed -> D owner Kevin MS + invite -> E prove **KEVIN_REALMS_COOP_OK** with Matt online -> F safety (no grief, rate limits, Matt kick, creds Kevin-local never git).
-- Proof bar next (engineering): pathfinder/chat/build skills + authenticated-join **design** (Java); refuse live Realms while edition UNKNOWN.
+- Ladder: A Desktop list_folder (elsewhere) -> B optional typed launcher UI -> C Bedrock stack scratch/auth design (Mineflayer NON-PATH) -> D owner Kevin MS on Omen + invite -> E prove **KEVIN_REALMS_COOP_OK** with Matt online -> F safety (no grief, rate limits, Matt kick, creds Kevin-local never git).
+- Proof bar next (engineering): scratch/kevin-minecraft-bedrock-v0 local offline/BDS prove `KEVIN_MC_BEDROCK_V0_OK` + device-code auth **design**; refuse live Realms until Kevin MS invite ready.
 - RED gates: no live Realm join this PLAN run; no invent MS passwords; no Realms/Minecraft purchase without named auth; no Microsoft credentials in repo; no grief/spam; no Chat MC tool; do not kill Chat 18789 / Reader 19001; do not widen Desktop here.
 ### P3 - Discord text first, voice later (headset)
 
@@ -172,7 +172,7 @@ Progress equals isolated proof, then a recipe Kevin can re-run, then a typed cro
 
 1. P0 live prove (other worker): Chat actually calls Desktop tools.
 2. P6 GREEN (this lane): stage one unproven owner pack (independent online business research). Does not touch Chat.
-3. P2 Realms co-op PLAN ready; next eng = skills + auth design; blocked on Matt Java|Bedrock + Kevin account/invite (KEVIN_REALMS_COOP_OK). Local KEVIN_MC_V0_OK already PASS.
+3. P2 Realms co-op **Bedrock LOCKED**; next eng = bedrock scratch local prove + auth design; blocked on Kevin MS+invite (KEVIN_REALMS_COOP_OK). Java gym KEVIN_MC_V0_OK PASS retained (NON-PATH).
 4. P5 refresh (anytime, short): paper 45/45.
 5. P1 design packet (YELLOW source only) for kevin_chrome_open_url after P0 prove.
 6. P3 only after a Kevin-owned Discord secret is confirmed on disk (do not hunt secrets).
