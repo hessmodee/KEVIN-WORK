@@ -8,10 +8,12 @@ m=importlib.util.module_from_spec(spec);assert spec.loader;spec.loader.exec_modu
 NOW=m.now_utc("2026-09-04T04:00:00Z")
 
 def empty_items():return {"schema":1,"kind":"kevin-work-items","safe_for_public_repo":True,"items":[]}
-def cat(required=None,effects=None,trigger=None):
-    return {"schema":1,"standing_work":[{"id":"test-work","program":"test","required_capabilities":required or [],"effects":effects or [],"trigger":trigger or {"kind":"always"},"owner_value":5,"severity":"high","next_action":"test"}]}
-def run(catalog,inventory=None,items=None,autonomy=None):
-    return m.build_supply(items or empty_items(),catalog,inventory or {"capabilities":[]},{},{},autonomy or {},[],NOW)
+def cat(required=None,effects=None,trigger=None,recurrence=None):
+    item={"id":"test-work","program":"test","required_capabilities":required or [],"effects":effects or [],"trigger":trigger or {"kind":"always"},"owner_value":5,"severity":"high","next_action":"test"}
+    if recurrence:item["recurrence"]=recurrence
+    return {"schema":1,"standing_work":[item]}
+def run(catalog,inventory=None,items=None,autonomy=None,now=NOW):
+    return m.build_supply(items or empty_items(),catalog,inventory or {"capabilities":[]},{},{},autonomy or {},[],now)
 
 def test_eligible_when_capability_effective():
     _,s=run(cat(["safe_tool"]),{"capabilities":["safe_tool"]});assert s["truth_state"]=="ELIGIBLE_WORK";assert s["eligible_count"]==1
@@ -24,6 +26,7 @@ def test_all_protected_effects_never_auto_eligible():
       "arbitrary_shell","credential_access","credential_entry","permission_widening",
       "external_send","email_send","public_post","purchase","financial_transaction","live_crypto_trade",
       "file_delete","destructive_overwrite","software_install","production_chat_send","automatic_promotion","safety_weakening",
+      "governance_edit","authority_boundary_change",
       "game_public_server_join","game_public_chat","pvp_real_player"
     }
     assert expected.issubset(m.PROTECTED)
@@ -42,6 +45,30 @@ def test_true_idle_requires_no_backlog():
 def test_existing_item_never_reset():
     x=empty_items();x["items"].append({"id":"test-work","program":"test","authority_class":"GREEN","status":"COMPLETE","dependencies_ready":True,"blocked":False})
     merged,s=run(cat([]),items=x);assert len([i for i in merged["items"] if i["id"]=="test-work"])==1;assert merged["items"][0]["status"]=="COMPLETE";assert s["truth_state"]=="TRUE_IDLE"
+
+def test_recurring_work_does_not_reset_same_occurrence():
+    c=cat([],recurrence={"kind":"interval_hours","hours":6})
+    merged,s=run(c)
+    assert s["generated_count"]==1
+    oid=s["generated"][0]["id"]
+    merged["items"][0]["status"]="COMPLETE"
+    merged2,s2=run(c,items=merged)
+    assert s2["generated_count"]==0
+    assert len([i for i in merged2["items"] if i["id"]==oid])==1
+    assert merged2["items"][0]["status"]=="COMPLETE"
+
+def test_recurring_work_creates_new_future_occurrence_without_reset():
+    c=cat([],recurrence={"kind":"interval_hours","hours":6})
+    merged,s=run(c)
+    first=s["generated"][0]["id"]
+    merged["items"][0]["status"]="COMPLETE"
+    future=m.now_utc("2026-09-04T10:01:00Z")
+    merged2,s2=run(c,items=merged,now=future)
+    second=s2["generated"][0]["id"]
+    assert first!=second
+    assert len(merged2["items"])==2
+    assert merged2["items"][0]["status"]=="COMPLETE"
+    assert merged2["items"][1]["status"]=="READY"
 
 def test_fingerprint_stable():
     _,a=run(cat(["x"]));_,b=run(cat(["x"]));assert a["fingerprint"]==b["fingerprint"]
