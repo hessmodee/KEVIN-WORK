@@ -85,3 +85,11 @@ Preflight checklist before stage:
 | dealership-friction | N/A | not in inbox; dealer-vehicle-recon already PROVEN |
 
 Aider local: see KEVIN-RECIPE-aider-ollama-scratch-v1.md (scratch only).
+
+### Owner-value updates (2026-09-04 ~09:34 MT)
+| Skill id | Status | Notes |
+|---|---|---|
+| tomorrow-field-work-command-pack@1 | PROVEN ~09:24 MT | proof 9DAD2E7920820A937FE84F5240FAF60902EA9CDA26A1D690B0FB41622402E5DC |
+| equipment-tool-control-pack@1 | PROVEN ~09:32 MT | proof 327B135CE2FBDAFE3674E55DB441269FE72BEB01F7D72618A9FA72FF1E7BDA3A |
+| vehicle-transport-mission-pack@1 | next | 5 sheets; validates; not yet PROVEN |
+| crypto-research-paper-trading-pack@1 | PROVEN ~08:57 MT | paper-only; ZERO live trade |

@@ -3,6 +3,7 @@
 Keep this file short for context budget. Older detail archived in `docs/engineering/KEVIN-MEMORY-ARCHIVE-2026-09-01.md`.
 
 ## Standing
+- 2026-09-04 ~09:30 MT: INTERIM_COS_CURATED Drive pack landed (Matt allowlist West Motor Ford / Hess Contracting / Productivity System / dealership sheets). NOT Kevin-owned END STATE — teach points A sync then C typed faculty (B fallback). `knowledge/INTERIM_COS_CURATED_drive-pack-2026-09-04/` + LESSON `docs/engineering/LESSON-interim-D-cos-curated-drive-pack-2026-09-04.md`.
 - 2026-09-04 ~09:01 MT: YELLOW PLAN Kevin Google Drive RO bridge - END STATE Kevin stands alone (Kevin-owned A then C mandatory; CoS D interim only; teach-and-transfer every step); no OAuth yet; behind P0 Desktop. `docs/engineering/PLAN-kevin-google-drive-readonly-bridge-2026-09-04.md`.
 - 2026-09-04 ~08:51 MT: Owner UNDYING GREEN+YELLOW auth â€” no per-step asks for green/yellow Kevin work; RED/purchasing/trading reserved. `docs/engineering/OWNER-UNDYING-GREEN-YELLOW-AUTH-2026-09-04.md`.
 - 2026-09-02 08:29 MT: Reader WI COMPLETE. Bench 30/30 after typed R05/R11 rebaseline (reader+prod remote.token pins). Typed canary APPLIED_PREAUTHORIZED_PROVEN. Clear global OPENCLAW_GATEWAY_TOKEN ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â multi-profile poison. LESSON docs/engineering/LESSON-benchmark-r05-r11-remote-token-rebaseline-2026-09-02.md.
@@ -120,6 +121,10 @@ Matt/Davy. Destination faculties (pizza/Amazon, email/SMS/calls, Minecraft, Coin
 - Live kevin-supervisor.ps1 SHA256=7BE403577762FAD630CB71E4DA897437475366940B15DBA10F27A9AE759BF314 (PR#74 source C6E3CEF6â€¦ + ExpectedSelectorSha retarget to v1.2).
 - Live ControlPlane\kevin-work-selector-v1.2.py SHA256=52EADBCA27070F3FF845ADF1E989F7E570AECC25D2C3F11EF7E0FF80DA000C6A (exact PR#74 pin).
 - Admission: router 5/5, admission 3/3, selector v1.2 selftest PASS â€” Skill Lab work routes ROUTE_TO_SKILL_LAB / DEFER_TO_SKILL_LAB_DO_NOT_CALL_MAIN (never tool-less fixed:main).
-- Backup: eports/supervisor-install-backup-20260904-090041/; Benchmark after pin refresh: **PASS 30/30 critical 0**.
+- Backup: 
+eports/supervisor-install-backup-20260904-090041/; Benchmark after pin refresh: **PASS 30/30 critical 0**.
 - Budget-unlock + Forge M1 typed packages: preflight -Apply still **APPLY_REFUSED** (identity-key Supervisor source and Maintenance M1 rewrite not authored); desired maint pin already live DFF72850â€¦.
 - openclaw.json: not touched by this install; Desktop concurrent config rebaseline R04 to 4126AFE6â€¦.
+
+- 2026-09-04: proven_count=18 after tomorrow-field + equipment-tool GREEN packs. Inventory: docs/engineering/KEVIN-PROVEN-COMPOSITE-SKILLS-INVENTORY-2026-09-04.md. Next: vehicle-transport-mission-pack@1.
+

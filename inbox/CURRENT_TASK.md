@@ -151,3 +151,10 @@ Count progress only when one of these occurs:
 - a local production change is reconciled to durable evidence with tested postcondition and rollback.
 
 Do not generate churn merely to look active.
+
+## GREEN owner-value composite wave (2026-09-04 ~09:19-09:34 MT)
+
+- tomorrow-field-work-command-pack@1 PROVEN @ 09:24:35 MT; proof `9DAD2E7920820A937FE84F5240FAF60902EA9CDA26A1D690B0FB41622402E5DC`; receipt `reports/engineering/RECEIPT-tomorrow-field-20260904-0924.md`
+- equipment-tool-control-pack@1 PROVEN @ 09:32:35 MT; proof `327B135CE2FBDAFE3674E55DB441269FE72BEB01F7D72618A9FA72FF1E7BDA3A`; receipt `reports/engineering/RECEIPT-equipment-tool-20260904-0932.md`
+- proven_count **18** (registry `reports/capabilities/composite-skills.json`)
+- Next GREEN: vehicle-transport-mission-pack@1 (inbox; prefight OK). Yellow Desktop/Supervisor/openclaw.json untouched by this lane.
