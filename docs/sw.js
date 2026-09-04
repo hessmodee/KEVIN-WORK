@@ -16,6 +16,7 @@ const SHELL=[
   `${BASE}hq-overrides-v1.js`,
   `${BASE}hq-owner-refinement-v2.js`,
   `${BASE}hq-owner-refinement-v3.js`,
+  `${BASE}hq-growth-v1.js`,
   `${BASE}hq-fun-v2.js`,
   `${BASE}hq-truth-v2.js`,
   `${BASE}ops/index.html`,

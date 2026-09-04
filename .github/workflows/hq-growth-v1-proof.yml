@@ -1,0 +1,94 @@
+name: Kevin HQ Continuous Growth v1 Proof
+
+on:
+  pull_request:
+    paths:
+      - 'docs/index.html'
+      - 'docs/hq-growth-v1.js'
+      - 'docs/sw.js'
+      - 'inbox/CURRENT_TASK.md'
+      - 'control-plane/autonomy/standing-work-supply-v1.json'
+      - 'control-plane/autonomy/continuous-growth-policy-v1.json'
+      - '.github/workflows/hq-growth-v1-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  growth-panel-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: JavaScript syntax
+        run: node --check docs/hq-growth-v1.js
+      - name: Static owner-truth invariants
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+          idx=Path('docs/index.html').read_text()
+          js=Path('docs/hq-growth-v1.js').read_text()
+          sw=Path('docs/sw.js').read_text()
+          task=Path('inbox/CURRENT_TASK.md').read_text()
+          policy=json.loads(Path('control-plane/autonomy/continuous-growth-policy-v1.json').read_text())
+          catalog=json.loads(Path('control-plane/autonomy/standing-work-supply-v1.json').read_text())
+          assert 'hq-growth-v1.js' in idx
+          assert idx.index('hq-growth-v1.js') > idx.index('hq-owner-refinement-v3.js')
+          assert 'hq-growth-v1.js' in sw
+          for phrase in [
+              'CONTINUOUS GROWTH',
+              'SOURCE READY · LIVE CROSSING PENDING',
+              'LIVE EVIDENCE SEEN',
+              'active&&lease&&evidence',
+              'source policy and CI readiness are not 24/7 runtime proof',
+              'current live platform repair targets',
+              'owner-value skill wave',
+              'setInterval(refresh,12000)'
+          ]:
+              assert phrase in js, phrase
+          expected_programs={'self-heal','self-maintenance','blocked-work-recovery','knowledge-integrity','self-improvement','capability-growth','owner-value-scan'}
+          assert expected_programs.issubset(set(policy['programs']))
+          standing={x['id'] for x in catalog['standing_work']}
+          expected_standing={
+              'platform-self-heal-watch-v1','runtime-self-maintenance-audit-v1','blocked-work-recovery-v1',
+              'knowledge-integrity-sweep-v1','capability-gap-growth-v1','owner-value-opportunity-scan-v1'
+          }
+          assert expected_standing.issubset(standing)
+          for heading in ['current live platform repair targets','owner-value skill wave']:
+              assert heading.lower() in task.lower(), heading
+          assert 'Continuous-growth live crossing' in task
+          print('HQ_GROWTH_V1_STATIC_PASS source_ready_is_not_live=true owner_task_parser_targets_current_headings=true')
+      - name: Current task parser fixtures
+        run: |
+          node - <<'NODE'
+          const fs=require('fs');
+          const text=fs.readFileSync('inbox/CURRENT_TASK.md','utf8');
+          function clean(v){return String(v||'').replace(/\*\*/g,'').replace(/`/g,'').trim()}
+          function section(needle,limit=12){
+            const lines=text.split(/\r?\n/);let on=false,out=[];
+            for(const raw of lines){
+              const line=raw.trim();
+              if(/^##\s+/.test(line)){if(on)break;on=line.toLowerCase().includes(String(needle).toLowerCase());continue}
+              if(!on)continue;
+              const n=line.match(/^\d+\.\s+(.+)$/);if(!n)continue;
+              const body=n[1].trim();let title='',detail='',m=body.match(/^\*\*(.+?)[.]?\*\*\s*(.*)$/);
+              if(m){title=clean(m[1]).replace(/[.:;]+$/,'');detail=clean(m[2]).replace(/^[—–:-]+\s*/,'')}
+              else if((m=body.match(/^`([^`]+)`\s*[—–-]\s*(.+)$/))){title=clean(m[1]);detail=clean(m[2])}
+              else if((m=body.match(/^(.+?)\s+[—–-]\s+(.+)$/))){title=clean(m[1]);detail=clean(m[2])}
+              else if((m=body.match(/^([^:]+):\s+(.+)$/))){title=clean(m[1]);detail=clean(m[2])}
+              else{title=clean(body)}
+              if(title){out.push([title,detail]);if(out.length>=limit)break}
+            }
+            return out;
+          }
+          const priorities=section('current live platform repair targets',8);
+          const skills=section('owner-value skill wave',6);
+          if(priorities.length!==8) throw new Error(`expected 8 priorities, got ${priorities.length}`);
+          if(skills.length!==6) throw new Error(`expected 6 owner skills, got ${skills.length}`);
+          if(!priorities[0][0].includes('Main-agent tool starvation')) throw new Error(JSON.stringify(priorities[0]));
+          if(!priorities[7][0].includes('Continuous-growth live crossing')) throw new Error(JSON.stringify(priorities[7]));
+          if(!skills[0][0].includes('dealer-vehicle-recon-command-pack@1')) throw new Error(JSON.stringify(skills[0]));
+          console.log('HQ_GROWTH_V1_PARSER_PASS priorities=8 skills=6');
+          NODE
