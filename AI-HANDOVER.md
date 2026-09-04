@@ -2,7 +2,7 @@
 
 > **THIS IS THE ONE CURRENT HANDOVER FOR KEVIN.** Do not create a competing dated handover. Update the source task/evidence and let the canonical handover refresh replace stale state.
 
-**Semantic checkpoint evidence through:** 2026-09-03T23:40:59.3177450-06:00  
+**Semantic checkpoint evidence through:** 2026-09-04T00:00:59.5975048-06:00  
 **Canonical repository:** `hessmodee/KEVIN-WORK` / `main`  
 **Machine twin:** `reports/handoff-latest.json` (not a second authority)
 
@@ -29,11 +29,11 @@ If an agent cannot access one route, use another. Matt should never need to reco
 
 ## Automatic semantic snapshot
 
-- Engineering evidence at checkpoint: `2026-09-03T23:40:59.3177450-06:00`
-- Support evidence at checkpoint: `2026-09-03T23:38:52.1816617-06:00`
-- Autonomy evidence at checkpoint: `2026-09-03T23:37:42.9531217-06:00`
+- Engineering evidence at checkpoint: `2026-09-04T00:00:59.5975048-06:00`
+- Support evidence at checkpoint: `2026-09-03T23:59:52.2255361-06:00`
+- Autonomy evidence at checkpoint: `2026-09-03T23:57:43.0158330-06:00`
 - Benchmark: **PASS — 30/30, critical 0**
-- UI Bridge health at checkpoint: **FRESH** (age then: 2.6 seconds)
+- UI Bridge health at checkpoint: **FRESH** (age then: 4.9 seconds)
 - Maintenance: **ALREADY_APPLIED_PROVEN** — Maintenance previously proven.
 - Supervisor last result: **NO_ELIGIBLE_MISSION**
 - Proven composite skills: **9**
@@ -51,8 +51,8 @@ The block below is pulled from `inbox/CURRENT_TASK.md`. That file is an executio
 
 # CURRENT_TASK
 
-**Updated:** 2026-09-03 ~23:35 MT  
-**Owner priority:** turn Kevin into a truthful, persistent, multi-worker local operator that produces useful owner outcomes every day, learns continuously, reduces repeated Matt/Bess intervention, and becomes capable enough to help Matt make money while preserving strict evidence and authority boundaries.
+**Updated:** 2026-09-03 ~23:58 MT  
+**Owner priority:** turn Kevin into a truthful, persistent, multi-worker local operator that produces useful owner outcomes every day, learns continuously, self-heals/self-maintains/self-improves whenever the runtime is available, reduces repeated Matt/Bess intervention, and becomes capable enough to help Matt make money while preserving strict evidence and authority boundaries.
 
 ## P0 — current owner reality (supersedes stale construction assumptions)
 
@@ -87,6 +87,32 @@ Permanent loop:
 
 Repeated Bess/Grok/Matt intervention is autonomy debt. When a recurring intervention can safely become a bounded Kevin detection/repair/verification responsibility, convert it into one.
 
+## P0 — maximum bounded autonomy / continuous growth directive
+
+Matt's standing objective is for Kevin to keep becoming a better, more self-reliant AI coworker, assistant and companion whenever HESS-PC and Kevin's qualified runtime/schedulers are actually available. Kevin should be persistent and proactive 24/7 **as a runtime objective**, while remaining truthful about whether continuous live execution is currently proven.
+
+When no higher-priority direct owner mission is executing, Kevin must seek the highest-value due GREEN work from the continuous growth loop rather than passively wait:
+
+`OBSERVE -> DIAGNOSE -> REPAIR -> VERIFY -> MAINTAIN -> IMPROVE -> LEARN -> PROVE -> RECORD -> CONTINUE`
+
+Permanent responsibilities:
+
+1. **Self-heal.** Detect broken, stale, contradictory, regressed or repeatedly failing Kevin-owned components. Use only already-qualified bounded recovery verbs. Independently verify the real postcondition after repair.
+2. **Self-maintain / self-care.** Check service health, resource pressure, checkpoints/backups, queue consistency, stale evidence, dependency integrity and recurring jobs. Destructive cleanup remains protected unless confined to an explicitly disposable test sandbox.
+3. **Self-improve.** Pick measurable weaknesses that reduce owner value or autonomy. Build candidate fixes in staging/branches, run positive and negative tests, preserve rollback/checkpoints and prove the real postcondition.
+4. **Learn and grow.** Continuously acquire source-backed knowledge and reusable procedures for current owner priorities. Settled knowledge requires provenance; capabilities require execution/replay evidence.
+5. **Recover blocked work.** Treat blocked owner work as work. Identify the smallest safe missing prerequisite and either create the bounded prerequisite mission or state the exact owner/engineering dependency. Never reset exhausted failure history merely to create activity.
+6. **Expand useful capability.** Prioritize broad computer control, tool access, Work Supply -> Supervisor integration, capability-aware routing, leases/checkpoints/resume and the owner-domain skills below.
+7. **Proactively create owner value.** Prepare research, diagnostics, plans, drafts, checklists, SOPs, code, content packages and opportunity briefs without requiring Matt to ask repeatedly. Consequential external effects remain governed.
+
+"Go max" / "full potential" means **maximum bounded usefulness**, not maximum privilege. Do not weaken, bypass or autonomously edit the Constitution, universal agent rules, approval/authority policy, credential/secret boundaries, financial/risk limits, kill switches or the continuous-growth admission policy. Kevin may propose/stage improvements to those surfaces, but owner/reviewer authorization is required before a protected production crossing.
+
+Persistent does not mean reckless. Default identical-failure budget is at most three attempts without material new evidence, followed by cooldown, failure-family classification and a different safe recovery path. Hot-looping is not progress.
+
+Every mutable self-improvement candidate must carry owner value, acceptance criteria, verification plan, rollback/checkpoint plan, bounded retry/cooldown and independent evidence. `control-plane/autonomy/kevin-continuous-growth-v1.py` is the deterministic GREEN admission guard; `control-plane/autonomy/continuous-growth-policy-v1.json` is its source contract.
+
+Source/CI truth is not proof that Kevin is already operating continuously on HESS-PC. Live 24/7 claims require fresh scheduler/lease/checkpoint/worker-dispatch and semantic postcondition evidence.
+
 ## P0 — truth model: no fake work and no fake idleness
 
 Kevin/HQ must distinguish:
@@ -94,7 +120,7 @@ Kevin/HQ must distinguish:
 - `WORKING`: an active mission lease exists and a real evidence-producing action is running.
 - `ELIGIBLE_WORK`: owner-approved work exists and Kevin has the effective capability to begin it.
 - `BLOCKED_WORK_PRESENT`: legitimate work exists but a prerequisite/tool/proof is missing.
-- `TRUE_IDLE`: no eligible owner work, no blocked owner backlog and no due guardian/capability-learning work.
+- `TRUE_IDLE`: no eligible owner work, no blocked owner backlog and no due guardian/maintenance/capability-learning/growth work.
 
 Unresolved owner work must never be presented as `TRUE_IDLE`. Conversely, Kevin must never display `WORKING` just to make the UI look alive.
 
@@ -107,12 +133,13 @@ Preserve the last proven platform baseline: Benchmark **PASS 30/30, critical 0**
 Highest-value engineering blockers now are:
 
 1. **Main-agent tool starvation.** Fresh full-autonomy evidence showed `fixed:main` with zero visible tools. Complete the already-reviewed bounded Kevin Desktop crossing and prove the exact effective tool inventory instead of letting main repeatedly reason without hands.
-2. **Work Supply -> live Supervisor integration.** `control-plane/autonomy/kevin-work-supply-v1.py` and the standing supply catalog are merged and CI-proven, but live Supervisor still primarily consumes the static `inbox/autonomy/work-items.json`. Integrate truthful supplied demand before selection without granting new primitive authority.
+2. **Work Supply -> live Supervisor integration.** `control-plane/autonomy/kevin-work-supply-v1.py` and the standing supply catalog are merged/CI-proven foundations; integrate truthful supplied demand before selection without granting new primitive authority. Recurring standing occurrences must preserve completed history rather than resetting attempts.
 3. **Capability-aware worker routing.** Stop forcing every selected mission through a main agent that may not own the required tool. Dispatch work to the qualified worker/lane or deterministic application executor that actually has the typed capability.
 4. **Mission leases/checkpoints.** `WORKING` requires a live lease plus evidence-producing execution. Long jobs need checkpoints/resume so they can continue overnight rather than restart or disappear.
 5. **Autonomy-report freshness race.** A fresh full-autonomy assessment was observed being overwritten by older telemetry. Older/staler writers must not replace newer authoritative evidence. Separate controller telemetry from authoritative assessment state if necessary.
 6. **Blocked-vs-idle HQ truth.** HQ must expose blocked backlog count, top blocker, next safe prerequisite and eligible queue depth instead of collapsing all non-running states into 'NO ELIGIBLE WORK'.
 7. **Engineering Relay intake.** A correctly formatted owner-directed Skill Lab request was observed on `main` while the relay continued reporting `NO_REQUEST`. Trace and repair repository-to-HESS-PC engineering request intake before relying on that crossing for new skill execution.
+8. **Continuous-growth live crossing.** After Work Supply/Supervisor/tool routing are healthy, install/enable the recurring self-heal, self-maintenance, blocked-work recovery, knowledge-integrity, capability-growth and owner-value scan loops through existing qualified schedulers. Prove at least two scheduled windows with real leases/checkpoints and no false WORKING state.
 
 ## P0 — broad computer-control destination
 
@@ -149,7 +176,7 @@ Target private vault layout:
 
 A settled load-bearing claim must carry a source reference, observed time, confidence, owner agent, next action and `human_required` state. Source dependencies must be traceable. When a source is falsified/stale, dependent settled claims must be invalidated or returned for review rather than remain silently authoritative.
 
-## P0 — tonight's owner-value skill wave
+## P0 — owner-value skill wave
 
 Create/prove current-owner skills using existing GREEN primitives first, then graduate them to richer typed tools when those tools become qualified:
 
@@ -202,7 +229,7 @@ Private keys, seed phrases and exchange withdrawal rights must never be exposed 
 
 ## P1 — six-role persistent operating model
 
-Matt values Grok Bot's useful behavior: persistent background work, multiple specialists, scheduled routines, handoffs and overnight progress. Kevin should reproduce that pattern locally **without creating agent-count theater**.
+Matt values persistent background work, multiple specialists, scheduled routines, handoffs and overnight progress. Kevin should reproduce that pattern locally **without creating agent-count theater**.
 
 Keep at most six standing role contracts until measured owner value justifies another:
 
@@ -229,8 +256,11 @@ Queue order:
 4. income/creator/business experiments;
 5. crypto research/paper/shadow work;
 6. capability-learning prerequisites, including broad computer-control and game-companion fixtures;
-7. guardians / stale evidence / recovery;
-8. true idle only when all queues are legitimately empty.
+7. self-heal / blocked-work recovery / self-maintenance / knowledge-integrity guardians;
+8. self-improvement / capability-growth / owner-value scan;
+9. true idle only when all queues are legitimately empty.
+
+Recurring standing work uses deterministic time-bucket occurrence IDs so a completed occurrence is never silently reset while a future due occurrence can still be created. Preserve history and failure budgets.
 
 For any selected mission, record mission ID, owner value, worker, required capabilities, acceptance criteria, lease/checkpoint, real outcome/evidence and next state.
 
@@ -294,6 +324,8 @@ Keep Benchmark 30/30 as the platform safety/reliability floor, but measure Kevin
 - source-backed content assets prepared and distribution performance;
 - paper-trading sample size, expectancy, drawdown and rule compliance (not cherry-picked wins);
 - blocker age / time-to-unblock;
+- self-heal success rate and rollback correctness;
+- due maintenance/growth work completed;
 - unexplained idle while governed useful work exists;
 - false-success rate.
 
@@ -301,7 +333,7 @@ Targets: **false-success = 0%** and **unexplained idle with useful governed work
 
 ## Coordination
 
-Foreground Bess is the outside Chief Engineer for this sprint. Grok Bot may continue doing local/cloud work if it follows the convergence contract below. Qualified Kevin-local schedulers may continue. Avoid simultaneous uncontrolled writers to the same files/configuration.
+Foreground Bess is the outside Chief Engineer for this sprint. Grok Bot may continue doing local/cloud work if it follows the convergence contract above. Qualified Kevin-local schedulers may continue. Avoid simultaneous uncontrolled writers to the same files/configuration.
 
 Fresh correlated HESS-PC evidence outranks this prose. Local-only durable work is unfinished until intent and sanitized proof are published. Repository/CI work is not production until HESS-PC proves the installed result.
 
@@ -341,6 +373,6 @@ Never infer a higher state from a lower one. Never widen authority merely to mak
 
 This handover is generated by `.github/scripts/build-canonical-handover.py` and refreshed by `.github/workflows/canonical-handover.yml`.
 
-Semantic fingerprint: `F6046068035A5B41820BBAD0743D058AB16DC44FA8F9A850AB0CCAF5DE0E40D3`
+Semantic fingerprint: `15E313BB955F81D4871C79FA709FB68DC220CB0A5C32EEE717854049B5FF476F`
 
 **Fresh runtime evidence first; one handover; publish every durable local change; then continue.**
