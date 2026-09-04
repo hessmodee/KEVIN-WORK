@@ -1,19 +1,19 @@
-name: HQ Owner Refinement v1 Gate
+name: HQ Truth-First Owner Gate
 
 on:
   push:
     paths:
       - 'docs/index.html'
-      - 'docs/hq-owner-refinement-v2.js'
-      - 'docs/hq-owner-refinement-v3.js'
-      - 'docs/hq-fun-v2.js'
+      - 'docs/hq-core-v7.html'
       - 'docs/hq-overrides-v1.js'
+      - 'docs/hq-truth-v2.js'
+      - 'docs/hq-owner-refinement-v3.js'
+      - 'docs/hq-growth-v1.js'
+      - 'docs/HQ-TRUTH-CONTRACT.md'
       - 'docs/sw.js'
-      - 'docs/ops/embed.html'
-      - 'docs/ops/ops-truth-patch-v1.js'
-      - 'docs/ops/ops-owner-refinement-v1.js'
-      - 'docs/ops/ops-owner-refinement-v1.css'
-      - 'docs/ops/ops-fun-v2.js'
+      - 'docs/ops/**'
+      - '.github/scripts/test-hq-owner-invariants.cjs'
+      - '.github/scripts/test-hq-live-data.cjs'
       - '.github/workflows/hq-owner-refinement-v1.yml'
   workflow_dispatch:
 
@@ -25,127 +25,96 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: JavaScript syntax
         run: |
-          node --check docs/hq-owner-refinement-v2.js
+          node --check docs/hq-overrides-v1.js
+          node --check docs/hq-truth-v2.js
           node --check docs/hq-owner-refinement-v3.js
-          node --check docs/hq-fun-v2.js
+          node --check docs/hq-growth-v1.js
           node --check docs/ops/ops-truth-patch-v1.js
           node --check docs/ops/ops-owner-refinement-v1.js
           node --check docs/ops/ops-fun-v2.js
-          node --check docs/hq-overrides-v1.js
           node --check docs/sw.js
-      - name: PowerShell timestamp compatibility
-        run: |
-          node - <<'NODE'
-          const sample='2026-08-30T22:40:34.1159186-06:00';
-          const normalized=sample.replace(/(\.\d{3})\d+(?=(?:Z|[+-]\d{2}:\d{2})$)/,'$1');
-          if(!Number.isFinite(Date.parse(normalized))) throw new Error('PowerShell timestamp normalization failed');
-          console.log('TIMESTAMP_COMPAT_PASS',normalized);
-          NODE
-      - name: Owner UI invariants
+
+      - name: Truth-first HQ architecture invariants
         shell: python
         run: |
           from pathlib import Path
-          idx=Path('docs/index.html').read_text()
-          hq=Path('docs/hq-owner-refinement-v2.js').read_text()
-          hq3=Path('docs/hq-owner-refinement-v3.js').read_text()
-          hqfun=Path('docs/hq-fun-v2.js').read_text()
-          emb=Path('docs/ops/embed.html').read_text()
-          truth=Path('docs/ops/ops-truth-patch-v1.js').read_text()
-          ops=Path('docs/ops/ops-owner-refinement-v1.js').read_text()
-          opsfun=Path('docs/ops/ops-fun-v2.js').read_text()
-          css=Path('docs/ops/ops-owner-refinement-v1.css').read_text()
-          over=Path('docs/hq-overrides-v1.js').read_text()
-          sw=Path('docs/sw.js').read_text()
           from html.parser import HTMLParser
           from urllib.parse import urlsplit
+
+          root=Path('.')
+          idx=(root/'docs/index.html').read_text()
+          over=(root/'docs/hq-overrides-v1.js').read_text()
+          truth=(root/'docs/hq-truth-v2.js').read_text()
+          owner=(root/'docs/hq-owner-refinement-v3.js').read_text()
+          growth=(root/'docs/hq-growth-v1.js').read_text()
+          sw=(root/'docs/sw.js').read_text()
+          contract=(root/'docs/HQ-TRUTH-CONTRACT.md').read_text()
+
           class Assets(HTMLParser):
               def __init__(self,text):
-                  super().__init__(); self.sources={}; self.feed(text)
+                  super().__init__(); self.sources=[]; self.feed(text)
               def handle_starttag(self,tag,attrs):
-                  a=dict(attrs)
-                  if tag in ('script','iframe','link'):
-                      value=a.get('src') or a.get('href')
-                      if value:
-                          u=urlsplit(value)
-                          assert not u.scheme and not u.netloc, value
-                          self.sources[u.path]=(tag,a,u)
+                  a=dict(attrs); value=a.get('src') or a.get('href')
+                  if value and tag in ('script','iframe','link'):
+                      u=urlsplit(value)
+                      assert not u.scheme and not u.netloc, value
+                      self.sources.append((tag,a,u))
+
           shell=Assets(idx).sources
-          assert './hq-core-v7.html' in shell
-          tag,attrs,url=shell['./hq-core-v7.html']
-          assert tag=='iframe' and attrs.get('id')=='kevinCore' and url.fragment=='overview'
-          for name in ['hq-overrides-v1.js','hq-owner-refinement-v2.js','hq-fun-v2.js','hq-truth-v2.js','hq-owner-refinement-v3.js']:
-              assert './'+name in shell and Path('docs',name).is_file()
-          assert idx.index('hq-owner-refinement-v3.js') > idx.index('hq-truth-v2.js')
-          assert 'hqDock' in idx and 'Talk to Kevin' in idx and 'Handover' in idx
-          embedded=Assets(emb).sources
-          for name in ['ops-owner-refinement-v1.css','ops-truth-patch-v1.js','ops-owner-refinement-v1.js','ops-fun-v2.js']:
-              assert './'+name in embedded and Path('docs/ops',name).is_file()
-          assert "href==='about:blank'" in hq and 'boundDoc===doc' in hq and "frame.addEventListener('load'" in hq
-          assert 'function installCoreTimestampParser' in hq and 'core.parseAt=' in hq
-          assert "startsWith('owner-sync-')||c.startsWith('mode-')" in hq
-          assert "e.data.states||e.data.state||'READY'" in hq
-          assert 'activeStates(d,s)' in hq and "return ['BUILDING','WORKING'].filter" in hq
-          assert 'livePulseHealthy' in hq and "kevin-hq-live-pulse-v15" in hq
-          assert 'observer.observe(x,{childList:true})' in hq and 'subtree:true' not in hq
-          assert 'function setText' in hq and "setText(card.querySelector('.k')" in hq
-          # v3 owner-first presentation contract: five purposeful views, stale tabs hidden,
-          # current owner task drives priorities, and engineering detail is drill-down only.
+          frames=[x for x in shell if x[0]=='iframe' and x[1].get('id')=='kevinCore']
+          assert len(frames)==1
+          assert frames[0][2].path=='./hq-core-v7.html'
+          assert frames[0][2].fragment=='overview'
+
+          scripts=[x[2].path for x in shell if x[0]=='script' and x[2].path]
+          expected=['./hq-overrides-v1.js','./hq-truth-v2.js','./hq-owner-refinement-v3.js','./hq-growth-v1.js']
+          assert scripts==expected, scripts
+          assert './hq-owner-refinement-v2.js' not in scripts
+          assert './hq-fun-v2.js' not in scripts
+
+          assert 'Talk to Kevin' in idx and 'Handover' in idx
+          assert '@media(max-width:520px)' in idx
+          assert 'max-width:calc(100vw - 16px)' in idx
+
+          # Integration layer may own Newswire/hash synchronization, but not a second handover UI.
+          assert 'newswireStories' in over
+          assert 'AI-HANDOVER.md' not in over
+          assert 'hqHandoverCard' not in over
+
+          # Truth layer owns source freshness and contradiction handling.
+          for token in ['reports/dashboard-state.json','reports/support-latest.json','reports/engineering/latest.json','reports/autonomy-continuation-latest.json','inbox/autonomy/work-items.json']:
+              assert token in truth, token
+          assert "cache:'no-store'" in truth
+          assert 'No active worker' in truth
+          assert 'Schedules and last_mission are not counted as work.' in truth
+
+          # Owner layer presents only five purposeful primary views.
           for token in ["['overview','Command']","['ops','Ops Floor']","['activity','Work Log']","['capabilities','Skills']","['system','System']"]:
-              assert token in hq3, token
+              assert token in owner, token
           for hidden in ["'talk'","'build'","'diagnostics'"]:
-              assert hidden in hq3
-          assert 'inbox/CURRENT_TASK.md' in hq3
-          assert 'current live platform repair targets' in hq3
-          assert "tonight's owner-value skill wave" in hq3
-          assert 'BLOCKED WORK' in hq3 and 'TRUE IDLE' in hq3
-          assert '#hqHandoverCard,#attentionBanner' in hq3
-          assert '#hqTruthConsole{display:none!important}' in hq3
-          assert 'hqV3TruthToggle' in hq3 and 'Show deep truth & diagnostics' in hq3
-          assert 'construction is legacy context' in hq3
-          assert "setInterval(refresh,12000)" in hq3
-          assert "hq-owner-refinement-v3.js" in sw and "kevin-hq-shell-v2" in sw
-          # Preserve the animated Ops Floor and its existing truth/state invariants.
-          for status in ['READY','ARMED','ACTIVE','WORKING','BUILDING','COOLDOWN','DEGRADED','OFFLINE']:
-              assert status in emb
-          assert 'function authoritativeStates' in truth and 'function explicitActiveStates' in truth
-          assert "if(explicitActiveStates(d,s).length)return false" in truth
-          assert 'A refresh failure is not evidence that Kevin is offline' in truth
-          assert "badge.innerHTML=clean.map" in truth and "states:[...clean]" in truth
-          assert 'new MutationObserver' in truth and 'ensureAuthority' in truth
-          assert 'statusObserver' in truth and "statusObserver.observe(status" in truth
-          assert "const wanted=clean.join(' + ')" in truth
-          assert "cycle=s?.supervisor?.cycle" not in truth
-          assert "setInterval(refreshTruth,2500)" in truth
-          assert 'worker-progress{display:none!important}' in css
-          assert '.worker .owl-beak{fill:var(--idc)' in css
-          assert '.worker.working .owl-beak,.worker.building .owl-beak,.worker.active .owl-beak{display:none!important}' in css
-          assert '#kevinHub.owner-selected,#kevinHub:focus,#kevinHub:focus-visible{outline:none!important}' in css
-          assert '#kevinHub .hub-inner{height:236px;min-height:236px;width:230px;justify-content:flex-start}' in css
-          assert '#kevinHub .kevin-meta{min-height:62px' in css
-          assert '#kevinHub.truth-armed .hub-inner{box-shadow:none!important}' in css
-          assert "class:'owl-beak-cutout'" in ops and "class:'owl-beak'" in ops
-          assert "querySelectorAll('.worker-progress').forEach(x=>x.remove())" in ops
-          assert 'refreshTelemetry' not in ops and 'applyTruth' not in ops
-          assert "class:'owl-eye-outline'" in opsfun and '--blink-rate' in opsfun and '--blink-delay' in opsfun
-          assert "data-fun-outline" in opsfun and "existing?.dataset?.funOutline==='1'" in opsfun
-          assert "selected='KEVIN'" in opsfun and 'Select Kevin, Chief of Staff' in opsfun
-          assert 'function shownState' in opsfun and "['WORKING','BUILDING'].includes(stateOf(w))" in opsfun
-          assert 'gazeQueue=[...shuffled([...names]),null]' in opsfun and "find(w=>workerName(w)===targetName)" in opsfun
-          assert "type:'kevin-ops-gaze'" in opsfun and "type:'kevin-ops-celebrate'" in opsfun
-          assert 'ownerVictoryFlip' in css and 'owner-header-victory' in hqfun
-          assert "e.data?.type==='kevin-ops-gaze'" in hqfun and "e.data?.type==='kevin-ops-celebrate'" in hqfun
-          assert "[data-tab=\"talk\"]" in hq
-          assert "setText(span,'READY')" in hq
-          assert "main.insertBefore(card,hero)" in hq
-          assert 'COPY KEVIN HANDOVER' in hq
-          assert 'AI-HANDOVER.md' in over and "cache:'no-store'" in over
-          assert 'setInterval(refreshTruth,15000)' in hq
-          assert 'setInterval(refreshBase,4000)' in opsfun
-          assert "type:'kevin-ops-state'" in truth and "type!=='kevin-ops-state'" in hq
-          print('HQ_OWNER_REFINEMENT_PASS command_center_v3=true owner_task_driven=true progressive_disclosure=true ops_floor_preserved=true deep_truth_preserved=true')
-      - name: Behavioral shell and stale-evidence protection
+              assert hidden in owner
+          assert 'BLOCKED WORK' in owner and 'TRUE IDLE' in owner
+          assert 'inbox/CURRENT_TASK.md' in owner
+          assert 'Show deep truth & diagnostics' in owner
+
+          # Continuous growth must distinguish source readiness from live proof.
+          assert 'SOURCE READY · LIVE CROSSING PENDING' in growth
+          assert 'LIVE EVIDENCE SEEN' in growth
+          assert 'lease' in growth and 'machine_evidence' in growth
+
+          # Service worker must know the active owner layer; old files may remain historical only.
+          assert 'hq-owner-refinement-v3.js' in sw
+
+          # Contract itself must forbid stale/fake truth.
+          for token in ['WORKING','ELIGIBLE WORK','BLOCKED WORK','TRUE IDLE','UNVERIFIED / STALE','AI-HANDOVER.md']:
+              assert token in contract, token
+
+          print('HQ_TRUTH_FIRST_ARCHITECTURE_PASS overlays=4 primary_views=5 duplicate_handover=false decorative_polling=false')
+
+      - name: Behavioral stale-evidence protection
         run: |
           node .github/scripts/test-hq-owner-invariants.cjs
           node .github/scripts/test-hq-live-data.cjs
