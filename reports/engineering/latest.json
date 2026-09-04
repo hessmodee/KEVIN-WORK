@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-04T07:27:19.9977248-06:00",
+    "generated_at":  "2026-09-04T07:29:19.9124723-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
@@ -27,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  4.6
+                                     "heartbeat_age_seconds":  1.9
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -37,15 +37,15 @@
                               },
                    "composite_skills":  {
                                             "ready":  0,
-                                            "running":  1,
-                                            "done":  10,
+                                            "running":  0,
+                                            "done":  11,
                                             "failed":  1,
-                                            "proven_count":  10,
+                                            "proven_count":  11,
                                             "latest_proven":  {
-                                                                  "key":  "dealer-vehicle-recon-command-pack@1",
-                                                                  "proven_at":  "2026-09-04T07:07:42.1714247-06:00",
-                                                                  "manifest_sha256":  "D1DE5E14DBA46D12E7FF0F8DABA87EFD8C517CC52D056FE50824078D6A12E245",
-                                                                  "proof_sha256":  "A408E48CC560C5CE32474D7CE5060CA6F6254D618B4E2A0EB490B413926A9328",
+                                                                  "key":  "vehicle-diagnostic-research-pack@1",
+                                                                  "proven_at":  "2026-09-04T07:27:42.3445395-06:00",
+                                                                  "manifest_sha256":  "0C597FF6E54FFAC0591B142757BE51A6506D4681A0A5B057D16DEE18303E80AA",
+                                                                  "proof_sha256":  "1878A573CC69B19C129A88C49C0627A1FE19D179DC2888108136B6FEE13485E6",
                                                                   "primitive_steps":  [
                                                                                           "create_spreadsheet",
                                                                                           "create_text"
@@ -57,7 +57,7 @@
                                      "passed":  30,
                                      "total":  30,
                                      "critical":  0,
-                                     "at":  "2026-09-04T07:17:36.0323498-06:00"
+                                     "at":  "2026-09-04T07:27:36.0438458-06:00"
                                  },
                    "cron":  [
                                 {
@@ -68,23 +68,9 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-benchmark-v1",
-                                    "enabled":  true,
-                                    "every_ms":  600000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-skill-lab-v1",
                                     "enabled":  true,
                                     "every_ms":  120000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-maintenance-intake-v1",
-                                    "enabled":  true,
-                                    "every_ms":  300000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
@@ -99,6 +85,20 @@
                                     "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-maintenance-intake-v1",
+                                    "enabled":  true,
+                                    "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-benchmark-v1",
+                                    "enabled":  true,
+                                    "every_ms":  600000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 }
