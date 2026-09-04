@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "creator-monetization-pipeline-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Creator Monetization Pipeline Pack",
+  "description": "Creates a repeatable X and YouTube research, content, experiment and performance system while keeping public posting owner-reviewed.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin Creator Monetization Pipeline.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Opportunity Backlog",
+              "rows": [
+                ["Priority", "Platform", "Topic / Niche", "Audience", "Why Now", "Evidence / Sources", "Content Angle", "Monetization Path", "Effort", "Status"],
+                ["P1", "X / YouTube", "", "", "", "", "", "", "", "RESEARCH"]
+              ]
+            },
+            {
+              "name": "Content Queue",
+              "rows": [
+                ["Content ID", "Platform", "Format", "Working Title / Hook", "Source Links", "Draft Ready", "Owner Review", "Published", "Publish Date", "URL", "Notes"],
+                ["", "", "Post / Thread / Short / Long Video", "", "", "NO", "PENDING", "NO", "", "", ""]
+              ]
+            },
+            {
+              "name": "Experiment Ledger",
+              "rows": [
+                ["Experiment", "Hypothesis", "Platform", "Start", "End", "Primary Metric", "Baseline", "Target", "Result", "Decision", "Lesson"],
+                ["", "", "", "", "", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Performance",
+              "rows": [
+                ["Content ID", "Views / Impressions", "Watch Time", "Likes", "Replies / Comments", "Shares", "Followers Gained", "Clicks", "Revenue", "RPM / Effective Value", "What Worked", "What To Change"],
+                ["", "", "", "", "", "", "", "", "", "", "", ""]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Creator Monetization Pipeline - SOP.md",
+        "content": "# Creator Monetization Pipeline\n\n## Objective\nContinuously convert current information and Matt's real interests into source-backed content experiments, then measure what actually earns attention or revenue.\n\n## Candidate domains\nVehicles and repairs, dealership/reconditioning lessons that do not expose employer/customer confidential information, local practical projects, AI/local-agent building, appliance-repair business-building, crypto research/education and household/garage organization.\n\n## Workflow\n1. Research timely topics and audience questions.\n2. Record source links and separate fact from opinion.\n3. Draft several hooks/titles before spending effort on a full piece.\n4. Create the post/thread/script/shot list as a reviewable draft.\n5. Matt reviews before any public posting or owner-representing communication.\n6. Record performance and compare with baseline.\n7. Repeat winners only after evidence; retire weak formats instead of rationalizing them.\n\nNever use confidential dealership/customer information, impersonate Matt publicly without approval, fabricate expertise, plagiarize content, or promise income.\n"
+      }
+    }
+  ]
+}
