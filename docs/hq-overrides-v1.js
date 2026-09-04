@@ -1,17 +1,51 @@
 (()=>{
 'use strict';
 const frame=document.getElementById('kevinCore');
-let core=null,doc=null,nwItems=[],nwIndex=0,nwTimer=null,nwRefreshTimer=null,observer=null;
-const RAW='https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/';
+if(!frame)return;
+let core=null,doc=null,nwItems=[],nwIndex=0,nwTimer=null,nwRefreshTimer=null;
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function normalizeStoryText(value){let text=String(value||'').replace(/\s+/g,' ').trim();const marker=' — ',i=text.lastIndexOf(marker);if(i<=0)return text;const source=text.slice(i+marker.length).trim();let before=text.slice(0,i).trim();if(!source)return text;for(const sep of [' - ',' — ',' | ',' · ']){const suffix=(sep+source).toLowerCase();if(before.toLowerCase().endsWith(suffix)){before=before.slice(0,before.length-suffix.length).trim();break}}return`${before}${marker}${source}`}
-function newsSignature(items){return items.map(x=>`${x.id||''}|${x.text||''}|${x.severity||''}`).join('\n')}
-function paintNewswire(){const el=doc?.getElementById('hqNewswire');if(!el||!nwItems.length)return;const nodes=[...el.querySelectorAll('.nw-item')];if(!nodes.length)return;const i=((nwIndex%nodes.length)+nodes.length)%nodes.length;nodes.forEach((n,idx)=>n.classList.toggle('on',idx===i));const sev=(nodes[i]?.dataset?.sev||'normal').toLowerCase();el.className='newswire show'+(sev&&sev!=='normal'?' sev-'+sev:'')}
-function refreshNewswire(){if(!core||!doc||typeof core.newswireStories!=='function')return;let items=[];try{items=(core.newswireStories()||[]).map(x=>({...x,text:normalizeStoryText(x.text)})).filter(x=>x.text)}catch(_e){return}const seen=new Set();items=items.filter(x=>{const k=String(x.text).toLowerCase().replace(/\W+/g,'').slice(0,180);if(!k||seen.has(k))return false;seen.add(k);return true}).slice(0,18);if(!items.length)return;const currentId=nwItems[nwIndex]?.id;const oldSig=newsSignature(nwItems),newSig=newsSignature(items);nwItems=items;let el=doc.getElementById('hqNewswire');if(!el){const legacy=doc.getElementById('newswire');if(legacy)legacy.remove();el=doc.createElement('div');el.id='hqNewswire';el.className='newswire show';const attn=doc.getElementById('attentionBanner');if(attn)attn.insertAdjacentElement('afterend',el);else doc.querySelector('.wrap')?.prepend(el)}if(oldSig!==newSig){nwIndex=Math.max(0,items.findIndex(x=>x.id===currentId));el.innerHTML='<div class="nw-label">NEWSWIRE</div><div class="nw-track">'+items.map((x,idx)=>{const text=esc(x.text),sev=esc(x.severity||'normal'),url=String(x.url||'');const inner=url?`<a href="${esc(url)}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;overflow:hidden;text-overflow:ellipsis">${text}</a>`:text;return`<div class="nw-item${idx===0?' on':''}" data-sev="${sev}">${inner}</div>`}).join('')+'</div>'}paintNewswire();if(items.length>1&&!nwTimer)nwTimer=setInterval(()=>{nwIndex=(nwIndex+1)%nwItems.length;paintNewswire()},7000)}
-async function getHandover(){const r=await fetch(`${RAW}AI-HANDOVER.md?ts=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw new Error(`handover ${r.status}`);return r.text()}
-async function copyText(text){try{await navigator.clipboard.writeText(text);return true}catch(_e){}const ta=doc.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';doc.body.appendChild(ta);ta.select();let ok=false;try{ok=doc.execCommand('copy')}catch(_e){}ta.remove();return ok}
-function ensureHandoverCard(){if(!doc)return;const onOverview=(core.location.hash||'#overview').slice(1)==='overview';const existing=doc.getElementById('hqHandoverCard');if(!onOverview){existing?.remove();return}if(existing)return;const main=doc.getElementById('main'),hero=main?.querySelector('.hero');if(!main||!hero)return;const card=doc.createElement('div');card.id='hqHandoverCard';card.className='card';card.style.marginTop='12px';card.innerHTML=`<div class="section-head"><div><div class="k">AI engineering handover</div><div class="h">One current source of truth for another AI or engineer taking over Kevin.</div></div><div class="right" id="hqHandoverStatus">Ready</div></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="navbtn" id="hqCopyHandover">Copy current handover</button><button class="navbtn" id="hqViewHandover">View handover</button></div><pre id="hqHandoverText" hidden style="white-space:pre-wrap;max-height:360px;overflow:auto;margin:12px 0 0;padding:12px;border:1px solid var(--line);border-radius:12px;background:#0b0e0b;color:var(--fg);font:11px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace"></pre>`;hero.insertAdjacentElement('afterend',card);const status=card.querySelector('#hqHandoverStatus'),pre=card.querySelector('#hqHandoverText');card.querySelector('#hqCopyHandover').onclick=async()=>{status.textContent='Loading…';try{const text=await getHandover();const ok=await copyText(text);status.textContent=ok?'Copied ✓':'Copy blocked — use View'}catch(_e){status.textContent='Handover unavailable'}};card.querySelector('#hqViewHandover').onclick=async()=>{if(!pre.hidden){pre.hidden=true;status.textContent='Ready';return}status.textContent='Loading…';try{pre.textContent=await getHandover();pre.hidden=false;status.textContent='Current handover loaded'}catch(_e){status.textContent='Handover unavailable'}}}
-function mirrorHashFromCore(){const h=core?.location?.hash||'#overview';if(location.hash!==h)history.replaceState(null,'',h);setTimeout(ensureHandoverCard,0)}
-function install(){try{if(observer){observer.disconnect();observer=null}if(nwRefreshTimer){clearInterval(nwRefreshTimer);nwRefreshTimer=null}core=frame.contentWindow;doc=frame.contentDocument;if(location.hash&&location.hash!==core.location.hash)core.location.hash=location.hash;core.addEventListener('hashchange',mirrorHashFromCore);const main=doc.getElementById('main');if(main&&'MutationObserver'in window){observer=new MutationObserver(()=>ensureHandoverCard());observer.observe(main,{childList:true,subtree:false})}ensureHandoverCard();refreshNewswire();nwRefreshTimer=setInterval(()=>{refreshNewswire();ensureHandoverCard()},15000)}catch(e){console.error('Kevin HQ override install failed',e)}}
-frame.addEventListener('load',install);addEventListener('hashchange',()=>{try{if(core&&core.location.hash!==location.hash)core.location.hash=location.hash||'#overview'}catch(_e){}});
+function normalizeStoryText(value){
+  let text=String(value||'').replace(/\s+/g,' ').trim();
+  const marker=' — ',i=text.lastIndexOf(marker);if(i<=0)return text;
+  const source=text.slice(i+marker.length).trim();let before=text.slice(0,i).trim();if(!source)return text;
+  for(const sep of [' - ',' — ',' | ',' · ']){const suffix=(sep+source).toLowerCase();if(before.toLowerCase().endsWith(suffix)){before=before.slice(0,before.length-suffix.length).trim();break}}
+  return`${before}${marker}${source}`;
+}
+function signature(items){return items.map(x=>`${x.id||''}|${x.text||''}|${x.severity||''}`).join('\n')}
+function paint(){
+  const el=doc?.getElementById('hqNewswire');if(!el||!nwItems.length)return;
+  const nodes=[...el.querySelectorAll('.nw-item')];if(!nodes.length)return;
+  const i=((nwIndex%nodes.length)+nodes.length)%nodes.length;
+  nodes.forEach((n,idx)=>n.classList.toggle('on',idx===i));
+  const sev=(nodes[i]?.dataset?.sev||'normal').toLowerCase();
+  el.className='newswire show'+(sev&&sev!=='normal'?' sev-'+sev:'');
+}
+function refreshNewswire(){
+  if(!core||!doc||typeof core.newswireStories!=='function')return;
+  let items=[];try{items=(core.newswireStories()||[]).map(x=>({...x,text:normalizeStoryText(x.text)})).filter(x=>x.text)}catch(_e){return}
+  const seen=new Set();items=items.filter(x=>{const k=String(x.text).toLowerCase().replace(/\W+/g,'').slice(0,180);if(!k||seen.has(k))return false;seen.add(k);return true}).slice(0,18);
+  if(!items.length)return;
+  const currentId=nwItems[nwIndex]?.id,oldSig=signature(nwItems),newSig=signature(items);nwItems=items;
+  let el=doc.getElementById('hqNewswire');
+  if(!el){doc.getElementById('newswire')?.remove();el=doc.createElement('div');el.id='hqNewswire';el.className='newswire show';const anchor=doc.getElementById('attentionBanner');if(anchor)anchor.insertAdjacentElement('afterend',el);else doc.querySelector('.wrap')?.prepend(el)}
+  if(oldSig!==newSig){
+    nwIndex=Math.max(0,items.findIndex(x=>x.id===currentId));
+    el.innerHTML='<div class="nw-label">NEWSWIRE</div><div class="nw-track">'+items.map((x,idx)=>{const text=esc(x.text),sev=esc(x.severity||'normal'),url=String(x.url||'');const inner=url?`<a href="${esc(url)}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;overflow:hidden;text-overflow:ellipsis">${text}</a>`:text;return`<div class="nw-item${idx===0?' on':''}" data-sev="${sev}">${inner}</div>`}).join('')+'</div>';
+  }
+  paint();
+  if(items.length>1&&!nwTimer)nwTimer=setInterval(()=>{nwIndex=(nwIndex+1)%nwItems.length;paint()},7000);
+}
+function mirrorHash(){const h=core?.location?.hash||'#overview';if(location.hash!==h)history.replaceState(null,'',h)}
+function install(){
+  try{
+    if(nwRefreshTimer){clearInterval(nwRefreshTimer);nwRefreshTimer=null}
+    core=frame.contentWindow;doc=frame.contentDocument;if(!core||!doc)return;
+    if(location.hash&&location.hash!==core.location.hash)core.location.hash=location.hash;
+    core.addEventListener('hashchange',mirrorHash);
+    refreshNewswire();
+    nwRefreshTimer=setInterval(refreshNewswire,15000);
+  }catch(e){console.error('Kevin HQ integration install failed',e)}
+}
+frame.addEventListener('load',install);
+addEventListener('hashchange',()=>{try{if(core&&core.location.hash!==location.hash)core.location.hash=location.hash||'#overview'}catch(_e){}});
 })();
