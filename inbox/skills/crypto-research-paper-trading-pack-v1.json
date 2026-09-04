@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "crypto-research-paper-trading-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Crypto Research and Paper Trading Pack",
+  "description": "Creates a disciplined crypto research, watchlist, paper-trade and post-trade review system. It grants no live trading or financial transaction authority.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin Crypto Research and Paper Trading Pack.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Watchlist",
+              "rows": [
+                ["Asset", "Symbol", "Thesis", "Catalysts", "Risks", "Timeframe", "Key Levels", "Data Sources", "Last Review", "Status"],
+                ["", "", "", "", "", "", "", "", "", "RESEARCH"]
+              ]
+            },
+            {
+              "name": "Paper Trade Plan",
+              "rows": [
+                ["Trade ID", "Asset", "Direction", "Setup", "Entry", "Stop / Invalidation", "Target 1", "Target 2", "Risk $", "Position Size", "Risk Reward", "Fees / Slippage Assumption", "No-Trade Condition"],
+                ["", "", "LONG / SHORT / NONE", "", "", "", "", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Paper Executions",
+              "rows": [
+                ["Trade ID", "Opened", "Entry", "Closed", "Exit", "Gross PnL", "Fees / Slippage", "Net PnL", "Max Adverse Excursion", "Max Favorable Excursion", "Rule Violation?", "Notes"],
+                ["", "", "", "", "", "", "", "", "", "", "NO", ""]
+              ]
+            },
+            {
+              "name": "Strategy Scorecard",
+              "rows": [
+                ["Strategy", "Trades", "Wins", "Losses", "Win Rate", "Avg Win", "Avg Loss", "Expectancy", "Profit Factor", "Max Drawdown", "Largest Loss", "Rule Compliance", "Status"],
+                ["", 0, 0, 0, "", "", "", "", "", "", "", "", "UNPROVEN"]
+              ]
+            },
+            {
+              "name": "Post Trade Review",
+              "rows": [
+                ["Trade ID", "Thesis Valid?", "Entry Quality", "Risk Followed?", "Exit Quality", "What Worked", "What Failed", "Market Regime", "Lesson", "Rule Change Proposed?"],
+                ["", "", "", "", "", "", "", "", "", "NO"]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Crypto Research and Paper Trading - Rules.md",
+        "content": "# Crypto Research and Paper Trading Rules\n\nKevin's current crypto role is research and simulation, not custody or execution.\n\n## Required trade-plan fields\nEvery paper trade requires a thesis, timeframe, entry logic, invalidation/stop, targets, position-size logic, maximum risk, fee/slippage assumption and explicit no-trade conditions before the simulated entry.\n\n## Performance truth\nTrack losses and drawdowns as carefully as wins. Do not cherry-pick trades, rewrite entries after the fact, or call a strategy proven from a few successful outcomes. Measure expectancy, profit factor, max drawdown and rule compliance over a meaningful sample.\n\n## Authority boundary\nNo exchange login, API key use, transfer, withdrawal, deposit, purchase, live order placement, leverage change or other financial transaction is authorized by this skill. Any future execution capability requires separate explicit owner authorization, a secure credential model, hard risk limits, kill switch, reconciliation and additional proof.\n"
+      }
+    }
+  ]
+}
