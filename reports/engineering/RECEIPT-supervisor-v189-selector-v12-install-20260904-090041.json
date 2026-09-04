@@ -1,0 +1,36 @@
+﻿{
+    "schema":  1,
+    "kind":  "kevin-yellow-install-receipt",
+    "id":  "RECEIPT-supervisor-v189-selector-v12-install-20260904-090041",
+    "at_boise":  "2026-09-04T09:00:41.4405352-06:00",
+    "actor":  "Grok Bot",
+    "auth":  "Matt MAX yellow auth 08:50 MT + OWNER UNDYING AUTH",
+    "method":  "documented_YELLOW_install_backup_benchmark",
+    "maintenance_typed_path_used":  false,
+    "reason_no_maint":  "Supervisor not in replace_pinned_component aliases; no v1.8.9 install op",
+    "backup_dir":  "C:\\Users\\hessm\\.openclaw\\workspace\\reports\\supervisor-install-backup-20260904-090041",
+    "before":  {
+                   "supervisor":  "F5D8C9740D384CC576D4BD70A3940B51AA1FCF398C7085E59DB20C01E9180138",
+                   "selector_v11":  "9DF1F770E8855232758AC275FA2D3A82C6D484099B5B2D2185A999ACDE185DE4",
+                   "maintenance":  "DFF72850E1BBBB2E18397AF38EB593E7234EEB634B596A4651F4537A688B77A9",
+                   "forge":  "433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A",
+                   "desired":  "2E02FBC865E54542501547CA37B2103BF7ADF8D5DCDC075491F87BA0892CEB2A"
+               },
+    "pr74_exact_pins":  {
+                            "selector_v12":  "52EADBCA27070F3FF845ADF1E989F7E570AECC25D2C3F11EF7E0FF80DA000C6A",
+                            "supervisor_source":  "C6E3CEF6901E005DD8AF4AFD5252718C5A580C789940A20E056BF1105EB7047B"
+                        },
+    "after":  {
+                  "selector_v11_preserved":  "9DF1F770E8855232758AC275FA2D3A82C6D484099B5B2D2185A999ACDE185DE4",
+                  "supervisor_live":  "7BE403577762FAD630CB71E4DA897437475366940B15DBA10F27A9AE759BF314",
+                  "selector_v12_live":  "52EADBCA27070F3FF845ADF1E989F7E570AECC25D2C3F11EF7E0FF80DA000C6A"
+              },
+    "pin_retarget":  {
+                         "from_selector_sha":  "9DF1F770E8855232758AC275FA2D3A82C6D484099B5B2D2185A999ACDE185DE4",
+                         "to_selector_sha":  "52EADBCA27070F3FF845ADF1E989F7E570AECC25D2C3F11EF7E0FF80DA000C6A",
+                         "note":  "PR source still pinned v1.1; together-install retargets ExpectedSelectorSha to v1.2 so skill-lab lane is selectable",
+                         "to_selector_path":  "ControlPlane\\kevin-work-selector-v1.2.py",
+                         "from_selector_path":  "ControlPlane\\kevin-work-selector-v1.1.py"
+                     },
+    "openclaw_json_touched":  false
+}

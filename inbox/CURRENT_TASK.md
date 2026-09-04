@@ -1,7 +1,14 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-04 07:44 MT  
+**Updated:** 2026-09-04 09:15 MT
 **Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
+
+## Latest applied (2026-09-04 ~09:00-09:13 MT)
+
+- **PASS:** YELLOW install Supervisor v1.8.9 + selector v1.2 together (PR#74 pins; installed Superv SHA 7BE40357â€¦; selector 52EADBCAâ€¦). SelfTest PASS; admission router/admission/selector PASS; Benchmark **30/30 critical 0**.
+- **FAIL/REFUSED:** budget-unlock typed morning package apply â€” scripts hard-refuse; identity-key Supervisor + Maintenance op still unauthored; qual/preflight NOT_READY vs new Superv pin.
+- **FAIL/REFUSED:** Forge M1 typed package apply â€” scripts hard-refuse; Maintenance migrate-retirement rewrite still unauthored; desired maint pin already matches live DFF72850â€¦.
+- **Residual:** merge/publish PR#74 sources to `main`; author identity-key Superv + M1 Maintenance rewrite if still desired; keep P0.1 Desktop crossing on separate Matt gate; do not invent Forge CURRENT.
 
 ## Owner objective
 
@@ -63,9 +70,9 @@ These are **not open blockers unless fresher machine evidence regresses them**:
 8. **Production Crossing v2 candidate:** a YELLOW source-only contract and tests exist for exactly two protected future operations: install the four-tool Kevin Desktop v0.1 surface, and retire only the legacy `KevinNightForge` scheduled task. CI proves the candidate validator; it has ZERO production effect and grants no new authority.
 9. **HQ cross-lane truth repair:** owner Command must count Skill Lab running/ready/blocked work in global state, not only Supervisor/dashboard workers. A fail-closed source repair + regression assertion was launched during this shift; Grok must verify the resulting HQ gate/Pages deployment before treating it as complete.
 
-## Current P0 blockers — pursue in this order
+## Current P0 blockers â€” pursue in this order
 
-### P0.1 — fixed:main still has no usable production tools
+### P0.1 â€” fixed:main still has no usable production tools
 
 Fresh dashboard/full-autonomy evidence still shows `fixed:main` with zero effective tools / `tools:false`.
 
@@ -80,27 +87,27 @@ Next engineering step: finish/qualify the **live Windows/OpenClaw production cro
 
 Do not widen authority to solve this. Engineering Relay remains GREEN and does not authorize arbitrary production mutation. Existing Maintenance v1 staging also does not by itself authorize this new protected Desktop crossing; use the separately-reviewed YELLOW crossing and explicit owner approval before production application.
 
-### P0.2 — capability-aware work routing and Work Supply -> Supervisor
+### P0.2 â€” capability-aware work routing and Work Supply -> Supervisor
 
 Integrate supplied owner demand into live selection without inventing work and without routing every task through an agent that lacks the needed tool. Dispatch to the qualified worker/lane or deterministic executor that owns the typed capability. Preserve completed occurrence history and bounded retry/cooldown.
 
-### P0.3 — leases, checkpoints and truthful overnight continuation
+### P0.3 â€” leases, checkpoints and truthful overnight continuation
 
 `WORKING` requires a live lease plus evidence-producing execution. Long jobs need checkpoint/resume and orphan recovery so real work survives restarts and can continue without fake busy status.
 
-### P0.4 — authoritative evidence freshness
+### P0.4 â€” authoritative evidence freshness
 
 Prevent older telemetry writers from overwriting newer authoritative assessments. Separate controller telemetry from authoritative state where necessary and enforce monotonic/event-aware publication.
 
-### P0.5 — global blocked-vs-idle truth
+### P0.5 â€” global blocked-vs-idle truth
 
 HQ and control-plane status must aggregate all relevant execution lanes. Supervisor `NO_ELIGIBLE_MISSION` is only Supervisor truth; it must not erase active/ready/blocked Skill Lab or other owner work. `TRUE IDLE` is valid only when no active execution, eligible owner work, blocked owner backlog, or due maintenance/growth work exists across the governed system.
 
-### P0.6 — continuous-growth live crossing
+### P0.6 â€” continuous-growth live crossing
 
 After tool routing/supply/leases are healthy, install/enable recurring self-heal, self-maintenance, blocked-work recovery, knowledge-integrity, capability-growth and owner-value scans through already-qualified scheduling/control surfaces. Prove multiple scheduled windows with real leases/checkpoints and no false WORKING state.
 
-### P0.7 — exact retirement of legacy KevinNightForge
+### P0.7 â€” exact retirement of legacy KevinNightForge
 
 Do not delete/disable arbitrary scheduled tasks. Use the YELLOW Production Crossing v2 contract to design a live exact-target retirement wrapper for `KevinNightForge`: verify modern replacement schedulers first, disable-first observation, Benchmark 30/30, then remove only the exact legacy task with rollback proof.
 
