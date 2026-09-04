@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-04T14:58:33.0934857-06:00",
+    "generated_at":  "2026-09-04T15:00:36.7788439-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
-                    "id":  "grok-stage-dealership-friction-20260904-20260904-103510",
-                    "operation":  "stage_composite_skill",
-                    "status":  "DUPLICATE_IGNORED",
-                    "detail":  "Request id already processed."
+                    "id":  "",
+                    "operation":  "",
+                    "status":  "FETCH_ERROR",
+                    "detail":  "gh.exe : gh: Internal Server Error (HTTP 500)  At ~\\.openclaw\\workspace\\kevin-engineering-relay.ps1:89 char:15  +         $out=(\u0026 $gh @Arguments 2\u003e\u00261|Out-String).Trim()  +               ~~~~~~~~~~~~~~~~~~~~~      + CategoryInfo          : NotSpecified: (gh: Internal Server Error (HTTP 500):String) [], RemoteException      + FullyQualifiedErrorId : NativeCommandError     {\"message\":\"Internal Server Error\",\"documentation_url\":\"https://docs.github.com/rest\",\"status\":\"500\"}"
                 },
     "result":  {
 
@@ -27,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  2
+                                     "heartbeat_age_seconds":  3.6
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -68,6 +68,13 @@
                                     "consecutive_errors":  0
                                 },
                                 {
+                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
                                     "declaration_key":  "kevin-skill-lab-v1",
                                     "enabled":  true,
                                     "every_ms":  120000,
@@ -85,13 +92,6 @@
                                     "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-support-bridge-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
