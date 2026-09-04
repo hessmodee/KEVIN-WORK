@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "kind": "kevin-standing-work-supply-catalog",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "authority_effect": "NONE",
   "policy": {
     "true_idle_definition": "No eligible owner-approved work, no blocked owner-approved backlog, and no due guardian/capability-learning work.",
@@ -13,7 +13,9 @@
       "cache-valley-appliance-repair-readiness",
       "crypto-research-paper-shadow-trading",
       "home-garage-tool-organization",
-      "capability-learning-and-computer-fluency",
+      "broad-computer-fluency",
+      "minecraft-game-companion",
+      "capability-learning",
       "platform-guardians"
     ],
     "legacy_deprioritized_domains": [
@@ -22,14 +24,23 @@
     "never_auto_authorize": [
       "arbitrary_shell",
       "credential_access",
+      "credential_entry",
       "permission_widening",
       "external_send",
+      "email_send",
+      "public_post",
       "purchase",
       "financial_transaction",
       "live_crypto_trade",
+      "file_delete",
+      "destructive_overwrite",
+      "software_install",
       "production_chat_send",
       "automatic_promotion",
-      "safety_weakening"
+      "safety_weakening",
+      "game_public_server_join",
+      "game_public_chat",
+      "pvp_real_player"
     ]
   },
   "standing_work": [
@@ -89,6 +100,25 @@
         "Every successful side effect has an action receipt and independently checked postcondition."
       ],
       "next_action": "Complete the bounded Kevin Desktop installation and fixed:main effective-tool proof."
+    },
+    {
+      "id": "minecraft-private-companion-proof-v1",
+      "program": "game-companion",
+      "lane": "staging",
+      "work_type": "capability-learning",
+      "severity": "low",
+      "owner_value": 3,
+      "worker": "operator",
+      "required_capabilities": ["minecraft_companion_runtime", "game_action_receipt_verifier"],
+      "effects": [],
+      "trigger": {"kind": "always"},
+      "acceptance_criteria": [
+        "Use a private localhost/LAN/private Minecraft Java environment only for the first runtime proof.",
+        "Privileged game commands are accepted only from Matt's configured Minecraft identity.",
+        "Prove join/status/follow/stop with independent game-state receipts before resource collection or building.",
+        "No insecure LLM-written code execution, public-server automation, anti-cheat evasion, arbitrary-player command trust, shell/filesystem exposure through chat, or autonomous PvP against real players."
+      ],
+      "next_action": "Build and fixture-test a typed Mineflayer/Pathfinder companion adapter, then request a private-world runtime proof only after the desktop P0 crossing is healthy."
     }
   ]
 }
