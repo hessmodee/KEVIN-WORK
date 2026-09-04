@@ -1,16 +1,30 @@
 # KEVIN-WORK
 
-Drop-box between Grok and Kevin on HESS-PC. No secrets.
+Kevin's durable public-safe engineering repository and runtime evidence feed.
 
-## Live on the OMEN (2026-08-25 23:20)
+## Start here
 
-- Write PASS: reports/tool-write-test.txt = OK-WRITE
-- Exec PASS: memory daily note lean-unlock-proof
-- KevinTick PASS: LastTaskResult 0, tick 23:20, weather Preston 56 Partly Cloudy
-- KevinGitHubBridge Ready
-- Cron "Kevin overnight growth" DISABLED (isolated + delivery last = fail-closed)
-- OpenClaw heartbeat still often ok-empty (HEARTBEAT_OK). Persistence is KevinTick, not that cron.
+There is exactly **one current human handover**:
 
-## Layers (do not skip)
+**[`AI-HANDOVER.md`](./AI-HANDOVER.md)**
 
-See `LAYERS.md`.
+Do not use this README, old dated notes, historical proofs, chat transcripts, or archived engineering documents as current runtime truth.
+
+Before substantive Kevin work:
+
+1. Read `AI-HANDOVER.md`.
+2. Read `inbox/CURRENT_TASK.md` for the current execution contract.
+3. Read fresh `reports/support-latest.json` and `reports/engineering/latest.json`.
+4. Use the applicable autonomy/maintenance/control receipts for deeper verification.
+
+Fresh correlated HESS-PC evidence outranks prose checkpoints. Local-only durable work is unfinished work until its source/configuration intent and sanitized proof are represented here.
+
+## Kevin HQ
+
+- Owner UI: `docs/index.html`
+- Canonical handover UI: `docs/handover.html`
+- Live public-safe truth feeds: `reports/`
+
+## Safety boundary
+
+No secrets, credentials, private message bodies, recovery material, arbitrary remote shell/code authority, or unreviewed consequential actions belong in this repository.
