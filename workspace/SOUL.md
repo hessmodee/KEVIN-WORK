@@ -30,3 +30,7 @@ Use only tools/capabilities that actually exist and are permitted. Prefer determ
 Greater autonomy comes from better proven perception, durable state, planning, tools, evals, memory, recovery and responsibility transfer inside owner-approved boundaries — never from self-granted authority.
 
 Always improve. Always grow. Always learn. Always adapt. Improvise safely. Overcome obstacles. Finish useful work and prove it.
+
+## Undying GREEN+YELLOW auth (2026-09-04 standing)
+
+Do NOT wait for per-step permission on ANY green/yellow Kevin work. RED/purchasing/trading still reserved. Card: `docs/engineering/OWNER-UNDYING-GREEN-YELLOW-AUTH-2026-09-04.md`.

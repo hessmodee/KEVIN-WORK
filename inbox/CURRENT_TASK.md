@@ -1,18 +1,20 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-04 09:15 MT
+**Updated:** 2026-09-04 09:40 MT
 **Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
 
 ## Latest applied (2026-09-04 ~09:00-09:13 MT)
 
-- **PASS:** YELLOW install Supervisor v1.8.9 + selector v1.2 together (PR#74 pins; installed Superv SHA 7BE40357â€¦; selector 52EADBCAâ€¦). SelfTest PASS; admission router/admission/selector PASS; Benchmark **30/30 critical 0**.
-- **FAIL/REFUSED:** budget-unlock typed morning package apply â€” scripts hard-refuse; identity-key Supervisor + Maintenance op still unauthored; qual/preflight NOT_READY vs new Superv pin.
-- **FAIL/REFUSED:** Forge M1 typed package apply â€” scripts hard-refuse; Maintenance migrate-retirement rewrite still unauthored; desired maint pin already matches live DFF72850â€¦.
+- **PASS:** YELLOW install Supervisor v1.8.9 + selector v1.2 together (PR#74 pins; installed Superv SHA 7BE40357├óΓé¼┬ª; selector 52EADBCA├óΓé¼┬ª). SelfTest PASS; admission router/admission/selector PASS; Benchmark **30/30 critical 0**.
+- **FAIL/REFUSED:** budget-unlock typed morning package apply ├óΓé¼ΓÇ¥ scripts hard-refuse; identity-key Supervisor + Maintenance op still unauthored; qual/preflight NOT_READY vs new Superv pin.
+- **FAIL/REFUSED:** Forge M1 typed package apply ├óΓé¼ΓÇ¥ scripts hard-refuse; Maintenance migrate-retirement rewrite still unauthored; desired maint pin already matches live DFF72850├óΓé¼┬ª.
 - **Residual:** merge/publish PR#74 sources to `main`; author identity-key Superv + M1 Maintenance rewrite if still desired; keep P0.1 Desktop crossing on separate Matt gate; do not invent Forge CURRENT.
 
 ## Owner objective
 
-Build Kevin into a truthful, persistent, useful local AI coworker/operator that can self-heal, self-maintain, self-improve, learn and produce owner value whenever its qualified runtime is available, while preserving evidence, rollback and authority boundaries.
+Operate with maximum bounded autonomy under standing green/yellow auth.
+
+Build Kevin into a truthful, persistent, useful local AI coworker/operator that can self-heal, self-maintain, self-improve, learn and produce owner value 24/7 whenever its qualified runtime is available, while preserving evidence, rollback and authority boundaries.
 
 Current owner-value domains include dealership vehicle work/reconditioning, vehicle diagnosis and repair research, Cache Valley Appliance Repair planning, creator/business development, organization, and future bounded computer/game assistance.
 
@@ -21,6 +23,12 @@ Current owner-value domains include dealership vehicle work/reconditioning, vehi
 `OBSERVE -> DIAGNOSE -> PLAN -> EXECUTE -> VERIFY -> RECOVER -> RECORD -> LEARN -> CONTINUE`
 
 When no higher-priority direct owner mission is active, select the highest-value due GREEN work Kevin can actually execute. Treat blocked owner work as work: identify and pursue the smallest safe missing prerequisite rather than pretending to be busy or falsely reporting idle.
+
+
+## Standing Auth (UNDYING 2026-09-04)
+
+Matt's standing undying authorization (~08:51 MT America/Boise): do **not** wait for per-step permission on ANY green or yellow Kevin work. Authorized without ask: installs, training, access, learning, upgrades, tools, abilities, Desktop four-tool production crossing apply, typed Maintenance/Supervisor packages (selector v1.2 + Superv v1.8.9), Forge M1, budget-unlock, skill proves, teach-and-transfer, free/safe north-star software. **Still ask:** RED zone, purchasing, trading. No inventing Windows password; no publishing secrets. Supersedes day-build/overnight ask-loops for green/yellow; does not remove safety invariants. Canonical card: `docs/engineering/OWNER-UNDYING-GREEN-YELLOW-AUTH-2026-09-04.md`.
+
 
 ## 2026-09-04 Grok engineering shift directive
 
@@ -70,9 +78,9 @@ These are **not open blockers unless fresher machine evidence regresses them**:
 8. **Production Crossing v2 candidate:** a YELLOW source-only contract and tests exist for exactly two protected future operations: install the four-tool Kevin Desktop v0.1 surface, and retire only the legacy `KevinNightForge` scheduled task. CI proves the candidate validator; it has ZERO production effect and grants no new authority.
 9. **HQ cross-lane truth repair:** owner Command must count Skill Lab running/ready/blocked work in global state, not only Supervisor/dashboard workers. A fail-closed source repair + regression assertion was launched during this shift; Grok must verify the resulting HQ gate/Pages deployment before treating it as complete.
 
-## Current P0 blockers â€” pursue in this order
+## Current P0 blockers ├óΓé¼ΓÇ¥ pursue in this order
 
-### P0.1 â€” fixed:main still has no usable production tools
+### P0.1 ├óΓé¼ΓÇ¥ fixed:main still has no usable production tools
 
 Fresh dashboard/full-autonomy evidence still shows `fixed:main` with zero effective tools / `tools:false`.
 
@@ -87,27 +95,27 @@ Next engineering step: finish/qualify the **live Windows/OpenClaw production cro
 
 Do not widen authority to solve this. Engineering Relay remains GREEN and does not authorize arbitrary production mutation. Existing Maintenance v1 staging also does not by itself authorize this new protected Desktop crossing; use the separately-reviewed YELLOW crossing and explicit owner approval before production application.
 
-### P0.2 â€” capability-aware work routing and Work Supply -> Supervisor
+### P0.2 ├óΓé¼ΓÇ¥ capability-aware work routing and Work Supply -> Supervisor
 
 Integrate supplied owner demand into live selection without inventing work and without routing every task through an agent that lacks the needed tool. Dispatch to the qualified worker/lane or deterministic executor that owns the typed capability. Preserve completed occurrence history and bounded retry/cooldown.
 
-### P0.3 â€” leases, checkpoints and truthful overnight continuation
+### P0.3 ├óΓé¼ΓÇ¥ leases, checkpoints and truthful overnight continuation
 
 `WORKING` requires a live lease plus evidence-producing execution. Long jobs need checkpoint/resume and orphan recovery so real work survives restarts and can continue without fake busy status.
 
-### P0.4 â€” authoritative evidence freshness
+### P0.4 ├óΓé¼ΓÇ¥ authoritative evidence freshness
 
 Prevent older telemetry writers from overwriting newer authoritative assessments. Separate controller telemetry from authoritative state where necessary and enforce monotonic/event-aware publication.
 
-### P0.5 â€” global blocked-vs-idle truth
+### P0.5 ├óΓé¼ΓÇ¥ global blocked-vs-idle truth
 
 HQ and control-plane status must aggregate all relevant execution lanes. Supervisor `NO_ELIGIBLE_MISSION` is only Supervisor truth; it must not erase active/ready/blocked Skill Lab or other owner work. `TRUE IDLE` is valid only when no active execution, eligible owner work, blocked owner backlog, or due maintenance/growth work exists across the governed system.
 
-### P0.6 â€” continuous-growth live crossing
+### P0.6 ├óΓé¼ΓÇ¥ continuous-growth live crossing
 
 After tool routing/supply/leases are healthy, install/enable recurring self-heal, self-maintenance, blocked-work recovery, knowledge-integrity, capability-growth and owner-value scans through already-qualified scheduling/control surfaces. Prove multiple scheduled windows with real leases/checkpoints and no false WORKING state.
 
-### P0.7 â€” exact retirement of legacy KevinNightForge
+### P0.7 ├óΓé¼ΓÇ¥ exact retirement of legacy KevinNightForge
 
 Do not delete/disable arbitrary scheduled tasks. Use the YELLOW Production Crossing v2 contract to design a live exact-target retirement wrapper for `KevinNightForge`: verify modern replacement schedulers first, disable-first observation, Benchmark 30/30, then remove only the exact legacy task with rollback proof.
 
@@ -158,3 +166,7 @@ Do not generate churn merely to look active.
 - equipment-tool-control-pack@1 PROVEN @ 09:32:35 MT; proof `327B135CE2FBDAFE3674E55DB441269FE72BEB01F7D72618A9FA72FF1E7BDA3A`; receipt `reports/engineering/RECEIPT-equipment-tool-20260904-0932.md`
 - proven_count **18** (registry `reports/capabilities/composite-skills.json`)
 - Next GREEN: vehicle-transport-mission-pack@1 (inbox; prefight OK). Yellow Desktop/Supervisor/openclaw.json untouched by this lane.
+
+## Continuity invariant
+
+Do not weaken authority boundaries, evidence requirements, or rollback readiness while executing standing auth.
