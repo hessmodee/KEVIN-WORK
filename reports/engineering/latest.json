@@ -1,21 +1,17 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-04T08:01:22.9717313-06:00",
+    "generated_at":  "2026-09-04T08:03:22.6872685-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
                     "id":  "bess-stage-appliance-repair-202609040800",
                     "operation":  "stage_composite_skill",
-                    "status":  "STAGED",
-                    "detail":  "Composite skill staged for Skill Lab."
+                    "status":  "DUPLICATE_IGNORED",
+                    "detail":  "Request id already processed."
                 },
     "result":  {
-                   "skill_id":  "cache-valley-appliance-repair-launch-pack",
-                   "version":  "1",
-                   "local_name":  "cache-valley-appliance-repair-launch-pack--1.json",
-                   "step_count":  2,
-                   "skill_sha256":  "2226558C2DE7FDC85CC449DFEA51115FEA1AAAEFBB19815BA7E69989B3FCC5FF"
+
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -31,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  0.6
+                                     "heartbeat_age_seconds":  2.7
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -40,10 +36,10 @@
                                   "failed":  1
                               },
                    "composite_skills":  {
-                                            "ready":  1,
+                                            "ready":  0,
                                             "running":  0,
                                             "done":  11,
-                                            "failed":  1,
+                                            "failed":  2,
                                             "proven_count":  11,
                                             "latest_proven":  {
                                                                   "key":  "vehicle-diagnostic-research-pack@1",
@@ -79,13 +75,6 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-support-bridge-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-maintenance-intake-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
@@ -96,6 +85,13 @@
                                     "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
