@@ -4,11 +4,39 @@
     "safe_for_public_repo":  true,
     "items":  [
                   {
+                      "id":  "owner-composite-creator-monetization-prove-v1",
+                      "program":  "owner-value-skills",
+                      "authority_class":  "GREEN",
+                      "status":  "OPEN",
+                      "lane":  "production",
+                      "work_type":  "execution",
+                      "priority":  "high",
+                      "owner_value":  5,
+                      "reuses_proven_capability":  true,
+                      "produces_owner_deliverable":  true,
+                      "closes_proof_gap":  true,
+                      "reduces_bess_intervention":  true,
+                      "acceptance_criteria":  [
+                                                  "Stage creator-monetization-pipeline-pack@1 via Relay stage_composite_skill with pinned SHA.",
+                                                  "Skill Lab PROVEN with create_spreadsheet + create_text receipts.",
+                                                  "Registry lists creator-monetization-pipeline-pack@1 PROVEN.",
+                                                  "Stay GREEN; no shell/Desktop silent install/purchases."
+                                              ],
+                      "dependencies_ready":  true,
+                      "blocked":  false,
+                      "failure_attempts":  0,
+                      "next_action":  "Live stage inbox/skills/creator-monetization-pipeline-pack-v1.json (SHA 2D0374F0C994F0063B6A7E7FB70A84B74E782B5A867B69A75DF64E9146D783D6).",
+                      "evidence_pointers":  [
+                                                "inbox/skills/creator-monetization-pipeline-pack-v1.json",
+                                                "docs/engineering/KEVIN-RECIPE-stage-prove-green-composite-v1.md"
+                                            ]
+                  },
+                  {
                       "id":  "owner-composite-home-garage-org-prove-v1",
                       "failure_family":  null,
                       "program":  "owner-value-skills",
                       "authority_class":  "GREEN",
-                      "status":  "OPEN",
+                      "status":  "COMPLETE",
                       "lane":  "production",
                       "work_type":  "execution",
                       "priority":  "high",
@@ -29,7 +57,7 @@
                       "failure_attempts":  0,
                       "material_new_evidence":  true,
                       "downstream_consumer":  "OWNER_OUTCOME_SCORECARD_AND_NEXT_COMPOSITE_CREATOR_OR_APPLIANCE_V2",
-                      "next_action":  "If not already PROVEN, complete live Skill Lab run for home-garage-organization-pack; then stage creator-monetization-pipeline-pack OR publish repaired appliance pack (\u003c=5 sheets) and prove it. Teach via recipe+LESSON only.",
+                      "next_action":  "Closed. Next prove: creator-monetization-pipeline-pack@1 or repaired appliance pack (\u003c=5 sheets).",
                       "evidence_pointers":  [
                                                 "inbox/skills/home-garage-organization-pack-v1.json",
                                                 "docs/engineering/KEVIN-RECIPE-stage-prove-green-composite-v1.md",
