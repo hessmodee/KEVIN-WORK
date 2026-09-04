@@ -1,21 +1,17 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-04T07:23:20.4680304-06:00",
+    "generated_at":  "2026-09-04T07:25:19.9118416-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
                     "id":  "bess-stage-vehicle-diagnostic-202609040730",
                     "operation":  "stage_composite_skill",
-                    "status":  "STAGED",
-                    "detail":  "Composite skill staged for Skill Lab."
+                    "status":  "DUPLICATE_IGNORED",
+                    "detail":  "Request id already processed."
                 },
     "result":  {
-                   "skill_id":  "vehicle-diagnostic-research-pack",
-                   "version":  "1",
-                   "local_name":  "vehicle-diagnostic-research-pack--1.json",
-                   "step_count":  2,
-                   "skill_sha256":  "7CDEF802E2492AA242C17C420E21E8E7B4ED3ABADF4009B12DC379126FDAFFA0"
+
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -31,17 +27,17 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  0.9
+                                     "heartbeat_age_seconds":  2.5
                                  },
                    "queues":  {
                                   "ready":  0,
                                   "running":  0,
-                                  "done":  25,
+                                  "done":  26,
                                   "failed":  1
                               },
                    "composite_skills":  {
-                                            "ready":  1,
-                                            "running":  0,
+                                            "ready":  0,
+                                            "running":  1,
                                             "done":  10,
                                             "failed":  1,
                                             "proven_count":  10,
@@ -86,6 +82,13 @@
                                     "consecutive_errors":  0
                                 },
                                 {
+                                    "declaration_key":  "kevin-benchmark-v1",
+                                    "enabled":  true,
+                                    "every_ms":  600000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
                                     "declaration_key":  "kevin-maintenance-intake-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
@@ -96,13 +99,6 @@
                                     "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-benchmark-v1",
-                                    "enabled":  true,
-                                    "every_ms":  600000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 }
