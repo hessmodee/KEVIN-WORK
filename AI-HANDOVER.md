@@ -2,7 +2,7 @@
 
 > **THIS IS THE ONE CURRENT HANDOVER FOR KEVIN.** Do not create a competing dated handover. Update the source task/evidence and let the canonical handover refresh replace stale state.
 
-**Semantic checkpoint evidence through:** 2026-09-04T09:52:23.5181838-06:00  
+**Semantic checkpoint evidence through:** 2026-09-04T09:55:16.2018865-06:00  
 **Canonical repository:** `hessmodee/KEVIN-WORK` / `main`  
 **Machine twin:** `reports/handoff-latest.json` (not a second authority)
 
@@ -29,11 +29,11 @@ If an agent cannot access one route, use another. Matt should never need to reco
 
 ## Automatic semantic snapshot
 
-- Engineering evidence at checkpoint: `2026-09-04T09:52:23.5181838-06:00`
+- Engineering evidence at checkpoint: `2026-09-04T09:54:23.3893668-06:00`
 - Support evidence at checkpoint: `2026-09-04T09:51:46.3988746-06:00`
-- Autonomy evidence at checkpoint: `2026-09-04T09:50:09.6246485-06:00`
+- Autonomy evidence at checkpoint: `2026-09-04T09:55:16.2018865-06:00`
 - Benchmark: **PASS — 30/30, critical 0**
-- UI Bridge health at checkpoint: **FRESH** (age then: 2.1 seconds)
+- UI Bridge health at checkpoint: **FRESH** (age then: 4.2 seconds)
 - Maintenance: **NO_MANIFEST** — No maintenance proposal is waiting.
 - Supervisor last result: **NO_ELIGIBLE_MISSION**
 - Proven composite skills: **18**
@@ -57,8 +57,8 @@ The block below is pulled from `inbox/CURRENT_TASK.md`. That file is an executio
 
 ## Latest applied (2026-09-04 ~09:00-09:50 MT)
 
-- **PASS:** P0.1 Desktop LIVE on HESS-PC (PR#77). Exact 4 tools on fixed:main. openclaw.json after SHA256 4126AFE64EF809B9A4747D70B9868F0FAB94F554F213C88B0DA832FBF8C5E794. Backup 
-eports/engineering/backups/p01-desktop-20260904-0809. Benchmark 30/30. **NOT owner-gated.** Do NOT widen tools or rewrite Desktop config.
+- **PASS:** P0.1 Desktop LIVE on HESS-PC (PR#77). Exact 4 tools on fixed:main. openclaw.json after SHA256 4126AFE64EF809B9A4747D70B9868F0FAB94F554F213C88B0DA832FBF8C5E794. Backup `reports/engineering/backups/p01-desktop-20260904-0809`. Benchmark 30/30. **NOT owner-gated.** Do NOT widen tools or rewrite Desktop config.
+
 - **PASS:** Merged to main PR#74 (routing a5a55c2c56f2), PR#75 (undying auth e05399c6dd50), PR#76 (leases lib 15a098ddd10d), PR#77 (Desktop apply 7bd4e1d0897f).
 - **PASS:** YELLOW Superv v1.8.9+selector v1.2 was live; lease wire bumped live Superv to v1.8.10 with mission-lease heartbeats. Skill Lab wired. SelfTests PASS (MISSION-LEASE WIRE).
 - **PASS:** After #74, Supervisor sees owner-value/Skill Lab demand (WAITING_ITEM_BUDGETS, eligible_count=1) — no longer IDLE_NO_ELIGIBLE_DEMAND.
@@ -135,26 +135,25 @@ These are **not open blockers unless fresher machine evidence regresses them**:
 
 ## Current P0 blockers Î“Ã¶Â£â”œâ”‚â•¬Ã´â”œâŒâ”¬â•â•¬Ã´â”œÃ§â”¬Ã‘ pursue in this order
 
-### P0.1 Î“Ã¶Â£â”œâ”‚â•¬Ã´â”œâŒâ”¬â•â•¬Ã´â”œÃ§â”¬Ã‘ fixed:main still has no usable production tools
+### P0.1 — FIXED LIVE (2026-09-04): Desktop exact-4 on fixed:main (NOT owner-gated)
 
-Fresh dashboard/full-autonomy evidence still shows `fixed:main` with zero effective tools / `tools:false`.
+Desktop is **LIVE** on HESS-PC via PR #77. Effective inventory is exactly:
 
-The reviewed Kevin Desktop source is not installed production merely because source and CI exist. Target effective inventory remains exactly:
+- kevin_system_status
+- kevin_desktop_find_folder
+- kevin_desktop_open_folder
+- kevin_app_launch
 
-- `kevin_system_status`
-- `kevin_desktop_find_folder`
-- `kevin_desktop_open_folder`
-- `kevin_app_launch`
+Evidence: Benchmark 30/30 critical 0; openclaw.json after SHA256 4126AFE64EF809B9A4747D70B9868F0FAB94F554F213C88B0DA832FBF8C5E794; backup 
+`reports/engineering/backups/p01-desktop-20260904-0809.
 
-Next engineering step: finish/qualify the **live Windows/OpenClaw production crossing** around `candidates/maintenance/production-crossing-v2/` using exact before-state config/schema/plugin identity, code-owned fixed operations, explicit owner approval binding, backup/checkpoint, dry-run, positive + forbidden negative real-turn canaries, exact post-inventory verification, fresh Benchmark 30/30 and tested rollback.
-
-Do not widen authority to solve this. Engineering Relay remains GREEN and does not authorize arbitrary production mutation. Existing Maintenance v1 staging also does not by itself authorize this new protected Desktop crossing; use the separately-reviewed YELLOW crossing and explicit owner approval before production application.
+**Do not** treat Desktop as owner-gated or HOLD. **Do not** widen tools or rewrite Desktop/openclaw.json config.
 
 ### P0.2 Î“Ã¶Â£â”œâ”‚â•¬Ã´â”œâŒâ”¬â•â•¬Ã´â”œÃ§â”¬Ã‘ capability-aware work routing and Work Supply -> Supervisor
 
 Integrate supplied owner demand into live selection without inventing work and without routing every task through an agent that lacks the needed tool. Dispatch to the qualified worker/lane or deterministic executor that owns the typed capability. Preserve completed occurrence history and bounded retry/cooldown.
 
-### P0.3 Î“Ã¶Â£â”œâ”‚â•¬Ã´â”œâŒâ”¬â•â•¬Ã´â”œÃ§â”¬Ã‘ leases, checkpoints and truthful overnight continuation
+### P0.3 — leases/checkpoints (library + live Superv/Skill Lab wire PASS 2026-09-04)
 
 `WORKING` requires a live lease plus evidence-producing execution. Long jobs need checkpoint/resume and orphan recovery so real work survives restarts and can continue without fake busy status.
 
@@ -220,7 +219,6 @@ Do not generate churn merely to look active.
 - tomorrow-field-work-command-pack@1 PROVEN @ 09:24:35 MT; proof `9DAD2E7920820A937FE84F5240FAF60902EA9CDA26A1D690B0FB41622402E5DC`; receipt `reports/engineering/RECEIPT-tomorrow-field-20260904-0924.md`
 - equipment-tool-control-pack@1 PROVEN @ 09:32:35 MT; proof `327B135CE2FBDAFE3674E55DB441269FE72BEB01F7D72618A9FA72FF1E7BDA3A`; receipt `reports/engineering/RECEIPT-equipment-tool-20260904-0932.md`
 - proven_count **18** (registry `reports/capabilities/composite-skills.json`)
-- Next GREEN: vehicle-transport-mission-pack@1 (inbox; prefight OK). Yellow Desktop/Supervisor/openclaw.json untouched by this lane.
 
 ## Continuity invariant
 
@@ -262,6 +260,6 @@ Never infer a higher state from a lower one. Never widen authority merely to mak
 
 This handover is generated by `.github/scripts/build-canonical-handover.py` and refreshed by `.github/workflows/canonical-handover.yml`.
 
-Semantic fingerprint: `55F08C87A692FA98EBCA4A7B7DC24070B038EEE96E63AAE847FF31FD7298352E`
+Semantic fingerprint: `7077840DA258D0F2B21A631770A1650F5705B4C0D09D3394C51971B2EBAAC74F`
 
 **Fresh runtime evidence first; one handover; publish every durable local change; then continue.**
