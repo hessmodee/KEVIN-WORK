@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "kind": "kevin-standing-work-supply-catalog",
+  "version": "1.0.0",
+  "authority_effect": "NONE",
+  "policy": {
+    "true_idle_definition": "No eligible owner-approved work, no blocked owner-approved backlog, and no due guardian/capability-learning work.",
+    "working_definition": "An active mission lease exists and the current action is producing machine evidence.",
+    "never_auto_authorize": [
+      "arbitrary_shell",
+      "credential_access",
+      "permission_widening",
+      "external_send",
+      "purchase",
+      "financial_transaction",
+      "production_chat_send",
+      "automatic_promotion",
+      "safety_weakening"
+    ]
+  },
+  "standing_work": [
+    {
+      "id": "autonomy-full-audit-refresh-v1",
+      "program": "platform-reliability",
+      "lane": "guardian",
+      "work_type": "verification",
+      "severity": "high",
+      "owner_value": 5,
+      "worker": "main",
+      "required_capabilities": ["kevin_full_autonomy_audit"],
+      "effects": [],
+      "trigger": {"kind": "report_stale", "report": "support", "older_than_minutes": 30},
+      "acceptance_criteria": [
+        "A fresh full-autonomy assessment is generated from live runtime evidence.",
+        "Benchmark remains PASS and platform verification state is evidence-backed.",
+        "No status changes to WORKING without an active mission lease and machine evidence."
+      ],
+      "next_action": "Run the qualified full-autonomy assessment tool and publish its receipt."
+    },
+    {
+      "id": "owner-composite-skill-proof-wave-v1",
+      "program": "skill-learning",
+      "lane": "skill-lab",
+      "work_type": "execution",
+      "severity": "high",
+      "owner_value": 5,
+      "worker": "main",
+      "required_capabilities": ["kevin_skill_lab_execute"],
+      "effects": [],
+      "trigger": {"kind": "skill_manifests_present"},
+      "acceptance_criteria": [
+        "Owner-approved GREEN composite skill manifests are executed through Skill Lab.",
+        "Each trial produces artifact hashes and semantic verification, not model narration.",
+        "A second replay is required before REPEATEDLY_PROVEN credit."
+      ],
+      "next_action": "Execute the next unproven owner composite skill through the qualified Skill Lab lane."
+    },
+    {
+      "id": "desktop-typed-crossing-runtime-proof-v1",
+      "program": "computer-fluency",
+      "lane": "production",
+      "work_type": "verification",
+      "severity": "high",
+      "owner_value": 5,
+      "worker": "main",
+      "required_capabilities": ["kevin_desktop_runtime_installed", "kevin_desktop_runtime_probe"],
+      "effects": [],
+      "trigger": {"kind": "always"},
+      "acceptance_criteria": [
+        "fixed:main exposes only the reviewed bounded Kevin Desktop tool set.",
+        "Positive tests prove status/folder/app operations through real Windows execution.",
+        "Negative tests reject arbitrary executable, arbitrary path, shell, download, credential and permission-widening requests.",
+        "Every successful side effect has an action receipt and independently checked postcondition."
+      ],
+      "next_action": "Complete the bounded Kevin Desktop installation and fixed:main effective-tool proof."
+    }
+  ]
+}
