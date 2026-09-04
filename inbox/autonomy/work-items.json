@@ -4,10 +4,38 @@
     "safe_for_public_repo":  true,
     "items":  [
                   {
-                      "id":  "owner-composite-creator-monetization-prove-v1",
+                      "id":  "owner-composite-appliance-repair-pack-v2-prove",
                       "program":  "owner-value-skills",
                       "authority_class":  "GREEN",
                       "status":  "OPEN",
+                      "lane":  "staging",
+                      "work_type":  "execution",
+                      "priority":  "high",
+                      "owner_value":  5,
+                      "reuses_proven_capability":  true,
+                      "produces_owner_deliverable":  true,
+                      "closes_proof_gap":  true,
+                      "reduces_bess_intervention":  true,
+                      "dependencies_ready":  true,
+                      "blocked":  false,
+                      "failure_attempts":  0,
+                      "acceptance_criteria":  [
+                                                  "Publish repaired cache-valley-appliance-repair-launch-pack with \u003c=5 workbook sheets (Skill Lab Workbook cap).",
+                                                  "Stage via Relay with new request id + pinned SHA; Skill Lab PROVEN.",
+                                                  "LESSON sheet-cap remains the teaching artifact; no shell/Desktop install."
+                                              ],
+                      "next_action":  "Edit remote inbox/skills appliance JSON to 5 sheets max (drop/merge Launch Checklist), recompute SHA, stage+prove. See docs/engineering/LESSON-skill-lab-workbook-sheet-cap-2026-09-04.md",
+                      "evidence_pointers":  [
+                                                "docs/engineering/LESSON-skill-lab-workbook-sheet-cap-2026-09-04.md",
+                                                "reports/action-era/skills/failed/cache-valley-appliance-repair-launch-pack--1.json",
+                                                "docs/engineering/KEVIN-RECIPE-stage-prove-green-composite-v1.md"
+                                            ]
+                  },
+                  {
+                      "id":  "owner-composite-creator-monetization-prove-v1",
+                      "program":  "owner-value-skills",
+                      "authority_class":  "GREEN",
+                      "status":  "COMPLETE",
                       "lane":  "production",
                       "work_type":  "execution",
                       "priority":  "high",
@@ -25,11 +53,15 @@
                       "dependencies_ready":  true,
                       "blocked":  false,
                       "failure_attempts":  0,
-                      "next_action":  "Live stage inbox/skills/creator-monetization-pipeline-pack-v1.json (SHA 2D0374F0C994F0063B6A7E7FB70A84B74E782B5A867B69A75DF64E9146D783D6).",
+                      "next_action":  "Closed. PROVEN 08:17 MT.",
                       "evidence_pointers":  [
                                                 "inbox/skills/creator-monetization-pipeline-pack-v1.json",
                                                 "docs/engineering/KEVIN-RECIPE-stage-prove-green-composite-v1.md"
-                                            ]
+                                            ],
+                      "provenAt":  "2026-09-04T08:17:45-06:00",
+                      "proof":  "reports/action-era/skills/done/creator-monetization-pipeline-pack--1.json",
+                      "completion_evidence":  "PROVEN proof_sha256=BD7EF0DC467FD52FE829EA6C77079F92CD762392005C7E4ECC5C943F5B4EAAF2",
+                      "last_evidence_at":  "2026-09-04T08:17:45-06:00"
                   },
                   {
                       "id":  "owner-composite-home-garage-org-prove-v1",
