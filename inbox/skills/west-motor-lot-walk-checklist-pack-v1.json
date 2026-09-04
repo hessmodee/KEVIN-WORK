@@ -1,0 +1,142 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "west-motor-lot-walk-checklist-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "West Motor Lot Walk Checklist Pack",
+  "description": "Creates a morning lot-walk workbook and SOP for dealer inventory spotting, unit readiness flags, and follow-up actions. No purchase, no live posting.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin West Motor Lot Walk Checklist.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Lot Walk",
+              "rows": [
+                [
+                  "Priority",
+                  "Stock / Unit",
+                  "Year",
+                  "Make",
+                  "Model",
+                  "Location Zone",
+                  "Cleanliness",
+                  "Tire / Battery",
+                  "Keys Present",
+                  "Ready For Sale?",
+                  "Issue Found",
+                  "Next Action",
+                  "Owner"
+                ],
+                [
+                  "P1",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "NO",
+                  "",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "name": "Issue Queue",
+              "rows": [
+                [
+                  "Priority",
+                  "Unit",
+                  "Issue",
+                  "Category",
+                  "Blocked Sale?",
+                  "Parts / Detail Needed",
+                  "Assigned",
+                  "Due",
+                  "Status",
+                  "Evidence"
+                ],
+                [
+                  "P1",
+                  "",
+                  "",
+                  "Detail / Mech / Paper / Photo",
+                  "YES",
+                  "",
+                  "",
+                  "",
+                  "OPEN",
+                  ""
+                ]
+              ]
+            },
+            {
+              "name": "Follow-ups",
+              "rows": [
+                [
+                  "Date",
+                  "Unit",
+                  "Ask / Message Draft",
+                  "Audience",
+                  "Sent?",
+                  "Response",
+                  "Outcome",
+                  "Notes"
+                ],
+                [
+                  "",
+                  "",
+                  "",
+                  "Sales / Detail / Parts / GM",
+                  "NO",
+                  "",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "name": "Daily Summary",
+              "rows": [
+                [
+                  "Date",
+                  "Units Walked",
+                  "Ready Count",
+                  "Blocked Count",
+                  "Top Blockers",
+                  "Wins",
+                  "Owner Notes"
+                ],
+                [
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin West Motor Lot Walk Checklist - SOP.md",
+        "content": "# West Motor Lot Walk Checklist\n\n## Purpose\nGive Kevin a repeatable morning lot-walk pack so inventory readiness issues are visible before customers arrive.\n\n## Sequence\n1. Walk zones systematically (front line, side lot, back row, detail hold).\n2. Capture unit identity and obvious readiness flags (clean, tires/battery, keys, paperwork/photos).\n3. Log blockers in Issue Queue with whether they block a sale.\n4. Draft follow-ups for humans; do not send messages or purchase parts without authority.\n5. Close with Daily Summary counts.\n\n## Protective behavior\nFlag missing keys, unsafe units, unknown stock numbers, and contradictory ready-for-sale claims. Never invent VINs. Never discard or move vehicles. Never spend money.\n"
+      }
+    }
+  ]
+}
