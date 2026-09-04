@@ -1,0 +1,33 @@
+{
+  "schema": 1,
+  "kind": "kevin-list-folder-crossing-live-receipt",
+  "at_mt": "2026-09-04 14:55 MT",
+  "actor": "Grok Bot executor",
+  "operation": "install_kevin_desktop_list_folder_v0_2",
+  "list_folder_live": true,
+  "config_sha256_after": "DBF596CF1E317D40A51E9E98FA50D63D1009CEC880C37E9D99F83C6E65E2ACF4",
+  "isolated_canary_proof_sha256": "54F3F9AC3489C0A29F12EFEDBEE7E1AD521DD2F5715EB1F4CBBD464D6550541E",
+  "inventory": [
+    "kevin_system_status",
+    "kevin_desktop_find_folder",
+    "kevin_desktop_open_folder",
+    "kevin_desktop_list_folder",
+    "kevin_app_launch"
+  ],
+  "gateway_recycle": {
+    "method": "KevinGatewayKeeper End/Run + scratch/reload-chat-gateway.ps1",
+    "chat_before_pid": 116896,
+    "chat_after_pid": 117008,
+    "reader_pid_preserved": 62308
+  },
+  "chat_prove_session_key": "agent:main:chat-prove-list-desktop-20260904b",
+  "benchmark": {"status": "PASS", "passed": 30, "total": 30, "critical": 0},
+  "r04_rebaseline_backup": "reports/maintenance/backups/pin-refresh-r04-listfolder-20260904-144226",
+  "work_items_publish": {
+    "commit": "e93d8205346b1fcb6a045ed90810250e49afdcd2",
+    "content_sha": "71baa84c140e1108a3f9c83d4ccf2551a07b2287",
+    "url": "https://github.com/hessmodee/KEVIN-WORK/blob/main/inbox/autonomy/work-items.json",
+    "local_sha256": "195E52DD364743B327C1B76E8931D10BBE681115220C433690D9CF929C3DC291"
+  },
+  "continuation_state_wiped": false
+}

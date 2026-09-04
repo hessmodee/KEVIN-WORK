@@ -2,7 +2,7 @@
 
 > **THIS IS THE ONE CURRENT HANDOVER FOR KEVIN.** Do not create a competing dated handover. Update the source task/evidence and let the canonical handover refresh replace stale state.
 
-**Semantic checkpoint evidence through:** 2026-09-04T13:12:47.0133208-06:00  
+**Semantic checkpoint evidence through:** 2026-09-04T17:02:34.6501379-06:00  
 **Canonical repository:** `hessmodee/KEVIN-WORK` / `main`  
 **Machine twin:** `reports/handoff-latest.json` (not a second authority)
 
@@ -29,14 +29,14 @@ If an agent cannot access one route, use another. Matt should never need to reco
 
 ## Automatic semantic snapshot
 
-- Engineering evidence at checkpoint: `2026-09-04T13:12:25.2740515-06:00`
-- Support evidence at checkpoint: `2026-09-04T13:12:47.0133208-06:00`
-- Autonomy evidence at checkpoint: `2026-09-04T13:10:10.2339243-06:00`
+- Engineering evidence at checkpoint: `2026-09-04T17:02:34.6501379-06:00`
+- Support evidence at checkpoint: `2026-09-04T16:57:50.9439963-06:00`
+- Autonomy evidence at checkpoint: `2026-09-04T17:00:26.2935576-06:00`
 - Benchmark: **PASS — 30/30, critical 0**
-- UI Bridge health at checkpoint: **FRESH** (age then: 2 seconds)
+- UI Bridge health at checkpoint: **FRESH** (age then: 0.7 seconds)
 - Maintenance: **NO_MANIFEST** — No maintenance proposal is waiting.
 - Supervisor last result: **NO_ELIGIBLE_MISSION**
-- Proven composite skills: **20**
+- Proven composite skills: **24**
 - Installed Maintenance identity reported by Support: `715E40DF0CFDC94FC8D470A83273467A6B10CC6CB9A2956E3A94FADC69B9646B`
 
 The builder runs after `main` changes and on a ten-minute reconciliation schedule, but it writes a new checkpoint only when turnover-relevant semantic state changes. Heartbeat timestamps alone do not move `main`. Incoming agents still read fresh runtime reports directly.
@@ -51,9 +51,20 @@ The block below is pulled from `inbox/CURRENT_TASK.md`. That file is an executio
 
 # CURRENT_TASK
 
-**Updated:** 2026-09-04 13:12 MT
+**Updated:** 2026-09-04 16:45 MT
 **Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
 **Cold-start:** `docs/engineering/KEVIN-TURNOVER-LATEST.md`.
+
+## Active Minecraft Realms (2026-09-04 ~15:05 MT)
+
+- Edition **Bedrock LOCKED** (Matt screenshots). Mineflayer Realms = **NON-PATH** (Java side gym only).
+- PLAN: `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md`
+- Status: **READY_FOR_OWNER_KEVIN_MS_AND_REALM_INVITE**
+- Stack candidate: bedrock-protocol + prismarine-auth (NetherNet gate; device-code auth design)
+- Next eng: `scratch/kevin-minecraft-bedrock-v0` local offline/BDS prove (no live auth)
+- Next owner: Kevin MS on Omen + invite to existing Realm (no new paid Realm)
+- Hard no: live Realm join; invent passwords; purchase; kill Chat 18789 / Reader 19001
+
 
 ## Latest applied (2026-09-04 ~10:35 MT)
 
@@ -130,9 +141,9 @@ These are **not open blockers unless fresher machine evidence regresses them**:
 8. **Production Crossing v2 candidate:** a YELLOW source-only contract and tests exist for exactly two protected future operations: install the four-tool Kevin Desktop v0.1 surface, and retire only the legacy `KevinNightForge` scheduled task. CI proves the candidate validator; it has ZERO production effect and grants no new authority.
 9. **HQ cross-lane truth repair:** owner Command must count Skill Lab running/ready/blocked work in global state, not only Supervisor/dashboard workers. A fail-closed source repair + regression assertion was launched during this shift; Grok must verify the resulting HQ gate/Pages deployment before treating it as complete.
 
-## Current P0 blockers ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ pursue in this order
+## Current P0 blockers ├â─¦ôâ╔¼¦ôâ╔¼æéâ─â─â─ pursue in this order
 
-### P0.1 ├óΓé¼ΓÇ¥ FIXED LIVE (2026-09-04): Desktop exact-4 on fixed:main (NOT owner-gated)
+### P0.1 ├óé¼Ç¥ FIXED LIVE (2026-09-04): Desktop exact-4 on fixed:main (NOT owner-gated)
 
 Desktop is **LIVE** on HESS-PC via PR #77. Effective inventory is exactly:
 
@@ -146,27 +157,27 @@ Evidence: Benchmark 30/30 critical 0; openclaw.json after SHA256 4126AFE64EF809B
 
 **Do not** treat Desktop as owner-gated or HOLD. **Do not** widen tools or rewrite Desktop/openclaw.json config.
 
-### P0.2 ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ capability-aware work routing and Work Supply -> Supervisor
+### P0.2 ├â─¦ôâ╔¼¦ôâ╔¼æéâ─â─â─ capability-aware work routing and Work Supply -> Supervisor
 
 Integrate supplied owner demand into live selection without inventing work and without routing every task through an agent that lacks the needed tool. Dispatch to the qualified worker/lane or deterministic executor that owns the typed capability. Preserve completed occurrence history and bounded retry/cooldown.
 
-### P0.3 ├óΓé¼ΓÇ¥ leases/checkpoints (library + live Superv/Skill Lab wire PASS 2026-09-04)
+### P0.3 ├óé¼Ç¥ leases/checkpoints (library + live Superv/Skill Lab wire PASS 2026-09-04)
 
 `WORKING` requires a live lease plus evidence-producing execution. Long jobs need checkpoint/resume and orphan recovery so real work survives restarts and can continue without fake busy status.
 
-### P0.4 ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ authoritative evidence freshness
+### P0.4 ├â─¦ôâ╔¼¦ôâ╔¼æéâ─â─â─ authoritative evidence freshness
 
 Prevent older telemetry writers from overwriting newer authoritative assessments. Separate controller telemetry from authoritative state where necessary and enforce monotonic/event-aware publication.
 
-### P0.5 ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ global blocked-vs-idle truth
+### P0.5 ├â─¦ôâ╔¼¦ôâ╔¼æéâ─â─â─ global blocked-vs-idle truth
 
 HQ and control-plane status must aggregate all relevant execution lanes. Supervisor `NO_ELIGIBLE_MISSION` is only Supervisor truth; it must not erase active/ready/blocked Skill Lab or other owner work. `TRUE IDLE` is valid only when no active execution, eligible owner work, blocked owner backlog, or due maintenance/growth work exists across the governed system.
 
-### P0.6 ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ continuous-growth live crossing
+### P0.6 ├â─¦ôâ╔¼¦ôâ╔¼æéâ─â─â─ continuous-growth live crossing
 
 After tool routing/supply/leases are healthy, install/enable recurring self-heal, self-maintenance, blocked-work recovery, knowledge-integrity, capability-growth and owner-value scans through already-qualified scheduling/control surfaces. Prove multiple scheduled windows with real leases/checkpoints and no false WORKING state.
 
-### P0.7 ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ exact retirement of legacy KevinNightForge
+### P0.7 ├â─¦ôâ╔¼¦ôâ╔¼æéâ─â─â─ exact retirement of legacy KevinNightForge
 
 Do not delete/disable arbitrary scheduled tasks. Use the YELLOW Production Crossing v2 contract to design a live exact-target retirement wrapper for `KevinNightForge`: verify modern replacement schedulers first, disable-first observation, Benchmark 30/30, then remove only the exact legacy task with rollback proof.
 
@@ -253,7 +264,7 @@ Source-only HQ Command truth upgrade on branch `grok/hq-max-20260904` (PR pendin
 
 ## Layer hold (Kevin wire)
 
-No ollama-isolate-latest.json → CURRENT_TASK remains write-proof. Do not advance. Await isolate PASS on llama3.1:8b and qwen2.5:14b.
+No ollama-isolate-latest.json → CURRENT_TASK remains write-proof. Do not advance. Await isolate PASS on llama3.1:8b and qwen2.5:14b. (refreshed 2026-09-04 16:10 MT)
 
 ---
 
@@ -291,6 +302,6 @@ Never infer a higher state from a lower one. Never widen authority merely to mak
 
 This handover is generated by `.github/scripts/build-canonical-handover.py` and refreshed by `.github/workflows/canonical-handover.yml`.
 
-Semantic fingerprint: `AAFE51D3B34B7DB2E41834073192C57630AF3A2A06CF26BC208252D7F06A86AE`
+Semantic fingerprint: `E44B369EF82968AC11AE862E2D5DFE974D63DB66A6B583D6A5345D34761F3A3B`
 
 **Fresh runtime evidence first; one handover; publish every durable local change; then continue.**

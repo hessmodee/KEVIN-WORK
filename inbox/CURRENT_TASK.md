@@ -1,10 +1,21 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-04 13:17 MT
-**Role:** current execution contract only. AI-HANDOVER.md remains the one human canonical handover.
-**Cold-start:** docs/engineering/KEVIN-TURNOVER-LATEST.md.
+**Updated:** 2026-09-04 17:05 MT
+**Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
+**Cold-start:** `docs/engineering/KEVIN-TURNOVER-LATEST.md`.
 
-## Latest applied (2026-09-04 ~13:17 MT)
+## Active Minecraft Realms (2026-09-04 ~15:05 MT)
+
+- Edition **Bedrock LOCKED** (Matt screenshots). Mineflayer Realms = **NON-PATH** (Java side gym only).
+- PLAN: `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md`
+- Status: **READY_FOR_OWNER_KEVIN_MS_AND_REALM_INVITE**
+- Stack candidate: bedrock-protocol + prismarine-auth (NetherNet gate; device-code auth design)
+- Next eng: `scratch/kevin-minecraft-bedrock-v0` local offline/BDS prove (no live auth)
+- Next owner: Kevin MS on Omen + invite to existing Realm (no new paid Realm)
+- Hard no: live Realm join; invent passwords; purchase; kill Chat 18789 / Reader 19001
+
+
+## CoS gap resume applied (2026-09-04 ~13:17 MT)
 
 - **PASS (CoS gap resume):** Ports 18789/19001/19101 UP; NightForge Disabled; Desktop exact-4 frozen (openclaw 4126AFE6...); Benchmark PASS 30/30 critical 0 @13:07 MT.
 - **PASS retained (Chat honesty):** Fresh fixed:main emits tool_calls (Calculator OS + Desktop find/open). Root cause of Matt hallucination = 16k overflow on long sessions (zero tool_calls), plus no list tool. Teach already in SOUL/AGENTS/TOOLS/MEMORY + LESSON + NEG eval. Master reports/engineering/RECEIPT-chat-desktop-tool-use-proof-20260904-1120.json. No Desktop widen this beat.
@@ -12,6 +23,13 @@
 - **PASS (Skill Lab):** independent-online-business-research-pack@1 PROVEN; proven_count **21**. Receipt reports/engineering/RECEIPT-indie-biz-research-20260904-1317.md. Not appliance@3.
 - **Resume receipt:** reports/engineering/RECEIPT-cos-gap-resume-20260904-1317.json.
 - **NEXT:** typed kevin_desktop_list_folder under proof bar; P0.2/P0.4–P0.6; do not kill Chat/Reader; no live trades/purchases/calls.
+
+## Latest applied (2026-09-04 ~10:35 MT)
+
+- **PASS:** Benchmark R02 pin refresh after Superv v1.8.10. baseline/desired supervisor `D131003E...` -> live `D77BCAA7...`. Backup `reports/maintenance/backups/pin-refresh-superv-v1810-20260904-103510`. Receipt `reports/engineering/RECEIPT-pin-refresh-superv-v1810-20260904-103510.json`. Benchmark **PASS 30/30 critical 0**. openclaw.json NOT touched (still `4126AFE6...` exact-4 Desktop).
+- **STAGED:** `dealership-friction-reducer-pack@1` via Relay `request.json` id `grok-stage-dealership-friction-20260904-20260904-103510`; skill SHA `716CFD08...`; 5-sheet ASCII-safe. Do NOT re-prove appliance@3 (MIN_REPEAT stall).
+- **PASS retained:** P0.1 Desktop exact-4 LIVE; Superv v1.8.10 + selector v1.2; NightForge Disabled; proven_count **19** pending dealership prove.
+- **Residual:** Operator isolated 19101 was DOWN at diagnose; P0.4 freshness writers; P0.5 blocked-vs-idle HQ truth; P0.6 growth scans; P0.7 NightForge disable-first already Disabled (observe then exact remove).
 
 ## Owner objective
 
@@ -81,9 +99,9 @@ These are **not open blockers unless fresher machine evidence regresses them**:
 8. **Production Crossing v2 candidate:** a YELLOW source-only contract and tests exist for exactly two protected future operations: install the four-tool Kevin Desktop v0.1 surface, and retire only the legacy `KevinNightForge` scheduled task. CI proves the candidate validator; it has ZERO production effect and grants no new authority.
 9. **HQ cross-lane truth repair:** owner Command must count Skill Lab running/ready/blocked work in global state, not only Supervisor/dashboard workers. A fail-closed source repair + regression assertion was launched during this shift; Grok must verify the resulting HQ gate/Pages deployment before treating it as complete.
 
-## Current P0 blockers ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ pursue in this order
+## Current P0 blockers ├â─¦ôâ╔¼¦ôâ╔¼æéâ─â─â─ pursue in this order
 
-### P0.1 ├óΓé¼ΓÇ¥ FIXED LIVE (2026-09-04): Desktop exact-4 on fixed:main (NOT owner-gated)
+### P0.1 ├óé¼Ç¥ FIXED LIVE (2026-09-04): Desktop exact-4 on fixed:main (NOT owner-gated)
 
 Desktop is **LIVE** on HESS-PC via PR #77. Effective inventory is exactly:
 
@@ -97,27 +115,27 @@ Evidence: Benchmark 30/30 critical 0; openclaw.json after SHA256 4126AFE64EF809B
 
 **Do not** treat Desktop as owner-gated or HOLD. **Do not** widen tools or rewrite Desktop/openclaw.json config.
 
-### P0.2 ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ capability-aware work routing and Work Supply -> Supervisor
+### P0.2 ├â─¦ôâ╔¼¦ôâ╔¼æéâ─â─â─ capability-aware work routing and Work Supply -> Supervisor
 
 Integrate supplied owner demand into live selection without inventing work and without routing every task through an agent that lacks the needed tool. Dispatch to the qualified worker/lane or deterministic executor that owns the typed capability. Preserve completed occurrence history and bounded retry/cooldown.
 
-### P0.3 ├óΓé¼ΓÇ¥ leases/checkpoints (library + live Superv/Skill Lab wire PASS 2026-09-04)
+### P0.3 ├óé¼Ç¥ leases/checkpoints (library + live Superv/Skill Lab wire PASS 2026-09-04)
 
 `WORKING` requires a live lease plus evidence-producing execution. Long jobs need checkpoint/resume and orphan recovery so real work survives restarts and can continue without fake busy status.
 
-### P0.4 ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ authoritative evidence freshness
+### P0.4 ├â─¦ôâ╔¼¦ôâ╔¼æéâ─â─â─ authoritative evidence freshness
 
 Prevent older telemetry writers from overwriting newer authoritative assessments. Separate controller telemetry from authoritative state where necessary and enforce monotonic/event-aware publication.
 
-### P0.5 ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ global blocked-vs-idle truth
+### P0.5 ├â─¦ôâ╔¼¦ôâ╔¼æéâ─â─â─ global blocked-vs-idle truth
 
 HQ and control-plane status must aggregate all relevant execution lanes. Supervisor `NO_ELIGIBLE_MISSION` is only Supervisor truth; it must not erase active/ready/blocked Skill Lab or other owner work. `TRUE IDLE` is valid only when no active execution, eligible owner work, blocked owner backlog, or due maintenance/growth work exists across the governed system.
 
-### P0.6 ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ continuous-growth live crossing
+### P0.6 ├â─¦ôâ╔¼¦ôâ╔¼æéâ─â─â─ continuous-growth live crossing
 
 After tool routing/supply/leases are healthy, install/enable recurring self-heal, self-maintenance, blocked-work recovery, knowledge-integrity, capability-growth and owner-value scans through already-qualified scheduling/control surfaces. Prove multiple scheduled windows with real leases/checkpoints and no false WORKING state.
 
-### P0.7 ├â┼╜├óΓé¼┼ô├â╞Æ├é┬╢├âΓÇÜ├é┬ú├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├óΓé¼┬¥├óΓé¼┼í├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â┬ó├àΓÇÖ├é┬É├â┬ó├óΓé¼┬¥├é┬¼├â┬ó├óΓé¼┬ó├é┬¥├â┬ó├óΓé¼┬ó├é┬¼├â╞Æ├é┬┤├â┬ó├óΓé¼┬¥├àΓÇ£├â╞Æ├é┬º├â┬ó├óΓé¼┬¥├é┬¼├â╞Æ├óΓé¼╦£ exact retirement of legacy KevinNightForge
+### P0.7 ├â─¦ôâ╔¼¦ôâ╔¼æéâ─â─â─ exact retirement of legacy KevinNightForge
 
 Do not delete/disable arbitrary scheduled tasks. Use the YELLOW Production Crossing v2 contract to design a live exact-target retirement wrapper for `KevinNightForge`: verify modern replacement schedulers first, disable-first observation, Benchmark 30/30, then remove only the exact legacy task with rollback proof.
 
@@ -201,3 +219,7 @@ Source-only HQ Command truth upgrade on branch `grok/hq-max-20260904` (PR pendin
 **Preserved Desktop LIVE facts (unchanged by Phase 0):** P0.1 Desktop LIVE on HESS-PC (PR#77). Exact 4 tools on fixed:main. openclaw.json after SHA256 4126AFE64EF809B9A4747D70B9868F0FAB94F554F213C88B0DA832FBF8C5E794. Backup `reports/engineering/backups/p01-desktop-20260904-0809`. Benchmark 30/30. **NOT owner-gated.** Do NOT widen tools or rewrite Desktop/openclaw.json / Chat ports / Owl geometry. No GROK-HANDOVER; `AI-HANDOVER.md` remains canonical.
 
 **Phase boundary:** Phase 0 = HQ shell + gate hygiene. Phase A publishers (Skill Lab / lease projection into snapshots) are out of scope here.
+
+## Layer hold (Kevin wire)
+
+No ollama-isolate-latest.json → CURRENT_TASK remains write-proof. Do not advance. Await isolate PASS on llama3.1:8b and qwen2.5:14b. (refreshed 2026-09-04 16:10 MT)
