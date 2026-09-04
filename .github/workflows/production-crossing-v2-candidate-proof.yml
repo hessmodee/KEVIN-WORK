@@ -1,0 +1,44 @@
+name: Production Crossing v2 Candidate Proof
+
+on:
+  push:
+    paths:
+      - 'candidates/maintenance/production-crossing-v2/**'
+      - '.github/workflows/production-crossing-v2-candidate-proof.yml'
+  pull_request:
+    paths:
+      - 'candidates/maintenance/production-crossing-v2/**'
+      - '.github/workflows/production-crossing-v2-candidate-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  candidate:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.12', '3.13']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Reject executable surfaces
+        shell: pwsh
+        run: |
+          $p='candidates/maintenance/production-crossing-v2/contract.py'
+          $code=Get-Content -LiteralPath $p -Raw
+          foreach($bad in @('subprocess','os.system','Popen','requests','urllib.request','socket','powershell.exe','cmd.exe','Start-Process','Invoke-Expression','openclaw.json')){
+            if($code.Contains($bad)){ throw "forbidden candidate execution surface: $bad" }
+          }
+          Write-Host 'AUTHORITY_BOUNDARY_PASS production_effect=NONE authority_delta=NONE'
+      - name: Deterministic positive and negative tests
+        working-directory: candidates/maintenance/production-crossing-v2
+        run: python -m unittest -v test_contract.py
+      - name: Compile
+        working-directory: candidates/maintenance/production-crossing-v2
+        run: python -m py_compile contract.py test_contract.py
