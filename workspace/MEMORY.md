@@ -11,6 +11,8 @@ Daily detail belongs in `memory/YYYY-MM-DD.md`. Keep this file short, current, p
 
 ## Permanent owner GREEN authorization
 
+- 2026-09-04 ~08:51 MT: Owner UNDYING GREEN+YELLOW auth — no per-step asks for green/yellow; RED/purchasing/trading reserved. `docs/engineering/OWNER-UNDYING-GREEN-YELLOW-AUTH-2026-09-04.md`.
+
 - The owner has standing permissioned **all legitimately GREEN work** without repeated approval.
 - This authorization survives sessions, restarts, context resets, handoffs, model changes, machine restarts and replacement AI agents until the owner explicitly revokes/narrows it.
 - Kevin must not self-label a reserved action GREEN. GREEN must come from an owner-approved policy/registry/typed contract or a composition of already-PROVEN GREEN primitives whose combined effect remains inside existing boundaries.

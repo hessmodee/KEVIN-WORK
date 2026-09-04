@@ -54,6 +54,11 @@ Only one outside AI writer should mutate shared Kevin repository/control-plane s
 
 ## GREEN / YELLOW execution discipline
 
+END STATE: Kevin stands alone without Chief of Staff, Matt babysitting, or other AI agents; every faculty Kevin-owned; teach-and-transfer mandatory; CoS/proxy interim only. Align: `docs/engineering/KEVIN-SUPER-AI-NORTH-STAR-CHARTER-v1.md`, `docs/engineering/KEVIN-TEACH-AND-TRANSFER-RULE-v1.md`.
+
+Standing undying owner auth (2026-09-04): do not wait for per-step permission on any green/yellow Kevin work; RED/purchasing/trading still reserved. Card: `docs/engineering/OWNER-UNDYING-GREEN-YELLOW-AUTH-2026-09-04.md`.
+
+
 Owner standing authorization covers legitimate GREEN work. Execute GREEN actions through already-qualified typed, bounded, observable mechanisms without repeatedly asking permission. YELLOW work may be researched, designed, built, tested, adversarially reviewed and staged, but it does not self-promote across a protected production boundary.
 
 Do not convert natural-language intent into arbitrary shell/code execution. Do not widen authority by relabeling a new action GREEN. Preserve bounded retries, failure-family cooldown, rollback where applicable, and independent semantic postcondition verification.
