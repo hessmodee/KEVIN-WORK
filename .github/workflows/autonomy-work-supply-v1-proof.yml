@@ -29,6 +29,7 @@ jobs:
             --catalog control-plane/autonomy/standing-work-supply-v1.json \
             --support reports/support-latest.json \
             --engineering reports/engineering/latest.json \
+            --autonomy reports/autonomy-latest.json \
             --skills-dir inbox/skills \
             --output-items /tmp/work-items-supplied.json \
             --output-state /tmp/work-supply-state.json
@@ -39,5 +40,7 @@ jobs:
           assert s['authority_effect']=='NONE_PLANNER_ONLY'
           assert s['activity_claim_policy']=='WORKING_REQUIRES_ACTIVE_LEASE_AND_MACHINE_EVIDENCE'
           assert s['truth_state']!='TRUE_IDLE', 'current repository has real unresolved backlog; TRUE_IDLE would be false'
-          print(json.dumps({k:s[k] for k in ('truth_state','eligible_count','blocked_count','generated_count','top_blocker')},indent=2))
+          ids={x['id'] for x in s['generated']}
+          assert 'autonomy-full-audit-refresh-v1' in ids, 'stale autonomy-latest must create guardian work'
+          print(json.dumps({k:s[k] for k in ('truth_state','eligible_count','blocked_count','generated_count','top_blocker','generated')},indent=2))
           PY

@@ -8,10 +8,10 @@ m=importlib.util.module_from_spec(spec);assert spec.loader;spec.loader.exec_modu
 NOW=m.now_utc("2026-09-04T04:00:00Z")
 
 def empty_items():return {"schema":1,"kind":"kevin-work-items","safe_for_public_repo":True,"items":[]}
-def cat(required=None,effects=None):
-    return {"schema":1,"standing_work":[{"id":"test-work","program":"test","required_capabilities":required or [],"effects":effects or [],"trigger":{"kind":"always"},"owner_value":5,"severity":"high","next_action":"test"}]}
-def run(catalog,inventory=None,items=None):
-    return m.build_supply(items or empty_items(),catalog,inventory or {"capabilities":[]},{},{},[],NOW)
+def cat(required=None,effects=None,trigger=None):
+    return {"schema":1,"standing_work":[{"id":"test-work","program":"test","required_capabilities":required or [],"effects":effects or [],"trigger":trigger or {"kind":"always"},"owner_value":5,"severity":"high","next_action":"test"}]}
+def run(catalog,inventory=None,items=None,autonomy=None):
+    return m.build_supply(items or empty_items(),catalog,inventory or {"capabilities":[]},{},{},autonomy or {},[],NOW)
 
 def test_eligible_when_capability_effective():
     _,s=run(cat(["safe_tool"]),{"capabilities":["safe_tool"]});assert s["truth_state"]=="ELIGIBLE_WORK";assert s["eligible_count"]==1
@@ -35,6 +35,16 @@ def test_existing_item_never_reset():
 
 def test_fingerprint_stable():
     _,a=run(cat(["x"]));_,b=run(cat(["x"]));assert a["fingerprint"]==b["fingerprint"]
+
+def test_stale_autonomy_report_creates_guardian_work():
+    trigger={"kind":"report_stale","report":"autonomy","older_than_minutes":30}
+    _,s=run(cat(["audit"],trigger=trigger),{"capabilities":["audit"]},autonomy={"generated_at":"2026-09-04T02:00:00Z"})
+    assert s["truth_state"]=="ELIGIBLE_WORK";assert s["generated_count"]==1;assert s["generated"][0]["id"]=="test-work"
+
+def test_fresh_autonomy_report_does_not_create_guardian_work():
+    trigger={"kind":"report_stale","report":"autonomy","older_than_minutes":30}
+    _,s=run(cat(["audit"],trigger=trigger),{"capabilities":["audit"]},autonomy={"generated_at":"2026-09-04T03:50:00Z"})
+    assert s["truth_state"]=="TRUE_IDLE";assert s["generated_count"]==0;assert s["skipped"][0]["reason"]=="FRESH"
 
 if __name__=="__main__":
     ts=[v for k,v in sorted(globals().items()) if k.startswith("test_") and callable(v)]
