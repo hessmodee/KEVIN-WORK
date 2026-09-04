@@ -1,17 +1,21 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-04T15:20:35.7153497-06:00",
+    "generated_at":  "2026-09-04T15:22:32.1372434-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
-                    "id":  "grok-stage-dealership-friction-20260904-20260904-103510",
+                    "id":  "grok-stage-west-motor-lot-walk-v1-202609041516c",
                     "operation":  "stage_composite_skill",
-                    "status":  "DUPLICATE_IGNORED",
-                    "detail":  "Request id already processed."
+                    "status":  "STAGED",
+                    "detail":  "Composite skill staged for Skill Lab."
                 },
     "result":  {
-
+                   "skill_id":  "west-motor-lot-walk-checklist-pack",
+                   "version":  "1",
+                   "local_name":  "west-motor-lot-walk-checklist-pack--1.json",
+                   "step_count":  2,
+                   "skill_sha256":  "9DFF0DB11D9AE16BC0F0198D2CD6D78B63CFE890CA7E3330D879664BE37C24AC"
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -27,7 +31,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  2.2
+                                     "heartbeat_age_seconds":  1.8
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -36,7 +40,7 @@
                                   "failed":  1
                               },
                    "composite_skills":  {
-                                            "ready":  0,
+                                            "ready":  1,
                                             "running":  0,
                                             "done":  21,
                                             "failed":  4,
@@ -57,7 +61,7 @@
                                      "passed":  30,
                                      "total":  30,
                                      "critical":  0,
-                                     "at":  "2026-09-04T14:54:07.1987904-06:00"
+                                     "at":  "2026-09-04T15:22:22.8378193-06:00"
                                  },
                    "cron":  [
                                 {
@@ -75,20 +79,6 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-support-bridge-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-benchmark-v1",
-                                    "enabled":  true,
-                                    "every_ms":  600000,
-                                    "last_status":  "error",
-                                    "consecutive_errors":  5
-                                },
-                                {
                                     "declaration_key":  "kevin-maintenance-intake-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
@@ -96,9 +86,23 @@
                                     "consecutive_errors":  0
                                 },
                                 {
+                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
                                     "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-benchmark-v1",
+                                    "enabled":  true,
+                                    "every_ms":  600000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 }
