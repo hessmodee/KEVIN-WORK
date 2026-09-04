@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-04T08:57:23.1088768-06:00",
+    "generated_at":  "2026-09-04T08:59:23.1993954-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
@@ -27,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  0.3
+                                     "heartbeat_age_seconds":  2.6
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -37,15 +37,15 @@
                               },
                    "composite_skills":  {
                                             "ready":  0,
-                                            "running":  1,
-                                            "done":  15,
+                                            "running":  0,
+                                            "done":  16,
                                             "failed":  4,
-                                            "proven_count":  15,
+                                            "proven_count":  16,
                                             "latest_proven":  {
-                                                                  "key":  "construction-daily-field-log-pack@1",
-                                                                  "proven_at":  "2026-09-04T08:51:45.3619491-06:00",
-                                                                  "manifest_sha256":  "2673A301FFCA0300FA75886BDD79B0B098D9543A3EB5C9838F4F724F11CC578B",
-                                                                  "proof_sha256":  "A7DDADFE0E152A9C66549C214459DDF150C6229E914ABE128F524BD535324C68",
+                                                                  "key":  "crypto-research-paper-trading-pack@1",
+                                                                  "proven_at":  "2026-09-04T08:57:45.5256439-06:00",
+                                                                  "manifest_sha256":  "546F435F1F0BA00D808CD753883552EA57E1E4E9BBC9B4AA11E1E610E616E91B",
+                                                                  "proof_sha256":  "1B985990A7108948EF7C1B4716EA0D3C278AE14A33A488415C1FD3F2006E9F99",
                                                                   "primitive_steps":  [
                                                                                           "create_spreadsheet",
                                                                                           "create_text"
@@ -57,7 +57,7 @@
                                      "passed":  30,
                                      "total":  30,
                                      "critical":  0,
-                                     "at":  "2026-09-04T08:47:42.0796481-06:00"
+                                     "at":  "2026-09-04T08:57:43.0893748-06:00"
                                  },
                    "cron":  [
                                 {
@@ -68,23 +68,9 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-benchmark-v1",
-                                    "enabled":  true,
-                                    "every_ms":  600000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-skill-lab-v1",
                                     "enabled":  true,
                                     "every_ms":  120000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-maintenance-intake-v1",
-                                    "enabled":  true,
-                                    "every_ms":  300000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
@@ -99,6 +85,20 @@
                                     "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-maintenance-intake-v1",
+                                    "enabled":  true,
+                                    "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-benchmark-v1",
+                                    "enabled":  true,
+                                    "every_ms":  600000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 }
