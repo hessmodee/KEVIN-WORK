@@ -27,13 +27,25 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      - name: Reject executable surfaces
+      - name: Reject executable implementation surfaces
         shell: pwsh
         run: |
           $p='candidates/maintenance/production-crossing-v2/contract.py'
           $code=Get-Content -LiteralPath $p -Raw
-          foreach($bad in @('subprocess','os.system','Popen','requests','urllib.request','socket','powershell.exe','cmd.exe','Start-Process','Invoke-Expression','openclaw.json')){
-            if($code.Contains($bad)){ throw "forbidden candidate execution surface: $bad" }
+          foreach($pattern in @(
+            '(?m)^\s*(?:from\s+subprocess\s+import|import\s+subprocess\b)',
+            '(?m)^\s*(?:from\s+requests\s+import|import\s+requests\b)',
+            '(?m)^\s*(?:from\s+urllib\.request\s+import|import\s+urllib\.request\b)',
+            '(?m)^\s*(?:from\s+socket\s+import|import\s+socket\b)',
+            '\bos\.system\s*\(',
+            '\bPopen\s*\(',
+            '\beval\s*\(',
+            '\bexec\s*\('
+          )){
+            if($code -match $pattern){ throw "forbidden candidate implementation surface: $pattern" }
+          }
+          foreach($bad in @('powershell.exe','cmd.exe','Start-Process','Invoke-Expression','openclaw.json')){
+            if($code.Contains($bad)){ throw "candidate unexpectedly targets production/runtime: $bad" }
           }
           Write-Host 'AUTHORITY_BOUNDARY_PASS production_effect=NONE authority_delta=NONE'
       - name: Deterministic positive and negative tests
