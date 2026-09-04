@@ -7,7 +7,7 @@ These rules apply to **every AI or coding agent working in this repository**, in
 Before substantive Kevin work:
 
 1. Read `AI-HANDOVER.md` — the **one canonical human current handover**.
-2. Read `KEVIN-START-HERE.md` and `inbox/CURRENT_TASK.md`.
+2. Read `KEVIN-START-HERE.md`, `inbox/CURRENT_TASK.md`, and `docs/architecture/KEVIN-CONSTITUTION-v2.md`.
 3. Read fresh `reports/support-latest.json` and `reports/engineering/latest.json` plus the narrowly relevant runtime/autonomy evidence.
 4. Inspect relevant open PR/CI state.
 5. Compare timestamps, hashes, proof levels, in-flight work and blockers. Fresh correlated HESS-PC evidence outranks prose.
@@ -68,13 +68,51 @@ Responsibility transfer:
 
 `T0 BESS-DEPENDENT -> T1 BESS-BUILT/KEVIN-TESTED -> T2 BESS-DISPATCHED/KEVIN-EXECUTED -> T3 KEVIN-RUN/BESS-VERIFIED -> T4 KEVIN-OWNED/EXCEPTION-ESCALATED -> T5 SELF-RELIANT/BESS-NOT-REQUIRED`
 
+Skill evidence:
+
+`DESCRIBED -> EXECUTED -> VERIFIED -> REPEATABLE -> GENERALIZED -> COMPOSABLE`
+
 Task presence, hashes, generated files, heartbeat churn, CI, model claims or `PASS` text alone do not prove a real owner outcome.
+
+## Source / knowledge discipline
+
+Kevin's settled owner knowledge belongs in the private local Markdown vault on HESS-PC. This public repository contains only schemas, public-safe source/configuration intent and sanitized evidence.
+
+For load-bearing factual claims:
+
+- no source = not settled fact;
+- record source reference and observation/freshness time;
+- preserve dependency links;
+- if a source is falsified or becomes materially stale, invalidate dependent settled claims or send them back to review;
+- do not use cloud chat memory as Kevin's authoritative private knowledge store.
+
+## Consequential action approval boundary
+
+Do not execute these effects without the applicable explicit owner approval ticket or a separately documented pre-approved typed maintenance authority:
+
+- public posting/publishing as Matt;
+- email/message send as Matt;
+- payments, purchases, contracts or money movement;
+- live crypto trading;
+- file deletion or destructive overwrite outside explicitly disposable sandbox fixtures;
+- credential entry/export, permission widening or new persistent logins;
+- software installation/system-level change outside already-qualified typed maintenance verbs;
+- public-game joining/chat/PvP or other online game behavior not already approved by the game policy;
+- changing Kevin's own authority boundary or automatically promoting new capabilities into production.
+
+Preparation may proceed autonomously when GREEN: research, drafting, paper trading, simulation, staging, test fixtures, content packaging, code review and owner-approval preparation.
 
 ## Authority / privacy
 
 Do not widen Kevin into arbitrary shell, arbitrary executable/path/argument control, unrestricted filesystem access, credential access, permission changes, arbitrary downloads/installs, owner-representing sends or other protected effects merely to make development easier.
 
-Never publish passwords, API/OAuth tokens, recovery codes, credentials, private message bodies, sensitive local documents or other private data to this public repository.
+Never publish passwords, API/OAuth tokens, recovery codes, credentials, private keys, seed phrases, exchange withdrawal rights, private message bodies, sensitive local documents or other private data to this public repository.
+
+## Broad computer-control direction
+
+Kevin's target is broad practical control of Matt's Windows computer through a capability bus, not permanent restriction to four demo apps. Expand coverage through registered application profiles and a hierarchy of structured APIs -> Windows UI Automation -> bounded visual/input fallback. Each family requires typed effects, receipts, negative tests and independent postconditions.
+
+Do not interpret this goal as permission for generic model-controlled administrator shell access.
 
 ## Completion standard
 
