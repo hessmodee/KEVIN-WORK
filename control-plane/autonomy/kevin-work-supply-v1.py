@@ -10,6 +10,7 @@ PROTECTED={
     "arbitrary_shell","credential_access","credential_entry","permission_widening",
     "external_send","email_send","public_post","purchase","financial_transaction","live_crypto_trade",
     "file_delete","destructive_overwrite","software_install","production_chat_send","automatic_promotion","safety_weakening",
+    "governance_edit","authority_boundary_change",
     "game_public_server_join","game_public_chat","pvp_real_player"
 }
 SEVERITY={"critical":5,"high":4,"medium":3,"low":2,"info":1}
@@ -99,6 +100,22 @@ def trigger_due(trigger:Dict[str,Any],ctx:Dict[str,Any],now:dt.datetime)->Tuple[
         n=int(ctx.get("skill_manifest_count",0));return n>0,f"SKILL_MANIFESTS={n}"
     raise ValueError("unsupported trigger kind: "+kind)
 
+def occurrence_id(spec:Dict[str,Any],now:dt.datetime)->str:
+    """Return a deterministic occurrence id without resetting completed work.
+
+    Static standing items keep their original id. Recurring items receive a time-bucket
+    suffix so a completed occurrence can never be silently reset to READY, while a new
+    bounded occurrence can appear in a later interval.
+    """
+    sid=str(spec.get("id",""))
+    rec=spec.get("recurrence") or {}
+    if not rec:return sid
+    kind=str(rec.get("kind","")).lower()
+    if kind!="interval_hours":raise ValueError("unsupported recurrence kind: "+kind)
+    hours=max(1,int(rec.get("hours",1)))
+    bucket=int(now.timestamp())//(hours*3600)
+    return f"{sid}--r{hours}h-{bucket}"
+
 def skill_ids(root:Optional[str])->List[str]:
     if not root or not Path(root).exists():return []
     out=[]
@@ -117,6 +134,10 @@ def synth(spec:Dict[str,Any],caps:set[str],reason:str,now:dt.datetime)->Dict[str
           "generated_by":"kevin-work-supply-v1","generated_reason":reason,"acceptance_criteria":list(spec.get("acceptance_criteria",[])),
           "next_action":spec.get("next_action",""),"worker":spec.get("worker","main"),
           "required_capabilities":list(spec.get("required_capabilities",[])),"effects":list(spec.get("effects",[]))}
+    if spec.get("standing_id"):item["standing_id"]=str(spec["standing_id"])
+    if spec.get("recurrence"):item["recurrence"]=copy.deepcopy(spec["recurrence"])
+    for key in ("verification_plan","rollback_plan","checkpoint_plan","retry_policy"):
+        if key in spec:item[key]=copy.deepcopy(spec[key])
     if set(map(str,item["effects"])) & PROTECTED:
         item.update(status="BLOCKED",blocked=True,dependencies_ready=False,block_reason="PROTECTED_EFFECT_REQUIRES_OWNER");return item
     missing=sorted(c for c in item["required_capabilities"] if c not in caps)
@@ -134,11 +155,13 @@ def build_supply(base:Dict[str,Any],catalog:Dict[str,Any],inventory:Dict[str,Any
     for spec in catalog.get("standing_work",[]) or []:
         sid=str(spec.get("id",""))
         if not sid:continue
-        if sid in by_id:
-            skipped.append({"id":sid,"reason":"EXISTING_ITEM_NO_ATTEMPT_RESET"});continue
         due,reason=trigger_due(spec.get("trigger",{"kind":"always"}),ctx,now)
         if not due:skipped.append({"id":sid,"reason":reason});continue
-        c=synth(spec,caps,reason,now);items.append(c);by_id[sid]=c;generated.append(c)
+        oid=occurrence_id(spec,now)
+        if oid in by_id:
+            skipped.append({"id":sid,"occurrence_id":oid,"reason":"EXISTING_ITEM_NO_ATTEMPT_RESET"});continue
+        instance=copy.deepcopy(spec);instance["id"]=oid;instance["standing_id"]=sid
+        c=synth(instance,caps,reason,now);items.append(c);by_id[oid]=c;generated.append(c)
     active=[x for x in items if not terminal(x)]
     elig=sorted([x for x in active if eligible(x,now)],key=pri)
     blocked=sorted([x for x in active if not eligible(x,now)],key=pri)
@@ -146,16 +169,16 @@ def build_supply(base:Dict[str,Any],catalog:Dict[str,Any],inventory:Dict[str,Any
     top=None
     if blocked:
         b=blocked[0];top={"id":b.get("id"),"reason":block_reason(b,now),"next_action":b.get("next_action","")}
-    state={"schema":1,"kind":"kevin-autonomy-work-supply-state","version":"1.2.0","at":now.isoformat(),"truth_state":truth,
+    state={"schema":1,"kind":"kevin-autonomy-work-supply-state","version":"1.3.0","at":now.isoformat(),"truth_state":truth,
            "authority_effect":"NONE_PLANNER_ONLY","activity_claim_policy":"WORKING_REQUIRES_ACTIVE_LEASE_AND_MACHINE_EVIDENCE",
            "eligible_count":len(elig),"blocked_count":len(blocked),"generated_count":len(generated),"skill_manifest_count":len(skills),
            "effective_capabilities":sorted(caps),"selected_candidate":elig[0].get("id") if elig else None,"top_blocker":top,
-           "generated":[{"id":x.get("id"),"status":x.get("status"),"block_reason":x.get("block_reason"),"worker":x.get("worker")} for x in generated],
+           "generated":[{"id":x.get("id"),"standing_id":x.get("standing_id"),"status":x.get("status"),"block_reason":x.get("block_reason"),"worker":x.get("worker")} for x in generated],
            "skipped":skipped}
     material={k:v for k,v in state.items() if k not in {"at","fingerprint"}}
     state["fingerprint"]=hashlib.sha256(json.dumps(material,sort_keys=True,separators=(",",":")).encode()).hexdigest().upper()
     merged={"schema":int(base.get("schema",1) or 1),"kind":base.get("kind","kevin-work-items"),
-            "safe_for_public_repo":bool(base.get("safe_for_public_repo",True)),"supply_version":"1.2.0","items":items}
+            "safe_for_public_repo":bool(base.get("safe_for_public_repo",True)),"supply_version":"1.3.0","items":items}
     return merged,state
 
 def write(path:Optional[str],value:Any):
