@@ -166,6 +166,23 @@ Do not generate churn merely to look active.
 - equipment-tool-control-pack@1 PROVEN @ 09:32:35 MT; proof `327B135CE2FBDAFE3674E55DB441269FE72BEB01F7D72618A9FA72FF1E7BDA3A`; receipt `reports/engineering/RECEIPT-equipment-tool-20260904-0932.md`
 - proven_count **18** (registry `reports/capabilities/composite-skills.json`)
 
+
+## Current live platform repair targets
+
+1. **Desktop exact-4 LIVE** — preserved on HESS-PC (PR#77); do not widen tools or rewrite openclaw/Desktop/Chat/Owl.
+2. **HQ max Phase 0 truth** — WAITING_/BLOCKED/NEEDS_/DEFERRED/COOLDOWN = BLOCKED WORK; Skill Lab queue fallback; Command truth chips; gate greps rotated.
+3. **Work Supply / capability routing** — P0.2 still open: connect owner demand to live selection without false idle.
+4. **Continuous-growth live crossing** — P0.6 remains YELLOW until recurring windows prove lease + machine evidence (source ready is not LIVE).
+
+## Owner-value skill wave
+
+1. **Dealer Recon** — proven/replayable composite skill.
+2. **Vehicle Diagnostics** — proven research pack.
+3. **Appliance Repair** — Cache Valley launch packs; budget/MIN_REPEAT residual.
+4. **Creator Pipeline** — drafts/experiments under GREEN lane.
+5. **Crypto Research** — watchlists/paper trades with risk discipline.
+6. **Home & Garage** — inventory/zones/maintenance.
+
 ## Continuity invariant
 
 Do not weaken authority boundaries, evidence requirements, or rollback readiness while executing standing auth.
