@@ -1,0 +1,30 @@
+{
+  "packet": "p03-leases-checkpoints-v1",
+  "date_mt": "2026-09-04T08:52:00-06:00",
+  "actor": "GrokBot",
+  "advanced": "P0.3",
+  "result": "PASS_SOURCE_CI_PROOF",
+  "plan_residual": "YELLOW live wiring deferred to avoid Desktop/Superv apply race",
+  "authority_effect": "NONE_LEASE_CHECKPOINT_ONLY",
+  "desktop_install": false,
+  "supervisor_replaced": false,
+  "yellow_authorized_but_not_applied_here": true,
+  "components": [
+    "docs/engineering/KEVIN-MISSION-LEASES-CHECKPOINTS-v1.md",
+    "control-plane/autonomy/kevin-mission-lease-v1.py",
+    "tools/test-kevin-mission-lease-v1.py",
+    ".github/workflows/autonomy-mission-lease-v1-proof.yml",
+    "docs/engineering/LESSON-mission-leases-checkpoints-2026-09-04.md"
+  ],
+  "related_not_duplicated": {
+    "P0.2": "PR #74 capability-aware routing — not modified",
+    "P0.5": "Skill Lab Command truth already on main (cb718f586) — verified present; not reworked",
+    "PR12": "Draft checkpoint/resume envelope — different candidate; not merged into this contract"
+  },
+  "local_selftest": "PASS 8 scenarios",
+  "residual": [
+    "YELLOW: wire lease heartbeats into live Supervisor/Skill Lab executors after apply workers finish (no config race)",
+    "YELLOW: HQ Command optionally consume lease truth_state (P0.5 Skill Lab counts already landed)",
+    "P0.1 Desktop still HOLD / owner approval path separate"
+  ]
+}

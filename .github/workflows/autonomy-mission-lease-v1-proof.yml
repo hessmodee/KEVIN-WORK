@@ -1,0 +1,33 @@
+name: Autonomy Mission Lease v1 Proof
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/autonomy/kevin-mission-lease-v1.py'
+      - 'tools/test-kevin-mission-lease-v1.py'
+      - 'docs/engineering/KEVIN-MISSION-LEASES-CHECKPOINTS-v1.md'
+      - '.github/workflows/autonomy-mission-lease-v1-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Library self-test
+        run: python control-plane/autonomy/kevin-mission-lease-v1.py --selftest
+      - name: Tools test
+        run: python tools/test-kevin-mission-lease-v1.py
+      - name: Authority + no-race markers
+        run: |
+          grep -q 'NONE_LEASE_CHECKPOINT_ONLY' control-plane/autonomy/kevin-mission-lease-v1.py
+          grep -q 'EVIDENCE_REQUIRED_FOR_WORKING' control-plane/autonomy/kevin-mission-lease-v1.py
+          grep -q 'ORPHANED' control-plane/autonomy/kevin-mission-lease-v1.py
+          test ! -f ControlPlane/kevin-mission-lease-v1.py
+          test ! -f ControlPlane/kevin-supervisor-v1.8.9.ps1
