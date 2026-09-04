@@ -1,5 +1,11 @@
 import unittest
-from contract import ContractError, DESKTOP_TOOLS, validate_request
+from contract import (
+    ContractError,
+    DESKTOP_TOOLS,
+    DESKTOP_TOOLS_V0_1,
+    DESKTOP_TOOLS_V0_2,
+    validate_request,
+)
 
 BENCH={"status":"PASS","passed":30,"total":30,"critical":0}
 
@@ -14,11 +20,31 @@ def desktop():
       }
     }
 
+def list_folder():
+    return {
+      "schema":2,"kind":"kevin-production-crossing-request","id":"desktop-list-folder-001",
+      "authority_class":"YELLOW","operation":"install_kevin_desktop_list_folder_v0_2",
+      "requires_owner_approval":True,
+      "preconditions":{
+        "source_contract":"docs/engineering/KEVIN-DESKTOP-LIST-FOLDER-CROSSING-CONTRACT-2026-09-04.md",
+        "plugin_id":"kevin-desktop","plugin_version":"0.2.0",
+        "requested_tools":list(DESKTOP_TOOLS_V0_2),
+        "fixed_main_tools_before":list(DESKTOP_TOOLS_V0_1),
+        "benchmark":dict(BENCH),"rollback_required":True
+      }
+    }
+
 class ContractTests(unittest.TestCase):
     def test_desktop_happy(self):
         p=validate_request(desktop())
         self.assertEqual(p["exact_expected_tools"],list(DESKTOP_TOOLS))
         self.assertEqual(p["authority_delta"],"NONE")
+
+    def test_list_folder_happy(self):
+        p=validate_request(list_folder())
+        self.assertEqual(p["exact_expected_tools"],list(DESKTOP_TOOLS_V0_2))
+        self.assertEqual(p["exact_before_tools"],list(DESKTOP_TOOLS_V0_1))
+        self.assertEqual(p["operation"],"install_kevin_desktop_list_folder_v0_2")
 
     def test_task_happy(self):
         r={"schema":2,"kind":"kevin-production-crossing-request","id":"nightforge-001",
@@ -29,6 +55,14 @@ class ContractTests(unittest.TestCase):
 
     def test_reject_extra_tool(self):
         r=desktop(); r["preconditions"]["requested_tools"].append("shell")
+        with self.assertRaises(ContractError): validate_request(r)
+
+    def test_reject_list_folder_without_exact4_before(self):
+        r=list_folder(); r["preconditions"]["fixed_main_tools_before"]=0
+        with self.assertRaises(ContractError): validate_request(r)
+
+    def test_reject_list_folder_shell_widen(self):
+        r=list_folder(); r["preconditions"]["requested_tools"]=list(DESKTOP_TOOLS_V0_2)+["kevin_shell"]
         with self.assertRaises(ContractError): validate_request(r)
 
     def test_reject_reordered_or_missing_tools(self):
