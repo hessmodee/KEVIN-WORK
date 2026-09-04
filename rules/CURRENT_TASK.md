@@ -7,14 +7,10 @@
 ## Latest applied (2026-09-04 ~13:17 MT)
 
 - **PASS (CoS gap resume):** Ports 18789/19001/19101 UP; NightForge Disabled; Desktop exact-4 frozen (openclaw 4126AFE6...); Benchmark PASS 30/30 critical 0 @13:07 MT.
-- **PASS retained (Chat honesty):** Fresh fixed:main emits tool_calls (Calculator OS + Desktop find/open). Root cause of Matt hallucination = 16k overflow on long sessions (zero tool_calls), plus no list tool. Teach already in SOUL/AGENTS/TOOLS/MEMORY + LESSON + NEG eval. Master 
-eports/engineering/RECEIPT-chat-desktop-tool-use-proof-20260904-1120.json. No Desktop widen this beat.
-- **PASS (Minecraft v0):** Mineflayer + flying-squid localhost join marker KEVIN_MC_V0_OK. Receipt 
-eports/engineering/RECEIPT-minecraft-v0-local-prove-20260904-1314.json. LESSON docs/engineering/LESSON-minecraft-v0-local-prove-2026-09-04.md.
-- **PASS (Skill Lab):** independent-online-business-research-pack@1 PROVEN; proven_count **21**. Receipt 
-eports/engineering/RECEIPT-indie-biz-research-20260904-1317.md. Not appliance@3.
-- **Resume receipt:** 
-eports/engineering/RECEIPT-cos-gap-resume-20260904-1317.json.
+- **PASS retained (Chat honesty):** Fresh fixed:main emits tool_calls (Calculator OS + Desktop find/open). Root cause of Matt hallucination = 16k overflow on long sessions (zero tool_calls), plus no list tool. Teach already in SOUL/AGENTS/TOOLS/MEMORY + LESSON + NEG eval. Master reports/engineering/RECEIPT-chat-desktop-tool-use-proof-20260904-1120.json. No Desktop widen this beat.
+- **PASS (Minecraft v0):** Mineflayer + flying-squid localhost join marker KEVIN_MC_V0_OK. Receipt reports/engineering/RECEIPT-minecraft-v0-local-prove-20260904-1314.json. LESSON docs/engineering/LESSON-minecraft-v0-local-prove-2026-09-04.md.
+- **PASS (Skill Lab):** independent-online-business-research-pack@1 PROVEN; proven_count **21**. Receipt reports/engineering/RECEIPT-indie-biz-research-20260904-1317.md. Not appliance@3.
+- **Resume receipt:** reports/engineering/RECEIPT-cos-gap-resume-20260904-1317.json.
 - **NEXT:** typed kevin_desktop_list_folder under proof bar; P0.2/P0.4–P0.6; do not kill Chat/Reader; no live trades/purchases/calls.
 
 ## Super-AI north star MAX (2026-09-04 ~11:15 MT)
