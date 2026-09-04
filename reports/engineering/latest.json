@@ -1,21 +1,17 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-04T15:36:34.4284738-06:00",
+    "generated_at":  "2026-09-04T15:38:33.9589843-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
                     "id":  "grok-stage-wm-recon-board-v1-20260904153543",
                     "operation":  "stage_composite_skill",
-                    "status":  "STAGED",
-                    "detail":  "Composite skill staged for Skill Lab."
+                    "status":  "DUPLICATE_IGNORED",
+                    "detail":  "Request id already processed."
                 },
     "result":  {
-                   "skill_id":  "west-motor-recon-priority-board-pack",
-                   "version":  "1",
-                   "local_name":  "west-motor-recon-priority-board-pack--1.json",
-                   "step_count":  2,
-                   "skill_sha256":  "DC76ADC0B906F1C18F133BA3BF36637FF725CDDB6796A7435D5F8DBB383214BC"
+
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -31,17 +27,17 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  0.1
+                                     "heartbeat_age_seconds":  2.8
                                  },
                    "queues":  {
                                   "ready":  0,
                                   "running":  0,
-                                  "done":  51,
+                                  "done":  52,
                                   "failed":  1
                               },
                    "composite_skills":  {
-                                            "ready":  1,
-                                            "running":  0,
+                                            "ready":  0,
+                                            "running":  1,
                                             "done":  22,
                                             "failed":  4,
                                             "proven_count":  22,
@@ -61,27 +57,13 @@
                                      "passed":  30,
                                      "total":  30,
                                      "critical":  0,
-                                     "at":  "2026-09-04T15:27:04.4430181-06:00"
+                                     "at":  "2026-09-04T15:37:04.3107623-06:00"
                                  },
                    "cron":  [
                                 {
                                     "declaration_key":  "kevin-engineering-relay-v1",
                                     "enabled":  true,
                                     "every_ms":  120000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-support-bridge-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-benchmark-v1",
-                                    "enabled":  true,
-                                    "every_ms":  600000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
@@ -100,9 +82,23 @@
                                     "consecutive_errors":  0
                                 },
                                 {
+                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
                                     "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-benchmark-v1",
+                                    "enabled":  true,
+                                    "every_ms":  600000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 }
