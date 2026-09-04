@@ -121,10 +121,10 @@ def synth(spec:Dict[str,Any],caps:set[str],reason:str,now:dt.datetime)->Dict[str
 def pri(x:Dict[str,Any])->tuple:
     return (-int(x.get("owner_value",0)),-SEVERITY.get(str(x.get("severity","")).lower(),0),str(x.get("id","")))
 
-def build_supply(base:Dict[str,Any],catalog:Dict[str,Any],inventory:Dict[str,Any],support:Dict[str,Any],engineering:Dict[str,Any],skills:List[str],now:dt.datetime):
+def build_supply(base:Dict[str,Any],catalog:Dict[str,Any],inventory:Dict[str,Any],support:Dict[str,Any],engineering:Dict[str,Any],autonomy:Dict[str,Any],skills:List[str],now:dt.datetime):
     items=[copy.deepcopy(x) for x in base.get("items",[]) or [] if isinstance(x,dict)]
     by_id={str(x["id"]):x for x in items if x.get("id")}; caps=capabilities(inventory)
-    ctx={"support":support,"engineering":engineering,"skill_manifest_count":len(skills),"skill_manifest_ids":skills}
+    ctx={"support":support,"engineering":engineering,"autonomy":autonomy,"skill_manifest_count":len(skills),"skill_manifest_ids":skills}
     generated=[];skipped=[]
     for spec in catalog.get("standing_work",[]) or []:
         sid=str(spec.get("id",""))
@@ -141,7 +141,7 @@ def build_supply(base:Dict[str,Any],catalog:Dict[str,Any],inventory:Dict[str,Any
     top=None
     if blocked:
         b=blocked[0];top={"id":b.get("id"),"reason":block_reason(b,now),"next_action":b.get("next_action","")}
-    state={"schema":1,"kind":"kevin-autonomy-work-supply-state","version":"1.0.0","at":now.isoformat(),"truth_state":truth,
+    state={"schema":1,"kind":"kevin-autonomy-work-supply-state","version":"1.0.1","at":now.isoformat(),"truth_state":truth,
            "authority_effect":"NONE_PLANNER_ONLY","activity_claim_policy":"WORKING_REQUIRES_ACTIVE_LEASE_AND_MACHINE_EVIDENCE",
            "eligible_count":len(elig),"blocked_count":len(blocked),"generated_count":len(generated),"skill_manifest_count":len(skills),
            "effective_capabilities":sorted(caps),"selected_candidate":elig[0].get("id") if elig else None,"top_blocker":top,
@@ -150,7 +150,7 @@ def build_supply(base:Dict[str,Any],catalog:Dict[str,Any],inventory:Dict[str,Any
     material={k:v for k,v in state.items() if k not in {"at","fingerprint"}}
     state["fingerprint"]=hashlib.sha256(json.dumps(material,sort_keys=True,separators=(",",":")).encode()).hexdigest().upper()
     merged={"schema":int(base.get("schema",1) or 1),"kind":base.get("kind","kevin-work-items"),
-            "safe_for_public_repo":bool(base.get("safe_for_public_repo",True)),"supply_version":"1.0.0","items":items}
+            "safe_for_public_repo":bool(base.get("safe_for_public_repo",True)),"supply_version":"1.0.1","items":items}
     return merged,state
 
 def write(path:Optional[str],value:Any):
@@ -161,11 +161,11 @@ def write(path:Optional[str],value:Any):
 
 def main()->int:
     a=argparse.ArgumentParser()
-    for name,req in [("items",True),("catalog",True),("inventory",False),("support",False),("engineering",False),("skills-dir",False),("now",False),("output-items",False),("output-state",False)]:
+    for name,req in [("items",True),("catalog",True),("inventory",False),("support",False),("engineering",False),("autonomy",False),("skills-dir",False),("now",False),("output-items",False),("output-state",False)]:
         a.add_argument("--"+name,required=req)
     x=a.parse_args()
     merged,state=build_supply(load_json(x.items,{"schema":1,"items":[]}),load_json(x.catalog,{"standing_work":[]}),
-        load_json(x.inventory,{"capabilities":[]}),load_json(x.support,{}),load_json(x.engineering,{}),skill_ids(x.skills_dir),now_utc(x.now))
+        load_json(x.inventory,{"capabilities":[]}),load_json(x.support,{}),load_json(x.engineering,{}),load_json(x.autonomy,{}),skill_ids(x.skills_dir),now_utc(x.now))
     if x.output_items:write(x.output_items,merged)
     if x.output_state:write(x.output_state,state)
     if not x.output_items and not x.output_state:write(None,{"state":state,"work_items":merged})
