@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-04T09:15:30.2848549-06:00",
+  "generated_at": "2026-09-04T09:20:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -12,14 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "benchmark",
-    "title": "Kevin Benchmark v1",
-    "category": "benchmark",
-    "phase": "Regression/capability fitness worker active.",
-    "started_at": "2026-09-04T09:14:30.2545413-06:00",
-    "source": "hq-live-ops"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -27,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 45,
-    "cpu_pct": 51,
+    "memory_pct": 49,
+    "cpu_pct": 25,
     "gpu": "RTX 3060",
-    "gpu_pct": 45
+    "gpu_pct": 50
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-03T12:20:14-06:00",
-        "estimated": false,
-        "ram": 31,
-        "cpu": 13,
-        "gpu": 30
-      },
       {
         "at": "2026-09-03T12:35:14-06:00",
         "estimated": false,
@@ -707,10 +693,16 @@
         "ram": 45,
         "cpu": 51,
         "gpu": 45
+      },
+      {
+        "at": "2026-09-04T09:20:14-06:00",
+        "estimated": false,
+        "ram": 49,
+        "cpu": 25,
+        "gpu": 50
       }
     ],
     "ram": [
-      31,
       33,
       33,
       32,
@@ -805,10 +797,10 @@
       41,
       42,
       41,
-      45
+      45,
+      49
     ],
     "cpu": [
-      13,
       12,
       12,
       12,
@@ -903,10 +895,10 @@
       20,
       37,
       26,
-      51
+      51,
+      25
     ],
     "gpu": [
-      30,
       23,
       23,
       26,
@@ -1001,7 +993,8 @@
       38,
       41,
       10,
-      45
+      45,
+      50
     ]
   },
   "weather": {
@@ -1155,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-04T09:05:15-06:00",
+      "at": "2026-09-04T09:20:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1382,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-04T09:15:30.2848549-06:00",
+    "last": "2026-09-04T09:20:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,7 +1412,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-04T09:15:30.2848549-06:00",
+    "generated_at": "2026-09-04T09:19:35.7778162-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
