@@ -1,0 +1,53 @@
+﻿{
+    "machine":  "HESS-PC",
+    "kind":  "kevin-p01-desktop-crossing-before-state",
+    "effective_fixed_main":  {
+                                 "has_kevin_system_status":  false,
+                                 "tool_calls":  0,
+                                 "visible_kevin_tool_count":  0,
+                                 "policy_diagnosis_config_sha256":  "23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5",
+                                 "canary_generated_at":  "2026-09-02T22:39:46.1070092-06:00",
+                                 "evidence":  "main-agent-canary-public/omen",
+                                 "visible_tool_count":  0,
+                                 "policy_diagnosis_matches_live_config":  true
+                             },
+    "config":  {
+                   "path":  "C:\\Users\\hessm\\.openclaw\\openclaw.json",
+                   "tools_deny_count":  15,
+                   "main_model":  "ollama-chat-16k/qwen2.5:14b",
+                   "plugins_allow":  "ABSENT",
+                   "tools_profile":  "coding",
+                   "main_tools_block":  "ABSENT",
+                   "tools_alsoAllow":  "ABSENT",
+                   "sha256":  "23DA8F7F0EE12A7453B70ABC03138BEB54686185CF2238100637ECAF1F8A93A5",
+                   "plugins_entries":  [
+                                           "ollama"
+                                       ],
+                   "model_supportsTools":  false,
+                   "tools_allow":  "ABSENT",
+                   "plugins_load_paths":  "ABSENT"
+               },
+    "ports":  {
+                  "reader":  19001,
+                  "chat":  18789
+              },
+    "captured_at":  "2026-09-04 08:09 MT",
+    "benchmark":  {
+                      "passed":  30,
+                      "status":  "PASS",
+                      "critical":  0,
+                      "total":  30,
+                      "at":  "2026-09-04T07:57:42.1190251-06:00"
+                  },
+    "actor":  "GrokBot-executor",
+    "openclaw_version":  "2026.7.1-2 (0790d9f)",
+    "schema":  1,
+    "zone":  "America/Boise",
+    "plugin_identity":  {
+                            "chat_plugins_list_shows_kevin_core":  false,
+                            "kevin_core_present":  true,
+                            "chat_plugins_list_shows_kevin_desktop":  false,
+                            "kevin_desktop_installed":  false,
+                            "kevin_core_plugin_json_sha256":  "20EEC94C8A58602B0DCE932CDECF2A2CB498F8C30BD890D97A13565A5924569E"
+                        }
+}
