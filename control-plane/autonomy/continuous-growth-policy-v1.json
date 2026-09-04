@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "kind": "kevin-continuous-growth-policy",
+  "version": "1.0.0",
+  "authority_effect": "NONE_POLICY_ONLY",
+  "mission": "Continuously self-heal, self-maintain, self-improve, learn, recover blockers and create owner value using only already-authorized bounded capabilities and independently verified evidence.",
+  "loop": [
+    "OBSERVE",
+    "DIAGNOSE",
+    "REPAIR",
+    "VERIFY",
+    "MAINTAIN",
+    "IMPROVE",
+    "LEARN",
+    "PROVE",
+    "RECORD",
+    "CONTINUE"
+  ],
+  "programs": [
+    "self-heal",
+    "self-maintenance",
+    "self-improvement",
+    "knowledge-integrity",
+    "blocked-work-recovery",
+    "capability-growth",
+    "owner-value-scan"
+  ],
+  "protected_effects": [
+    "arbitrary_shell",
+    "credential_access",
+    "credential_entry",
+    "permission_widening",
+    "external_send",
+    "email_send",
+    "public_post",
+    "purchase",
+    "financial_transaction",
+    "live_crypto_trade",
+    "file_delete",
+    "destructive_overwrite",
+    "software_install",
+    "production_chat_send",
+    "automatic_promotion",
+    "safety_weakening",
+    "governance_edit",
+    "authority_boundary_change",
+    "game_public_server_join",
+    "game_public_chat",
+    "pvp_real_player"
+  ],
+  "protected_target_prefixes": [
+    "AGENTS.md",
+    "docs/architecture/KEVIN-CONSTITUTION-v2.md",
+    "control-plane/autonomy/continuous-growth-policy-v1.json"
+  ],
+  "protected_target_contains": [
+    "credential",
+    "secret",
+    "approval-policy",
+    "authority-policy",
+    "risk-limit",
+    "kill-switch"
+  ],
+  "required_candidate_fields": [
+    "id",
+    "program",
+    "authority_class",
+    "owner_value",
+    "acceptance_criteria",
+    "verification_plan",
+    "effects"
+  ],
+  "mutable_change_requirements": [
+    "rollback_plan",
+    "checkpoint_plan"
+  ],
+  "retry_policy": {
+    "max_attempts_without_material_new_evidence": 3,
+    "minimum_cooldown_seconds_after_exhaustion": 300,
+    "maximum_cooldown_seconds": 14400,
+    "hot_looping_forbidden": true
+  },
+  "promotion_policy": {
+    "self_narrated_success_forbidden": true,
+    "mechanical_or_independent_verification_required": true,
+    "automatic_production_promotion_forbidden": true,
+    "replay_required_for_repeatedly_proven": true
+  },
+  "true_idle_definition": "No eligible owner work, no blocked owner backlog needing a safe prerequisite, no due guardian/maintenance work, and no due capability-learning/growth work."
+}
