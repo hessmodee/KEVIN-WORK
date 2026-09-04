@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "home-garage-organization-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Home and Garage Organization Pack",
+  "description": "Creates a practical zone, inventory, location and maintenance system for household, garage, vehicle and tool organization.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin Home and Garage Organization Pack.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Inventory",
+              "rows": [
+                ["Item ID", "Item", "Category", "Zone", "Exact Location", "Qty", "Condition", "Owner", "Last Used", "Needs Action", "Notes"],
+                ["", "", "Tool / Auto / Household / Parts / Seasonal / Other", "", "", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Zone Plan",
+              "rows": [
+                ["Zone", "Purpose", "Allowed Categories", "Capacity / Constraint", "Labeling Rule", "Current Problem", "Target State", "Priority"],
+                ["", "", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Project Queue",
+              "rows": [
+                ["Priority", "Project", "Area", "Estimated Minutes", "Supplies Needed", "Blocked By", "Next Action", "Status", "Completion Evidence"],
+                ["P1", "", "", "", "", "", "", "READY", ""]
+              ]
+            },
+            {
+              "name": "Maintenance",
+              "rows": [
+                ["Asset / Area", "Task", "Interval", "Last Done", "Next Due", "Tools / Supplies", "Procedure / Notes", "Status"],
+                ["", "", "", "", "", "", "", ""]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Home and Garage Organization Pack - SOP.md",
+        "content": "# Home and Garage Organization Pack\n\nOrganize around retrieval and return, not appearance alone. Give frequently used tools and supplies stable homes close to where they are used. Label zones, keep like items together, record consumables and create a small project queue rather than attempting the whole property at once.\n\nKevin should identify misplaced items, duplicate purchases, low-stock consumables, maintenance due dates and projects blocked by missing supplies. Kevin may prepare labels, lists and shopping recommendations but may not purchase or discard property without Matt's approval.\n"
+      }
+    }
+  ]
+}

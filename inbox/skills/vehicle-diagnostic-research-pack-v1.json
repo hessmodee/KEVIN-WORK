@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "vehicle-diagnostic-research-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Vehicle Diagnostic Research Pack",
+  "description": "Creates a structured vehicle troubleshooting plan from vehicle identity, symptoms, codes and evidence without performing unsafe automatic actuation.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin Vehicle Diagnostic Research Pack.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Vehicle and Symptoms",
+              "rows": [
+                ["Year", "Make", "Model", "Engine", "VIN", "Mileage", "Symptoms", "When It Happens", "Recent Work", "Warning Lights", "Codes", "Evidence"],
+                ["", "", "", "", "", "", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Hypotheses",
+              "rows": [
+                ["Rank", "Possible Cause", "Why It Fits", "Why It May Not", "Risk If Ignored", "Evidence Needed", "Source / Manual"],
+                [1, "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Test Plan",
+              "rows": [
+                ["Order", "Test / Inspection", "Tools Needed", "Expected Normal", "Observed", "Pass / Fail", "Next Branch", "Safety Note"],
+                [1, "", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Repair Decision",
+              "rows": [
+                ["Finding", "Likely Repair", "Parts To Verify", "Labor / Skill Level", "DIY Candidate?", "Professional / Dealer Trigger", "Post-Repair Verification"],
+                ["", "", "", "", "", "", ""]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Vehicle Diagnostic Research Pack - SOP.md",
+        "content": "# Vehicle Diagnostic Research Pack\n\nStart with evidence, not parts swapping. Capture exact vehicle identity, symptoms, conditions, DTCs and recent work. Rank hypotheses, then choose the lowest-risk/highest-information tests first. Prefer service-manual specifications and reputable technical sources. Separate confirmed findings from guesses.\n\nKevin may research procedures, specifications, likely causes, parts/tools to verify and post-repair checks. Kevin must not remotely actuate a vehicle, defeat safety systems, invent torque/specification data, or call a repair confirmed without evidence. Escalate work involving airbags, high-voltage EV systems, fuel/fire risk, unsupported lifting, critical brakes/steering or procedures outside Matt's tools/competence.\n"
+      }
+    }
+  ]
+}

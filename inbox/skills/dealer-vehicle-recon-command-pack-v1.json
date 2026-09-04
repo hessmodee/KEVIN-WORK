@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "dealer-vehicle-recon-command-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Dealer Vehicle Recon Command Pack",
+  "description": "Creates an iRecon-centered vehicle reconditioning and lot-readiness operating pack for Matt's current Field Agent work at West Motor Co CDJR.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin Dealer Vehicle Recon Command Pack.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Recon Queue",
+              "rows": [
+                ["Priority", "Stock", "VIN Last 8", "Year", "Make", "Model", "Source", "iRecon Stage", "Current Location", "Next Department", "Age Hours", "Target Ready", "Blocker", "Owner", "Next Action"],
+                ["P1", "", "", "", "", "", "Trade / Auction / Import / Other", "INTAKE", "", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Recon Needs",
+              "rows": [
+                ["Stock", "Category", "Need", "Severity", "Approved?", "Assigned To", "Status", "ETA", "Evidence / Notes"],
+                ["", "Mechanical / Detail / Glass / Tire / Body / Photo / Other", "", "", "", "", "OPEN", "", ""]
+              ]
+            },
+            {
+              "name": "Readiness Gate",
+              "rows": [
+                ["Stock", "Service Complete", "Detail Complete", "Fuel / Charge", "Keys", "Photos", "Window Sticker / Docs", "Warning Lights", "Lot Location", "Ready?", "Final Blocker"],
+                ["", "NO", "NO", "", "", "NO", "", "", "", "NO", ""]
+              ]
+            },
+            {
+              "name": "Daily Bottlenecks",
+              "rows": [
+                ["Date", "Stage", "Vehicles Waiting", "Oldest Age Hours", "Top Cause", "Impact", "Recommended Action", "Resolved?"],
+                ["", "", "", "", "", "", "", "NO"]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Dealer Vehicle Recon Command Pack - SOP.md",
+        "content": "# Dealer Vehicle Recon Command Pack\n\n## Mission\nTurn incoming inventory into a truthful, prioritized reconditioning queue and get vehicles lot-ready with fewer forgotten blockers.\n\n## Daily sequence\n1. Capture each incoming vehicle and source.\n2. Record current iRecon stage and physical location.\n3. Capture all recon needs and the next responsible department/vendor.\n4. Escalate vehicles with aging, missing keys/docs, unresolved warning lights, unclear ownership or stalled approvals.\n5. Run the Readiness Gate before calling a vehicle ready.\n6. End the day with the five oldest unresolved vehicles and exact next actions.\n\n## Truth rules\nDo not infer that a vehicle is complete because it moved stages. Readiness requires the relevant checklist fields or evidence. Never invent iRecon status, repair approval, completion, key count or vehicle location.\n"
+      }
+    }
+  ]
+}
