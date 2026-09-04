@@ -34,7 +34,7 @@ jobs:
           assert "UI Bridge heartbeat was stale at last engineering sample" in t
           assert "UI Bridge liveness evidence is delayed" in t
           assert "hbSample>60" in t
-          assert 'hq-truth-v2.js?v=4' in i
+          assert 'hq-truth-v2.js?v=5' in i
           print('HQ_UI_CADENCE_TEST_PASS false_between_samples_warning=false stale_sample_detected=true delayed_source_detected=true')
           PY
       - name: Commit generated repair to branch

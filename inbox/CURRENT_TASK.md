@@ -1,4 +1,4 @@
-﻿# CURRENT_TASK
+# CURRENT_TASK
 
 **Updated:** 2026-09-04 10:40 MT
 **Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
@@ -166,6 +166,36 @@ Do not generate churn merely to look active.
 - equipment-tool-control-pack@1 PROVEN @ 09:32:35 MT; proof `327B135CE2FBDAFE3674E55DB441269FE72BEB01F7D72618A9FA72FF1E7BDA3A`; receipt `reports/engineering/RECEIPT-equipment-tool-20260904-0932.md`
 - proven_count **18** (registry `reports/capabilities/composite-skills.json`)
 
+
+## Current live platform repair targets
+
+1. **Desktop exact-4 LIVE** — preserved on HESS-PC (PR#77); do not widen tools or rewrite openclaw/Desktop/Chat/Owl.
+2. **HQ max Phase 0 truth** — WAITING_/BLOCKED/NEEDS_/DEFERRED/COOLDOWN = BLOCKED WORK; Skill Lab queue fallback; Command truth chips; gate greps rotated.
+3. **Work Supply / capability routing** — P0.2 still open: connect owner demand to live selection without false idle.
+4. **Continuous-growth live crossing** — P0.6 remains YELLOW until recurring windows prove lease + machine evidence (source ready is not LIVE).
+
+## Owner-value skill wave
+
+1. **Dealer Recon** — proven/replayable composite skill.
+2. **Vehicle Diagnostics** — proven research pack.
+3. **Appliance Repair** — Cache Valley launch packs; budget/MIN_REPEAT residual.
+4. **Creator Pipeline** — drafts/experiments under GREEN lane.
+5. **Crypto Research** — watchlists/paper trades with risk discipline.
+6. **Home & Garage** — inventory/zones/maintenance.
+
 ## Continuity invariant
 
 Do not weaken authority boundaries, evidence requirements, or rollback readiness while executing standing auth.
+
+## HQ max Phase 0 evidence (2026-09-04 ~10:35 MT)
+
+Source-only HQ Command truth upgrade on branch `grok/hq-max-20260904` (PR pending):
+
+- `docs/hq-owner-refinement-v3.js`: Skill Lab queue fallback (`skill_lab.queue` → `composite_skills` → `queues`); WAITING_/BLOCKED/NEEDS_/DEFERRED/COOLDOWN continuation = BLOCKED WORK (not READY/IDLE even if eligible_count>0); Command truth chips (Superv/Tools/Lease/Proven/Benchmark/Skill Lab R/Q/B) from named public sources only — absent stays unknown; never invent exact-4 / lease ACTIVE / Drive INTERIM / grants_budget_unlock; chips after v3stats; `.v3chips`/`.v3chip` + stateLine pulse with `prefers-reduced-motion` none; `stateLine` uses `truth().cls`.
+- `docs/index.html` cache bump `hq-owner-refinement-v3.js?v=3`.
+- `.github/workflows/hq-owner-updates-gate.yml` greps rotated to `kevinHandoverLaunch` / `kevinTalkLaunch` in `docs/index.html` (CI grep rot fix).
+- Teach-and-transfer: `docs/engineering/PLAN-hq-max-upgrade-2026-09-04.md`, `docs/engineering/LESSON-hq-max-upgrade-2026-09-04.md`.
+
+**Preserved Desktop LIVE facts (unchanged by Phase 0):** P0.1 Desktop LIVE on HESS-PC (PR#77). Exact 4 tools on fixed:main. openclaw.json after SHA256 4126AFE64EF809B9A4747D70B9868F0FAB94F554F213C88B0DA832FBF8C5E794. Backup `reports/engineering/backups/p01-desktop-20260904-0809`. Benchmark 30/30. **NOT owner-gated.** Do NOT widen tools or rewrite Desktop/openclaw.json / Chat ports / Owl geometry. No GROK-HANDOVER; `AI-HANDOVER.md` remains canonical.
+
+**Phase boundary:** Phase 0 = HQ shell + gate hygiene. Phase A publishers (Skill Lab / lease projection into snapshots) are out of scope here.

@@ -61,7 +61,7 @@ jobs:
         run: |
           node .github/scripts/test-hq-owner-invariants.cjs
           grep -q '7000' docs/hq-overrides-v1.js
-          grep -q 'hqCopyHandover' docs/hq-overrides-v1.js
-          grep -q 'hqViewHandover' docs/hq-overrides-v1.js
+          grep -q 'kevinHandoverLaunch' docs/index.html
+          grep -q 'kevinTalkLaunch' docs/index.html
           grep -q 'ops-truth-patch-v1.js' docs/ops/embed.html
           echo 'PASS HQ shell, ticker dwell, handover controls, and truthful Ops overlay present'

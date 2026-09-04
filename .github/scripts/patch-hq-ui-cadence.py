@@ -37,8 +37,8 @@ if changed:
     js.write_text(text,encoding='utf-8',newline='\n')
 
 idx=index.read_text(encoding='utf-8')
-old_q='<script src="./hq-truth-v2.js?v=3"></script>'
-new_q='<script src="./hq-truth-v2.js?v=4"></script>'
+old_q='<script src="./hq-truth-v2.js?v=4"></script>'
+new_q='<script src="./hq-truth-v2.js?v=5"></script>'
 if old_q in idx:
     if idx.count(old_q)!=1:
         raise SystemExit(f'index cache-bust anchor mismatch count={idx.count(old_q)}')
