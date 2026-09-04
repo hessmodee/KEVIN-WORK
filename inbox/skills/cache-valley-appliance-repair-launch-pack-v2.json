@@ -1,0 +1,80 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "cache-valley-appliance-repair-launch-pack",
+  "version": "2",
+  "authority": "GREEN",
+  "name": "Cache Valley Appliance Repair Launch Pack",
+  "description": "Creates a staged readiness and operating plan for Cache Valley Appliance Repair LLC without overstating Matt's current training, tools or service capability. Workbook capped at 5 sheets for Skill Lab.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Cache Valley Appliance Repair - Launch Readiness.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Readiness Gates",
+              "rows": [
+                ["Area", "Current State", "Required State", "Priority", "Blocking?", "Cost Estimate", "Owner", "Status", "Evidence / Link", "Next Action"],
+                ["Training", "LLC formed; formal appliance training not yet established", "Defined training/competency path for starter jobs", "P1", "YES", "", "Matt", "OPEN", "", "Pick starter curriculum and practice appliances"],
+                ["Tools", "Tool/equipment set not yet established", "Minimum safe diagnostic/tool kit purchased and verified", "P1", "YES", "", "Matt", "OPEN", "", "Complete Tool Plan P1 buys"],
+                ["Competency / Scope", "No proven safe starter service scope", "Defined safe starter service scope only", "P1", "YES", "", "Matt", "OPEN", "", "Fill Service Scope Start Offering? = YES only when ready"],
+                ["Insurance / Legal", "LLC formed; insurance/local requirements TBD", "Business, tax, insurance and any occupation rules verified from authoritative sources", "P1", "YES", "", "Matt", "OPEN", "", "Verify Idaho/local requirements"],
+                ["Pricing ready", "Pricing model blank", "Diagnostic, labor, parts, travel and margin rules set", "P2", "NO", "", "Matt", "OPEN", "", "Complete Pricing Model sheet"],
+                ["Intake ready", "No intake process", "Case capture for model/serial/symptom/safety flags live", "P2", "NO", "", "Matt", "OPEN", "", "Use Customer Intake on first leads"],
+                ["Go-live", "Not launched", "All P1 blocking gates CLOSED with evidence", "P1", "YES", "", "Matt", "OPEN", "", "Launch only when blocking gates satisfied"]
+              ]
+            },
+            {
+              "name": "Service Scope",
+              "rows": [
+                ["Appliance", "Job Type", "Skill Level", "Tools Needed", "Common Parts", "Safety Risk", "Start Offering?", "Training Needed", "Notes"],
+                ["Washer", "Diagnose / common repair", "", "", "", "", "NO", "", "Offer only after competency evidence"],
+                ["Dryer", "Diagnose / common repair", "", "", "", "", "NO", "", ""],
+                ["Dishwasher", "Diagnose / common repair", "", "", "", "", "NO", "", ""],
+                ["Range / Oven", "Diagnose / common repair", "", "", "", "Gas/electric high", "NO", "", "Do not offer gas work without verified competence"],
+                ["Refrigerator", "Diagnose / common repair", "", "", "", "", "NO", "", ""]
+              ]
+            },
+            {
+              "name": "Tool Plan",
+              "rows": [
+                ["Tool / Equipment", "Purpose", "Required Before Launch?", "Budget", "Preferred Spec", "Purchased?", "Notes"],
+                ["Digital multimeter", "Electrical diagnosis", "YES", "", "CAT rating / measurement requirements to research", "NO", ""],
+                ["Nut driver / socket set", "Panel and fastener access", "YES", "", "", "NO", ""],
+                ["Appliance dolly / moving aid", "Safe unit movement", "NO", "", "", "NO", ""],
+                ["PPE (gloves, eye protection)", "Personal safety", "YES", "", "", "NO", ""]
+              ]
+            },
+            {
+              "name": "Pricing Model",
+              "rows": [
+                ["Service", "Diagnostic Fee", "Labor Method", "Typical Time", "Parts Markup Rule", "Travel Rule", "Target Margin", "Notes"],
+                ["Diagnostic visit", "", "Flat / hourly", "", "", "Include drive time", "", "Cover callbacks and overhead"],
+                ["Common repair labor", "", "Flat / hourly", "", "", "", "", ""],
+                ["Parts", "n/a", "n/a", "n/a", "", "n/a", "", "Never invent supplier quotes"]
+              ]
+            },
+            {
+              "name": "Customer Intake",
+              "rows": [
+                ["Case ID", "Customer", "Appliance", "Brand", "Model", "Serial", "Symptom", "Error Code", "Age", "Photos", "Appointment", "Status", "Safety Flag"],
+                ["", "", "", "", "", "", "", "", "", "", "", "LEAD", ""]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Cache Valley Appliance Repair - Safe Launch SOP.md",
+        "content": "# Cache Valley Appliance Repair — Safe Launch SOP\n\nCurrent truth: Matt has formed the LLC, but formal appliance-repair training, tooling and operating systems are still being built. Kevin must never describe Matt as certified, licensed, trained or equipped beyond verified reality.\n\n## Launch sequence\n1. Verify Idaho/local business, tax, insurance and any occupation-specific requirements from authoritative sources.\n2. Define a narrow starter service scope that matches Matt's proven competence (Service Scope sheet; default Start Offering? = NO).\n3. Build the minimum safe diagnostic/tool kit (Tool Plan P1 rows).\n4. Complete training and practice on representative appliances before accepting that job family.\n5. Establish intake, model/serial capture, diagnostic evidence, estimate approval, parts sourcing and post-repair verification (Customer Intake).\n6. Establish pricing that covers drive time, diagnosis, labor, parts risk, callbacks, overhead and taxes (Pricing Model).\n7. Launch only when Readiness Gates P1 Blocking? = YES rows are CLOSED with evidence.\n\n## Workbook note (Skill Lab)\nThis pack uses exactly 5 sheets (Readiness Gates absorbs former Launch Checklist). Skill Lab rejects workbooks with more than 5 sheets.\n\n## Safety boundary\nKevin may research, organize, calculate, draft forms and recommend training/tools. Kevin may not invent credentials, bypass electrical/gas safety, authorize customer work, purchase equipment or represent Matt to customers without owner approval.\n"
+      }
+    }
+  ]
+}
