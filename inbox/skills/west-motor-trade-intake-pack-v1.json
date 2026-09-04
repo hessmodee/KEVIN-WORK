@@ -1,0 +1,175 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "west-motor-trade-intake-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "West Motor Trade Intake Pack",
+  "description": "Creates a five-sheet trade appraisal / intake board plus SOP so West Motor can capture honest trade offers without inventing values, paid appraisal vendor calls, purchases, or live DMS writes.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin West Motor Trade Intake Board.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Trade Board",
+              "rows": [
+                [
+                  "Stock / Customer",
+                  "Year Make Model",
+                  "VIN / Plate",
+                  "Miles",
+                  "Asking / Offer Target",
+                  "Stage",
+                  "Owner",
+                  "Payoff Known",
+                  "Condition Grade",
+                  "Photo Set",
+                  "Next Action"
+                ],
+                [
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "INTAKE / APPRAISE / OFFER / DECISION",
+                  "",
+                  "NO",
+                  "UNK",
+                  "NO",
+                  ""
+                ]
+              ]
+            },
+            {
+              "name": "Condition Notes",
+              "rows": [
+                [
+                  "Stock / Customer",
+                  "Exterior",
+                  "Interior",
+                  "Tires",
+                  "Mechanical Notes",
+                  "Accident / Frame",
+                  "Warning Lights",
+                  "Service History",
+                  "Recon Estimate Band",
+                  "Honest Notes"
+                ],
+                [
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "UNK",
+                  "NONE SEEN",
+                  "UNK",
+                  "",
+                  "Do not invent values"
+                ]
+              ]
+            },
+            {
+              "name": "Payoff / Equity",
+              "rows": [
+                [
+                  "Stock / Customer",
+                  "Lienholder",
+                  "Payoff Quote",
+                  "Quote Date",
+                  "Good Through",
+                  "Customer Equity Guess",
+                  "Verified?",
+                  "Source",
+                  "Blocks Offer?",
+                  "Notes"
+                ],
+                [
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "NO",
+                  "CUSTOMER / LENDER",
+                  "MAYBE",
+                  "No paid payoff pull unless Matt names it"
+                ]
+              ]
+            },
+            {
+              "name": "Photo Checklist",
+              "rows": [
+                [
+                  "Stock / Customer",
+                  "Front",
+                  "Rear",
+                  "Sides",
+                  "Interior",
+                  "Dash / Odo",
+                  "Tires / Wheels",
+                  "Damage Closeups",
+                  "VIN Plate",
+                  "Complete?"
+                ],
+                [
+                  "",
+                  "NO",
+                  "NO",
+                  "NO",
+                  "NO",
+                  "NO",
+                  "NO",
+                  "NO",
+                  "NO",
+                  "NO"
+                ]
+              ]
+            },
+            {
+              "name": "Blockers Chase",
+              "rows": [
+                [
+                  "Stock / Customer",
+                  "Blocker",
+                  "Blocks Offer?",
+                  "Who Owns",
+                  "Asked At",
+                  "ETA",
+                  "Status",
+                  "Needs Purchase?",
+                  "Notes"
+                ],
+                [
+                  "",
+                  "",
+                  "YES",
+                  "",
+                  "",
+                  "",
+                  "OPEN",
+                  "NO",
+                  "No auto purchase / no DMS write"
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin West Motor Trade Intake - SOP.md",
+        "content": "# Kevin West Motor Trade Intake\n\nUse this pack to capture an honest trade appraisal / intake board without inventing numbers.\n\n## Operating rule\nTrade readiness is false until condition notes, photo set, and payoff status are honestly logged. Prefer the smallest chase that clears the next blocker. Never invent ACV, wholesale, or retail figures.\n\n## Required sequence\n1. Log the unit on Trade Board with stage, owner, and known facts only.\n2. Fill Condition Notes from visible evidence; mark UNK when unknown.\n3. Record Payoff / Equity only from customer or lender quotes already in hand; do not place paid payoff pulls unless Matt names the purchase.\n4. Complete Photo Checklist before calling the intake photo-complete.\n5. Chase Blockers without purchases, live DMS writes, or public posting.\n\n## Protective behavior\nKevin must not invent appraisal values, call paid appraisal vendors, purchase reports, write live DMS, post listings, widen Chat tools beyond Desktop exact-5, or claim READY while blockers remain. Sheet count stays at or below five. Payloads stay ASCII-safe.\n"
+      }
+    }
+  ]
+}

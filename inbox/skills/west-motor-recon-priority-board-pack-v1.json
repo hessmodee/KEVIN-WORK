@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "west-motor-recon-priority-board-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "West Motor Recon Priority Board Pack",
+  "description": "Creates a five-sheet recon priority board and SOP so West Motor units move through clean, repair, parts, and front-line ready states with clear owners and aging. No purchases, no live DMS writes.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin West Motor Recon Priority Board.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Priority Board",
+              "rows": [
+                ["Priority", "Stock / Unit", "Year", "Make", "Model", "Stage", "Aging Days", "Blocker", "Owner", "Ready Front Line?", "Next Action", "Due"],
+                ["P1", "", "", "", "", "INTAKE / CLEAN / REPAIR / PARTS / DETAIL / READY", "", "", "", "NO", "", ""]
+              ]
+            },
+            {
+              "name": "Parts Holds",
+              "rows": [
+                ["Stock / Unit", "Part Needed", "Vendor", "Ordered?", "ETA", "Cost Cap Note", "Blocks Stage", "Chase Owner", "Status", "Notes"],
+                ["", "", "", "NO", "", "Ask Matt before paid order", "REPAIR", "", "OPEN", "No auto purchase"]
+              ]
+            },
+            {
+              "name": "Daily Moves",
+              "rows": [
+                ["Date", "Stock / Unit", "From Stage", "To Stage", "By", "Minutes", "Still Blocked?", "Evidence / Photo Note", "Follow-up"],
+                ["", "", "", "", "", "", "NO", "", ""]
+              ]
+            },
+            {
+              "name": "Aging Alerts",
+              "rows": [
+                ["Stock / Unit", "Days In Recon", "Stage Stuck", "Why Stuck", "Customer / Sales Impact", "Escalate To", "Escalated?", "Resolution"],
+                ["", "", "", "", "", "Matt / Manager", "NO", ""]
+              ]
+            },
+            {
+              "name": "Ready Checklist",
+              "rows": [
+                ["Stock / Unit", "Clean", "Mechanical", "Parts Complete", "Keys / Books", "Photos Ready", "Price / Board", "Front Line OK", "Signed By", "Date"],
+                ["", "NO", "NO", "NO", "NO", "NO", "NO", "NO", "", ""]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin West Motor Recon Priority Board - SOP.md",
+        "content": "# Kevin West Motor Recon Priority Board\n\nUse this pack to keep West Motor recon honest: one board, clear stages, aging, and parts holds without fake busywork.\n\n## Operating rule\nA unit is real work when it is not front-line ready. Prefer the smallest stage move that unblocks sales.\n\n## Required sequence\n1. Rank units on Priority Board with stage, aging, blocker, and owner.\n2. Log Parts Holds without placing paid orders unless Matt names the purchase.\n3. Record Daily Moves with from/to stage and whether the block remains.\n4. Escalate Aging Alerts when a unit sits without a next action.\n5. Mark Ready Checklist only when clean, mechanical, parts, keys, photos, and board price are truly done.\n\n## Protective behavior\nKevin must not purchase parts, write live DMS, post listings, widen Chat tools, or treat Supervisor IDLE as global idle while recon backlog remains. Sheet count stays at or below five. Payloads stay ASCII-safe.\n"
+      }
+    }
+  ]
+}
