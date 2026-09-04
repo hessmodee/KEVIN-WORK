@@ -1,0 +1,90 @@
+name: Autonomy Capability Routing v1 Proof
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/autonomy/kevin-capability-router-v1.py'
+      - 'control-plane/autonomy/kevin-work-admission-v1.py'
+      - 'control-plane/autonomy/kevin-work-selector-v1.2.py'
+      - 'control-plane/autonomy/standing-programs-v1.json'
+      - 'control-plane/autonomy/kevin-supervisor-v1.8.9.ps1'
+      - 'inbox/autonomy/work-items.json'
+      - 'tools/test-kevin-capability-router-v1.py'
+      - 'tools/test-kevin-work-admission-v1.py'
+      - '.github/workflows/autonomy-capability-routing-v1-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Router self-test
+        run: python tools/test-kevin-capability-router-v1.py
+      - name: Admission self-test
+        run: python tools/test-kevin-work-admission-v1.py
+      - name: Live-shaped admission postcondition
+        run: |
+          python - <<'PY'
+          import json, tempfile, datetime as dt
+          from pathlib import Path
+          import importlib.util
+
+          def load(name, path):
+              spec = importlib.util.spec_from_file_location(name, path)
+              mod = importlib.util.module_from_spec(spec)
+              spec.loader.exec_module(mod)
+              return mod
+
+          root = Path('.')
+          admission = load('admission', root/'control-plane/autonomy/kevin-work-admission-v1.py')
+          items = json.loads((root/'inbox/autonomy/work-items.json').read_text(encoding='utf-8-sig'))
+          programs = json.loads((root/'control-plane/autonomy/standing-programs-v1.json').read_text())
+          families = json.loads((root/'control-plane/autonomy/failure-families-v1.json').read_text())
+          catalog = json.loads((root/'control-plane/autonomy/standing-work-supply-v1.json').read_text())
+          assert any(p['id']=='owner-value-skills' for p in programs['programs'])
+          inventory = {
+            'capabilities': [{'id':'kevin_skill_lab_execute','effective':True}],
+            'workers': [{'id':'skill-lab','effective':True,'capabilities':['kevin_skill_lab_execute']}],
+            'agents': {'fixed:main': {'tools': False, 'tool_count': 0}},
+          }
+          state = {'schema':1,'wip':{'production':0,'staging':0,'research':0}}
+          now = dt.datetime(2026,9,4,15,0,tzinfo=dt.timezone.utc)
+          out = admission.admit(
+            items, catalog, programs, families, state, inventory,
+            {}, {}, {}, [], now,
+            root/'control-plane/autonomy/kevin-work-selector-v1.2.py',
+            root/'control-plane/autonomy/kevin-work-supply-v1.py',
+            root/'control-plane/autonomy/kevin-capability-router-v1.py',
+          )
+          assert out['authority_effect']=='NONE_ADMISSION_ONLY'
+          assert out['supervisor_action'] != 'DISPATCH_FIXED_MAIN' or (out.get('routing',{}).get('route') or {}).get('worker')=='fixed:main'
+          # Owner appliance skill must be visible as Skill Lab demand, not erased.
+          appliance = 'owner-composite-appliance-repair-pack-v2-prove'
+          ready_ids = set(out.get('routing',{}).get('skill_lab_ready_ids') or [])
+          selected = out['selection'].get('selected_id')
+          if selected == appliance:
+              assert out['supervisor_action']=='DEFER_TO_SKILL_LAB_DO_NOT_CALL_MAIN'
+              assert out['routing']['dispatch']=='ROUTE_TO_SKILL_LAB'
+          else:
+              # If supply generated a higher-priority eligible guardian item, appliance must still not be TRUE_IDLE-erased when OPEN.
+              open_owner = [i for i in items['items'] if i.get('id')==appliance and i.get('status')=='OPEN']
+              if open_owner:
+                  assert out['truth_state'] in {'ELIGIBLE_WORK','BLOCKED_WORK_PRESENT'}
+                  assert out['truth_state'] != 'TRUE_IDLE'
+          # Desktop must never dispatch under toolless inventory.
+          assert 'DESKTOP_REQUIRED_BUT_FIXED_MAIN_TOOLLESS' not in json.dumps(out) or out['supervisor_action']!='DISPATCH_FIXED_MAIN'
+          print(json.dumps({k:out[k] for k in ('truth_state','supervisor_action','selection','routing') if k in out}, indent=2, default=str)[:4000])
+          PY
+      - name: Supervisor v1.8.9 source markers
+        run: |
+          grep -q 'ROUTED_TO_SKILL_LAB' control-plane/autonomy/kevin-supervisor-v1.8.9.ps1
+          grep -q 'BLOCKED_DESKTOP_CAPABILITY' control-plane/autonomy/kevin-supervisor-v1.8.9.ps1
+          grep -q 'production_install=false' control-plane/autonomy/kevin-supervisor-v1.8.9.ps1
+          test ! -f ControlPlane/kevin-supervisor-v1.8.9.ps1 || (echo 'must not ship installed ControlPlane copy' && exit 1)
