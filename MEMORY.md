@@ -3,6 +3,7 @@
 Keep this file short for context budget. Older detail archived in `docs/engineering/KEVIN-MEMORY-ARCHIVE-2026-09-01.md`.
 
 ## Standing
+- 2026-09-04 ~15:05 MT: Minecraft Realms edition **Bedrock LOCKED** (Matt screenshots). Mineflayer Realms = NON-PATH (Java gym only). Path: bedrock-protocol + prismarine-auth; Matt Xbox hessmodee; Kevin MS on Omen; prefer invite existing Realm (no new paid Realm). PLAN `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md`. PR #88 amend.
 - 2026-09-04 ~09:30 MT: INTERIM_COS_CURATED Drive pack landed (Matt allowlist West Motor Ford / Hess Contracting / Productivity System / dealership sheets). NOT Kevin-owned END STATE — teach points A sync then C typed faculty (B fallback). `knowledge/INTERIM_COS_CURATED_drive-pack-2026-09-04/` + LESSON `docs/engineering/LESSON-interim-D-cos-curated-drive-pack-2026-09-04.md`.
 - 2026-09-04 ~09:01 MT: YELLOW PLAN Kevin Google Drive RO bridge - END STATE Kevin stands alone (Kevin-owned A then C mandatory; CoS D interim only; teach-and-transfer every step); no OAuth yet; behind P0 Desktop. `docs/engineering/PLAN-kevin-google-drive-readonly-bridge-2026-09-04.md`.
 - 2026-09-04 ~08:51 MT: Owner UNDYING GREEN+YELLOW auth â€” no per-step asks for green/yellow Kevin work; RED/purchasing/trading reserved. `docs/engineering/OWNER-UNDYING-GREEN-YELLOW-AUTH-2026-09-04.md`.

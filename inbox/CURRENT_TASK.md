@@ -1,8 +1,19 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-04 16:10 MT
+**Updated:** 2026-09-04 16:45 MT
 **Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
 **Cold-start:** `docs/engineering/KEVIN-TURNOVER-LATEST.md`.
+
+## Active Minecraft Realms (2026-09-04 ~15:05 MT)
+
+- Edition **Bedrock LOCKED** (Matt screenshots). Mineflayer Realms = **NON-PATH** (Java side gym only).
+- PLAN: `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md`
+- Status: **READY_FOR_OWNER_KEVIN_MS_AND_REALM_INVITE**
+- Stack candidate: bedrock-protocol + prismarine-auth (NetherNet gate; device-code auth design)
+- Next eng: `scratch/kevin-minecraft-bedrock-v0` local offline/BDS prove (no live auth)
+- Next owner: Kevin MS on Omen + invite to existing Realm (no new paid Realm)
+- Hard no: live Realm join; invent passwords; purchase; kill Chat 18789 / Reader 19001
+
 
 ## Latest applied (2026-09-04 ~10:35 MT)
 
