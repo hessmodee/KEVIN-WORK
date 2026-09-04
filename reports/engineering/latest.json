@@ -1,21 +1,17 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-04T08:13:23.2956729-06:00",
+    "generated_at":  "2026-09-04T08:15:22.6577903-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
                     "id":  "bess-stage-creator-monetization-202609040810",
                     "operation":  "stage_composite_skill",
-                    "status":  "STAGED",
-                    "detail":  "Composite skill staged for Skill Lab."
+                    "status":  "DUPLICATE_IGNORED",
+                    "detail":  "Request id already processed."
                 },
     "result":  {
-                   "skill_id":  "creator-monetization-pipeline-pack",
-                   "version":  "1",
-                   "local_name":  "creator-monetization-pipeline-pack--1.json",
-                   "step_count":  2,
-                   "skill_sha256":  "2D0374F0C994F0063B6A7E7FB70A84B74E782B5A867B69A75DF64E9146D783D6"
+
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -31,17 +27,17 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  4.1
+                                     "heartbeat_age_seconds":  0.4
                                  },
                    "queues":  {
                                   "ready":  0,
                                   "running":  0,
-                                  "done":  29,
+                                  "done":  30,
                                   "failed":  1
                               },
                    "composite_skills":  {
-                                            "ready":  1,
-                                            "running":  0,
+                                            "ready":  0,
+                                            "running":  1,
                                             "done":  12,
                                             "failed":  2,
                                             "proven_count":  12,
@@ -79,9 +75,9 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-maintenance-intake-v1",
+                                    "declaration_key":  "kevin-benchmark-v1",
                                     "enabled":  true,
-                                    "every_ms":  300000,
+                                    "every_ms":  600000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
@@ -93,16 +89,16 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-supervisor-v1",
+                                    "declaration_key":  "kevin-maintenance-intake-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-benchmark-v1",
+                                    "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
-                                    "every_ms":  600000,
+                                    "every_ms":  300000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 }
