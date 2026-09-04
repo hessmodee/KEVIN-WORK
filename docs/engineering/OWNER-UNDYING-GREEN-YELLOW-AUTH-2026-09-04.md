@@ -1,6 +1,6 @@
 # OWNER UNDYING AUTHORIZATION — GREEN + YELLOW — 2026-09-04
 
-**Issued:** 2026-09-04 ~08:51 MT (America/Boise)  
+**Issued:** 2026-09-04 ~08:51 MT (America/Boise); **Refreshed:** 2026-09-04 17:08 MT (America/Denver) — Matt reaffirmed undying GREEN/YELLOW; still in force  
 **Owner:** Matt / Davy Jones  
 **To:** Every Kevin agent, Chief of Staff / Grok, and future replacement agents  
 **Status:** STANDING / UNDYING until owner explicitly revises or revokes
