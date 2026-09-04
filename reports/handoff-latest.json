@@ -3,15 +3,15 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-04T08:59:23.1993954-06:00",
-  "semantic_fingerprint_sha256": "1D4172862873FF57BDB8A6B5246D19126D24A61E543C193BF847E3A9FF984B47",
+  "evidence_updated_at": "2026-09-04T09:06:37.1089330-06:00",
+  "semantic_fingerprint_sha256": "103E536FCBF9EA07A423A189A6306509CCAF943C6CB2C37D98B13EDE97B216AC",
   "semantic_checkpoint": {
     "current_task_sha256": "59DF13A15E60597CC54653D631AB603EE2900BBAA8F09434E65F57FCC957087B",
     "benchmark": {
-      "status": "PASS",
-      "passed": 30,
+      "status": "FAIL_CRITICAL_REGRESSION",
+      "passed": 29,
       "total": 30,
-      "critical": 0
+      "critical": 1
     },
     "ui_bridge_health": "FRESH",
     "ui_bridge_task_present": true,
@@ -33,49 +33,13 @@
       "latest_proven_key": "crypto-research-paper-trading-pack@1"
     },
     "maintenance_runner_sha256": "DFF72850E1BBBB2E18397AF38EB593E7234EEB634B596A4651F4537A688B77A9",
-    "cron": [
-      {
-        "key": "kevin-benchmark-v1",
-        "enabled": true,
-        "last_status": "ok",
-        "consecutive_errors": 0,
-        "every_ms": 600000
-      },
-      {
-        "key": "kevin-hq-live-pulse-v15",
-        "enabled": true,
-        "last_status": "ok",
-        "consecutive_errors": 0,
-        "every_ms": 60000
-      },
-      {
-        "key": "kevin-maintenance-intake-v1",
-        "enabled": true,
-        "last_status": "ok",
-        "consecutive_errors": 0,
-        "every_ms": 300000
-      },
-      {
-        "key": "kevin-supervisor-v1",
-        "enabled": true,
-        "last_status": "ok",
-        "consecutive_errors": 0,
-        "every_ms": 300000
-      },
-      {
-        "key": "kevin-support-bridge-v1",
-        "enabled": true,
-        "last_status": "ok",
-        "consecutive_errors": 0,
-        "every_ms": 180000
-      }
-    ]
+    "cron": []
   },
   "source_hashes": {
     "current_task_sha256": "59DF13A15E60597CC54653D631AB603EE2900BBAA8F09434E65F57FCC957087B",
-    "engineering_sha256_at_checkpoint": "E24F591F214436BAE38AD4C316F47B58827125DB633239A88ECD777169721D48",
-    "support_sha256_at_checkpoint": "C98A54B99EE8B23B31AADD8328B459341CA1138CFD304327680CB310F7407940",
-    "autonomy_sha256_at_checkpoint": "F5785C868E5EE88CAA1CA87AE4D9253A6C9F8A5AD7C1BE73FC2E9C006B9E8E7C"
+    "engineering_sha256_at_checkpoint": "5B345FACA3A7C5FA014FD819C9DDE85F16D5EC06166CF72E64147F0554B37670",
+    "support_sha256_at_checkpoint": "8168B5C4ED8D1BFB20C890828B3132309A1178089A62ADF4A7B4C8A52155E3E5",
+    "autonomy_sha256_at_checkpoint": "93F7684B2AF9E52696C9D22A804B352710C4BA7D6417A7756CE838E4D9BA619D"
   },
   "universal_access": {
     "github": "https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md",
@@ -91,16 +55,16 @@
     "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at_checkpoint": "2026-09-04T08:59:23.1993954-06:00",
-    "support_at_checkpoint": "2026-09-04T08:56:58.9208580-06:00",
-    "autonomy_at_checkpoint": "2026-09-04T08:55:09.1382447-06:00",
+    "engineering_at_checkpoint": "2026-09-04T09:06:19.4092441-06:00",
+    "support_at_checkpoint": "2026-09-04T09:06:37.1089330-06:00",
+    "autonomy_at_checkpoint": "2026-09-04T09:05:08.9696815-06:00",
     "benchmark": {
-      "status": "PASS",
-      "passed": 30,
+      "status": "FAIL_CRITICAL_REGRESSION",
+      "passed": 29,
       "total": 30,
-      "critical": 0
+      "critical": 1
     },
-    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 2.6,
+    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 4,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
     "maintenance_status": "NO_MANIFEST",
