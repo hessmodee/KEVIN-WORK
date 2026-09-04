@@ -1,0 +1,159 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "dealership-friction-reducer-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Dealership Friction Reducer Pack",
+  "description": "Creates a five-sheet workbook and SOP that tracks dealership bottlenecks, owners, aging, and next actions so Matt can clear real workflow friction without inventing busywork.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin Dealership Friction Reducer Pack.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Friction Queue",
+              "rows": [
+                [
+                  "Priority",
+                  "Friction ID",
+                  "Area",
+                  "Problem",
+                  "Owner",
+                  "Aging Days",
+                  "Customer / Unit Impact",
+                  "Status",
+                  "Next Action",
+                  "Due"
+                ],
+                [
+                  "P1",
+                  "",
+                  "Sales / Service / Recon / Delivery / Parts / Admin",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "OPEN",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "name": "Root Cause",
+              "rows": [
+                [
+                  "Friction ID",
+                  "Observed Symptom",
+                  "Likely Cause",
+                  "Evidence",
+                  "Missing Prerequisite",
+                  "Who Can Unblock",
+                  "Cost of Delay",
+                  "Notes"
+                ],
+                [
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "name": "Daily Clears",
+              "rows": [
+                [
+                  "Date",
+                  "Friction ID",
+                  "Action Taken",
+                  "By",
+                  "Result",
+                  "Still Blocked?",
+                  "Follow-up Needed",
+                  "Evidence Path"
+                ],
+                [
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "NO",
+                  "",
+                  ""
+                ]
+              ]
+            },
+            {
+              "name": "Recurring Patterns",
+              "rows": [
+                [
+                  "Pattern",
+                  "Count (30d)",
+                  "Areas Hit",
+                  "First Seen",
+                  "Last Seen",
+                  "System Fix Candidate",
+                  "Owner Value",
+                  "Status"
+                ],
+                [
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "WATCH"
+                ]
+              ]
+            },
+            {
+              "name": "Escalations",
+              "rows": [
+                [
+                  "Severity",
+                  "Friction ID",
+                  "Why Escalate",
+                  "Asked Of",
+                  "Asked At",
+                  "Response Needed By",
+                  "Resolved?",
+                  "Resolution"
+                ],
+                [
+                  "HIGH",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "NO",
+                  ""
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Dealership Friction Reducer Pack - SOP.md",
+        "content": "# Kevin Dealership Friction Reducer Pack\n\nUse this pack to convert dealership slowdowns into a short, evidence-backed clear list.\n\n## Operating rule\nA friction item is real work when it blocks sales, service, recon, delivery, parts, or admin throughput. Prefer the smallest safe unblock over reporting idle.\n\n## Required sequence\n1. Capture the friction with area, owner, aging, and customer/unit impact.\n2. Record the observed symptom and likely cause with evidence.\n3. Log the daily clear action and whether the block remains.\n4. Promote repeats into Recurring Patterns for a durable system fix.\n5. Escalate only when an owner decision or external dependency is required.\n\n## Protective behavior\nKevin must not invent work, widen tool authority, purchase, trade, send external messages, or treat Supervisor NO_ELIGIBLE_MISSION as global idle while Skill Lab or owner backlog remains. Sheet count stays at or below five. Payloads stay ASCII-safe.\n"
+      }
+    }
+  ]
+}
