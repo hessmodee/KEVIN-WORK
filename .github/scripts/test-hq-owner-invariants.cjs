@@ -20,6 +20,13 @@ function overviewFrame(html) {
   assert.equal(url.hash, '#overview', 'core starts at overview');
 }
 
+const ownerRefinement = read('docs/hq-owner-refinement-v3.js');
+for (const token of ['function skillRunning()','function skillReady()','function skillBlocked()','aw>0||sr>0','eligibleItems().length+skillReady()','blockedItems().length+skillBlocked()','No eligible work across Supervisor or Skill Lab']) {
+  assert.ok(ownerRefinement.includes(token), `owner global truth includes ${token}`);
+}
+assert.ok(ownerRefinement.includes("mdSection('current p0 blockers',4)"), 'owner priorities follow current task heading');
+assert.ok(ownerRefinement.includes("mdSection('green development lane',6)"), 'owner skill wave follows current task heading');
+
 assert.ok(read('docs/hq-core-v7.html').length, 'core exists and is nonempty');
 overviewFrame(read('docs/index.html'));
 for (const source of ['./hq-core-v7.html#overview', './hq-core-v7.html?v=9#overview']) {
