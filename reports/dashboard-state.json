@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-03T23:32:37.1327223-06:00",
+  "generated_at": "2026-09-03T23:35:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -21,21 +21,14 @@
   },
   "system": {
     "memory_pct": 43,
-    "cpu_pct": 2,
+    "cpu_pct": 18,
     "gpu": "RTX 3060",
-    "gpu_pct": 17
+    "gpu_pct": 29
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-03T06:39:21-06:00",
-        "estimated": false,
-        "ram": 33,
-        "cpu": 19,
-        "gpu": 27
-      },
       {
         "at": "2026-09-03T06:39:23-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 43,
         "cpu": 2,
         "gpu": 17
+      },
+      {
+        "at": "2026-09-03T23:35:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 18,
+        "gpu": 29
       }
     ],
     "ram": [
-      33,
       33,
       32,
       34,
@@ -798,10 +797,10 @@
       42,
       42,
       45,
+      43,
       43
     ],
     "cpu": [
-      19,
       19,
       10,
       23,
@@ -896,10 +895,10 @@
       12,
       11,
       32,
-      2
+      2,
+      18
     ],
     "gpu": [
-      27,
       27,
       37,
       37,
@@ -994,11 +993,12 @@
       44,
       37,
       31,
-      17
+      17,
+      29
     ]
   },
   "weather": {
-    "summary": "Tonight 52 | Wind 8 to 14 mph | Mostly Clear"
+    "summary": "Tonight 52 | Wind 14 mph | Mostly Clear"
   },
   "capabilities": [
     {
@@ -1093,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 94,
-      "total": 97
+      "done": 93,
+      "total": 96
     }
   ],
   "roadmap": {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-03T23:20:13-06:00",
+      "at": "2026-09-03T23:35:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-03T23:32:37.1327223-06:00",
+    "last": "2026-09-03T23:35:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1412,7 +1412,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-03T23:32:37.1327223-06:00",
+    "generated_at": "2026-09-03T23:34:37.1679583-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
