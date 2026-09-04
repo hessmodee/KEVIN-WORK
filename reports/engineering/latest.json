@@ -1,17 +1,21 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-04T16:32:34.4029425-06:00",
+    "generated_at":  "2026-09-04T16:34:34.9389141-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
-                    "id":  "grok-stage-wm-delivery-prep-v1-20260904155800",
+                    "id":  "grok-stage-wm-trade-intake-v1-20260904162400",
                     "operation":  "stage_composite_skill",
-                    "status":  "DUPLICATE_IGNORED",
-                    "detail":  "Request id already processed."
+                    "status":  "STAGED",
+                    "detail":  "Composite skill staged for Skill Lab."
                 },
     "result":  {
-
+                   "skill_id":  "west-motor-trade-intake-pack",
+                   "version":  "1",
+                   "local_name":  "west-motor-trade-intake-pack--1.json",
+                   "step_count":  2,
+                   "skill_sha256":  "F4ACD60A6CF7BA3DE4CDB60B20A6EF264A69DE4C48C2C260F9A4B4FABEEDFC5A"
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -27,7 +31,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  4.9
+                                     "heartbeat_age_seconds":  3.5
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -36,7 +40,7 @@
                                   "failed":  1
                               },
                    "composite_skills":  {
-                                            "ready":  0,
+                                            "ready":  1,
                                             "running":  0,
                                             "done":  24,
                                             "failed":  4,
@@ -75,20 +79,6 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-support-bridge-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-maintenance-intake-v1",
-                                    "enabled":  true,
-                                    "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
@@ -96,9 +86,23 @@
                                     "consecutive_errors":  0
                                 },
                                 {
+                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
                                     "declaration_key":  "kevin-benchmark-v1",
                                     "enabled":  true,
                                     "every_ms":  600000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-maintenance-intake-v1",
+                                    "enabled":  true,
+                                    "every_ms":  300000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 }
