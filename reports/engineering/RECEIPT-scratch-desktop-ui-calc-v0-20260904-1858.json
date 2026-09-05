@@ -1,0 +1,34 @@
+﻿{
+  "schema": 1,
+  "kind": "kevin-scratch-prove-receipt",
+  "id": "scratch-kevin-desktop-ui-calc-v0-20260904",
+  "at": "2026-09-04T18:58:00-06:00",
+  "actor": "GrokBot",
+  "plan": "docs/engineering/PLAN-kevin-desktop-ui-control-2026-09-04.md",
+  "scratch": "scratch/kevin-desktop-ui-v0/",
+  "result": "PASS",
+  "marker": "KEVIN_DESKTOP_UI_CALC_V0_OK",
+  "expression": "1+1=",
+  "result_name": "Display is 2",
+  "parsed": "2",
+  "refuse_unit": {"invalid_app": true, "invalid_control": true, "secret_deny": true, "text_too_long": true},
+  "implementation": {
+    "stack": "PowerShell UIAutomationClient + catalog AutomationId map",
+    "files": [
+      "scratch/kevin-desktop-ui-v0/calc_uia_prove.ps1",
+      "scratch/kevin-desktop-ui-v0/refuse.py",
+      "scratch/kevin-desktop-ui-v0/calculator-catalog.v0.json",
+      "scratch/kevin-desktop-ui-v0/PROVE-OUT-20260904.json"
+    ]
+  },
+  "constraints_honored": {
+    "openclaw_untouched": true,
+    "no_live_desktop_allowlist_widen": true,
+    "no_chat_reader_kill": true,
+    "calculator_allowlist_only": true,
+    "no_screen_xy": true,
+    "no_elevation_password": true,
+    "no_GROK_HANDOVER": true
+  },
+  "next": "Phase 2 plugin candidate (disabled-by-default). Chat widen blocked on full proof bar."
+}
