@@ -1,0 +1,33 @@
+﻿{
+  "id": "kevin-desktop-ui",
+  "name": "Kevin Desktop UI (candidate)",
+  "description": "CANDIDATE ONLY — disabled-by-default typed Calculator UI focus/click/type. Not installed. Not on Chat. Calculator catalog only.",
+  "version": "0.0.1-candidate",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "enabled": {
+        "type": "boolean",
+        "default": false,
+        "description": "Must remain false until typed Chat crossing packet clears."
+      }
+    },
+    "additionalProperties": false
+  },
+  "activation": {
+    "onStartup": false
+  },
+  "contracts": {
+    "tools": [
+      "kevin_ui_focus_app",
+      "kevin_ui_click",
+      "kevin_ui_type"
+    ]
+  },
+  "toolMetadata": {
+    "kevin_ui_focus_app": { "optional": true, "disabled_by_default": true },
+    "kevin_ui_click": { "optional": true, "disabled_by_default": true },
+    "kevin_ui_type": { "optional": true, "disabled_by_default": true }
+  },
+  "notes": "DO NOT copy into live openclaw.json plugins list. DO NOT add tool ids to Chat tools.allow."
+}

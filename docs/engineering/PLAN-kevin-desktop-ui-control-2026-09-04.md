@@ -1,4 +1,4 @@
-﻿# PLAN - Kevin Desktop UI control (typed click/type/focus) — 2026-09-04
+# PLAN - Kevin Desktop UI control (typed click/type/focus) — 2026-09-04
 
 Date: 2026-09-04 ~18:45 MT (America/Denver)
 Author: Grok Bot (HESS-PC inventory + north-star)
@@ -118,4 +118,4 @@ Revert this branch/PR. Scratch delete is sufficient for optional stub. No produc
 
 ## 11. Status
 
-**SCRATCH_CALC_PROVE_PASS** — Phase 1 isolated Calculator UIA prove PASS (`KEVIN_DESKTOP_UI_CALC_V0_OK`, Display is 2 for 1+1=). Evidence: `scratch/kevin-desktop-ui-v0/PROVE-OUT-20260904.json`, `reports/engineering/RECEIPT-scratch-desktop-ui-calc-v0-20260904-1858.json`. Chat widen still blocked on full proof bar; next = Phase 2 plugin candidate (disabled-by-default).
+**PHASE2_CANDIDATE_AUTHORED** — Phase 1 scratch PASS retained (`KEVIN_DESKTOP_UI_CALC_V0_OK`). Phase 2 disabled-by-default candidate at `candidates/desktop/kevin-desktop-ui-v0/` with crossing contract `docs/engineering/KEVIN-DESKTOP-UI-CALC-CROSSING-CONTRACT-2026-09-04.md` (schema/fixtures/neg/E2E/audit/rollback). **Still NOT live:** openclaw.json untouched; Chat tools.allow untouched; refuse-by-default unless `KEVIN_DESKTOP_UI_V0_ENABLE=1` for isolated prove. Next = Phase 3 typed Chat crossing packet only after full YELLOW proof bar.

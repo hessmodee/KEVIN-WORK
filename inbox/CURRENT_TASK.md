@@ -1,16 +1,23 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-04 19:06 MT
+**Updated:** 2026-09-04 19:05 MT
 **Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
 **Cold-start:** `docs/engineering/KEVIN-TURNOVER-LATEST.md`.
 
-## Active Desktop UI control PLAN (2026-09-04 ~18:45 MT)
+## Active Desktop UI control PLAN (2026-09-04 ~19:05 MT)
 
 - PLAN: `docs/engineering/PLAN-kevin-desktop-ui-control-2026-09-04.md`
-- LESSON stub: `docs/engineering/LESSON-desktop-ui-control-typed-before-cua-2026-09-04.md`
-- Status: **READY_FOR_SCRATCH_CALC_PROVE** (docs + `scratch/kevin-desktop-ui-v0` refuse stub only)
-- Hard no tonight: live Desktop allowlist widen; openclaw apply; CUA enable; kill Chat 18789 / Reader 19001
-- Proof bar before exact-N widen: schema/fixtures/neg/E2E/audit/rollback; Calculator prove-first
+- Crossing: `docs/engineering/KEVIN-DESKTOP-UI-CALC-CROSSING-CONTRACT-2026-09-04.md`
+- LESSON: `docs/engineering/LESSON-desktop-ui-control-typed-before-cua-2026-09-04.md`
+- Status: **PHASE2_CANDIDATE_AUTHORED** (scratch PASS + `candidates/desktop/kevin-desktop-ui-v0` refuse-by-default)
+- Hard no: live Desktop allowlist widen; openclaw apply; CUA enable; kill Chat 18789 / Reader 19001; add `kevin_ui_*` to Chat tools.allow
+- Proof bar before exact-N widen: schema/fixtures/neg/E2E/audit/rollback; Calculator prove-first retained
+
+## Aging-inv teach-and-transfer CLOSED (2026-09-04 ~19:05 MT)
+
+- `west-motor-aging-inventory-action-pack@1` **PROVEN** ~18:53 MT (PR #94; proof `632AEA6A...`)
+- LESSON: `docs/engineering/LESSON-west-motor-aging-inventory-action-pack-2026-09-04.md`
+- Do not re-prove; no purchases / live DMS / live post
 
 ## Active HQ Phase B — Night Forge hide when Disabled (2026-09-04 ~18:45 MT)
 
@@ -236,4 +243,4 @@ Source-only HQ Command truth upgrade on branch `grok/hq-max-20260904` (PR pendin
 
 ## Layer hold (Kevin wire)
 
-No ollama-isolate-latest.json → CURRENT_TASK remains write-proof. Do not advance. Await isolate PASS on llama3.1:8b and qwen2.5:14b. (refreshed 2026-09-04 19:06 MT)
+No ollama-isolate-latest.json → CURRENT_TASK remains write-proof. Do not advance. Await isolate PASS on llama3.1:8b and qwen2.5:14b. (refreshed 2026-09-04 18:05 MT)
