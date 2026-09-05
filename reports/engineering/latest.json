@@ -1,21 +1,17 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-04T18:48:35.9345922-06:00",
+    "generated_at":  "2026-09-04T18:50:35.6608374-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
                     "id":  "grok-stage-wm-aging-inv-v1-20260904182600",
                     "operation":  "stage_composite_skill",
-                    "status":  "STAGED",
-                    "detail":  "Composite skill staged for Skill Lab."
+                    "status":  "DUPLICATE_IGNORED",
+                    "detail":  "Request id already processed."
                 },
     "result":  {
-                   "skill_id":  "west-motor-aging-inventory-action-pack",
-                   "version":  "1",
-                   "local_name":  "west-motor-aging-inventory-action-pack--1.json",
-                   "step_count":  2,
-                   "skill_sha256":  "29CB300C116278CEBA858F5865B74DEC1FC59C7EFE6D1BEE2D8D925862C239AC"
+
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -31,17 +27,17 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  0.4
+                                     "heartbeat_age_seconds":  3
                                  },
                    "queues":  {
                                   "ready":  0,
                                   "running":  0,
-                                  "done":  57,
+                                  "done":  58,
                                   "failed":  1
                               },
                    "composite_skills":  {
-                                            "ready":  1,
-                                            "running":  0,
+                                            "ready":  0,
+                                            "running":  1,
                                             "done":  25,
                                             "failed":  5,
                                             "proven_count":  25,
@@ -72,16 +68,16 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "declaration_key":  "kevin-skill-lab-v1",
                                     "enabled":  true,
-                                    "every_ms":  180000,
+                                    "every_ms":  120000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-skill-lab-v1",
+                                    "declaration_key":  "kevin-support-bridge-v1",
                                     "enabled":  true,
-                                    "every_ms":  120000,
+                                    "every_ms":  180000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
