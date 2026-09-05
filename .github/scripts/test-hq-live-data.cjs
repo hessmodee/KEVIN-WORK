@@ -1,4 +1,4 @@
-'use strict';
+﻿'use strict';
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const core=fs.readFileSync('docs/hq-core-v7.html','utf8');
 // Compile every actual inline script, not a duplicate implementation.
@@ -48,6 +48,17 @@ d.generated_at=new Date(now-3600000).toISOString();
 assert.equal(vm.runInContext('workerState(key,d,s)',scope),'ready','fresh Support does not make an old Dashboard task current');
 console.log('PASS news freshness/categories/R04/URL safety and real worker/terminal/stale attribution');
 
+// Phase B: Night Forge Disabled must not report READY
+s.public_truth={night_forge_task_state:'Disabled'};
+scope.key='night';scope.s=s;scope.d=d;
+assert.equal(vm.runInContext('workerState(key,d,s)',scope),'disabled','Disabled Night Forge is not READY');
+assert.equal(vm.runInContext('nightForgeHidden(s)',scope),true,'Disabled Night Forge is hidden');
+s.public_truth={night_forge_task_state:'Ready'};
+assert.equal(vm.runInContext('workerState(key,d,s)',scope),'ready','Ready Night Forge idle stays ready');
+assert.equal(vm.runInContext('nightForgeHidden(s)',scope),false,'Ready Night Forge is not hidden');
+delete s.public_truth;
+console.log('PASS Night Forge Disabled hide/truth (Phase B)');
+
 const truthSource=fs.readFileSync('docs/hq-truth-v2.js','utf8');
 let truthCode=truthSource.replace("const frame=document.getElementById('kevinCore');",'const frame={};');
 const stop="frame.addEventListener('load',()=>{bind();refresh()});";
@@ -62,3 +73,4 @@ assert.ok(truthScope.testTruth.issueRows().some(x=>x.title==='Full autonomy audi
 truthScope.testTruth.setCache({continuation:{generated_at:oldAudit.generated_at,status:'IDLE_NO_ELIGIBLE_DEMAND'}});
 assert.equal(truthScope.testTruth.autonomyTruth(oldAudit).headline,'STALE SELECTION');
 console.log('PASS current Supervisor selection is distinct from old full reconciliation and outcome proof');
+
