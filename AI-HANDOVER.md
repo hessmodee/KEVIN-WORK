@@ -2,7 +2,7 @@
 
 > **THIS IS THE ONE CURRENT HANDOVER FOR KEVIN.** Do not create a competing dated handover. Update the source task/evidence and let the canonical handover refresh replace stale state.
 
-**Semantic checkpoint evidence through:** 2026-09-05T00:18:42.3015928-06:00  
+**Semantic checkpoint evidence through:** 2026-09-05T01:26:45.7364143-06:00  
 **Canonical repository:** `hessmodee/KEVIN-WORK` / `main`  
 **Machine twin:** `reports/handoff-latest.json` (not a second authority)
 
@@ -29,11 +29,11 @@ If an agent cannot access one route, use another. Matt should never need to reco
 
 ## Automatic semantic snapshot
 
-- Engineering evidence at checkpoint: `2026-09-05T00:18:42.3015928-06:00`
-- Support evidence at checkpoint: `2026-09-05T00:13:03.3470940-06:00`
-- Autonomy evidence at checkpoint: `2026-09-05T00:15:34.3071964-06:00`
+- Engineering evidence at checkpoint: `2026-09-05T01:26:45.7364143-06:00`
+- Support evidence at checkpoint: `2026-09-05T01:25:03.6252747-06:00`
+- Autonomy evidence at checkpoint: `2026-09-05T01:25:37.1299670-06:00`
 - Benchmark: **PASS — 30/30, critical 0**
-- UI Bridge health at checkpoint: **FRESH** (age then: 1.8 seconds)
+- UI Bridge health at checkpoint: **FRESH** (age then: 2.5 seconds)
 - Maintenance: **NO_MANIFEST** — No maintenance proposal is waiting.
 - Supervisor last result: **NO_ELIGIBLE_MISSION**
 - Proven composite skills: **27**
@@ -51,41 +51,40 @@ The block below is pulled from `inbox/CURRENT_TASK.md`. That file is an executio
 
 # CURRENT_TASK
 
-**Updated:** 2026-09-05 ~00:20 MT
+**Updated:** 2026-09-05 ~01:14 MT
 **Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
 **Cold-start:** `docs/engineering/KEVIN-TURNOVER-LATEST.md`.
 
-## P0 — Play with Matt / Minecraft Realms (standing recall)
+## P0 - Play with Matt / Minecraft Realms (JOIN_OK proven)
 
 When Matt says **"play a game with me" / play Minecraft / join Realm / co-op**:
 1. Load `docs/engineering/KEVIN-PLAYBOOK-play-with-matt-minecraft-realms-v1.md`
-2. Identity **kevinsk8erkid** only (never **hessmodee**)
-3. AUTH_CACHE_OK; protocol residual NETHERNET_GATE — do not fake JOIN_OK
-4. Client UI path: `docs/engineering/KEVIN-RECIPE-minecraft-bedrock-client-ui-realms-join-v1.md` (join prove may be in flight)
-5. After join: house bed → follow Matt → chat → invited mine/build → fail-closed
+2. Identity **kevinsk8erkid** only (never **hessmodee** bot identity)
+3. AUTH_CACHE_OK; protocol join **KEVIN_REALMS_JOIN_OK** proven 2026-09-05 ~01:12 MT (NetherNet / protocol 2169 / 1.26.45)
+4. Rejoin: `scratch/kevin-minecraft-bedrock-v0/rejoin.cmd` (stay mode)
+5. Play loop: house bed -> follow Matt -> chat -> invited mine/build -> fail-closed
 6. Desktop ops ladder: `docs/engineering/KEVIN-PLAYBOOK-operate-desktop-apps-v1.md`
 
-NEG: `docs/engineering/evals/NEG-play-with-matt-wrong-identity-or-fake-join-v1.json`
-Routing stub: `inbox/skills/play-with-matt-minecraft-routing-stub-v1.json`
+Receipt: `reports/engineering/RECEIPT-minecraft-bedrock-realms-join-ok-20260905-0112.md`
+Log pointer (local only): `_realms-join-nethernet12-2169.log`
+LESSON: `docs/engineering/LESSON-nethernet-realms-join-ok-2026-09-05.md`
+RECIPE: `docs/engineering/RECIPE-nethernet-realms-overlay-v2.md`
 
-Hard no: hessmodee bot login; invent passwords; purchases; kill Chat 18789 / Reader 19001; Chat tools.allow widen without proof bar.
+NEG: `docs/engineering/evals/NEG-play-with-matt-wrong-identity-or-fake-join-v1.json`
+Hard no: hessmodee bot login; invent passwords; purchases; stop Chat 18789 / Reader 19001; Chat tools.allow widen without proof bar.
 
 ## Desktop exact-5 + UI Phase2 (standing)
 
 - Live Chat Desktop **exact-5**: status, find_folder, open_folder, list_folder, app_launch.
 - Distrust stale exact-4 / `4126AFE6`.
-- UI Phase2: Calculator scratch PROVEN; candidate + disabled ext refuse — **not** on Chat tools.allow.
+- UI Phase2: Calculator scratch PROVEN; candidate + disabled ext refuse - **not** on Chat tools.allow.
 - Never claim Desktop/app state without same-turn tool result.
 
-## Active Desktop UI control PLAN (retained)
+## Active Minecraft Realms facts
 
-- PLAN: `docs/engineering/PLAN-kevin-desktop-ui-control-2026-09-04.md`
-- Status: Phase2 candidate / disabled-ext — no Chat widen
-- Proof bar before exact-N widen: schema/fixtures/neg/E2E/audit/rollback + crossing packet
-
-## Active Minecraft Realms facts (retained)
-
-- Bedrock LOCKED; invite DONE; house bed DONE; AUTH_CACHE_OK=yes; join=NETHERNET_GATE (protocol) / client UI in flight
+- Bedrock LOCKED; invite DONE; house bed DONE; AUTH_CACHE_OK=yes
+- **KEVIN_REALMS_JOIN_OK = yes** (2026-09-05 ~01:12 MT); soft residual packet_violation_warning on close
+- Prove script auto-exits; use rejoin.cmd stay mode for play sessions
 - Recipe coop: `docs/engineering/KEVIN-RECIPE-bedrock-realms-coop-kevinsk8erkid-v1.md`
 - PLAN: `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md`
 
@@ -130,6 +129,6 @@ Never infer a higher state from a lower one. Never widen authority merely to mak
 
 This handover is generated by `.github/scripts/build-canonical-handover.py` and refreshed by `.github/workflows/canonical-handover.yml`.
 
-Semantic fingerprint: `94848FABF7976A00F1AEF2733EDD61CE6F5A240B574D1C36043DEEC82FF67C4E`
+Semantic fingerprint: `FAE1C331F33CC4EBF6AD545E001443D5E865EAE929FD92F0EA4E6A26FCEA414E`
 
 **Fresh runtime evidence first; one handover; publish every durable local change; then continue.**
