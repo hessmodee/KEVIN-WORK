@@ -1,17 +1,21 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-04T23:22:41.7123907-06:00",
+    "generated_at":  "2026-09-04T23:24:42.1272370-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
-                    "id":  "grok-stage-wm-aging-inv-v1-20260904182600",
+                    "id":  "grok-stage-wm-parts-chase-v1-20260904202551",
                     "operation":  "stage_composite_skill",
-                    "status":  "DUPLICATE_IGNORED",
-                    "detail":  "Request id already processed."
+                    "status":  "STAGED",
+                    "detail":  "Composite skill staged for Skill Lab."
                 },
     "result":  {
-
+                   "skill_id":  "west-motor-parts-chase-board-pack",
+                   "version":  "1",
+                   "local_name":  "west-motor-parts-chase-board-pack--1.json",
+                   "step_count":  2,
+                   "skill_sha256":  "0E92302362944935D14DCF67364EB2ADCC5C46E0891FC67EEF223407B49A8F7C"
                },
     "action":  {
                    "phase2b_proof_present":  true,
@@ -27,7 +31,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  4.9
+                                     "heartbeat_age_seconds":  3.2
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -36,7 +40,7 @@
                                   "failed":  1
                               },
                    "composite_skills":  {
-                                            "ready":  0,
+                                            "ready":  1,
                                             "running":  0,
                                             "done":  26,
                                             "failed":  5,
@@ -68,23 +72,16 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-skill-lab-v1",
-                                    "enabled":  true,
-                                    "every_ms":  120000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-maintenance-intake-v1",
-                                    "enabled":  true,
-                                    "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-support-bridge-v1",
                                     "enabled":  true,
                                     "every_ms":  180000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-skill-lab-v1",
+                                    "enabled":  true,
+                                    "every_ms":  120000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
@@ -99,6 +96,13 @@
                                     "declaration_key":  "kevin-benchmark-v1",
                                     "enabled":  true,
                                     "every_ms":  600000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-maintenance-intake-v1",
+                                    "enabled":  true,
+                                    "every_ms":  300000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 }
