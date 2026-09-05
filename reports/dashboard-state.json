@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-05T15:04:43.4789337-06:00",
+  "generated_at": "2026-09-05T15:05:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 40,
-    "cpu_pct": 3,
+    "memory_pct": 42,
+    "cpu_pct": 35,
     "gpu": "RTX 3060",
-    "gpu_pct": 51
+    "gpu_pct": 30
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-04T15:05:14-06:00",
-        "estimated": false,
-        "ram": 44,
-        "cpu": 20,
-        "gpu": 27
-      },
       {
         "at": "2026-09-04T15:20:14-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 40,
         "cpu": 3,
         "gpu": 51
+      },
+      {
+        "at": "2026-09-05T15:05:14-06:00",
+        "estimated": false,
+        "ram": 42,
+        "cpu": 35,
+        "gpu": 30
       }
     ],
     "ram": [
-      44,
       42,
       42,
       40,
@@ -798,10 +797,10 @@
       42,
       40,
       42,
-      40
+      40,
+      42
     ],
     "cpu": [
-      20,
       30,
       33,
       0,
@@ -896,10 +895,10 @@
       17,
       8,
       18,
-      3
+      3,
+      35
     ],
     "gpu": [
-      27,
       25,
       43,
       0,
@@ -994,7 +993,8 @@
       32,
       44,
       26,
-      51
+      51,
+      30
     ]
   },
   "weather": {
@@ -1093,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 96,
-      "total": 97
+      "done": 95,
+      "total": 96
     }
   ],
   "roadmap": {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-05T14:50:13-06:00",
+      "at": "2026-09-05T15:05:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-05T15:04:43.4789337-06:00",
+    "last": "2026-09-05T15:05:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
