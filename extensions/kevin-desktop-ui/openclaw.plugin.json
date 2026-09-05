@@ -1,0 +1,38 @@
+{
+  "id": "kevin-desktop-ui",
+  "name": "Kevin Desktop UI (Phase 2 candidate)",
+  "description": "Disabled-by-default typed Calculator UI focus/click/type. Phase 2 candidate only — not on Chat. No live UIA in this package yet.",
+  "version": "0.1.0-candidate",
+  "enabled_by_default": false,
+  "configSchema": {
+    "type": "object",
+    "properties": {},
+    "additionalProperties": false
+  },
+  "activation": {
+    "onStartup": false
+  },
+  "require_env": "KEVIN_DESKTOP_UI_ENABLE",
+  "contracts": {
+    "tools": [
+      "kevin_ui_focus_app",
+      "kevin_ui_click",
+      "kevin_ui_type"
+    ]
+  },
+  "toolMetadata": {
+    "kevin_ui_focus_app": {
+      "optional": true,
+      "disabled_by_default": true
+    },
+    "kevin_ui_click": {
+      "optional": true,
+      "disabled_by_default": true
+    },
+    "kevin_ui_type": {
+      "optional": true,
+      "disabled_by_default": true
+    }
+  },
+  "notes": "NOT for live Chat until Phase 3 typed crossing packet. Do not apply openclaw.json. Do not widen Chat tools.allow. Do not merge into live kevin-desktop until Phase 3."
+}
