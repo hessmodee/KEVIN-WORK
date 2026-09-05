@@ -1,10 +1,10 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-05T14:34:42.9782565-06:00",
-  "status": "degraded",
+  "generated_at": "2026-09-05T14:35:14-06:00",
+  "status": "ready",
   "health": {
-    "overall": "degraded",
-    "failed_checks": 1
+    "overall": "healthy",
+    "failed_checks": 0
   },
   "brain": {
     "name": "Qwen 2.5 14B",
@@ -15,27 +15,20 @@
   "current_task": null,
   "services": {
     "tick": "healthy",
-    "bridge": "degraded",
+    "bridge": "healthy",
     "ollama": "healthy",
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 40,
-    "cpu_pct": 8,
+    "memory_pct": 42,
+    "cpu_pct": 18,
     "gpu": "RTX 3060",
-    "gpu_pct": 44
+    "gpu_pct": 26
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-04T14:35:14-06:00",
-        "estimated": false,
-        "ram": 47,
-        "cpu": 21,
-        "gpu": 23
-      },
       {
         "at": "2026-09-04T14:50:15-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 40,
         "cpu": 8,
         "gpu": 44
+      },
+      {
+        "at": "2026-09-05T14:35:14-06:00",
+        "estimated": false,
+        "ram": 42,
+        "cpu": 18,
+        "gpu": 26
       }
     ],
     "ram": [
-      47,
       52,
       44,
       42,
@@ -798,10 +797,10 @@
       42,
       40,
       42,
-      40
+      40,
+      42
     ],
     "cpu": [
-      21,
       21,
       20,
       30,
@@ -896,10 +895,10 @@
       27,
       7,
       17,
-      8
+      8,
+      18
     ],
     "gpu": [
-      23,
       24,
       27,
       25,
@@ -994,7 +993,8 @@
       41,
       52,
       32,
-      44
+      44,
+      26
     ]
   },
   "weather": {
@@ -1148,11 +1148,11 @@
   ],
   "activity": [
     {
-      "at": "2026-09-05T14:20:14-06:00",
+      "at": "2026-09-05T14:35:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
-      "result": "fail"
+      "result": "pass"
     },
     {
       "at": "2026-09-03T15:38:43-06:00",
@@ -1372,15 +1372,15 @@
   ],
   "owl": {
     "level": 1,
-    "state": "warning"
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-09-05T14:34:42.9782565-06:00",
+    "last": "2026-09-05T14:35:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
-    "fails": 1,
-    "summary": "1 check(s) failed"
+    "fails": 0,
+    "summary": "All checks passed"
   },
   "autonomy": {
     "mode": "hourly_design",
