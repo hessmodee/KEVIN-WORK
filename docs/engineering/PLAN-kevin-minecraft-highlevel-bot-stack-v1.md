@@ -54,3 +54,7 @@ Policy: `control-plane/game/minecraft-companion-policy-v1.py`.
 - Playbook companion proactive combat/build v1
 - RECIPE-nethernet-realms-overlay-v2.md
 - LESSON-mineflayer-java-not-bedrock-realms-fork-2026-09-04.md
+
+## Spike status (2026-09-05 ~09:35 MT)
+
+P0 isolated vendor fetch under `scratch/kevin-minecraft-stack-spike-v0` (bedrockflayer 0.1.0 source). Static API: GoalFollow/combat/guard present. Live import smoke pending operator `install-deps.cmd` (agent shell binder-blocked node/npm). Realms: createBot uses host/port createClient — needs NetherNet overlay; **do not** mutate JOIN_OK gym. See LESSON-minecraft-stack-spike-p0-2026-09-05.md.
