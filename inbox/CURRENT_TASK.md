@@ -1,8 +1,22 @@
-# CURRENT_TASK
+﻿# CURRENT_TASK
 
-**Updated:** 2026-09-04 18:05 MT
+**Updated:** 2026-09-04 18:45 MT
 **Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
 **Cold-start:** `docs/engineering/KEVIN-TURNOVER-LATEST.md`.
+
+## Active Desktop UI control PLAN (2026-09-04 ~18:45 MT)
+
+- PLAN: `docs/engineering/PLAN-kevin-desktop-ui-control-2026-09-04.md`
+- LESSON stub: `docs/engineering/LESSON-desktop-ui-control-typed-before-cua-2026-09-04.md`
+- Status: **READY_FOR_SCRATCH_CALC_PROVE** (docs + `scratch/kevin-desktop-ui-v0` refuse stub only)
+- Hard no tonight: live Desktop allowlist widen; openclaw apply; CUA enable; kill Chat 18789 / Reader 19001
+- Proof bar before exact-N widen: schema/fixtures/neg/E2E/audit/rollback; Calculator prove-first
+
+## Active HQ Phase B — Night Forge hide when Disabled (2026-09-04 ~18:45 MT)
+
+- Follows PLAN-hq-max Phase B: Disabled ≠ READY chip
+- PLAN: `docs/engineering/PLAN-hq-max-phase-b-nightforge-hide-2026-09-04.md`
+- Hard no: openclaw.json; Desktop exact-N; Chat/Reader kill; purchases
 
 ## Active Minecraft Realms (2026-09-04 ~15:05 MT)
 
