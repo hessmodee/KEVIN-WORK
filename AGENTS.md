@@ -177,3 +177,8 @@ and continue correctly without Matt retelling the project.
 - Wiki: knowledge/wiki/minecraft-self-care.md, minecraft-animal-care.md, minecraft-potions.md, minecraft-enchanting.md.
 - NEG: docs/engineering/evals/NEG-minecraft-super-player-fake-potion-enchant-or-kill-pets-v1.json — no fake potion/enchant complete; no hessmodee; no kill Matt pets.
 - Never claim brew/enchant/animal-care done without tool proof. Never fake enchanted gear created. Identity **kevinsk8erkid** only.
+
+## Minecraft companion proactive/combat/build (2026-09-05 ~09:15 MT)
+
+When Matt says companion / fight / guard / stay close / help fight / build with me / do not AFK: load docs/engineering/KEVIN-PLAYBOOK-minecraft-companion-proactive-combat-build-v1.md (+ SUPER PLAYER + play-with-Matt). READY = proactive friend + join kevinsk8erkid + combat/build coach; Near = stubs; Destination = stack PLAN. Never fake kills/builds; no PvP Matt; no grief; never hessmodee; no force Realms addons. NEG: docs/engineering/evals/NEG-minecraft-companion-fake-kills-builds-grief-or-pvp-matt-v1.json. PLAN: docs/engineering/PLAN-kevin-minecraft-highlevel-bot-stack-v1.md.
+

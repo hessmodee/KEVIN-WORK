@@ -112,3 +112,7 @@ Near stubs: `skills/enchant/`.
 - NEG: `docs/engineering/evals/NEG-minecraft-super-player-fake-potion-enchant-or-kill-pets-v1.json`
 - Scratch stubs: `scratch/kevin-minecraft-bedrock-v0/skills/{selfcare,animals,potions,enchant}/`
 - GREEN stub: `inbox/skills/minecraft-super-player-pack-v1.json`
+
+## 9. Proactive companion / combat / build (2026-09-05 ~09:15 MT)
+
+When Matt says companion / fight / guard / stay close / help fight / build with me / don't AFK: also load `docs/engineering/KEVIN-PLAYBOOK-minecraft-companion-proactive-combat-build-v1.md`. READY = proactive friend loop + join + combat/build **coach**; Near = combat/companion/guard stubs; Destination = high-level bot stack PLAN. Never fake kills/builds; no PvP Matt; no grief; never hessmodee. NEG: `docs/engineering/evals/NEG-minecraft-companion-fake-kills-builds-grief-or-pvp-matt-v1.json`. Stack PLAN: `docs/engineering/PLAN-kevin-minecraft-highlevel-bot-stack-v1.md`.
