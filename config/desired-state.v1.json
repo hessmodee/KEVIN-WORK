@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "kind": "kevin-desired-state",
+  "version": "1.1-candidate",
+  "owner_controlled": true,
+  "authority": {
+    "green_only": true,
+    "allow_arbitrary_shell": false,
+    "allow_authority_expansion": false,
+    "allow_novel_production_promotion": false
+  },
+  "core_hashes": {
+    "supervisor": "EA28600FDE1E7572F431710416238DA8A4AD6B80321C9A8F0687C1C8A92421F7",
+    "benchmark": "02447EE8F3302E3EA1EF00290DBA6804F30FAC9F46CAE8714F402EA2D013CC38",
+    "forge": "0ED50A9714B4B5E778844006CD24E57D25FFA0873261E5BF63F990FBB4D5643E",
+    "goal_os": "B20C7AC8EDC35C656ED544C4D13D3EB4FF4A79453AF0F49BD60B7DF31092AEF0",
+    "support_bridge": "E72A2A635326CF1AB036404E64E274D2F56CE79CA5CEB268DBF9B2EA4B67BEA5",
+    "maintenance_runner": "B47714C91EFDCCD1FAE6C2CB0B97D72F799125A63C084956916A8BD5A07678C1"
+  },
+  "jobs": [
+    {"declaration_key": "kevin-support-bridge-v1", "must_be_enabled": true, "max_consecutive_errors": 0},
+    {"declaration_key": "kevin-hq-live-pulse-v15", "must_be_enabled": true, "max_consecutive_errors": 0},
+    {"declaration_key": "kevin-supervisor-v1", "must_be_enabled": true, "max_consecutive_errors": 0},
+    {"declaration_key": "kevin-maintenance-intake-v1", "must_be_enabled": true, "max_consecutive_errors": 0},
+    {"declaration_key": "kevin-benchmark-v1", "must_be_enabled": true, "max_consecutive_errors": 0}
+  ],
+  "benchmark": {"require_pass": true},
+  "resources": {
+    "heavy_model_slots": 1,
+    "one_14b_worker": true,
+    "worker_labels_are_not_slot_count": true
+  },
+  "failure_policy": {
+    "max_same_family_attempts": 3,
+    "require_diagnostic_delta_on_attempt_2": true,
+    "require_approach_delta_on_attempt_3": true,
+    "cooldown_minutes_after_budget": 60,
+    "reset_only_on_evidence_change": true
+  },
+  "green_registry": [
+    {"verb": "run_benchmark", "target": "kevin-benchmark-v1", "mutating": false, "postcondition": "benchmark.status == PASS"},
+    {"verb": "run_support_bridge", "target": "kevin-support-bridge-v1", "mutating": false, "postcondition": "support snapshot freshness advances"},
+    {"verb": "ensure_job_enabled", "target_class": "declared_job", "mutating": true, "rollback_required": true, "postcondition": "named job enabled and identity unchanged"},
+    {"verb": "select_alternate_mission", "target": "supervisor", "mutating": false, "postcondition": "selection is from already-authorized mission catalog"}
+  ],
+  "scheduler": {
+    "work_conserving": true,
+    "alternate_mission_after_throttle": true,
+    "never_bypass_cooldown": true,
+    "candidate_queue": [
+      "benchmark-fixtures",
+      "knowledge-provenance",
+      "checkpoint-resume",
+      "postmortem-cleanup",
+      "telemetry-quality",
+      "skill-evaluation"
+    ]
+  },
+  "forbidden_authority": [
+    "permissions",
+    "arbitrary_shell",
+    "production_chat_tools",
+    "financial_transactions",
+    "purchases",
+    "external_sends",
+    "credential_access",
+    "safety_weakening",
+    "automatic_production_promotion"
+  ]
+}
