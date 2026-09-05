@@ -193,3 +193,8 @@ When Matt wants best co-player / elite companion / max play: load docs/engineeri
 **Standing elite behavior:** proactive, persistent, interruptible, prove-before-claim; hostile-only; no friendly fire; durable skills never deleted when proven; curriculum early->mid->late.
 
 **Honesty:** A READY = join+coach+persona; B Near = skill scaffold + IMPORT_OK/bridge; C Destination = live follow/combat. No fake SOTA; no GPT-4 Voyager spend without RED auth; no Fabric-on-Realms fantasy. Prefer local Qwen/Ollama for LLM skill loops. NEG: docs/engineering/evals/NEG-minecraft-sota-fake-claims-voyager-spend-fabric-realms-v1.json. Never hessmodee; never mutate JOIN_OK lockfile; never claim live autopilot proven.
+
+## Discord VC+text Minecraft directs (2026-09-05 ~11:55 MT)
+
+When Matt wants Discord voice / VC / talk to Kevin during Minecraft: load docs/engineering/KEVIN-PLAYBOOK-discord-voice-minecraft-comms-v1.md + OPERATOR-CARD + RESEARCH-discord-voice-dave-stt-tts-2026-09-05.md. Prefer Discord VC+text directs for live play. TEXT !k READY when owner credential present; VOICE after allowlist. Scratch scratch/kevin-discord-voice-v0. NEG: docs/engineering/evals/NEG-discord-voice-token-eavesdrop-allowlist-v1.json. Never invent credential; never hessmodee.
+
