@@ -1,41 +1,40 @@
-# scratch/kevin-minecraft-bedrock-v0 — README only (no live auth)
+# scratch/kevin-minecraft-bedrock-v0
 
-Authority: FREE/SAFE research scaffold. UNDYING GREEN+YELLOW.
-Companion PLAN: `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md`
-Edition: **Bedrock LOCKED** (Matt 2026-09-04 screenshots).
+Authority: FREE/SAFE scaffold + device-code design. UNDYING GREEN+YELLOW.
+Companion PLAN: docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md
+Edition: Bedrock LOCKED. Gamertag: kevinsk8erkid (Matt Xbox / Realm owner: hessmodee).
 
 ## Goal
 
-Prepare a Bedrock protocol scratch path so Kevin can later join Matt's **existing** Realm as Kevin's own Microsoft account (Omen PC), after invite — **not** via Mineflayer.
+Kevin joins Matts existing Bedrock Realm (HESSMODEEs Realm) as kevinsk8erkid via bedrock-protocol + prismarine-auth device-code. Not Mineflayer. Not hessmodee credentials.
 
-## Candidate packages (install later; not required for this README)
+## Owner facts (2026-09-04 ~23:12 MT)
 
-- `bedrock-protocol` (PrismarineJS) — Bedrock/RakNet client; optional `realms` join helpers
-- `prismarine-auth` — Xbox/Microsoft device-code auth; token cache **Kevin-local only**
+- Invite: DONE (kevinsk8erkid invited to HESSMODEEs Realm)
+- Bed spawn: set at house
+- No new paid Realm
 
-Optional later high-level layer: community Mineflayer-like Bedrock wrappers (evaluate freshness before adopting).
+## Stack
 
-## Local prove target (next free eng; still no Realms)
+- bedrock-protocol — Bedrock/RakNet client; realms pickRealm helper
+- prismarine-auth — Xbox/Microsoft device-code; token cache under credentials/kevin-minecraft/
+- Realms 26.10+ may require NetherNet / NETHERNET_JSONRPC (PrismarineJS bedrock-protocol issue 717)
 
-- Marker: `KEVIN_MC_BEDROCK_V0_OK`
-- Prefer localhost UDP **19132** offline / Bedrock Dedicated Server (BDS) LAN
-- Do not bind Chat 18789, Reader 19001, or Ollama 11434
-- No Microsoft login for local v0
+## Scripts
 
-## Realms join (later; RED until owner invite + auth)
+- install-deps.cmd — Owner double-click to install deps + DEPS_OK
+- node scripts/check-deps.js — require deps
+- node scripts/offline-lan-join.js — LAN/BDS offline prove -> KEVIN_MC_BEDROCK_V0_OK
+- node scripts/device-code-auth.js — READY_FOR_OWNER_DEVICE_CODE as kevinsk8erkid
+- node scripts/realms-join.js — fail-closed without token; KEVIN_REALMS_JOIN_OK
 
-- Matt Xbox: **hessmodee**; Realm: HESSMODEE's Realm / Electric Boogaloo 2 / Hall of Heroes / Realm Hub
-- Kevin: own MS account on Omen; invited member — **no new paid Realm**
-- Device-code auth; secrets never git/MEMORY/HQ
-- Gate: Realms 26.10+ may require NetherNet/JSON-RPC signalling — verify before claiming Realm-ready
-- Live marker later: `KEVIN_REALMS_COOP_OK`
+## Auth token cache
+
+- Path: credentials/kevin-minecraft/ (profilesFolder)
+- README only in git; never invent password; never use hessmodee
 
 ## Hard no
 
-- No live Realm join in this scaffold
-- No invent Microsoft passwords
-- No purchase
-- No Chat Minecraft tool
-- No kill Chat/Reader
-- No commit of auth caches or tokens
-- Mineflayer Java gym is separate: `scratch/kevin-minecraft-v0` — **NON-PATH for Realms**
+- No live join without owner device-code
+- No purchase; no Chat Minecraft tool; no kill Chat 18789 / Reader 19001
+- Mineflayer Java gym = NON-PATH for Realms
