@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-05T05:46:33.7919832-06:00",
+  "generated_at": "2026-09-05T05:50:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 44,
-    "cpu_pct": 31,
+    "memory_pct": 43,
+    "cpu_pct": 5,
     "gpu": "RTX 3060",
-    "gpu_pct": 38
+    "gpu_pct": 42
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-04T05:50:14-06:00",
-        "estimated": false,
-        "ram": 43,
-        "cpu": 9,
-        "gpu": 28
-      },
       {
         "at": "2026-09-04T06:05:13-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 44,
         "cpu": 31,
         "gpu": 38
+      },
+      {
+        "at": "2026-09-05T05:50:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 5,
+        "gpu": 42
       }
     ],
     "ram": [
-      43,
       44,
       43,
       45,
@@ -798,10 +797,10 @@
       43,
       44,
       43,
-      44
+      44,
+      43
     ],
     "cpu": [
-      9,
       21,
       13,
       9,
@@ -896,10 +895,10 @@
       8,
       19,
       3,
-      31
+      31,
+      5
     ],
     "gpu": [
-      28,
       24,
       38,
       23,
@@ -994,11 +993,12 @@
       39,
       40,
       40,
-      38
+      38,
+      42
     ]
   },
   "weather": {
-    "summary": "Overnight 54 | Wind 7 to 10 mph | Mostly Clear"
+    "summary": "Overnight 54 | Wind 7 mph | Mostly Clear"
   },
   "capabilities": [
     {
@@ -1093,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 96,
-      "total": 97
+      "done": 95,
+      "total": 96
     }
   ],
   "roadmap": {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-05T05:35:13-06:00",
+      "at": "2026-09-05T05:50:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-05T05:46:33.7919832-06:00",
+    "last": "2026-09-05T05:50:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1412,7 +1412,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-05T05:46:33.7919832-06:00",
+    "generated_at": "2026-09-05T05:49:33.8152693-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
