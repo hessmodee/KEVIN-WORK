@@ -178,7 +178,11 @@ and continue correctly without Matt retelling the project.
 - NEG: docs/engineering/evals/NEG-minecraft-super-player-fake-potion-enchant-or-kill-pets-v1.json — no fake potion/enchant complete; no hessmodee; no kill Matt pets.
 - Never claim brew/enchant/animal-care done without tool proof. Never fake enchanted gear created. Identity **kevinsk8erkid** only.
 
-## Minecraft companion proactive/combat/build (2026-09-05 ~09:15 MT)
+## Minecraft companion proactive/combat/build (2026-09-05 ~09:45 MT)
 
-When Matt says companion / fight / guard / stay close / help fight / build with me / do not AFK: load docs/engineering/KEVIN-PLAYBOOK-minecraft-companion-proactive-combat-build-v1.md (+ SUPER PLAYER + play-with-Matt). READY = proactive friend + join kevinsk8erkid + combat/build coach; Near = stubs; Destination = stack PLAN. Never fake kills/builds; no PvP Matt; no grief; never hessmodee; no force Realms addons. NEG: docs/engineering/evals/NEG-minecraft-companion-fake-kills-builds-grief-or-pvp-matt-v1.json. PLAN: docs/engineering/PLAN-kevin-minecraft-highlevel-bot-stack-v1.md.
+When Matt says companion / fight / guard / stay close / help fight / build with me / do not AFK: load docs/engineering/KEVIN-PLAYBOOK-minecraft-companion-proactive-combat-build-v1.md (+ SUPER PLAYER + play-with-Matt). **Outstanding companion standing orders:** stay useful near Matt, offer help, don't AFK idle unless asked, hostile-only focus, never PvP hessmodee, rejoin.cmd stay when UI clear. READY = proactive friend + JOIN_OK kevinsk8erkid + combat/build coach; Near = scaffolds + stack-spike bridge inject; Destination = live GoalFollow/guard receipts. **IMPORT_OK** on spike; Realms join still NOT via createBot. Never fake kills/builds; no grief; never hessmodee bot login; no force Realms addons; never mutate JOIN_OK lockfile. NEG: docs/engineering/evals/NEG-minecraft-companion-fake-kills-builds-grief-or-pvp-matt-v1.json. PLAN: docs/engineering/PLAN-kevin-minecraft-highlevel-bot-stack-v1.md. Bridge: scratch/kevin-minecraft-stack-spike-v0/BRIDGE-DESIGN.md.
+
+## Minecraft high-level stack spike (2026-09-05 ~09:45 MT)
+
+Isolated spike `scratch/kevin-minecraft-stack-spike-v0`: bedrockflayer vendor **IMPORT_OK**. P1 bridge scaffolds `createBotFromClient` (inject JOIN_OK NetherNet client) — do not claim JOIN_COMPAT_OK / FOLLOW_OK / COMBAT_OK until live receipts. Prefer spike-only files; never mutate gym package-lock. If Minecraft.Windows blocks rejoin, wait for Matt to close UWP then rejoin.cmd stay.
 

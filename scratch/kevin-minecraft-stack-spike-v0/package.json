@@ -1,11 +1,12 @@
 {
   "name": "kevin-minecraft-stack-spike-v0",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
-  "description": "Isolated bedrockflayer spike. Do not touch JOIN_OK gym.",
-  "main": "smoke-require.js",
+  "description": "Isolated bedrockflayer spike + JOIN_OK client inject bridge. Do not touch JOIN_OK gym.",
+  "main": "bridge/index.js",
   "scripts": {
     "smoke": "node smoke-require.js",
+    "smoke:bridge": "node smoke-bridge.js",
     "install:vendor": "npm --prefix ./vendor/mineflayer-for-bedrock-main install --no-fund --no-audit --omit=dev"
   },
   "engines": {
