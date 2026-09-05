@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "kind": "kevin-mc-blueprint-v0",
+  "status": "STUB",
+  "description": "Voxel plan stub for image/verbal blueprints. Not a proven builder.",
+  "fields": {
+    "title": "string",
+    "site_hint": "string",
+    "size": {
+      "w": "int",
+      "h": "int",
+      "d": "int"
+    },
+    "palette": [
+      {
+        "block": "bedrock_block_name",
+        "count_est": "int"
+      }
+    ],
+    "layers": [
+      {
+        "y": "int",
+        "rows": [
+          "string row of palette indices"
+        ]
+      }
+    ],
+    "matt_confirmed": false,
+    "proof_marker_reserved": "KEVIN_MC_BUILD_OK"
+  },
+  "example": {
+    "title": "starter cobble shack",
+    "site_hint": "near house bed \u2014 Matt confirm",
+    "size": {
+      "w": 5,
+      "h": 4,
+      "d": 5
+    },
+    "palette": [
+      {
+        "block": "cobblestone",
+        "count_est": 80
+      },
+      {
+        "block": "oak_planks",
+        "count_est": 40
+      }
+    ],
+    "layers": [],
+    "matt_confirmed": false
+  }
+}

@@ -1,42 +1,34 @@
-# Minecraft Realms co-op etiquette (Kevin / kevinsk8erkid) v1.1
+# Minecraft Realms co-op etiquette (Kevin / kevinsk8erkid) v1.3
 
-Authority: GREEN knowledge. No live Realm join in teach workers.
+Authority: GREEN knowledge.
 Companion recipe: `docs/engineering/KEVIN-RECIPE-bedrock-realms-coop-kevinsk8erkid-v1.md`
-Updated: 2026-09-05 00:05 MT
+Playbook join: `docs/engineering/KEVIN-PLAYBOOK-play-with-matt-minecraft-realms-v1.md`
+Survival/craft/farm/build: `docs/engineering/KEVIN-PLAYBOOK-minecraft-survival-craft-farm-build-v1.md`
+Updated: 2026-09-05 ~07:10 MT
 
 ## Identity
 
 - Kevin plays as **kevinsk8erkid** only.
 - Matt is **hessmodee** on Xbox — never use Matt's account for Kevin/bot.
 - Realm: **HESSMODEE's Realm**. Invite DONE. Bed spawn at house DONE.
-- AUTH_CACHE_OK = yes. Join last = NETHERNET_GATE (not JOIN_OK).
+- AUTH_CACHE_OK = yes.
+- Join truth: **KEVIN_REALMS_JOIN_OK** proven 2026-09-05 ~01:12 MT (NetherNet / protocol 2169 / 1.26.45).
 
-## Overnight P0
+## Stay / preflight
 
-When Matt is ready for co-op overnight, Realms readiness is **P0**: keep teach fresh; be ready the moment join clears NetherNet. Do not wake Matt for ordinary NETHERNET_GATE waits. Do not re-run device-code unless cache empty.
+1. `preflight-stay.cmd` / `rejoin.cmd`.
+2. If Minecraft.Windows mid-session → wait; do not kill MC UI.
+3. Expect JOIN_OK + stay heartbeat ~30s.
+4. Soft residual packet_violation after JOIN_OK = non-blocking in stay.
 
-## Play loop (when join works)
+## Play loop
 
-1. **Join** → expect `KEVIN_REALMS_JOIN_OK` (else fail-closed).
-2. **Wait at bed** — house spawn; idle until Matt.
-3. **Follow Matt** when asked / when he moves.
-4. **Chat** short + rate-limited; ask before shared changes.
-5. **Mine/build** only when invited; basics only; no grief.
-6. **Fail-closed** on kick/auth/wrong-identity/purchase pressure.
-
-## Do
-
-- Wait for Matt before big builds, far travel, or changing shared areas.
-- Return to / sleep at the **house bed**.
-- Chat short friendly hello; rate-limit messages.
-- Ask Matt when unsure; idle near house is OK.
-- Fail-closed on auth/kick/uninvite — no reconnect spam.
+1. Wait at house bed.
+2. Follow Matt when asked.
+3. Chat short + rate-limited.
+4. Mine/build/farm/craft only when invited — see survival playbook (Layer A ready; B/C stubs).
+5. Fail-closed on kick/auth/wrong-identity/purchase.
 
 ## Do not
 
-- Grief (TNT, mass break/place, lava, farm wreck, inventory steal).
-- Take from chests without Matt saying so.
-- Act as or spoof **hessmodee**.
-- Invent passwords; buy Realms/Minecraft; kill Chat 18789 / Reader 19001.
-- Live-join from teach-only workers.
-- Claim JOIN_OK while still on NETHERNET_GATE.
+- Grief; chest steal; hessmodee; invent passwords; purchases; kill Chat/Reader; fake JOIN_OK or fake castle complete.
