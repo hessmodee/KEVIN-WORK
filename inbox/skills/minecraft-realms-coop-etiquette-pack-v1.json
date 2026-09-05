@@ -1,170 +1,235 @@
 {
-    "version":  "1",
-    "authority":  "GREEN",
-    "id":  "minecraft-realms-coop-etiquette-pack",
-    "schema":  1,
-    "name":  "Minecraft Realms Co-op Etiquette Pack",
-    "description":  "Creates a Realms co-op etiquette workbook and SOP for Kevin as kevinsk8erkid with Matt (hessmodee). Docs only — no live Realm join, no purchases, no credentials.",
-    "steps":  [
-                  {
-                      "operation":  "create_spreadsheet",
-                      "payload":  {
-                                      "workbook":  {
-                                                       "schema":  1,
-                                                       "sheets":  [
-                                                                      {
-                                                                          "name":  "Identity Lock",
-                                                                          "rows":  [
-                                                                                       [
-                                                                                           "Field",
-                                                                                           "Value",
-                                                                                           "Hard Rule"
-                                                                                       ],
-                                                                                       [
-                                                                                           "Kevin gamertag",
-                                                                                           "kevinsk8erkid",
-                                                                                           "Kevin owns play as this tag only"
-                                                                                       ],
-                                                                                       [
-                                                                                           "Matt Xbox",
-                                                                                           "hessmodee",
-                                                                                           "Never bot / never Kevin auth"
-                                                                                       ],
-                                                                                       [
-                                                                                           "Realm",
-                                                                                           "HESSMODEE Realm",
-                                                                                           "Invite existing; no new purchase"
-                                                                                       ],
-                                                                                       [
-                                                                                           "Bed spawn",
-                                                                                           "House bed",
-                                                                                           "Return home after death"
-                                                                                       ],
-                                                                                       [
-                                                                                           "Edition",
-                                                                                           "Bedrock",
-                                                                                           "Mineflayer Realms = NON-PATH"
-                                                                                       ]
-                                                                                   ]
-                                                                      },
-                                                                      {
-                                                                          "name":  "Do",
-                                                                          "rows":  [
-                                                                                       [
-                                                                                           "Priority",
-                                                                                           "Action",
-                                                                                           "Notes"
-                                                                                       ],
-                                                                                       [
-                                                                                           "P0",
-                                                                                           "Wait for Matt",
-                                                                                           "Before big builds / far explore"
-                                                                                       ],
-                                                                                       [
-                                                                                           "P0",
-                                                                                           "Use house bed spawn",
-                                                                                           "Do not move Matt bed"
-                                                                                       ],
-                                                                                       [
-                                                                                           "P1",
-                                                                                           "Short friendly chat",
-                                                                                           "Rate-limit; no spam"
-                                                                                       ],
-                                                                                       [
-                                                                                           "P1",
-                                                                                           "Ask when unsure",
-                                                                                           "Idle near house OK"
-                                                                                       ],
-                                                                                       [
-                                                                                           "P1",
-                                                                                           "Fail-closed on kick",
-                                                                                           "No reconnect loops"
-                                                                                       ]
-                                                                                   ]
-                                                                      },
-                                                                      {
-                                                                          "name":  "Do Not",
-                                                                          "rows":  [
-                                                                                       [
-                                                                                           "Priority",
-                                                                                           "Forbidden",
-                                                                                           "Why"
-                                                                                       ],
-                                                                                       [
-                                                                                           "P0",
-                                                                                           "Act as hessmodee",
-                                                                                           "Matt identity only"
-                                                                                       ],
-                                                                                       [
-                                                                                           "P0",
-                                                                                           "Grief / TNT / mass break",
-                                                                                           "Co-op trust"
-                                                                                       ],
-                                                                                       [
-                                                                                           "P0",
-                                                                                           "Steal chests / inventory",
-                                                                                           "Ask Matt first"
-                                                                                       ],
-                                                                                       [
-                                                                                           "P0",
-                                                                                           "Invent passwords",
-                                                                                           "Owner device-code only"
-                                                                                       ],
-                                                                                       [
-                                                                                           "P0",
-                                                                                           "Purchase Realms/MC",
-                                                                                           "RED reserved"
-                                                                                       ],
-                                                                                       [
-                                                                                           "P1",
-                                                                                           "Kill Chat/Reader",
-                                                                                           "Ports 18789/19001"
-                                                                                       ]
-                                                                                   ]
-                                                                      },
-                                                                      {
-                                                                          "name":  "Fail Closed",
-                                                                          "rows":  [
-                                                                                       [
-                                                                                           "Signal",
-                                                                                           "Action",
-                                                                                           "Receipt"
-                                                                                       ],
-                                                                                       [
-                                                                                           "Auth fail / timeout",
-                                                                                           "Stop; no retry-spam",
-                                                                                           "Sanitized; no secrets"
-                                                                                       ],
-                                                                                       [
-                                                                                           "Kick / uninvite",
-                                                                                           "Hard stop",
-                                                                                           "Do not reconnect loop"
-                                                                                       ],
-                                                                                       [
-                                                                                           "NetherNet / transport error",
-                                                                                           "Abort join claim",
-                                                                                           "Document gate"
-                                                                                       ],
-                                                                                       [
-                                                                                           "Wrong identity risk",
-                                                                                           "Abort immediately",
-                                                                                           "Never hessmodee"
-                                                                                       ]
-                                                                                   ]
-                                                                      }
-                                                                  ],
-                                                       "kind":  "kevin-xlsx-spec"
-                                                   },
-                                      "filename":  "Kevin Minecraft Realms Co-op Etiquette.xlsx"
-                                  }
-                  },
-                  {
-                      "operation":  "create_text",
-                      "payload":  {
-                                      "content":  "# Kevin Minecraft Realms Co-op Etiquette SOP\n\nPlay as **kevinsk8erkid** only on **HESSMODEE\u0027s Realm**. Matt is **hessmodee** on Xbox. Bed at house. Wait for Matt. No grief.\n\n## Fail-closed\nAuth fail, kick, uninvite, wrong identity, or transport error = stop. No invent passwords. No purchases. Do not kill Chat 18789 / Reader 19001.\n\n## Pointers\n- Recipe: docs/engineering/KEVIN-RECIPE-bedrock-realms-coop-kevinsk8erkid-v1.md\n- PLAN: docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md\n- Knowledge: docs/engineering/KEVIN-KNOWLEDGE-minecraft-realms-coop-etiquette-v1.md\n\nLive join/auth is owned by the other worker — this pack is teach/docs only.",
-                                      "filename":  "Kevin Minecraft Realms Co-op Etiquette SOP.md"
-                                  }
-                  }
-              ],
-    "kind":  "kevin-composite-skill"
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "minecraft-realms-coop-etiquette-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Minecraft Realms Co-op Etiquette Pack",
+  "description": "Creates a Realms co-op etiquette workbook and SOP for Kevin as kevinsk8erkid with Matt (hessmodee): identity, wait-at-bed, follow, chat, mine/build basics, fail-closed. Docs only \u2014 no live Realm join, no purchases, no credentials.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin Minecraft Realms Co-op Etiquette.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Identity Lock",
+              "rows": [
+                [
+                  "Field",
+                  "Value",
+                  "Hard Rule"
+                ],
+                [
+                  "Kevin gamertag",
+                  "kevinsk8erkid",
+                  "Kevin owns play as this tag only"
+                ],
+                [
+                  "Matt Xbox",
+                  "hessmodee",
+                  "Never bot / never Kevin auth"
+                ],
+                [
+                  "Realm",
+                  "HESSMODEE Realm",
+                  "Invite existing; no new purchase"
+                ],
+                [
+                  "Bed spawn",
+                  "House bed",
+                  "Return home after death / wait here"
+                ],
+                [
+                  "Edition",
+                  "Bedrock",
+                  "Mineflayer Realms = NON-PATH"
+                ],
+                [
+                  "Auth",
+                  "AUTH_CACHE_OK",
+                  "Do not re-device-code unless cache empty"
+                ],
+                [
+                  "Join residual",
+                  "NETHERNET_GATE",
+                  "Not JOIN_OK until library clears"
+                ]
+              ]
+            },
+            {
+              "name": "Play Loop",
+              "rows": [
+                [
+                  "Step",
+                  "Action",
+                  "Marker / Notes"
+                ],
+                [
+                  "1 Join",
+                  "realms-join when gate clear",
+                  "KEVIN_REALMS_JOIN_OK or fail-closed"
+                ],
+                [
+                  "2 Wait at bed",
+                  "Idle house bed / front",
+                  "Spawn DONE; do not move Matt bed"
+                ],
+                [
+                  "3 Follow Matt",
+                  "Stay with hessmodee",
+                  "AFK -> return house"
+                ],
+                [
+                  "4 Chat",
+                  "Short hello; rate-limit",
+                  "Ask before shared changes"
+                ],
+                [
+                  "5 Mine/build",
+                  "Only when invited",
+                  "Basics; no grief; agreed areas"
+                ],
+                [
+                  "6 Fail-closed",
+                  "Kick/auth/gate/wrong-id",
+                  "No reconnect loops; no secrets"
+                ]
+              ]
+            },
+            {
+              "name": "Do",
+              "rows": [
+                [
+                  "Priority",
+                  "Action",
+                  "Notes"
+                ],
+                [
+                  "P0",
+                  "Wait for Matt",
+                  "Before big builds / far explore"
+                ],
+                [
+                  "P0",
+                  "Use house bed spawn",
+                  "Do not move Matt bed"
+                ],
+                [
+                  "P0",
+                  "Follow when asked",
+                  "Safe distance; no terrain grief"
+                ],
+                [
+                  "P1",
+                  "Short friendly chat",
+                  "Rate-limit; no spam"
+                ],
+                [
+                  "P1",
+                  "Ask when unsure",
+                  "Idle near house OK"
+                ],
+                [
+                  "P1",
+                  "Fail-closed on kick",
+                  "No reconnect loops"
+                ]
+              ]
+            },
+            {
+              "name": "Do Not",
+              "rows": [
+                [
+                  "Priority",
+                  "Forbidden",
+                  "Why"
+                ],
+                [
+                  "P0",
+                  "Act as hessmodee",
+                  "Matt identity only"
+                ],
+                [
+                  "P0",
+                  "Grief / TNT / mass break",
+                  "Co-op trust"
+                ],
+                [
+                  "P0",
+                  "Steal chests / inventory",
+                  "Ask Matt first"
+                ],
+                [
+                  "P0",
+                  "Invent passwords",
+                  "Owner device-code only"
+                ],
+                [
+                  "P0",
+                  "Purchase Realms/MC",
+                  "RED reserved"
+                ],
+                [
+                  "P1",
+                  "Kill Chat/Reader",
+                  "Ports 18789/19001"
+                ],
+                [
+                  "P1",
+                  "Claim JOIN_OK on NETHERNET_GATE",
+                  "Honesty"
+                ]
+              ]
+            },
+            {
+              "name": "Fail Closed",
+              "rows": [
+                [
+                  "Signal",
+                  "Action",
+                  "Receipt"
+                ],
+                [
+                  "Auth fail / empty cache",
+                  "Stop; owner device-code",
+                  "Sanitized; no secrets"
+                ],
+                [
+                  "NETHERNET_GATE / timeout",
+                  "Document; cool retries",
+                  "Not JOIN_OK"
+                ],
+                [
+                  "Kick / uninvite",
+                  "Hard stop",
+                  "Do not reconnect loop"
+                ],
+                [
+                  "Wrong identity risk",
+                  "Abort immediately",
+                  "Never hessmodee"
+                ],
+                [
+                  "Purchase prompt",
+                  "Refuse",
+                  "RED reserved"
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Minecraft Realms Co-op Etiquette SOP.md",
+        "content": "# Kevin Minecraft Realms Co-op Etiquette SOP\n\nPlay as **kevinsk8erkid** only on **HESSMODEE's Realm**. Matt is **hessmodee** on Xbox. House bed spawn. Overnight P0 = Realms readiness.\n\n## Play loop\nJoin (when NetherNet clear) -> wait at bed -> follow Matt -> short chat -> mine/build only when invited -> fail-closed on kick/auth/gate.\n\n## Fail-closed\nAuth fail, NETHERNET_GATE, kick, uninvite, wrong identity, or purchase prompt = stop. No invent passwords. No purchases. Do not kill Chat 18789 / Reader 19001. Do not claim JOIN_OK while gated.\n\n## Pointers\n- Recipe: docs/engineering/KEVIN-RECIPE-bedrock-realms-coop-kevinsk8erkid-v1.md\n- PLAN: docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md\n- Knowledge: docs/engineering/KEVIN-KNOWLEDGE-minecraft-realms-coop-etiquette-v1.md\n- Eval: docs/engineering/evals/EVAL-minecraft-realms-coop-etiquette-failclosed-v1.json\n\nTeach/docs pack only \u2014 live join owned by join worker when gate clears."
+      }
+    }
+  ]
 }

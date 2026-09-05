@@ -1,89 +1,112 @@
-﻿# KEVIN RECIPE - Bedrock Realms co-op as kevinsk8erkid v1
+# KEVIN RECIPE - Bedrock Realms co-op as kevinsk8erkid v1.1 (deepen teach)
 
-Authority: UNDYING GREEN+YELLOW teach/docs. **No live Realm join in this recipe run.**
+Authority: UNDYING GREEN+YELLOW teach/docs. **No live Realm join in this teach worker.**
 Companion PLAN: `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md`
 Edition: **Bedrock LOCKED**. Mineflayer Realms = **NON-PATH** (Java gym only).
 Auth card: `docs/engineering/OWNER-UNDYING-GREEN-YELLOW-AUTH-2026-09-04.md`
 Teach-and-transfer: `docs/engineering/KEVIN-TEACH-AND-TRANSFER-RULE-v1.md`
+Updated: 2026-09-05 00:05 MT
 
 ## Goal
 
-Kevin plays Bedrock Realms **with Matt** as Kevin's own gamertag **kevinsk8erkid** on **HESSMODEE's Realm**, beds at the house spawn, waits for Matt, and never griefs. Fun coworker — not Matt's account, not a grief bot.
+Kevin plays Bedrock Realms **with Matt** as **kevinsk8erkid** on **HESSMODEE's Realm**, beds at the house spawn, waits for / follows Matt, chats friendly, does basic mine/build only when invited, and **fail-closes** on auth/kick/NetherNet. Fun coworker — not Matt's account, not a grief bot.
 
 ## Identity table (hard)
 
 | Role | Gamertag / surface | Rule |
 | --- | --- | --- |
-| **Kevin play identity** | **kevinsk8erkid** (Kevin MS / Xbox on Omen) | Kevin owns play as this tag only |
-| **Matt** | **hessmodee** on **Xbox** | Co-op partner; Realm host/member surface |
-| **Realm** | **HESSMODEE's Realm** (Electric Boogaloo 2 / Hall of Heroes / Realm Hub) | Prefer invite to existing Realm |
-| **Spawn** | **Bed at the house** | After join, return to / sleep at house bed; treat as home base |
+| **Kevin play identity** | **kevinsk8erkid** | Kevin owns play as this tag only |
+| **Matt** | **hessmodee** on **Xbox** | Co-op partner / Realm owner surface |
+| **Realm** | **HESSMODEE's Realm** | Invite existing; no new purchase |
+| **Spawn** | **Bed at the house** | After join / death: house bed is home |
 
-**NEVER** authenticate, join, chat, or act as **hessmodee**. That identity is Matt's Xbox only.
+**NEVER** authenticate, join, chat, or act as **hessmodee**.
 
-## Join / auth / fail-closed (design — other worker owns live join)
+## Current truth (2026-09-05 00:05 MT)
 
-Live join/auth is **out of scope for this worker**. Other worker handles join/auth when ready.
+| Token | Value |
+| --- | --- |
+| Invite | DONE |
+| House bed spawn | DONE |
+| AUTH_CACHE_OK | **yes** (do not re-run device-code unless cache empty) |
+| KEVIN_REALMS_JOIN_OK | **no** — last result **NETHERNET_GATE** / REALMS_JOIN_TIMEOUT |
+| Overnight priority | **Realms co-op readiness = P0** (teach + be ready when join clears) |
 
-### Preconditions (all required before any live attempt elsewhere)
+Receipt: `reports/engineering/RECEIPT-minecraft-bedrock-auth-join-nethernet-20260904-2352.md`
 
-1. Edition = Bedrock (LOCKED).
-2. Kevin MS account exists on Omen with Bedrock ownership matching Realm.
-3. Gamertag **kevinsk8erkid** invited to HESSMODEE's Realm — **DONE** (owner invite).
-4. Device-code / Kevin-local secret store ready — **no invent passwords**; secrets never in git, MEMORY, HQ, receipts, chat.
-5. Matt window agreed (Matt online as hessmodee, or explicit async OK).
+## Recipe A — Join Realm (fail-closed)
 
-### Fail-closed (abort; do not retry-spam)
+Live join is owned by the join worker / Matt window. Teach lane does **not** live-join.
 
-- Auth failure / device-code timeout / token missing
-- Invite missing / kicked / uninvited (Matt kick = **hard stop**; no reconnect loops)
-- NetherNet / signalling / transport unknown or error
-- Wrong identity (anything that would act as hessmodee)
-- Network errors without clear recovery
-- Any prompt to invent, buy, or paste passwords into repo/docs
+1. Preconditions: Bedrock LOCKED; gamertag kevinsk8erkid; invite DONE; AUTH_CACHE_OK; Matt online or explicit async OK.
+2. From `scratch/kevin-minecraft-bedrock-v0`: `node scripts/realms-join.js`
+3. Success marker: **`KEVIN_REALMS_JOIN_OK`** (then proceed Recipe B).
+4. Known non-success: **`NETHERNET_GATE`** / timeout → document; do **not** invent credentials or hessmodee fallback; do **not** spam retries.
+5. Missing token → READY_FOR_OWNER_DEVICE_CODE (owner only; microsoft.com/link as kevinsk8erkid).
+6. Kick / uninvite → **hard stop**; no reconnect loops.
 
-On fail: stop, record sanitized receipt (no secrets), leave Chat 18789 / Reader 19001 up, advance another authorized lane.
+Stack: `bedrock-protocol` + `prismarine-auth`. Mineflayer = NON-PATH for Realms.
 
-### Stack (Bedrock path; not Mineflayer)
+## Recipe B — Wait at bed (house spawn)
 
-- Candidate: `bedrock-protocol` + `prismarine-auth` (device-code; Kevin-local token cache).
-- Local gym first: `scratch/kevin-minecraft-bedrock-v0` → marker `KEVIN_MC_BEDROCK_V0_OK` (localhost/BDS; no MS login).
-- Live marker later (other worker): `KEVIN_REALMS_COOP_OK`.
-- Mineflayer + flying-squid remains **Java side gym only** (`KEVIN_MC_V0_OK`) — does not prove Bedrock/Realms.
+On / after join success (or when already in-world):
 
-## Spawn / bed / house etiquette
+1. Locate **house bed** (Matt's house / agreed bed). Spawn already set at house (**DONE**).
+2. Idle near bed / front of house until Matt is present or gives a chat cue.
+3. Do **not** move, break, or reclaim Matt's bed.
+4. If lost: short chat to Matt ("hey at house?") then path home — no random tunnel through builds.
+5. Marker mindset: **wait-at-bed ready** before any mine/build.
 
-1. After successful spawn in Realm: locate **house bed** (Matt's house / agreed bed).
-2. Prefer sleeping / setting spawn at that bed so death returns home — **bed spawn at house** (**DONE** per owner).
-3. Do not move Matt's bed, break the bed, or reclaim another player's bed without Matt asking.
-4. If lost: chat a short hello to Matt, path home; do not dig random tunnels through builds.
+## Recipe C — Follow Matt
 
-## Co-op etiquette (standing)
+1. When Matt (hessmodee) is visible / chats "follow" / starts moving: stay within safe follow distance.
+2. Prefer walking paths Matt uses; do not break terrain just to shortcut through builds.
+3. If Matt AFK: return to house bed idle (Recipe B).
+4. If Matt kicks or says stop: stop immediately (fail-closed).
 
-- **Wait for Matt** before big projects, exploring far, or changing shared builds.
-- Chat friendly; rate-limit messages; no spam.
-- No grief: no TNT spam, no mass break/place, no inventory steal, no lava grief, no farm wreck.
-- Do not take items from chests unless Matt says so.
-- Build only in agreed areas; leave Matt's redstone/farms alone unless asked.
-- If unsure: ask Matt in chat or idle near house.
-- Matt can kick anytime — treat as hard stop.
+## Recipe D — Chat etiquette
+
+1. On join / ready: one short friendly hello as kevinsk8erkid (e.g. "hey matt — ready at house").
+2. Rate-limit; no spam, no ALL CAPS floods, no command spam.
+3. Ask before taking from chests, changing redstone, or building on shared plots.
+4. Never impersonate hessmodee in chat or signs.
+
+## Recipe E — Mine / build basics (invited only)
+
+1. Default = **idle / follow / wait**. Mining/building only after Matt asks or agrees.
+2. Mine only in agreed areas; leave farms, redstone, storage, and decorative builds alone.
+3. Place blocks only in agreed plots; no lava/water grief; no TNT.
+4. Do not empty chests or hoppers. If inventory full: ask Matt or deposit only where he points.
+5. Death: respawn at house bed → reunite with Matt.
+
+## Recipe F — Fail-closed matrix
+
+| Signal | Action | Do not |
+| --- | --- | --- |
+| No token / auth fail | Stop; READY_FOR_OWNER_DEVICE_CODE | Invent password; use hessmodee |
+| NETHERNET_GATE / timeout | Document; cool retries | Claim KEVIN_REALMS_JOIN_OK |
+| Kick / uninvite | Hard stop | Reconnect loops |
+| Wrong identity risk | Abort | Continue as hessmodee |
+| Purchase / marketplace prompt | Refuse | Buy anything |
+| Urge to kill Chat/Reader | Refuse | Touch ports 18789 / 19001 |
+
+On fail: sanitized receipt (no secrets); leave Chat/Reader up; advance another authorized lane.
+
+## Markers
+
+- `KEVIN_REALMS_JOIN_OK` — in Realm
+- `KEVIN_REALMS_COOP_OK` — joined + etiquette loop observed (wait/follow/chat; no grief)
+- Teach-only workers never claim live join success
 
 ## Hard no
 
-- No live Realm join in **this** worker / this recipe apply
-- No invent Microsoft / Xbox passwords
-- No purchases (Minecraft, Realms, marketplace)
+- No live Realm join in **this** teach worker
+- No invent passwords; no secrets in git/MEMORY/HQ/receipts
+- No purchases; no hessmodee bot auth
 - Do not kill Chat 18789 / Reader 19001
-- Do not use or spoof **hessmodee**
-- No GROK-HANDOVER (canonical `AI-HANDOVER.md` only)
+- No GROK-HANDOVER (`AI-HANDOVER.md` only)
 - No Chat Minecraft tool until typed crossing exists
-- No secrets in MEMORY / PLAN / receipts / git
-
-## Tonight max (2026-09-04)
-
-Teach-and-transfer only: this recipe + PLAN gamertag lock + SOUL/AGENTS/MEMORY pointers + optional etiquette knowledge/GREEN stub. Live join = other worker.
 
 ## Cold-start pointer
 
-Kevin next wake: play identity **kevinsk8erkid**; Matt **hessmodee** on Xbox; Realm HESSMODEE's; bed at house; wait for Matt; no grief; Bedrock stack / fail-closed; never hessmodee.
-
+Overnight **P0 = Realms**: AUTH_CACHE_OK; join blocked NETHERNET_GATE until library clears; when join works be ready — house bed → wait → follow Matt → chat → invited mine/build → fail-closed. Identity **kevinsk8erkid** only.
