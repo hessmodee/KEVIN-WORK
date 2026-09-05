@@ -1,0 +1,47 @@
+﻿{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "kevin_ui_tools.v0.schema.json",
+  "title": "Kevin Desktop UI typed tools v0 (Calculator catalog only)",
+  "description": "Candidate schemas for kevin_ui_focus_app / kevin_ui_click / kevin_ui_type. additionalProperties false. Not live.",
+  "oneOf": [
+    {
+      "title": "kevin_ui_focus_app",
+      "type": "object",
+      "properties": {
+        "tool": { "const": "kevin_ui_focus_app" },
+        "app": { "type": "string", "enum": ["calculator"] }
+      },
+      "required": ["tool", "app"],
+      "additionalProperties": false
+    },
+    {
+      "title": "kevin_ui_click",
+      "type": "object",
+      "properties": {
+        "tool": { "const": "kevin_ui_click" },
+        "app": { "type": "string", "enum": ["calculator"] },
+        "control_id": {
+          "type": "string",
+          "enum": [
+            "digit_0", "digit_1", "digit_2", "digit_3", "digit_4",
+            "digit_5", "digit_6", "digit_7", "digit_8", "digit_9",
+            "op_add", "op_sub", "op_mul", "op_div", "op_eq", "clear"
+          ]
+        }
+      },
+      "required": ["tool", "app", "control_id"],
+      "additionalProperties": false
+    },
+    {
+      "title": "kevin_ui_type",
+      "type": "object",
+      "properties": {
+        "tool": { "const": "kevin_ui_type" },
+        "app": { "type": "string", "enum": ["calculator"] },
+        "text": { "type": "string", "minLength": 1, "maxLength": 64 }
+      },
+      "required": ["tool", "app", "text"],
+      "additionalProperties": false
+    }
+  ]
+}
