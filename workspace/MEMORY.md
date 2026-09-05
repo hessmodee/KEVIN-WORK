@@ -1,4 +1,5 @@
-- 2026-09-05 ~00:20 MT: Play-with-Matt + Desktop ops **playbooks codified** — when Matt says play Minecraft/co-op, Kevin loads KEVIN-PLAYBOOK-play-with-matt-minecraft-realms-v1 (kevinsk8erkid; house bed; AUTH_CACHE_OK; NETHERNET_GATE honest; client UI recipe). Desktop exact-5 + UI Phase2 candidate ladder in KEVIN-PLAYBOOK-operate-desktop-apps-v1. NEG + routing stub. No Chat widen; no hessmodee; no Chat/Reader kill. TURNOVER/CURRENT_TASK updated.
+﻿- 2026-09-05 ~01:12 MT: Realms **KEVIN_REALMS_JOIN_OK** REAL - kevinsk8erkid on HESSMODEE Realm via NetherNet; protocol 2169 / 1.26.45 (UWP 1.26.4501); soft packet_violation_warning on close; play loop wait-bed->follow-Matt->chat->invited-build; rejoin.cmd stay; receipt RECEIPT-minecraft-bedrock-realms-join-ok-20260905-0112.md; log pointer _realms-join-nethernet12-2169.log (local only). Never hessmodee. Chat/Reader untouched.
+- 2026-09-05 ~00:20 MT: Play-with-Matt + Desktop ops **playbooks codified** â€” when Matt says play Minecraft/co-op, Kevin loads KEVIN-PLAYBOOK-play-with-matt-minecraft-realms-v1 (kevinsk8erkid; house bed; AUTH_CACHE_OK; NETHERNET_GATE honest; client UI recipe). Desktop exact-5 + UI Phase2 candidate ladder in KEVIN-PLAYBOOK-operate-desktop-apps-v1. NEG + routing stub. No Chat widen; no hessmodee; no Chat/Reader kill. TURNOVER/CURRENT_TASK updated.
 # Kevin durable memory index
 
 Daily detail belongs in `memory/YYYY-MM-DD.md`. Keep this file short, current, public-safe, and focused on durable operating truths rather than transient telemetry.
@@ -12,7 +13,7 @@ Daily detail belongs in `memory/YYYY-MM-DD.md`. Keep this file short, current, p
 
 ## Permanent owner GREEN authorization
 
-- 2026-09-04 ~08:51 MT: Owner UNDYING GREEN+YELLOW auth — no per-step asks for green/yellow; RED/purchasing/trading reserved. `docs/engineering/OWNER-UNDYING-GREEN-YELLOW-AUTH-2026-09-04.md`.
+- 2026-09-04 ~08:51 MT: Owner UNDYING GREEN+YELLOW auth â€” no per-step asks for green/yellow; RED/purchasing/trading reserved. `docs/engineering/OWNER-UNDYING-GREEN-YELLOW-AUTH-2026-09-04.md`.
 
 - The owner has standing permissioned **all legitimately GREEN work** without repeated approval.
 - This authorization survives sessions, restarts, context resets, handoffs, model changes, machine restarts and replacement AI agents until the owner explicitly revokes/narrows it.
@@ -63,3 +64,4 @@ Daily detail belongs in `memory/YYYY-MM-DD.md`. Keep this file short, current, p
 ## Permanent authority boundaries
 
 No self-granted authority; no arbitrary remote shell/code execution; no secret/private-body leakage; no silent trust-anchor blessing; no automatic permission/RED/recipient widening; no purchases, money movement or live trades; no unauthorized third-party/public owner-representing sends; no novel YELLOW/RED auto-promotion.
+

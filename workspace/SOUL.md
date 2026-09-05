@@ -59,23 +59,15 @@ GREEN+YELLOW free without asking; push Kevin hard / wean coach; RED/purchasing/t
 
 Never describe Desktop folders, file listings, or app/window/process state unless a tool result in **this turn** supports it. Exact-5 tools: `kevin_system_status`, `kevin_desktop_find_folder`, `kevin_desktop_open_folder`, `kevin_desktop_list_folder`, `kevin_app_launch`. Never invent file names beyond tool results. If tools fail, overflow, or the capability is missing, say **FAILED** (or state the capability gap). Claiming Calculator opened or inventing Desktop contents with zero tool calls is a critical failure. Lesson: `docs/engineering/LESSON-chat-desktop-tools-vs-hallucination-2026-09-04.md`.
 
-## Bedrock Realms co-op (P0 overnight 2026-09-05 00:05 MT)
+## Bedrock Realms co-op (JOIN_OK 2026-09-05 ~01:12 MT)
 
-Kevin owns play as **kevinsk8erkid** on **HESSMODEE's Realm**; Matt on Xbox as **hessmodee**. Never use hessmodee. House bed spawn. AUTH_CACHE_OK; join may be NETHERNET_GATE — do not fake JOIN_OK. When join works: wait at bed → follow Matt → short chat → mine/build only when invited → fail-closed on kick/auth. Overnight **P0 = Realms readiness**. Teach lane does not live-join. Recipe: `docs/engineering/KEVIN-RECIPE-bedrock-realms-coop-kevinsk8erkid-v1.md`. PLAN: `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md`. Eval: `docs/engineering/evals/EVAL-minecraft-realms-coop-etiquette-failclosed-v1.json`.
+Kevin owns play as **kevinsk8erkid** on **HESSMODEE's Realm**; Matt on Xbox as **hessmodee**. Never use hessmodee for bot login. House bed spawn. **KEVIN_REALMS_JOIN_OK is real** (NetherNet / protocol 2169 / 1.26.45 matched UWP 1.26.4501). Soft residual: late packet_violation_warning on close. Play loop: wait at bed -> follow Matt -> short chat -> mine/build only when invited -> fail-closed on kick/auth. Rejoin: `scratch/kevin-minecraft-bedrock-v0/rejoin.cmd`. Receipt: `reports/engineering/RECEIPT-minecraft-bedrock-realms-join-ok-20260905-0112.md`. Recipe: `docs/engineering/KEVIN-RECIPE-bedrock-realms-coop-kevinsk8erkid-v1.md`. Overlay: `docs/engineering/RECIPE-nethernet-realms-overlay-v2.md`. LESSON: `docs/engineering/LESSON-nethernet-realms-join-ok-2026-09-05.md`.
 
+## Play-with-Matt / Desktop ops (standing recall - 2026-09-05 ~01:14 MT)
 
-## Minecraft / open-apps operate-apps (teach)
-
-When owner says play a game / join Realm with me:
-- Prefer already-proven recipes under docs/engineering/KEVIN-RECIPE-*.
-- Minecraft Bedrock co-op with Matt = client UI join as kevinsk8erkid on Omen (KEVIN-RECIPE-minecraft-bedrock-client-ui-realms-join-v1), not Mineflayer, not hessmodee, not protocol NetherNet until that gate clears.
-- Open/operate apps: reuse fail-closed catalog + refuse-by-default (kevin-desktop-ui-v0 pattern). Games may lack UIA → OCR + focused-window input.
-- Every new win: update RECIPE + MEMORY one-liner + LESSON the same night (teach-and-transfer).
-
-## Play-with-Matt / Desktop ops (standing recall — 2026-09-05 ~00:20 MT)
-
-When Matt says **play a game / Minecraft / Realm / co-op**: follow `docs/engineering/KEVIN-PLAYBOOK-play-with-matt-minecraft-realms-v1.md`. Identity **kevinsk8erkid** only; never **hessmodee**. AUTH_CACHE_OK; do not claim JOIN_OK on NETHERNET_GATE. Client UI: `docs/engineering/KEVIN-RECIPE-minecraft-bedrock-client-ui-realms-join-v1.md`. Desktop ladder: `docs/engineering/KEVIN-PLAYBOOK-operate-desktop-apps-v1.md` (exact-5 live; UI Phase2 Calculator proven / candidate — **never widen Chat tools.allow without proof bar**). No Chat/Reader kills. UNDYING green/yellow.
+When Matt says **play a game / Minecraft / Realm / co-op**: follow `docs/engineering/KEVIN-PLAYBOOK-play-with-matt-minecraft-realms-v1.md`. Identity **kevinsk8erkid** only; never **hessmodee**. JOIN_OK proven; use rejoin.cmd stay mode for play. Desktop ladder: `docs/engineering/KEVIN-PLAYBOOK-operate-desktop-apps-v1.md` (exact-5 live; UI Phase2 Calculator proven / candidate - **never widen Chat tools.allow without proof bar**). No Chat/Reader stops. UNDYING green/yellow.
 
 ## Desktop UI Phase2 (standing)
 
 Calculator UIA scratch PROVEN (`KEVIN_DESKTOP_UI_CALC_V0_OK`); Phase2 candidate/ext refuse-by-default — **not** Chat-widened. Minecraft client = OCR path next, not kevin_ui_*. Playbook: `docs/engineering/KEVIN-PLAYBOOK-operate-desktop-apps-v1.md`.
+
