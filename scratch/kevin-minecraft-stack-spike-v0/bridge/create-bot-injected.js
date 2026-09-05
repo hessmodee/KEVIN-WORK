@@ -1,12 +1,11 @@
-"use strict";
+﻿"use strict";
 /**
- * Inject an already-created bedrock-protocol client (e.g. JOIN_OK NetherNet Realms)
- * into bedrockflayer createBot WITHOUT calling host/port createClient.
+ * Inject an already-created bedrock-protocol client (JOIN_OK NetherNet Realms,
+ * protocol 2169 / 1.26.45) into bedrockflayer createBot WITHOUT host/port createClient.
  *
  * Does NOT mutate JOIN_OK package-lock. Vendor is spike-local only.
- * Live join-compat NOT proven until spawn+plugins wired on Realms client.
+ * Live join-compat NOT proven until spawn+plugins wired on Realms client with receipts.
  */
-const path = require("path");
 const { VENDOR_MAIN, assertBotIdentity, KEVIN_TAG } = require("./paths");
 
 function loadVendor() {
@@ -19,7 +18,7 @@ function loadVendor() {
 }
 
 /**
- * @param {object} client - bedrock-protocol client from JOIN_OK realms-join
+ * @param {object} client - bedrock-protocol client from JOIN_OK realms-join / createJoinOkClient
  * @param {object} [options]
  * @returns {object} BedrockBot
  */
@@ -27,7 +26,6 @@ function createBotFromClient(client, options = {}) {
   if (!client) throw new Error("INJECT_CLIENT_REQUIRED");
   const username = assertBotIdentity(options.username || KEVIN_TAG);
   const vendor = loadVendor();
-  // Resolve bedrock-protocol the same way vendor does (from vendor node_modules)
   const bedrock = require(require.resolve("bedrock-protocol", { paths: [VENDOR_MAIN] }));
   const origCreateClient = bedrock.createClient;
   let restored = false;
@@ -60,7 +58,6 @@ function createBotFromClient(client, options = {}) {
     restore();
   }
 
-  // Late-bind: JOIN_OK client may already be past join/spawn when injected.
   const alreadySpawned = !!(options.alreadySpawned || client.entity || client.startGameData);
   if (alreadySpawned) {
     process.nextTick(() => {
@@ -78,22 +75,40 @@ function createBotFromClient(client, options = {}) {
 
   bot._kevinInjected = true;
   bot._kevinBridge = "createBotFromClient";
+  bot._kevinClient = client;
   return bot;
 }
 
 /**
- * Optional: load guard plugin + Matt whitelist defaults (hostile-only).
- * Does not enable guard. Not live-proven.
+ * Convenience: live JOIN_OK createClient (gym NetherNet) then inject.
+ * Requires KEVIN_SPIKE_ALLOW_LIVE_JOIN=1. Does not wait for spawn — caller should.
+ */
+function createBotFromJoinOkClient(overrides = {}, botOptions = {}) {
+  const { createJoinOkClient } = require("./join-ok-client-factory");
+  const client = createJoinOkClient(overrides);
+  return { client, bot: createBotFromClient(client, botOptions) };
+}
+
+/**
+ * Optional: load guard + autoEat plugins + Matt whitelist defaults (hostile-only).
+ * Does not enable guard/autoEat unless opts say so. Not live-proven.
  */
 function attachCompanionDefaults(bot, opts = {}) {
   const vendor = loadVendor();
   if (!bot.guard && vendor.guard) {
     bot.loadPlugin(vendor.guard);
   }
+  if (!bot.autoEat && vendor.autoEat && opts.loadAutoEat === true) {
+    try {
+      bot.loadPlugin(vendor.autoEat);
+    } catch (e) {
+      // soft — autoEat optional
+    }
+  }
   if (bot.guard && bot.guard.options) {
     bot.guard.options.targetPlayers = false;
     const wl = new Set([...(bot.guard.options.whitelist || []), "hessmodee", "HESSMODEE"]);
-    if (opts.extraWhitelist) opts.extraWhitelist.forEach((n) => wl.add(n));
+    if (opts.extraWhitelist) opts.extraWhitelist.forEach((n) => wl.add(String(n)));
     bot.guard.options.whitelist = Array.from(wl);
   }
   return bot;
@@ -101,6 +116,8 @@ function attachCompanionDefaults(bot, opts = {}) {
 
 module.exports = {
   createBotFromClient,
+  createBotFromJoinOkClient,
   attachCompanionDefaults,
   loadVendor,
 };
+
