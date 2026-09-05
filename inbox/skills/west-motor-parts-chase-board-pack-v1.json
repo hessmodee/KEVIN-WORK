@@ -1,0 +1,65 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "west-motor-parts-chase-board-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "West Motor Parts Chase Board Pack",
+  "description": "Creates a five-sheet parts chase board plus SOP so West Motor can track special-order and missing parts that hold recon or aged units, without inventing vendors, prices, purchases, live DMS writes, or public posting.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin West Motor Parts Chase Board.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Parts Board",
+              "rows": [
+                ["Stock", "Year Make Model", "Part Need", "Part Number", "Qty", "Urgency", "Blocks", "Owner", "Status", "Notes"],
+                ["", "", "", "", "1", "TODAY / THIS WEEK / WHENABLE", "RECON / AGED / DELIVERY / NONE", "", "OPEN / ORDERED / RECEIVED / N-A", "Do not invent part numbers"]
+              ]
+            },
+            {
+              "name": "Order Ladder",
+              "rows": [
+                ["Stock", "Part Need", "Quote In Hand?", "Vendor Options", "PO Needed?", "Ordered At", "ETA", "Who Decides", "Status", "Notes"],
+                ["", "", "NO", "LOCAL / OEM / UNK", "YES", "", "", "MATT", "OPEN", "No auto purchase"]
+              ]
+            },
+            {
+              "name": "Cost Notes",
+              "rows": [
+                ["Stock", "Part Need", "Quote Amount", "Quote Source", "Freight Band", "Total Guess", "Verified?", "Affects Margin?", "Updated At", "Notes"],
+                ["", "", "", "VENDOR / DMS / UNK", "", "", "NO", "MAYBE", "", "Never invent vendor quotes"]
+              ]
+            },
+            {
+              "name": "Blockers Chase",
+              "rows": [
+                ["Stock", "Blocker", "Blocks Sale?", "Who Owns", "Asked At", "ETA", "Status", "Needs Purchase?", "Needs Live DMS?", "Notes"],
+                ["", "", "YES", "", "", "", "OPEN", "NO", "NO", "No auto purchase no DMS write"]
+              ]
+            },
+            {
+              "name": "Weekly Focus",
+              "rows": [
+                ["Week Of", "Top Parts Unit", "Why This Week", "One Move", "Owner", "Done?", "Carry Forward?", "Risk If Idle", "Review With", "Notes"],
+                ["", "", "", "", "", "NO", "MAYBE", "", "MATT", "Pick the smallest honest chase"]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin West Motor Parts Chase - SOP.md",
+        "content": "# Kevin West Motor Parts Chase\n\nUse this pack to chase missing or special-order parts that hold recon, aged inventory, or delivery. Do not invent part numbers, vendors, or quotes.\n\n## Operating rule\nParts chase is false until the need is on Parts Board with stock, part need, urgency, and owner. Prefer the smallest Order Ladder step that clears the next blocker. Never invent quotes or place purchases.\n\n## Required sequence\n1. Log part needs on Parts Board with known facts only (UNK when unknown).\n2. Advance Order Ladder only when a real quote or decision path exists; mark Quote In Hand=NO until true.\n3. Fill Cost Notes only from quotes already in hand; Verified=NO when unknown.\n4. Chase Blockers without purchases or live DMS writes.\n5. Pick one Weekly Focus unit and one honest move; review with Matt before any paid order.\n\n## Protective behavior\nKevin must not invent part numbers or vendor quotes, place purchases, write live DMS, post listings, widen Chat tools beyond Desktop exact-5, or claim READY while purchase blockers remain. Sheet count stays at or below five. Payloads stay ASCII-safe. Sheet names use spaces only (no slash).\n"
+      }
+    }
+  ]
+}
