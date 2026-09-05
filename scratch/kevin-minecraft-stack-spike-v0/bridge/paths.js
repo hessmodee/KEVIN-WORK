@@ -1,4 +1,4 @@
-"use strict";
+﻿"use strict";
 const fs = require("fs");
 const path = require("path");
 const SPIKE_ROOT = path.resolve(__dirname, "..");
@@ -6,10 +6,16 @@ const VENDOR_MAIN = process.env.KEVIN_MC_SPIKE_VENDOR || path.join(SPIKE_ROOT, "
 function resolveGymRoot() {
   if (process.env.KEVIN_MC_BEDROCK_GYM) return process.env.KEVIN_MC_BEDROCK_GYM;
   const candidates = [
-    path.resolve(SPIKE_ROOT, "..", "kevin-minecraft-bedrock-v0"),
+    // Prefer the real JOIN_OK gym on HESS-PC workspace (not worktree-local empty twin).
+    "C:/Users/hessm/.openclaw/workspace/scratch/kevin-minecraft-bedrock-v0",
     path.resolve(SPIKE_ROOT, "..", "..", "..", "scratch", "kevin-minecraft-bedrock-v0"),
-    "C:/Users/hessm/.openclaw/workspace/scratch/kevin-minecraft-bedrock-v0"
+    path.resolve(SPIKE_ROOT, "..", "kevin-minecraft-bedrock-v0"),
   ];
+  for (const c of candidates) {
+    if (fs.existsSync(path.join(c, "package.json")) && fs.existsSync(path.join(c, "package-lock.json"))) {
+      return c;
+    }
+  }
   for (const c of candidates) {
     if (fs.existsSync(path.join(c, "package.json"))) return c;
   }

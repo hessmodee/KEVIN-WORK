@@ -1,15 +1,17 @@
-{
-  "name": "kevin-minecraft-stack-spike-v0",
-  "version": "0.0.2",
-  "private": true,
-  "description": "Isolated bedrockflayer spike + JOIN_OK client inject bridge. Do not touch JOIN_OK gym.",
-  "main": "bridge/index.js",
-  "scripts": {
-    "smoke": "node smoke-require.js",
-    "smoke:bridge": "node smoke-bridge.js",
-    "install:vendor": "npm --prefix ./vendor/mineflayer-for-bedrock-main install --no-fund --no-audit --omit=dev"
-  },
-  "engines": {
-    "node": ">=18"
-  }
+﻿{
+    "name":  "kevin-minecraft-stack-spike-v0",
+    "version":  "0.0.3",
+    "private":  true,
+    "description":  "Isolated bedrockflayer spike + JOIN_OK NetherNet inject + stay companion entry. Do not touch JOIN_OK gym.",
+    "main":  "bridge/index.js",
+    "scripts":  {
+                    "smoke":  "node smoke-require.js",
+                    "smoke:bridge":  "node smoke-bridge.js",
+                    "install:vendor":  "npm --prefix ./vendor/mineflayer-for-bedrock-main install --no-fund --no-audit --omit=dev",
+                    "smoke:companion":  "node smoke-companion-wire.js",
+                    "rejoin:companion":  "node rejoin-companion.js"
+                },
+    "engines":  {
+                    "node":  "\u003e=18"
+                }
 }
