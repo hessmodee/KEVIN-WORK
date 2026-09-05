@@ -1,4 +1,4 @@
-const RAW='https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/';
+﻿const RAW='https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/';
 
 const STATE_COLORS={
  ready:'#68d8ce',
@@ -6,6 +6,7 @@ const STATE_COLORS={
  building:'#f06dbb',
  cooldown:'#b38cff',
  degraded:'#ff9a3d',
+ disabled:'#81887f',
  offline:'#e46f61'
 };
 
@@ -24,7 +25,9 @@ const WORKERS=[
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function norm(v){return String(v||'').toLowerCase()}
 function stateColor(st){return STATE_COLORS[st]||STATE_COLORS.degraded}
-function stateLabel(st){return ({ready:'READY',working:'WORKING',building:'BUILDING',cooldown:'COOLDOWN',degraded:'DEGRADED',offline:'OFFLINE'})[st]||String(st||'').toUpperCase()}
+function stateLabel(st){return ({ready:'READY',working:'WORKING',building:'BUILDING',cooldown:'COOLDOWN',degraded:'DEGRADED',disabled:'DISABLED',offline:'OFFLINE'})[st]||String(st||'').toUpperCase()}
+function nightForgeTaskState(s){return String(s?.public_truth?.night_forge_task_state||'').trim()}
+function nightForgeHidden(s){const st=nightForgeTaskState(s).toLowerCase();return st==='disabled'||st==='absent'}
 function owl(c,id='worker'){
  const safe=String(id||'worker').replace(/[^a-z0-9_-]/gi,'-');
  const mid=`owl-cut-${safe}`;
@@ -102,7 +105,9 @@ function workerState(key,d,s){
    return 'ready';
  }
  if(key==='night'){
-   if((bw?.night_forge||0)>0||(taskActive(t)&&/night[- ]forge|night forge|qa\/regression/.test(tt)))return 'working';
+   const nfts=nightForgeTaskState(s).toLowerCase();
+   if(nfts==='disabled'||nfts==='absent')return 'disabled';
+   if((bw?.night_forge||0)>0||nfts==='running'||(taskActive(t)&&/night[- ]forge|night forge|qa\/regression/.test(tt)))return 'working';
    return 'ready';
  }
  if(key==='reader'){
@@ -174,10 +179,11 @@ async function load(){
  const detail=/THROTTLED|SATURATED/i.test(sup.last_result||'')?'Recovery cooldown is active after bounded recovery attempts.':(sup.last_result?`Mission ${sup.last_mission||'—'} · ${sup.last_result}`:'Control plane healthy.');
  document.getElementById('newsText').textContent=`Chief of Staff | ${detail}`;
  const rail=document.getElementById('serviceRail');rail.innerHTML='';
- [['Reader','ready'],['Night Forge',(s?.active_workers?.night_forge||0)>0?'active':'ready'],['Build Lab',(s?.active_workers?.design_forge||0)>0?'active':'ready'],['Ollama',d?.services?.ollama==='healthy'?'ready':''],['Bridge',workerState('bridge',d,s)==='working'?'active':(d?.services?.bridge==='healthy'?'ready':'')],['Tick',d?.services?.tick==='healthy'?'ready':'']].forEach(([n,st])=>rail.insertAdjacentHTML('beforeend',`<div class="svc"><i class="dot ${st}"></i><b>${esc(n)}</b><span>${st==='active'?'ACTIVE':st==='ready'?'READY':'CHECK'}</span></div>`));
+ [['Reader','ready'],['Night Forge',(s?.active_workers?.night_forge||0)>0?'active':'ready'],['Build Lab',(s?.active_workers?.design_forge||0)>0?'active':'ready'],['Ollama',d?.services?.ollama==='healthy'?'ready':''],['Bridge',workerState('bridge',d,s)==='working'?'active':(d?.services?.bridge==='healthy'?'ready':'')],['Tick',d?.services?.tick==='healthy'?'ready':'']].filter(([n])=>n!=='Night Forge'||!nightForgeHidden(s)).forEach(([n,st])=>rail.insertAdjacentHTML('beforeend',`<div class="svc"><i class="dot ${st}"></i><b>${esc(n)}</b><span>${st==='active'?'ACTIVE':st==='ready'?'READY':'CHECK'}</span></div>`));
  const top=document.getElementById('topology');top.querySelectorAll('.worker,.line').forEach(x=>x.remove());
- const center={x:top.clientWidth/2,y:top.clientHeight/2},positions=ringPositions(top,WORKERS.length),active=[];
- WORKERS.forEach((w,i)=>{const st=workerState(w.key,d,s),p=positions[i];if(['working','building'].includes(st))active.push({w,st});lineBetween(top,center,p,st);const prog=workerProgress(w.key,st,d,s),el=document.createElement('div');el.className=`worker ${st}`;el.style.cssText=`left:${(p.x/top.clientWidth)*100}%;top:${(p.y/top.clientHeight)*100}%;--idc:${w.c};--statec:${stateColor(st)}`;const progressHtml=prog?`<div class="worker-progress ${prog.measured?'measured':'checkpoint-wait'}" title="${esc(prog.detail)}"><div class="worker-progress-fill" style="width:${prog.percent}%"></div><span>${prog.percent}%</span></div>`:'';el.innerHTML=`<div class="box">${owl(w.c,w.key)}<div class="worker-copy"><b>${w.name}</b><small>${w.role}</small><span class="state">${stateLabel(st)}</span></div></div>${progressHtml}`;el.onclick=()=>selectWorker(w,st,d,s);top.appendChild(el)});
+ const visibleWorkers=WORKERS.filter(w=>w.key!=='night'||!nightForgeHidden(s));
+ const center={x:top.clientWidth/2,y:top.clientHeight/2},positions=ringPositions(top,visibleWorkers.length),active=[];
+ visibleWorkers.forEach((w,i)=>{const st=workerState(w.key,d,s),p=positions[i];if(['working','building'].includes(st))active.push({w,st});lineBetween(top,center,p,st);const prog=workerProgress(w.key,st,d,s),el=document.createElement('div');el.className=`worker ${st}`;el.style.cssText=`left:${(p.x/top.clientWidth)*100}%;top:${(p.y/top.clientHeight)*100}%;--idc:${w.c};--statec:${stateColor(st)}`;const progressHtml=prog?`<div class="worker-progress ${prog.measured?'measured':'checkpoint-wait'}" title="${esc(prog.detail)}"><div class="worker-progress-fill" style="width:${prog.percent}%"></div><span>${prog.percent}%</span></div>`:'';el.innerHTML=`<div class="box">${owl(w.c,w.key)}<div class="worker-copy"><b>${w.name}</b><small>${w.role}</small><span class="state">${stateLabel(st)}</span></div></div>${progressHtml}`;el.onclick=()=>selectWorker(w,st,d,s);top.appendChild(el)});
  window.__kevinLaneSnapshot={dashboard:d,support:s};
  const kstates=kevinStates(d,s),ks=kstates[0],kmode=ks==='offline'?'disconnected':ks==='degraded'?'degraded':kstates.some(x=>['working','building'].includes(x))?'working':'ready';
  document.getElementById('headerKevinProd').innerHTML=kevinProd(kmode,true);document.getElementById('hubKevinProd').innerHTML=kevinProd(kmode,false);renderKevinCenter(d,s,kstates);
@@ -203,3 +209,4 @@ function workerEvidenceDetail(key,d,s){
 function selectWorker(w,st,d,s){document.getElementById('selectedName').textContent=`${w.name} — ${w.role}`;document.getElementById('selectedStatus').textContent=stateLabel(st);let detail='Telemetry-backed worker state.';if(w.key==='benchmark')detail=`Regression ${s?.benchmark?.regression?.passed||0}/${s?.benchmark?.regression?.total||0}, critical failures ${s?.benchmark?.regression?.critical_failures||0}.`;if(w.key==='bridge')detail=`GitHub sync service: ${d?.services?.bridge||'unknown'}. A recent Bridge run is WORKING; otherwise a healthy Bridge is READY.`;if(w.key==='build')detail=`Design Forge workers active: ${s?.active_workers?.design_forge||0}.`;if(w.key==='ollama')detail=`Primary local inference service: ${d?.services?.ollama||'unknown'}.`;document.getElementById('selectedDetail').textContent=detail}
 
 document.getElementById('headerKevinProd').innerHTML=kevinProd('ready',true);document.getElementById('hubKevinProd').innerHTML=kevinProd('ready',false);load();setInterval(load,30000);addEventListener('resize',()=>load());
+

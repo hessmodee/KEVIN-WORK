@@ -1,6 +1,7 @@
-# Kevin public_truth helper v1 — scrubbed metadata for Support/Engineering publishers.
+﻿# Kevin public_truth helper v1 — scrubbed metadata for Support/Engineering publishers.
 # Does NOT read or write openclaw.json / Desktop allow-list / Chat ports.
-# Slice 1: desktop_tool_inventory_count only.
+# Slice 1: desktop_tool_inventory_count
+# Phase B: night_forge_task_state (fixed KevinNightForge scheduled task only)
 
 [CmdletBinding()]
 param(
@@ -8,6 +9,27 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+
+function Get-NightForgeTaskStatePublic {
+  # Fixed task identity only — never caller-selected name/path.
+  $taskName = 'KevinNightForge'
+  try {
+    $t = Get-ScheduledTask -TaskName $taskName -ErrorAction Stop
+    $state = [string]$t.State
+    switch -Regex ($state) {
+      '^(?i)Disabled$' { return 'Disabled' }
+      '^(?i)Ready$' { return 'Ready' }
+      '^(?i)Running$' { return 'Running' }
+      '^(?i)Queued$' { return 'Queued' }
+      default {
+        if ([string]::IsNullOrWhiteSpace($state)) { return 'Unknown' }
+        return $state
+      }
+    }
+  } catch {
+    return 'Absent'
+  }
+}
 
 function Get-KevinPublicTruthV1 {
   param(
@@ -48,6 +70,8 @@ function Get-KevinPublicTruthV1 {
     }
   }
 
+  $nfState = Get-NightForgeTaskStatePublic
+
   return [ordered]@{
     schema = 1
     kind = "kevin-public-truth-v1"
@@ -55,6 +79,8 @@ function Get-KevinPublicTruthV1 {
     desktop_tool_inventory_count = $count
     desktop_tool_inventory_status = $status
     desktop_tool_inventory_source = $source
+    night_forge_task_state = $nfState
+    night_forge_task_name = 'KevinNightForge'
     # Placeholders for later Phase A slices — absent/null => HQ unknown
     mission_lease = $null
     routed_to_skill_lab = $null
@@ -73,7 +99,11 @@ if ($SelfTest) {
   if ($t.desktop_tool_inventory_source -ne "p01_desktop_crossing_receipt") {
     throw "SELFTEST FAIL unexpected source=$($t.desktop_tool_inventory_source)"
   }
-  Write-Host "KEVIN PUBLIC TRUTH v1 SELFTEST PASS desktop_tool_inventory_count=4 source=p01_desktop_crossing_receipt openclaw_untouched=true"
+  $allowedNf = @('Disabled','Ready','Running','Queued','Absent','Unknown')
+  if ($allowedNf -notcontains [string]$t.night_forge_task_state) {
+    throw "SELFTEST FAIL unexpected night_forge_task_state=$($t.night_forge_task_state)"
+  }
+  Write-Host "KEVIN PUBLIC TRUTH v1 SELFTEST PASS desktop_tool_inventory_count=4 night_forge_task_state=$($t.night_forge_task_state) source=p01_desktop_crossing_receipt openclaw_untouched=true"
   exit 0
 }
 

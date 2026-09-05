@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -199,7 +199,7 @@ function when(v){const d=parseAt(v);return d?d.toLocaleString([],{month:"short",
 function shortWhen(v){const d=parseAt(v);return d?d.toLocaleTimeString([],{hour:"numeric",minute:"2-digit"}):""}
 function pct(a,b){return b?Math.round(100*Number(a||0)/Number(b)):0}
 function freshness(){const d=parseAt(S?.sync?.last||S?.generated_at);const s=d?Math.max(0,(Date.now()-d.getTime())/1000):999999;if(s<180)return{label:"LIVE",text:Math.round(s)+" sec ago",cls:"ok",disconnected:false};if(s<1020)return{label:"OK",text:Math.round(s/60)+" min ago",cls:"ok",disconnected:false};if(s<1500)return{label:"LATE",text:"last contact "+Math.round(s/60)+" min ago",cls:"warn",disconnected:false};return{label:"DISCONNECTED",text:"last contact "+Math.round(s/60)+" min ago",cls:"bad",disconnected:true}}
-function statusClass(v){const s=String(v||"").toLowerCase();if(["healthy","green","pass","ready","proven","working"].includes(s))return s==="working"?"working":"ready";if(["paused","testing","warning"].includes(s))return"paused";if(["fail","failed","degraded","unhealthy","offline","disconnected"].includes(s))return"failed";return"idle"}
+function statusClass(v){const s=String(v||"").toLowerCase();if(["healthy","green","pass","ready","proven","working"].includes(s))return s==="working"?"working":"ready";if(["paused","testing","warning"].includes(s))return"paused";if(["fail","failed","degraded","unhealthy","offline","disconnected"].includes(s))return"failed";if(["disabled","absent","locked","unknown"].includes(s))return"locked";return"idle"}
 function ledClass(v){const s=statusClass(v);return s==="ready"||s==="working"?"ok":s==="failed"?"bad":s==="paused"?"warn":""}
 function sortedActivity(){return[...(S?.activity||[])].sort((a,b)=>(parseAt(b.at)?.getTime()||0)-(parseAt(a.at)?.getTime()||0))}
 function sortedBuild(){return[...(S?.build||[])].sort((a,b)=>Number(a.order||99)-Number(b.order||99))}
@@ -318,7 +318,7 @@ function forgeInfo(){return S?.diagnostics?.candidate_forge||{}}
 function buildLabState(){const a=forgeInfo();if(S?.current_task?.id==="design-forge")return"working";if(String(a.result||"").toLowerCase()==="pass"&&a.scheduled===true)return"ready";if(["fail","failed","legacy_fail"].includes(String(a.result||"").toLowerCase()))return"paused";return a.scheduled?"ready":"paused"}
 function lastEvent(component){return sortedActivity().find(e=>String(e.component||"").toLowerCase()===component)||null}
 function lastTaskEvent(taskId){return sortedActivity().find(e=>String(e.task_id||"").toLowerCase()===String(taskId||"").toLowerCase())||null}
-function forgeState(){if(S?.current_task?.id==="night-forge")return"working";const e=lastTaskEvent("night-forge");if(!e)return"ready";const r=String(e.result||"").toLowerCase();return r==="fail"||r==="failed"?"failed":"ready"}
+function nightForgeTaskState(){return String(HQ_SUPPORT?.public_truth?.night_forge_task_state||"").trim()}function nightForgeHidden(){const st=nightForgeTaskState().toLowerCase();return st==="disabled"||st==="absent"}function forgeState(){const nfts=nightForgeTaskState().toLowerCase();if(nfts==="disabled"||nfts==="absent")return"disabled";if(S?.current_task?.id==="night-forge")return"working";if(nfts==="running")return"working";const e=lastTaskEvent("night-forge");if(!e)return"ready";const r=String(e.result||"").toLowerCase();return r==="fail"||r==="failed"?"failed":"ready"}
 function crew(){
  const d=S?.diagnostics||{},svc=S?.services||{},a=forgeInfo(),task=S?.current_task,disconnected=freshness().disconnected;
  const lane=v=>disconnected?"unknown":v;
@@ -527,7 +527,7 @@ function applyChrome(){
  $("statusPill").textContent=f.disconnected?`TELEMETRY · ${f.label}`:bench?(platformOK?'HEALTHY':'NEEDS ATTENTION'):'STATUS UNVERIFIED';
  $("statusPill").className=`pill ${platformOK&&!f.disconnected?f.cls:'bad'}`;
  const d=S?.diagnostics||{},svc=S?.services||{};
- $("serviceRail").innerHTML=f.disconnected?serviceChip("Telemetry","disconnected"):[serviceChip("Reader",d.reader_boundary==="green"?"green":"testing"),serviceChip("Night Forge",forgeState()),serviceChip("Build Lab",buildLabState()),serviceChip("Ollama",svc.ollama),serviceChip("Bridge",svc.bridge)].join("");
+ $("serviceRail").innerHTML=f.disconnected?serviceChip("Telemetry","disconnected"):[serviceChip("Reader",d.reader_boundary==="green"?"green":"testing"),...(nightForgeHidden()?[]:[serviceChip("Night Forge",forgeState())]),serviceChip("Build Lab",buildLabState()),serviceChip("Ollama",svc.ollama),serviceChip("Bridge",svc.bridge)].join("");
  $("foot").textContent=`Kevin HQ · ${f.text}`;
  $("foot2").textContent=`State schema ${S?.schema||"-"}`;
  renderAttention();
@@ -873,3 +873,4 @@ load();setInterval(load,15000);
 </script>
 </body>
 </html>
+
