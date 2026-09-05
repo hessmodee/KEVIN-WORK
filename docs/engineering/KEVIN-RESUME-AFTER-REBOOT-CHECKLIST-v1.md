@@ -1,4 +1,4 @@
-﻿# Kevin resume after reboot checklist v1
+# Kevin resume after reboot checklist v1
 
 After HESS-PC reboot + interactive login (Owner Autologon or manual):
 

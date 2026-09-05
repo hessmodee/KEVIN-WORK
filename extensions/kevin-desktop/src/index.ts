@@ -1,4 +1,4 @@
-﻿import { Type } from "typebox";
+import { Type } from "typebox";
 import { defineToolPlugin } from "openclaw/plugin-sdk/tool-plugin";
 import {
   APP_ALLOWLIST,

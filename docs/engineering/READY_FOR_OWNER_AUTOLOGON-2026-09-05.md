@@ -1,4 +1,4 @@
-﻿# READY_FOR_OWNER_AUTOLOGON (partial) — 2026-09-05
+# READY_FOR_OWNER_AUTOLOGON (partial) — 2026-09-05
 
 **Status:** PLAN + OWNER PACKET ONLY. Do **not** set password from agents/chat/git.
 **Machine:** HESS-PC (Omen)

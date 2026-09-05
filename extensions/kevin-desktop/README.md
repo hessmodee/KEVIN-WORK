@@ -1,4 +1,4 @@
-﻿# Kevin Desktop
+# Kevin Desktop
 
 Bounded local Windows computer-control tools for Kevin.
 

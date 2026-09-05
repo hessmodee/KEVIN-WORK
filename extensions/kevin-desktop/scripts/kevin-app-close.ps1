@@ -1,4 +1,4 @@
-﻿# Kevin app close — graceful first, audited force last. Never invent passwords.
+# Kevin app close — graceful first, audited force last. Never invent passwords.
 # Usage: kevin-app-close.ps1 -ProcessName Minecraft.Windows [-Force]
 param(
   [Parameter(Mandatory=$true)][string]$ProcessName,

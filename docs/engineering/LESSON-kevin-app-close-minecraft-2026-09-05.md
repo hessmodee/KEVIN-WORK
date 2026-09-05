@@ -1,4 +1,4 @@
-﻿# LESSON — Kevin owns app open/use/close (Minecraft Realms stay) — 2026-09-05
+# LESSON — Kevin owns app open/use/close (Minecraft Realms stay) — 2026-09-05
 
 ## Problem
 Matt was required to close Minecraft.Windows UWP before Realms stay/companion inject. That blocked phone/remote rock-and-roll.

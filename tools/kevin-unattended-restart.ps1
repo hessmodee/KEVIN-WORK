@@ -1,4 +1,4 @@
-﻿# Kevin unattended restart helper — NO PASSWORD. Owner Autologon must already be configured.
+# Kevin unattended restart helper — NO PASSWORD. Owner Autologon must already be configured.
 param(
   [int]$DelaySec = 60,
   [switch]$WhatIf
