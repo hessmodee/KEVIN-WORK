@@ -1,19 +1,63 @@
-# CURRENT_TASK
+﻿# CURRENT_TASK
 
-**Updated:** 2026-09-04 15:05 MT
+**Updated:** 2026-09-04 23:22 MT
+
+## Active Minecraft Realms (2026-09-04 ~23:20 MT)
+
+- Edition **Bedrock LOCKED**. Gamertag **kevinsk8erkid** (CORRECTED). Matt Xbox hessmodee = Realm owner only (never bot creds).
+- Invite **DONE**; bed spawn **DONE** at house.
+- Deps: **DEPS_OK** (bedrock-protocol + prismarine-auth via install-deps.cmd).
+- Status: **READY_FOR_OWNER_DEVICE_CODE** LIVE — URL https://www.microsoft.com/link CODE **LEUVSQN6** (or http://microsoft.com/link?otc=LEUVSQN6). Sign in as **kevinsk8erkid** only.
+- Script running: scratch/kevin-minecraft-bedrock-v0 `node scripts/device-code-auth.js`; after AUTH_CACHE_OK run `node scripts/realms-join.js` -> KEVIN_REALMS_JOIN_OK (or NETHERNET_GATE).
+- PLAN: docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md
+- LESSON: docs/engineering/LESSON-bedrock-realms-device-code-nethernet-2026-09-04.md
+- Recipe: docs/engineering/KEVIN-RECIPE-bedrock-realms-scratch-v1.md (also KEVIN-RECIPE-bedrock-realms-coop-kevinsk8erkid-v1.md if present)
+- Skill stub: inbox/skills/kevin-minecraft-bedrock-coop-etiquette-v0.json
+- Hard no: hessmodee bot creds; invent password; purchase; kill Chat 18789 / Reader 19001; Mineflayer Realms path
+
+
 **Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
 **Cold-start:** `docs/engineering/KEVIN-TURNOVER-LATEST.md`.
 
-## Active Minecraft Realms (2026-09-04 ~15:05 MT)
+## Active Desktop UI control PLAN (2026-09-04 ~19:05 MT)
 
-- Edition **Bedrock LOCKED** (Matt screenshots). Mineflayer Realms = **NON-PATH** (Java side gym only).
+- PLAN: `docs/engineering/PLAN-kevin-desktop-ui-control-2026-09-04.md`
+- Crossing: `docs/engineering/KEVIN-DESKTOP-UI-CALC-CROSSING-CONTRACT-2026-09-04.md`
+- LESSON: `docs/engineering/LESSON-desktop-ui-control-typed-before-cua-2026-09-04.md`
+- Status: **PHASE2_CANDIDATE_AUTHORED** (scratch PASS + `candidates/desktop/kevin-desktop-ui-v0` refuse-by-default)
+- Hard no: live Desktop allowlist widen; openclaw apply; CUA enable; kill Chat 18789 / Reader 19001; add `kevin_ui_*` to Chat tools.allow
+- Proof bar before exact-N widen: schema/fixtures/neg/E2E/audit/rollback; Calculator prove-first retained
+
+## Aging-inv teach-and-transfer CLOSED (2026-09-04 ~19:05 MT)
+
+- `west-motor-aging-inventory-action-pack@1` **PROVEN** ~18:53 MT (PR #94; proof `632AEA6A...`)
+- LESSON: `docs/engineering/LESSON-west-motor-aging-inventory-action-pack-2026-09-04.md`
+- Do not re-prove; no purchases / live DMS / live post
+
+## Active HQ Phase B — Night Forge hide when Disabled (2026-09-04 ~18:45 MT)
+
+- Follows PLAN-hq-max Phase B: Disabled ≠ READY chip
+- PLAN: `docs/engineering/PLAN-hq-max-phase-b-nightforge-hide-2026-09-04.md`
+- Hard no: openclaw.json; Desktop exact-N; Chat/Reader kill; purchases
+
+## Active Minecraft Realms TEACH NOTE (2026-09-04 ~23:15 MT — superseded by 23:20 LIVE device-code)
+
+- Edition **Bedrock LOCKED**. Kevin gamertag **kevinsk8erkid** (never hessmodee). Matt Xbox **hessmodee**.
+- Invite **DONE**; house bed spawn **DONE**.
+- Recipe: `docs/engineering/KEVIN-RECIPE-bedrock-realms-coop-kevinsk8erkid-v1.md`
 - PLAN: `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md`
-- Status: **READY_FOR_OWNER_KEVIN_MS_AND_REALM_INVITE**
-- Stack candidate: bedrock-protocol + prismarine-auth (NetherNet gate; device-code auth design)
-- Next eng: `scratch/kevin-minecraft-bedrock-v0` local offline/BDS prove (no live auth)
-- Next owner: Kevin MS on Omen + invite to existing Realm (no new paid Realm)
-- Hard no: live Realm join; invent passwords; purchase; kill Chat 18789 / Reader 19001
+- Etiquette: `docs/engineering/KEVIN-KNOWLEDGE-minecraft-realms-coop-etiquette-v1.md` + optional GREEN `inbox/skills/minecraft-realms-coop-etiquette-pack-v1.json`
+- Status: teach-and-transfer LANDED this worker; **live join/auth = other worker** (device-code as kevinsk8erkid).
+- Hard no: invent passwords; purchase; kill Chat 18789 / Reader 19001; GROK-HANDOVER; act as hessmodee.
 
+## CoS gap resume applied (2026-09-04 ~13:17 MT)
+
+- **PASS (CoS gap resume):** Ports 18789/19001/19101 UP; NightForge Disabled; Desktop exact-4 frozen (openclaw 4126AFE6...); Benchmark PASS 30/30 critical 0 @13:07 MT.
+- **PASS retained (Chat honesty):** Fresh fixed:main emits tool_calls (Calculator OS + Desktop find/open). Root cause of Matt hallucination = 16k overflow on long sessions (zero tool_calls), plus no list tool. Teach already in SOUL/AGENTS/TOOLS/MEMORY + LESSON + NEG eval. Master reports/engineering/RECEIPT-chat-desktop-tool-use-proof-20260904-1120.json. No Desktop widen this beat.
+- **PASS (Minecraft v0):** Mineflayer + flying-squid localhost join marker KEVIN_MC_V0_OK. Receipt reports/engineering/RECEIPT-minecraft-v0-local-prove-20260904-1314.json. LESSON docs/engineering/LESSON-minecraft-v0-local-prove-2026-09-04.md.
+- **PASS (Skill Lab):** independent-online-business-research-pack@1 PROVEN; proven_count **21**. Receipt reports/engineering/RECEIPT-indie-biz-research-20260904-1317.md. Not appliance@3.
+- **Resume receipt:** reports/engineering/RECEIPT-cos-gap-resume-20260904-1317.json.
+- **NEXT:** typed kevin_desktop_list_folder under proof bar; P0.2/P0.4–P0.6; do not kill Chat/Reader; no live trades/purchases/calls.
 
 ## Latest applied (2026-09-04 ~10:35 MT)
 
@@ -90,9 +134,9 @@ These are **not open blockers unless fresher machine evidence regresses them**:
 8. **Production Crossing v2 candidate:** a YELLOW source-only contract and tests exist for exactly two protected future operations: install the four-tool Kevin Desktop v0.1 surface, and retire only the legacy `KevinNightForge` scheduled task. CI proves the candidate validator; it has ZERO production effect and grants no new authority.
 9. **HQ cross-lane truth repair:** owner Command must count Skill Lab running/ready/blocked work in global state, not only Supervisor/dashboard workers. A fail-closed source repair + regression assertion was launched during this shift; Grok must verify the resulting HQ gate/Pages deployment before treating it as complete.
 
-## Current P0 blockers ├â─═ôâ╓¼═ôâ╓¼æéâ─â─â─ pursue in this order
+## Current P0 blockers ─── pursue in this order
 
-### P0.1 ├óé¼Ç¥ FIXED LIVE (2026-09-04): Desktop exact-4 on fixed:main (NOT owner-gated)
+### P0.1 ✅ FIXED LIVE (2026-09-04): Desktop exact-4 on fixed:main (NOT owner-gated)
 
 Desktop is **LIVE** on HESS-PC via PR #77. Effective inventory is exactly:
 
@@ -106,27 +150,27 @@ Evidence: Benchmark 30/30 critical 0; openclaw.json after SHA256 4126AFE64EF809B
 
 **Do not** treat Desktop as owner-gated or HOLD. **Do not** widen tools or rewrite Desktop/openclaw.json config.
 
-### P0.2 ├â─═ôâ╓¼═ôâ╓¼æéâ─â─â─ capability-aware work routing and Work Supply -> Supervisor
+### P0.2 ─── capability-aware work routing and Work Supply -> Supervisor
 
 Integrate supplied owner demand into live selection without inventing work and without routing every task through an agent that lacks the needed tool. Dispatch to the qualified worker/lane or deterministic executor that owns the typed capability. Preserve completed occurrence history and bounded retry/cooldown.
 
-### P0.3 ├óé¼Ç¥ leases/checkpoints (library + live Superv/Skill Lab wire PASS 2026-09-04)
+### P0.3 ✅ leases/checkpoints (library + live Superv/Skill Lab wire PASS 2026-09-04)
 
 `WORKING` requires a live lease plus evidence-producing execution. Long jobs need checkpoint/resume and orphan recovery so real work survives restarts and can continue without fake busy status.
 
-### P0.4 ├â─═ôâ╓¼═ôâ╓¼æéâ─â─â─ authoritative evidence freshness
+### P0.4 ─── authoritative evidence freshness
 
 Prevent older telemetry writers from overwriting newer authoritative assessments. Separate controller telemetry from authoritative state where necessary and enforce monotonic/event-aware publication.
 
-### P0.5 ├â─═ôâ╓¼═ôâ╓¼æéâ─â─â─ global blocked-vs-idle truth
+### P0.5 ─── global blocked-vs-idle truth
 
 HQ and control-plane status must aggregate all relevant execution lanes. Supervisor `NO_ELIGIBLE_MISSION` is only Supervisor truth; it must not erase active/ready/blocked Skill Lab or other owner work. `TRUE IDLE` is valid only when no active execution, eligible owner work, blocked owner backlog, or due maintenance/growth work exists across the governed system.
 
-### P0.6 ├â─═ôâ╓¼═ôâ╓¼æéâ─â─â─ continuous-growth live crossing
+### P0.6 ─── continuous-growth live crossing
 
 After tool routing/supply/leases are healthy, install/enable recurring self-heal, self-maintenance, blocked-work recovery, knowledge-integrity, capability-growth and owner-value scans through already-qualified scheduling/control surfaces. Prove multiple scheduled windows with real leases/checkpoints and no false WORKING state.
 
-### P0.7 ├â─═ôâ╓¼═ôâ╓¼æéâ─â─â─ exact retirement of legacy KevinNightForge
+### P0.7 ─── exact retirement of legacy KevinNightForge
 
 Do not delete/disable arbitrary scheduled tasks. Use the YELLOW Production Crossing v2 contract to design a live exact-target retirement wrapper for `KevinNightForge`: verify modern replacement schedulers first, disable-first observation, Benchmark 30/30, then remove only the exact legacy task with rollback proof.
 
@@ -213,4 +257,7 @@ Source-only HQ Command truth upgrade on branch `grok/hq-max-20260904` (PR pendin
 
 ## Layer hold (Kevin wire)
 
-No ollama-isolate-latest.json → CURRENT_TASK remains write-proof. Do not advance. Await isolate PASS on llama3.1:8b and qwen2.5:14b. (refreshed 2026-09-04 14:13 MT)
+No ollama-isolate-latest.json → CURRENT_TASK remains write-proof. Write proof OK-WRITE exists. Do not advance. Await isolate PASS on llama3.1:8b and qwen2.5:14b. (refreshed 2026-09-04 23:01 MT)
+
+
+
