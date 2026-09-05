@@ -1,4 +1,4 @@
-# PLAN - Kevin Super-AI north star MAX (sequenced faculties)
+﻿# PLAN - Kevin Super-AI north star MAX (sequenced faculties)
 
 Date: 2026-09-04 ~11:15 MT (America/Denver)
 Author: Grok Bot (web research + HESS-PC inventory)
@@ -50,7 +50,7 @@ Peer lesson: scoped typed effectors beat unattended OS agents on always-on cowor
 - flying-squid: YES. JS server, online-mode false, localhost 25565. Preferred v0 server. No paid host. No Microsoft login.
 - Baritone: Java client-side; hard to drive from Mineflayer. SKIP v0. Pathfinder is enough.
 - yearn-for-mines / Amelia / mc-agent: architecture references (perceive, plan, execute). Steal the loop; do not vendor the whole monorepo.
-- Matt Realms: edition **Bedrock LOCKED** (Matt screenshots 2026-09-04). Mineflayer = **NON-PATH for Realms** (Java side gym only). Active path: bedrock-protocol + prismarine-auth. Account model: Matt Xbox hessmodee; Kevin MS on Omen. Prefer invite to existing Realm. PLAN docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md. Local Java flying-squid v0 gym PROVEN.
+- Matt Realms: edition **Bedrock LOCKED**; Kevin gamertag **kevinsk8erkid**; Matt Xbox **hessmodee**; invite+house bed DONE; recipe `docs/engineering/KEVIN-RECIPE-bedrock-realms-coop-kevinsk8erkid-v1.md`. Active PLAN `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md`.
 
 LLM on 14B: high-level chat and goals only. Movement must be deterministic pathfinder, not free-form JSON. Do not keep 14B loaded just for the bot.
 

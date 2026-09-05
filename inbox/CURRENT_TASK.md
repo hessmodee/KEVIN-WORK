@@ -1,4 +1,4 @@
-# CURRENT_TASK
+﻿# CURRENT_TASK
 
 **Updated:** 2026-09-04 23:01 MT
 **Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
@@ -25,16 +25,15 @@
 - PLAN: `docs/engineering/PLAN-hq-max-phase-b-nightforge-hide-2026-09-04.md`
 - Hard no: openclaw.json; Desktop exact-N; Chat/Reader kill; purchases
 
-## Active Minecraft Realms (2026-09-04 ~15:05 MT)
+## Active Minecraft Realms (2026-09-04 ~23:15 MT)
 
-- Edition **Bedrock LOCKED** (Matt screenshots). Mineflayer Realms = **NON-PATH** (Java side gym only).
+- Edition **Bedrock LOCKED**. Kevin gamertag **kevinsk8erkid** (never hessmodee). Matt Xbox **hessmodee**.
+- Invite **DONE**; house bed spawn **DONE**.
+- Recipe: `docs/engineering/KEVIN-RECIPE-bedrock-realms-coop-kevinsk8erkid-v1.md`
 - PLAN: `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md`
-- Status: **READY_FOR_OWNER_KEVIN_MS_AND_REALM_INVITE**
-- Stack candidate: bedrock-protocol + prismarine-auth (NetherNet gate; device-code auth design)
-- Next eng: `scratch/kevin-minecraft-bedrock-v0` local offline/BDS prove (no live auth)
-- Next owner: Kevin MS on Omen + invite to existing Realm (no new paid Realm)
-- Hard no: live Realm join; invent passwords; purchase; kill Chat 18789 / Reader 19001
-
+- Etiquette: `docs/engineering/KEVIN-KNOWLEDGE-minecraft-realms-coop-etiquette-v1.md` + optional GREEN `inbox/skills/minecraft-realms-coop-etiquette-pack-v1.json`
+- Status: teach-and-transfer LANDED this worker; **live join/auth = other worker** (device-code as kevinsk8erkid).
+- Hard no: invent passwords; purchase; kill Chat 18789 / Reader 19001; GROK-HANDOVER; act as hessmodee.
 
 ## CoS gap resume applied (2026-09-04 ~13:17 MT)
 
@@ -244,3 +243,4 @@ Source-only HQ Command truth upgrade on branch `grok/hq-max-20260904` (PR pendin
 ## Layer hold (Kevin wire)
 
 No ollama-isolate-latest.json → CURRENT_TASK remains write-proof. Write proof OK-WRITE exists. Do not advance. Await isolate PASS on llama3.1:8b and qwen2.5:14b. (refreshed 2026-09-04 23:01 MT)
+

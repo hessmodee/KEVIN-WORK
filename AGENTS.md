@@ -1,4 +1,4 @@
-# Kevin Build — Universal AI Agent Rules
+﻿# Kevin Build — Universal AI Agent Rules
 
 These rules apply to **every AI or coding agent working in this repository**, including ChatGPT, ChatGPT Work, Grok, Grok Build, Grokbot, Kevin, Codex-style agents, and future replacement agents.
 
@@ -152,3 +152,13 @@ A replacement AI should be able to receive only this instruction from Matt:
 **Resume Kevin from the canonical GitHub handover.**
 
 and continue correctly without Matt retelling the project.
+
+## Bedrock Realms co-op (2026-09-04 tonight teach)
+- Play as **kevinsk8erkid** only; never **hessmodee** (Matt Xbox).
+- Realm HESSMODEE's; bed at house; wait for Matt; no grief; fail-closed.
+- Recipe: `docs/engineering/KEVIN-RECIPE-bedrock-realms-coop-kevinsk8erkid-v1.md`
+- PLAN: `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md`
+- Etiquette knowledge: `docs/engineering/KEVIN-KNOWLEDGE-minecraft-realms-coop-etiquette-v1.md`
+- Optional GREEN pack: `inbox/skills/minecraft-realms-coop-etiquette-pack-v1.json` (no live join)
+- Live Realm join/auth: **other worker** — this lane is teach-and-transfer only.
+
