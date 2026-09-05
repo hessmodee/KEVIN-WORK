@@ -85,3 +85,29 @@ Kevin plays Minecraft on Realms **with Matt** as **Kevin's own account** (fun co
 **Hard no unchanged:** no invent passwords; no purchases; do not kill Chat 18789 / Reader 19001; no GROK-HANDOVER; never act as hessmodee.
 
 **Status:** **READY_FOR_COOP_WHEN_OTHER_WORKER_JOINS** — identity + etiquette taught; live join still other-worker gated.
+
+## 9. Auth incident (2026-09-04 ~23:45 MT)
+
+**Root cause:** Owner/agent READY card advertised `link?otc=CODE`. First-party Minecraft live client cannot complete remoteconnect consent → error on login.live.com oauth20_remoteconnect.
+
+**Fix shipped:** `device-code-auth.js` writes `READY_FOR_OWNER_AUTH.md` with plain link + typed code only; added `sisu-auth.js` + `msal-device-auth.js`; cleared empty cache stubs.
+
+**Matt next:** Phone → https://www.microsoft.com/link → type fresh code as kevinsk8erkid → AUTH_CACHE_OK → realms-join.js.
+
+**Join status:** Not yet — blocked on fresh owner device-code (auth cache empty after clearing broken stubs).
+
+## 10. Join attempt (2026-09-04 ~23:52 MT)
+
+**AUTH_CACHE_OK = yes.** Matt completed device-code as **kevinsk8erkid** (Nintendo Switch title). Cache warm under `credentials/kevin-minecraft/`.
+
+**Join result = NETHERNET_GATE.** `node scripts/realms-join.js` listed/picked **HESSMODEE's Realm**, then `Connect timed out` / `REALMS_JOIN_TIMEOUT` exit 4 (60s). Not `KEVIN_REALMS_JOIN_OK`.
+
+| Token | Value |
+| --- | --- |
+| AUTH_CACHE_OK | yes |
+| Join | NETHERNET_GATE (timeout) |
+| KEVIN_REALMS_JOIN_OK | no |
+
+**Residual:** protocol NetherNet / JSON-RPC (bedrock-protocol #717). Do not re-run device-code unless cache cleared. Receipt: `reports/engineering/RECEIPT-minecraft-bedrock-auth-join-nethernet-20260904-2352.md`.
+
+**Status:** **AUTH_OK_JOIN_BLOCKED_NETHERNET** - owner auth complete; spawn gated on library support.
