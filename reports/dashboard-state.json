@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-04T18:04:20.9232044-06:00",
+  "generated_at": "2026-09-04T18:05:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -20,8 +20,8 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 42,
-    "cpu_pct": 0,
+    "memory_pct": 43,
+    "cpu_pct": 20,
     "gpu": "RTX 3060",
     "gpu_pct": 0
   },
@@ -29,13 +29,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-03T18:05:13-06:00",
-        "estimated": false,
-        "ram": 38,
-        "cpu": 9,
-        "gpu": 38
-      },
       {
         "at": "2026-09-03T18:20:13-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 42,
         "cpu": 0,
         "gpu": 0
+      },
+      {
+        "at": "2026-09-04T18:05:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 20,
+        "gpu": 0
       }
     ],
     "ram": [
-      38,
       36,
       38,
       38,
@@ -798,10 +797,10 @@
       42,
       42,
       43,
-      42
+      42,
+      43
     ],
     "cpu": [
-      9,
       5,
       16,
       18,
@@ -896,10 +895,10 @@
       23,
       2,
       14,
-      0
+      0,
+      20
     ],
     "gpu": [
-      38,
       37,
       39,
       38,
@@ -994,11 +993,12 @@
       42,
       0,
       5,
+      0,
       0
     ]
   },
   "weather": {
-    "summary": "This Afternoon 80 | Wind 17 mph | Sunny"
+    "summary": "Tonight 54 | Wind 7 to 15 mph | Mostly Clear"
   },
   "capabilities": [
     {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-04T17:50:15-06:00",
+      "at": "2026-09-04T18:05:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-04T18:04:20.9232044-06:00",
+    "last": "2026-09-04T18:05:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
