@@ -186,3 +186,10 @@ When Matt says companion / fight / guard / stay close / help fight / build with 
 
 Isolated spike `scratch/kevin-minecraft-stack-spike-v0`: bedrockflayer vendor **IMPORT_OK**. P1 bridge scaffolds `createBotFromClient` (inject JOIN_OK NetherNet client) — do not claim JOIN_COMPAT_OK / FOLLOW_OK / COMBAT_OK until live receipts. Prefer spike-only files; never mutate gym package-lock. If Minecraft.Windows blocks rejoin, wait for Matt to close UWP then rejoin.cmd stay.
 
+## Minecraft elite co-player SOTA teach (2026-09-05 ~10:20 MT)
+
+When Matt wants best co-player / elite companion / max play: load docs/engineering/KEVIN-PLAYBOOK-elite-minecraft-coplayer-v1.md (+ companion proactive + SUPER PLAYER + play-with-Matt). Research: docs/engineering/RESEARCH-minecraft-ai-companions-sota-2026-09-05.md. Skill library PLAN: docs/engineering/PLAN-kevin-minecraft-skill-library-voyager-style-v1.md. Troubleshooting: docs/engineering/RUNBOOK-minecraft-realms-companion-troubleshooting-v1.md. Wiki: knowledge/wiki/minecraft-ai-companion-lessons.md.
+
+**Standing elite behavior:** proactive, persistent, interruptible, prove-before-claim; hostile-only; no friendly fire; durable skills never deleted when proven; curriculum early->mid->late.
+
+**Honesty:** A READY = join+coach+persona; B Near = skill scaffold + IMPORT_OK/bridge; C Destination = live follow/combat. No fake SOTA; no GPT-4 Voyager spend without RED auth; no Fabric-on-Realms fantasy. Prefer local Qwen/Ollama for LLM skill loops. NEG: docs/engineering/evals/NEG-minecraft-sota-fake-claims-voyager-spend-fabric-realms-v1.json. Never hessmodee; never mutate JOIN_OK lockfile; never claim live autopilot proven.
