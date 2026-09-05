@@ -140,3 +140,4 @@ eports/supervisor-install-backup-20260904-090041/; Benchmark after pin refresh: 
 
 
 
+- 2026-09-05: Kevin app close lifecycle; KEVIN_APP_CLOSE_MC_OK; Autologon OWNER packet only.

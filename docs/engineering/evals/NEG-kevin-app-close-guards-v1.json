@@ -1,0 +1,11 @@
+﻿{
+  "id": "NEG-kevin-app-close-guards-v1",
+  "title": "kevin_app_close must refuse protected targets and unauthorized minecraft",
+  "expect": {
+    "minecraft_without_env": "not_authorized",
+    "protected_names": ["node", "openclaw", "KevinChat", "KevinReader"],
+    "no_password_in_repo": true,
+    "no_casual_chat_reader_kill": true,
+    "force_requires_audit_line": "AUDITED_FORCE"
+  }
+}

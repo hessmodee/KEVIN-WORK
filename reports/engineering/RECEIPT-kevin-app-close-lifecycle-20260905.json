@@ -1,0 +1,13 @@
+﻿{
+  "marker": "KEVIN_APP_CLOSE_MC_OK",
+  "when_mt": "2026-09-05 ~11:15-11:28 America/Denver",
+  "machine": "HESS-PC",
+  "parent_prove": "kevin-app-close.ps1 closed Minecraft.Windows pid 118148 → KEVIN_APP_CLOSE_OK (CloseMainWindow True)",
+  "followup_status": "Minecraft.Windows count=0 (already closed)",
+  "calculator_prove": "KEVIN_CALC_OPEN_USE_CLOSE_OK process=CalculatorApp",
+  "pid_bugfix": "taskkill now uses $procId not automatic $PID",
+  "typed_tool": "kevin_app_close",
+  "companion_gate": "KEVIN_ALLOW_CLOSE_MC=1 default in rejoin-companion.cmd",
+  "vitest": "19/19 passed",
+  "autologon": "READY_FOR_OWNER_AUTOLOGON plan only — password never set by agent"
+}

@@ -79,3 +79,7 @@ When Matt says companion / fight / guard / stay close / help fight / build with 
 
 Isolated spike `scratch/kevin-minecraft-stack-spike-v0`: bedrockflayer **IMPORT_OK** + P1 inject scaffold + **P2** gym JOIN_OK NetherNet `createClient` (protocol 2169) wired into `createBotFromClient` / `enableStayCompanion`. Entry: `rejoin-companion.cmd` (preflight -> stay -> GoalFollow hessmodee + hostile guard + autoEat). If Minecraft.Windows open: `READY_FOR_LIVE_INJECT` — never kill UWP; Matt closes then re-run. Unit: `smoke-companion-wire.cmd`. Do not claim JOIN_COMPAT_OK / FOLLOW_OK / COMBAT_OK / GUARD_OK until spawn+entity receipts. Never mutate gym package-lock. LESSON: `docs/engineering/LESSON-minecraft-stack-spike-p2-live-wire-2026-09-05.md`. RECEIPT: `docs/engineering/RECEIPT-minecraft-stack-spike-p2-live-wire-20260905-0955.md`.
 
+
+## App lifecycle ownership (2026-09-05)
+
+Kevin owns open/use/close for allowlisted apps. Matt not required to close Minecraft for Realms stay. Tools: kevin_app_launch, kevin_app_close (MC needs KEVIN_ALLOW_CLOSE_MC=1). Never invent password. Never kill Chat/Reader casually.

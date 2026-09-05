@@ -1,4 +1,4 @@
-import { Type } from "typebox";
+﻿import { Type } from "typebox";
 import { defineToolPlugin } from "openclaw/plugin-sdk/tool-plugin";
 import {
   APP_ALLOWLIST,
@@ -10,6 +10,7 @@ import {
   openDesktopFolder,
   type DesktopResult,
 } from "./desktop.js";
+import { CLOSE_APP_ALLOWLIST, closeAllowedApp, type CloseResult } from "./close.js";
 
 const folderParams = Type.Object(
   {
@@ -21,6 +22,14 @@ const folderParams = Type.Object(
 const appParams = Type.Object(
   {
     app: Type.Union(Object.keys(APP_ALLOWLIST).map((name) => Type.Literal(name))),
+  },
+  { additionalProperties: false },
+);
+
+const closeAppParams = Type.Object(
+  {
+    app: Type.Union(Object.keys(CLOSE_APP_ALLOWLIST).map((name) => Type.Literal(name))),
+    force: Type.Optional(Type.Boolean()),
   },
   { additionalProperties: false },
 );
@@ -40,7 +49,7 @@ export default defineToolPlugin({
   id: "kevin-desktop",
   name: "Kevin Desktop",
   description:
-    "Bounded Windows desktop fluency: find/open/list allowlisted user folders and launch fixed allowlisted apps. No arbitrary shell, paths, installs, downloads, or generic mouse/keyboard automation.",
+    "Bounded Windows desktop fluency: find/open/list allowlisted user folders and launch/close fixed allowlisted apps. No arbitrary shell, paths, installs, downloads, or generic mouse/keyboard automation.",
   tools: (tool) => [
     tool({
       name: "kevin_desktop_find_folder",
@@ -108,6 +117,22 @@ export default defineToolPlugin({
       async execute(params, _config, context): Promise<DesktopResult> {
         context.signal?.throwIfAborted();
         const result = launchAllowedApp(String(params.app));
+        context.signal?.throwIfAborted();
+        return result;
+      },
+    }),
+    tool({
+      name: "kevin_app_close",
+      label: "Close approved Windows app",
+      description:
+        "Close one fixed approved local Windows application via graceful CloseMainWindow / UIA then audited force. Allowed: notepad, calculator, paint, minecraft. Minecraft requires KEVIN_ALLOW_CLOSE_MC=1 (Matt-authorized). Never closes Chat/Reader/node gateways. No arbitrary process names.",
+      parameters: closeAppParams,
+      optional: true,
+      async execute(params, _config, context): Promise<CloseResult> {
+        context.signal?.throwIfAborted();
+        const result = closeAllowedApp(String(params.app), {
+          force: Boolean(params.force),
+        });
         context.signal?.throwIfAborted();
         return result;
       },
