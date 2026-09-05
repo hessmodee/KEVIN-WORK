@@ -1,8 +1,8 @@
-{
+﻿{
   "id": "kevin-desktop",
   "name": "Kevin Desktop",
-  "description": "Bounded Windows desktop fluency: find/open/list allowlisted user folders and launch fixed allowlisted apps. No arbitrary shell, paths, installs, downloads, or generic mouse/keyboard automation.",
-  "version": "0.2.0",
+  "description": "Bounded Windows desktop fluency: find/open/list allowlisted user folders and launch/close fixed allowlisted apps. No arbitrary shell, paths, installs, downloads, or generic mouse/keyboard automation.",
+  "version": "0.3.0",
   "configSchema": {
     "type": "object",
     "properties": {},
@@ -16,7 +16,8 @@
       "kevin_desktop_find_folder",
       "kevin_desktop_open_folder",
       "kevin_desktop_list_folder",
-      "kevin_app_launch"
+      "kevin_app_launch",
+      "kevin_app_close"
     ]
   },
   "toolMetadata": {
@@ -30,6 +31,9 @@
       "optional": true
     },
     "kevin_app_launch": {
+      "optional": true
+    },
+    "kevin_app_close": {
       "optional": true
     }
   }

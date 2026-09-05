@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from "vitest";
+﻿import { afterEach, describe, expect, it } from "vitest";
 import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -17,6 +17,11 @@ import {
   openDesktopFolder,
   type SpawnFn,
 } from "./desktop.js";
+import {
+  CLOSE_APP_ALLOWLIST,
+  closeAllowedApp,
+  type CloseRunFn,
+} from "./close.js";
 
 const cleanup: string[] = [];
 afterEach(async () => {
@@ -40,13 +45,14 @@ async function desktopFixture() {
 }
 
 describe("kevin-desktop plugin contract", () => {
-  it("declares the four bounded desktop tools including list_folder", () => {
+  it("declares the five bounded desktop tools including list_folder and kevin_app_close", () => {
     const tools = getToolPluginMetadata(entry)?.tools ?? [];
     expect(tools.map((tool) => tool.name)).toEqual([
       "kevin_desktop_find_folder",
       "kevin_desktop_open_folder",
       "kevin_desktop_list_folder",
       "kevin_app_launch",
+      "kevin_app_close",
     ]);
     expect(tools.every((tool) => tool.optional === true)).toBe(true);
   });
@@ -203,3 +209,69 @@ describe("Application launch boundary", () => {
     expect(calls).toHaveLength(0);
   });
 });
+
+describe("Application close boundary", () => {
+  it("keeps close allowlist narrow and excludes explorer", () => {
+    expect(Object.keys(CLOSE_APP_ALLOWLIST).sort()).toEqual([
+      "calculator",
+      "minecraft",
+      "notepad",
+      "paint",
+    ]);
+    expect(CLOSE_APP_ALLOWLIST).not.toHaveProperty("explorer");
+  });
+
+  it("refuses minecraft close without KEVIN_ALLOW_CLOSE_MC=1", () => {
+    const result = closeAllowedApp("minecraft", {
+      env: {},
+      run: () => ({ status: 0, stdout: "", stderr: "", error: undefined }),
+    });
+    expect(result.ok).toBe(false);
+    expect(result.error).toBe("not_authorized");
+  });
+
+  it("closes calculator via fixed script args when authorized path mocked", () => {
+    const calls: Array<{ command: string; args: string[] }> = [];
+    const run: CloseRunFn = (command, args) => {
+      calls.push({ command, args });
+      return {
+        status: 0,
+        stdout: "KEVIN_APP_CLOSE_OK method=CloseMainWindow name=CalculatorApp",
+        stderr: "",
+        error: undefined,
+      };
+    };
+    const result = closeAllowedApp("calculator", { force: true, run, scriptPath: "C:\\fake\\kevin-app-close.ps1" });
+    expect(result.ok).toBe(true);
+    expect(result.method).toBe("CloseMainWindow");
+    expect(calls).toHaveLength(1);
+    expect(calls[0].command).toBe("powershell.exe");
+    expect(calls[0].args).toContain("-File");
+    expect(calls[0].args).toContain("CalculatorApp");
+    expect(calls[0].args).toContain("-Force");
+    expect(calls[0].args.join(" ")).not.toMatch(/cmd\.exe|18789|19001/i);
+  });
+
+  it("rejects arbitrary close targets", () => {
+    const result = closeAllowedApp("powershell", {
+      run: () => ({ status: 0, stdout: "", stderr: "", error: undefined }),
+    });
+    expect(result.ok).toBe(false);
+    expect(result.error).toBe("unsafe_target");
+  });
+
+  it("surfaces protected denial from script", () => {
+    const result = closeAllowedApp("notepad", {
+      run: () => ({
+        status: 10,
+        stdout: "KEVIN_APP_CLOSE_DENIED_PROTECTED",
+        stderr: "",
+        error: undefined,
+      }),
+      scriptPath: "C:\\fake\\kevin-app-close.ps1",
+    });
+    expect(result.ok).toBe(false);
+    expect(result.error).toBe("protected");
+  });
+});
+
