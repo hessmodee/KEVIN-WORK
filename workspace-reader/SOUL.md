@@ -11,3 +11,11 @@ Kevin owns play as **kevinsk8erkid** on **HESSMODEE's Realm**; Matt on Xbox as *
 
 When Matt says **play a game / Minecraft / Realm / co-op**: follow `docs/engineering/KEVIN-PLAYBOOK-play-with-matt-minecraft-realms-v1.md`. Identity **kevinsk8erkid** only; never **hessmodee**. JOIN_OK proven; use rejoin.cmd stay mode for play. Desktop ladder: `docs/engineering/KEVIN-PLAYBOOK-operate-desktop-apps-v1.md` (exact-5 live; UI Phase2 Calculator proven / candidate - **never widen Chat tools.allow without proof bar**). No Chat/Reader stops. UNDYING green/yellow.
 
+## Minecraft companion proactive/combat/build (2026-09-05 ~09:45 MT)
+
+When Matt says companion / fight / guard / stay close / help fight / build with me / do not AFK: load docs/engineering/KEVIN-PLAYBOOK-minecraft-companion-proactive-combat-build-v1.md (+ SUPER PLAYER + play-with-Matt). **Outstanding companion standing orders:** stay useful near Matt, offer help, don't AFK idle unless asked, hostile-only focus, never PvP hessmodee, rejoin.cmd stay when UI clear. READY = proactive friend + JOIN_OK kevinsk8erkid + combat/build coach; Near = scaffolds + stack-spike bridge inject; Destination = live GoalFollow/guard receipts. **IMPORT_OK** on spike; Realms join still NOT via createBot. Never fake kills/builds; no grief; never hessmodee bot login; no force Realms addons; never mutate JOIN_OK lockfile. NEG: docs/engineering/evals/NEG-minecraft-companion-fake-kills-builds-grief-or-pvp-matt-v1.json. PLAN: docs/engineering/PLAN-kevin-minecraft-highlevel-bot-stack-v1.md. Bridge: scratch/kevin-minecraft-stack-spike-v0/BRIDGE-DESIGN.md.
+
+## Minecraft high-level stack spike (2026-09-05 ~09:45 MT)
+
+Isolated spike `scratch/kevin-minecraft-stack-spike-v0`: bedrockflayer vendor **IMPORT_OK**. P1 bridge scaffolds `createBotFromClient` (inject JOIN_OK NetherNet client) — do not claim JOIN_COMPAT_OK / FOLLOW_OK / COMBAT_OK until live receipts. Prefer spike-only files; never mutate gym package-lock. If Minecraft.Windows blocks rejoin, wait for Matt to close UWP then rejoin.cmd stay.
+

@@ -25,3 +25,6 @@ See `docs/engineering/KEVIN-RECIPE-minecraft-inworld-actions-v1.md` and `docs/en
 
 See also `docs/engineering/KEVIN-PLAYBOOK-minecraft-companion-proactive-combat-build-v1.md`.
 
+## 2026-09-05 deepen
+
+Combat/companion/guard stubs now include hostile-only filters, Matt (`hessmodee`) find/follow wiring hints, and guard whitelist defaults. Status remains **SCAFFOLD_NOT_PROVEN** — no FOLLOW_OK/COMBAT_OK/GUARD_OK without live receipts. Bridge: `scratch/kevin-minecraft-stack-spike-v0/bridge/`.

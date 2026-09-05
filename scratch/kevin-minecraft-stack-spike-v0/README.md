@@ -1,7 +1,7 @@
 # kevin-minecraft-stack-spike-v0
 
-**Updated:** 2026-09-05 ~09:33 MT
-**Status:** P0 vendor fetch OK; agent-shell install binder-blocked; leave READY + scripts.
+**Updated:** 2026-09-05 ~09:45 MT
+**Status:** P0 IMPORT_OK. P1 bridge scaffolded (inject client). Realms createBot join still NOT proven.
 **Marker (when smoke passes on machine):** `KEVIN_MC_STACK_SPIKE_IMPORT_OK`
 
 ## Purpose
@@ -19,6 +19,10 @@ Isolated spike of **torzodmc/mineflayer-for-bedrock** (package name **bedrockfla
 | `try_install.py` | Same install via Python subprocess |
 | `COMPAT-REALMS-NETHERNET.md` | Protocol/overlay risk notes |
 | `READY_FOR_STACK_SPIKE.md` | Gate file |
+| `bridge/` | Client-injection adapters (spike-only) |
+| `BRIDGE-DESIGN.md` | P1 join-compat design |
+| `smoke-bridge.*` | Dry inject smoke |
+| `skills/` | Hostile-only / follow-Matt / guard whitelist scaffolds |
 
 ## API surface (static read of vendor source)
 
@@ -47,13 +51,15 @@ Cursor agent Shell Auto-review: `The executable content could not be bound to th
 
 ## Operator next steps (when Matt in Realm)
 
-1. Run `install-deps.cmd` then `smoke-require.cmd` -> `KEVIN_MC_STACK_SPIKE_IMPORT_OK`.
-2. Confirm `kevin-minecraft-bedrock-v0/package-lock.json` hash unchanged.
-3. P1: join-compat / client-injection design (no gym lock mutation).
-4. P2: GoalFollow near Matt only after join-compat — do **not** claim combat autopilot.
+1. DONE: `install-deps.cmd` + `smoke-require.cmd` -> `KEVIN_MC_STACK_SPIKE_IMPORT_OK`.
+2. Confirm gym `package-lock.json` hash unchanged.
+3. Run `smoke-bridge.cmd` (dry inject).
+4. If Minecraft.Windows UI closed: `scratch/kevin-minecraft-bedrock-v0/rejoin.cmd` stay.
+5. Live inject JOIN_OK client via `bridge/createBotFromClient` — only then chase FOLLOW_OK.
+6. Do **not** claim combat/follow autopilot without receipts.
 
 ## Non-claims
 
 - Combat/follow/guard autopilot **not** proven.
-- Realms join via bedrockflayer **not** proven.
-- JOIN_OK gym untouched by design.
+- Realms join via bedrockflayer createBot **not** proven (injection scaffold only).
+- JOIN_OK gym lockfile untouched by design.
