@@ -1,17 +1,22 @@
 {
   "name": "kevin-minecraft-bedrock-v0",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "description": "Bedrock Realms join gym for kevinsk8erkid",
   "scripts": {
     "offline-join": "node scripts/offline-lan-join.js",
     "check": "node scripts/check-deps.js",
-    "device-code": "node scripts/device-code-auth.js",
-    "realms-join": "node scripts/realms-join.js"
+    "realms-join": "node scripts/realms-join.js",
+    "realms-rejoin": "node scripts/realms-rejoin.js",
+    "sisu-auth": "node scripts/sisu-auth.js",
+    "msal-auth": "node scripts/msal-device-auth.js",
+    "device-code": "node scripts/device-code-auth.js"
   },
   "dependencies": {
     "bedrock-protocol": "^3.47.0",
     "prismarine-auth": "^2.7.0"
   },
-  "engines": { "node": ">=18" }
+  "engines": {
+    "node": ">=18"
+  }
 }
