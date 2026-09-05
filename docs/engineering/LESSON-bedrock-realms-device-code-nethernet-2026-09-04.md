@@ -28,3 +28,8 @@
 - PLAN: `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md`
 - Scratch: `scratch/kevin-minecraft-bedrock-v0`
 - Prior fork LESSON: `docs/engineering/LESSON-mineflayer-java-not-bedrock-realms-fork-2026-09-04.md`
+
+## Update 23:45 MT
+
+See also LESSON-bedrock-device-code-firstparty-otc-2026-09-04.md — tonight's first-party error was ?otc= URL, not wrong authTitle.
+

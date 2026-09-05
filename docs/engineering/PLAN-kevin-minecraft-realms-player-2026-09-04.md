@@ -1,4 +1,4 @@
-﻿# PLAN - Kevin Minecraft Realms co-op player (as Kevin's own account)
+# PLAN - Kevin Minecraft Realms co-op player (as Kevin's own account)
 
 Date: 2026-09-04 ~23:15 MT (America/Denver) — update from ~14:42 / Bedrock lock ~15:05
 Author: Grok Bot (HESS-PC) — teach-and-transfer
@@ -85,3 +85,13 @@ Kevin plays Minecraft on Realms **with Matt** as **Kevin's own account** (fun co
 **Hard no unchanged:** no invent passwords; no purchases; do not kill Chat 18789 / Reader 19001; no GROK-HANDOVER; never act as hessmodee.
 
 **Status:** **READY_FOR_COOP_WHEN_OTHER_WORKER_JOINS** — identity + etiquette taught; live join still other-worker gated.
+
+## 9. Auth incident (2026-09-04 ~23:45 MT)
+
+**Root cause:** Owner/agent READY card advertised `link?otc=CODE`. First-party Minecraft live client cannot complete remoteconnect consent → error on login.live.com oauth20_remoteconnect.
+
+**Fix shipped:** `device-code-auth.js` writes `READY_FOR_OWNER_AUTH.md` with plain link + typed code only; added `sisu-auth.js` + `msal-device-auth.js`; cleared empty cache stubs.
+
+**Matt next:** Phone → https://www.microsoft.com/link → type fresh code as kevinsk8erkid → AUTH_CACHE_OK → realms-join.js.
+
+**Join status:** Not yet — blocked on fresh owner device-code (auth cache empty after clearing broken stubs).
