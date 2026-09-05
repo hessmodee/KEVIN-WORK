@@ -1,6 +1,6 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-04 17:20 MT
+**Updated:** 2026-09-04 18:05 MT
 **Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
 **Cold-start:** `docs/engineering/KEVIN-TURNOVER-LATEST.md`.
 
@@ -222,4 +222,4 @@ Source-only HQ Command truth upgrade on branch `grok/hq-max-20260904` (PR pendin
 
 ## Layer hold (Kevin wire)
 
-No ollama-isolate-latest.json → CURRENT_TASK remains write-proof. Do not advance. Await isolate PASS on llama3.1:8b and qwen2.5:14b. (refreshed 2026-09-04 17:20 MT)
+No ollama-isolate-latest.json → CURRENT_TASK remains write-proof. Do not advance. Await isolate PASS on llama3.1:8b and qwen2.5:14b. (refreshed 2026-09-04 18:05 MT)
