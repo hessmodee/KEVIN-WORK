@@ -118,4 +118,4 @@ Revert this branch/PR. Scratch delete is sufficient for optional stub. No produc
 
 ## 11. Status
 
-**READY_FOR_SCRATCH_CALC_PROVE** — design sealed; next eng = Phase 1 Calculator isolated prove under scratch; Chat widen blocked on full proof bar.
+**SCRATCH_CALC_PROVE_PASS** — Phase 1 isolated Calculator UIA prove PASS (`KEVIN_DESKTOP_UI_CALC_V0_OK`, Display is 2 for 1+1=). Evidence: `scratch/kevin-desktop-ui-v0/PROVE-OUT-20260904.json`, `reports/engineering/RECEIPT-scratch-desktop-ui-calc-v0-20260904-1858.json`. Chat widen still blocked on full proof bar; next = Phase 2 plugin candidate (disabled-by-default).
