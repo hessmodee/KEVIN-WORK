@@ -38,3 +38,9 @@ Kevin joins Matts existing Bedrock Realm (HESSMODEEs Realm) as kevinsk8erkid via
 - No live join without owner device-code
 - No purchase; no Chat Minecraft tool; no kill Chat 18789 / Reader 19001
 - Mineflayer Java gym = NON-PATH for Realms
+
+## Auth failure note (2026-09-04 night)
+
+First-party consent error = opened `microsoft.com/link?otc=...`. Fix: open plain `https://www.microsoft.com/link` and **type** the code. See `READY_FOR_OWNER_AUTH.md`.
+
+Scripts: `device-code-auth.js` (primary), `sisu-auth.js`, `msal-device-auth.js` (last resort).
