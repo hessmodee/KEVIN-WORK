@@ -1,0 +1,25 @@
+﻿{
+  "name": "kevin-discord-voice-v0",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Kevin Discord VOICE+TEXT companion directs for Minecraft. Token from env only. No login in smoke.",
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "smoke": "node smoke-import.js",
+    "smoke:text": "node smoke-text-router.js",
+    "start:text": "node src/bot-text.js",
+    "start:voice": "node src/bot-voice.js"
+  },
+  "dependencies": {
+    "@discordjs/voice": "^0.19.2",
+    "@snazzah/davey": "^0.1.10",
+    "discord.js": "^14.27.0",
+    "libsodium-wrappers": "^0.7.15",
+    "opusscript": "^0.0.8",
+    "prism-media": "^1.3.5"
+  },
+  "optionalDependencies": {
+    "@discordjs/opus": "^0.10.0",
+    "sodium-native": "^4.3.2"
+  }
+}

@@ -132,3 +132,8 @@ Not this run: invent/store credential; live openclaw config patch; gateway Disco
 **READY_FOR_OWNER_TOKEN** (and while Omen offline for remaining sync: **READY_FOR_OMEN_ONLINE**)
 
 Blocked on: (1) Matt creates bot + secret-card delivery into Kevin-local .env or credentials file; (2) HESS-PC local-exec online to land remaining docs/MEMORY/CURRENT_TASK/north-star pointer/PR publish if not yet synced.
+
+## 7b. VOICE lane ACTIVE (2026-09-05 ~11:55 MT)
+
+Sibling scratch/kevin-discord-voice-v0. Stack: Node24.19, discord.js, @discordjs/voice 0.19.2 + davey, opusscript, ffmpeg 9.0.1, faster-whisper + edge-tts installed. Smokes IMPORT_OK + text router OK. TEXT !k commands READY when owner credential present (gate READY_FOR_OWNER_TOKEN). VOICE join allowlisted; keep text primary tonight. Docs: PLAYBOOK/RESEARCH/OPERATOR-CARD + NEG eval.
+
