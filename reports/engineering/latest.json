@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-04T18:52:35.6633781-06:00",
+    "generated_at":  "2026-09-04T18:54:35.5707532-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
@@ -27,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  0.8
+                                     "heartbeat_age_seconds":  3.5
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -37,15 +37,15 @@
                               },
                    "composite_skills":  {
                                             "ready":  0,
-                                            "running":  1,
-                                            "done":  25,
+                                            "running":  0,
+                                            "done":  26,
                                             "failed":  5,
-                                            "proven_count":  25,
+                                            "proven_count":  26,
                                             "latest_proven":  {
-                                                                  "key":  "west-motor-trade-intake-pack@1",
-                                                                  "proven_at":  "2026-09-04T17:15:10.8444895-06:00",
-                                                                  "manifest_sha256":  "083951174E35334524FAE42346293456D981808900684C177AEBFC0E023F9740",
-                                                                  "proof_sha256":  "A74320691A9EABF511D4E77F10B1524C847596EB2B9860254CAB07E2708FDFE9",
+                                                                  "key":  "west-motor-aging-inventory-action-pack@1",
+                                                                  "proven_at":  "2026-09-04T18:53:12.0228368-06:00",
+                                                                  "manifest_sha256":  "C8CD85F6C5224741506C13A814350CFB95D2125502D5D164B5AA565DCD1CD8BC",
+                                                                  "proof_sha256":  "632AEA6A59D2768CFB1AD8F112961D8B87AA345B4AD9AB22066D6005B89F800E",
                                                                   "primitive_steps":  [
                                                                                           "create_spreadsheet",
                                                                                           "create_text"
@@ -68,23 +68,16 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-skill-lab-v1",
-                                    "enabled":  true,
-                                    "every_ms":  120000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-maintenance-intake-v1",
-                                    "enabled":  true,
-                                    "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-support-bridge-v1",
                                     "enabled":  true,
                                     "every_ms":  180000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-skill-lab-v1",
+                                    "enabled":  true,
+                                    "every_ms":  120000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
@@ -99,6 +92,13 @@
                                     "declaration_key":  "kevin-benchmark-v1",
                                     "enabled":  true,
                                     "every_ms":  600000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-maintenance-intake-v1",
+                                    "enabled":  true,
+                                    "every_ms":  300000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 }
