@@ -1,4 +1,4 @@
-# scratch/kevin-minecraft-bedrock-v0
+﻿# scratch/kevin-minecraft-bedrock-v0
 
 Authority: FREE/SAFE scaffold + device-code design. UNDYING GREEN+YELLOW.
 Companion PLAN: docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md
@@ -16,17 +16,17 @@ Kevin joins Matts existing Bedrock Realm (HESSMODEEs Realm) as kevinsk8erkid via
 
 ## Stack
 
-- bedrock-protocol — Bedrock/RakNet client; realms pickRealm helper
-- prismarine-auth — Xbox/Microsoft device-code; token cache under credentials/kevin-minecraft/
+- bedrock-protocol ΓÇö Bedrock/RakNet client; realms pickRealm helper
+- prismarine-auth ΓÇö Xbox/Microsoft device-code; token cache under credentials/kevin-minecraft/
 - Realms 26.10+ may require NetherNet / NETHERNET_JSONRPC (PrismarineJS bedrock-protocol issue 717)
 
 ## Scripts
 
-- install-deps.cmd — Owner double-click to install deps + DEPS_OK
-- node scripts/check-deps.js — require deps
-- node scripts/offline-lan-join.js — LAN/BDS offline prove -> KEVIN_MC_BEDROCK_V0_OK
-- node scripts/device-code-auth.js — READY_FOR_OWNER_DEVICE_CODE as kevinsk8erkid
-- node scripts/realms-join.js — fail-closed without token; KEVIN_REALMS_JOIN_OK
+- install-deps.cmd ΓÇö Owner double-click to install deps + DEPS_OK
+- node scripts/check-deps.js ΓÇö require deps
+- node scripts/offline-lan-join.js ΓÇö LAN/BDS offline prove -> KEVIN_MC_BEDROCK_V0_OK
+- node scripts/device-code-auth.js ΓÇö READY_FOR_OWNER_DEVICE_CODE as kevinsk8erkid
+- node scripts/realms-join.js ΓÇö fail-closed without token; KEVIN_REALMS_JOIN_OK
 
 ## Auth token cache
 
