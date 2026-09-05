@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-05T08:46:36.7603598-06:00",
+  "generated_at": "2026-09-05T08:50:13-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 45,
-    "cpu_pct": 30,
+    "memory_pct": 44,
+    "cpu_pct": 16,
     "gpu": "RTX 3060",
-    "gpu_pct": 35
+    "gpu_pct": 37
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-04T08:50:14-06:00",
-        "estimated": false,
-        "ram": 41,
-        "cpu": 26,
-        "gpu": 10
-      },
       {
         "at": "2026-09-04T09:05:15-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 45,
         "cpu": 30,
         "gpu": 35
+      },
+      {
+        "at": "2026-09-05T08:50:13-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 16,
+        "gpu": 37
       }
     ],
     "ram": [
-      41,
       45,
       49,
       47,
@@ -798,10 +797,10 @@
       44,
       45,
       44,
-      45
+      45,
+      44
     ],
     "cpu": [
-      26,
       51,
       25,
       53,
@@ -896,10 +895,10 @@
       28,
       23,
       21,
-      30
+      30,
+      16
     ],
     "gpu": [
-      10,
       45,
       50,
       43,
@@ -994,7 +993,8 @@
       38,
       43,
       43,
-      35
+      35,
+      37
     ]
   },
   "weather": {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-05T08:35:14-06:00",
+      "at": "2026-09-05T08:50:13-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-05T08:46:36.7603598-06:00",
+    "last": "2026-09-05T08:50:13-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1412,7 +1412,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-05T08:46:36.7603598-06:00",
+    "generated_at": "2026-09-05T08:49:36.8054303-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
