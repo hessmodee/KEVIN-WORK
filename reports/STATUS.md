@@ -1,3 +1,3 @@
-# Status 2026-09-05 20:58 UTC
+# Status 2026-09-05 21:00 UTC
 
-Bridge PASS (@14:58 MT). No heartbeat-latest.json. No ollama-isolate-latest.json. No isolate → hold write-proof. CURRENT_TASK = write-proof. Latest push (b6a201d) was not isolate/heartbeat. Cannot SSH HESS-PC. Local Ollama. Stop.
+Bridge PASS (@14:58 MT). No heartbeat-latest.json. No ollama-isolate-latest.json. No isolate → hold write-proof. CURRENT_TASK = write-proof. Latest push (c382904) was autonomy-continuation only, not isolate/heartbeat. Cannot SSH HESS-PC. Local Ollama. Stop.
