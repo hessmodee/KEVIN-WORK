@@ -2,7 +2,7 @@
 
 **Updated:** 2026-09-05 ~07:10 MT
 **Authority:** UNDYING GREEN+YELLOW teach/docs.
-**Cold-start:** When Matt says farm / craft / tools / food / gather / build / "help me play survival" — load this + in-world actions recipe. When Matt shows a **build picture** / blueprint — also load `PLAN-kevin-minecraft-blueprint-from-image-v1.md`.
+**Cold-start:** When Matt says farm / craft / tools / food / gather / build / "help me play survival" — load this + in-world actions recipe. When Matt shows a **build picture** / blueprint — also load `PLAN-kevin-minecraft-blueprint-from-image-v1.md`. When Matt says play / enchant / potion / care / animals / "super player" — also load `KEVIN-PLAYBOOK-minecraft-super-player-v1.md`.
 
 ## Capability layers (honest)
 
@@ -111,3 +111,7 @@ Phases (all fail-closed):
 - Coop recipe: `docs/engineering/KEVIN-RECIPE-bedrock-realms-coop-kevinsk8erkid-v1.md`
 - NEG: `docs/engineering/evals/NEG-minecraft-survival-fake-build-or-hessmodee-v1.json`
 - Scratch skills stubs: `scratch/kevin-minecraft-bedrock-v0/skills/`
+
+## 10. SUPER PLAYER extension
+
+Self-care, animal care, potions, enchanting: `docs/engineering/KEVIN-PLAYBOOK-minecraft-super-player-v1.md` (READY coach; Near stubs; Destination loops). Wiki: `minecraft-self-care.md`, `minecraft-animal-care.md`, `minecraft-potions.md`, `minecraft-enchanting.md`. Never fake brew/enchant; never kill Matt pets.

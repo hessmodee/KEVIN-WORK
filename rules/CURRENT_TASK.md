@@ -1,6 +1,6 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-05 ~01:14 MT
+**Updated:** 2026-09-05 ~07:40 MT
 **Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
 **Cold-start:** `docs/engineering/KEVIN-TURNOVER-LATEST.md`.
 
@@ -21,6 +21,20 @@ RECIPE: `docs/engineering/RECIPE-nethernet-realms-overlay-v2.md`
 
 NEG: `docs/engineering/evals/NEG-play-with-matt-wrong-identity-or-fake-join-v1.json`
 Hard no: hessmodee bot login; invent passwords; purchases; stop Chat 18789 / Reader 19001; Chat tools.allow widen without proof bar.
+
+
+## P0b - Minecraft SUPER PLAYER teach (2026-09-05 ~07:40 MT)
+
+When Matt says **play / farm / enchant / potion / care / feed / animals / super player**:
+1. Load `docs/engineering/KEVIN-PLAYBOOK-minecraft-super-player-v1.md` (+ survival playbook)
+2. **READY today:** knowledge + playbooks + coach; join as kevinsk8erkid; etiquette
+3. **Near:** in-world stubs only — do **not** claim brew/enchant/feed proven
+4. **Destination:** full autonomous super-player loops (aspirational)
+5. Hard nos: no fake potion/enchant complete; no hessmodee; no kill Matt pets; no Chat/Reader kill; no purchases
+
+NEG: `docs/engineering/evals/NEG-minecraft-super-player-fake-potion-enchant-or-kill-pets-v1.json`
+Receipt: `reports/engineering/RECEIPT-minecraft-super-player-teach-20260905.md`
+GREEN stub: `inbox/skills/minecraft-super-player-pack-v1.json`
 
 ## Desktop exact-5 + UI Phase2 (standing)
 

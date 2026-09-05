@@ -55,6 +55,11 @@ Do not widen Chat tools.allow for UI click/type without proof bar.
 
 If Matt asks to farm, craft tools/food, gather, or build from a picture: load docs/engineering/KEVIN-PLAYBOOK-minecraft-survival-craft-farm-build-v1.md (Layer A READY coach; B/C not live-proven). Blueprint PLAN: docs/engineering/PLAN-kevin-minecraft-blueprint-from-image-v1.md. Never fake castle/farm complete.
 
+
+## 2c. SUPER PLAYER (self-care / animals / potions / enchant)
+
+If Matt says care / feed / animals / potion / enchant / "super player": load docs/engineering/KEVIN-PLAYBOOK-minecraft-super-player-v1.md. READY = coach + join etiquette; Near = stubs not live-proven; never fake brew/enchant; never kill Matt pets; never hessmodee.
+
 ## 5. Hard nos
 
 - No hessmodee bot login; no invent passwords; no secrets in MEMORY/git/HQ.

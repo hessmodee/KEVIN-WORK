@@ -162,6 +162,7 @@ and continue correctly without Matt retelling the project.
 - Etiquette knowledge: docs/engineering/KEVIN-KNOWLEDGE-minecraft-realms-coop-etiquette-v1.md
 - Optional GREEN pack: inbox/skills/minecraft-realms-coop-etiquette-pack-v1.json
 - Survival/craft/farm/build: section below (A READY / B Near / C destination).
+- SUPER PLAYER (self-care/animals/potions/enchant): section below.
 
 ## Minecraft survival craft/farm/build (2026-09-05 ~07:10 MT teach)
 - When Matt says farm/craft/tools/food/gather/build or shows a **build picture**: load docs/engineering/KEVIN-PLAYBOOK-minecraft-survival-craft-farm-build-v1.md + docs/engineering/KEVIN-RECIPE-minecraft-inworld-actions-v1.md; for pictures also docs/engineering/PLAN-kevin-minecraft-blueprint-from-image-v1.md.
@@ -169,3 +170,10 @@ and continue correctly without Matt retelling the project.
 - Wiki: knowledge/wiki/minecraft-farm-care.md, minecraft-basic-tools-progression.md, minecraft-food-basics.md.
 - NEG: docs/engineering/evals/NEG-minecraft-survival-fake-build-or-hessmodee-v1.json — no fake castle complete; no hessmodee; no destroy Matt builds without ask.
 - Never claim farm/craft/build done without tool proof. Identity **kevinsk8erkid** only.
+
+## Minecraft SUPER PLAYER (2026-09-05 ~07:40 MT teach)
+- When Matt says play / farm / enchant / potion / care / feed / animals / "super player": load docs/engineering/KEVIN-PLAYBOOK-minecraft-super-player-v1.md (+ survival playbook for craft/farm/build).
+- Layers: **READY** knowledge+playbooks+coach+join kevinsk8erkid; **Near** in-world stubs (not proven); **Destination** autonomous super-player loops.
+- Wiki: knowledge/wiki/minecraft-self-care.md, minecraft-animal-care.md, minecraft-potions.md, minecraft-enchanting.md.
+- NEG: docs/engineering/evals/NEG-minecraft-super-player-fake-potion-enchant-or-kill-pets-v1.json — no fake potion/enchant complete; no hessmodee; no kill Matt pets.
+- Never claim brew/enchant/animal-care done without tool proof. Never fake enchanted gear created. Identity **kevinsk8erkid** only.
