@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "kind": "kevin-routing-stub",
+  "id": "play-with-matt-minecraft-routing-stub",
+  "version": "1",
+  "authority": "GREEN",
+  "status": "TEACH_STUB",
+  "name": "Play-with-Matt Minecraft prompt routing",
+  "description": "When Matt says play a game / Minecraft / Realms co-op, route Kevin to the play-with-Matt playbook and identity lock. Docs routing only — not a live join skill; no Chat tool widen.",
+  "trigger_phrases": [
+    "play a game with me",
+    "play Minecraft",
+    "join my Realm",
+    "Minecraft co-op",
+    "meet me at the house in Minecraft"
+  ],
+  "route_to": [
+    "docs/engineering/KEVIN-PLAYBOOK-play-with-matt-minecraft-realms-v1.md",
+    "docs/engineering/KEVIN-RECIPE-bedrock-realms-coop-kevinsk8erkid-v1.md",
+    "docs/engineering/KEVIN-RECIPE-minecraft-bedrock-client-ui-realms-join-v1.md",
+    "docs/engineering/KEVIN-PLAYBOOK-operate-desktop-apps-v1.md"
+  ],
+  "identity": {
+    "kevin": "kevinsk8erkid",
+    "matt_xbox": "hessmodee",
+    "realm": "HESSMODEE's Realm",
+    "spawn": "house bed"
+  },
+  "hard_no": [
+    "hessmodee bot login",
+    "fake JOIN_OK on NETHERNET_GATE",
+    "Chat tools.allow widen without proof bar",
+    "kill Chat/Reader",
+    "purchases"
+  ]
+}

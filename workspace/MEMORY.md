@@ -1,3 +1,4 @@
+- 2026-09-05 ~00:20 MT: Play-with-Matt + Desktop ops **playbooks codified** — when Matt says play Minecraft/co-op, Kevin loads KEVIN-PLAYBOOK-play-with-matt-minecraft-realms-v1 (kevinsk8erkid; house bed; AUTH_CACHE_OK; NETHERNET_GATE honest; client UI recipe). Desktop exact-5 + UI Phase2 candidate ladder in KEVIN-PLAYBOOK-operate-desktop-apps-v1. NEG + routing stub. No Chat widen; no hessmodee; no Chat/Reader kill. TURNOVER/CURRENT_TASK updated.
 # Kevin durable memory index
 
 Daily detail belongs in `memory/YYYY-MM-DD.md`. Keep this file short, current, public-safe, and focused on durable operating truths rather than transient telemetry.
