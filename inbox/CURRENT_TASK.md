@@ -1,6 +1,6 @@
 ﻿# CURRENT_TASK
 
-**Updated:** 2026-09-04 23:01 MT
+**Updated:** 2026-09-04 23:52 MT
 **Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
 **Cold-start:** `docs/engineering/KEVIN-TURNOVER-LATEST.md`.
 
@@ -25,15 +25,18 @@
 - PLAN: `docs/engineering/PLAN-hq-max-phase-b-nightforge-hide-2026-09-04.md`
 - Hard no: openclaw.json; Desktop exact-N; Chat/Reader kill; purchases
 
-## Active Minecraft Realms (2026-09-04 ~23:15 MT)
+## Active Minecraft Realms (2026-09-04 ~23:52 MT)
 
 - Edition **Bedrock LOCKED**. Kevin gamertag **kevinsk8erkid** (never hessmodee). Matt Xbox **hessmodee**.
 - Invite **DONE**; house bed spawn **DONE**.
+- **AUTH_CACHE_OK = yes** (Matt device-code as kevinsk8erkid; cache `credentials/kevin-minecraft/`).
+- **Join result = NETHERNET_GATE** (`realms-join.js` picked HESSMODEE's Realm then REALMS_JOIN_TIMEOUT exit 4). Not KEVIN_REALMS_JOIN_OK.
+- Receipt: `reports/engineering/RECEIPT-minecraft-bedrock-auth-join-nethernet-20260904-2352.md`
+- LESSON: `docs/engineering/LESSON-bedrock-realms-device-code-nethernet-2026-09-04.md`
 - Recipe: `docs/engineering/KEVIN-RECIPE-bedrock-realms-coop-kevinsk8erkid-v1.md`
 - PLAN: `docs/engineering/PLAN-kevin-minecraft-realms-player-2026-09-04.md`
-- Etiquette: `docs/engineering/KEVIN-KNOWLEDGE-minecraft-realms-coop-etiquette-v1.md` + optional GREEN `inbox/skills/minecraft-realms-coop-etiquette-pack-v1.json`
-- Status: teach-and-transfer LANDED this worker; **live join/auth = other worker** (device-code as kevinsk8erkid).
-- Hard no: invent passwords; purchase; kill Chat 18789 / Reader 19001; GROK-HANDOVER; act as hessmodee.
+- Residual: NetherNet / bedrock-protocol #717 — do **not** re-run device-code unless cache empty. Hard no: invent passwords; purchase; kill Chat 18789 / Reader 19001; act as hessmodee.
+
 
 ## CoS gap resume applied (2026-09-04 ~13:17 MT)
 
