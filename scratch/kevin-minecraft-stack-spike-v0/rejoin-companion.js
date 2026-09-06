@@ -62,8 +62,18 @@ async function main() {
   log("[rejoin-companion] gym lock note", bridge.hashNote());
 
   if (mcUiRunning()) {
-    printReadyForLiveInject();
-    process.exit(2);
+    const closePs1 = path.join(SPIKE, '..', 'kevin-desktop-app-lifecycle-v0', 'kevin-app-close.ps1');
+    if (fs.existsSync(closePs1)) {
+      log('[rejoin-companion] Minecraft.Windows open — Kevin app-close (Matt authorized)');
+      const cr = spawnSync('powershell', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', closePs1, '-ProcessName', 'Minecraft.Windows', '-Force', '-GraceMs', '5000'], { encoding: 'utf8', windowsHide: true });
+      log(String(cr.stdout || ''));
+      log(String(cr.stderr || ''));
+    }
+    if (mcUiRunning()) {
+      printReadyForLiveInject();
+      process.exit(2);
+    }
+    log('[rejoin-companion] Minecraft.Windows closed by Kevin app-close');
   }
   log("KEVIN_REALMS_STAY_PREFLIGHT_OK");
 
@@ -105,6 +115,14 @@ async function main() {
 
   // Honest JOIN_OK-shaped marker for stay path (client spawned). Not JOIN_COMPAT_OK.
   log("KEVIN_REALMS_JOIN_OK");
+  try {
+    if (client._kevinStartGame && (!client.startGameData || !Object.keys(client.startGameData).length)) {
+      client.startGameData = client._kevinStartGame;
+      log("[rejoin-companion] kevinStartGame restore", Object.keys(client.startGameData).slice(0, 40));
+    } else if (client.startGameData) {
+      log("[rejoin-companion] startGameData pre-inject keys", Object.keys(client.startGameData).slice(0, 40));
+    }
+  } catch (eRestore) {}
   log("[rejoin-companion] injecting client into bedrockflayer createBotFromClient");
 
   let bot;
@@ -126,6 +144,29 @@ async function main() {
     log("[rejoin-companion] injected flag", !!bot._kevinInjected);
     // Wait a tick for late-bind spawn emit + players map population.
     await new Promise((r) => setTimeout(r, 1500));
+    try {
+      bot.on("error", function (err) {
+        log("[rejoin-companion] bot error soft", String(err && err.message || err).slice(0, 200));
+      });
+    } catch (eErr) {}
+    try {
+      try {
+        const sg = client.startGameData || {};
+        log("[rejoin-companion] startGameData keys", Object.keys(sg).slice(0, 40));
+        log("[rejoin-companion] startGameData pos fields", {
+          player_position: sg.player_position,
+          position: sg.position,
+          world_spawn: sg.world_spawn,
+          spawn_position: sg.spawn_position,
+          runtime_entity_id: sg.runtime_entity_id != null ? String(sg.runtime_entity_id) : null,
+        });
+      } catch (eDump) { log("[rejoin-companion] startGame dump fail", String(eDump && eDump.message || eDump)); }
+      const synced = bridge.syncSelfFromStartGame(bot, client);
+      log("[rejoin-companion] sync self from start_game", synced, bridge.ensureSerializer(client));
+      if (bot.entity && bot.entity.position) {
+        log("[rejoin-companion] self pos", bot.entity.position.x, bot.entity.position.y, bot.entity.position.z);
+      }
+    } catch (eSync) { log("[rejoin-companion] sync fail", String(eSync && eSync.message || eSync)); }
     companionStatus = bridge.enableStayCompanion(bot, {
       enableGuard: true,
       enableAutoEat: true,
@@ -133,6 +174,10 @@ async function main() {
       names: ["hessmodee", "HESSMODEE"],
     });
     log("[rejoin-companion] companion wire", companionStatus);
+    try {
+      const loop = bridge.startAuthChaseLoop(bot, client, { range: 3, intervalMs: 50 });
+      log("[rejoin-companion] auth chase loop on", loop && loop.serializer);
+    } catch (eLoop) { log("[rejoin-companion] auth loop fail", String(eLoop && eLoop.message || eLoop)); }
     if (companionStatus.follow && companionStatus.follow.entityPresent) {
       log("KEVIN_MC_FOLLOW_WIRED_NOT_PROVEN");
     } else {
@@ -150,7 +195,9 @@ async function main() {
     }
     const fr = bridge.followMatt(bot, { range: 3 });
     log("[rejoin-companion] matt poll follow", fr.status, fr.reason || fr.action);
-  }, 15000);
+    const chase = bridge.crudeChaseMatt(bot, { range: 3, client });
+    log("[rejoin-companion] matt poll chase", chase.status, chase.reason || chase.action, chase.dist);
+  }, 2000);
   if (followRetry.unref) followRetry.unref();
 
   const heartbeat = setInterval(() => {
@@ -159,6 +206,12 @@ async function main() {
   }, 30000);
   if (heartbeat.unref) heartbeat.unref();
 
+  try {
+    if (client) {
+      const hi = bridge.queueChat(client, "hey Matt - following you", "kevinsk8erkid");
+      log("[rejoin-companion] chat hi", hi);
+    }
+  } catch (e) { log("[rejoin-companion] chat hi fail", String(e && e.message || e)); }
   log("[rejoin-companion] stay active — Ctrl+C to exit. No FOLLOW_OK/COMBAT_OK claimed.");
   // Keep process alive for stay
   await new Promise(() => {});
