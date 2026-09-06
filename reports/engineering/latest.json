@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-05T19:03:05.7904742-06:00",
+    "generated_at":  "2026-09-05T19:05:05.7422408-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
@@ -27,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  63244.9
+                                     "heartbeat_age_seconds":  63364.8
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -75,20 +75,6 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-support-bridge-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-maintenance-intake-v1",
-                                    "enabled":  true,
-                                    "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
@@ -99,6 +85,20 @@
                                     "declaration_key":  "kevin-benchmark-v1",
                                     "enabled":  true,
                                     "every_ms":  600000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-maintenance-intake-v1",
+                                    "enabled":  true,
+                                    "every_ms":  300000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 }
