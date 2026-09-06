@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "kind": "kevin-ollama-isolation-receipt",
+  "id": "628eb33a-c202-426f-ae54-2636e4292229",
+  "generated_at": "2026-09-06T20:17:03.252Z",
+  "safe_for_public_repo": true,
+  "status": "PASS",
+  "api": "native-/api/chat",
+  "models": [
+    {
+      "model": "llama3.1:8b",
+      "status": "PASS",
+      "duration_ms": 10726,
+      "response_sha256": "EB3D7D83BDE9D29563F0127D4DB7E519A08D77B12472199A1CEC4F0244F8E654"
+    },
+    {
+      "model": "qwen2.5:14b",
+      "status": "PASS",
+      "duration_ms": 13260,
+      "response_sha256": "451597D6369B4F73204D6BDA50620D12CD9EF1AE1FDC4FE6E85877AADB514161"
+    }
+  ],
+  "tool_execution_attempted": false,
+  "truth_boundary": "Structured model tool-call generation only. Does not prove OpenClaw dispatch, filesystem writes, desktop actions or autonomous work.",
+  "source_sha256": "A8A6B2311608A17D3609F74CF02632A0314BD774CA50283FEDD1834E6390DCD2"
+}
