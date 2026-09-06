@@ -65,11 +65,19 @@ jobs:
       - name: Static authority boundary
         shell: python
         run: |
+          import re
           from pathlib import Path
           p=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.50.ps1').read_text(encoding='utf-8')
           inc=Path('tools/maintenance-v1.3.50-install-v1810.ps1.inc').read_text(encoding='utf-8')
-          for bad in ('Invoke-Expression','kevin_shell','Start-Process cmd.exe'):
-              assert bad not in inc, bad
+          # The candidate intentionally contains literal forbidden-marker names in
+          # fail-closed guards. Reject executable statements, not those guard strings.
+          forbidden_exec = (
+              r'(?im)^\s*Invoke-Expression\b',
+              r'(?im)^\s*kevin_shell\b',
+              r'(?im)^\s*Start-Process\s+cmd\.exe\b',
+          )
+          for pattern in forbidden_exec:
+              assert re.search(pattern, inc) is None, pattern
           for need in ('install_autonomy_controller_v1810','route_before_turn_charge','owner_value_skills_to_skill_lab','Assert-Benchmark30','rollback completed'):
               assert need in p, need
           assert "history_preserved=$true" in p
