@@ -1,0 +1,76 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "west-motor-transport-dispatch-template",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "West Motor vehicle-transport dispatch template",
+  "description": "Reusable dealership transport dispatch workbook plus a short operating note. Generic example rows only. No customer PII, credentials, external sends, purchases, or new authority.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "West Motor Transport Dispatch Template.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Dispatch Board",
+              "rows": [
+                ["Request ID", "Priority", "Status", "Origin", "Destination", "Vehicle / Unit", "Driver / Assignee", "Target Date", "Target Time", "Contact / Coordination", "Completion", "Exception", "Notes"],
+                ["TR-1001", "P1", "READY", "West Motor - Preston lot", "Dealer trade - Logan", "Example F-150 stock unit", "Unassigned", "2026-09-08", "09:00", "Confirm receiving manager morning-of", "", "", "Generic example — replace with live requests"],
+                ["TR-1002", "P2", "HOLD", "West Motor - service lane", "Offsite body shop", "Example Explorer stock unit", "Unassigned", "2026-09-09", "13:30", "Need keys + gate code from service", "", "Waiting on keys", "Do not put customer names or phone numbers in this sheet"],
+                ["TR-1003", "P3", "PLANNED", "Auction inbound", "West Motor - Preston lot", "Example inventory unit", "Unassigned", "2026-09-10", "11:00", "Lot stall to be assigned on arrival", "", "", "Keep one live row per move"]
+              ]
+            },
+            {
+              "name": "Daily Handoff",
+              "rows": [
+                ["Date", "Shift / Window", "Must Move Today", "Can Slip", "Blockers", "Who Owns Follow-up", "Handoff Notes", "Done?"],
+                ["YYYY-MM-DD", "AM", "TR-1001", "TR-1003", "None", "Dispatcher", "Print this sheet for the morning standup", ""],
+                ["YYYY-MM-DD", "PM", "", "", "Keys for TR-1002", "Service lane", "Update Dispatch Board status before leaving", ""]
+              ]
+            },
+            {
+              "name": "Exceptions",
+              "rows": [
+                ["Request ID", "Opened", "Type", "What happened", "Impact", "Owner", "Next action", "Due", "Closed"],
+                ["TR-1002", "2026-09-06", "Missing keys", "Unit not releasable from service", "Cannot dispatch", "Service", "Collect keys and update status to READY", "2026-09-07", ""],
+                ["", "", "Weather / breakdown / refused / paperwork", "", "", "", "", "", ""]
+              ]
+            },
+            {
+              "name": "Status Codes",
+              "rows": [
+                ["Status", "Meaning", "Who updates", "Next expected action"],
+                ["PLANNED", "On the board, not yet committed to a day", "Dispatcher", "Promote to READY when vehicle, driver window, and destination are known"],
+                ["READY", "Cleared to move", "Dispatcher", "Assign driver and target time"],
+                ["ASSIGNED", "Driver accepted", "Dispatcher", "Confirm departure"],
+                ["IN_TRANSIT", "On the road", "Driver / dispatcher", "Log arrival"],
+                ["DELIVERED", "Received at destination", "Dispatcher", "Mark Completion on Dispatch Board"],
+                ["HOLD", "Blocked; see Exceptions", "Anyone who sees the block", "Open an Exceptions row"],
+                ["CANCELLED", "Will not run", "Dispatcher", "Record reason; do not delete the row"]
+              ]
+            },
+            {
+              "name": "Week Plan",
+              "rows": [
+                ["Week of", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Capacity notes"],
+                ["YYYY-MM-DD", "TR-1001 AM", "", "TR-1003 AM", "", "", "", "Keep one primary move per morning window when possible"],
+                ["YYYY-MM-DD", "", "", "", "", "", "", ""]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "West Motor Transport Dispatch - Operating Note.md",
+        "content": "# West Motor transport dispatch — operating note\n\nThis board is for **internal vehicle movement** (lot-to-lot, trade, auction inbound, body shop, service overflow). It is a template. Keep real customer names, phone numbers, SSNs, finance terms, and plate/VIN dumps off this workbook unless Matt later adds a private local sheet.\n\n## Daily loop\n1. Morning: open **Daily Handoff** and **Dispatch Board**. Anything with status READY and a target date of today is Must Move Today.\n2. Assign a driver/assignee before the unit leaves. Status becomes ASSIGNED, then IN_TRANSIT, then DELIVERED.\n3. If keys, paperwork, weather, or a refused receipt blocks the move, set HOLD and add a row on **Exceptions**. Do not silently leave it READY.\n4. End of day: update Completion on finished rows, rewrite tomorrow's Daily Handoff, and leave the file where Matt and the next shift can find it.\n\n## Fields that matter\n- **Priority:** P1 same-day / customer-waiting internal move, P2 committed next window, P3 flexible.\n- **Origin / Destination:** lot, lane, or shop — not a street address book.\n- **Vehicle / Unit:** stock-style label only in this template.\n- **Contact / Coordination:** role or desk, not personal cell numbers in the shared template.\n\n## What Kevin may do\nPrepare, fill, and update this workbook and this note using already-proven spreadsheet/text capability. Kevin may not send the sheet to customers, post it publicly, purchase transport, or widen tools to complete a row.\n\n## What this is not\nNot a live GPS tracker. Not a payroll sheet. Not proof that a model turn happened. A useful board is one Matt can run tomorrow morning without rebuilding columns.\n"
+      }
+    }
+  ]
+}

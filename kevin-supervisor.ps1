@@ -316,7 +316,7 @@ function Get-ToolCallCount([object]$Object) {
 function Get-PublicContinuation([object]$State) {
     $allowed=@('IDLE_NO_ELIGIBLE_DEMAND','WAITING_ITEM_BUDGETS','CHECK_ONLY_ELIGIBLE','AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF','CONTROLLER_ERROR','ROUTED_TO_SKILL_LAB','ROUTED_TO_ENGINEERING_RELAY','BLOCKED_DESKTOP_CAPABILITY')
     if($allowed-notcontains[string]$State.status){throw 'nonterminal controller state is not publishable'}
-    $out=[ordered]@{schema=1;kind='kevin-autonomy-continuation-public';version='1.8.8';generated_at=[string]$State.at;status=[string]$State.status;safe_for_public_repo=$true;outcome_proven=$false;model_call_counts_as_accomplishment=$false;tool_calls=$null;history=@()}
+    $out=[ordered]@{schema=1;kind='kevin-autonomy-continuation-public';version='1.8.10';generated_at=[string]$State.at;status=[string]$State.status;safe_for_public_repo=$true;outcome_proven=$false;model_call_counts_as_accomplishment=$false;tool_calls=$null;history=@();history_error=$false}
     foreach($key in @('selected_id','fingerprint')){
         if($State.Contains($key)){
             $v=[string]$State[$key];$pattern=if($key-eq'fingerprint'){'^[A-F0-9]{64}$'}else{'^[a-z0-9][a-z0-9._-]{2,96}$'}
@@ -326,13 +326,43 @@ function Get-PublicContinuation([object]$State) {
     foreach($key in @('eligible_count','duration_ms','same_fingerprint_turns')){if($State.Contains($key)){$out[$key]=[int]$State[$key]}}
     if($State.Contains('tool_calls')-and$null-ne$State.tool_calls){$out.tool_calls=[int]$State.tool_calls}
     if($State.Contains('failure')){$out.failure_sha256=Get-TextSha ([string]$State.failure)}
+    if($State.Contains('work_conservation')){$out.work_conservation=[string]$State.work_conservation}
+    $histStatuses=@('IN_PROGRESS','MIGRATED_LEGACY','AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF','ROUTED_TO_SKILL_LAB','ROUTED_TO_ENGINEERING_RELAY','BLOCKED_DESKTOP_CAPABILITY')
+    if($State.Contains('deferred')){
+        $deferredOut=@()
+        foreach($row in @($State.deferred)){
+            try{
+                $did=[string]$row.id
+                $reason=[string]$row.reason
+                if($did-notmatch'^[a-z0-9][a-z0-9._-]{2,96}$'){continue}
+                if($reason-notmatch'^[A-Z][A-Z0-9_]{2,80}$'){continue}
+                $turns=0
+                [void][int]::TryParse([string]$row.turns,[ref]$turns)
+                $deferredOut+=,[ordered]@{id=$did;reason=$reason;turns=$turns}
+            }catch{}
+        }
+        if($deferredOut.Count-gt0){$out.deferred=$deferredOut}
+    }
     try{
         $history=Read-State
+        $kept=@()
+        $skipped=0
         foreach($entry in @($history.items)){
-            if([string]$entry.id-notmatch'^[a-z0-9][a-z0-9._-]{2,96}$'-or[string]$entry.fingerprint-notmatch'^[A-F0-9]{64}$'){throw 'history identity invalid'}
-            if([string]$entry.status-notin@('IN_PROGRESS','MIGRATED_LEGACY','AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF')){throw 'history status invalid'}
-            $out.history+=,[ordered]@{id=[string]$entry.id;fingerprint=[string]$entry.fingerprint;turns=[int]$entry.turns;last_turn_at=([datetime]$entry.last_turn_at).ToString('o');status=[string]$entry.status}
+            try{
+                $eid=[string]$entry.id
+                $efp=[string]$entry.fingerprint
+                if($eid-notmatch'^[a-z0-9][a-z0-9._-]{2,96}$'-or$efp-notmatch'^[A-F0-9]{64}$'){$skipped++;continue}
+                $est='MIGRATED_LEGACY'
+                if($entry.PSObject.Properties.Name-contains'status'-and[string]$entry.status){$est=[string]$entry.status}
+                if($histStatuses-notcontains$est){$skipped++;continue}
+                $at=([datetime]$entry.last_turn_at).ToString('o')
+                $tn=[int]$entry.turns
+                $kept+=,[ordered]@{id=$eid;fingerprint=$efp;turns=$tn;last_turn_at=$at;status=$est}
+            }catch{$skipped++}
         }
+        $out.history=$kept
+        if($skipped-gt0){$out.history_skipped=$skipped}
+        $out.history_error=$false
     }catch{$out.history=@();$out.history_error=$true}
     $out.truth_boundary='Scheduled selection and runtime-attempt evidence only. No owner outcome, tool use, or autonomy transfer is inferred from a successful model turn.'
     return $out
@@ -438,12 +468,48 @@ function Invoke-Cycle {
             Save-Latest 'CHECK_ONLY_ELIGIBLE' @{selected_id=$id;fingerprint=$finger;eligible_count=$initialEligible;deferred=$deferred}|Out-Null
             return
         }
+        # Capability-aware gate BEFORE charging a turn. A Skill Lab/Relay handoff is
+        # not a main-agent attempt; charging first burned owner-value budgets on tool-less fixed:main.
+        $routeWorker = ''
+        $routeCaps = @()
+        $routeProgram = ''
+        $laneName = ''
+        try {
+            $itemDoc = Get-Content -LiteralPath $paths.items -Raw | ConvertFrom-Json
+            $selectedRow = @($itemDoc.items | Where-Object { [string]$_.id -eq $id })
+            if ($selectedRow.Count -eq 1) {
+                if ($selectedRow[0].PSObject.Properties.Name -contains 'worker') { $routeWorker = [string]$selectedRow[0].worker }
+                if ($selectedRow[0].PSObject.Properties.Name -contains 'required_capabilities') { $routeCaps = @($selectedRow[0].required_capabilities) }
+                if ($selectedRow[0].PSObject.Properties.Name -contains 'program') { $routeProgram = [string]$selectedRow[0].program }
+                if ($selectedRow[0].PSObject.Properties.Name -contains 'lane') { $laneName = [string]$selectedRow[0].lane }
+            }
+        } catch {
+            throw ('capability route precheck failed: ' + (Safe-Text $_.Exception.Message))
+        }
+        $skillLabOwned = ($laneName -eq 'skill-lab' -or $routeWorker -eq 'skill-lab' -or $routeProgram -eq 'owner-value-skills' -or $routeProgram -eq 'skill-learning' -or $routeProgram -eq 'capability-growth')
+        $selectionRecord = [ordered]@{
+            schema=1;kind='kevin-autonomy-selection';selected_at=$now.ToString('o');id=$id;program=[string]$sel.selection.program;lane=[string]$sel.selection.lane;score=[double]$sel.selection.score;fingerprint=$finger;authority_effect='NONE_SELECTION_ONLY';source='deterministic kevin-work-selector-v1.1';deferred=$deferred
+        }
+        if ($skillLabOwned) {
+            Write-JsonAtomic $SelectionPath $selectionRecord
+            [void](Invoke-MissionLease 'Acquire' $id ('reports/autonomy-continuation-latest.json')); [void](Invoke-MissionLease 'Heartbeat' $id ('reports/autonomy-continuation-latest.json')); Save-Latest 'ROUTED_TO_SKILL_LAB' @{ selected_id=$id; fingerprint=$finger; eligible_count=$initialEligible; deferred=$deferred; worker='skill-lab'; program=$routeProgram; forbid_fixed_main=$true; turn_charged=$false; truth_boundary='Skill Lab owns this capability; Supervisor must not call fixed:main. A routing handoff is not a bounded turn.' } | Out-Null
+            return
+        }
+        $capText = (($routeCaps | ForEach-Object { [string]$_ }) -join ',')
+        if ($capText -match 'kevin_desktop_' -or $capText -match 'kevin_system_status') {
+            Write-JsonAtomic $SelectionPath $selectionRecord
+            Save-Latest 'BLOCKED_DESKTOP_CAPABILITY' @{ selected_id=$id; fingerprint=$finger; eligible_count=$initialEligible; deferred=$deferred; reason='DESKTOP_REQUIRED_BUT_FIXED_MAIN_TOOLLESS_OR_UNPROVEN'; forbid_fixed_main=$true; turn_charged=$false } | Out-Null
+            return
+        }
+        if ($routeWorker -eq 'engineering-relay' -or $routeWorker -eq 'relay') {
+            Write-JsonAtomic $SelectionPath $selectionRecord
+            Save-Latest 'ROUTED_TO_ENGINEERING_RELAY' @{ selected_id=$id; fingerprint=$finger; eligible_count=$initialEligible; deferred=$deferred; worker='engineering-relay'; forbid_fixed_main=$true; turn_charged=$false } | Out-Null
+            return
+        }
         # Charge the attempt before any runtime call, so errors/restarts cannot erase its budget.
         $turns++
         $st=Record-ItemAttempt $st $id $finger $turns $now 'IN_PROGRESS'
-        Write-JsonAtomic $SelectionPath ([ordered]@{
-            schema=1;kind='kevin-autonomy-selection';selected_at=$now.ToString('o');id=$id;program=[string]$sel.selection.program;lane=[string]$sel.selection.lane;score=[double]$sel.selection.score;fingerprint=$finger;authority_effect='NONE_SELECTION_ONLY';source='deterministic kevin-work-selector-v1.1';deferred=$deferred
-        })
+        Write-JsonAtomic $SelectionPath $selectionRecord
         $gw = $null
         for ($probeAttempt = 1; $probeAttempt -le 3; $probeAttempt++) {
             $gw = Invoke-OpenClaw @('gateway', 'status', '--require-rpc', '--json')
@@ -451,36 +517,6 @@ function Invoke-Cycle {
             if ($probeAttempt -lt 3) { Start-Sleep -Milliseconds (500 * $probeAttempt) }
         }
         if ($null -eq $gw -or $gw.exit_code -ne 0) { throw 'gateway RPC probe failed after bounded retries' }
-        # Capability-aware gate (P0.2): never send Skill Lab or Desktop-blocked work to tool-less fixed:main.
-        $routeWorker = ''
-        $routeCaps = @()
-        try {
-            $itemDoc = Get-Content -LiteralPath $paths.items -Raw | ConvertFrom-Json
-            $selectedRow = @($itemDoc.items | Where-Object { [string]$_.id -eq $id })
-            if ($selectedRow.Count -eq 1) {
-                if ($selectedRow[0].PSObject.Properties.Name -contains 'worker') { $routeWorker = [string]$selectedRow[0].worker }
-                if ($selectedRow[0].PSObject.Properties.Name -contains 'required_capabilities') { $routeCaps = @($selectedRow[0].required_capabilities) }
-                if ($selectedRow[0].PSObject.Properties.Name -contains 'lane') {
-                    $laneName = [string]$selectedRow[0].lane
-                    if ($laneName -eq 'skill-lab' -or $routeWorker -eq 'skill-lab') {
-                        [void](Invoke-MissionLease 'Acquire' $id ('reports/autonomy-continuation-latest.json')); [void](Invoke-MissionLease 'Heartbeat' $id ('reports/autonomy-continuation-latest.json')); Save-Latest 'ROUTED_TO_SKILL_LAB' @{ selected_id=$id; fingerprint=$finger; eligible_count=$initialEligible; deferred=$deferred; worker='skill-lab'; forbid_fixed_main=$true; truth_boundary='Skill Lab owns this capability; Supervisor must not call fixed:main.' } | Out-Null
-                        return
-                    }
-                }
-                $capText = (($routeCaps | ForEach-Object { [string]$_ }) -join ',')
-                if ($capText -match 'kevin_desktop_' -or $capText -match 'kevin_system_status') {
-                    # Desktop-required: refuse main dispatch from this controller revision without effective tools proof.
-                    Save-Latest 'BLOCKED_DESKTOP_CAPABILITY' @{ selected_id=$id; fingerprint=$finger; eligible_count=$initialEligible; deferred=$deferred; reason='DESKTOP_REQUIRED_BUT_FIXED_MAIN_TOOLLESS_OR_UNPROVEN'; forbid_fixed_main=$true } | Out-Null
-                    return
-                }
-                if ($routeWorker -eq 'engineering-relay' -or $routeWorker -eq 'relay') {
-                    Save-Latest 'ROUTED_TO_ENGINEERING_RELAY' @{ selected_id=$id; fingerprint=$finger; eligible_count=$initialEligible; deferred=$deferred; worker='engineering-relay'; forbid_fixed_main=$true } | Out-Null
-                    return
-                }
-            }
-        } catch {
-            throw ('capability route precheck failed: ' + (Safe-Text $_.Exception.Message))
-        }
         $mainCheck = Invoke-OpenClaw @('skills', 'check', '--agent', 'main', '--json')
         if ($mainCheck.exit_code -ne 0) { throw 'fixed main agent preflight failed' }
         $message = 'KEVIN_AUTONOMY_CONTINUATION_V1. The deterministic governed selector selected work item ID ' + $id + '. Read your Standing Orders and local reports/autonomy-selection-current.json. Independently refresh evidence and confirm this item is still eligible and UNSATISFIED before any side effect. If stale, satisfied, blocked, cooled, prohibited, or missing a proven typed GREEN capability, do not improvise or widen authority; record the exact blocker through normal Kevin evidence. Otherwise execute the highest-value safe next step through proven typed GREEN mechanisms, semantically verify the real outcome, record evidence and reusable learning, then leave durable next state so a later cycle can continue. Do not manufacture Forge/design demand. Do not use arbitrary shell/code transport, self-grant permissions, spend money, perform live trades, expose credentials, or send unauthorized third-party/public owner-representing communications. A model response, heartbeat, publish commit, cycle, candidate, or hash alone is not an accomplishment.'
@@ -533,7 +569,7 @@ if ($SelfTest) {
         if ($LASTEXITCODE -ne 0) { throw ('mission lease wire selftest failed: ' + (($leaseSt | Out-String).Trim())) }
         Write-Host 'KEVIN SUPERVISOR MISSION-LEASE WIRE SELFTEST PASS'
     } else { throw 'mission lease bridge missing' }
-    Write-Host 'KEVIN SUPERVISOR v1.8.10 SELFTEST PASS identity_key_budget=true annotation_excluded=true material_boolean_excluded=true selector_first=true capability_router=true skill_lab_not_main=true desktop_not_toolless_main=true gateway_agent=fixed-main gateway_rpc_only=true gateway_probe_retries=3 main_preflight=true no_forge_dispatch=true anti_spin=true openclaw_native_node=true shell_shim_bypassed=true native_timeout=180s arbitrary_shell=false authority_expansion=false production_install=false'
+    Write-Host 'KEVIN SUPERVISOR v1.8.10 SELFTEST PASS identity_key_budget=true annotation_excluded=true material_boolean_excluded=true selector_first=true capability_router=true skill_lab_not_main=true owner_value_skills_not_main=true public_history_skip_invalid=true deferred_reasons_published=true route_before_turn_charge=true desktop_not_toolless_main=true gateway_agent=fixed-main gateway_rpc_only=true gateway_probe_retries=3 main_preflight=true no_forge_dispatch=true anti_spin=true openclaw_native_node=true shell_shim_bypassed=true native_timeout=180s arbitrary_shell=false authority_expansion=false production_install=false'
     Write-Host 'KEVIN SUPERVISOR v1.8.10 DURABLE-BUDGET PASS per_item_history=true attempts_before_effect=true corruption_fails_closed=true alternating_items_bounded=true'
     Write-Host 'KEVIN SUPERVISOR v1.8.10 WORK-CONSERVATION PASS fingerprint_scoped_cooldown=true alternative_reselection=true local_exclusion_only=true canonical_queue_unchanged=true no_global_idle_with_alternative=true authority_expansion=false'
     exit 0

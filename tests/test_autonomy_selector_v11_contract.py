@@ -176,6 +176,33 @@ class AdmissionContract(unittest.TestCase):
         check_result(result, {"fixture-a", "fixture-b", "fixture-z"})
         self.assertEqual([r["id"] for r in result["eligible"]], ["fixture-a", "fixture-b", "fixture-z"])
 
+    def test_open_green_production_owner_value_mission_is_eligible(self):
+        """Exact west-motor shaped case: OPEN/GREEN/production/owner-value, ready, not blocked.
+
+        Admission must select this item. Do not require READY, do not reset history,
+        and do not treat production lane as ineligible for owner-value work.
+        """
+        row = item(
+            "owner-west-motor-transport-dispatch-template-v1",
+            status="OPEN",
+            lane="production",
+            work_type="execution",
+            priority="high",
+            owner_value=5,
+            reuses_proven_capability=True,
+            produces_owner_deliverable=True,
+            closes_proof_gap=True,
+            reduces_bess_intervention=True,
+            dependencies_ready=True,
+            blocked=False,
+            failure_attempts=0,
+            material_new_evidence=True,
+        )
+        check_result(run_fixture([row]), {"owner-west-motor-transport-dispatch-template-v1"})
+        result = run_fixture([row])
+        self.assertEqual(result["selection"]["id"], "owner-west-motor-transport-dispatch-template-v1")
+        self.assertEqual(result["status"], "SELECTED")
+
     def test_oracle_rejects_false_idle(self):
         false_idle = run_fixture([])
         with self.assertRaises(AssertionError):
