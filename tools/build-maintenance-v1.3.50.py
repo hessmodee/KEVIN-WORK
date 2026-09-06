@@ -13,7 +13,11 @@ SEL = ROOT / "control-plane" / "autonomy" / "kevin-work-selector-v1.2.py"
 INC = ROOT / "tools" / "maintenance-v1.3.50-install-v1810.ps1.inc"
 QUAL = ROOT / "reports" / "engineering" / "QUALIFICATION-maint-v1.3.50-supervisor-v1810.json"
 
-EXPECTED_PARENT = "715E40DF0CFDC94FC8D470A83273467A6B10CC6CB9A2956E3A94FADC69B9646B"
+# The exact HESS-PC v1.3.49 evidence is 715E40... . Normalizing its mixed
+# line endings to LF produces 726310... exactly, which is this repository file.
+# Production installation must still CAS against the exact 715E40... bytes.
+EXPECTED_REPO_PARENT = "7263100C59A5588F7BE29A7332F23814D8257BD60EA305F64F9AF749AD2E24C5"
+EXPECTED_INSTALLED_PARENT = "715E40DF0CFDC94FC8D470A83273467A6B10CC6CB9A2956E3A94FADC69B9646B"
 EXPECTED_LIVE_SUPERVISOR = "D77BCAA7E2CB76B0F477F7CBAC0C93CC1ABF010F24373EC2F0207D73A1B76810"
 EXPECTED_SELECTOR = "52EADBCA27070F3FF845ADF1E989F7E570AECC25D2C3F11EF7E0FF80DA000C6A"
 
@@ -30,8 +34,8 @@ def replace_once(text: str, old: str, new: str, label: str) -> str:
 
 
 parent_sha = sha256(SRC)
-if parent_sha != EXPECTED_PARENT:
-    raise SystemExit(f"parent Maintenance identity changed: {parent_sha}")
+if parent_sha != EXPECTED_REPO_PARENT:
+    raise SystemExit(f"repo parent Maintenance identity changed: {parent_sha}")
 selector_sha = sha256(SEL)
 if selector_sha != EXPECTED_SELECTOR:
     raise SystemExit(f"selector v1.2 identity changed: {selector_sha}")
@@ -124,7 +128,10 @@ candidate_sha = sha256(DST)
 qualification = {
     "schema": 1,
     "kind": "kevin-maintenance-v1.3.50-supervisor-v1810-qualification",
-    "parent_maintenance_sha256": parent_sha,
+    "repo_parent_maintenance_sha256": parent_sha,
+    "installed_parent_maintenance_sha256": EXPECTED_INSTALLED_PARENT,
+    "installed_parent_lf_normalized_sha256": EXPECTED_REPO_PARENT,
+    "installed_parent_semantics": "BYTE_DRIFT_LINE_ENDINGS_ONLY_PROVEN_FROM_2026-09-06_HESS-PC_EVIDENCE",
     "candidate_maintenance_sha256": candidate_sha,
     "live_supervisor_predecessor_sha256": EXPECTED_LIVE_SUPERVISOR,
     "candidate_supervisor_sha256": supervisor_sha,
