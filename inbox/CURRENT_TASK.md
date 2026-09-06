@@ -1,48 +1,50 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-06 15:30 MT
-**Status:** Recovery v3 false-stop diagnosed; merged Recovery v4 CheckOnly crossing is next
+**Updated:** 2026-09-06 15:35 MT
+**Status:** PLATFORM RECOVERY PROVEN; Kevin is green and awaiting eligible owner-value demand
 
 Owner directed Bess to resume Kevin repair after Grok credits exhausted. Canonical handover remains `AI-HANDOVER.md`; fresh correlated runtime evidence outranks prose.
 
-## Proven this session
-- Current production config SHA remains `29383A6B9A8C4B5FA00B394AC169C8DDF7F3EE8829762D0F5BBA271C606C6BEA`. Exact-five Desktop policy and all 15 protected global denies remain intact. Main remains `ollama-chat-16k/qwen2.5:14b`; compaction remains 2048/2048/4000.
-- Native Ollama isolation remains PASS for exactly `llama3.1:8b` and `qwen2.5:14b`, with no model-returned tool executed. Published fixed-main canary remains `OMEN_PROVEN`, exact reply, Qwen on `ollama-chat-16k`, exactly five Kevin tools.
-- PR89/live receipt proves predecessor config `DBF596CF1E317D40A51E9E98FA50D63D1009CEC880C37E9D99F83C6E65E2ACF4` reached fresh 30/30 on September 4. Current Benchmark remains 29/30 critical1, R04 only; UI task is present but Disabled/stale.
-- PR137 Recovery v3 independently qualified the current `29383...` local-model evolution and passed Windows PowerShell 5.1 qualification gates.
-- Owner ran exact SHA-verified v3 `-CheckOnly`. It SAFE STOPPED with `Fresh main-agent canary receipt missing` at qualification preflight. Owner then manually ran v3 `-Apply`; it stopped at the identical preflight line. Because failure occurred before `Repair-R04`, neither invocation changed the Benchmark baseline/R04 anchor, production config, UI scheduled task, or other recovery target.
-- Root cause: v3 incorrectly assumed a canary durably published to the repository was also retained at `~/.openclaw/workspace/reports/main-agent-canary-omen.json`. Publication and local retention are separate durability domains.
-- The published proof is immutable and real: commit `131f3afd51413f228be64ef660a8e51d9be96a0e`, path `reports/main-agent-canary-omen.json`, Git blob `ec76565f225fdcb880ab0bbad6a58b5d555e2de0`.
-- PR138 merged Recovery v4 as `cf517c690ab25a716f97f75734b7ad74995c3d7f`. v4 is a narrow wrapper around exact v3 SHA256 `DAC43A78079A5FA4BDF5E212E265EEBE37950CA4F72E604F50833C86DE3A7D7F`; it does not replace v3's R04, rollback, Benchmark, UI, or Notepad proof logic.
-- v4 downloadable wrapper SHA256 is `82CC32E5984199A95B5849FFEF9B18B3709992281CAE6E6C175848E261DC8C02`.
-- v4 evidence capsule SHA256 is `EEC855AA7B3677335477634C2D60B2573D75B27ECAA8CCEF96E248CD9949838A`. Capsule links exact config `29383...`, source commit `131f3...`, source blob `ec765...`, exact-five tool-name hash, output hash, Qwen transcript hash/provider/model, and timestamp.
-- PR138 CI PASS: Windows PowerShell 5.1 parse, deterministic wrapper self-test, exact downloadable byte identities, Git-lineage reconstruction from commit/blob, and bounded-authority gate. No network, config-set, scheduler mutation, arbitrary shell, or authority expansion exists in v4 wrapper.
-- v4 local-evidence precedence is fail-closed: a real local canary always outranks fallback. If a local canary exists but is stale, contradictory, or predates current isolation, v4 refuses to use the published capsule.
-- Only when local canary is absent does v4 transiently stage the SHA-pinned published canary at the path exact v3 expects. It removes the staged evidence only when its bytes remain unchanged; concurrent/newer evidence is preserved.
+## Platform recovery is complete
+- Owner ran exact SHA-verified Recovery v4 CheckOnly. Required markers all passed:
+  - `KEVIN_RECOVERY_V3_READY ... current_config=QUALIFIED_LOCAL_MODEL_EVOLUTION r04=qualified ui_task=False ui_reason=disabled`
+  - `KEVIN_RECOVERY_V4_READY canary_source=pinned_commit_131f3 staged_transient=true v3=qualified`
+  - `KEVIN_RECOVERY_V4_STAGED_CANARY_CLEANUP verified=true`
+- Owner then ran Recovery v4 Apply separately. Required final markers all passed:
+  - `KEVIN_RECOVERY_V3_APPLIED_PROVEN benchmark=30/30 ui=sustained ui_notepad=ROUND_TRIP_PROVEN`
+  - `KEVIN_RECOVERY_V4_APPLIED_PROVEN canary_source=pinned_commit_131f3 staged_transient=true v3=proven`
+  - `KEVIN_RECOVERY_V4_STAGED_CANARY_CLEANUP verified=true`
+- Fresh Kevin Engineering truth independently confirms Benchmark `PASS`, `30/30`, `critical=0` at `2026-09-06T15:32:44.9706098-06:00`.
+- Fresh Engineering truth independently confirms UI Bridge task present with heartbeat age only `3.3` seconds at `2026-09-06T15:33:45.1313741-06:00`; installed Operator/Initiative/UI source identities still match their pins.
+- Engineering Relay, Supervisor, Skill Lab and Support Bridge scheduled declarations are enabled and reporting `last_status=ok`, `consecutive_errors=0` in the first post-recovery snapshot.
+- Exact current production config remains `29383A6B9A8C4B5FA00B394AC169C8DDF7F3EE8829762D0F5BBA271C606C6BEA`; exact-five Desktop authority and 15 protected denies remain the intended contract.
+- The published fixed-main canary and local dual-model isolation qualification remain the evidence basis for adopting current `29383...` rather than reverting to predecessor `DBF596...`.
+- Recovery v4 provenance remains PR138 merge `cf517c690ab25a716f97f75734b7ad74995c3d7f`; v3 engine SHA256 `DAC43A78079A5FA4BDF5E212E265EEBE37950CA4F72E604F50833C86DE3A7D7F`; v4 wrapper SHA256 `82CC32E5984199A95B5849FFEF9B18B3709992281CAE6E6C175848E261DC8C02`; evidence capsule SHA256 `EEC855AA7B3677335477634C2D60B2573D75B27ECAA8CCEF96E248CD9949838A`.
 
-## Exact next step
-Owner places these three files together in Downloads:
-1. existing SHA-verified `Repair-Kevin-Recovery-20260906-v3.ps1`;
-2. `Repair-Kevin-Recovery-20260906-v4.ps1` SHA256 `82CC32...`;
-3. `Kevin-Recovery-Main-Canary-20260906.json` SHA256 `EEC855...`.
+## Current post-recovery bottleneck
+- Fresh Autonomy Continuation v1.8.8 at `2026-09-06T15:34:31.1814194-06:00` reports `IDLE_NO_ELIGIBLE_DEMAND`, `eligible_count=0`, `outcome_proven=false`.
+- This is now the correct behavior: Kevin is no longer blocked by R04 or the UI; he is refusing to manufacture synthetic work because no admissible current demand exists.
+- `inbox/autonomy/state.json` still reflects the old pre-recovery observation window/truth boundary and must be refreshed rather than treated as current platform truth.
+- Historical scheduler error counters on Benchmark/Maintenance may remain nonzero until their next successful scheduled runs. Do not misclassify those counters as a current Benchmark failure; the fresh benchmark result is 30/30.
 
-Owner runs **v4 CheckOnly only**. Do not provide or run Apply in the same command block. Required success markers are:
-- underlying `KEVIN_RECOVERY_V3_READY ...`;
-- wrapper `KEVIN_RECOVERY_V4_READY ...`;
-- if fallback was staged, `KEVIN_RECOVERY_V4_STAGED_CANARY_CLEANUP verified=true`.
+## Exact next objective
+Restore **one real eligible GREEN owner-value mission** through the governed work-selection contract and prove that Kevin himself performs the next-selection lifecycle:
+1. admissible demand appears without widening authority;
+2. Supervisor/Continuation selects it on its own scheduled cycle;
+3. Kevin executes through existing proven primitives/composite skills;
+4. output is semantically verified as a useful owner deliverable, not just a successful model turn;
+5. result, lesson and evidence are recorded durably;
+6. the next scheduled cycle makes a correct continuation/idle decision without Bess supplying the immediate item id.
 
-Return the complete CheckOnly output to Bess. Apply is authorized/present in v4 but must not be instructed until the returned READY evidence is reviewed.
+Prefer a bounded owner-useful deliverable that reuses already PROVEN capabilities (spreadsheet/text and existing owner-value composite patterns) over new infrastructure or Forge experimentation. No external send, purchase, financial transaction, credential access, arbitrary shell, or authority expansion.
 
-## Why v4 is not a weakened gate
-The local dual-model isolation receipt remains required and fresh. The fixed-main canary content, timestamp, exact-five surface, output hash, transcript hash, Qwen route, source commit/blob, capsule bytes, current config bytes, and exact v3 engine bytes are all pinned. Fallback is allowed only for absence, never contradiction. Exact v3 still performs every existing config/source/R04 precondition before a production write can occur.
-
-## After successful v4 CheckOnly / Apply
-1. Review CheckOnly; then run v4 Apply separately.
-2. Require fresh Benchmark 30/30 and sustained UI/Notepad proof or preserve controlled partial R04-green result.
-3. Ingest recovery receipt plus fresh Support/Engineering/UI truth.
-4. Add typed Maintenance R04 re-anchor operation and durable proof-source semantics so Kevin owns this recurrence.
-5. Repair UI watchdog disabled-task semantics, run fresh exact-five owner-intent/negative canaries, and correct stale HQ four-tool truth.
-6. Restore one real eligible GREEN owner-value mission and prove selection -> execution -> verification -> recording -> learning -> continuation.
+## Required reliability follow-up after the first useful mission
+1. Add a typed Maintenance R04 production-config re-anchor operation with exact preconditions, one-leaf mutation, rollback and post-30/30 proof so this deadlock can be repaired locally next time.
+2. Repair UI watchdog semantics so a Disabled UI task definition can be diagnosed/rebuilt rather than merely start-attempted.
+3. Run fresh exact-five real owner-intent canaries plus forbidden-tool negatives.
+4. Correct HQ/Support public truth that still derives a stale four-tool inventory from the old P01 receipt; current intended inventory is exact-five.
+5. Refresh Autonomy state/truth boundary after recovery; preserve historical retry/failure records rather than resetting them.
+6. Diagnose/clear historical Benchmark/Maintenance scheduler error counters only through successful current scheduled runs or typed repair; do not falsify counters.
 
 ## Preserved constraints
-Local/free Ollama default. Exact-five is intentional. Keep failure history. No blind R04 blessing, no rollback to exact-four, no obsolete September 3 repair script, no arbitrary shell/tool widening, no silent public sends/purchases/trades. Published evidence and local evidence are different durability domains; fallback evidence never overrides contradictory local evidence.
+Local/free Ollama default. Exact-five is intentional. Keep failure history. No blind R04 blessing, no rollback to exact-four, no arbitrary shell/tool widening, no silent public sends/purchases/trades. Published evidence and local evidence are different durability domains; fallback evidence never overrides contradictory local evidence. Success means useful verified owner outcomes and declining Bess intervention, not infrastructure churn or model turns counted as accomplishments.
