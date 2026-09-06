@@ -1,0 +1,62 @@
+name: Kevin Qualified Config Recovery v3 Proof
+
+on:
+  pull_request:
+    paths:
+      - 'tools/Repair-Kevin-Recovery-20260906-v3.ps1'
+      - 'docs/engineering/KEVIN-CONFIG-29383-QUALIFICATION-2026-09-06.md'
+      - '.github/workflows/kevin-qualified-config-recovery-v3-proof.yml'
+  push:
+    branches:
+      - 'bess/qualified-config-recovery-v3-20260906'
+    paths:
+      - 'tools/Repair-Kevin-Recovery-20260906-v3.ps1'
+      - 'docs/engineering/KEVIN-CONFIG-29383-QUALIFICATION-2026-09-06.md'
+      - '.github/workflows/kevin-qualified-config-recovery-v3-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  powershell51:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse with Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $path = 'tools/Repair-Kevin-Recovery-20260906-v3.ps1'
+          $tokens = $null
+          $errors = $null
+          [void][Management.Automation.Language.Parser]::ParseFile($path,[ref]$tokens,[ref]$errors)
+          if($errors.Count){ $errors | Format-List *; throw 'PowerShell 5.1 parser rejected recovery v3' }
+          Write-Host 'KEVIN_RECOVERY_V3_PARSE_PASS powershell=5.1'
+      - name: Run deterministic qualification self-test
+        shell: powershell
+        run: |
+          $out = (& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'tools/Repair-Kevin-Recovery-20260906-v3.ps1' -SelfTest 2>&1 | Out-String).Trim()
+          Write-Host $out
+          if($LASTEXITCODE -ne 0){ throw 'Recovery v3 self-test exited nonzero' }
+          if($out -notmatch 'KEVIN RECOVERY V3 SELFTEST PASS'){ throw 'Recovery v3 self-test marker missing' }
+      - name: Enforce bounded authority and qualification gates
+        shell: powershell
+        run: |
+          $s = Get-Content -LiteralPath 'tools/Repair-Kevin-Recovery-20260906-v3.ps1' -Raw
+          foreach($bad in @('Invoke-Expression','iex ','cmd.exe','kevin_shell','Start-Process','DownloadString','WebClient','Invoke-WebRequest','Invoke-RestMethod')){
+            if($s.IndexOf($bad,[StringComparison]::OrdinalIgnoreCase) -ge 0){ throw "Forbidden recovery surface found: $bad" }
+          }
+          foreach($required in @(
+            '[switch]$CheckOnly','[switch]$Apply','[switch]$SelfTest',
+            '29383A6B9A8C4B5FA00B394AC169C8DDF7F3EE8829762D0F5BBA271C606C6BEA',
+            'DBF596CF1E317D40A51E9E98FA50D63D1009CEC880C37E9D99F83C6E65E2ACF4',
+            "ollama-chat-16k/qwen2.5:14b","ollama-chat-16k/llama3.1:8b",
+            'num_ctx','12288','16384','timeoutSeconds','600','900','keep_alive','10m',
+            'ollama-isolate-latest.json','main-agent-canary-omen.json','tool_execution_attempted',
+            'visible_kevin_tool_count','Assert-ConfigValidateReadOnly','Invoke-FreshBenchmark30'
+          )){
+            if(-not $s.Contains($required)){ throw "Required qualification gate missing: $required" }
+          }
+          if($s.Contains('semantic_equivalent=true')){ throw 'v3 must not restore the rejected generic semantic-equivalence shortcut' }
+          Write-Host 'KEVIN_RECOVERY_V3_AUTHORITY_BOUNDARY_PASS arbitrary_shell=false network=false exact_config=true evidence_gated=true'
