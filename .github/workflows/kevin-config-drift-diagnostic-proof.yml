@@ -1,0 +1,48 @@
+name: Kevin Config Drift Diagnostic Proof
+
+on:
+  pull_request:
+    paths:
+      - 'tools/Diagnose-Kevin-Config-Drift-20260906.ps1'
+      - '.github/workflows/kevin-config-drift-diagnostic-proof.yml'
+  push:
+    branches:
+      - 'bess/config-drift-diagnosis-20260906'
+    paths:
+      - 'tools/Diagnose-Kevin-Config-Drift-20260906.ps1'
+      - '.github/workflows/kevin-config-drift-diagnostic-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  powershell51:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse with Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $path = 'tools/Diagnose-Kevin-Config-Drift-20260906.ps1'
+          $tokens = $null
+          $errors = $null
+          [void][Management.Automation.Language.Parser]::ParseFile($path,[ref]$tokens,[ref]$errors)
+          if($errors.Count){ $errors | Format-List *; throw 'PowerShell 5.1 parser rejected diagnostic' }
+          Write-Host 'KEVIN_CONFIG_DRIFT_PARSE_PASS powershell=5.1'
+      - name: Run redaction self-test
+        shell: powershell
+        run: |
+          $out = (& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'tools/Diagnose-Kevin-Config-Drift-20260906.ps1' -SelfTest 2>&1 | Out-String).Trim()
+          Write-Host $out
+          if($LASTEXITCODE -ne 0){ throw 'Diagnostic self-test exited nonzero' }
+          if($out -notmatch 'KEVIN CONFIG DRIFT DIAGNOSTIC SELFTEST PASS'){ throw 'Diagnostic self-test marker missing' }
+      - name: Enforce read-only authority boundary
+        shell: powershell
+        run: |
+          $s = Get-Content -LiteralPath 'tools/Diagnose-Kevin-Config-Drift-20260906.ps1' -Raw
+          foreach($bad in @('Set-Content','Add-Content','Out-File','Move-Item','Copy-Item','Remove-Item','New-ScheduledTask','Register-ScheduledTask','Start-ScheduledTask','Stop-ScheduledTask','openclaw config set','Invoke-Expression','Start-Process','Invoke-WebRequest','Invoke-RestMethod','WebClient')){
+            if($s.IndexOf($bad,[StringComparison]::OrdinalIgnoreCase) -ge 0){ throw "Diagnostic is not read-only: $bad" }
+          }
+          Write-Host 'KEVIN_CONFIG_DRIFT_READ_ONLY_BOUNDARY_PASS writes=false restarts=false network=false arbitrary_shell=false'
