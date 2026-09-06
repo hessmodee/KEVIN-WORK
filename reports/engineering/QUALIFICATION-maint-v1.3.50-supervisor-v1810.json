@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "kind": "kevin-maintenance-v1.3.50-supervisor-v1810-qualification",
+  "repo_parent_maintenance_sha256": "7263100C59A5588F7BE29A7332F23814D8257BD60EA305F64F9AF749AD2E24C5",
+  "installed_parent_maintenance_sha256": "715E40DF0CFDC94FC8D470A83273467A6B10CC6CB9A2956E3A94FADC69B9646B",
+  "installed_parent_lf_normalized_sha256": "7263100C59A5588F7BE29A7332F23814D8257BD60EA305F64F9AF749AD2E24C5",
+  "installed_parent_semantics": "BYTE_DRIFT_LINE_ENDINGS_ONLY_PROVEN_FROM_2026-09-06_HESS-PC_EVIDENCE",
+  "candidate_maintenance_sha256": "8E01A9DFE52CEE241DAD30B10181BACD1B258907482262811EFDA92DFA5646DE",
+  "live_supervisor_predecessor_sha256": "D77BCAA7E2CB76B0F477F7CBAC0C93CC1ABF010F24373EC2F0207D73A1B76810",
+  "candidate_supervisor_sha256": "BDA265ACCB929EC5129B2F38AC76FE276625A604052304FC32C917700BCB532E",
+  "selector_v12_sha256": "52EADBCA27070F3FF845ADF1E989F7E570AECC25D2C3F11EF7E0FF80DA000C6A",
+  "operation": "install_autonomy_controller_v1810",
+  "authority_class": "GREEN",
+  "authority_delta": "NONE",
+  "production_effect": "NONE",
+  "preserves": [
+    "continuation-history",
+    "work-items",
+    "mission-leases",
+    "forge-anchor"
+  ],
+  "postcondition": "fresh Benchmark PASS 30/30 critical0",
+  "rollback": "exact supervisor/selector/baseline backups"
+}
