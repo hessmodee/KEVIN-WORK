@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-06T09:49:04.7561220-06:00",
+  "generated_at": "2026-09-06T09:50:04.6063497-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -1382,7 +1382,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-06T09:49:04.7561220-06:00",
+    "last": "2026-09-06T09:50:04.6063497-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-06T09:49:04.7561220-06:00",
+    "generated_at": "2026-09-06T09:50:04.6063497-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1429,13 +1429,13 @@
     "primary": {
       "id": "minecraft-autonomy",
       "name": "Minecraft Autonomy",
-      "title": "FIND_WOLF live | tick 14 | PEEK_DOWN_10",
+      "title": "FIND_WOLF live | tick 24 | SWEEP_17",
       "category": "minecraft",
       "state": "working",
-      "detail": "pythonw PID 12156 sweeps=10 pause=False | P1 next_dry=eat_heal",
+      "detail": "pythonw PID 12156 sweeps=18 pause=False | P1 next_dry=eat_heal",
       "what": "Hunting wolf nametag Kevin; HOME/stair/CLOSE still P0. Parallel dry skill proves from PROVE_QUEUE.",
       "engine": "pythonw autonomy_loop.py",
-      "action": "Live hunt: PEEK_DOWN_10"
+      "action": "Live hunt: SWEEP_17"
     },
     "lanes": [
       {
@@ -1463,10 +1463,10 @@
         "name": "Minecraft Autonomy",
         "role": "Live client hunt + skill proves",
         "state": "working",
-        "detail": "FIND_WOLF pythonw PID 12156 | tick=14 action=PEEK_DOWN_10 sweeps=10 pause=False | next_dry=eat_heal",
+        "detail": "FIND_WOLF pythonw PID 12156 | tick=24 action=SWEEP_17 sweeps=18 pause=False | next_dry=eat_heal",
         "what": "Hidden autonomy_loop FIND_WOLF_KEVIN; PROVE_QUEUE dry skills parallel when non-conflicting.",
         "engine": "pythonw autonomy_loop + skill library",
-        "action": "Hunt tick 14 / PEEK_DOWN_10"
+        "action": "Hunt tick 24 / SWEEP_17"
       },
       {
         "id": "staging",
@@ -1483,15 +1483,15 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "pythonw PID 12156 sweeps=10 pause=False | P1 next_dry=eat_heal",
+    "phase": "pythonw PID 12156 sweeps=18 pause=False | P1 next_dry=eat_heal",
     "worker": "Minecraft Autonomy",
     "engine": "pythonw autonomy_loop.py",
-    "action": "Live hunt: PEEK_DOWN_10"
+    "action": "Live hunt: SWEEP_17"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Minecraft Autonomy | WORKING | pythonw PID 12156 sweeps=10 pause=False | P1 next_dry=eat_heal",
+      "text": "Minecraft Autonomy | WORKING | pythonw PID 12156 sweeps=18 pause=False | P1 next_dry=eat_heal",
       "severity": "normal"
     }
   ]
