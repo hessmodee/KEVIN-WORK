@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-06T11:14:29.7674786-06:00",
+  "generated_at": "2026-09-06T11:15:29.7418497-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -1382,7 +1382,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-06T11:14:29.7674786-06:00",
+    "last": "2026-09-06T11:15:29.7418497-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-06T11:14:29.7674786-06:00",
+    "generated_at": "2026-09-06T11:15:29.7418497-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1429,13 +1429,13 @@
     "primary": {
       "id": "minecraft-autonomy",
       "name": "Minecraft Autonomy",
-      "title": "FIND_WOLF live | tick 19 | CLEAR_OVERLAY:pause:esc_only:n=1",
+      "title": "FIND_WOLF live | tick 27 | CLEAR_OVERLAY:pause:enter_resume:n=1",
       "category": "minecraft",
       "state": "working",
       "detail": "pythonw PID 5036 sweeps=0 pause=True | P1 next_dry=eat_heal",
       "what": "Hunting wolf nametag Kevin; HOME/stair/CLOSE still P0. Parallel dry skill proves from PROVE_QUEUE.",
       "engine": "pythonw autonomy_loop.py",
-      "action": "Live hunt: CLEAR_OVERLAY:pause:esc_only:n=1"
+      "action": "Live hunt: CLEAR_OVERLAY:pause:enter_resume:n=1"
     },
     "lanes": [
       {
@@ -1463,10 +1463,10 @@
         "name": "Minecraft Autonomy",
         "role": "Live client hunt + skill proves",
         "state": "working",
-        "detail": "FIND_WOLF pythonw PID 5036 | tick=19 action=CLEAR_OVERLAY:pause:esc_only:n=1 sweeps=0 pause=True | next_dry=eat_heal",
+        "detail": "FIND_WOLF pythonw PID 5036 | tick=27 action=CLEAR_OVERLAY:pause:enter_resume:n=1 sweeps=0 pause=True | next_dry=eat_heal",
         "what": "Hidden autonomy_loop FIND_WOLF_KEVIN; PROVE_QUEUE dry skills parallel when non-conflicting.",
         "engine": "pythonw autonomy_loop + skill library",
-        "action": "Hunt tick 19 / CLEAR_OVERLAY:pause:esc_only:n=1"
+        "action": "Hunt tick 27 / CLEAR_OVERLAY:pause:enter_resume:n=1"
       },
       {
         "id": "staging",
@@ -1486,7 +1486,7 @@
     "phase": "pythonw PID 5036 sweeps=0 pause=True | P1 next_dry=eat_heal",
     "worker": "Minecraft Autonomy",
     "engine": "pythonw autonomy_loop.py",
-    "action": "Live hunt: CLEAR_OVERLAY:pause:esc_only:n=1"
+    "action": "Live hunt: CLEAR_OVERLAY:pause:enter_resume:n=1"
   },
   "newswire": [
     {
