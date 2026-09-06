@@ -26,8 +26,34 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Record exact source identities
+        shell: bash
+        run: |
+          {
+            sha256sum control-plane/maintenance/kevin-maintenance-runner-v1.3.49.ps1
+            sha256sum control-plane/autonomy/kevin-supervisor-v1.8.10.ps1
+            sha256sum control-plane/autonomy/kevin-work-selector-v1.2.py
+          } > source-hashes.txt
+          cat source-hashes.txt
       - name: Generate exact candidate
-        run: python tools/build-maintenance-v1.3.50.py
+        id: generate_candidate
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          python tools/build-maintenance-v1.3.50.py 2>&1 | tee generation.log
+      - name: Upload source/generator evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-v1.3.50-source-evidence
+          path: |
+            source-hashes.txt
+            generation.log
+      - name: Require generation success
+        if: steps.generate_candidate.outcome != 'success'
+        shell: bash
+        run: exit 1
       - name: Verify deterministic regeneration
         shell: bash
         run: |
