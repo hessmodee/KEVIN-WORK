@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-06T10:34:16.5325925-06:00",
+  "generated_at": "2026-09-06T10:35:16.6426153-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -14,10 +14,10 @@
   },
   "current_task": {
     "id": "minecraft-autonomy",
-    "title": "FIND_WOLF live | tick 44 | WALK_SEEK_STAIRS y=None n=0 skill=DESCEND_STAIRS",
+    "title": "FIND_WOLF live | tick 18 | WALK_SEEK_STAIRS y=None n=0 skill=DESCEND_STAIRS",
     "category": "minecraft",
-    "phase": "pythonw PID 90688 sweeps=43 pause=False | P1 next_dry=eat_heal",
-    "started_at": "2026-09-06T10:19:16.2492660-06:00",
+    "phase": "pythonw PID 122756 sweeps=17 pause=False | P1 next_dry=eat_heal",
+    "started_at": "2026-09-06T10:34:16.5325925-06:00",
     "source": "hq-live-ops"
   },
   "services": {
@@ -28,21 +28,14 @@
   },
   "system": {
     "memory_pct": 49,
-    "cpu_pct": 53,
+    "cpu_pct": 73,
     "gpu": "RTX 3060",
-    "gpu_pct": 45
+    "gpu_pct": 50
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-05T10:35:14-06:00",
-        "estimated": false,
-        "ram": 45,
-        "cpu": 33,
-        "gpu": 42
-      },
       {
         "at": "2026-09-05T10:50:13-06:00",
         "estimated": false,
@@ -707,10 +700,16 @@
         "ram": 49,
         "cpu": 53,
         "gpu": 45
+      },
+      {
+        "at": "2026-09-06T10:35:15-06:00",
+        "estimated": false,
+        "ram": 49,
+        "cpu": 73,
+        "gpu": 50
       }
     ],
     "ram": [
-      45,
       44,
       45,
       42,
@@ -805,10 +804,10 @@
       47,
       47,
       49,
+      49,
       49
     ],
     "cpu": [
-      33,
       16,
       21,
       17,
@@ -903,10 +902,10 @@
       54,
       48,
       62,
-      53
+      53,
+      73
     ],
     "gpu": [
-      42,
       41,
       36,
       37,
@@ -1001,7 +1000,8 @@
       42,
       46,
       45,
-      45
+      45,
+      50
     ]
   },
   "weather": {
@@ -1155,7 +1155,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-06T10:20:15-06:00",
+      "at": "2026-09-06T10:35:15-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1382,7 +1382,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-06T10:34:16.5325925-06:00",
+    "last": "2026-09-06T10:35:16.6426153-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-06T10:34:16.5325925-06:00",
+    "generated_at": "2026-09-06T10:35:16.6426153-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1429,10 +1429,10 @@
     "primary": {
       "id": "minecraft-autonomy",
       "name": "Minecraft Autonomy",
-      "title": "FIND_WOLF live | tick 18 | WALK_SEEK_STAIRS y=None n=0 skill=DESCEND_STAIRS",
+      "title": "FIND_WOLF live | tick 31 | WALK_SEEK_STAIRS y=None n=0 skill=DESCEND_STAIRS",
       "category": "minecraft",
       "state": "working",
-      "detail": "pythonw PID 122756 sweeps=17 pause=False | P1 next_dry=eat_heal",
+      "detail": "pythonw PID 122756 sweeps=30 pause=False | P1 next_dry=eat_heal",
       "what": "Hunting wolf nametag Kevin; HOME/stair/CLOSE still P0. Parallel dry skill proves from PROVE_QUEUE.",
       "engine": "pythonw autonomy_loop.py",
       "action": "Live hunt: WALK_SEEK_STAIRS y=None n=0 skill=DESCEND_STAIRS"
@@ -1463,10 +1463,10 @@
         "name": "Minecraft Autonomy",
         "role": "Live client hunt + skill proves",
         "state": "working",
-        "detail": "FIND_WOLF pythonw PID 122756 | tick=18 action=WALK_SEEK_STAIRS y=None n=0 skill=DESCEND_STAIRS sweeps=17 pause=False | next_dry=eat_heal",
+        "detail": "FIND_WOLF pythonw PID 122756 | tick=31 action=WALK_SEEK_STAIRS y=None n=0 skill=DESCEND_STAIRS sweeps=30 pause=False | next_dry=eat_heal",
         "what": "Hidden autonomy_loop FIND_WOLF_KEVIN; PROVE_QUEUE dry skills parallel when non-conflicting.",
         "engine": "pythonw autonomy_loop + skill library",
-        "action": "Hunt tick 18 / WALK_SEEK_STAIRS y=None n=0 skill=DESCEND_STAIRS"
+        "action": "Hunt tick 31 / WALK_SEEK_STAIRS y=None n=0 skill=DESCEND_STAIRS"
       },
       {
         "id": "staging",
@@ -1483,7 +1483,7 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "pythonw PID 122756 sweeps=17 pause=False | P1 next_dry=eat_heal",
+    "phase": "pythonw PID 122756 sweeps=30 pause=False | P1 next_dry=eat_heal",
     "worker": "Minecraft Autonomy",
     "engine": "pythonw autonomy_loop.py",
     "action": "Live hunt: WALK_SEEK_STAIRS y=None n=0 skill=DESCEND_STAIRS"
@@ -1491,7 +1491,7 @@
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Minecraft Autonomy | WORKING | pythonw PID 122756 sweeps=17 pause=False | P1 next_dry=eat_heal",
+      "text": "Minecraft Autonomy | WORKING | pythonw PID 122756 sweeps=30 pause=False | P1 next_dry=eat_heal",
       "severity": "normal"
     }
   ]
