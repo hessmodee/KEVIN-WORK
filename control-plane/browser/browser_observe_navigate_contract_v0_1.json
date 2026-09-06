@@ -1,0 +1,53 @@
+{
+  "schema_version": "0.1",
+  "candidate_only": true,
+  "authority_class": "GREEN_CONTRACT_ONLY",
+  "production_promotion": "OWNER_RESERVED",
+  "primitives": ["browser_observe", "browser_navigate"],
+  "observe_limits": {
+    "max_nodes": 200,
+    "max_depth": 8,
+    "max_bytes": 65536,
+    "full_ax_tree": false,
+    "raw_dom": false,
+    "page_source": false,
+    "cookies": false,
+    "storage": false,
+    "credentials": false,
+    "public_screenshot_publish": false
+  },
+  "navigation_policy": {
+    "production_scheme": "https",
+    "production_default_port": 443,
+    "host_allowlist_source": "INSTALLED_POLICY_NOT_CALLER",
+    "resolved_ip_policy": "PUBLIC_ONLY",
+    "redirect_policy": "REVALIDATE_EACH_HOP",
+    "embedded_credentials": false,
+    "dangerous_schemes": ["javascript", "data", "file", "gopher", "ftp", "smb", "dict"],
+    "max_redirects": 5,
+    "max_timeout_ms": 30000,
+    "test_http_exception": "EXPLICIT_POLICY_LOOPBACK_ONLY"
+  },
+  "semantic_target_policy": {
+    "preferred": ["role+accessible_name", "label", "text_scope"],
+    "strict_unique": true,
+    "force_actions": false,
+    "caller_css_xpath": false,
+    "caller_javascript": false,
+    "first_last_nth_ambiguity_bypass": false
+  },
+  "consequential_actions_not_in_scope": [
+    "submit", "send", "publish", "post", "purchase", "buy", "pay", "confirm_order", "account_change", "security_change"
+  ],
+  "required_execution_evidence": [
+    "pre_navigation_epoch",
+    "normalized_requested_origin_path",
+    "resolved_ip_scope_check",
+    "redirect_hop_revalidation",
+    "post_navigation_epoch",
+    "post_navigation_origin_path",
+    "page_title",
+    "load_state",
+    "bounded_accessibility_evidence_hash"
+  ]
+}
