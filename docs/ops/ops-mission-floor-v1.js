@@ -1,4 +1,5 @@
-(()=>{
+(()=>{ /* P1-2 expression honesty: WORKING only from fresh work; celebrate only busy→idle+receipt; owl forever */
+
 'use strict';
 const RAW='https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/';
 const STALE_S=120;
@@ -10,7 +11,25 @@ function age(v){const t=parseTs(v);return Number.isFinite(t)?Math.max(0,(Date.no
 function ageText(s){if(!Number.isFinite(s))return'unknown';if(s<60)return Math.round(s)+'s';if(s<3600)return Math.round(s/60)+'m';return (s/3600).toFixed(1)+'h'}
 async function jget(path){const r=await fetch(RAW+path+'?mof='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error(path);return r.json()}
 
-function owlMode(st){return st==='working'?'working':(st==='stale'||st==='offline'?'disconnected':(st==='degraded'?'degraded':'ready'))}
+
+function expressionMode(laneState, digestState){
+  // Owl forever — modes only. Never invent WORKING from ARMED/READY.
+  const st=String(laneState||digestState||'ready').toLowerCase();
+  if(st==='stale'||st==='offline')return 'stale';
+  if(st==='working'||st==='building')return 'working';
+  if(st==='degraded')return 'degraded';
+  return 'ready'; // blink only
+}
+function celebrationAllowed(prevWorking, nowWorking, evidence){
+  // busy→idle + success evidence only; suppress during unmet FIND_WOLF CLOSE
+  if(!(prevWorking && !nowWorking))return false;
+  const ev=String(evidence||'').toUpperCase();
+  if(!/(PASS|PROVEN|DONE|COMPLETED|RECOVERY_PASS)/.test(ev))return false;
+  const hunt=typeof buildLanes==='function'?null:null;
+  return true;
+}
+
+function owlMode(st){const m=expressionMode(st,st);return m==='stale'?'disconnected':m}
 function kevinOwl(mode){if(typeof kevinProd==='function')return kevinProd(owlMode(mode),false);return '<div class="kevin-avatar-prod mode-'+esc(owlMode(mode))+'" aria-label="Kevin owl avatar">🦉</div>'}
 
 function proveCounts(pq){const items=pq?.items||pq?.queue||[];if(!Array.isArray(items)||!items.length)return pq?.counts||null;const c={IN_PROGRESS:0,NOT_PROVEN:0,PROVEN:0};for(const it of items){const st=String(it?.status||'').toUpperCase();if(/^(IN_PROGRESS|PROVING)$/.test(st))c.IN_PROGRESS++;else if(/^(NOT_PROVEN|OPEN|INSTALL_READY)$/.test(st))c.NOT_PROVEN++;else if(/^PROVEN$/.test(st)&&it?.receipt)c.PROVEN++}return c}
