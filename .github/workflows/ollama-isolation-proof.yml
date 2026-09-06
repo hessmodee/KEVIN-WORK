@@ -1,0 +1,28 @@
+name: Ollama isolation diagnostic proof
+on:
+  push:
+    paths: ['omen/ollama-tool-*', 'tools/Collect-Kevin-Recovery.ps1', '.github/workflows/ollama-isolation-proof.yml']
+  pull_request:
+    paths: ['omen/ollama-tool-*', 'tools/Collect-Kevin-Recovery.ps1', '.github/workflows/ollama-isolation-proof.yml']
+permissions:
+  contents: read
+jobs:
+  fixtures:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test omen/ollama-tool-isolate.test.mjs
+      - name: Parse PowerShell 5.1 entry point
+        shell: powershell
+        run: |
+          $tokens=$null; $errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD 'omen/ollama-tool-test.ps1'), [ref]$tokens, [ref]$errors)
+          if ($errors.Count) { throw ($errors | Out-String) }
+      - name: Recovery collector fixtures on Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          & .\tools\Collect-Kevin-Recovery.ps1 -SelfTest
+          if ($LASTEXITCODE -ne 0) { throw 'Recovery collector fixtures failed' }
