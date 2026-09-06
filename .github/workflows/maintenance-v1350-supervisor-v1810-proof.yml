@@ -18,6 +18,9 @@ on:
       - 'tools/maintenance-v1.3.50-install-v1810.ps1.inc'
       - '.github/workflows/maintenance-v1350-supervisor-v1810-proof.yml'
 
+permissions:
+  contents: write
+
 jobs:
   generate:
     runs-on: ubuntu-latest
@@ -69,8 +72,6 @@ jobs:
           from pathlib import Path
           p=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.50.ps1').read_text(encoding='utf-8')
           inc=Path('tools/maintenance-v1.3.50-install-v1810.ps1.inc').read_text(encoding='utf-8')
-          # The candidate intentionally contains literal forbidden-marker names in
-          # fail-closed guards. Reject executable statements, not those guard strings.
           forbidden_exec = (
               r'(?im)^\s*Invoke-Expression\b',
               r'(?im)^\s*kevin_shell\b',
@@ -90,6 +91,19 @@ jobs:
           path: |
             control-plane/maintenance/kevin-maintenance-runner-v1.3.50.ps1
             reports/engineering/QUALIFICATION-maint-v1.3.50-supervisor-v1810.json
+      - name: Commit deterministic generated source to recovery branch
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add control-plane/maintenance/kevin-maintenance-runner-v1.3.50.ps1 reports/engineering/QUALIFICATION-maint-v1.3.50-supervisor-v1810.json
+          if git diff --cached --quiet; then
+            echo 'Generated files already committed.'
+            exit 0
+          fi
+          git commit -m 'build: materialize proven Maintenance v1.3.50 candidate'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
 
   windows-proof:
     needs: generate
