@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-06T09:42:04.4324251-06:00",
-  "status": "ready",
+  "generated_at": "2026-09-06T09:48:04.6451749-06:00",
+  "status": "working",
   "health": {
     "overall": "healthy",
     "failed_checks": 0
@@ -12,7 +12,14 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "minecraft-autonomy",
+    "title": "FIND_WOLF live | tick 3 | WALK_SEEK_DOWN y=None",
+    "category": "minecraft",
+    "phase": "pythonw PID 12156 sweeps=2 pause=False | P1 next_dry=eat_heal",
+    "started_at": "2026-09-06T09:48:04.6451749-06:00",
+    "source": "hq-live-ops"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -1375,7 +1382,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-06T09:42:04.4324251-06:00",
+    "last": "2026-09-06T09:48:04.6451749-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1412,22 +1419,23 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-06T09:42:04.4324251-06:00",
+    "generated_at": "2026-09-06T09:48:04.6451749-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
     "supervisor_active": false,
     "benchmark_active": false,
+    "minecraft_active": true,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Kevin autonomous system armed",
-      "category": "supervisor",
-      "state": "ready",
-      "detail": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
-      "what": "Waiting only for the next scheduled three-minute control cycle.",
-      "engine": "Supervisor v1.4",
-      "action": "Autonomous schedule armed"
+      "id": "minecraft-autonomy",
+      "name": "Minecraft Autonomy",
+      "title": "FIND_WOLF live | tick 3 | WALK_SEEK_DOWN y=None",
+      "category": "minecraft",
+      "state": "working",
+      "detail": "pythonw PID 12156 sweeps=2 pause=False | P1 next_dry=eat_heal",
+      "what": "Hunting wolf nametag Kevin; HOME/stair/CLOSE still P0. Parallel dry skill proves from PROVE_QUEUE.",
+      "engine": "pythonw autonomy_loop.py",
+      "action": "Live hunt: WALK_SEEK_DOWN y=None"
     },
     "lanes": [
       {
@@ -1451,6 +1459,16 @@
         "action": "10-minute watchdog armed"
       },
       {
+        "id": "minecraft-autonomy",
+        "name": "Minecraft Autonomy",
+        "role": "Live client hunt + skill proves",
+        "state": "working",
+        "detail": "FIND_WOLF pythonw PID 12156 | tick=3 action=WALK_SEEK_DOWN y=None sweeps=2 pause=False | next_dry=eat_heal",
+        "what": "Hidden autonomy_loop FIND_WOLF_KEVIN; PROVE_QUEUE dry skills parallel when non-conflicting.",
+        "engine": "pythonw autonomy_loop + skill library",
+        "action": "Hunt tick 3 / WALK_SEEK_DOWN y=None"
+      },
+      {
         "id": "staging",
         "name": "Staging",
         "role": "Policy-gated champion archive",
@@ -1463,17 +1481,17 @@
     ]
   },
   "execution": {
-    "running": false,
-    "state": "ready",
-    "phase": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Autonomous schedule armed"
+    "running": true,
+    "state": "working",
+    "phase": "pythonw PID 12156 sweeps=2 pause=False | P1 next_dry=eat_heal",
+    "worker": "Minecraft Autonomy",
+    "engine": "pythonw autonomy_loop.py",
+    "action": "Live hunt: WALK_SEEK_DOWN y=None"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | READY | No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
+      "text": "Minecraft Autonomy | WORKING | pythonw PID 12156 sweeps=2 pause=False | P1 next_dry=eat_heal",
       "severity": "normal"
     }
   ]
