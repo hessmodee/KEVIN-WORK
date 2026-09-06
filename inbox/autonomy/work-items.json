@@ -4,6 +4,38 @@
     "safe_for_public_repo":  true,
     "items":  [
                   {
+                      "id":  "owner-west-motor-transport-dispatch-template-v1",
+                      "program":  "owner-value-skills",
+                      "authority_class":  "GREEN",
+                      "status":  "OPEN",
+                      "lane":  "production",
+                      "work_type":  "execution",
+                      "priority":  "high",
+                      "owner_value":  5,
+                      "reuses_proven_capability":  true,
+                      "produces_owner_deliverable":  true,
+                      "closes_proof_gap":  true,
+                      "reduces_bess_intervention":  true,
+                      "dependencies_ready":  true,
+                      "blocked":  false,
+                      "failure_attempts":  0,
+                      "material_new_evidence":  true,
+                      "acceptance_criteria":  [
+                                                  "Kevin independently selects this OPEN GREEN owner-value item on a scheduled work-selection cycle rather than Bess invoking the primitive directly.",
+                                                  "Produce a useful reusable vehicle-transport dispatch workbook/template for Matt's dealership transport workflow using existing proven spreadsheet/text capability, with generic example data only and no customer PII, credentials, external sends, purchases, trades, or new authority.",
+                                                  "Workbook includes practical dispatch fields for request/priority, origin, destination, vehicle or unit, driver/assignee, target date/time, status, contact/coordination notes, completion and exception tracking, while remaining within the proven workbook sheet cap.",
+                                                  "Produce a short companion operating note explaining how Matt can use the board for daily dispatch, handoff and exception follow-up.",
+                                                  "Semantically verify the artifacts as owner-useful outputs, record durable evidence/lesson, and require a subsequent scheduled continuation/idle decision without Bess supplying the immediate next item id."
+                                              ],
+                      "next_action":  "Supervisor/Continuation selects on its own scheduled cycle; route through existing proven spreadsheet/text capability; verify owner-useful artifacts and record the autonomous continuation result.",
+                      "evidence_pointers":  [
+                                                "reports/engineering/latest.json",
+                                                "reports/autonomy-continuation-latest.json",
+                                                "docs/engineering/KEVIN-RECIPE-stage-prove-green-composite-v1.md"
+                                            ],
+                      "downstream_consumer":  "OWNER_TRANSPORT_WORKFLOW_AND_T3_SELECTION_PROOF"
+                  },
+                  {
                       "id":  "owner-composite-appliance-repair-pack-v2-prove",
                       "program":  "owner-value-skills",
                       "authority_class":  "GREEN",
