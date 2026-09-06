@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="dark" name="color-scheme"/>
+<title>Kevin HQ — Mission Ops Floor (Phase A draft)</title>
+<link href="./ops-v11.css?v=16" rel="stylesheet"/>
+<link href="./ops-owner-refinement-v1.css?v=6" rel="stylesheet"/>
+<link href="./ops-mission-floor-v1.css?v=1" rel="stylesheet"/>
+<style>
+html,body{background:transparent!important}
+body{padding:0!important;background:none!important}
+.wrap{max-width:none!important;margin:0!important}
+.top,.news,.rail,.nav,.foot{display:none!important}
+.card:first-of-type{margin-top:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top">
+<div class="brand"><div id="headerKevinProd"></div><div><div class="title">Kevin HQ</div><div class="subtitle">Mission Ops Floor · owl-locked</div></div></div>
+<div class="chips"><span class="chip">HQ mission · Phase A draft</span><span class="chip ok" id="overallChip">LIVE</span></div>
+</div>
+<div class="news"><b>NEWSWIRE</b><span id="newsText">Loading Kevin telemetry…</span></div>
+<div class="rail" id="serviceRail"></div>
+<div class="nav"></div>
+<section class="card">
+<div class="ops-head"><div><div class="kicker">Operations Floor</div><div class="helper">Mission Ops Floor · owl-locked Kevin · motion only from telemetry · click a lane to inspect</div></div><div class="helper">Kevin · local agent · operational source of truth (owl forever)</div></div>
+<div class="topology" id="topology"><div class="gridline"></div>
+<div class="hub owner-selected" id="kevinHub" tabindex="0" role="button" aria-label="Select Kevin"><div class="hub-inner"><h2>Kevin</h2><div class="role">Local agent</div><div id="hubKevinProd"></div><div class="kevin-states" id="kevinState" aria-live="polite"><span class="loop state-ready" style="--kstatec:#244f8f">READY</span></div><div class="kevin-meta" id="kevinMeta"><div><b>Autonomy loop enabled</b></div><div>Waiting for telemetry…</div></div></div></div>
+</div>
+<div class="legend owner-compact"></div>
+</section>
+<div class="strip">
+<div><div class="lbl">Active mission</div><div class="val" id="mission">—</div></div>
+<div><div class="lbl">Current action</div><div class="val" id="action">—</div></div>
+<div><div class="lbl">Recent event</div><div class="val" id="recent">—</div></div>
+<div><div class="lbl">Evidence</div><div class="val" id="evidence">—</div></div>
+<div><div class="lbl">Active workers</div><div class="val" id="activeWorkers">—</div><div class="subagents" id="subagents"></div></div>
+</div>
+<section class="card detail">
+<div class="kicker">Selected worker</div><h3 id="selectedName">Kevin</h3>
+<div class="detail-grid">
+<div class="metric"><div class="kicker">Status</div><div class="big" id="selectedStatus">Loading…</div><div class="small" id="selectedDetail">Waiting for telemetry.</div></div>
+<div class="metric"><div class="kicker">System load</div><div class="big" id="load">—</div><div class="small" id="loadDetail">—</div></div>
+<div class="metric"><div class="kicker">Evidence age</div><div class="big" id="age">—</div><div class="small" id="benchmark">—</div></div>
+</div>
+</section>
+<div class="foot"><span id="updated">Kevin HQ · Mission Ops Floor Phase A</span><span>Owl identity locked</span></div>
+</div>
+<script src="./ops-v11.js?v=17"></script>
+<script src="./ops-truth-patch-v1.js?v=4"></script>
+<script src="./ops-owner-refinement-v1.js?v=6"></script>
+<script src="./ops-mission-floor-v1.js?v=1"></script>
+<script>
+(()=>{
+ const send=()=>{try{parent.postMessage({type:'kevin-ops-height',height:Math.ceil(document.documentElement.scrollHeight)},location.origin)}catch(_e){}};
+ addEventListener('load',()=>{send();setTimeout(send,100);setTimeout(send,700)});
+ if('ResizeObserver'in window)new ResizeObserver(send).observe(document.body);
+})();
+</script>
+</body>
+</html>
