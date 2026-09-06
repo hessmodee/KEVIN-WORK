@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-06T11:08:29.6710616-06:00",
+  "generated_at": "2026-09-06T11:09:29.6392202-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -1382,7 +1382,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-06T11:08:29.6710616-06:00",
+    "last": "2026-09-06T11:09:29.6392202-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-06T11:08:29.6710616-06:00",
+    "generated_at": "2026-09-06T11:09:29.6392202-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1429,13 +1429,13 @@
     "primary": {
       "id": "minecraft-autonomy",
       "name": "Minecraft Autonomy",
-      "title": "FIND_WOLF live | tick 53 | HOME_BIAS_BEDS dist=220 y=68.0 n=46 skill=HOME_BIAS_BEDS",
+      "title": "FIND_WOLF live | tick 60 | HOME_BIAS_BEDS dist=220 y=68.0 n=53 skill=HOME_BIAS_BEDS",
       "category": "minecraft",
       "state": "working",
       "detail": "pythonw PID 78512 sweeps=1 pause=True | P1 next_dry=eat_heal",
       "what": "Hunting wolf nametag Kevin; HOME/stair/CLOSE still P0. Parallel dry skill proves from PROVE_QUEUE.",
       "engine": "pythonw autonomy_loop.py",
-      "action": "Live hunt: HOME_BIAS_BEDS dist=220 y=68.0 n=46 skill=HOME_BIAS_BEDS"
+      "action": "Live hunt: HOME_BIAS_BEDS dist=220 y=68.0 n=53 skill=HOME_BIAS_BEDS"
     },
     "lanes": [
       {
@@ -1463,10 +1463,10 @@
         "name": "Minecraft Autonomy",
         "role": "Live client hunt + skill proves",
         "state": "working",
-        "detail": "FIND_WOLF pythonw PID 78512 | tick=53 action=HOME_BIAS_BEDS dist=220 y=68.0 n=46 skill=HOME_BIAS_BEDS sweeps=1 pause=True | next_dry=eat_heal",
+        "detail": "FIND_WOLF pythonw PID 78512 | tick=60 action=HOME_BIAS_BEDS dist=220 y=68.0 n=53 skill=HOME_BIAS_BEDS sweeps=1 pause=True | next_dry=eat_heal",
         "what": "Hidden autonomy_loop FIND_WOLF_KEVIN; PROVE_QUEUE dry skills parallel when non-conflicting.",
         "engine": "pythonw autonomy_loop + skill library",
-        "action": "Hunt tick 53 / HOME_BIAS_BEDS dist=220 y=68.0 n=46 skill=HOME_BIAS_BEDS"
+        "action": "Hunt tick 60 / HOME_BIAS_BEDS dist=220 y=68.0 n=53 skill=HOME_BIAS_BEDS"
       },
       {
         "id": "staging",
@@ -1486,7 +1486,7 @@
     "phase": "pythonw PID 78512 sweeps=1 pause=True | P1 next_dry=eat_heal",
     "worker": "Minecraft Autonomy",
     "engine": "pythonw autonomy_loop.py",
-    "action": "Live hunt: HOME_BIAS_BEDS dist=220 y=68.0 n=46 skill=HOME_BIAS_BEDS"
+    "action": "Live hunt: HOME_BIAS_BEDS dist=220 y=68.0 n=53 skill=HOME_BIAS_BEDS"
   },
   "newswire": [
     {
