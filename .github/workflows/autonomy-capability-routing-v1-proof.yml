@@ -8,9 +8,11 @@ on:
       - 'control-plane/autonomy/kevin-work-selector-v1.2.py'
       - 'control-plane/autonomy/standing-programs-v1.json'
       - 'control-plane/autonomy/kevin-supervisor-v1.8.9.ps1'
+      - 'control-plane/autonomy/kevin-supervisor-v1.8.10.ps1'
       - 'inbox/autonomy/work-items.json'
       - 'tools/test-kevin-capability-router-v1.py'
       - 'tools/test-kevin-work-admission-v1.py'
+      - 'tests/test_autonomy_selector_v12_owner_value.py'
       - '.github/workflows/autonomy-capability-routing-v1-proof.yml'
   workflow_dispatch:
 
@@ -27,6 +29,8 @@ jobs:
           python-version: '3.12'
       - name: Router self-test
         run: python tools/test-kevin-capability-router-v1.py
+      - name: OPEN GREEN production owner-value admission (v1.2)
+        run: python tests/test_autonomy_selector_v12_owner_value.py
       - name: Admission self-test
         run: python tools/test-kevin-work-admission-v1.py
       - name: Live-shaped admission postcondition

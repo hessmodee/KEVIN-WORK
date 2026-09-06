@@ -70,6 +70,33 @@ def test_desktop_routes_when_tools_effective():
     assert r["dispatch"] == "ROUTE_TO_FIXED_MAIN"
 
 
+def test_owner_value_production_lane_without_worker_goes_to_skill_lab():
+    """West-motor shape: owner-value-skills + production lane + no worker.
+
+    Must NOT dispatch to tool-less fixed:main. Standing program owns these
+    jobs on Skill Lab using already-PROVEN spreadsheet/text primitives.
+    """
+    item = {
+        "id": "owner-west-motor-transport-dispatch-template-v1",
+        "program": "owner-value-skills",
+        "lane": "production",
+        "status": "OPEN",
+        "authority_class": "GREEN",
+        "owner_value": 5,
+        "dependencies_ready": True,
+        "blocked": False,
+    }
+    r = m.route_item(item, SKILL)
+    assert r["dispatch"] == "ROUTE_TO_SKILL_LAB", r
+    assert r["forbid_fixed_main"] is True
+    assert r["worker"] == "skill-lab"
+    r_toolless = m.route_item(item, TOOLLESS)
+    assert r_toolless["worker"] == "skill-lab"
+    assert r_toolless["forbid_fixed_main"] is True
+    assert r_toolless["dispatch"] != "ROUTE_TO_FIXED_MAIN"
+    assert r_toolless["dispatch"] in {"ROUTE_TO_SKILL_LAB", "BLOCKED"}
+
+
 def test_supervisor_idle_does_not_erase_skill_lab_ready():
     items = {
         "schema": 1,
