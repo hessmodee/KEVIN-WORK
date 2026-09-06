@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-06T11:49:30.3507283-06:00",
+  "generated_at": "2026-09-06T11:50:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -12,14 +12,7 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": {
-    "id": "minecraft-autonomy",
-    "title": "FIND_WOLF live | tick 21 | CLEAR_OVERLAY:pause:esc_only:n=1",
-    "category": "minecraft",
-    "phase": "pythonw PID 13972 sweeps=3 pause=True | P1 next_dry=eat_heal",
-    "started_at": "2026-09-06T11:34:30.1562717-06:00",
-    "source": "hq-live-ops"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "healthy",
@@ -27,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 44,
-    "cpu_pct": 56,
+    "memory_pct": 42,
+    "cpu_pct": 25,
     "gpu": "RTX 3060",
-    "gpu_pct": 41
+    "gpu_pct": 23
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-05T11:50:14-06:00",
-        "estimated": false,
-        "ram": 44,
-        "cpu": 28,
-        "gpu": 36
-      },
       {
         "at": "2026-09-05T12:05:14-06:00",
         "estimated": false,
@@ -707,10 +693,16 @@
         "ram": 44,
         "cpu": 56,
         "gpu": 41
+      },
+      {
+        "at": "2026-09-06T11:50:14-06:00",
+        "estimated": false,
+        "ram": 42,
+        "cpu": 25,
+        "gpu": 23
       }
     ],
     "ram": [
-      44,
       42,
       40,
       41,
@@ -805,10 +797,10 @@
       48,
       50,
       49,
-      44
+      44,
+      42
     ],
     "cpu": [
-      28,
       36,
       3,
       31,
@@ -903,10 +895,10 @@
       32,
       53,
       55,
-      56
+      56,
+      25
     ],
     "gpu": [
-      36,
       38,
       28,
       31,
@@ -1001,7 +993,8 @@
       50,
       47,
       52,
-      41
+      41,
+      23
     ]
   },
   "weather": {
@@ -1155,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-06T11:35:15-06:00",
+      "at": "2026-09-06T11:50:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1382,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-06T11:49:30.3507283-06:00",
+    "last": "2026-09-06T11:50:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
