@@ -1,0 +1,49 @@
+name: Kevin Platform Recovery 20260906 Proof
+
+on:
+  pull_request:
+    paths:
+      - 'tools/Repair-Kevin-Recovery-20260906.ps1'
+      - '.github/workflows/kevin-platform-recovery-20260906-proof.yml'
+  push:
+    branches:
+      - 'bess/platform-recovery-20260906-v3'
+    paths:
+      - 'tools/Repair-Kevin-Recovery-20260906.ps1'
+      - '.github/workflows/kevin-platform-recovery-20260906-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  powershell51:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse with Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $path = 'tools/Repair-Kevin-Recovery-20260906.ps1'
+          $tokens = $null
+          $errors = $null
+          [void][Management.Automation.Language.Parser]::ParseFile($path,[ref]$tokens,[ref]$errors)
+          if($errors.Count){ $errors | Format-List *; throw 'PowerShell 5.1 parser rejected recovery bootstrap' }
+          Write-Host 'KEVIN_RECOVERY_PARSE_PASS powershell=5.1'
+      - name: Run deterministic self-test
+        shell: powershell
+        run: |
+          $out = (& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'tools/Repair-Kevin-Recovery-20260906.ps1' -SelfTest 2>&1 | Out-String).Trim()
+          Write-Host $out
+          if($LASTEXITCODE -ne 0){ throw 'Recovery self-test exited nonzero' }
+          if($out -notmatch 'KEVIN RECOVERY 20260906 SELFTEST PASS'){ throw 'Recovery self-test marker missing' }
+      - name: Reject authority-expanding shortcuts
+        shell: powershell
+        run: |
+          $s = Get-Content -LiteralPath 'tools/Repair-Kevin-Recovery-20260906.ps1' -Raw
+          foreach($bad in @('Invoke-Expression','iex ','cmd.exe','kevin_shell','Start-Process','DownloadString','WebClient','Invoke-WebRequest','Invoke-RestMethod')){
+            if($s.IndexOf($bad,[StringComparison]::OrdinalIgnoreCase) -ge 0){ throw "Forbidden recovery surface found: $bad" }
+          }
+          if($s -notmatch "\[switch\]\$CheckOnly" -or $s -notmatch "\[switch\]\$Apply" -or $s -notmatch "\[switch\]\$SelfTest"){ throw 'Fixed switch-only interface changed' }
+          Write-Host 'KEVIN_RECOVERY_AUTHORITY_BOUNDARY_PASS arbitrary_shell=false network=false fixed_targets=true'
