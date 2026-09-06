@@ -1,0 +1,144 @@
+name: Maintenance v1.3.50 Supervisor v1.8.10 proof
+
+on:
+  push:
+    paths:
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.49.ps1'
+      - 'control-plane/autonomy/kevin-supervisor-v1.8.10.ps1'
+      - 'control-plane/autonomy/kevin-work-selector-v1.2.py'
+      - 'tools/build-maintenance-v1.3.50.py'
+      - 'tools/maintenance-v1.3.50-install-v1810.ps1.inc'
+      - '.github/workflows/maintenance-v1350-supervisor-v1810-proof.yml'
+  pull_request:
+    paths:
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.49.ps1'
+      - 'control-plane/autonomy/kevin-supervisor-v1.8.10.ps1'
+      - 'control-plane/autonomy/kevin-work-selector-v1.2.py'
+      - 'tools/build-maintenance-v1.3.50.py'
+      - 'tools/maintenance-v1.3.50-install-v1810.ps1.inc'
+      - '.github/workflows/maintenance-v1350-supervisor-v1810-proof.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Record exact source identities
+        shell: bash
+        run: |
+          {
+            sha256sum control-plane/maintenance/kevin-maintenance-runner-v1.3.49.ps1
+            sha256sum control-plane/autonomy/kevin-supervisor-v1.8.10.ps1
+            sha256sum control-plane/autonomy/kevin-work-selector-v1.2.py
+          } > source-hashes.txt
+          cat source-hashes.txt
+      - name: Generate exact candidate
+        id: generate_candidate
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          python tools/build-maintenance-v1.3.50.py 2>&1 | tee generation.log
+      - name: Upload source/generator evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-v1.3.50-source-evidence
+          path: |
+            source-hashes.txt
+            generation.log
+      - name: Require generation success
+        if: steps.generate_candidate.outcome != 'success'
+        shell: bash
+        run: exit 1
+      - name: Verify deterministic regeneration
+        shell: bash
+        run: |
+          cp control-plane/maintenance/kevin-maintenance-runner-v1.3.50.ps1 /tmp/first.ps1
+          cp reports/engineering/QUALIFICATION-maint-v1.3.50-supervisor-v1810.json /tmp/first.json
+          python tools/build-maintenance-v1.3.50.py
+          cmp /tmp/first.ps1 control-plane/maintenance/kevin-maintenance-runner-v1.3.50.ps1
+          cmp /tmp/first.json reports/engineering/QUALIFICATION-maint-v1.3.50-supervisor-v1810.json
+      - name: Static authority boundary
+        shell: python
+        run: |
+          import re
+          from pathlib import Path
+          p=Path('control-plane/maintenance/kevin-maintenance-runner-v1.3.50.ps1').read_text(encoding='utf-8')
+          inc=Path('tools/maintenance-v1.3.50-install-v1810.ps1.inc').read_text(encoding='utf-8')
+          forbidden_exec = (
+              r'(?im)^\s*Invoke-Expression\b',
+              r'(?im)^\s*kevin_shell\b',
+              r'(?im)^\s*Start-Process\s+cmd\.exe\b',
+          )
+          for pattern in forbidden_exec:
+              assert re.search(pattern, inc) is None, pattern
+          for need in ('install_autonomy_controller_v1810','route_before_turn_charge','owner_value_skills_to_skill_lab','Assert-Benchmark30','rollback completed'):
+              assert need in p, need
+          assert "history_preserved=$true" in p
+          assert "work_items_preserved=$true" in p
+          assert "mission_leases_preserved=$true" in p
+          print('AUTHORITY_BOUNDARY_PASS')
+      - uses: actions/upload-artifact@v4
+        with:
+          name: maintenance-v1.3.50-generated
+          path: |
+            control-plane/maintenance/kevin-maintenance-runner-v1.3.50.ps1
+            reports/engineering/QUALIFICATION-maint-v1.3.50-supervisor-v1810.json
+      - name: Commit deterministic generated source to recovery branch
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add control-plane/maintenance/kevin-maintenance-runner-v1.3.50.ps1 reports/engineering/QUALIFICATION-maint-v1.3.50-supervisor-v1810.json
+          if git diff --cached --quiet; then
+            echo 'Generated files already committed.'
+            exit 0
+          fi
+          git commit -m 'build: materialize proven Maintenance v1.3.50 candidate'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
+  windows-proof:
+    needs: generate
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate candidate
+        run: python tools/build-maintenance-v1.3.50.py
+      - name: PowerShell 5.1 parse
+        shell: powershell
+        run: |
+          $tokens=$null; $errors=$null
+          [void][Management.Automation.Language.Parser]::ParseFile((Resolve-Path 'control-plane/maintenance/kevin-maintenance-runner-v1.3.50.ps1'),[ref]$tokens,[ref]$errors)
+          if($errors.Count -ne 0){ $errors | Format-List *; exit 1 }
+          Write-Host 'POWERSHELL_51_PARSE_PASS'
+      - name: Maintenance deterministic self-test
+        shell: powershell
+        run: |
+          powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File control-plane/maintenance/kevin-maintenance-runner-v1.3.50.ps1 -SelfTest
+          if($LASTEXITCODE -ne 0){ exit $LASTEXITCODE }
+      - name: Supervisor deterministic self-test
+        shell: powershell
+        run: |
+          $root=(Resolve-Path '.').Path
+          $env:USERPROFILE=$root
+          New-Item -ItemType Directory -Force -Path (Join-Path $root '.openclaw\workspace\ControlPlane') | Out-Null
+          Copy-Item control-plane/autonomy/kevin-work-selector-v1.2.py (Join-Path $root '.openclaw\workspace\ControlPlane\kevin-work-selector-v1.2.py') -Force
+          New-Item -ItemType Directory -Force -Path (Join-Path $root '.openclaw\workspace\reports\autonomy-runtime') | Out-Null
+          @'
+          param([string]$Action)
+          if($Action -eq 'SelfTest'){ Write-Host 'LEASE SELFTEST PASS'; exit 0 }
+          exit 0
+          '@ | Set-Content -LiteralPath (Join-Path $root '.openclaw\workspace\ControlPlane\Invoke-KevinMissionLease.ps1') -Encoding UTF8
+          powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File control-plane/autonomy/kevin-supervisor-v1.8.10.ps1 -SelfTest
+          if($LASTEXITCODE -ne 0){ exit $LASTEXITCODE }
