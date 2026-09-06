@@ -1,0 +1,544 @@
+{
+  "schema": "kevin-prove-queue-v2",
+  "updated": "2026-09-06 ~09:52 MT",
+  "encoding_note": "utf-8-no-bom",
+  "laws": [
+    "docs/engineering/OWNER-IDLE-PROACTIVE-LAW-2026-09-06.md",
+    "docs/engineering/OWNER-KEVIN-BUILD-TEST-PROVE-CODIFY-WEAN-2026-09-06.md"
+  ],
+  "source": [
+    "docs/playbooks/SUPER-PLAYER-CURRICULUM-overnight-2026-09-05.md",
+    "scratch/kevin-minecraft-skill-library-v0",
+    "reports/engineering/RESEARCH-MC-EXPERT-CURRICULUM-INDEX.md",
+    "reports/engineering/RESEARCH-MC-BEDROCK-CRAFT-TOOL-USE-UWP-KEYBOARD-2026-09-06.md",
+    "reports/engineering/_notes-mc-craft-tool-use-2026-09-06.md",
+    "reports/engineering/RESEARCH-MC-CRAFT-UI-CALIB-EVAL-HARNESS-2026-09-06.md",
+    "reports/engineering/RESEARCH-MC-CRAFT-UI-CALIB-RECIPE-CLICKS-2026-09-06.md",
+    "reports/engineering/RESEARCH-MC-GATHER-MINE-FARM-BEDROCK-AGENT-2026-09-06.md",
+    "reports/engineering/RESEARCH-MC-COMBAT-GUARD-SAFE-PETS-MATT-2026-09-06.md",
+    "reports/engineering/RESEARCH-MC-BUILD-FROM-PICTURE-ADVENTURE-HELPER-2026-09-06.md",
+    "reports/engineering/RESEARCH-MC-EVAL-HARNESS-PROVE-WEAN-2026-09-06.md",
+    "reports/engineering/RESEARCH-MC-FIND-WOLF-SENSE-FIXTURES-2026-09-06.md",
+    "reports/engineering/RESEARCH-MC-SELFCARE-HOTBAR-WEAN-PACKET-2026-09-06.md",
+    "reports/engineering/RESEARCH-MC-ADVENTURE-FOLLOW-COMPOSE-WEAN-2026-09-06.md",
+    "reports/engineering/RESEARCH-MC-FIXTURE-PNG-HARVEST-WEAN-2026-09-06.md"
+  ],
+  "hunt_starve_lock": {
+    "active_while": "no CLOSE_CANDIDATE",
+    "live_sendinput": "FIND_WOLF + pause/eat only",
+    "curriculum_parallel": "DRY only"
+  },
+  "dual_track": {
+    "P0": "FIND_WOLF until CLOSE_OK",
+    "P1": "teach-on-disk now; live Super Player only after CLOSE"
+  },
+  "post_close_live_head": [
+    "SELFCARE_EAT",
+    "HOTBAR_LAYOUT",
+    "FOLLOW_MATT",
+    "GATHER_PULSE",
+    "CRAFT_BASICS",
+    "COMBAT_GUARD"
+  ],
+  "find_wolf_fixtures": {
+    "dir": "scratch/kevin-minecraft-autonomy-v0/fixtures/find_wolf/",
+    "brief": "reports/engineering/RESEARCH-MC-FIND-WOLF-SENSE-FIXTURES-2026-09-06.md",
+    "packs": [
+      "stairs_left_y83",
+      "hud_y83_beds",
+      "hud_y_lie_63",
+      "hud_y_lie_23_36",
+      "nametag_kevin_wolf",
+      "nametag_reject_sk8er",
+      "nametag_reject_menu",
+      "pause_green_resume",
+      "faceplant_wall"
+    ]
+  },
+  "critic_schema": {
+    "fields": [
+      "markers_required",
+      "png_eyes_on",
+      "ocr_optional",
+      "dry_gate",
+      "live_gate",
+      "codify",
+      "wean"
+    ],
+    "brief": "reports/engineering/RESEARCH-MC-EVAL-HARNESS-PROVE-WEAN-2026-09-06.md"
+  },
+  "queue": [
+    {
+      "status": "PROVING",
+      "dry_first": false,
+      "hunt_conflict": "is_hunt",
+      "wean_target": "kevin_owned",
+      "id": "P0.1_DESCEND",
+      "skill": "DESCEND_STAIRS_HUD_Y",
+      "tier": "P0",
+      "order": 1,
+      "path": "scratch/kevin-minecraft-autonomy-v0/",
+      "brief": "reports/engineering/RESEARCH-FIND-WOLF-CLOSE-PLAYBOOK-2026-09-06.md",
+      "fixtures_dir": "scratch/kevin-minecraft-autonomy-v0/fixtures/find_wolf/",
+      "fixture_packs": [
+        "stairs_left_y83",
+        "hud_y83_beds",
+        "hud_y_lie_63",
+        "faceplant_wall"
+      ],
+      "prove_bar": "Stairs/down + HUD Y trust; offline fixtures",
+      "critic": {
+        "markers_required": [
+          "STAIR",
+          "Y_TRUST"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "hunt_live",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "OPEN",
+      "dry_first": false,
+      "hunt_conflict": "is_hunt",
+      "wean_target": "kevin_owned",
+      "id": "P0.2_NAMETAG",
+      "skill": "NAMETAG_WOLF_KEVIN",
+      "tier": "P0",
+      "order": 2,
+      "path": "docs/engineering/KEVIN-TASK-find-wolf-kevin-2026-09-05.md",
+      "brief": "reports/engineering/RESEARCH-MC-FIND-WOLF-SENSE-FIXTURES-2026-09-06.md",
+      "fixtures_dir": "scratch/kevin-minecraft-autonomy-v0/fixtures/find_wolf/",
+      "fixture_packs": [
+        "nametag_kevin_wolf",
+        "nametag_reject_sk8er",
+        "nametag_reject_menu"
+      ],
+      "prove_bar": "Wolf nametag Kevin PNG; reject self/menu",
+      "critic": {
+        "markers_required": [
+          "NAMETAG_KEVIN"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "hunt_live",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "OPEN",
+      "dry_first": false,
+      "hunt_conflict": "is_hunt",
+      "wean_target": "kevin_owned",
+      "id": "P0.3_CLOSE",
+      "skill": "CLOSE_WOLF_KEVIN",
+      "tier": "P0",
+      "order": 3,
+      "path": "reports/engineering/RESEARCH-FIND-WOLF-CLOSE-PLAYBOOK-2026-09-06.md",
+      "prove_bar": "CLOSE_CANDIDATE→CLOSE_OK + sense PNG",
+      "gate_for_live_curriculum": true,
+      "critic": {
+        "markers_required": [
+          "CLOSE_CANDIDATE",
+          "CLOSE_OK"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "hunt_live",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "NOT_PROVEN",
+      "dry_first": true,
+      "hunt_conflict": "none",
+      "wean_target": "kevin_owned",
+      "id": "META_FIXTURE_PNG_HARVEST",
+      "skill": "FIXTURE_PNG_HARVEST",
+      "tier": "META",
+      "order": 5,
+      "path": "scratch/kevin-minecraft-autonomy-v0/tools/harvest_sense_fixtures.py",
+      "brief": "reports/engineering/RESEARCH-MC-FIXTURE-PNG-HARVEST-WEAN-2026-09-06.md",
+      "related_briefs": [
+        "reports/engineering/RESEARCH-MC-FIND-WOLF-SENSE-FIXTURES-2026-09-06.md"
+      ],
+      "fixtures_dir": "scratch/kevin-minecraft-autonomy-v0/fixtures/find_wolf/",
+      "prove_bar": "DRY harvest+manifest; offline fixture tests PASS",
+      "critic": {
+        "markers_required": [],
+        "png_eyes_on": false,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "n/a_filesystem_only",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "INSTALL_READY",
+      "dry_first": true,
+      "hunt_conflict": "none",
+      "wean_target": "kevin_owned",
+      "id": "META_EVAL_HARNESS",
+      "skill": "EVAL_CRITIC_WEAN",
+      "tier": "META",
+      "order": 6,
+      "path": "scratch/kevin-minecraft-skill-library-v0/eval/critic.py",
+      "brief": "reports/engineering/RESEARCH-MC-EVAL-HARNESS-PROVE-WEAN-2026-09-06.md",
+      "related_briefs": [
+        "docs/engineering/OWNER-KEVIN-BUILD-TEST-PROVE-CODIFY-WEAN-2026-09-06.md"
+      ],
+      "prove_bar": "critic+run_node DRY; WEAN_CHECKLIST",
+      "critic": {
+        "markers_required": [
+          "EVAL_CRITIC_20260906"
+        ],
+        "png_eyes_on": false,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "CLOSE_OK_or_explicit_window",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "NOT_PROVEN",
+      "dry_first": true,
+      "hunt_conflict": "block_live",
+      "wean_target": "kevin_owned",
+      "id": "T1.1_SELFCARE_EAT",
+      "skill": "SELFCARE_EAT",
+      "tier": "T1",
+      "order": 10,
+      "post_close_head": true,
+      "path": "scratch/kevin-minecraft-skill-library-v0/skills/survival/selfcare_eat_pulse.py",
+      "brief": "reports/engineering/RESEARCH-MC-SELFCARE-HOTBAR-WEAN-PACKET-2026-09-06.md",
+      "prove_bar": "Eat pulse; hunger/food delta or FAIL+PNG",
+      "critic": {
+        "markers_required": [
+          "SELFCARE_EAT",
+          "EMERGENCY_EAT"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "CLOSE_OK_or_explicit_window",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "NOT_PROVEN",
+      "dry_first": true,
+      "hunt_conflict": "block_live",
+      "wean_target": "kevin_owned",
+      "id": "T1.2_HOTBAR_LAYOUT",
+      "skill": "HOTBAR_LAYOUT",
+      "tier": "T1",
+      "order": 11,
+      "post_close_head": true,
+      "path": "scratch/kevin-minecraft-skill-library-v0/skills/craft/hotbar_select.py",
+      "brief": "reports/engineering/RESEARCH-MC-SELFCARE-HOTBAR-WEAN-PACKET-2026-09-06.md",
+      "related_briefs": [
+        "reports/engineering/RESEARCH-MC-BEDROCK-CRAFT-TOOL-USE-UWP-KEYBOARD-2026-09-06.md"
+      ],
+      "prove_bar": "Digits 1-9 PNG slot prove",
+      "critic": {
+        "markers_required": [
+          "HOTBAR_SELECT"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "CLOSE_OK_or_explicit_window",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "NOT_PROVEN",
+      "dry_first": true,
+      "hunt_conflict": "block_live",
+      "wean_target": "kevin_owned",
+      "id": "T1.3_FOLLOW_MATT",
+      "skill": "FOLLOW_MATT",
+      "tier": "T1",
+      "order": 20,
+      "path": "scratch/kevin-minecraft-skill-library-v0/skills/companion/follow_matt_pulse.py",
+      "brief": "reports/engineering/RESEARCH-MC-ADVENTURE-FOLLOW-COMPOSE-WEAN-2026-09-06.md",
+      "prove_bar": "Follow Matt pulses",
+      "critic": {
+        "markers_required": [
+          "FOLLOW_MATT"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "CLOSE_OK_or_explicit_window",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "NOT_PROVEN",
+      "dry_first": true,
+      "hunt_conflict": "block_live",
+      "wean_target": "kevin_owned",
+      "id": "T1.4_GATHER_PULSE",
+      "skill": "GATHER_PULSE",
+      "tier": "P3",
+      "order": 30,
+      "path": "scratch/kevin-minecraft-skill-library-v0/skills/gather/gather_pulse.py",
+      "brief": "reports/engineering/RESEARCH-MC-GATHER-MINE-FARM-BEDROCK-AGENT-2026-09-06.md",
+      "prove_bar": "Gather need→pulse receipt",
+      "critic": {
+        "markers_required": [
+          "GATHER"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "CLOSE_OK_or_explicit_window",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "NOT_PROVEN",
+      "dry_first": true,
+      "hunt_conflict": "block_live",
+      "wean_target": "kevin_owned",
+      "id": "T1.5_CRAFT_BASICS",
+      "skill": "CRAFT_BASICS",
+      "tier": "P2",
+      "order": 40,
+      "path": "scratch/kevin-minecraft-skill-library-v0/skills/craft/craft_tools_path.py",
+      "brief": "reports/engineering/RESEARCH-MC-BEDROCK-CRAFT-TOOL-USE-UWP-KEYBOARD-2026-09-06.md",
+      "related_briefs": [
+        "reports/engineering/_notes-mc-craft-tool-use-2026-09-06.md"
+      ],
+      "prove_bar": "Craft tools path PNG",
+      "critic": {
+        "markers_required": [
+          "CRAFT_PULSE"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "CLOSE_OK_or_explicit_window",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "NOT_PROVEN",
+      "dry_first": true,
+      "hunt_conflict": "block_live",
+      "wean_target": "kevin_owned",
+      "id": "T1.5b_TOOL_USE",
+      "skill": "TOOL_USE_MINE_PLACE",
+      "tier": "P2",
+      "order": 41,
+      "path": "scratch/kevin-minecraft-skill-library-v0/skills/craft/tool_use_pulse.py",
+      "brief": "reports/engineering/RESEARCH-MC-BEDROCK-CRAFT-TOOL-USE-UWP-KEYBOARD-2026-09-06.md",
+      "prove_bar": "Tool mine/place prove",
+      "critic": {
+        "markers_required": [
+          "TOOL_USE"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "CLOSE_OK_or_explicit_window",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "NOT_PROVEN",
+      "dry_first": true,
+      "hunt_conflict": "block_live",
+      "wean_target": "kevin_owned",
+      "id": "T1.5c_UI_CALIB",
+      "skill": "UI_CALIB_CAPTURE",
+      "tier": "P2",
+      "order": 42,
+      "path": "scratch/kevin-minecraft-skill-library-v0/skills/craft/calib_capture.py",
+      "brief": "reports/engineering/RESEARCH-MC-CRAFT-UI-CALIB-EVAL-HARNESS-2026-09-06.md",
+      "related_briefs": [
+        "reports/engineering/RESEARCH-MC-CRAFT-UI-CALIB-RECIPE-CLICKS-2026-09-06.md",
+        "reports/engineering/_notes-mc-craft-tool-use-2026-09-06.md"
+      ],
+      "layout_schema": "scratch/kevin-minecraft-skill-library-v0/craft/ui_layout.json",
+      "prove_bar": "DRY schema/ROI; LIVE calib after CLOSE",
+      "critic": {
+        "markers_required": [
+          "UI_CALIB"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "CLOSE_OK_or_AFK_craft_window",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "NOT_PROVEN",
+      "dry_first": true,
+      "hunt_conflict": "block_live",
+      "wean_target": "kevin_owned",
+      "id": "T1.5d_EVAL_CRAFT_NODE",
+      "skill": "EVAL_CRAFT_NODE",
+      "tier": "P2",
+      "order": 43,
+      "path": "scratch/kevin-minecraft-skill-library-v0/skills/craft/eval_node.py",
+      "brief": "reports/engineering/RESEARCH-MC-CRAFT-UI-CALIB-EVAL-HARNESS-2026-09-06.md",
+      "related_briefs": [
+        "reports/engineering/RESEARCH-MC-EVAL-HARNESS-PROVE-WEAN-2026-09-06.md"
+      ],
+      "prove_bar": "DRY_OK / LIVE critic PASS",
+      "critic": {
+        "markers_required": [
+          "EVAL_CRAFT_NODE",
+          "PROVE_WINDOW"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "CLOSE_OK_or_explicit_window",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "NOT_PROVEN",
+      "dry_first": true,
+      "hunt_conflict": "block_live",
+      "wean_target": "kevin_owned",
+      "id": "T1.5e_RECIPE_CLICKS",
+      "skill": "CRAFT_RECIPE_CLICKS",
+      "tier": "P2",
+      "order": 44,
+      "path": "scratch/kevin-minecraft-skill-library-v0/skills/craft/recipe_craft_pulse.py",
+      "brief": "reports/engineering/RESEARCH-MC-CRAFT-UI-CALIB-RECIPE-CLICKS-2026-09-06.md",
+      "prove_bar": "DRY recipe click plan; LIVE ui_layout anchors",
+      "critic": {
+        "markers_required": [
+          "RECIPE_CLICK"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "CLOSE_OK_or_explicit_window",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "NOT_PROVEN",
+      "dry_first": true,
+      "hunt_conflict": "block_live",
+      "wean_target": "kevin_owned",
+      "id": "T1.6_COMBAT_GUARD",
+      "skill": "COMBAT_GUARD",
+      "tier": "P4",
+      "order": 50,
+      "path": "scratch/kevin-minecraft-skill-library-v0/skills/combat/combat_defend_pulse.py",
+      "brief": "reports/engineering/RESEARCH-MC-COMBAT-GUARD-SAFE-PETS-MATT-2026-09-06.md",
+      "prove_bar": "Hostile-only; safe pets/Matt",
+      "critic": {
+        "markers_required": [
+          "COMBAT_DEFEND"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "CLOSE_OK_or_explicit_window",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "NOT_PROVEN",
+      "dry_first": true,
+      "hunt_conflict": "block_live",
+      "wean_target": "kevin_owned",
+      "id": "T1.7_ADVENTURE_FOLLOW",
+      "skill": "ADVENTURE_FOLLOW",
+      "tier": "P5",
+      "order": 60,
+      "path": "scratch/kevin-minecraft-skill-library-v0/skills/companion/adventure_follow_compose.py",
+      "brief": "reports/engineering/RESEARCH-MC-ADVENTURE-FOLLOW-COMPOSE-WEAN-2026-09-06.md",
+      "related_briefs": [
+        "reports/engineering/RESEARCH-MC-BUILD-FROM-PICTURE-ADVENTURE-HELPER-2026-09-06.md"
+      ],
+      "prove_bar": "Compose follow adventure; cave invite-only",
+      "critic": {
+        "markers_required": [
+          "ADVENTURE_FOLLOW"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "CLOSE_OK_or_explicit_window",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "NOT_PROVEN",
+      "dry_first": true,
+      "hunt_conflict": "block_live",
+      "wean_target": "kevin_owned",
+      "id": "T1.8_BUILD_FROM_PICTURE",
+      "skill": "BUILD_FROM_PICTURE",
+      "tier": "P5",
+      "order": 61,
+      "path": "scratch/kevin-minecraft-skill-library-v0/skills/companion/build_from_picture_stub.py",
+      "brief": "reports/engineering/RESEARCH-MC-BUILD-FROM-PICTURE-ADVENTURE-HELPER-2026-09-06.md",
+      "prove_bar": "Picture→place DRY/LIVE receipt",
+      "critic": {
+        "markers_required": [
+          "BUILD_PICTURE"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "CLOSE_OK_or_explicit_window",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    },
+    {
+      "status": "NOT_PROVEN",
+      "dry_first": true,
+      "hunt_conflict": "block_live",
+      "wean_target": "kevin_owned",
+      "id": "T1.9_POTIONS",
+      "skill": "POTIONS_BREW_BASICS",
+      "tier": "P6",
+      "order": 70,
+      "path": "scratch/kevin-minecraft-skill-library-v0/skills/potions/brew_stand_basics.py",
+      "prove_bar": "Brew approach/UI; no fake brew",
+      "critic": {
+        "markers_required": [
+          "BREW_APPROACH"
+        ],
+        "png_eyes_on": true,
+        "ocr_optional": true,
+        "dry_gate": "plan_only_zero_sendinput",
+        "live_gate": "CLOSE_OK_or_explicit_window",
+        "codify": "LESSON+playbook+skills-index",
+        "wean": "VBS_pythonw_invoke_no_Cos_WASD"
+      }
+    }
+  ]
+}
