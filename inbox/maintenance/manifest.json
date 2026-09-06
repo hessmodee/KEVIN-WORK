@@ -1,12 +1,17 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "bess-isolate-pass-main-canary-20260906",
+  "id": "bess-maint-v1350-cross-20260906-a1",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "run_main_agent_canary",
-  "expires_at": "2026-09-06T20:39:13.176Z"
+  "operation": "replace_pinned_component",
+  "target_alias": "maintenance_runner",
+  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.50.ps1",
+  "source_sha256": "8E01A9DFE52CEE241DAD30B10181BACD1B258907482262811EFDA92DFA5646DE",
+  "expected_current_sha256": "715E40DF0CFDC94FC8D470A83273467A6B10CC6CB9A2956E3A94FADC69B9646B",
+  "expected_after_sha256": "8E01A9DFE52CEE241DAD30B10181BACD1B258907482262811EFDA92DFA5646DE",
+  "expires_at": "2026-09-07T03:30:00Z"
 }
