@@ -1,0 +1,101 @@
+name: Kevin Recovery v4 Canary Evidence Proof
+
+on:
+  pull_request:
+    paths:
+      - 'tools/Repair-Kevin-Recovery-20260906-v4.ps1'
+      - 'tools/Kevin-Recovery-Main-Canary-20260906.json'
+      - '.github/workflows/kevin-recovery-v4-canary-evidence-proof.yml'
+      - 'docs/engineering/KEVIN-RECOVERY-V4-CANARY-EVIDENCE-2026-09-06.md'
+  push:
+    branches:
+      - 'bess/recovery-v4-canary-evidence-20260906'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  powershell51:
+    runs-on: windows-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Parse wrapper with Windows PowerShell 5.1
+        shell: powershell
+        run: |
+          $path = 'tools/Repair-Kevin-Recovery-20260906-v4.ps1'
+          $tokens = $null
+          $errors = $null
+          [void][Management.Automation.Language.Parser]::ParseFile($path,[ref]$tokens,[ref]$errors)
+          if($errors.Count){ $errors | Format-List *; throw 'PowerShell 5.1 parser rejected Recovery v4' }
+          Write-Host 'KEVIN_RECOVERY_V4_PARSE_PASS powershell=5.1'
+
+      - name: Run deterministic wrapper self-test
+        shell: powershell
+        run: |
+          $out = (& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File 'tools/Repair-Kevin-Recovery-20260906-v4.ps1' -SelfTest 2>&1 | Out-String).Trim()
+          Write-Host $out
+          if($LASTEXITCODE -ne 0){ throw 'Recovery v4 self-test exited nonzero' }
+          if($out -notmatch 'KEVIN RECOVERY V4 SELFTEST PASS'){ throw 'Recovery v4 self-test marker missing' }
+
+      - name: Prove exact downloadable bytes
+        shell: powershell
+        run: |
+          $scriptSha = (Get-FileHash 'tools/Repair-Kevin-Recovery-20260906-v4.ps1' -Algorithm SHA256).Hash
+          $evidenceSha = (Get-FileHash 'tools/Kevin-Recovery-Main-Canary-20260906.json' -Algorithm SHA256).Hash
+          if($scriptSha -cne '82CC32E5984199A95B5849FFEF9B18B3709992281CAE6E6C175848E261DC8C02'){ throw "v4 script SHA mismatch $scriptSha" }
+          if($evidenceSha -cne 'EEC855AA7B3677335477634C2D60B2573D75B27ECAA8CCEF96E248CD9949838A'){ throw "evidence SHA mismatch $evidenceSha" }
+          Write-Host 'KEVIN_RECOVERY_V4_BYTE_IDENTITY_PASS script=true evidence=true'
+
+      - name: Prove evidence capsule Git lineage
+        shell: powershell
+        run: |
+          $commit = '131f3afd51413f228be64ef660a8e51d9be96a0e'
+          $expectedBlob = 'ec76565f225fdcb880ab0bbad6a58b5d555e2de0'
+          $spec = $commit + ':reports/main-agent-canary-omen.json'
+          $blob = (& git rev-parse $spec).Trim()
+          if($LASTEXITCODE -ne 0 -or $blob -cne $expectedBlob){ throw "Pinned source blob mismatch $blob" }
+          $sourceText = (& git show $spec | Out-String)
+          if($LASTEXITCODE -ne 0){ throw 'Could not read pinned canary source commit' }
+          $source = $sourceText | ConvertFrom-Json
+          $capsule = Get-Content 'tools/Kevin-Recovery-Main-Canary-20260906.json' -Raw | ConvertFrom-Json
+          $c = $capsule.canary
+          foreach($name in @('kind','generated_at','state','agent','status','runner_version','visible_tool_names_sha256','output_sha256')){
+            if([string]$c.$name -cne [string]$source.$name){ throw "Capsule/source mismatch $name" }
+          }
+          foreach($name in @('gateway_probe_ok','exact_expected_reply','has_kevin_system_status')){
+            if([bool]$c.$name -ne [bool]$source.$name){ throw "Capsule/source mismatch $name" }
+          }
+          foreach($name in @('agent_exit_code','tool_calls','visible_tool_count','visible_kevin_tool_count')){
+            if([int]$c.$name -ne [int]$source.$name){ throw "Capsule/source mismatch $name" }
+          }
+          $ct = $c.canary_shape.transcript
+          $st = $source.canary_shape.transcript
+          foreach($name in @('sha256','provider','model_id')){
+            if([string]$ct.$name -cne [string]$st.$name){ throw "Capsule/source transcript mismatch $name" }
+          }
+          if($capsule.qualified_config_sha256 -cne '29383A6B9A8C4B5FA00B394AC169C8DDF7F3EE8829762D0F5BBA271C606C6BEA'){ throw 'Capsule config qualification link changed' }
+          if($capsule.source_commit -cne $commit -or $capsule.source_blob_sha1 -cne $expectedBlob){ throw 'Capsule source identity link changed' }
+          Write-Host 'KEVIN_RECOVERY_V4_GIT_LINEAGE_PASS commit=true blob=true fields=true transcript=true'
+
+      - name: Enforce wrapper authority boundary
+        shell: powershell
+        run: |
+          $s = Get-Content 'tools/Repair-Kevin-Recovery-20260906-v4.ps1' -Raw
+          foreach($bad in @('Invoke-Expression','Start-Process','Invoke-WebRequest','Invoke-RestMethod','WebClient','DownloadString','cmd.exe','Register-ScheduledTask','Unregister-ScheduledTask','openclaw config set')){
+            if($s.IndexOf($bad,[StringComparison]::OrdinalIgnoreCase) -ge 0){ throw "Forbidden v4 wrapper surface: $bad" }
+          }
+          foreach($required in @(
+            'DAC43A78079A5FA4BDF5E212E265EEBE37950CA4F72E604F50833C86DE3A7D7F',
+            'EEC855AA7B3677335477634C2D60B2573D75B27ECAA8CCEF96E248CD9949838A',
+            '131f3afd51413f228be64ef660a8e51d9be96a0e',
+            'ec76565f225fdcb880ab0bbad6a58b5d555e2de0',
+            'refusing published fallback','STAGED_CANARY_CLEANUP','KEVIN_RECOVERY_V3_READY'
+          )){
+            if(-not $s.Contains($required)){ throw "Required v4 guard missing: $required" }
+          }
+          Write-Host 'KEVIN_RECOVERY_V4_AUTHORITY_BOUNDARY_PASS fixed_v3_only=true network=false arbitrary_shell=false scheduler=false config_set=false'
