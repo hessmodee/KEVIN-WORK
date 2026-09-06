@@ -1,5 +1,6 @@
 (()=>{
 'use strict';
+/* P2-ops-fun-celebration-guard: busy→idle + PASS/PROVEN only */
 const ACTIVE='#ffd166';
 const BLINK_RATES=[4.7,5.3,6.1,5.8,6.7,4.9,7.2,5.6,6.4];
 const BLINK_DELAYS=[-0.4,-2.7,-1.3,-4.1,-3.2,-0.9,-5.4,-2.1,-4.7];
@@ -41,8 +42,17 @@ function gazeTick(){
  const dx=r.left+r.width/2-(h.left+h.width/2),dy=r.top+r.height/2-(h.top+h.height/2),m=Math.hypot(dx,dy)||1;gaze(4.4*dx/m,3.2*dy/m)
 }
 function successfulProof(){return `${document.getElementById('recent')?.textContent||''} ${document.getElementById('evidence')?.textContent||''} ${document.getElementById('kevinMeta')?.textContent||''}`.toUpperCase()}
+/* P2 celebration guard: busy→idle + PASS/PROVEN only — never on ARMED/READY/STALE/unmet FIND_WOLF */
+function celebrationAllowed(prevBusy,busy,proof){
+  if(!(prevBusy!==null&&prevBusy>0&&busy===0))return false;
+  if(!proof||proof===lastCelebrationProof)return false;
+  if(/\bSTALE\b/.test(proof))return false;
+  if(/\b(ARMED|READY|SCHEDULED)\b/.test(proof)&&!/(PASS|SUCCESS|PROVEN|DONE|COMPLETED|RECOVERY_PASS)/.test(proof))return false;
+  if(/FIND_WOLF|CLOSE NOT/.test(proof)&&!/(PASS|PROVEN|DONE|COMPLETED|RECOVERY_PASS|CLOSE\s*(OK|EVIDENCE)|RECEIPT)/.test(proof))return false;
+  return /(PASS|SUCCESS|PROVEN|DONE|COMPLETED|RECOVERY_PASS)/.test(proof);
+}
 function celebrate(){const hub=document.getElementById('kevinHub'),av=document.querySelector('#hubKevinProd .kevin-avatar-prod');if(!hub||!av)return;hub.classList.remove('owner-celebrate');av.classList.remove('owner-victory');void av.offsetWidth;hub.classList.add('owner-celebrate');av.classList.add('owner-victory');try{window.top.postMessage({type:'kevin-ops-celebrate',duration:1700},location.origin)}catch(_e){};setTimeout(()=>{hub.classList.remove('owner-celebrate');av.classList.remove('owner-victory')},1750)}
-function checkCompletion(){const busy=activeWorkers().length,proof=successfulProof();if(lastBusy!==null&&lastBusy>0&&busy===0&&/(PASS|SUCCESS|PROVEN|DONE|COMPLETED|RECOVERY_PASS)/.test(proof)&&proof!==lastCelebrationProof){lastCelebrationProof=proof;celebrate()}lastBusy=busy}
+function checkCompletion(){const busy=activeWorkers().length,proof=successfulProof();if(celebrationAllowed(lastBusy,busy,proof)){lastCelebrationProof=proof;celebrate()}lastBusy=busy}
 async function refreshBase(){if(baseRefreshing||typeof window.load!=='function')return;baseRefreshing=true;try{await window.load()}catch(_e){}finally{baseRefreshing=false;setTimeout(polish,0)}}
 function polish(){document.querySelectorAll('.worker').forEach((w,i)=>replaceEyes(w,i));ensureActiveDefinition();bindSelection();addFreshness();renderSelection();checkCompletion()}
 addEventListener('load',()=>{polish();setTimeout(polish,300);setTimeout(polish,1000)});const top=document.getElementById('topology');if(top&&'MutationObserver'in window)new MutationObserver(polish).observe(top,{childList:true,subtree:true});setInterval(polish,850);setInterval(refreshBase,4000);setInterval(gazeTick,1100);
