@@ -1,0 +1,36 @@
+
+/* P0-0 Phase A — Mission Ops Floor (owl-locked) */
+.mof-root{display:grid;gap:12px;margin-top:8px}
+.mof-digest{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;border:1px solid rgba(127,200,191,.35);border-radius:16px;padding:12px 14px;background:linear-gradient(180deg,rgba(24,31,23,.97),rgba(17,22,16,.98))}
+.mof-digest.working{border-color:rgba(121,197,106,.55)}
+.mof-digest.stale{border-color:rgba(215,176,111,.55)}
+.mof-digest .mof-line{font:700 15px/1.25 ui-sans-serif,system-ui,sans-serif}
+.mof-digest .mof-sub{color:var(--muted,#9aa89a);font-size:11px;margin-top:4px}
+.mof-digest .mof-actions{display:flex;gap:8px;flex-wrap:wrap}
+.mof-digest .mof-actions a,.mof-digest .mof-actions button{appearance:none;border:1px solid var(--line,#2a352a);background:rgba(255,255,255,.04);color:inherit;border-radius:999px;padding:7px 11px;font-size:11px;cursor:pointer;text-decoration:none}
+.mof-grid{display:grid;grid-template-columns:minmax(180px,0.9fr) minmax(220px,1.1fr) minmax(200px,1fr);gap:12px}
+@media(max-width:900px){.mof-grid{grid-template-columns:1fr}.mof-digest{grid-template-columns:1fr}}
+.mof-panel{border:1px solid var(--line,#2a352a);border-radius:16px;padding:12px;background:rgba(16,21,16,.92);min-height:280px}
+.mof-panel h3{margin:0 0 8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#9aa89a)}
+.mof-lane{display:grid;gap:4px;width:100%;text-align:left;border:1px solid var(--line,#2a352a);border-radius:12px;padding:10px;margin:0 0 8px;background:rgba(255,255,255,.02);color:inherit;cursor:pointer}
+.mof-lane.on{border-color:rgba(127,200,191,.45);background:rgba(127,200,191,.06)}
+.mof-lane.working{border-color:rgba(121,197,106,.4)}
+.mof-lane.stale{border-color:rgba(215,176,111,.4)}
+.mof-lane b{font-size:13px}
+.mof-lane span{font-size:11px;color:var(--muted,#9aa89a)}
+.mof-stage{display:grid;place-items:center;gap:10px;min-height:260px}
+.mof-stage .mof-hub{text-align:center}
+.mof-stage .mof-hub h2{margin:6px 0 2px;font-size:18px}
+.mof-stage .mof-hub .role{font-size:11px;color:var(--muted,#9aa89a)}
+.mof-badge{display:inline-flex;padding:4px 8px;border-radius:999px;font:800 9px/1 ui-monospace,monospace;letter-spacing:.1em;background:rgba(127,200,191,.12);color:#cdece7}
+.mof-badge.working{background:rgba(121,197,106,.16);color:#d7efcf}
+.mof-badge.stale{background:rgba(215,176,111,.16);color:#efd9ae}
+.mof-inspect .mof-kv{display:grid;grid-template-columns:88px 1fr;gap:6px 10px;font-size:12px;margin:8px 0}
+.mof-inspect .mof-kv i{color:var(--muted,#9aa89a);font-style:normal}
+.mof-pulse{display:flex;flex-wrap:wrap;gap:10px;border:1px solid var(--line,#2a352a);border-radius:12px;padding:10px 12px;font-size:11px;color:var(--muted,#9aa89a)}
+.mof-pulse b{color:inherit}
+/* hide legacy constellation when mission floor active */
+body.mof-on .topology,body.mof-on .legend,body.mof-on .owner-status-guide,body.mof-on .ops-head .helper:nth-child(2){display:none!important}
+body.mof-on .ops-head .helper:first-child{display:block}
+body.mof-on .strip{display:none!important}
+body.mof-on section.card.detail{display:none!important}
