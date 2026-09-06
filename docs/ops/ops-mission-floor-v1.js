@@ -1,4 +1,5 @@
-(()=>{ /* P1-2 expression honesty: WORKING only from fresh work; celebrate only busy→idle+receipt; owl forever */
+(()=>{ /* P1-5 live digest headline */
+ /* P1-2 expression honesty: WORKING only from fresh work; celebrate only busy→idle+receipt; owl forever */
 
 'use strict';
 const RAW='https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/';
@@ -74,10 +75,16 @@ function buildLanes(){
   if(!lanes.length&&primary){
     lanes.push({id:String(primary.id||'primary'),name:String(primary.name||'Primary'),role:String(primary.category||'ops'),state:stale?'stale':String(primary.state||'ready').toLowerCase(),action:String(primary.action||'—'),detail:String(primary.detail||''),what:String(primary.what||''),kind:'ops'});
   }
-  const digestState=stale?'stale':(lanes.some(x=>x.state==='working')?'working':'ready');
-  const digestTitle=lanes.find(x=>x.state==='working')?.name||primary?.title||primary?.name||'Kevin ready';
-  const digestAction=lanes.find(x=>x.state==='working')?.action||primary?.action||'No active execution proven';
-  return {lanes,digestState,digestTitle,digestAction,stale,dashAge,ht,fresh:ageText(dashAge)};
+  const workingLane=lanes.find(x=>x.state==='working');
+  const digestState=stale?'stale':(workingLane?'working':(lanes.some(x=>/^(blocked|degraded)$/i.test(String(x.state||'')))?'degraded':'ready'));
+  const term=String(primary?.outcome||primary?.status||ht?.outcome||'').toUpperCase();
+  const finished=/(DONE|NEEDS_HELP|FAILED|PROVEN|CLOSED)/.test(term);
+  const finishedAt=primary?.finished_at||primary?.ended_at||ht?.finished_at||ht?.ended_at||null;
+  const freeze=finished&&finishedAt?`finished ${ageText(age(finishedAt))} ago`:(finished?'finished (clock pending)':null);
+  const digestTitle=workingLane?.name||(finished?(primary?.title||primary?.name||term):null)||primary?.title||primary?.name||'Kevin ready';
+  const digestAction=freeze||workingLane?.action||primary?.action||(stale?'Evidence STALE — not live WORKING':'No active execution proven');
+  const digestLine=`${digestState.toUpperCase()} · ${digestTitle} · ${digestAction}`;
+  return {lanes,digestState,digestTitle,digestAction,digestLine,stale,dashAge,ht,fresh:ageText(dashAge),finished:!!finished};
 }
 
 function ensureRoot(){
@@ -108,8 +115,8 @@ function paint(){
   <div class="mof-digest ${esc(m.digestState)}">
     <div>${kevinOwl(m.digestState)}</div>
     <div>
-      <div class="mof-line">Kevin · ${esc(m.digestState.toUpperCase())} · ${esc(m.digestTitle)}</div>
-      <div class="mof-sub">${esc(m.digestAction)} · fresh ${esc(m.fresh)}${m.stale?' · STALE (not WORKING)':''}</div>
+      <div class="mof-line" data-hq-digest="1">Kevin · ${esc(m.digestLine||(m.digestState.toUpperCase()+' · '+m.digestTitle))}</div>
+      <div class="mof-sub">fresh ${esc(m.fresh)}${m.stale?' · STALE (not WORKING)':''}${m.finished?' · clock frozen':''}</div>
     </div>
     <div class="mof-actions">
       <a href="#" onclick="try{parent.postMessage({type:'kevin-talk'},'*')}catch(_e){};return false">Talk to Kevin</a>
