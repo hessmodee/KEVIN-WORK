@@ -276,7 +276,7 @@
   },
   "manifest_retired": true,
   "source_repair_pr": 134,
-  "diagnostic_source_state": "LOCAL_FIXTURES_PASS_WINDOWS_CI_PENDING",
+  "diagnostic_source_state": "MERGED_WINDOWS_CI_PROVEN_NOT_HESS_PC_EXECUTED",
   "runtime_repaired": false,
   "blockers": [
     "R04 current config differs from historical desktop crossing; do not blindly rebaseline",
@@ -285,5 +285,9 @@
     "Installed maintenance SHA has no exact matching repository PowerShell source, including LF/CRLF and BOM variants"
   ],
   "next_action": "Run fixed combined recovery collector on HESS-PC; existing typed relay cannot execute this new diagnostic or export installed source. Review fresh evidence, then qualify bounded repairs.",
-  "truth_boundary": "Live relay reachability and read-only policy diagnosis proven. Model execution, UI recovery, R04 repair and independent autonomy are not proven."
+  "truth_boundary": "Live relay reachability and read-only policy diagnosis proven. Model execution, UI recovery, R04 repair and independent autonomy are not proven.",
+  "source_repair_merge": "dfb1c88943d0115e183d351d7f44a791abe8c400",
+  "windows_ci_run": 34055447462,
+  "collector_sha256": "70CD283D75DDBA7254AF8A2264F5C0EACEED530D8263F35EF40B215C5BF0B004",
+  "engineering_request_retired": true
 }
