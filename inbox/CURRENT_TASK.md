@@ -1,20 +1,20 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-05 19:56 MT
-**Matt:** away — CoS coaches; Kevin operates.
+**Updated:** 2026-09-05 20:04 MT
+**Status:** HARD_BLOCK_NEEDS_MATT (coach exhausted cycles; Kevin Chat cannot operate MC/cmd)
 
 ## UNDYING
-Always task Kevin. Never Minecraft UI/WASD for him. Only Matt authorizes CoS puppeteering.
+Always task Kevin. Never Minecraft UI/WASD for him unless Matt authorizes CoS exception.
 
-## P0 LIVE — HESSMODEE's Realm + walk prove
-**State:** Multiplayer Connection Failed (NetherNet) — stuck 2 coach cycles.
-**Shots:** `scratch\kevin-minecraft-gdk-client-v0\logs\mc-coach-20260905-195449.png`
-**Read:** `inbox\2026-09-05-1955-coach-cycle2-restart.md` and `inbox\FROM_GROK.md`
+## Evidence
+- Still NetherNet modal: `scratch\kevin-minecraft-gdk-client-v0\logs\mc-coach-20260905-200126.png`
+- Coach notes: `inbox\2026-09-05-2003-coach-cycle3-hardblock.md`
+- Agent try: `scratch\kevin-minecraft-gdk-client-v0\logs\coach-agent-cycle3-out.json` (cmd launch refused)
+- Receipt: `reports\engineering\RECEIPT-kevin-inworld-walk-attempted-20260905-2003.md`
 
-### Kevin DO NOW
-1. Back to menu → **close Minecraft fully** → relaunch as kevinsk8erkid
-2. `scratch\kevin-minecraft-gdk-client-v0\kevin_play_go.cmd`
-3. If in-world: ensure walk log has WALK_KEYBOARD_OK
-4. Never ViGEm mid-session
+## Matt decision needed
+A) Authorize CoS puppeteering for Reconnect/close/rejoin/walk prove once, OR
+B) Widen Kevin Chat tools / Desktop UI for Realms operate, OR
+C) Matt operates: Back to menu → close MC → relaunch kevinsk8erkid → `kevin_play_go.cmd`
 
-Success: in-world HUD + WALK_KEYBOARD_OK / KEVIN_GDK_MOVE_OK → receipt then READY_FOR_MATT
+Until then: CoS continues observe-only; no Minecraft clicks.
