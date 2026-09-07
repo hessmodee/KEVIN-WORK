@@ -16,6 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Candidate SHA-256 identity
+        shell: powershell
+        run: |
+          $sha = (Get-FileHash -LiteralPath .\control-plane\maintenance\kevin-maintenance-runner-v1.3.51.ps1 -Algorithm SHA256).Hash.ToUpperInvariant()
+          if ($sha -notmatch '^[A-F0-9]{64}$') { throw "candidate SHA-256 invalid: $sha" }
+          Write-Host "MAINTENANCE_V1351_SHA256=$sha"
+
       - name: Parent v1.3.50 self-test remains healthy
         shell: powershell
         run: |
