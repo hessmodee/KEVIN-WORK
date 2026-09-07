@@ -31,7 +31,8 @@ jobs:
           $ErrorActionPreference='Stop'
           [void][scriptblock]::Create((Get-Content -Raw control-plane/skill-lab/kevin-skill-lab-v1.0.7.ps1))
           $out = & ./control-plane/skill-lab/kevin-skill-lab-v1.0.7.ps1 -SelfTest | Out-String
-          if ($LASTEXITCODE -ne 0 -or -not $out.Contains('KEVIN SKILL LAB v1.0.7 SELFTEST PASS')) { throw $out }
+          $scriptSucceeded = $?
+          if (-not $scriptSucceeded -or -not $out.Contains('KEVIN SKILL LAB v1.0.7 SELFTEST PASS')) { throw $out }
           $out
       - name: Prove authority and owner-work boundaries
         run: |
