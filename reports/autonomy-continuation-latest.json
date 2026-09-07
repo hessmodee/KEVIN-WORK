@@ -1,17 +1,53 @@
 {
     "schema":  1,
     "kind":  "kevin-autonomy-continuation-public",
-    "version":  "1.8.8",
-    "generated_at":  "2026-09-06T18:14:38.2328923-06:00",
+    "version":  "1.8.10",
+    "generated_at":  "2026-09-06T18:19:37.9158304-06:00",
     "status":  "WAITING_ITEM_BUDGETS",
     "safe_for_public_repo":  true,
     "outcome_proven":  false,
     "model_call_counts_as_accomplishment":  false,
     "tool_calls":  null,
     "history":  [
-
+                    {
+                        "id":  "hq-direct-chat-real-roundtrip",
+                        "fingerprint":  "D531C4F1A687E48D81A47D0B40D4AF834956E27A63EDC73708A793C1790705B3",
+                        "turns":  3,
+                        "last_turn_at":  "2026-09-01T22:04:07.5911537-06:00",
+                        "status":  "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF"
+                    },
+                    {
+                        "id":  "staging-trajectory-reliability-v1",
+                        "fingerprint":  "C61984ED7DEF5FD8CB6BED423A2F9CCEF43C0B1039B394B1BF927541A0D2AAF8",
+                        "turns":  1,
+                        "last_turn_at":  "2026-09-01T22:24:16.6602483-06:00",
+                        "status":  "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF"
+                    },
+                    {
+                        "id":  "computer-fluency-desktop-install-qualification",
+                        "fingerprint":  "6C1254B4DFA783FFAEDA78AD4A62A6EDDF12B41B204B3A6E223CA03EDFF67BF2",
+                        "turns":  3,
+                        "last_turn_at":  "2026-09-03T11:37:33.2278271-06:00",
+                        "status":  "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF"
+                    },
+                    {
+                        "id":  "owner-west-motor-transport-dispatch-template-v1",
+                        "fingerprint":  "AB31BE845D125AAA2144AAF9128D1DA2510BA884B978E90334B9611D73E91EB8",
+                        "turns":  3,
+                        "last_turn_at":  "2026-09-06T16:24:30.7344249-06:00",
+                        "status":  "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF"
+                    }
                 ],
+    "history_error":  false,
     "eligible_count":  1,
-    "history_error":  true,
+    "work_conservation":  "ALL_ELIGIBLE_ITEMS_HAVE_RECORDED_DEFERRAL",
+    "deferred":  [
+                     {
+                         "id":  "owner-west-motor-transport-dispatch-template-v1",
+                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
+                         "turns":  3
+                     }
+                 ],
+    "history_skipped":  1,
     "truth_boundary":  "Scheduled selection and runtime-attempt evidence only. No owner outcome, tool use, or autonomy transfer is inferred from a successful model turn."
 }
