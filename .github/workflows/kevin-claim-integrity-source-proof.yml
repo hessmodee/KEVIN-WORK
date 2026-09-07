@@ -1,0 +1,46 @@
+name: Kevin claim-integrity source proof
+
+on:
+  push:
+    paths:
+      - 'workspace/AGENTS.md'
+      - 'workspace/SOUL.md'
+      - 'workspace/TOOLS.md'
+      - 'docs/engineering/LESSON-main-chat-side-effect-claims-require-receipts-2026-09-07.md'
+      - 'docs/engineering/evals/NEG-side-effect-claim-without-receipt-v1.json'
+      - 'tools/test_claim_integrity_source.py'
+      - '.github/workflows/kevin-claim-integrity-source-proof.yml'
+  pull_request:
+    paths:
+      - 'workspace/AGENTS.md'
+      - 'workspace/SOUL.md'
+      - 'workspace/TOOLS.md'
+      - 'docs/engineering/LESSON-main-chat-side-effect-claims-require-receipts-2026-09-07.md'
+      - 'docs/engineering/evals/NEG-side-effect-claim-without-receipt-v1.json'
+      - 'tools/test_claim_integrity_source.py'
+      - '.github/workflows/kevin-claim-integrity-source-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  claim-integrity-source-proof:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prove exact-five and receipt-bound claim doctrine
+        shell: pwsh
+        run: |
+          python tools/test_claim_integrity_source.py 2>&1 | Tee-Object -FilePath claim-integrity-proof.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Publish non-secret proof output
+        uses: actions/upload-artifact@v4
+        with:
+          name: claim-integrity-source-proof
+          path: claim-integrity-proof.txt
+          if-no-files-found: error
+          retention-days: 7
