@@ -7,7 +7,7 @@ const vm = require('node:vm');
 const root = path.resolve(__dirname, '../..');
 const read = name => fs.readFileSync(path.join(root, name), 'utf8');
 
-function overviewFrame(html) {
+function primaryFrame(html) {
   const frames = [...html.matchAll(/<iframe\b[^>]*>/gi)]
     .map(match => match[0])
     .filter(tag => /\bid\s*=\s*(['"])kevinCore\1/i.test(tag));
@@ -17,7 +17,7 @@ function overviewFrame(html) {
   const url = new URL(source[2], 'https://hq.invalid/');
   assert.equal(url.origin, 'https://hq.invalid', 'core remains same-origin');
   assert.equal(url.pathname, '/hq-core-v7.html', 'core uses v7');
-  assert.equal(url.hash, '#overview', 'core starts at overview');
+  assert.equal(url.hash, '#ops', 'core starts at Ops Floor');
 }
 
 const ownerRefinement = read('docs/hq-owner-refinement-v3.js');
@@ -28,15 +28,15 @@ assert.ok(ownerRefinement.includes("mdSection('current p0 blockers',4)"), 'owner
 assert.ok(ownerRefinement.includes("mdSection('green development lane',6)"), 'owner skill wave follows current task heading');
 
 assert.ok(read('docs/hq-core-v7.html').length, 'core exists and is nonempty');
-overviewFrame(read('docs/index.html'));
-for (const source of ['./hq-core-v7.html#overview', './hq-core-v7.html?v=9#overview']) {
-  overviewFrame(`<iframe id="kevinCore" src="${source}"></iframe>`);
+primaryFrame(read('docs/index.html'));
+for (const source of ['./hq-core-v7.html#ops', './hq-core-v7.html?v=15#ops']) {
+  primaryFrame(`<iframe id="kevinCore" src="${source}"></iframe>`);
 }
-for (const source of ['./hq-core-v7.html#other', './other.html#overview', 'https://elsewhere.invalid/hq-core-v7.html#overview']) {
-  assert.throws(() => overviewFrame(`<iframe id="kevinCore" src="${source}"></iframe>`));
+for (const source of ['./hq-core-v7.html#overview', './hq-core-v7.html#other', './other.html#ops', 'https://elsewhere.invalid/hq-core-v7.html#ops']) {
+  assert.throws(() => primaryFrame(`<iframe id="kevinCore" src="${source}"></iframe>`));
 }
-assert.throws(() => overviewFrame('<iframe src="./hq-core-v7.html#overview"></iframe>'));
-assert.throws(() => overviewFrame('<iframe id="kevinCore"></iframe>'));
+assert.throws(() => primaryFrame('<iframe src="./hq-core-v7.html#ops"></iframe>'));
+assert.throws(() => primaryFrame('<iframe id="kevinCore"></iframe>'));
 
 const overlay = read('docs/ops/ops-truth-patch-v1.js');
 const now = Date.now();
@@ -88,5 +88,5 @@ async function classify(fixture) {
     modify(fixture);
     assert.deepEqual(await classify(fixture), expected, name);
   }
-  console.log('PASS HQ overview destination and 10 real-overlay status scenarios');
+  console.log('PASS HQ Ops Floor destination and 10 real-overlay status scenarios');
 })().catch(error => {console.error(error); process.exitCode = 1;});
