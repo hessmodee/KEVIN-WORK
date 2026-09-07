@@ -89,10 +89,9 @@ jobs:
           assert truth_intervals and min(truth_intervals) >= 30000, truth_intervals
           assert 'setInterval(hook,1200)' not in truth
 
-          # Newswire animation may rotate every 7s; publication refresh remains 15s.
-          # Reject any new sub-7-second polling loop in this integration layer.
-          override_intervals = [int(x) for x in re.findall(r',(\d+)\);', overrides)]
-          assert override_intervals and min(override_intervals) >= 7000, override_intervals
-          assert 'setInterval(refreshNewswire,15000)' in overrides
+          # The integration layer has exactly two intentional timers: 7s story rotation and 15s news refresh.
+          assert overrides.count('setInterval(') == 2, overrides.count('setInterval(')
+          assert "nwTimer=setInterval(()=>{nwIndex=(nwIndex+1)%nwItems.length;paint()},7000)" in overrides
+          assert 'nwRefreshTimer=setInterval(refreshNewswire,15000)' in overrides
 
-          print('HQ_SMOOTHNESS_PASS architecture=v8 forced_core_reload=false truth_bottom=true disclosure_state_preserved=true min_override_interval_ms=7000 stale_layers_absent=true')
+          print('HQ_SMOOTHNESS_PASS architecture=v8 forced_core_reload=false truth_bottom=true disclosure_state_preserved=true newswire_timers=7000,15000 stale_layers_absent=true')
