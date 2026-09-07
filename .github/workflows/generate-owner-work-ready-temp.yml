@@ -1,0 +1,32 @@
+name: Generate Owner Work READY TEMP
+
+on:
+  push:
+    branches: [bess/real-owner-work-ready-crossing-20260906]
+    paths:
+      - 'tools/transition-real-owner-work-ready.py'
+      - '.github/workflows/generate-owner-work-ready-temp.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  transition:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: bess/real-owner-work-ready-crossing-20260906
+      - name: Apply exact semantic transition
+        run: python tools/transition-real-owner-work-ready.py
+      - name: Commit transition
+        run: |
+          git config user.name 'Kevin CI'
+          git config user.email 'actions@users.noreply.github.com'
+          git add inbox/autonomy/work-items.json
+          if git diff --cached --quiet; then
+            echo 'transition already current'
+            exit 0
+          fi
+          git commit -m 'Advance real West Motor owner work to READY'
+          git push origin HEAD:bess/real-owner-work-ready-crossing-20260906
