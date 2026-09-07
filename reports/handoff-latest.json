@@ -3,8 +3,8 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-06T20:09:11.9257637-06:00",
-  "semantic_fingerprint_sha256": "0264BE2788A56FC6FC9D84C8F9A54832F8F7DDB2891C617D87745CE932C70B8C",
+  "evidence_updated_at": "2026-09-06T20:15:11.9775846-06:00",
+  "semantic_fingerprint_sha256": "9A520C64A787ADC0859AC0C9F1F0AF17DEE6231FD1CBCBCF7CEA35732A182994",
   "semantic_checkpoint": {
     "current_task_sha256": "E1B6D9876219A6DD8E79CEDA74611C96FC834881951086DE7BCFECEF38B88641",
     "benchmark": {
@@ -19,8 +19,8 @@
     "autonomy_status": "WAITING_ITEM_BUDGETS",
     "autonomy_eligible_count": 1,
     "maintenance": {
-      "status": "APPLY_FAILED",
-      "detail": "expected-current mismatch alias=skill_lab_runner actual=0C1AF239FE43C967A502EE93DB77062B2D56E8B9C04215CB3C4EC02110453E18"
+      "status": "BLOCKED_FAILURE_BUDGET",
+      "detail": "Failure budget exhausted."
     },
     "queues": {
       "ready": 0,
@@ -37,9 +37,9 @@
   },
   "source_hashes": {
     "current_task_sha256": "E1B6D9876219A6DD8E79CEDA74611C96FC834881951086DE7BCFECEF38B88641",
-    "engineering_sha256_at_checkpoint": "2208A4453771CD803C6C8E388491E501BAA625DFF11417604D9F7A44D2B77F43",
-    "support_sha256_at_checkpoint": "466D631BD966380869247015E9C0B7D288FE18A8AE9D2D23D2988DB1D4C4719C",
-    "autonomy_sha256_at_checkpoint": "6146D86CDA9FF9A78ACDCC2BD775609A9AC1CB5FCECF4ACAA8AD8C18397881CF"
+    "engineering_sha256_at_checkpoint": "FC551BCBDEF3E47994E04F48B7D9CD894122DCE4826EA94872F63C8839124AA8",
+    "support_sha256_at_checkpoint": "CE110BF0220DCC1DB8D38FB4707FE7283471E3271751B4939BE0C50C3433193C",
+    "autonomy_sha256_at_checkpoint": "C7D71E1A8F77F5859692EA9126884484E52E659B809DBB863F9F1E5430F8D1FD"
   },
   "universal_access": {
     "github": "https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md",
@@ -55,20 +55,20 @@
     "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at_checkpoint": "2026-09-06T20:08:23.2585820-06:00",
-    "support_at_checkpoint": "2026-09-06T20:09:11.9257637-06:00",
-    "autonomy_at_checkpoint": "2026-09-06T20:04:41.3724099-06:00",
+    "engineering_at_checkpoint": "2026-09-06T20:14:23.2627713-06:00",
+    "support_at_checkpoint": "2026-09-06T20:15:11.9775846-06:00",
+    "autonomy_at_checkpoint": "2026-09-06T20:14:41.4388536-06:00",
     "benchmark": {
       "status": "PASS",
       "passed": 30,
       "total": 30,
       "critical": 0
     },
-    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 3.4,
+    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 3.3,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
-    "maintenance_status": "APPLY_FAILED",
-    "maintenance_detail": "expected-current mismatch alias=skill_lab_runner actual=0C1AF239FE43C967A502EE93DB77062B2D56E8B9C04215CB3C4EC02110453E18",
+    "maintenance_status": "BLOCKED_FAILURE_BUDGET",
+    "maintenance_detail": "Failure budget exhausted.",
     "proven_composite_skills": 27,
     "maintenance_runner_sha256": "8E01A9DFE52CEE241DAD30B10181BACD1B258907482262811EFDA92DFA5646DE"
   },
