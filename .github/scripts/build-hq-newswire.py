@@ -11,9 +11,24 @@ from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 OUT = Path('reports/newswire-latest.json')
-UA = 'Kevin-HQ-Newswire/1.0 (+https://github.com/hessmodee/KEVIN-WORK)'
+UA = 'Kevin-HQ-Newswire/1.1 (+https://github.com/hessmodee/KEVIN-WORK)'
 PRESTON_LAT = 42.0963
 PRESTON_LON = -111.8766
+
+# Kevin HQ is an owner-operations surface, not a newspaper archive. Death notices,
+# obituaries, memorial announcements and funeral notices are explicitly excluded.
+# Keep this narrow enough that genuinely important breaking/public-safety news is not
+# hidden merely because a story mentions a death.
+BLOCKED_STORY_PATTERNS = (
+    re.compile(r'\bobituar(?:y|ies)\b', re.I),
+    re.compile(r'\bdeath\s+notice(?:s)?\b', re.I),
+    re.compile(r'\bfuneral\s+(?:notice|service|services|home)\b', re.I),
+    re.compile(r'\bmemorial\s+(?:notice|service|services)\b', re.I),
+    re.compile(r'\bin\s+memoriam\b', re.I),
+    re.compile(r'\bcelebration\s+of\s+life\b', re.I),
+    re.compile(r'\bremembering\s+[A-Z][A-Za-z\'\-]+(?:\s+[A-Z][A-Za-z\'\-]+){0,3}\b'),
+    re.compile(r'\bpassed\s+away\b', re.I),
+)
 
 
 def fetch_bytes(url: str, timeout: int = 20) -> bytes:
@@ -29,6 +44,11 @@ def clean_text(value: str | None) -> str:
     return s
 
 
+def is_blocked_story(title: str) -> bool:
+    value = clean_text(title)
+    return any(pattern.search(value) for pattern in BLOCKED_STORY_PATTERNS)
+
+
 def strip_duplicate_source(title: str, source: str) -> tuple[str, str]:
     """Keep the publisher exactly once.
 
@@ -42,7 +62,7 @@ def strip_duplicate_source(title: str, source: str) -> tuple[str, str]:
         low_title = title.lower()
         low_source = source.lower()
         for sep in (' - ', ' — ', ' | ', ' · '):
-            suffix = (sep + low_source)
+            suffix = sep + low_source
             if low_title.endswith(suffix):
                 title = title[:len(title) - len(sep + source)].strip()
                 break
@@ -64,7 +84,7 @@ def rss(url: str, category: str, limit: int) -> list[dict]:
         pub = clean_text(item.findtext('pubDate'))
         source = clean_text(item.findtext('source'))
         title, source = strip_duplicate_source(title, source)
-        if not title:
+        if not title or is_blocked_story(title):
             continue
         published_at = ''
         if pub:
@@ -137,6 +157,8 @@ def google_news_search(query: str) -> str:
 
 def append_unique(headlines: list[dict], seen: set[str], rows: list[dict]) -> None:
     for item in rows:
+        if is_blocked_story(item.get('title', '')):
+            continue
         key = re.sub(r'\W+', '', item['title'].lower())[:180]
         if not key or key in seen:
             continue
@@ -170,8 +192,7 @@ def main() -> None:
 
     # Local news can legitimately be quiet for a 48-hour window. HQ still
     # requires a local lane, so widen only that lane to one week before failing
-    # the publication contract. This preserves local relevance rather than
-    # weakening validation or relabeling unrelated national stories as local.
+    # the publication contract. Filtering remains active on the fallback.
     if not any(item.get('category') == 'local' for item in headlines):
         try:
             append_unique(
@@ -190,6 +211,11 @@ def main() -> None:
         'weather': wx,
         'headlines': headlines[:16],
         'errors': errors,
+        'content_policy': {
+            'obituaries': 'excluded',
+            'death_notices': 'excluded',
+            'funeral_memorial_notices': 'excluded',
+        },
         'safe_for_public_repo': True,
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
