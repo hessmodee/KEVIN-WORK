@@ -19,6 +19,18 @@ $Repo = 'hessmodee/KEVIN-WORK'
 $ParentRepoPath = 'control-plane/maintenance/kevin-maintenance-runner-v1.3.50.ps1'
 $ManifestRepoPath = 'inbox/maintenance/manifest.json'
 $ExpectedParentSha = '8E01A9DFE52CEE241DAD30B10181BACD1B258907482262811EFDA92DFA5646DE'
+$AllowedOperations = @(
+    'replace_pinned_component','restart_ui_bridge','audit_runtime_convergence','publish_runtime_convergence',
+    'publish_runtime_capabilities','replace_runtime_policy_bundle','migrate_design_forge_v40',
+    'configure_skill_workshop_guardrails','run_reader_status_canary','diagnose_forge_r03_contract',
+    'diagnose_goal_os_forge_anchor','diagnose_benchmark_baseline_forge_anchor',
+    'migrate_supervisor_forge_demand_gated_v17','repair_supervisor_v171_forge_pin',
+    'ensure_autonomy_continuation_automation','run_main_agent_canary','install_autonomy_controller_v183',
+    'install_autonomy_controller_v1810','diagnose_gateway_rpc','run_self_reliance_watchdog_once',
+    'diagnose_gateway_failure_detail','repair_openclaw_windows_lkg','reconcile_maintenance_cron_backoff',
+    'diagnose_main_tool_policy','ensure_ui_bridge_watchdog','refresh_full_autonomy_assessment',
+    'sync_local_desired_state_v19','retire_legacy_night_forge'
+)
 
 foreach($d in @($Reports,$Root,$ControlPlane)){New-Item -ItemType Directory -Force -Path $d|Out-Null}
 
@@ -88,33 +100,29 @@ function Get-ManifestText{
     }
     return Get-RepoText $ManifestRepoPath
 }
+function Test-IsCanonicalExpiredObject([object]$m,[ref]$ManifestId,[ref]$ExpiresAt){
+    $ManifestId.Value=''
+    $ExpiresAt.Value=''
+    if($null-eq$m){return $false}
+    try{
+        if([int]$m.schema-ne3 -or [string]$m.kind-ne'kevin-self-maintenance-manifest'){return $false}
+        if([string]$m.id -notmatch '^[A-Za-z0-9._-]{6,96}$'){return $false}
+        if([string]$m.authority_class-ne'GREEN' -or [string]$m.authority_delta-ne'NONE' -or [string]$m.production_effect-ne'NONE'){return $false}
+        if([string]$m.owner_policy-ne'Kevin Owner Authorization v1' -or [bool]$m.preauthorized-ne$true){return $false}
+        if($AllowedOperations-notcontains[string]$m.operation){return $false}
+        if(-not$m.expires_at){return $false}
+        try{$expiry=[DateTimeOffset]::Parse([string]$m.expires_at)}catch{return $false}
+        $ManifestId.Value=[string]$m.id
+        $ExpiresAt.Value=$expiry.ToString('o')
+        return ([DateTimeOffset]::Now -gt $expiry)
+    }catch{return $false}
+}
 function Test-IsCanonicalExpired([string]$Text,[ref]$ManifestId,[ref]$ExpiresAt){
     $ManifestId.Value=''
     $ExpiresAt.Value=''
     if(-not$Text){return $false}
-    try{$m=$Text|ConvertFrom-Json}catch{return $false}
-    if([int]$m.schema-ne3 -or [string]$m.kind-ne'kevin-self-maintenance-manifest'){return $false}
-    if([string]$m.id -notmatch '^[A-Za-z0-9._-]{6,96}$'){return $false}
-    if([string]$m.authority_class-ne'GREEN' -or [string]$m.authority_delta-ne'NONE' -or [string]$m.production_effect-ne'NONE'){return $false}
-    if([string]$m.owner_policy-ne'Kevin Owner Authorization v1' -or [bool]$m.preauthorized-ne$true){return $false}
-    $allowed=@(
-        'replace_pinned_component','restart_ui_bridge','audit_runtime_convergence','publish_runtime_convergence',
-        'publish_runtime_capabilities','replace_runtime_policy_bundle','migrate_design_forge_v40',
-        'configure_skill_workshop_guardrails','run_reader_status_canary','diagnose_forge_r03_contract',
-        'diagnose_goal_os_forge_anchor','diagnose_benchmark_baseline_forge_anchor',
-        'migrate_supervisor_forge_demand_gated_v17','repair_supervisor_v171_forge_pin',
-        'ensure_autonomy_continuation_automation','run_main_agent_canary','install_autonomy_controller_v183',
-        'install_autonomy_controller_v1810','diagnose_gateway_rpc','run_self_reliance_watchdog_once',
-        'diagnose_gateway_failure_detail','repair_openclaw_windows_lkg','reconcile_maintenance_cron_backoff',
-        'diagnose_main_tool_policy','ensure_ui_bridge_watchdog','refresh_full_autonomy_assessment',
-        'sync_local_desired_state_v19','retire_legacy_night_forge'
-    )
-    if($allowed-notcontains[string]$m.operation){return $false}
-    if(-not$m.expires_at){return $false}
-    try{$expiry=[DateTimeOffset]::Parse([string]$m.expires_at)}catch{return $false}
-    $ManifestId.Value=[string]$m.id
-    $ExpiresAt.Value=$expiry.ToString('o')
-    return ([DateTimeOffset]::Now -gt $expiry)
+    try{$m=ConvertFrom-Json -InputObject $Text}catch{return $false}
+    return Test-IsCanonicalExpiredObject $m $ManifestId $ExpiresAt
 }
 function Ensure-Parent{
     if((Get-Sha $ParentCache)-eq$ExpectedParentSha){return}
@@ -140,26 +148,38 @@ function Invoke-Parent{
     }finally{$ErrorActionPreference=$old}
     return $code
 }
+function New-SelfTestManifest([datetime]$Expiry,[string]$Authority='GREEN'){
+    return [pscustomobject][ordered]@{
+        schema=3
+        kind='kevin-self-maintenance-manifest'
+        id='selftest-expired-001'
+        authority_class=$Authority
+        authority_delta='NONE'
+        production_effect='NONE'
+        owner_policy='Kevin Owner Authorization v1'
+        preauthorized=$true
+        operation='reconcile_maintenance_cron_backoff'
+        expires_at=$Expiry.ToString('o')
+    }
+}
 function Invoke-SelfTest{
     if($ExpectedParentSha-notmatch'^[A-F0-9]{64}$'){throw 'parent pin invalid'}
     if($ParentRepoPath-ne'control-plane/maintenance/kevin-maintenance-runner-v1.3.50.ps1'){throw 'parent path widened'}
     if($ManifestRepoPath-ne'inbox/maintenance/manifest.json'){throw 'manifest path widened'}
     $id='';$exp=''
-    $expired=@{
-        schema=3;kind='kevin-self-maintenance-manifest';id='selftest-expired-001';
-        authority_class='GREEN';authority_delta='NONE';production_effect='NONE';
-        owner_policy='Kevin Owner Authorization v1';preauthorized=$true;
-        operation='reconcile_maintenance_cron_backoff';
-        expires_at=(Get-Date).AddMinutes(-5).ToString('o')
-    }|ConvertTo-Json -Compress
-    if(-not(Test-IsCanonicalExpired $expired ([ref]$id) ([ref]$exp))){throw 'expired canonical manifest not classified'}
+    $expired=New-SelfTestManifest (Get-Date).AddMinutes(-5)
+    if(-not(Test-IsCanonicalExpiredObject $expired ([ref]$id) ([ref]$exp))){throw 'expired canonical manifest not classified'}
     if($id-ne'selftest-expired-001'){throw 'expired manifest identity mismatch'}
-    $fresh=$expired|ConvertFrom-Json;$fresh.expires_at=(Get-Date).AddMinutes(5).ToString('o');$id='';$exp=''
-    if(Test-IsCanonicalExpired ($fresh|ConvertTo-Json -Compress) ([ref]$id) ([ref]$exp)){throw 'fresh manifest classified expired'}
-    $bad=$fresh|ConvertFrom-Json;$bad.expires_at='not-a-time';$id='';$exp=''
-    if(Test-IsCanonicalExpired ($bad|ConvertTo-Json -Compress) ([ref]$id) ([ref]$exp)){throw 'malformed expiry clean-idled instead of delegated hard validation'}
-    $bad=$fresh|ConvertFrom-Json;$bad.authority_class='RED';$bad.expires_at=(Get-Date).AddMinutes(-5).ToString('o');$id='';$exp=''
-    if(Test-IsCanonicalExpired ($bad|ConvertTo-Json -Compress) ([ref]$id) ([ref]$exp)){throw 'invalid authority clean-idled instead of delegated hard validation'}
+    $fresh=New-SelfTestManifest (Get-Date).AddMinutes(5);$id='';$exp=''
+    if(Test-IsCanonicalExpiredObject $fresh ([ref]$id) ([ref]$exp)){throw 'fresh manifest classified expired'}
+    $bad=New-SelfTestManifest (Get-Date).AddMinutes(5);$bad.expires_at='not-a-time';$id='';$exp=''
+    if(Test-IsCanonicalExpiredObject $bad ([ref]$id) ([ref]$exp)){throw 'malformed expiry clean-idled instead of delegated hard validation'}
+    $bad=New-SelfTestManifest (Get-Date).AddMinutes(-5) 'RED';$id='';$exp=''
+    if(Test-IsCanonicalExpiredObject $bad ([ref]$id) ([ref]$exp)){throw 'invalid authority clean-idled instead of delegated hard validation'}
+    # Exercise the real JSON boundary once with explicit InputObject serialization.
+    $json=ConvertTo-Json -InputObject $expired -Compress
+    $id='';$exp=''
+    if(-not(Test-IsCanonicalExpired $json ([ref]$id) ([ref]$exp))){throw 'expired JSON boundary not classified'}
     Write-Host 'KEVIN MAINTENANCE v1.3.3 SELFTEST PASS compatibility=v1.3.51'
     Write-Host 'KEVIN MAINTENANCE v1.3.51 SELFTEST PASS expired_manifest=clean_idle stale_execution=false parent=v1.3.50_exact delegation=fail_closed authority_expansion=false arbitrary_shell=false'
 }
