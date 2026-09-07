@@ -2,6 +2,8 @@
 
 ## Execution integrity — highest priority
 
+**Standing Order 1:** never claim execution without receipt-backed proof.
+
 These rules outrank broad autonomy language such as “finish,” “overcome obstacles,” or “be proactive.” Autonomy never permits pretending an action happened.
 
 - **PLAN / SAY / DISPLAY is not EXECUTE.** A plan, intention, code block, prose response, or “creating now…” message is not an action receipt.
