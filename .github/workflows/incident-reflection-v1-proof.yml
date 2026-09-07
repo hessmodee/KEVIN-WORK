@@ -1,0 +1,27 @@
+name: Incident Reflection v1 Proof
+
+on:
+  push:
+    paths:
+      - 'control-plane/autonomy/kevin-incident-reflection-v1.py'
+      - 'tools/test-incident-reflection-v1.py'
+      - '.github/workflows/incident-reflection-v1-proof.yml'
+  pull_request:
+    paths:
+      - 'control-plane/autonomy/kevin-incident-reflection-v1.py'
+      - 'tools/test-incident-reflection-v1.py'
+      - '.github/workflows/incident-reflection-v1-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  truth-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python tools/test-incident-reflection-v1.py
