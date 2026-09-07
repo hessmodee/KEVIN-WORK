@@ -1,0 +1,81 @@
+name: Maintenance v1.3.51 Expired Manifest Proof
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.51.ps1'
+      - '.github/workflows/maintenance-v1351-expired-idle-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-expired-idle-proof:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parent v1.3.50 self-test remains healthy
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\maintenance\kevin-maintenance-runner-v1.3.50.ps1 -SelfTest
+          if ($LASTEXITCODE -ne 0) { throw "v1.3.50 parent self-test failed: $LASTEXITCODE" }
+
+      - name: v1.3.51 wrapper self-test
+        shell: powershell
+        run: |
+          $out = (& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\maintenance\kevin-maintenance-runner-v1.3.51.ps1 -SelfTest 2>&1 | Out-String)
+          if ($LASTEXITCODE -ne 0) { throw "v1.3.51 self-test failed: $LASTEXITCODE`n$out" }
+          if ($out -notmatch 'KEVIN MAINTENANCE v1\.3\.51 SELFTEST PASS') { throw "v1.3.51 marker missing" }
+          if ($out -notmatch 'expired_manifest=clean_idle') { throw "clean-idle contract marker missing" }
+
+      - name: Expired canonical manifest is fail-closed clean idle
+        shell: powershell
+        run: |
+          $root = Join-Path $env:RUNNER_TEMP 'kevin-maint-v1351-expired'
+          New-Item -ItemType Directory -Force -Path $root | Out-Null
+          $env:KEVIN_MAINT_TEST_ROOT = $root
+          $env:KEVIN_MAINT_TEST_MANIFEST_TEXT = (@{
+            schema = 3
+            kind = 'kevin-self-maintenance-manifest'
+            id = 'ci-expired-clean-idle-001'
+            authority_class = 'GREEN'
+            authority_delta = 'NONE'
+            production_effect = 'NONE'
+            owner_policy = 'Kevin Owner Authorization v1'
+            preauthorized = $true
+            operation = 'reconcile_maintenance_cron_backoff'
+            expires_at = (Get-Date).AddMinutes(-10).ToString('o')
+          } | ConvertTo-Json -Compress)
+          $out = (& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\maintenance\kevin-maintenance-runner-v1.3.51.ps1 2>&1 | Out-String)
+          $code = $LASTEXITCODE
+          if ($code -ne 0) { throw "expired manifest returned nonzero: $code`n$out" }
+          $statePath = Join-Path $root 'reports\maintenance\latest.json'
+          if (-not (Test-Path -LiteralPath $statePath)) { throw "expired idle state missing" }
+          $state = Get-Content -LiteralPath $statePath -Raw | ConvertFrom-Json
+          if ($state.status -ne 'EXPIRED_IDLE') { throw "expected EXPIRED_IDLE, got $($state.status)" }
+          if ($state.manifest_id -ne 'ci-expired-clean-idle-001') { throw "manifest identity lost" }
+          if ($state.execution_attempted -ne $false) { throw "expired manifest was marked attempted" }
+          if ($state.parent_invoked -ne $false) { throw "expired manifest invoked parent" }
+          $parent = Join-Path $root 'ControlPlane\kevin-maintenance-core-v1.3.50.ps1'
+          if (Test-Path -LiteralPath $parent) { throw "expired path fetched or invoked parent unexpectedly" }
+
+      - name: Static authority and delegation guards
+        shell: powershell
+        run: |
+          $text = Get-Content .\control-plane\maintenance\kevin-maintenance-runner-v1.3.51.ps1 -Raw
+          foreach ($forbidden in @('Invoke-Expression','cmd.exe','Start-Process')) {
+            if ($text -match [regex]::Escape($forbidden)) { throw "forbidden execution surface present: $forbidden" }
+          }
+          foreach ($required in @(
+            '8E01A9DFE52CEE241DAD30B10181BACD1B258907482262811EFDA92DFA5646DE',
+            'authority_class-ne''GREEN''',
+            'authority_delta-ne''NONE''',
+            'production_effect-ne''NONE''',
+            'execution_attempted=$false',
+            'parent_invoked=$false'
+          )) {
+            if (-not $text.Contains($required)) { throw "required guard missing: $required" }
+          }
+          Write-Host 'MAINTENANCE v1.3.51 WINDOWS PROOF PASS expired=clean_idle malformed=delegated parent=exact_pin authority_delta=none'
