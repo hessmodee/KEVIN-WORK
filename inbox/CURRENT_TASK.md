@@ -1,7 +1,7 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-07 21:36 UTC  
-**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v2**: finish the Maintenance expiry hardening, ship HQ v10 live truth, keep the work portfolio supplied, and make Kevin increasingly capable of self-reflection, self-repair, self-building, self-learning and independent owner-goal execution.
+**Updated:** 2026-09-07 21:42 UTC  
+**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v2**: finish preventative Maintenance expiry hardening, ship HQ v10 live truth, keep the work portfolio supplied, and make Kevin increasingly capable of self-reflection, self-repair, self-building, self-learning and independent owner-goal execution.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default. Exact-five desktop policy is intentional. Do not reset continuation history, work items, mission leases, Forge history, or failure evidence.
 
@@ -19,17 +19,16 @@ The permanent loop is:
 
 Every outside-engineer intervention should leave behind a Kevin-owned diagnostic, test, failure-family entry, repair recipe, reusable skill or automation so the same class of intervention trends toward zero.
 
+Standing growth doctrine: **Self-heal. Self-maintain. Self-improve.** Kevin should pursue useful owner goals and safe capability growth on a 24/7 basis when work is eligible. **Do not weaken** truth, safety, authority, rollback, independent verification, or evidence requirements to create activity.
+
 Target maturity is **T4 for routine bounded work**: Kevin detects the need, builds or repairs the capability, completes and verifies the owner outcome, learns from it, and resumes work without outside engineering. T4 does **not** mean unrestricted authority.
 
 ## Current live platform repair targets
 
-1. **Finish Maintenance stale-manifest poison hardening.** Fresh Engineering telemetry currently shows Maintenance intake scheduled, `last_status=ok`, `consecutive_errors=0`; the platform is not presently degraded. The remaining defect is preventative: v1.3.50 can convert a future valid expired manifest into process exit 1. Candidate v1.3.51 must pass Windows proof, then cross through exact-current/exact-after rollback-protected Maintenance replacement and preserve Benchmark 30/30.
-2. **Ship HQ v10 live truth.** Consolidate the owner interface to LIVE, OPS FLOOR, SKILLS and SYSTEM; show WORKING only from a fresh active task/worker signal; distinguish eligible queue and model attempts from execution/outcomes; restore the persistent 24-hour RAM/CPU/GPU hover graph; keep fresh evidence precedence and remove stale experiment/prove clutter from the default owner view.
-3. **Keep autonomous work supply live without history resets.** The former `WAITING_ITEM_BUDGETS` stall has been broken: recent Supervisor evidence shows multiple alternative GREEN selections and a remaining eligible portfolio. Wire the deterministic standing-work supply into the recurring runtime path so one exhausted item cannot starve useful work.
-4. **Complete the autonomous incident/reflection/repair loop integration.** Unknown failures must become evidence-bearing diagnoses with competing hypotheses, sandbox candidate repairs, positive/negative/regression tests, independent QA, governed promotion, dependency-retirement artifacts, lessons and automatic mission resume.
-5. **Preserve exact-five desktop LIVE truth.** The proven fixed-main canary shows 5 visible Kevin tools, `kevin_system_status`, complete correlated local transcript and `ollama-chat-16k/qwen2.5:14b`. HQ and support consumers must use qualified fresh evidence instead of stale tool/brain metadata.
-6. **Make browser + Windows Computer Use a first-class capability lane.** Qualify a modern OpenClaw release in staging, preserve exact rollback, and prove managed-browser plus desktop task families before production promotion.
-7. **Grok Build bootstrap integration.** Grok Build may accelerate repo research/coding/testing in isolated branches/worktrees, but production crossing remains typed. Every Grok-assisted fix must create Kevin-owned tests/lessons/repair procedures so Grok dependence also decreases.
+1. **Desktop exact-5 LIVE truth + HQ v10.** Preserve the proven fixed-main canary with 5 visible Kevin tools and `kevin_system_status`; make HQ consume fresh qualified truth, consolidate the owner interface to LIVE / OPS FLOOR / SKILLS / SYSTEM, show WORKING only from a fresh active task or worker, restore the persistent 24-hour RAM/CPU/GPU hover graph, and remove stale experiment/prove clutter from the default owner view.
+2. **Maintenance expiry hardening + platform repair completion.** Fresh Engineering telemetry currently shows Maintenance intake scheduled, `last_status=ok`, `consecutive_errors=0`; the remaining v1.3.50 expiry issue is preventative. Candidate v1.3.51 must pass its dedicated Windows proof, then cross through exact-current/exact-after rollback-protected Maintenance replacement and preserve Benchmark 30/30.
+3. **Autonomous portfolio + reflection + capability growth.** Keep standing-work supply live without resetting history; integrate the evidence-bearing incident/reflection/repair loop; then qualify modern OpenClaw managed-browser/Windows Computer Use and the bounded Grok Build bootstrap so repeated outside-engineer intervention trends down.
+4. **Continuous-growth live crossing.** Wire the deterministic work-supply / self-heal / self-maintain / self-improve cycle into recurring runtime selection, prove recurring scheduler and mission-lease behavior from fresh machine evidence, keep completed model turns separate from outcomes, and require typed reversible promotion rather than source-only claims.
 
 ## Authority expansion policy
 
