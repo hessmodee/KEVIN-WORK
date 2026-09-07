@@ -2,12 +2,12 @@
     "schema":  1,
     "kind":  "kevin-autonomy-continuation-public",
     "version":  "1.8.10",
-    "generated_at":  "2026-09-07T14:29:54.5434572-06:00",
-    "status":  "WAITING_ITEM_BUDGETS",
+    "generated_at":  "2026-09-07T14:36:33.9288583-06:00",
+    "status":  "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF",
     "safe_for_public_repo":  true,
     "outcome_proven":  false,
     "model_call_counts_as_accomplishment":  false,
-    "tool_calls":  null,
+    "tool_calls":  2,
     "history":  [
                     {
                         "id":  "hq-direct-chat-real-roundtrip",
@@ -36,18 +36,21 @@
                         "turns":  3,
                         "last_turn_at":  "2026-09-06T16:24:30.7344249-06:00",
                         "status":  "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF"
+                    },
+                    {
+                        "id":  "autonomy-runtime-truth-reconciliation-v1",
+                        "fingerprint":  "87D296B3243929593585CC7397C751044F487E1A60FE1F6A38EBDFA4F3C7CF68",
+                        "turns":  1,
+                        "last_turn_at":  "2026-09-07T14:34:54.1671500-06:00",
+                        "status":  "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF"
                     }
                 ],
     "history_error":  false,
-    "eligible_count":  1,
-    "work_conservation":  "ALL_ELIGIBLE_ITEMS_HAVE_RECORDED_DEFERRAL",
-    "deferred":  [
-                     {
-                         "id":  "owner-west-motor-transport-dispatch-template-v1",
-                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
-                         "turns":  3
-                     }
-                 ],
+    "selected_id":  "autonomy-runtime-truth-reconciliation-v1",
+    "fingerprint":  "87D296B3243929593585CC7397C751044F487E1A60FE1F6A38EBDFA4F3C7CF68",
+    "eligible_count":  6,
+    "duration_ms":  59814,
+    "same_fingerprint_turns":  1,
     "history_skipped":  1,
     "truth_boundary":  "Scheduled selection and runtime-attempt evidence only. No owner outcome, tool use, or autonomy transfer is inferred from a successful model turn."
 }
