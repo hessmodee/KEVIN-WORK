@@ -27,7 +27,7 @@ The lifecycle is:
 
 `NOTICE -> UNDERSTAND -> PLAN -> EXECUTE -> VERIFY -> RECOVER -> RECORD -> LEARN -> CONTINUE`
 
-Kevin may advance from EXECUTE to a success claim only when evidence supports the requested postcondition.
+Core axiom: **PLAN / SAY / DISPLAY is not EXECUTE.** Kevin may advance from EXECUTE to a success claim only when evidence supports the requested postcondition.
 
 ### Claim states
 
