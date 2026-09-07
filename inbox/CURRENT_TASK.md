@@ -1,15 +1,15 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-07 00:34 UTC  
-**Status:** Platform recovery proven; Supervisor v1.8.10 and Maintenance v1.3.50 are LIVE on HESS-PC; Kevin HQ v8 ground-truth repair is the active engineering task.
+**Updated:** 2026-09-07 00:39 UTC  
+**Status:** Platform recovery proven; Supervisor v1.8.10 and Maintenance v1.3.50 are LIVE on HESS-PC; fixed:main now proves exact-five visible tools; Kevin HQ v8 ground-truth repair is the active engineering task.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default. Exact-five desktop policy is intentional. Do not reset continuation history, work items, mission leases, Forge history, or failure evidence.
 
 ## Current live platform repair targets
 
-1. **Desktop exact-5 LIVE truth refresh.** The owner-approved configured inventory is five tools, but Support still publishes an obsolete four-tool receipt and the last fixed-main effective canary is stale. Finish the already-issued fixed main-agent canary and publish its real outcome. Never hard-code a successful runtime result.
+1. **Desktop exact-5 LIVE truth publication.** A fresh fixed-main canary at 18:27 MT now proves 5 visible Kevin tools, `kevin_system_status` present, complete correlated local transcript, and the repaired `ollama-chat-16k/qwen2.5:14b` model path. Support still publishes an obsolete four-tool receipt. Refresh the policy diagnosis and make HQ consume the qualified fresh exact-five evidence. Never hard-code a successful runtime result.
 2. **Repair HQ upstream truth publishers.** Support currently reports `cron.ok=false` with `Config warnings:` while fresh Engineering telemetry reports all six governed cron lanes enabled, healthy, and at zero consecutive errors. Dashboard also still exposes legacy brain metadata (`8K`, `tools=false`) despite the proven 16K/exact-five configuration. Fix or supersede these publisher defects from qualified machine evidence rather than masking them in the UI.
-3. **Ship Kevin HQ v8 ground-truth UX.** Merge only after all HQ/Newswire/owner gates pass. Default to Ops Floor; consolidate redundant navigation; use plain-English owner labels; preserve raw machine values in details; remove mojibake; exclude obituary/death-notice content at the Newswire generator; keep stale/unknown fail-closed.
+3. **Ship Kevin HQ v8 ground-truth UX.** Merge only after all HQ/Newswire/owner/growth gates pass. Default to Ops Floor; consolidate redundant navigation; use plain-English owner labels; preserve raw machine values in details; remove mojibake; exclude obituary/death-notice content at the Newswire generator; keep stale/unknown fail-closed.
 4. **Continuous-growth live crossing.** After HQ truth is green, feed one genuine eligible GREEN owner-value mission through Supervisor v1.8.10 and prove selection → routing → execution → verification → receipt without synthetic churn or forced work.
 
 ## Owner-value skill wave
@@ -28,6 +28,7 @@ Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover rem
 - Fresh Benchmark after crossing: PASS 30/30, critical 0.
 - UI Bridge heartbeat is fresh in Engineering telemetry.
 - Governed cron lanes are reported healthy by Engineering; Support's contradictory cron parser output remains a publisher defect to repair.
+- Fresh fixed-main canary: status `OMEN_PROVEN`, exit code 0, visible tool count 5, visible Kevin tool count 5, `kevin_system_status=true`, provider `ollama-chat-16k`, model `qwen2.5:14b`.
 - Exact-five desktop policy was intentionally proven earlier; do not regress to exact-four.
 
 ## Stop / escalation rules
@@ -36,4 +37,4 @@ Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover rem
 - Do not rebaseline or widen authority to make HQ green.
 - Do not replace stale evidence with a hard-coded display value.
 - Do not manufacture Forge/Skill Lab churn merely to make the dashboard look active.
-- If the fixed-main canary disproves effective tool availability, diagnose that result as a real runtime blocker and preserve the failure evidence.
+- If a future fixed-main canary disproves effective tool availability, diagnose that result as a real runtime blocker and preserve the failure evidence.
