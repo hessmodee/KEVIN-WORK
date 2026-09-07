@@ -1,0 +1,107 @@
+name: Kevin Skill Lab v1.0.9 READY Transition Proof
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/skill-lab/kevin-skill-lab-v1.0.9.ps1'
+      - 'tools/generate-skill-lab-v1.0.9.py'
+      - '.github/workflows/skill-lab-v109-ready-transition-proof.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'control-plane/skill-lab/kevin-skill-lab-v1.0.9.ps1'
+      - 'tools/generate-skill-lab-v1.0.9.py'
+      - '.github/workflows/skill-lab-v109-ready-transition-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  linux-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reproduce candidate deterministically
+        run: |
+          python tools/generate-skill-lab-v1.0.9.py
+          git diff --exit-code -- control-plane/skill-lab/kevin-skill-lab-v1.0.9.ps1
+      - name: Prove v1.0.8 exact predecessor source
+        run: |
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          p=Path('control-plane/skill-lab/kevin-skill-lab-v1.0.8.ps1')
+          sha=hashlib.sha256(p.read_bytes()).hexdigest().upper()
+          assert sha == '053B2C32C2B8BA815565C580B0F087B8C9BD4578729F21CF92773740F834F803', sha
+          print('SKILL_LAB_V109_PREDECESSOR_SOURCE_PROVEN sha256='+sha)
+          PY
+      - name: Parse and self-test in PowerShell 7
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $path='control-plane/skill-lab/kevin-skill-lab-v1.0.9.ps1'
+          [void][scriptblock]::Create((Get-Content -Raw $path))
+          $out = & pwsh -NoProfile -File $path -SelfTest 2>&1 | Out-String
+          if ($LASTEXITCODE -ne 0 -or -not $out.Contains('KEVIN SKILL LAB v1.0.9 SELFTEST PASS')) { throw $out }
+          if (-not $out.Contains('owner_statuses=OPEN,READY')) { throw 'OPEN/READY selftest marker missing' }
+          if (-not $out.Contains('MISSION-LEASE WIRE SELFTEST DEFERRED')) { throw 'staged-source lease selftest boundary missing' }
+          $out
+      - name: Prove READY transition and safety contracts
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('control-plane/skill-lab/kevin-skill-lab-v1.0.9.ps1').read_text()
+          required=[
+            'Preserve-ProvenReplay',
+            'function OwnerWorkEligible',
+            "@('OPEN','READY')-notcontains[string]$item.status",
+            "if(-not(OwnerWorkEligible $item)){throw'owner work item no longer eligible'}",
+            "status-ne'ROUTED_TO_SKILL_LAB'",
+            "worker-ne'skill-lab'",
+            "turn_charged-ne$false",
+            "id-ne'owner-west-motor-transport-dispatch-template-v1'",
+            'source_route_fingerprint',
+            'source_route_generated_at',
+            'kevin-owner-work-outcome',
+            'outcome_proven=$true',
+            "Invoke-MissionLease 'Acquire'",
+            "Invoke-MissionLease 'Heartbeat'",
+            "Invoke-MissionLease 'Release'",
+            "@('create_text','create_spreadsheet','ui_notepad_write')-contains$op",
+            "Step ([pscustomobject]@{operation='shell'",
+            'owner_statuses=OPEN,READY',
+            'lease_release_on_terminal=true',
+          ]
+          for x in required: assert x in s, x
+          for bad in ['Invoke-Expression','cmd.exe','powershell.exe -Command',"authority='RED'"]:
+            assert bad not in s, bad
+          assert "if($LeaseAction-notin@('Acquire','Heartbeat','Release')){throw'lease action rejected'}" in s
+          assert s.count('owner-west-motor-transport-dispatch-template-v1') >= 3
+          print('SKILL_LAB_V109_BOUNDARY_PASS ready_transition=true history_reset=false replay_preserved=true lease_wire=true arbitrary_shell=false authority_expansion=false')
+          PY
+      - name: Publish identities
+        run: |
+          sha256sum control-plane/skill-lab/kevin-skill-lab-v1.0.8.ps1 control-plane/skill-lab/kevin-skill-lab-v1.0.9.ps1
+
+  windows-powershell-51:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Windows PowerShell 5.1 parse and staged self-test
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $path='control-plane/skill-lab/kevin-skill-lab-v1.0.9.ps1'
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $path),[ref]$tokens,[ref]$errors)
+          if (@($errors).Count -ne 0) { $errors | Format-List | Out-String | Write-Host; throw 'PowerShell 5.1 parser errors' }
+          $out = powershell.exe -NoProfile -ExecutionPolicy Bypass -File $path -SelfTest 2>&1 | Out-String
+          if ($LASTEXITCODE -ne 0 -or -not $out.Contains('KEVIN SKILL LAB v1.0.9 SELFTEST PASS')) { throw $out }
+          if (-not $out.Contains('owner_statuses=OPEN,READY')) { throw 'OPEN/READY selftest marker missing' }
+          if (-not $out.Contains('MISSION-LEASE WIRE SELFTEST DEFERRED')) { throw 'staged-source lease selftest boundary missing' }
+          $out
+      - name: Publish SHA256
+        shell: powershell
+        run: |
+          Get-FileHash control-plane/skill-lab/kevin-skill-lab-v1.0.8.ps1 -Algorithm SHA256
+          Get-FileHash control-plane/skill-lab/kevin-skill-lab-v1.0.9.ps1 -Algorithm SHA256
