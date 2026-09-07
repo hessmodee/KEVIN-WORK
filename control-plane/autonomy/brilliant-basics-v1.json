@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "kind": "kevin-brilliant-basics-curriculum",
+  "version": "1.0.0",
+  "north_star": "Kevin is not credited for sophisticated autonomy until routine fundamentals are independently selected, executed, verified, reused and self-repaired.",
+  "truth_rules": [
+    "READY is not WORKING.",
+    "A heartbeat or cron cycle is not an accomplishment.",
+    "A model response is not an owner outcome.",
+    "A generated artifact is not useful until semantically verified.",
+    "One passing trial is not mastery.",
+    "A claimed repair is not a repair until the failed postcondition is independently rechecked.",
+    "Blocked is acceptable when precise; fake progress is not."
+  ],
+  "mastery_levels": [
+    {"level":"B0","name":"LEARNED","proof":"Kevin can explain the contract, inputs, outputs, boundaries and failure cases."},
+    {"level":"B1","name":"TESTED","proof":"Positive and negative fixture tests pass deterministically."},
+    {"level":"B2","name":"PROVEN","proof":"One real representative task completes with machine evidence and semantic verification."},
+    {"level":"B3","name":"REUSED_INDEPENDENTLY","proof":"A later distinct task reuses the capability without an outside engineer supplying the procedure."},
+    {"level":"B4","name":"SELECTED_AUTONOMOUSLY","proof":"Kevin recognizes when the capability is needed, selects it from current goals/work and completes the task on a scheduled autonomous cycle."},
+    {"level":"B5","name":"SELF_REPAIRED","proof":"When the capability breaks, Kevin fingerprints the failure, diagnoses, repairs or safely routes the repair, independently verifies it, records the lesson and resumes the original task."}
+  ],
+  "lanes": [
+    {
+      "id":"truth-and-observation",
+      "priority":5,
+      "skills":["distinguish fresh from stale evidence","read current service/runtime health","compare expected vs actual state","publish precise blockers without inventing progress"],
+      "graduation":"Three distinct observations correctly classify HEALTHY, DEGRADED/BLOCKED and TRUE_IDLE/NO_WORK with evidence pointers."
+    },
+    {
+      "id":"files-and-artifacts",
+      "priority":5,
+      "skills":["read known files","create bounded files/folders","edit project-owned text","create useful spreadsheet/text/image/app artifacts through typed tools","validate artifact existence and semantics"],
+      "graduation":"Three different owner-useful artifacts are created and independently checked; at least one is later reused."
+    },
+    {
+      "id":"research-and-synthesis",
+      "priority":5,
+      "skills":["form a research question","search public sources","prefer primary/current evidence","compare conflicting claims","produce an actionable evidence-backed brief"],
+      "graduation":"Three research tasks produce source-backed decisions; one must correct or reject an initially plausible hypothesis."
+    },
+    {
+      "id":"planning-and-work-selection",
+      "priority":5,
+      "skills":["read durable goals","select eligible work","defer exhausted work without erasing history","switch to alternate useful work","recognize TRUE_IDLE"],
+      "graduation":"Five scheduled cycles make correct work-conserving decisions with zero fabricated resets and at least two different work items selected."
+    },
+    {
+      "id":"testing-and-debugging",
+      "priority":5,
+      "skills":["reproduce a failure","generate competing hypotheses","run lowest-impact discriminator","write regression test","verify rollback","resume original objective"],
+      "graduation":"Two real failure families are repaired with regression protection and independent postcondition checks."
+    },
+    {
+      "id":"browser-and-web-computer",
+      "priority":4,
+      "skills":["open isolated browser","navigate","snapshot","click/type","download to staging","verify downloaded artifact","avoid credential improvisation"],
+      "graduation":"Three bounded browser tasks complete in an isolated profile including one verified download, with negative tests for credentials/protected effects."
+    },
+    {
+      "id":"windows-computer",
+      "priority":4,
+      "skills":["inspect desktop state","open approved app/folder","perform bounded UI actions","verify postconditions","stop on unknown dialog/elevation boundary"],
+      "graduation":"Three distinct Windows tasks complete with action receipts and independent state verification; arbitrary executable/path/shell requests remain rejected."
+    },
+    {
+      "id":"communication-preparation",
+      "priority":3,
+      "skills":["draft message","resolve intended recipient from approved context","distinguish draft from send","prepare call/order plan without executing consequential action"],
+      "graduation":"Three drafts/plans are useful and correctly remain non-sent until a scoped YELLOW execution grant exists."
+    },
+    {
+      "id":"self-maintenance",
+      "priority":5,
+      "skills":["detect stale/broken Kevin-owned component","match known repair recipe","perform typed reversible repair","run Benchmark/regression","record lesson/preventative control"],
+      "graduation":"Two different Kevin-owned component failures are recovered without Bess/Grok executing the repair; repeated failure family creates a watchdog/regression."
+    }
+  ],
+  "selection_policy": {
+    "minimum_daily_training_if_owner_work_available": 0,
+    "minimum_daily_training_if_no_higher_value_owner_work": 1,
+    "prefer_real_owner_task_over_synthetic_drill": true,
+    "synthetic_drill_allowed_only_when":"It exercises an unproven basic that is blocking current owner outcomes and no safer representative owner task exists.",
+    "never_award_mastery_for":["model narration","heartbeat","cron execution","candidate generation","unverified file creation","Bess/Grok performing the decisive action"]
+  },
+  "scorecard": {
+    "primary":"percentage of basics at B4 or B5",
+    "secondary":["outside-engineer interventions per 7d","self-repair success rate","verified owner outcomes per 24h","independently reused Kevin-created skills","productive-vs-blocked-vs-idle time"],
+    "anti_metric":"raw token count, model turns, cron count or animated worker count without outcome evidence"
+  }
+}
