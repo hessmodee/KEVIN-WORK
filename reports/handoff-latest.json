@@ -3,8 +3,8 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-07T13:33:31.2024485-06:00",
-  "semantic_fingerprint_sha256": "0B5C5A8562B1F01E7D30C5A5A5CE407C29CF9B39234CF528D6B45FC9514F7D3D",
+  "evidence_updated_at": "2026-09-07T13:51:31.0946680-06:00",
+  "semantic_fingerprint_sha256": "C6D5B7CD8B4C0FFA8E1CC883ADA6A810A76A7AD50AB0D865C2F7196FB1A8D18A",
   "semantic_checkpoint": {
     "current_task_sha256": "DBBC8F6979F102E5B5A7BE65E002A0B95802E20E140F179102AC3AE48DDA8780",
     "benchmark": {
@@ -19,8 +19,8 @@
     "autonomy_status": "WAITING_ITEM_BUDGETS",
     "autonomy_eligible_count": 1,
     "maintenance": {
-      "status": "APPLY_FAILED",
-      "detail": "Maintenance cron list returned invalid JSON"
+      "status": "BLOCKED_FAILURE_BUDGET",
+      "detail": "Failure budget exhausted."
     },
     "queues": {
       "ready": 0,
@@ -37,9 +37,9 @@
   },
   "source_hashes": {
     "current_task_sha256": "DBBC8F6979F102E5B5A7BE65E002A0B95802E20E140F179102AC3AE48DDA8780",
-    "engineering_sha256_at_checkpoint": "66998A679AC4BA1DBEF5482F4DBE13C37F94162239E3815D3E34D4ED8697EFB0",
-    "support_sha256_at_checkpoint": "F93DBBE314F3FC7723BDEF5CB7465A401786E3ED122028F4D888F07E9577175A",
-    "autonomy_sha256_at_checkpoint": "40A19E31FEAF6A9B2DB6210E3BDB0C03A55068D449CDFA08E932F91D0663CF44"
+    "engineering_sha256_at_checkpoint": "44B928B96130EFB146F7AECBBB77647C54748CE7FFE62906EC017043DCD43E8C",
+    "support_sha256_at_checkpoint": "614FA59BA7A7F91F6AD20F79D389CB7C2C5D2621A2D28FA079F2EAA3CFC34CB6",
+    "autonomy_sha256_at_checkpoint": "09255AB82CDD59142BCFADAB81F980917D85BA9B6A188A861A51AEE074A75006"
   },
   "universal_access": {
     "github": "https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md",
@@ -55,20 +55,20 @@
     "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at_checkpoint": "2026-09-07T13:32:44.8625738-06:00",
-    "support_at_checkpoint": "2026-09-07T13:33:31.2024485-06:00",
-    "autonomy_at_checkpoint": "2026-09-07T13:29:54.4069471-06:00",
+    "engineering_at_checkpoint": "2026-09-07T13:50:44.8729217-06:00",
+    "support_at_checkpoint": "2026-09-07T13:51:31.0946680-06:00",
+    "autonomy_at_checkpoint": "2026-09-07T13:49:54.3099165-06:00",
     "benchmark": {
       "status": "PASS",
       "passed": 30,
       "total": 30,
       "critical": 0
     },
-    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 4.9,
+    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 4.2,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
-    "maintenance_status": "APPLY_FAILED",
-    "maintenance_detail": "Maintenance cron list returned invalid JSON",
+    "maintenance_status": "BLOCKED_FAILURE_BUDGET",
+    "maintenance_detail": "Failure budget exhausted.",
     "proven_composite_skills": 27,
     "maintenance_runner_sha256": "8E01A9DFE52CEE241DAD30B10181BACD1B258907482262811EFDA92DFA5646DE"
   },
