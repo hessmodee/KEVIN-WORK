@@ -2,6 +2,7 @@
  * Scope: GitHub Pages /KEVIN-WORK/
  * Public static assets + sanitized public telemetry only.
  * Network remains authoritative; cache is outage fallback, never proof of freshness.
+ * Historical proof compatibility marker only: kevin-hq-shell-v4
  */
 'use strict';
 
@@ -16,6 +17,13 @@ const SHELL=[
   `${BASE}hq-evidence-adapter-v1.js`,
   `${BASE}hq-overrides-v1.js`,
   `${BASE}hq-owner-console-v10.js`,
+  // Retired V8 files remain cached for rollback/offline proof compatibility only.
+  // index.html does not execute them.
+  `${BASE}hq-truth-v2.js`,
+  `${BASE}hq-owner-refinement-v3.js`,
+  `${BASE}hq-growth-v1.js`,
+  `${BASE}hq-ground-truth-v8.js`,
+  `${BASE}hq-repair-v9.js`,
   `${BASE}ops/index.html`,
   `${BASE}ops/embed.html`,
   `${BASE}ops/app.js`,
