@@ -85,11 +85,14 @@ jobs:
           assert 'renderOps' not in truth
 
           # Authoritative truth must not run a rapid DOM rebuild loop.
-          ints = [int(x) for x in re.findall(r'setInterval\([^,]+,\s*(\d+)\s*\)', truth)]
-          assert ints and min(ints) >= 30000, ints
+          truth_intervals = [int(x) for x in re.findall(r'setInterval\([^,]+,\s*(\d+)\s*\)', truth)]
+          assert truth_intervals and min(truth_intervals) >= 30000, truth_intervals
           assert 'setInterval(hook,1200)' not in truth
 
-          # Nonessential override polling remains deliberately slow.
-          assert '},15000)' in overrides
+          # Newswire animation may rotate every 7s; publication refresh remains 15s.
+          # Reject any new sub-7-second polling loop in this integration layer.
+          override_intervals = [int(x) for x in re.findall(r',(\d+)\);', overrides)]
+          assert override_intervals and min(override_intervals) >= 7000, override_intervals
+          assert 'setInterval(refreshNewswire,15000)' in overrides
 
-          print('HQ_SMOOTHNESS_PASS architecture=v8 forced_core_reload=false truth_bottom=true disclosure_state_preserved=true stale_layers_absent=true')
+          print('HQ_SMOOTHNESS_PASS architecture=v8 forced_core_reload=false truth_bottom=true disclosure_state_preserved=true min_override_interval_ms=7000 stale_layers_absent=true')
