@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-07T11:04:22.3131115-06:00",
+  "generated_at": "2026-09-07T11:05:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 38,
-    "cpu_pct": 14,
+    "memory_pct": 39,
+    "cpu_pct": 28,
     "gpu": "RTX 3060",
-    "gpu_pct": 38
+    "gpu_pct": 33
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-06T11:20:15-06:00",
-        "estimated": false,
-        "ram": 49,
-        "cpu": 55,
-        "gpu": 52
-      },
       {
         "at": "2026-09-06T11:35:15-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 38,
         "cpu": 14,
         "gpu": 38
+      },
+      {
+        "at": "2026-09-07T11:05:14-06:00",
+        "estimated": false,
+        "ram": 39,
+        "cpu": 28,
+        "gpu": 33
       }
     ],
     "ram": [
-      49,
       44,
       42,
       44,
@@ -798,10 +797,10 @@
       38,
       37,
       39,
-      38
+      38,
+      39
     ],
     "cpu": [
-      55,
       56,
       25,
       32,
@@ -896,10 +895,10 @@
       12,
       3,
       12,
-      14
+      14,
+      28
     ],
     "gpu": [
-      52,
       41,
       23,
       20,
@@ -994,7 +993,8 @@
       42,
       40,
       41,
-      38
+      38,
+      33
     ]
   },
   "weather": {
@@ -1093,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 97,
-      "total": 97
+      "done": 98,
+      "total": 98
     }
   ],
   "roadmap": {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-07T10:50:14-06:00",
+      "at": "2026-09-07T11:05:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-07T11:04:22.3131115-06:00",
+    "last": "2026-09-07T11:05:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
