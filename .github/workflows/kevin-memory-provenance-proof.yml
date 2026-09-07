@@ -1,0 +1,39 @@
+name: Kevin memory provenance proof
+
+on:
+  push:
+    paths:
+      - '.github/workflows/kevin-memory-provenance-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  memory-provenance:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Hash bounded recent MEMORY history
+        shell: pwsh
+        run: |
+          @'
+          import hashlib, subprocess
+          refs = [
+              "6235d69f2afcb541d4509b6d86b94a13b1a381aa",
+              "fbf07a9f65ed6ed5d7a9dc911449919db8cfac2b",
+              "8547a6a679bd1ddfe19cd1942cff1519535d195f",
+              "5b57035c0344b1af858171fe57f816bba3aa248c",
+              "e79d9b4182686ed3bbaa780654cc822530cf2a0b",
+          ]
+          for ref in refs:
+              subprocess.run(["git", "fetch", "--depth=1", "origin", ref], check=True, stdout=subprocess.DEVNULL)
+              data = subprocess.check_output(["git", "show", f"{ref}:workspace/MEMORY.md"])
+              print(f"KEVIN_MEMORY_PROVENANCE {ref} {hashlib.sha256(data).hexdigest().upper()}")
+          '@ | Set-Content -LiteralPath memory_provenance.py -Encoding utf8
+          python memory_provenance.py
