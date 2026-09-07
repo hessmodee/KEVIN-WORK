@@ -1,0 +1,31 @@
+name: Owner READY one leaf TEMP
+on:
+  push:
+    branches: [bess/owner-ready-one-leaf-20260906]
+    paths:
+      - 'tools/transition-owner-ready-one-leaf.py'
+      - '.github/workflows/owner-ready-one-leaf-temp.yml'
+permissions:
+  contents: write
+jobs:
+  transition:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: bess/owner-ready-one-leaf-20260906
+      - name: Apply and prove exact transition
+        run: python tools/transition-owner-ready-one-leaf.py
+      - name: Prove git diff is exactly one line
+        shell: bash
+        run: |
+          test "$(git diff --numstat -- inbox/autonomy/work-items.json)" = $'1\t1\tinbox/autonomy/work-items.json'
+          git diff --check -- inbox/autonomy/work-items.json
+          git diff -- inbox/autonomy/work-items.json
+      - name: Commit transition
+        run: |
+          git config user.name 'Kevin CI'
+          git config user.email 'actions@users.noreply.github.com'
+          git add inbox/autonomy/work-items.json
+          git commit -m 'Advance real West Motor owner work to READY'
+          git push origin HEAD:bess/owner-ready-one-leaf-20260906
