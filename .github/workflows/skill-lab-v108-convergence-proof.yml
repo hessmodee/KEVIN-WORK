@@ -1,0 +1,106 @@
+name: Kevin Skill Lab v1.0.8 Convergence Proof
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/skill-lab/kevin-skill-lab-v1.0.8.ps1'
+      - 'tools/generate-skill-lab-v1.0.8.py'
+      - '.github/workflows/skill-lab-v108-convergence-proof.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'control-plane/skill-lab/kevin-skill-lab-v1.0.8.ps1'
+      - 'tools/generate-skill-lab-v1.0.8.py'
+      - '.github/workflows/skill-lab-v108-convergence-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  linux-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reproduce candidate deterministically
+        run: |
+          python tools/generate-skill-lab-v1.0.8.py
+          git diff --exit-code -- control-plane/skill-lab/kevin-skill-lab-v1.0.8.ps1
+      - name: Prove exact live predecessor provenance
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          live = Path('kevin-skill-lab.ps1').read_bytes()
+          sha = hashlib.sha256(live).hexdigest().upper()
+          assert sha == '0C1AF239FE43C967A502EE93DB77062B2D56E8B9C04215CB3C4EC02110453E18', sha
+          receipt = json.loads(Path('reports/engineering/RECEIPT-p03-lease-wire-superv-skilllab-20260904-0948.json').read_text(encoding='utf-8-sig'))
+          assert receipt['lease_wire']['hashes']['skill_lab'].upper() == sha
+          assert receipt['lease_wire']['result'] == 'PASS'
+          print('SKILL_LAB_V108_PREDECESSOR_PROVEN exact_live_hash=true lease_wire_receipt=true')
+          PY
+      - name: Parse and self-test in PowerShell 7
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          $path='control-plane/skill-lab/kevin-skill-lab-v1.0.8.ps1'
+          [void][scriptblock]::Create((Get-Content -Raw $path))
+          $out = & pwsh -NoProfile -File $path -SelfTest 2>&1 | Out-String
+          if ($LASTEXITCODE -ne 0 -or -not $out.Contains('KEVIN SKILL LAB v1.0.8 SELFTEST PASS')) { throw $out }
+          if (-not $out.Contains('MISSION-LEASE WIRE SELFTEST DEFERRED')) { throw 'staged-source lease selftest boundary missing' }
+          $out
+      - name: Prove merged safety and autonomy contracts
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('control-plane/skill-lab/kevin-skill-lab-v1.0.8.ps1').read_text()
+          required=[
+            'Preserve-ProvenReplay',
+            "status-ne'ROUTED_TO_SKILL_LAB'",
+            "worker-ne'skill-lab'",
+            "turn_charged-ne$false",
+            "id-ne'owner-west-motor-transport-dispatch-template-v1'",
+            "owner work recipe not allowlisted",
+            'kevin-owner-work-outcome',
+            'outcome_proven=$true',
+            "Invoke-MissionLease 'Acquire'",
+            "Invoke-MissionLease 'Heartbeat'",
+            "Invoke-MissionLease 'Release'",
+            "LeaseBridge=Join-Path $ws 'ControlPlane\\Invoke-KevinMissionLease.ps1'",
+            "LeaseStore=Join-Path $ws 'reports\\autonomy-runtime\\mission-leases-v1.json'",
+            "LeaseHolder='skill-lab'",
+            "@('create_text','create_spreadsheet','ui_notepad_write')-contains$op",
+            "Step ([pscustomobject]@{operation='shell'",
+            'lease_release_on_terminal=true',
+          ]
+          for x in required: assert x in s, x
+          for bad in ['Invoke-Expression','cmd.exe','powershell.exe -Command','authority=\'RED\'']:
+            assert bad not in s, bad
+          assert "if($LeaseAction-notin@('Acquire','Heartbeat','Release')){throw'lease action rejected'}" in s
+          assert s.count("owner-west-motor-transport-dispatch-template-v1") >= 3
+          print('SKILL_LAB_V108_BOUNDARY_PASS replay_preserved=true owner_work=true lease_wire=true terminal_release=true arbitrary_shell=false authority_expansion=false')
+          PY
+      - name: Publish identities
+        run: |
+          sha256sum kevin-skill-lab.ps1 control-plane/skill-lab/kevin-skill-lab-v1.0.6.ps1 control-plane/skill-lab/kevin-skill-lab-v1.0.7.ps1 control-plane/skill-lab/kevin-skill-lab-v1.0.8.ps1
+
+  windows-powershell-51:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Windows PowerShell 5.1 parse and staged self-test
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $path='control-plane/skill-lab/kevin-skill-lab-v1.0.8.ps1'
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $path),[ref]$tokens,[ref]$errors)
+          if (@($errors).Count -ne 0) { $errors | Format-List | Out-String | Write-Host; throw 'PowerShell 5.1 parser errors' }
+          $out = powershell.exe -NoProfile -ExecutionPolicy Bypass -File $path -SelfTest 2>&1 | Out-String
+          if ($LASTEXITCODE -ne 0 -or -not $out.Contains('KEVIN SKILL LAB v1.0.8 SELFTEST PASS')) { throw $out }
+          if (-not $out.Contains('MISSION-LEASE WIRE SELFTEST DEFERRED')) { throw 'staged-source lease selftest boundary missing' }
+          $out
+      - name: Publish SHA256
+        shell: powershell
+        run: |
+          Get-FileHash kevin-skill-lab.ps1 -Algorithm SHA256
+          Get-FileHash control-plane/skill-lab/kevin-skill-lab-v1.0.8.ps1 -Algorithm SHA256
