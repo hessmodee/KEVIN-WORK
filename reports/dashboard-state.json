@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-07T01:35:07.5816337-06:00",
+  "generated_at": "2026-09-07T01:35:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 36,
-    "cpu_pct": 5,
+    "memory_pct": 34,
+    "cpu_pct": 19,
     "gpu": "RTX 3060",
-    "gpu_pct": 39
+    "gpu_pct": 50
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-06T01:50:14-06:00",
-        "estimated": false,
-        "ram": 45,
-        "cpu": 39,
-        "gpu": 41
-      },
       {
         "at": "2026-09-06T02:05:14-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 36,
         "cpu": 5,
         "gpu": 39
+      },
+      {
+        "at": "2026-09-07T01:35:14-06:00",
+        "estimated": false,
+        "ram": 34,
+        "cpu": 19,
+        "gpu": 50
       }
     ],
     "ram": [
-      45,
       46,
       45,
       46,
@@ -798,10 +797,10 @@
       37,
       36,
       37,
-      36
+      36,
+      34
     ],
     "cpu": [
-      39,
       32,
       74,
       49,
@@ -896,10 +895,10 @@
       20,
       3,
       9,
-      5
+      5,
+      19
     ],
     "gpu": [
-      41,
       43,
       42,
       50,
@@ -994,11 +993,12 @@
       40,
       41,
       45,
-      39
+      39,
+      50
     ]
   },
   "weather": {
-    "summary": "Overnight 50 | Wind 10 to 20 mph | Scattered Showers And Thunderstorms"
+    "summary": "Overnight 50 | Wind 9 mph | Chance Showers And Thunderstorms"
   },
   "capabilities": [
     {
@@ -1093,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 97,
-      "total": 97
+      "done": 98,
+      "total": 98
     }
   ],
   "roadmap": {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-07T01:20:14-06:00",
+      "at": "2026-09-07T01:35:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-07T01:35:07.5816337-06:00",
+    "last": "2026-09-07T01:35:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
