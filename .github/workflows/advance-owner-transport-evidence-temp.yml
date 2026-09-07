@@ -1,0 +1,53 @@
+name: Advance Owner Transport Evidence TEMP
+
+on:
+  push:
+    branches: [bess/owner-work-autonomy-v107-20260906]
+    paths:
+      - 'tools/advance-owner-transport-evidence-20260906.py'
+      - '.github/workflows/advance-owner-transport-evidence-temp.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  amend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: bess/owner-work-autonomy-v107-20260906
+      - name: Apply bounded material-evidence amendment
+        run: python tools/advance-owner-transport-evidence-20260906.py
+      - name: Prove only target item material changed
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          after=json.loads(Path('inbox/autonomy/work-items.json').read_text())
+          before=json.loads(subprocess.check_output(['git','show','HEAD:inbox/autonomy/work-items.json'],text=True))
+          aid='owner-west-motor-transport-dispatch-template-v1'
+          aa={x['id']:x for x in after['items']}; bb={x['id']:x for x in before['items']}
+          assert aa.keys()==bb.keys()
+          changed=[k for k in aa if aa[k]!=bb[k]]
+          assert changed in ([aid],[]), changed
+          if changed:
+            old=bb[aid]; new=aa[aid]
+            for key in old:
+              if key not in {'acceptance_criteria','next_action','evidence_pointers'}:
+                assert old[key]==new[key],key
+            assert new['authority_class']=='GREEN' and new['status']=='OPEN' and new['blocked'] is False
+            assert len(new['acceptance_criteria'])==len(old['acceptance_criteria'])+1
+          print('OWNER_TRANSPORT_EVIDENCE_DIFF_PASS history_not_reset=true authority_unchanged=true')
+          PY
+      - name: Commit amendment
+        run: |
+          if git diff --quiet -- inbox/autonomy/work-items.json; then
+            echo 'amendment already current'
+            exit 0
+          fi
+          git config user.name 'Kevin CI'
+          git config user.email 'actions@users.noreply.github.com'
+          git add inbox/autonomy/work-items.json
+          git commit -m 'Advance owner transport work with material new evidence'
+          git push origin HEAD:bess/owner-work-autonomy-v107-20260906
