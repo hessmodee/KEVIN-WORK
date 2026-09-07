@@ -22,8 +22,26 @@ def read(rel: str) -> str:
         fail(f"missing {rel}")
     return p.read_text(encoding="utf-8-sig")
 
+def digest(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest().upper()
+
 def sha256(rel: str) -> str:
-    return hashlib.sha256((ROOT / rel).read_bytes()).hexdigest().upper()
+    return digest((ROOT / rel).read_bytes())
+
+def newline_variants(rel: str) -> dict[str, str]:
+    raw = (ROOT / rel).read_bytes()
+    bom = raw.startswith(b"\xef\xbb\xbf")
+    body = raw[3:] if bom else raw
+    body_lf = body.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    body_crlf = body_lf.replace(b"\n", b"\r\n")
+    prefix = b"\xef\xbb\xbf" if bom else b""
+    return {
+        "exact": digest(raw),
+        "lf_same_bom": digest(prefix + body_lf),
+        "crlf_same_bom": digest(prefix + body_crlf),
+        "lf_no_bom": digest(body_lf),
+        "crlf_no_bom": digest(body_crlf),
+    }
 
 lesson = read("docs/engineering/LESSON-main-chat-side-effect-claims-require-receipts-2026-09-07.md")
 neg_path = ROOT / "docs/engineering/evals/NEG-side-effect-claim-without-receipt-v1.json"
@@ -70,4 +88,5 @@ if listed != EXACT5:
 
 policy_hashes = {name: sha256(f"workspace/{name}") for name in POLICY}
 print("KEVIN_POLICY_SHA256 " + json.dumps(policy_hashes, sort_keys=True, separators=(",", ":")))
+print("KEVIN_MEMORY_SHA256_VARIANTS " + json.dumps(newline_variants("workspace/MEMORY.md"), sort_keys=True, separators=(",", ":")))
 print("KEVIN CLAIM INTEGRITY SOURCE PROOF PASS exact5=true lesson=true negative_eval=true fail_closed=true policy_hashes=true")
