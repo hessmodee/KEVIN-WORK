@@ -2,8 +2,8 @@
     "schema":  1,
     "kind":  "kevin-autonomy-continuation-public",
     "version":  "1.8.10",
-    "generated_at":  "2026-09-07T16:15:22.3294315-06:00",
-    "status":  "AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF",
+    "generated_at":  "2026-09-07T16:20:00.0504427-06:00",
+    "status":  "WAITING_ITEM_BUDGETS",
     "safe_for_public_repo":  true,
     "outcome_proven":  false,
     "model_call_counts_as_accomplishment":  false,
@@ -74,11 +74,40 @@
                     }
                 ],
     "history_error":  false,
-    "selected_id":  "autonomy-browser-computer-qualification-v1",
-    "fingerprint":  "71A4C47708143904DEEBCF5B2A7003594814F2B8BA27B68F585992CCE8245AED",
-    "eligible_count":  1,
-    "duration_ms":  12358,
-    "same_fingerprint_turns":  3,
+    "eligible_count":  6,
+    "work_conservation":  "ALL_ELIGIBLE_ITEMS_HAVE_RECORDED_DEFERRAL",
+    "deferred":  [
+                     {
+                         "id":  "autonomy-runtime-truth-reconciliation-v1",
+                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
+                         "turns":  3
+                     },
+                     {
+                         "id":  "autonomy-expired-manifest-regression-design-v1",
+                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
+                         "turns":  3
+                     },
+                     {
+                         "id":  "autonomy-reflection-runtime-integration-v1",
+                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
+                         "turns":  3
+                     },
+                     {
+                         "id":  "owner-west-motor-transport-dispatch-template-v1",
+                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
+                         "turns":  3
+                     },
+                     {
+                         "id":  "owner-dealership-operations-opportunity-scan-v1",
+                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
+                         "turns":  3
+                     },
+                     {
+                         "id":  "autonomy-browser-computer-qualification-v1",
+                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
+                         "turns":  3
+                     }
+                 ],
     "history_skipped":  1,
     "truth_boundary":  "Scheduled selection and runtime-attempt evidence only. No owner outcome, tool use, or autonomy transfer is inferred from a successful model turn."
 }
