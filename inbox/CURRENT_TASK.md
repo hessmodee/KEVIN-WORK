@@ -1,6 +1,6 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-07 00:39 UTC  
+**Updated:** 2026-09-07 00:42 UTC  
 **Status:** Platform recovery proven; Supervisor v1.8.10 and Maintenance v1.3.50 are LIVE on HESS-PC; fixed:main now proves exact-five visible tools; Kevin HQ v8 ground-truth repair is the active engineering task.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default. Exact-five desktop policy is intentional. Do not reset continuation history, work items, mission leases, Forge history, or failure evidence.
@@ -11,6 +11,10 @@ Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover rem
 2. **Repair HQ upstream truth publishers.** Support currently reports `cron.ok=false` with `Config warnings:` while fresh Engineering telemetry reports all six governed cron lanes enabled, healthy, and at zero consecutive errors. Dashboard also still exposes legacy brain metadata (`8K`, `tools=false`) despite the proven 16K/exact-five configuration. Fix or supersede these publisher defects from qualified machine evidence rather than masking them in the UI.
 3. **Ship Kevin HQ v8 ground-truth UX.** Merge only after all HQ/Newswire/owner/growth gates pass. Default to Ops Floor; consolidate redundant navigation; use plain-English owner labels; preserve raw machine values in details; remove mojibake; exclude obituary/death-notice content at the Newswire generator; keep stale/unknown fail-closed.
 4. **Continuous-growth live crossing.** After HQ truth is green, feed one genuine eligible GREEN owner-value mission through Supervisor v1.8.10 and prove selection → routing → execution → verification → receipt without synthetic churn or forced work.
+
+## Continuous growth standing policy
+
+Kevin should pursue **maximum bounded autonomy** inside owner-approved GREEN lanes. **Self-heal**, **Self-maintain**, and **Self-improve** are standing responsibilities, with useful work supply designed to continue **24/7** when legitimate eligible work exists. **Do not weaken** safety, authority boundaries, evidence requirements, protected effects, or owner locks to create activity. Idle is truthful when no qualified work exists; synthetic churn is not progress.
 
 ## Owner-value skill wave
 
