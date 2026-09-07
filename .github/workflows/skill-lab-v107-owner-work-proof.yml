@@ -56,12 +56,14 @@ jobs:
             "create_text",
           ]
           for x in required: assert x in s, x
-          for bad in ['Invoke-Expression','cmd.exe','powershell.exe -Command','Start-Process','operation=\'shell\'','authority=\'RED\'']:
+          for bad in ['Invoke-Expression','cmd.exe','powershell.exe -Command','Start-Process','authority=\'RED\'']:
             assert bad not in s, bad
+          assert "@('create_text','create_spreadsheet','ui_notepad_write')-contains$op" in s
+          assert "Step ([pscustomobject]@{operation='shell'" in s
           assert s.count("owner-west-motor-transport-dispatch-template-v1") >= 3
           assert "repos/hessmodee/KEVIN-WORK/contents/inbox/autonomy/work-items.json" in s
           assert 'GH_TOKEN' in s and 'GITHUB_TOKEN' in s and 'Remove-Item Env:GH_TOKEN' in s
-          print('SKILL_LAB_V107_BOUNDARY_PASS fixed_owner_recipe=true fresh_supervisor_route_required=true arbitrary_shell=false authority_expansion=false')
+          print('SKILL_LAB_V107_BOUNDARY_PASS fixed_owner_recipe=true fresh_supervisor_route_required=true arbitrary_shell=false negative_shell_test_preserved=true authority_expansion=false')
           PY
       - name: Publish source hashes
         run: |
