@@ -30,12 +30,38 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Prove obituary/death-notice exclusion
+        run: |
+          python - <<'PY'
+          import importlib.util
+          from pathlib import Path
+          p=Path('.github/scripts/build-hq-newswire.py')
+          spec=importlib.util.spec_from_file_location('hq_news',p)
+          m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+          blocked=[
+            'Chung Tsu Lisa Lasswell Obituary, Age 85 - Preston, Idaho',
+            'Jane Doe death notice',
+            'Funeral service announced for John Doe',
+            'Community memorial service for longtime resident',
+            'In Memoriam: Jane Doe',
+            'Celebration of Life for John Doe',
+            'Jane Doe passed away peacefully',
+          ]
+          allowed=[
+            'Police investigate fatal crash on US-91',
+            'Utah lawmakers debate public safety bill after deadly incident',
+            'Cache Valley business opens new service center',
+          ]
+          assert all(m.is_blocked_story(x) for x in blocked), blocked
+          assert not any(m.is_blocked_story(x) for x in allowed), allowed
+          print('NEWSWIRE_CONTENT_POLICY_PASS')
+          PY
       - name: Build public newswire
         run: python .github/scripts/build-hq-newswire.py
       - name: Validate feed
         run: |
           python - <<'PY'
-          import json
+          import json, re
           p=json.load(open('reports/newswire-latest.json',encoding='utf-8'))
           assert p.get('schema')==1
           assert p.get('kind')=='kevin-hq-public-newswire'
@@ -45,6 +71,10 @@ jobs:
           assert 'local' in cats, cats
           assert 'national' in cats, cats
           assert 'world' in cats, cats
+          policy=p.get('content_policy',{})
+          assert policy.get('obituaries')=='excluded', policy
+          bad=re.compile(r'\b(obituar(?:y|ies)|death\s+notice|passed\s+away|in\s+memoriam|celebration\s+of\s+life)\b',re.I)
+          assert not any(bad.search(x.get('title','')) for x in p['headlines']), p['headlines']
           print('NEWSWIRE_CONTRACT_PASS',len(p['headlines']),sorted(cats))
           PY
       - name: Publish if changed
