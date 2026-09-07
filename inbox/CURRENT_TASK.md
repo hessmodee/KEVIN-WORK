@@ -1,6 +1,6 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-07 00:42 UTC  
+**Updated:** 2026-09-07 01:30 UTC  
 **Status:** Platform recovery proven; Supervisor v1.8.10 and Maintenance v1.3.50 are LIVE on HESS-PC; fixed:main now proves exact-five visible tools; Kevin HQ v8 ground-truth repair is the active engineering task.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default. Exact-five desktop policy is intentional. Do not reset continuation history, work items, mission leases, Forge history, or failure evidence.
