@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Fail-closed source proof for Kevin main-chat execution truth doctrine."""
 from __future__ import annotations
-import json, pathlib, re
+import hashlib, json, pathlib, re
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+POLICY = ["AGENTS.md", "HEARTBEAT.md", "MEMORY.md", "SOUL.md", "TOOLS.md"]
 EXACT5 = [
     "kevin_system_status",
     "kevin_desktop_find_folder",
@@ -20,6 +21,9 @@ def read(rel: str) -> str:
     if not p.is_file():
         fail(f"missing {rel}")
     return p.read_text(encoding="utf-8-sig")
+
+def sha256(rel: str) -> str:
+    return hashlib.sha256((ROOT / rel).read_bytes()).hexdigest().upper()
 
 lesson = read("docs/engineering/LESSON-main-chat-side-effect-claims-require-receipts-2026-09-07.md")
 neg_path = ROOT / "docs/engineering/evals/NEG-side-effect-claim-without-receipt-v1.json"
@@ -49,8 +53,6 @@ for marker in ("NOT_EXECUTED: capability_unavailable", "ATTEMPTED_UNVERIFIED", "
     if marker not in required:
         fail(f"negative eval missing required behavior marker: {marker}")
 
-# If policy files already carry the hard doctrine, verify it. This test intentionally
-# remains useful before the policy crossing so docs/eval can land independently.
 for rel in ("workspace/AGENTS.md", "workspace/SOUL.md"):
     text = read(rel)
     if "Execution integrity — highest priority" in text:
@@ -66,4 +68,6 @@ listed = re.findall(r"(?m)^- `([A-Za-z0-9_-]+)`", section.group("body"))
 if listed != EXACT5:
     fail(f"fixed:main inventory must remain exact-five, got {listed!r}")
 
-print("KEVIN CLAIM INTEGRITY SOURCE PROOF PASS exact5=true lesson=true negative_eval=true fail_closed=true")
+policy_hashes = {name: sha256(f"workspace/{name}") for name in POLICY}
+print("KEVIN_POLICY_SHA256 " + json.dumps(policy_hashes, sort_keys=True, separators=(",", ":")))
+print("KEVIN CLAIM INTEGRITY SOURCE PROOF PASS exact5=true lesson=true negative_eval=true fail_closed=true policy_hashes=true")
