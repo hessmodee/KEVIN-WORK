@@ -87,8 +87,8 @@ jobs:
           const skills=section('owner-value skill wave',6);
           if(priorities.length!==4) throw new Error(`expected 4 priorities, got ${priorities.length}`);
           if(skills.length!==6) throw new Error(`expected 6 owner skills, got ${skills.length}`);
-          if(!priorities[0][0].includes('Desktop exact-4 LIVE')) throw new Error(JSON.stringify(priorities[0]));
+          if(!priorities[0][0].includes('Desktop exact-5 LIVE')) throw new Error(JSON.stringify(priorities[0]));
           if(!priorities[3][0].includes('Continuous-growth live crossing')) throw new Error(JSON.stringify(priorities[3]));
           if(!/dealer|Dealer/i.test(skills[0][0])) throw new Error(JSON.stringify(skills[0]));
-          console.log('HQ_GROWTH_V1_PARSER_PASS priorities=4 skills=6 desktop_live_truth=true');
+          console.log('HQ_GROWTH_V1_PARSER_PASS priorities=4 skills=6 desktop_exact5_truth=true');
           NODE

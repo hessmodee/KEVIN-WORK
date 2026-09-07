@@ -1,0 +1,137 @@
+name: Kevin HQ v8 Ground Truth Proof
+
+on:
+  push:
+    paths:
+      - 'docs/index.html'
+      - 'docs/sw.js'
+      - 'docs/hq-evidence-adapter-v1.js'
+      - 'docs/hq-ground-truth-v8.js'
+      - '.github/scripts/build-hq-newswire.py'
+      - '.github/workflows/hq-newswire.yml'
+      - '.github/workflows/hq-ground-truth-v8-proof.yml'
+  pull_request:
+    paths:
+      - 'docs/index.html'
+      - 'docs/sw.js'
+      - 'docs/hq-evidence-adapter-v1.js'
+      - 'docs/hq-ground-truth-v8.js'
+      - '.github/scripts/build-hq-newswire.py'
+      - '.github/workflows/hq-newswire.yml'
+      - '.github/workflows/hq-ground-truth-v8-proof.yml'
+
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: JavaScript syntax
+        run: |
+          node --check docs/hq-evidence-adapter-v1.js
+          node --check docs/hq-ground-truth-v8.js
+          node --check docs/sw.js
+      - name: Prove qualified evidence precedence
+        run: |
+          node - <<'NODE'
+          const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
+          const dummyFetch=async()=>({ok:false,status:503});
+          const window={fetch:dummyFetch};
+          const context={window,console,Date,URL,location:{href:'https://hq.invalid/KEVIN-WORK/'},Response:global.Response};
+          vm.runInNewContext(fs.readFileSync('docs/hq-evidence-adapter-v1.js','utf8'),context,{timeout:1000});
+          const a=window.__kevinEvidenceAdapterV1;
+          assert.ok(a,'adapter exports proof helpers');
+          const now=new Date().toISOString();
+          const canary={
+            generated_at:now,state:'OMEN_PROVEN',status:'ok',agent_exit_code:0,agent:'fixed:main',
+            visible_tool_count:5,visible_kevin_tool_count:5,has_kevin_system_status:true,
+            visible_tool_names_sha256:a.TOOLSET_SHA,
+            canary_shape:{transcript:{present:true,complete:true,provider:'ollama-chat-16k',model_id:'qwen2.5:14b'}}
+          };
+          assert.equal(a.exactFiveCanary(canary),true,'qualified exact-five canary accepted');
+          assert.equal(a.exactFiveCanary({...canary,visible_tool_count:4}),false,'four-tool canary rejected');
+          assert.equal(a.exactFiveCanary({...canary,agent:'other'}),false,'non-fixed-main canary rejected');
+          const keys=['kevin-engineering-relay-v1','kevin-skill-lab-v1','kevin-supervisor-v1','kevin-benchmark-v1','kevin-support-bridge-v1','kevin-maintenance-intake-v1'];
+          const eng={generated_at:now,action:{cron:keys.map(declaration_key=>({declaration_key,enabled:true,last_status:'ok',consecutive_errors:0}))}};
+          assert.equal(a.healthyEngineeringCron(eng),true,'all six healthy cron lanes accepted');
+          eng.action.cron[0].consecutive_errors=1;
+          assert.equal(a.healthyEngineeringCron(eng),false,'cron errors fail closed');
+          console.log('HQ_V8_EVIDENCE_PRECEDENCE_PASS exact5=true cron6=true fail_closed=true');
+          NODE
+      - name: Prove owner information architecture
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          idx=Path('docs/index.html').read_text(encoding='utf-8')
+          js=Path('docs/hq-ground-truth-v8.js').read_text(encoding='utf-8')
+          sw=Path('docs/sw.js').read_text(encoding='utf-8')
+          assert 'hq-core-v7.html?v=15#ops' in idx
+          order=['hq-evidence-adapter-v1.js','hq-overrides-v1.js','hq-truth-v2.js','hq-owner-refinement-v3.js','hq-growth-v1.js','hq-ground-truth-v8.js']
+          positions=[idx.index(x) for x in order]
+          assert positions==sorted(positions),positions
+          assert 'kevin-hq-shell-v4' in sw
+          for asset in ['hq-evidence-adapter-v1.js','hq-ground-truth-v8.js']:
+            assert asset in sw,asset
+          for needle in [
+            "navByText('COMMAND')",
+            "work.textContent='WORK'",
+            "system.textContent='DIAGNOSTICS'",
+            "WAITING_ITEM_BUDGETS:'Waiting for retry window'",
+            "NO_ELIGIBLE_MISSION:'No eligible mission available'",
+            "NOT_PROVEN:'Not yet proven'",
+            "Machine value:",
+            "HQ V8 · GROUND TRUTH",
+          ]:
+            assert needle in js,needle
+          # V8 must never erase the old route; it only removes redundant top-level navigation.
+          assert "command.classList.add('hq-v8-hidden')" in js
+          print('HQ_V8_INFORMATION_ARCHITECTURE_PASS')
+          PY
+      - name: Prove text corruption cleanup contract
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          js=Path('docs/hq-ground-truth-v8.js').read_text(encoding='utf-8')
+          for token in ['ΓÇö','ΓÇô','ΓÇó','ΓÇª','ΓåÆ','Ã—','Â·']:
+            assert token in js,token
+          assert "replace(/ΓÇ" in js
+          assert 'data-kevin-raw-text' not in js  # raw values are kept in safe data/title fields instead
+          print('HQ_V8_TEXT_NORMALIZATION_PASS')
+          PY
+      - name: Prove obituary policy fixtures without network
+        run: |
+          python - <<'PY'
+          import importlib.util
+          from pathlib import Path
+          p=Path('.github/scripts/build-hq-newswire.py')
+          spec=importlib.util.spec_from_file_location('hq_news',p)
+          m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+          blocked=[
+            'Chung Tsu Lisa Lasswell Obituary, Age 85 - Preston, Idaho',
+            'Jane Doe death notice',
+            'Funeral service announced for John Doe',
+            'Community memorial service for longtime resident',
+            'In Memoriam: Jane Doe',
+            'Celebration of Life for John Doe',
+            'Jane Doe passed away peacefully',
+          ]
+          allowed=[
+            'Police investigate fatal crash on US-91',
+            'Utah lawmakers debate public safety bill after deadly incident',
+            'Cache Valley business opens new service center',
+          ]
+          assert all(m.is_blocked_story(x) for x in blocked)
+          assert not any(m.is_blocked_story(x) for x in allowed)
+          print('HQ_V8_NEWSWIRE_POLICY_PASS')
+          PY
+      - name: Prove no authority expansion
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          combined='\n'.join(Path(x).read_text(encoding='utf-8') for x in ['docs/hq-evidence-adapter-v1.js','docs/hq-ground-truth-v8.js'])
+          for bad in ['Invoke-Expression','kevin_shell','cmd.exe','powershell.exe','fetch(`http://127.0.0.1']:
+            assert bad not in combined,bad
+          upper=combined.upper()
+          for method in ["METHOD:'POST'","METHOD:\"POST\"","METHOD:'PUT'","METHOD:'PATCH'","METHOD:'DELETE'"]:
+            assert method not in upper,method
+          print('HQ_V8_AUTHORITY_BOUNDARY_PASS')
+          PY
