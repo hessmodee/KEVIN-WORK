@@ -1,0 +1,88 @@
+name: Kevin Skill Lab v1.0.7 Owner Work Proof
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/skill-lab/kevin-skill-lab-v1.0.7.ps1'
+      - 'tools/generate-skill-lab-v1.0.7.py'
+      - '.github/workflows/skill-lab-v107-owner-work-proof.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'control-plane/skill-lab/kevin-skill-lab-v1.0.7.ps1'
+      - 'tools/generate-skill-lab-v1.0.7.py'
+      - '.github/workflows/skill-lab-v107-owner-work-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  linux-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reproduce candidate deterministically
+        run: |
+          python tools/generate-skill-lab-v1.0.7.py
+          git diff --exit-code -- control-plane/skill-lab/kevin-skill-lab-v1.0.7.ps1
+      - name: Parse and self-test in PowerShell 7
+        shell: pwsh
+        run: |
+          $ErrorActionPreference='Stop'
+          [void][scriptblock]::Create((Get-Content -Raw control-plane/skill-lab/kevin-skill-lab-v1.0.7.ps1))
+          $out = & ./control-plane/skill-lab/kevin-skill-lab-v1.0.7.ps1 -SelfTest | Out-String
+          if (-not $out.Contains('KEVIN SKILL LAB v1.0.7 SELFTEST PASS')) { throw $out }
+          $out
+      - name: Prove authority and owner-work boundaries
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('control-plane/skill-lab/kevin-skill-lab-v1.0.7.ps1').read_text()
+          required=[
+            "id-ne'owner-west-motor-transport-dispatch-template-v1'",
+            "status-ne'ROUTED_TO_SKILL_LAB'",
+            "worker-ne'skill-lab'",
+            "turn_charged-ne$false",
+            "Age ([string]$route.generated_at))-gt20",
+            "program-ne'owner-value-skills'",
+            "authority_class-ne'GREEN'",
+            "status-ne'OPEN'",
+            "owner work recipe not allowlisted",
+            "SKILL LAB OWNER_WORK_STAGED",
+            "kevin-owner-work-outcome",
+            "outcome_proven=$true",
+            "create_spreadsheet",
+            "create_text",
+          ]
+          for x in required: assert x in s, x
+          for bad in ['Invoke-Expression','cmd.exe','powershell.exe -Command','Start-Process','operation=\'shell\'','authority=\'RED\'']:
+            assert bad not in s, bad
+          assert s.count("owner-west-motor-transport-dispatch-template-v1") >= 3
+          assert "repos/hessmodee/KEVIN-WORK/contents/inbox/autonomy/work-items.json" in s
+          assert 'GH_TOKEN' in s and 'GITHUB_TOKEN' in s and 'Remove-Item Env:GH_TOKEN' in s
+          print('SKILL_LAB_V107_BOUNDARY_PASS fixed_owner_recipe=true fresh_supervisor_route_required=true arbitrary_shell=false authority_expansion=false')
+          PY
+      - name: Publish source hashes
+        run: |
+          sha256sum control-plane/skill-lab/kevin-skill-lab-v1.0.6.ps1 control-plane/skill-lab/kevin-skill-lab-v1.0.7.ps1
+
+  windows-powershell-51:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Windows PowerShell 5.1 parse and self-test
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $path='control-plane/skill-lab/kevin-skill-lab-v1.0.7.ps1'
+          $tokens=$null;$errors=$null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $path),[ref]$tokens,[ref]$errors)
+          if (@($errors).Count -ne 0) { $errors | Format-List | Out-String | Write-Host; throw 'PowerShell 5.1 parser errors' }
+          $out = powershell.exe -NoProfile -ExecutionPolicy Bypass -File $path -SelfTest 2>&1 | Out-String
+          if ($LASTEXITCODE -ne 0 -or -not $out.Contains('KEVIN SKILL LAB v1.0.7 SELFTEST PASS')) { throw $out }
+          $out
+      - name: Publish SHA256
+        shell: powershell
+        run: |
+          Get-FileHash control-plane/skill-lab/kevin-skill-lab-v1.0.6.ps1 -Algorithm SHA256
+          Get-FileHash control-plane/skill-lab/kevin-skill-lab-v1.0.7.ps1 -Algorithm SHA256
