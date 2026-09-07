@@ -14,16 +14,17 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0b0e0b}#ke
 </style>
 </head>
 <body>
-<iframe id="kevinCore" title="Kevin HQ" src="./hq-core-v7.html?v=14#overview"></iframe>
+<iframe id="kevinCore" title="Kevin HQ" src="./hq-core-v7.html?v=15#ops"></iframe>
 <div class="hqDock" aria-label="Kevin HQ quick actions">
 <a id="kevinTalkLaunch" class="hqLaunch" href="http://127.0.0.1:18789/" target="_blank" rel="noopener noreferrer" aria-label="Open Kevin native private chat on this computer">Talk to Kevin <small>local</small></a>
 <a id="kevinHandoverLaunch" class="hqLaunch" href="./handover.html" aria-label="Open the one canonical Kevin AI handover">Handover <small>canonical</small></a>
 </div>
-<!-- Deliberately small overlay stack: integration/newswire, authoritative truth, owner IA, continuous-growth proof. -->
+<!-- Layer order is intentional: integration/newswire -> authoritative truth -> owner IA -> growth -> v8 owner-facing cleanup. -->
 <script src="./hq-overrides-v1.js?v=5"></script>
 <script src="./hq-truth-v2.js?v=5"></script>
 <script src="./hq-owner-refinement-v3.js?v=10"></script>
 <script src="./hq-growth-v1.js?v=2"></script>
+<script src="./hq-ground-truth-v8.js?v=1"></script>
 <script>
 if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('./sw.js',{scope:'./'}).catch(()=>{})})}
 </script>
