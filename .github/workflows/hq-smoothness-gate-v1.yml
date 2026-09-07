@@ -6,10 +6,22 @@ on:
     branches: [main]
     paths:
       - 'docs/index.html'
-      - 'docs/hq-owner-refinement-v2.js'
-      - 'docs/hq-truth-v2.js'
+      - 'docs/hq-evidence-adapter-v1.js'
       - 'docs/hq-overrides-v1.js'
-      - 'docs/hq-fun-v2.js'
+      - 'docs/hq-truth-v2.js'
+      - 'docs/hq-owner-refinement-v3.js'
+      - 'docs/hq-growth-v1.js'
+      - 'docs/hq-ground-truth-v8.js'
+      - '.github/workflows/hq-smoothness-gate-v1.yml'
+  pull_request:
+    paths:
+      - 'docs/index.html'
+      - 'docs/hq-evidence-adapter-v1.js'
+      - 'docs/hq-overrides-v1.js'
+      - 'docs/hq-truth-v2.js'
+      - 'docs/hq-owner-refinement-v3.js'
+      - 'docs/hq-growth-v1.js'
+      - 'docs/hq-ground-truth-v8.js'
       - '.github/workflows/hq-smoothness-gate-v1.yml'
 
 permissions:
@@ -25,53 +37,59 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          node --check docs/hq-owner-refinement-v2.js
-          node --check docs/hq-truth-v2.js
+          node --check docs/hq-evidence-adapter-v1.js
           node --check docs/hq-overrides-v1.js
-          node --check docs/hq-fun-v2.js
-      - name: Prove single-writer smoothness invariants
+          node --check docs/hq-truth-v2.js
+          node --check docs/hq-owner-refinement-v3.js
+          node --check docs/hq-growth-v1.js
+          node --check docs/hq-ground-truth-v8.js
+      - name: Prove v8 smoothness and single-writer invariants
         shell: python
         run: |
           from pathlib import Path
           import re
 
           index = Path('docs/index.html').read_text(encoding='utf-8')
-          owner = Path('docs/hq-owner-refinement-v2.js').read_text(encoding='utf-8')
+          owner = Path('docs/hq-owner-refinement-v3.js').read_text(encoding='utf-8')
           truth = Path('docs/hq-truth-v2.js').read_text(encoding='utf-8')
           overrides = Path('docs/hq-overrides-v1.js').read_text(encoding='utf-8')
-          fun = Path('docs/hq-fun-v2.js').read_text(encoding='utf-8')
 
-          # Only the streamlined writers are loaded.
-          assert 'hq-owner-refinement-v2.js' in index
-          assert 'hq-truth-v2.js' in index
-          assert 'hq-owner-refinement-v1.js' not in index
-          assert 'hq-truth-v1.js' not in index
-          assert 'hq-truth-patch-v2.js' not in index
+          current = [
+              'hq-evidence-adapter-v1.js',
+              'hq-overrides-v1.js',
+              'hq-truth-v2.js',
+              'hq-owner-refinement-v3.js',
+              'hq-growth-v1.js',
+              'hq-ground-truth-v8.js',
+          ]
+          positions = [index.index(name) for name in current]
+          assert positions == sorted(positions), positions
+          for name in current:
+              assert name in index, name
+          for stale in ['hq-owner-refinement-v1.js','hq-owner-refinement-v2.js','hq-truth-v1.js','hq-truth-patch-v2.js','hq-fun-v2.js']:
+              assert stale not in index, stale
 
-          # Refinement is forbidden from forcing the core data/render loop.
+          # Owner refinement observes the core instead of forcing its load/render loop.
           assert 'core.load(' not in owner
           assert 'setInterval(hook' not in owner
           assert 'MutationObserver' in owner
           assert 'requestAnimationFrame' in owner
 
-          # Truth must live after tab content and preserve disclosure state.
+          # Truth remains observability-only and preserves disclosure state.
           assert "main.insertAdjacentElement('afterend',host)" in truth
           assert 'detailsState(host)' in truth
           assert 'restoreDetails(host,open)' in truth
           assert 'data-key="lanes"' in truth
           assert 'data-key="sources"' in truth
+          assert 'patchLegacy' not in truth
+          assert 'renderOps' not in truth
 
-          # No rapid DOM-rebuild timer. Data refresh is intentionally >= 30s.
+          # Authoritative truth must not run a rapid DOM rebuild loop.
           ints = [int(x) for x in re.findall(r'setInterval\([^,]+,\s*(\d+)\s*\)', truth)]
           assert ints and min(ints) >= 30000, ints
           assert 'setInterval(hook,1200)' not in truth
 
-          # Nonessential decoration/override polling is no longer sub-second / 1.5s churn.
+          # Nonessential override polling remains deliberately slow.
           assert '},15000)' in overrides
-          assert '},2500)' in fun
 
-          # Truth is observability only: it does not patch main tab HTML.
-          assert 'patchLegacy' not in truth
-          assert 'renderOps' not in truth
-
-          print('HQ_SMOOTHNESS_PASS forced_core_reload=false truth_bottom=true disclosure_state_preserved=true redundant_patch_removed=true')
+          print('HQ_SMOOTHNESS_PASS architecture=v8 forced_core_reload=false truth_bottom=true disclosure_state_preserved=true stale_layers_absent=true')
