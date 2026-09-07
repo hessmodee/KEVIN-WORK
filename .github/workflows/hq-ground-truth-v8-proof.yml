@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - 'docs/index.html'
+      - 'docs/sw.js'
+      - 'docs/hq-evidence-adapter-v1.js'
       - 'docs/hq-ground-truth-v8.js'
       - '.github/scripts/build-hq-newswire.py'
       - '.github/workflows/hq-newswire.yml'
@@ -11,6 +13,8 @@ on:
   pull_request:
     paths:
       - 'docs/index.html'
+      - 'docs/sw.js'
+      - 'docs/hq-evidence-adapter-v1.js'
       - 'docs/hq-ground-truth-v8.js'
       - '.github/scripts/build-hq-newswire.py'
       - '.github/workflows/hq-newswire.yml'
@@ -22,17 +26,51 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: JavaScript syntax
-        run: node --check docs/hq-ground-truth-v8.js
+        run: |
+          node --check docs/hq-evidence-adapter-v1.js
+          node --check docs/hq-ground-truth-v8.js
+          node --check docs/sw.js
+      - name: Prove qualified evidence precedence
+        run: |
+          node - <<'NODE'
+          const fs=require('fs'),vm=require('vm'),assert=require('assert/strict');
+          const dummyFetch=async()=>({ok:false,status:503});
+          const window={fetch:dummyFetch};
+          const context={window,console,Date,URL,location:{href:'https://hq.invalid/KEVIN-WORK/'},Response:global.Response};
+          vm.runInNewContext(fs.readFileSync('docs/hq-evidence-adapter-v1.js','utf8'),context,{timeout:1000});
+          const a=window.__kevinEvidenceAdapterV1;
+          assert.ok(a,'adapter exports proof helpers');
+          const now=new Date().toISOString();
+          const canary={
+            generated_at:now,state:'OMEN_PROVEN',status:'ok',agent_exit_code:0,agent:'fixed:main',
+            visible_tool_count:5,visible_kevin_tool_count:5,has_kevin_system_status:true,
+            visible_tool_names_sha256:a.TOOLSET_SHA,
+            canary_shape:{transcript:{present:true,complete:true,provider:'ollama-chat-16k',model_id:'qwen2.5:14b'}}
+          };
+          assert.equal(a.exactFiveCanary(canary),true,'qualified exact-five canary accepted');
+          assert.equal(a.exactFiveCanary({...canary,visible_tool_count:4}),false,'four-tool canary rejected');
+          assert.equal(a.exactFiveCanary({...canary,agent:'other'}),false,'non-fixed-main canary rejected');
+          const keys=['kevin-engineering-relay-v1','kevin-skill-lab-v1','kevin-supervisor-v1','kevin-benchmark-v1','kevin-support-bridge-v1','kevin-maintenance-intake-v1'];
+          const eng={generated_at:now,action:{cron:keys.map(declaration_key=>({declaration_key,enabled:true,last_status:'ok',consecutive_errors:0}))}};
+          assert.equal(a.healthyEngineeringCron(eng),true,'all six healthy cron lanes accepted');
+          eng.action.cron[0].consecutive_errors=1;
+          assert.equal(a.healthyEngineeringCron(eng),false,'cron errors fail closed');
+          console.log('HQ_V8_EVIDENCE_PRECEDENCE_PASS exact5=true cron6=true fail_closed=true');
+          NODE
       - name: Prove owner information architecture
         run: |
           python - <<'PY'
           from pathlib import Path
           idx=Path('docs/index.html').read_text(encoding='utf-8')
           js=Path('docs/hq-ground-truth-v8.js').read_text(encoding='utf-8')
+          sw=Path('docs/sw.js').read_text(encoding='utf-8')
           assert 'hq-core-v7.html?v=15#ops' in idx
-          order=['hq-overrides-v1.js','hq-truth-v2.js','hq-owner-refinement-v3.js','hq-growth-v1.js','hq-ground-truth-v8.js']
+          order=['hq-evidence-adapter-v1.js','hq-overrides-v1.js','hq-truth-v2.js','hq-owner-refinement-v3.js','hq-growth-v1.js','hq-ground-truth-v8.js']
           positions=[idx.index(x) for x in order]
           assert positions==sorted(positions),positions
+          assert 'kevin-hq-shell-v4' in sw
+          for asset in ['hq-evidence-adapter-v1.js','hq-ground-truth-v8.js']:
+            assert asset in sw,asset
           for needle in [
             "navByText('COMMAND')",
             "work.textContent='WORK'",
@@ -89,11 +127,10 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          js=Path('docs/hq-ground-truth-v8.js').read_text(encoding='utf-8')
+          combined='\n'.join(Path(x).read_text(encoding='utf-8') for x in ['docs/hq-evidence-adapter-v1.js','docs/hq-ground-truth-v8.js'])
           for bad in ['Invoke-Expression','kevin_shell','cmd.exe','powershell.exe','fetch(`http://127.0.0.1']:
-            assert bad not in js,bad
-          # HQ overlay is display-only: no POST/PUT/PATCH/DELETE network writes.
-          upper=js.upper()
+            assert bad not in combined,bad
+          upper=combined.upper()
           for method in ["METHOD:'POST'","METHOD:\"POST\"","METHOD:'PUT'","METHOD:'PATCH'","METHOD:'DELETE'"]:
             assert method not in upper,method
           print('HQ_V8_AUTHORITY_BOUNDARY_PASS')
