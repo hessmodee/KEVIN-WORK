@@ -3,8 +3,8 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-08T14:59:57.0448632-06:00",
-  "semantic_fingerprint_sha256": "6D3103F7B58343B9AF73679E45174CFBA68166EFD526097C81B2C3781694F690",
+  "evidence_updated_at": "2026-09-08T15:03:37.2809768-06:00",
+  "semantic_fingerprint_sha256": "370E35F6228FDE12FD6EC86CFB254C5E7A0E9396AE94034314285C1362AFF269",
   "semantic_checkpoint": {
     "current_task_sha256": "0B36A1B186DC9DB74D2633DE05B1DB364D8F7A52280B5F7E9214109708C33119",
     "benchmark": {
@@ -19,8 +19,8 @@
     "autonomy_status": "CONTROLLER_ERROR",
     "autonomy_eligible_count": "UNKNOWN",
     "maintenance": {
-      "status": "ALREADY_APPLIED_PROVEN",
-      "detail": "Maintenance previously proven."
+      "status": "ERROR",
+      "detail": "The property 'idempotent' cannot be found on this object. Verify that the property exists."
     },
     "queues": {
       "ready": 0,
@@ -37,8 +37,8 @@
   },
   "source_hashes": {
     "current_task_sha256": "0B36A1B186DC9DB74D2633DE05B1DB364D8F7A52280B5F7E9214109708C33119",
-    "engineering_sha256_at_checkpoint": "31B4688C7358B69C14568F53665D065644DEA59CF5F15015C12E2688D0055BBC",
-    "support_sha256_at_checkpoint": "5AD7D77FFCCB68B11271B3AE303B5EDC3AD694400DC2294584EF7A848E2C951F",
+    "engineering_sha256_at_checkpoint": "CAF87B510865451F56B3D6AE308D530EF7BAE8698ABD2EF4F6BA7683B01F1F59",
+    "support_sha256_at_checkpoint": "F2DEE75BF24CB43E1AD43F93EA43E55620F946EE49C5E1A4454C7F06000B0113",
     "autonomy_sha256_at_checkpoint": "57E86F831C30D1CA7F0FB009697E6785B80BC8BE60C9F06B53AFE215D0E4BEDB"
   },
   "universal_access": {
@@ -55,8 +55,8 @@
     "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at_checkpoint": "2026-09-08T14:59:57.0448632-06:00",
-    "support_at_checkpoint": "2026-09-08T14:54:36.2462914-06:00",
+    "engineering_at_checkpoint": "2026-09-08T15:02:02.5242403-06:00",
+    "support_at_checkpoint": "2026-09-08T15:03:37.2809768-06:00",
     "autonomy_at_checkpoint": "2026-09-08T14:30:27.5035186-06:00",
     "benchmark": {
       "status": "PASS",
@@ -64,11 +64,11 @@
       "total": 30,
       "critical": 0
     },
-    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 3.8,
+    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 2.5,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
-    "maintenance_status": "ALREADY_APPLIED_PROVEN",
-    "maintenance_detail": "Maintenance previously proven.",
+    "maintenance_status": "ERROR",
+    "maintenance_detail": "The property 'idempotent' cannot be found on this object. Verify that the property exists.",
     "proven_composite_skills": 27,
     "maintenance_runner_sha256": "EF32D990488F1B44C2122032DD5CB21DD15C97F9C851AEDF0657C193335C5C50"
   },
