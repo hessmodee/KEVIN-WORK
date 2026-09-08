@@ -43,6 +43,7 @@ jobs:
               'LIVE EVIDENCE SEEN',
               'active&&lease&&evidence',
               'source policy and CI readiness are not 24/7 runtime proof',
+              'subsectionHeadings',
               'highest-priority execution sequence',
               'current live platform repair targets',
               'owner-value skill portfolio',
@@ -92,8 +93,20 @@ jobs:
             }
             return out;
           }
+          function subsectionHeadings(needle,limit=12){
+            const lines=text.split(/\r?\n/);let on=false,out=[];
+            for(const raw of lines){
+              const line=raw.trim();
+              if(/^##\s+/.test(line)){if(on)break;on=line.toLowerCase().includes(String(needle).toLowerCase());continue}
+              if(!on)continue;
+              const m=line.match(/^###\s+\d+\.\s+(.+)$/);
+              if(m){out.push([clean(m[1]).replace(/[.:;]+$/,''),'']);if(out.length>=limit)break}
+            }
+            return out;
+          }
           function sectionAny(needles,limit=12){for(const needle of needles){const rows=section(needle,limit);if(rows.length)return rows}return[]}
-          const priorities=sectionAny(['highest-priority execution sequence','current live platform repair targets'],8);
+          function priorityRows(){const current=subsectionHeadings('highest-priority execution sequence',8);return current.length?current:section('current live platform repair targets',8)}
+          const priorities=priorityRows();
           const skills=sectionAny(['owner-value skill portfolio','owner-value skill wave'],10);
           if(priorities.length!==6) throw new Error(`expected 6 autonomy-v3 priorities, got ${priorities.length}: ${JSON.stringify(priorities)}`);
           if(skills.length!==10) throw new Error(`expected 10 owner-value capabilities, got ${skills.length}: ${JSON.stringify(skills)}`);
@@ -101,5 +114,5 @@ jobs:
           if(!/Missing-capability acquisition loop/i.test(priorities[5][0])) throw new Error(JSON.stringify(priorities[5]));
           if(!/Dealer Recon/i.test(skills[0][0])) throw new Error(JSON.stringify(skills[0]));
           if(!/Errands\/Commerce/i.test(skills[9][0])) throw new Error(JSON.stringify(skills[9]));
-          console.log('HQ_GROWTH_V1_PARSER_PASS priorities=6 skills=10 autonomy_v3=true backward_heading_fallback=true');
+          console.log('HQ_GROWTH_V1_PARSER_PASS priorities=6 skills=10 autonomy_v3=true numbered_subheadings=true backward_heading_fallback=true');
           NODE
