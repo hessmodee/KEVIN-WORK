@@ -2,7 +2,7 @@
 
 > **THIS IS THE ONE CURRENT HANDOVER FOR KEVIN.** Do not create a competing dated handover. Update the source task/evidence and let the canonical handover refresh replace stale state.
 
-**Semantic checkpoint evidence through:** 2026-09-08T04:20:58.1792113-06:00  
+**Semantic checkpoint evidence through:** 2026-09-08T07:11:01.4633315-06:00  
 **Canonical repository:** `hessmodee/KEVIN-WORK` / `main`  
 **Machine twin:** `reports/handoff-latest.json` (not a second authority)
 
@@ -29,11 +29,11 @@ If an agent cannot access one route, use another. Matt should never need to reco
 
 ## Automatic semantic snapshot
 
-- Engineering evidence at checkpoint: `2026-09-08T04:20:14.6699449-06:00`
-- Support evidence at checkpoint: `2026-09-08T04:13:49.8508342-06:00`
-- Autonomy evidence at checkpoint: `2026-09-08T04:20:58.1792113-06:00`
+- Engineering evidence at checkpoint: `2026-09-08T07:10:15.9436335-06:00`
+- Support evidence at checkpoint: `2026-09-08T07:10:52.7840151-06:00`
+- Autonomy evidence at checkpoint: `2026-09-08T07:11:01.4633315-06:00`
 - Benchmark: **PASS — 30/30, critical 0**
-- UI Bridge health at checkpoint: **FRESH** (age then: 3.6 seconds)
+- UI Bridge health at checkpoint: **FRESH** (age then: 3.5 seconds)
 - Maintenance: **EXPIRED_IDLE** — Expired canonical manifest refused without scheduler failure.
 - Supervisor last result: **NO_ELIGIBLE_MISSION**
 - Proven composite skills: **27**
@@ -51,8 +51,8 @@ The block below is pulled from `inbox/CURRENT_TASK.md`. That file is an executio
 
 # CURRENT_TASK
 
-**Updated:** 2026-09-08 10:22 UTC  
-**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**: preserve live platform truth, make Kevin's PROVEN composite skills reusable on fresh owner inputs, then wire renewable WorkInstances into capability-aware Supervisor execution and automatic repair/resume.
+**Updated:** 2026-09-08 07:10 MT  
+**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**. Source-side Proven Skill Invocation v1 and WorkInstance -> exact-PROVEN-skill routing are now merged and CI-proven. The immediate gate is **HESS-PC runtime qualification and first fresh owner-outcome invocation**, followed by capability-aware Supervisor execution and automatic repair/resume.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
 
@@ -75,28 +75,24 @@ Target maturity is **T4 for routine bounded work**: Kevin detects the need, reso
 
 ## Current live platform truth
 
-- Maintenance v1.3.51 is **already installed/proven** on HESS-PC. Support reports installed Maintenance hash `2D7F65C97A2934E7C34FEFF86BD317E84D0E73D6CABD9AC1D99DF0FF32448EAD` and status `ALREADY_APPLIED_PROVEN`. **Do not repeat the retired v1.3.50 -> v1.3.51 installation mission.**
+- Maintenance v1.3.51 is already installed/proven on HESS-PC. Support reports installed Maintenance hash `2D7F65C97A2934E7C34FEFF86BD317E84D0E73D6CABD9AC1D99DF0FF32448EAD` and status `ALREADY_APPLIED_PROVEN`. Do not repeat the retired v1.3.50 -> v1.3.51 installation mission.
 - Supervisor v1.8.10 installed hash remains `BDA265ACCB929EC5129B2F38AC76FE276625A604052304FC32C917700BCB532E`.
 - Fresh Benchmark remains PASS 30/30, critical 0.
 - Fresh Engineering telemetry reports the six canonical scheduler lanes enabled, `last_status=ok`, `consecutive_errors=0`.
-- Support's legacy aggregate `cron.ok=false` currently comes from a `Config warnings:` parser path and **must not override** fresh per-lane Engineering truth. Repair that parser/representation so warning visibility and scheduler health are separate facts.
+- Support's legacy aggregate `cron.ok=false` currently comes from a `Config warnings:` parser path and must not override fresh per-lane Engineering truth. Repair that parser/representation so warning visibility and scheduler health are separate facts.
 - UI Bridge heartbeat remains fresh in current Engineering evidence.
 - 27 composite skills are PROVEN; latest proven is `west-motor-parts-chase-board-pack@1` with immutable manifest/proof identities and primitive sequence `create_spreadsheet -> create_text`.
-- A Maintenance response carrying the fresh-main canary request ID is not itself semantic Main-canary proof. Require the actual qualified Main-canary receipt before advancing Main from its previously proven state.
+- Source-side Proven Skill Invocation v1 is merged. It is authority-neutral and currently allowlists only `create_spreadsheet` + `create_text`.
+- WorkInstance routing now preserves an exact `required_skill_key` and can route only to the Proven Skill Invocation lane when the corresponding runtime capability is independently effective. It fails closed instead of fuzzy-matching or falling back to tool-less Main.
+- A Maintenance response carrying a fresh-main canary request ID is not itself semantic Main-canary proof. Require the actual qualified Main-canary receipt before advancing Main from its previously proven state.
 
-## Highest-priority execution sequence
+## Immediate execution gates
 
-### 1. Proven Skill Invocation v1
+### 1. HESS-PC Proven Skill Invocation runtime qualification — NOW
 
-Build/qualify the separate invocation lane. Do not weaken Skill Lab replay protection.
+Prove the typed runtime capability `kevin_proven_skill_invoke` is independently effective on HESS-PC. Source CI is not machine proof. Qualification must show the runtime worker consumes the staged GREEN work orders, uses only the invocation allowlist, and publishes correlated DONE/FAILED evidence.
 
-Required behavior:
-
-`exact PROVEN skill identity + fresh GREEN inputs -> same proven primitive skeleton -> fresh unique work orders -> actual outputs -> correlated hashes/evidence -> invocation receipt`
-
-Invocation v1 initially allows only `create_spreadsheet` and `create_text`. It cannot promote skills, modify the registry, use arbitrary shell/code, widen permissions, send externally, purchase, install software or execute an unproven primitive.
-
-### 2. First fresh production-skill acceptance test
+### 2. First fresh production-skill acceptance test — NEXT
 
 Invoke `west-motor-parts-chase-board-pack@1` using fictional data for eight dealership vehicles.
 
@@ -104,9 +100,9 @@ Required output fields: priority, stock number, part/need, vendor/source, ordere
 
 PASS requires a real workbook + companion operating note + correlated DONE records + output hashes + immutable invocation receipt. No customer PII, credentials, purchases, public posting or live financial effects.
 
-### 3. WorkInstance -> capability-aware Supervisor
+### 3. Capability-aware Supervisor execution — NEXT
 
-Each due WorkInstance must carry/derive objective, success conditions, required capabilities, authority ceiling, evidence requirements, retry/time/compute budget and due/priority context.
+A due WorkInstance with an exact PROVEN skill requirement must be selected and routed automatically through the invocation lane. Supervisor must not treat lane-local idle as global idle when invocation-ready or Skill-Lab-ready work exists.
 
 Resolution order:
 
@@ -131,6 +127,15 @@ Every incident carries the interrupted WorkInstance/objective identity. After in
 `gap -> research -> candidate -> isolated build -> positive/negative/regression tests -> Skill Lab -> proof -> registry -> invocation -> resume original objective`
 
 This loop is the primary mechanism for reducing Bess/Grok intervention over time.
+
+## Source-side accomplishments now proven
+
+- Renewable WorkInstance materialization foundation merged: recurring duties become distinct due-time instances without renaming/erasing historical work or resetting budgets.
+- Incident/Reflection regression coverage connects failure -> diagnosis -> competing hypotheses -> discriminating tests -> repair -> regression/negative tests -> independent verification -> lesson/prevention -> original-objective resume path.
+- Obsolete CI assumption repaired.
+- Proven Skill Invocation v1 source implementation merged and CI-proven.
+- WorkInstance -> exact PROVEN skill routing bridge merged and CI-proven.
+- Fail-closed cases are covered for invalid/unavailable skill identity, non-PROVEN skill, invocation runtime unavailable, unauthorized primitive sequence, fixed-Main fallback, and recurring-instance duplication.
 
 ## Authority expansion policy
 
@@ -200,6 +205,10 @@ Track and trend:
 - For uncertain external effects, do not automatically retry without an idempotency/receipt decision.
 - When technology is ready but authority is blocked, prepare everything possible and surface the smallest scoped Delegated-Yellow grant Matt would need to give.
 
+## Continuation contract
+
+After every substantive transition, publish source/evidence so the canonical handover can advance. Keep repository/source truth separate from HESS-PC runtime truth. Local-only changes are unfinished.
+
 ---
 
 ## Cross-AI local-work convergence contract
@@ -236,6 +245,6 @@ Never infer a higher state from a lower one. Never widen authority merely to mak
 
 This handover is generated by `.github/scripts/build-canonical-handover.py` and refreshed by `.github/workflows/canonical-handover.yml`.
 
-Semantic fingerprint: `9A9063D937760CA86EE81F829723357797D112D5E1E6AD1C0C5112234068886E`
+Semantic fingerprint: `1CCE9F65D23D779CB7AB810E740302FD88D644A180FFB6C0F8D0B4AE432CE7AF`
 
 **Fresh runtime evidence first; one handover; publish every durable local change; then continue.**
