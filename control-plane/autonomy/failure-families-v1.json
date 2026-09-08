@@ -13,6 +13,25 @@
   },
   "families": [
     {
+      "id": "invocation-worker-fail-closed-v1",
+      "state": "OPEN",
+      "attempts": 1,
+      "severity": "high",
+      "scope": "Proven Skill Invocation worker on HESS-PC",
+      "current_evidence": "Supervisor v1.8.12 independently proven (hash F17F4B0A, typed ALREADY_APPLIED_PROVEN for grok-install-v1812-20260908-2050). Continuation 2026-09-08T15:55:08-06:00 status=BLOCKED_INVOCATION_RUNTIME selected_id=owner-west-motor-parts-chase-fresh-8-v1 eligible_count=7 failure_sha256=68845506ED61C6DBA473728C038321FC76D0E510B0FAF2CACE963475DB95C065 outcome_proven=false. One burned turn at 09:31 kept. Public payload omits reason. failure_sha256 implies a private failure key, which the missing-worker path does not set; treat as worker ran/threw until a public reason exists. Scheduler consecutive_errors=0. Do not send to fixed:main. Do not recopy v1.8.12. Do not install v1.3.54 for this family.",
+      "allowed_next": [
+        "read-only diagnosis of worker reason vs PROVEN_SKILL_INVOCATION_WORKER_NOT_INSTALLED",
+        "smallest GREEN worker wrap (python Continue + explicit reject) without widening the allowlist",
+        "publish reason in public continuation when it matches ^[A-Z][A-Z0-9_]{2,80}$",
+        "resume owner-west-motor-parts-chase-fresh-8-v1 after independently proven worker repair"
+      ],
+      "reopen_conditions": [
+        "fresh continuation ROUTED_TO_PROVEN_SKILL_INVOCATION or a typed worker receipt on the same WorkInstance",
+        "Benchmark remains PASS 30/30 critical=0",
+        "1 burned 09:31 turn remains; history not reset"
+      ]
+    },
+    {
       "id": "forge-demandless-supervisor-bypass",
       "state": "BLOCKED",
       "attempts": 3,
