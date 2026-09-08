@@ -69,7 +69,7 @@ jobs:
           positions=[idx.index(x) for x in order]
           assert positions==sorted(positions),positions
           assert 'kevin-hq-shell-v4' in sw
-          for asset in ['hq-evidence-adapter-v1.js','hq-ground-truth-v8.js']:
+          for asset in ['hq-evidence-adapter-v1.js','hq-owner-console-v10.js']:
             assert asset in sw,asset
           for needle in [
             "navByText('COMMAND')",

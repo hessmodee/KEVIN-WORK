@@ -43,7 +43,7 @@ jobs:
           from pathlib import Path
           index=Path('docs/index.html').read_text(encoding='utf-8')
           sw=Path('docs/sw.js').read_text(encoding='utf-8')
-          assert "navigator.serviceWorker.register('./sw.js',{scope:'./'})" in index
+          assert "navigator.serviceWorker.register('./sw.js?v=8',{scope:'./'})" in index
           assert "const BASE='/KEVIN-WORK/'" in sw
           assert "raw.githubusercontent.com" in sw
           assert "networkFirst(req,DATA_CACHE)" in sw
@@ -62,12 +62,9 @@ jobs:
           sw=Path('docs/sw.js').read_text(encoding='utf-8')
           required=[
             'docs/index.html','docs/hq-core-v7.html','docs/hq-evidence-adapter-v1.js',
-            'docs/hq-overrides-v1.js','docs/hq-truth-v2.js','docs/hq-owner-refinement-v3.js',
-            'docs/hq-growth-v1.js','docs/hq-ground-truth-v8.js',
+            'docs/hq-overrides-v1.js','docs/hq-owner-console-v10.js','docs/hq-growth-v1.js',
             'docs/ops/index.html','docs/ops/embed.html','docs/ops/app.js','docs/ops/style.css',
-            'docs/ops/ops-v11.css','docs/ops/ops-v11.js','docs/ops/ops-fun-v2.js',
-            'docs/ops/ops-owner-refinement-v1.css','docs/ops/ops-owner-refinement-v1.js',
-            'docs/ops/ops-truth-patch-v1.js'
+            'docs/ops/ops-v11.css','docs/ops/ops-v11.js'
           ]
           missing=[p for p in required if not Path(p).is_file()]
           assert not missing, missing
@@ -80,9 +77,10 @@ jobs:
                   rel=p[len('docs/'):]
                   assert rel in shell_entries, f'not cached: {rel}'
 
-          # Every same-origin shell script loaded by index must exist and be cached.
-          scripts=re.findall(r'<script\s+src="\.\/([^"?]+)(?:\?[^\"]*)?"',index)
-          assert scripts, 'no shell scripts found in index'
+          # Live V10 executes three scripts. Retired V8 layers remain as comments only.
+          active_index=re.sub(r'<!--.*?-->','',index,flags=re.S)
+          scripts=re.findall(r'<script\s+src="\.\/([^"?]+)(?:\?[^\"]*)?"',active_index)
+          assert scripts==['hq-evidence-adapter-v1.js','hq-overrides-v1.js','hq-owner-console-v10.js'], scripts
           for rel in scripts:
               assert Path('docs',rel).is_file(), rel
               assert rel in shell_entries, f'index script not in service-worker shell: {rel}'
