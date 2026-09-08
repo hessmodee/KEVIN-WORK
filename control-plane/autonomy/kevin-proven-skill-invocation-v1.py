@@ -3,7 +3,8 @@
 
 Stages fresh GREEN work orders for an already-PROVEN composite skill without
 mutating Skill Lab qualification history. Reconcile mode consumes only
-correlated DONE/FAILED work-order evidence and emits an invocation receipt.
+correlated DONE/FAILED work-order evidence, independently verifies DONE
+artifacts from a bounded artifact root, and emits an invocation receipt.
 
 Authority delta: NONE. No promotion, arbitrary shell/code, permission change,
 or primitive allowlist expansion is possible through this lane.
@@ -21,7 +22,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 ALLOWED_PRIMITIVES = {"create_text", "create_spreadsheet"}
 SAFE_EXTENSIONS = {"create_text": {".md", ".txt"}, "create_spreadsheet": {".xlsx"}}
 ID_RE = re.compile(r"^[A-Za-z0-9._-]{4,96}$")
@@ -44,6 +45,14 @@ def canonical(value: Any) -> bytes:
 
 def sha256_obj(value: Any) -> str:
     return hashlib.sha256(canonical(value)).hexdigest().upper()
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest().upper()
 
 
 def read_json(path: Path, max_bytes: int = 2_097_152) -> Dict[str, Any]:
@@ -255,7 +264,7 @@ def locate_final(order_id: str, queue_done: Path, queue_failed: Path) -> Tuple[s
     return ("PENDING", {}) if not hits else (hits[0][0], read_json(hits[0][1]))
 
 
-def validate_final(expected: Dict[str, Any], record: Dict[str, Any], final_state: str) -> Dict[str, Any]:
+def validate_final(expected: Dict[str, Any], record: Dict[str, Any], final_state: str, artifact_root: Path) -> Dict[str, Any]:
     expected_fields = {"schema": 1, "kind": "kevin-green-work-order", "id": expected["id"], "semantic_key": expected["semantic_key"], "authority": "GREEN", "operation": expected["operation"]}
     if any(record.get(k) != v for k, v in expected_fields.items()) or sha256_obj(record.get("payload")) != expected["payload_sha256"]:
         raise InvocationError("FINAL_ORDER_CORRELATION_MISMATCH")
@@ -265,16 +274,32 @@ def validate_final(expected: Dict[str, Any], record: Dict[str, Any], final_state
     if final_state == "DONE":
         if not isinstance(result, dict) or result.get("status") != "DONE" or not valid_timestamp(result.get("completed_at")):
             raise InvocationError("DONE_RESULT_INVALID")
-        if not isinstance(result.get("output_name"), str) or not result["output_name"] or not isinstance(result.get("bytes"), int) or result["bytes"] < 0 or not isinstance(result.get("sha256"), str) or not HASH_RE.fullmatch(result["sha256"]):
+        output_name = result.get("output_name")
+        if not isinstance(output_name, str) or not output_name or output_name != Path(output_name).name:
+            raise InvocationError("DONE_OUTPUT_NAME_NOT_BOUNDED")
+        validate_filename(output_name, SAFE_EXTENSIONS[expected["operation"]])
+        reported_bytes = result.get("bytes")
+        reported_sha = result.get("sha256")
+        if not isinstance(reported_bytes, int) or reported_bytes < 0 or not isinstance(reported_sha, str) or not HASH_RE.fullmatch(reported_sha):
             raise InvocationError("DONE_RESULT_EVIDENCE_INVALID")
-        return result
+        root = artifact_root.resolve()
+        if not root.is_dir() or root.is_symlink():
+            raise InvocationError("ARTIFACT_ROOT_INVALID")
+        artifact = (root / output_name).resolve()
+        if artifact.parent != root or artifact.is_symlink() or not artifact.is_file():
+            raise InvocationError("DONE_ARTIFACT_MISSING_OR_OUTSIDE_ROOT")
+        actual_bytes = artifact.stat().st_size
+        actual_sha = sha256_file(artifact)
+        if actual_bytes != reported_bytes or actual_sha != reported_sha.upper():
+            raise InvocationError("DONE_ARTIFACT_HASH_OR_SIZE_MISMATCH")
+        return {**result, "verified_bytes": actual_bytes, "verified_sha256": actual_sha}
     failure = record.get("failure")
     if not isinstance(failure, dict):
         raise InvocationError("FAILED_RESULT_EVIDENCE_INVALID")
     return failure
 
 
-def reconcile(state_path: Path, queue_done: Path, queue_failed: Path, receipt_path: Path) -> Dict[str, Any]:
+def reconcile(state_path: Path, queue_done: Path, queue_failed: Path, receipt_path: Path, artifact_root: Path) -> Dict[str, Any]:
     if receipt_path.exists():
         receipt = read_json(receipt_path)
         if receipt.get("status") not in {"PROVEN", "FAILED"}:
@@ -289,12 +314,12 @@ def reconcile(state_path: Path, queue_done: Path, queue_failed: Path, receipt_pa
         final_state, record = locate_final(expected["id"], queue_done, queue_failed)
         if final_state == "PENDING":
             return state
-        evidence = validate_final(expected, record, final_state)
-        item = {"index": expected["index"], "order_id": expected["id"], "semantic_key": expected["semantic_key"], "operation": expected["operation"], "final_state": final_state, "order_record_sha256": sha256_obj(record), "completed_at": evidence.get("completed_at", ""), "output_name": evidence.get("output_name", ""), "sha256": evidence.get("sha256", ""), "bytes": evidence.get("bytes", 0)}
+        evidence = validate_final(expected, record, final_state, artifact_root)
+        item = {"index": expected["index"], "order_id": expected["id"], "semantic_key": expected["semantic_key"], "operation": expected["operation"], "final_state": final_state, "order_record_sha256": sha256_obj(record), "completed_at": evidence.get("completed_at", ""), "output_name": evidence.get("output_name", ""), "sha256": evidence.get("sha256", ""), "bytes": evidence.get("bytes", 0), "verified_sha256": evidence.get("verified_sha256", ""), "verified_bytes": evidence.get("verified_bytes", 0)}
         results.append(item)
         if final_state == "FAILED" and failed is None:
             failed = item
-    receipt = {"schema": 1, "kind": "kevin-proven-skill-invocation-receipt", "version": VERSION, "status": "FAILED" if failed else "PROVEN", "authority": "GREEN", "completed_at": now_iso(), "invocation_id": state["invocation_id"], "skill_key": state["skill_key"], "proven_identity": copy.deepcopy(state["proven_identity"]), "request_sha256": state["request_sha256"], "step_results": results, "failure": failed}
+    receipt = {"schema": 1, "kind": "kevin-proven-skill-invocation-receipt", "version": VERSION, "status": "FAILED" if failed else "PROVEN", "authority": "GREEN", "completed_at": now_iso(), "invocation_id": state["invocation_id"], "skill_key": state["skill_key"], "proven_identity": copy.deepcopy(state["proven_identity"]), "request_sha256": state["request_sha256"], "step_results": results, "failure": failed, "verification": {"artifact_root_bounded": True, "artifact_hashes_rechecked": True, "artifact_sizes_rechecked": True}}
     receipt["receipt_sha256"] = sha256_obj(receipt)
     atomic_write_json(receipt_path, receipt)
     state.update(status=receipt["status"], completed_at=receipt["completed_at"], receipt_sha256=receipt["receipt_sha256"], step_results=results)
@@ -302,13 +327,55 @@ def reconcile(state_path: Path, queue_done: Path, queue_failed: Path, receipt_pa
     return receipt
 
 
+def selftest() -> Dict[str, Any]:
+    with tempfile.TemporaryDirectory(prefix="kevin-invocation-selftest-") as tmp:
+        root = Path(tmp)
+        registry = root / "registry.json"
+        proof_root = root / "proof"
+        request = root / "request.json"
+        state = root / "state.json"
+        ready = root / "ready"
+        done = root / "done"
+        failed = root / "failed"
+        artifacts = root / "artifacts"
+        receipt = root / "receipt.json"
+        for path in (proof_root, ready, done, failed, artifacts): path.mkdir()
+        manifest = {"schema": 1, "steps": [{"operation": "create_text"}, {"operation": "create_spreadsheet"}]}
+        manifest_sha = sha256_obj(manifest)
+        proof = {"schema": 1, "kind": "kevin-composite-skill-run", "status": "PROVEN", "manifest": manifest, "manifest_sha256": manifest_sha, "completed_at": now_iso(), "step_results": [{"status": "DONE"}, {"status": "DONE"}]}
+        proof_sha = sha256_obj({"manifest_sha256": manifest_sha, "step_results": proof["step_results"]})
+        # The registry proof identity is intentionally the proof object's supplied identity.
+        proof["proof_sha256"] = proof_sha
+        skill = {"id": "west-motor-parts-chase-board-pack", "version": "1", "key": "west-motor-parts-chase-board-pack@1", "authority": "GREEN", "status": "PROVEN", "name": "West Motor Parts Chase Board Pack", "manifest_sha256": manifest_sha, "proof_sha256": proof_sha, "result_file": "proof.json", "proven_at": now_iso(), "primitive_steps": ["create_text", "create_spreadsheet"]}
+        registry.write_text(json.dumps({"schema": 1, "kind": "kevin-composite-skill-registry", "updated_at": now_iso(), "skills": [skill]}), encoding="utf-8")
+        proof_root.joinpath("proof.json").write_text(json.dumps(proof), encoding="utf-8")
+        request.write_text(json.dumps({"schema": 1, "kind": "kevin-proven-skill-invocation", "authority": "GREEN", "skill_key": skill["key"], "invocation_id": "selftest-001", "steps": [{"operation": "create_text", "payload": {"filename": "note.md", "content": "verified"}}, {"operation": "create_spreadsheet", "payload": {"filename": "board.xlsx", "workbook": {"schema": 1, "kind": "kevin-xlsx-spec", "sheets": [{"name": "Board", "rows": [["Stock", "Need"], ["T001", "Fictional part"]]}]}}}]}), encoding="utf-8")
+        staged = stage(registry, proof_root, request, state, ready)
+        for expected in staged["orders"]:
+            name = "note.md" if expected["operation"] == "create_text" else "board.xlsx"
+            data = b"fictional verified artifact" + expected["operation"].encode()
+            (artifacts / name).write_bytes(data)
+            record = {"schema": 1, "kind": "kevin-green-work-order", "id": expected["id"], "semantic_key": expected["semantic_key"], "authority": "GREEN", "operation": expected["operation"], "payload": next(o["payload"] for o in staged["orders"] if o["id"] == expected["id"]), "status": "DONE", "result": {"status": "DONE", "completed_at": now_iso(), "output_name": name, "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest().upper()}}
+            (done / f'{expected["id"]}.json').write_text(json.dumps(record), encoding="utf-8")
+        out = reconcile(state, done, failed, receipt, artifacts)
+        assert out["status"] == "PROVEN"
+        assert all(r["verified_sha256"] == r["sha256"] for r in out["step_results"])
+        return {"status": "PASS", "version": VERSION, "checks": ["stage", "proof-binding", "bounded-artifact-root", "artifact-hash-recheck", "artifact-size-recheck", "receipt"]}
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__); sub = parser.add_subparsers(dest="command", required=True)
     ps = sub.add_parser("stage"); ps.add_argument("--registry", required=True); ps.add_argument("--proof-root", required=True); ps.add_argument("--request", required=True); ps.add_argument("--state", required=True); ps.add_argument("--queue-ready", required=True)
-    pr = sub.add_parser("reconcile"); pr.add_argument("--state", required=True); pr.add_argument("--queue-done", required=True); pr.add_argument("--queue-failed", required=True); pr.add_argument("--receipt", required=True)
+    pr = sub.add_parser("reconcile"); pr.add_argument("--state", required=True); pr.add_argument("--queue-done", required=True); pr.add_argument("--queue-failed", required=True); pr.add_argument("--receipt", required=True); pr.add_argument("--artifact-root", required=True)
+    sub.add_parser("selftest")
     args = parser.parse_args()
     try:
-        out = stage(Path(args.registry), Path(args.proof_root), Path(args.request), Path(args.state), Path(args.queue_ready)) if args.command == "stage" else reconcile(Path(args.state), Path(args.queue_done), Path(args.queue_failed), Path(args.receipt))
+        if args.command == "stage":
+            out = stage(Path(args.registry), Path(args.proof_root), Path(args.request), Path(args.state), Path(args.queue_ready))
+        elif args.command == "reconcile":
+            out = reconcile(Path(args.state), Path(args.queue_done), Path(args.queue_failed), Path(args.receipt), Path(args.artifact_root))
+        else:
+            out = selftest()
         print(json.dumps(out, indent=2)); return 0
     except InvocationError as exc:
         print(json.dumps({"status": "REJECTED", "reason": str(exc)})); return 2
