@@ -125,9 +125,9 @@ class MaintenanceV1352ContractTests(unittest.TestCase):
         self.assertIsNone(re.search(r"target_alias.*=\s*'supervisor'", self.text))
         self.assertIn("must not supply", self.text)
 
-    def test_live_manifest_queues_v1811_after_runner_install(self) -> None:
+    def test_live_manifest_is_idle_canary_after_v1811_install(self) -> None:
         manifest = json.loads((ROOT / "inbox" / "maintenance" / "manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest.get("operation"), "install_autonomy_controller_v1811")
+        self.assertEqual(manifest.get("operation"), "run_main_agent_canary")
         allowed = {
             "schema",
             "kind",
@@ -149,9 +149,17 @@ class MaintenanceV1352ContractTests(unittest.TestCase):
         self.assertEqual(manifest.get("owner_policy"), "Kevin Owner Authorization v1")
         self.assertTrue(manifest.get("preauthorized"))
         self.assertRegex(str(manifest.get("id")), r"^[A-Za-z0-9._-]{6,96}$")
-        self.assertNotIn("target_alias", manifest)
-        self.assertNotIn("source_path", manifest)
-        self.assertNotIn("source_sha256", manifest)
+        self.assertNotEqual(manifest.get("operation"), "install_autonomy_controller_v1811")
+
+    def test_live_workitem_unblocked_after_v1811_install(self) -> None:
+        items = json.loads((ROOT / "inbox" / "autonomy" / "work-items.json").read_text(encoding="utf-8"))
+        item = next(x for x in items["items"] if x["id"] == "owner-west-motor-parts-chase-fresh-8-v1")
+        self.assertFalse(item.get("blocked"))
+        self.assertEqual(item.get("required_skill_key"), "west-motor-parts-chase-board-pack@1")
+        self.assertEqual(item.get("status"), "OPEN")
+        self.assertEqual(item.get("authority_class"), "GREEN")
+        self.assertIn("west-motor-parts-chase-board-pack@1", str(item.get("next_action")))
+
 
 
 
