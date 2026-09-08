@@ -114,6 +114,7 @@ jobs:
           if ($out -notmatch 'v1\.8\.11 install target missing|autonomy controller v1\.8\.11') { throw "expected v1811 intercept failure, got:`n$out" }
           $parent = Join-Path $root 'ControlPlane\kevin-maintenance-core-v1.3.51.ps1'
           if (Test-Path -LiteralPath $parent) { throw "v1811 intercept fetched parent unexpectedly" }
+          $global:LASTEXITCODE = 0
 
       - name: Static authority and delegation guards
         shell: powershell
