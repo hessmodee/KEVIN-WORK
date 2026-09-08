@@ -1,0 +1,55 @@
+name: Kevin Autonomy Next-Level v1 Proof
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/autonomy/kevin-standing-work-materializer-v1.py'
+      - 'control-plane/autonomy/kevin-incident-reflection-v1.py'
+      - 'control-plane/autonomy/standing-work-supply-v1.json'
+      - 'inbox/autonomy/work-items.json'
+      - 'tools/test-autonomy-nextlevel-v1.py'
+      - '.github/workflows/autonomy-nextlevel-v1-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic-nextlevel-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile autonomy components
+        run: |
+          python -m py_compile \
+            control-plane/autonomy/kevin-standing-work-materializer-v1.py \
+            control-plane/autonomy/kevin-incident-reflection-v1.py \
+            tools/test-autonomy-nextlevel-v1.py
+      - name: Standing work self-test
+        run: python control-plane/autonomy/kevin-standing-work-materializer-v1.py --selftest
+      - name: Integrated standing-supply and reflection proof
+        run: python tools/test-autonomy-nextlevel-v1.py
+      - name: Selector accepts materialized portfolio
+        run: |
+          python control-plane/autonomy/kevin-standing-work-materializer-v1.py \
+            --catalog control-plane/autonomy/standing-work-supply-v1.json \
+            --items inbox/autonomy/work-items.json \
+            --now 2026-09-08T00:50:00Z \
+            --output /tmp/kevin-work-items-materialized.json
+          python control-plane/autonomy/kevin-work-selector-v1.2.py \
+            --programs control-plane/autonomy/standing-programs-v1.json \
+            --items /tmp/kevin-work-items-materialized.json \
+            --state inbox/autonomy/state.json \
+            --failure-families control-plane/autonomy/failure-families-v1.json \
+            --now 2026-09-08T00:50:00Z \
+            >/tmp/selection.json
+          python - <<'PY'
+          import json
+          s=json.load(open('/tmp/selection.json'))
+          assert s['authority_effect']=='NONE_SELECTION_ONLY'
+          assert s['eligible_count'] >= 1
+          print('KEVIN MATERIALIZED PORTFOLIO SELECTOR PASS eligible_count=%s status=%s' % (s['eligible_count'],s['status']))
+          PY
