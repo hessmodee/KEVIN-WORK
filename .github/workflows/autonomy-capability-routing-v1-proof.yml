@@ -33,6 +33,8 @@ jobs:
         run: python tools/test-kevin-capability-router-v1.py
       - name: Standing WorkInstance exact-skill preservation self-test
         run: python control-plane/autonomy/kevin-standing-work-materializer-v1.py --selftest
+      - name: Proven Skill Invocation artifact-verification self-test
+        run: python control-plane/autonomy/kevin-proven-skill-invocation-v1.py selftest
       - name: Invocation routing integration source guards
         run: |
           grep -q 'ROUTE_TO_PROVEN_SKILL_INVOCATION' control-plane/autonomy/kevin-capability-router-v1.py
@@ -42,6 +44,8 @@ jobs:
           grep -q 'DEFER_TO_PROVEN_SKILL_INVOCATION_DO_NOT_CALL_MAIN' control-plane/autonomy/kevin-work-admission-v1.py
           grep -q 'required_skill_key' control-plane/autonomy/kevin-standing-work-materializer-v1.py
           grep -q 'kevin_proven_skill_invoke' control-plane/autonomy/kevin-capability-router-v1.py
+          grep -q 'DONE_ARTIFACT_HASH_OR_SIZE_MISMATCH' control-plane/autonomy/kevin-proven-skill-invocation-v1.py
+          grep -q -- '--artifact-root' control-plane/autonomy/kevin-proven-skill-invocation-v1.py
       - name: OPEN GREEN production owner-value admission (v1.2)
         run: python tests/test_autonomy_selector_v12_owner_value.py
       - name: Admission self-test
