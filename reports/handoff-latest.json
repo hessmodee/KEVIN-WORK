@@ -3,8 +3,8 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-07T21:25:54.7841962-06:00",
-  "semantic_fingerprint_sha256": "7B1C97A2A2A5AE1F790774AAA0AE84B3175541CE43D6BE32F27A0EF993394B52",
+  "evidence_updated_at": "2026-09-07T21:34:41.8119171-06:00",
+  "semantic_fingerprint_sha256": "758A096E366D162DF1F7F5837D20C4D719ABBF8872CA2B91383DBEDBC670AA43",
   "semantic_checkpoint": {
     "current_task_sha256": "34823B0A4B170336DF0255AF3969BE81AFE713588E43DBB91FE45EB72E91EB0E",
     "benchmark": {
@@ -19,8 +19,8 @@
     "autonomy_status": "WAITING_ITEM_BUDGETS",
     "autonomy_eligible_count": 6,
     "maintenance": {
-      "status": "ALREADY_APPLIED_PROVEN",
-      "detail": "Maintenance previously proven."
+      "status": "EXPIRED_IDLE",
+      "detail": "Expired canonical manifest refused without scheduler failure."
     },
     "queues": {
       "ready": 0,
@@ -37,9 +37,9 @@
   },
   "source_hashes": {
     "current_task_sha256": "34823B0A4B170336DF0255AF3969BE81AFE713588E43DBB91FE45EB72E91EB0E",
-    "engineering_sha256_at_checkpoint": "36D7C73E4B99E6F484522F1D298C28B51F69B8220767CF5ABB746CBB84D6F484",
-    "support_sha256_at_checkpoint": "F2439177FB5D327723259C34DDAAEA857D58846C71CE0ED0D95CC698935B33E6",
-    "autonomy_sha256_at_checkpoint": "8B66225672555A7DF47C6670C2FF5F950841D08D360EEA862F17E4B71CC9028E"
+    "engineering_sha256_at_checkpoint": "384FD545E26FEBC2E66BA079D1A46FD185566439243F753E24708E9CF409186C",
+    "support_sha256_at_checkpoint": "C0AF1D9C7D4278B1435090DEFD7894529098ACA93FA0FFC318B9FD3C1771BAE5",
+    "autonomy_sha256_at_checkpoint": "7B2AEBDDB929676CEA8399221D8ECD8C666556354FC4E227677EEDE0D6F5C626"
   },
   "universal_access": {
     "github": "https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md",
@@ -55,20 +55,20 @@
     "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at_checkpoint": "2026-09-07T21:25:54.7841962-06:00",
-    "support_at_checkpoint": "2026-09-07T21:22:41.8218743-06:00",
-    "autonomy_at_checkpoint": "2026-09-07T21:25:28.1060034-06:00",
+    "engineering_at_checkpoint": "2026-09-07T21:33:54.8823753-06:00",
+    "support_at_checkpoint": "2026-09-07T21:34:41.8119171-06:00",
+    "autonomy_at_checkpoint": "2026-09-07T21:30:27.4106729-06:00",
     "benchmark": {
       "status": "PASS",
       "passed": 30,
       "total": 30,
       "critical": 0
     },
-    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 2.8,
+    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 1.7,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
-    "maintenance_status": "ALREADY_APPLIED_PROVEN",
-    "maintenance_detail": "Maintenance previously proven.",
+    "maintenance_status": "EXPIRED_IDLE",
+    "maintenance_detail": "Expired canonical manifest refused without scheduler failure.",
     "proven_composite_skills": 27,
     "maintenance_runner_sha256": "2D7F65C97A2934E7C34FEFF86BD317E84D0E73D6CABD9AC1D99DF0FF32448EAD"
   },
