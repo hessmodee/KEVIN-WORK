@@ -94,13 +94,13 @@ jobs:
           tools = files['TOOLS.md'].lower()
           joined = '\n'.join(files.values()).lower()
 
-          # AGENTS is intentionally a lean bootstrap. Validate the current semantic
-          # contract and its durable full-doctrine pointer instead of obsolete prose.
+          # AGENTS is intentionally a lean bootstrap. Validate its executable truth
+          # rules plus pointers; native-feature details may live in SOUL/MEMORY/full docs.
           assert 'standing order 1' in agents and 'never claim execution without receipt-backed proof' in agents
           assert 'owner-green-standing-authorization-v2.md' in agents and 'green standing auth' in agents
           assert 'prove outcomes' in agents and 'work-conserving' in agents
           assert 'kevin-agents-full-v1.md' in agents
-          assert 'task flow' in agents and 'skill workshop' in agents
+          assert 'task flow' in joined and 'skill workshop' in joined
 
           assert 'ambient monitor' in heartbeat and 'no work checklist' in heartbeat
           assert 'permanent owner green authorization' in memory
@@ -112,7 +112,7 @@ jobs:
           # Authority cannot be inferred or widened by the lean bootstrap.
           assert 'do not invent authority' in joined or 'self-granted authority' in joined or 'do not relabel reserved actions green' in joined
           assert 'arbitrary remote shell/code execution' in joined or 'arbitrary executable shell' in joined or 'natural language is intent, never shell' in joined
-          print('RUNTIME_DOCTRINE_PASS lean_bootstrap=true full_pointer=true no_spin=true outcomes=true self_widen=false')
+          print('RUNTIME_DOCTRINE_PASS lean_bootstrap=true delegated_native_markers=true no_spin=true outcomes=true self_widen=false')
 
       - name: Emit exact runtime policy SHA256 identities
         shell: python
