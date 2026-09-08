@@ -33,9 +33,10 @@ function openItems(){return items().filter(x=>!TERMINAL.has(String(x?.status||''
 function invocationRuntimeEffective(){
   const st=String(cache.continuation?.status||'').toUpperCase();
   if(st==='ROUTED_TO_PROVEN_SKILL_INVOCATION')return true;
-  if(String(cache.continuation?.version||'')==='1.8.11')return true;
+  const ver=String(cache.continuation?.version||'');
+  if(ver==='1.8.11'||ver==='1.8.12')return true;
   const h=String(cache.support?.hashes?.supervisor||'').toUpperCase();
-  return h==='685B34F31B797915B6ADC6058FCCDF4AEACD3CDD49D6B084FB31800FA966AB79';
+  return h==='685B34F31B797915B6ADC6058FCCDF4AEACD3CDD49D6B084FB31800FA966AB79'||h==='F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB';
 }
 function skillBound(x){return !!String(x?.required_skill_key||x?.proven_skill_key||'').trim()}
 function blockedItems(){return openItems().filter(x=>x?.blocked===true||x?.dependencies_ready===false||String(x?.status||'').toUpperCase()==='BLOCKED'||(skillBound(x)&&!invocationRuntimeEffective()))}
@@ -55,11 +56,13 @@ function executionTruth(){
   if(!primaryFresh)return{mode:'unverified',headline:'Live execution cannot be verified',detail:`Dashboard ${ageText(age(cache.dashboard?.generated_at))} · Engineering ${ageText(age(cache.engineering?.generated_at))}`,task:null,workers,eligible,blocked};
   if(task)return{mode:'working',headline:`Kevin is executing ${safeText(task.title||task.id||'a governed task',100)}`,detail:safeText(task.phase||task.source||'Machine execution reported by live dashboard.',180),task,workers:Math.max(workers,1),eligible,blocked};
   if(workers>0)return{mode:'working',headline:`${workers} Kevin worker${workers===1?' is':'s are'} active`,detail:'Fresh Support telemetry reports active execution.',task:null,workers,eligible,blocked};
+  const cont=String(cache.continuation?.status||'').toUpperCase();
+  if(cont==='CONTROLLER_ERROR')return{mode:'blocked',headline:'Supervisor crashed on invocation — not idle',detail:'Continuation CONTROLLER_ERROR. Native worker errors crashed the scheduler. Source repair is Supervisor v1.8.12. Not an owner outcome.',task:null,workers,eligible,blocked};
   if(eligible>0)return{mode:'ready',headline:`Kevin is ready with ${eligible} governed mission${eligible===1?'':'s'} available`,detail:'No live task or active worker is executing at this instant.',task:null,workers:0,eligible,blocked};
   if(blocked>0)return{mode:'blocked',headline:`No executable work; ${blocked} item${blocked===1?' is':'s are'} blocked`,detail:'Kevin is not shown as working because no machine execution is proven.',task:null,workers:0,eligible,blocked};
   return{mode:'idle',headline:'Kevin is idle with no eligible governed work',detail:'No active task, worker, or eligible queue entry is proven.',task:null,workers:0,eligible,blocked};
 }
-function humanStatus(s){const x=String(s||'UNKNOWN').toUpperCase();if(x==='AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF')return'Attempt completed · no outcome proof';if(x==='WAITING_ITEM_BUDGETS')return'Waiting on bounded retry budget';if(x==='IDLE_NO_ELIGIBLE_DEMAND')return'No eligible demand';if(x==='ROUTED_TO_SKILL_LAB')return'Routed to Skill Lab';if(x==='ROUTED_TO_ENGINEERING_RELAY')return'Routed to Engineering';if(x==='ROUTED_TO_PROVEN_SKILL_INVOCATION')return'Routed to proven skill invocation';if(x==='BLOCKED_INVOCATION_RUNTIME')return'Invocation runtime not installed';return x.replaceAll('_',' ')}
+function humanStatus(s){const x=String(s||'UNKNOWN').toUpperCase();if(x==='AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF')return'Attempt completed · no outcome proof';if(x==='WAITING_ITEM_BUDGETS')return'Waiting on bounded retry budget';if(x==='IDLE_NO_ELIGIBLE_DEMAND')return'No eligible demand';if(x==='ROUTED_TO_SKILL_LAB')return'Routed to Skill Lab';if(x==='ROUTED_TO_ENGINEERING_RELAY')return'Routed to Engineering';if(x==='ROUTED_TO_PROVEN_SKILL_INVOCATION')return'Routed to proven skill invocation';if(x==='BLOCKED_INVOCATION_RUNTIME')return'Invocation fail-closed';if(x==='CONTROLLER_ERROR')return'Supervisor crashed · not idle';return x.replaceAll('_',' ')}
 function serviceState(name){const s=String(cache.dashboard?.services?.[name]||'unknown').toLowerCase();return s==='healthy'?'ok':s==='unknown'?'':'bad'}
 function sourceBadge(name,obj,limit){const a=age(obj?.generated_at||obj?.at||obj?.updated_at);const ok=a<=limit;return`<span class="v10-source ${ok?'ok':'stale'}"><b>${esc(name)}</b> ${esc(ageText(a))}</span>`}
 function workName(x){return safeText(x?.title||x?.label||x?.id||'unnamed work',110).replace(/[-_]+/g,' ')}

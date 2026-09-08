@@ -10,7 +10,8 @@ on:
       - 'control-plane/autonomy/kevin-work-selector-v1.1.py'
       - 'control-plane/autonomy/standing-programs-v1.json'
       - 'control-plane/autonomy/failure-families-v1.json'
-      - 'inbox/autonomy/work-items.json'
+      # work-items.json is intentionally not a trigger. Queue writes for live
+      # Supervisor v1.8.11+ must not re-run obsolete v1.8.2 default-agent proof.
       - 'inbox/autonomy/state.json'
       - '.github/workflows/supervisor-v182-default-agent-proof.yml'
   workflow_dispatch:

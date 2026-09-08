@@ -19,12 +19,15 @@ assert '24-hour computer telemetry' in hq
 assert 'hover for exact timestamp and values' in hq
 assert 'No active execution right now.' in hq
 assert '685B34F31B797915B6ADC6058FCCDF4AEACD3CDD49D6B084FB31800FA966AB79' in hq
-assert "version||'')==='1.8.11'" in hq
+assert "ver==='1.8.11'||ver==='1.8.12'" in hq
+assert 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB' in hq
+assert "CONTROLLER_ERROR" in hq
+assert 'Supervisor crashed on invocation' in hq
 assert "if(task||workers>0)" in ops
 assert "if(q>0)return{state:'ready',label:'ARMED'" in ops
 assert "label:'WORKING'" in ops
 assert 'ops-live-truth-v2.js' in embed
 assert "kevin-hq-shell-v6" in sw
 assert 'hq-owner-console-v10.js' in sw
-assert 'ops/ops-live-truth-v2.js' in sw
+assert 'ops/ops-v11.js' in sw
 print('KEVIN HQ V10 LIVE TRUTH SELFTEST PASS tabs=4 work_truth=machine_evidence telemetry=24h_hover ops_armed_not_working=true retired_layers_not_executed=true')
