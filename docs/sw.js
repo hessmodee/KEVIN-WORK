@@ -1,13 +1,13 @@
-/* Kevin HQ resilient app shell v7
+/* Kevin HQ resilient app shell v8
  * Scope: GitHub Pages /KEVIN-WORK/
  * Public static assets + sanitized public telemetry only.
  * Network remains authoritative; cache is outage fallback, never proof of freshness.
- * Historical proof compatibility marker only: kevin-hq-shell-v4, kevin-hq-shell-v6
- * v7 drops retired V8 painters from the shell cache so the dual-stack fight cannot revive offline.
+ * Historical proof compatibility marker only: kevin-hq-shell-v4, kevin-hq-shell-v6, kevin-hq-shell-v7
+ * v8 drops competing ops overlay painters from the shell cache so the 1s X-eyes fight cannot revive offline.
  */
 'use strict';
 
-const VERSION='kevin-hq-shell-v7';
+const VERSION='kevin-hq-shell-v8';
 const SHELL_CACHE=`${VERSION}-static`;
 const DATA_CACHE=`${VERSION}-public-data`;
 const BASE='/KEVIN-WORK/';
@@ -23,12 +23,7 @@ const SHELL=[
   `${BASE}ops/app.js`,
   `${BASE}ops/style.css`,
   `${BASE}ops/ops-v11.css`,
-  `${BASE}ops/ops-v11.js`,
-  `${BASE}ops/ops-fun-v2.js`,
-  `${BASE}ops/ops-owner-refinement-v1.css`,
-  `${BASE}ops/ops-owner-refinement-v1.js`,
-  `${BASE}ops/ops-truth-patch-v1.js`,
-  `${BASE}ops/ops-live-truth-v2.js`
+  `${BASE}ops/ops-v11.js`
 ];
 
 function normalizedRequest(request){

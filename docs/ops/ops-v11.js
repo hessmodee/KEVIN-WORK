@@ -180,13 +180,11 @@ async function load(){
  document.getElementById('newsText').textContent=`Chief of Staff | ${detail}`;
  const rail=document.getElementById('serviceRail');rail.innerHTML='';
  [['Reader','ready'],['Night Forge',(s?.active_workers?.night_forge||0)>0?'active':'ready'],['Build Lab',(s?.active_workers?.design_forge||0)>0?'active':'ready'],['Ollama',d?.services?.ollama==='healthy'?'ready':''],['Bridge',workerState('bridge',d,s)==='working'?'active':(d?.services?.bridge==='healthy'?'ready':'')],['Tick',d?.services?.tick==='healthy'?'ready':'']].filter(([n])=>n!=='Night Forge'||!nightForgeHidden(s)).forEach(([n,st])=>rail.insertAdjacentHTML('beforeend',`<div class="svc"><i class="dot ${st}"></i><b>${esc(n)}</b><span>${st==='active'?'ACTIVE':st==='ready'?'READY':'CHECK'}</span></div>`));
- const top=document.getElementById('topology');top.querySelectorAll('.worker,.line').forEach(x=>x.remove());
- const visibleWorkers=WORKERS.filter(w=>w.key!=='night'||!nightForgeHidden(s));
- const center={x:top.clientWidth/2,y:top.clientHeight/2},positions=ringPositions(top,visibleWorkers.length),active=[];
- visibleWorkers.forEach((w,i)=>{const st=workerState(w.key,d,s),p=positions[i];if(['working','building'].includes(st))active.push({w,st});lineBetween(top,center,p,st);const prog=workerProgress(w.key,st,d,s),el=document.createElement('div');el.className=`worker ${st}`;el.style.cssText=`left:${(p.x/top.clientWidth)*100}%;top:${(p.y/top.clientHeight)*100}%;--idc:${w.c};--statec:${stateColor(st)}`;const progressHtml=prog?`<div class="worker-progress ${prog.measured?'measured':'checkpoint-wait'}" title="${esc(prog.detail)}"><div class="worker-progress-fill" style="width:${prog.percent}%"></div><span>${prog.percent}%</span></div>`:'';el.innerHTML=`<div class="box">${owl(w.c,w.key)}<div class="worker-copy"><b>${w.name}</b><small>${w.role}</small><span class="state">${stateLabel(st)}</span></div></div>${progressHtml}`;el.onclick=()=>selectWorker(w,st,d,s);top.appendChild(el)});
+ const active=paintWorkers(d,s);
  window.__kevinLaneSnapshot={dashboard:d,support:s};
  const kstates=kevinStates(d,s),ks=kstates[0],kmode=ks==='offline'?'disconnected':ks==='degraded'?'degraded':kstates.some(x=>['working','building'].includes(x))?'working':'ready';
- document.getElementById('headerKevinProd').innerHTML=kevinProd(kmode,true);document.getElementById('hubKevinProd').innerHTML=kevinProd(kmode,false);renderKevinCenter(d,s,kstates);
+ if(kmode!==lastKmode){ const head=document.getElementById('headerKevinProd'),hub=document.getElementById('hubKevinProd'); if(head)head.innerHTML=kevinProd(kmode,true); if(hub)hub.innerHTML=kevinProd(kmode,false); lastKmode=kmode; }
+ renderKevinCenter(d,s,kstates);
  const liveTask=taskActive(d?.current_task)?d.current_task:null;
  document.getElementById('mission').textContent=liveTask?(liveTask.title||liveTask.id||'Active task'):(sup.last_mission?`${sup.last_mission} · cycle ${sup.cycle??'—'}`:'No active mission');
  document.getElementById('action').textContent=liveTask?`${liveTask.phase||'active'} · ${kstates.map(stateLabel).join(' + ')}`:(/THROTTLED|SATURATED/i.test(sup.last_result||'')?'Recovery cooldown':(sup.last_result||'Ready for work'));
@@ -208,5 +206,51 @@ function workerEvidenceDetail(key,d,s){
 }
 function selectWorker(w,st,d,s){document.getElementById('selectedName').textContent=`${w.name} — ${w.role}`;document.getElementById('selectedStatus').textContent=stateLabel(st);let detail='Telemetry-backed worker state.';if(w.key==='benchmark')detail=`Regression ${s?.benchmark?.regression?.passed||0}/${s?.benchmark?.regression?.total||0}, critical failures ${s?.benchmark?.regression?.critical_failures||0}.`;if(w.key==='bridge')detail=`GitHub sync service: ${d?.services?.bridge||'unknown'}. A recent Bridge run is WORKING; otherwise a healthy Bridge is READY.`;if(w.key==='build')detail=`Design Forge workers active: ${s?.active_workers?.design_forge||0}.`;if(w.key==='ollama')detail=`Primary local inference service: ${d?.services?.ollama||'unknown'}.`;document.getElementById('selectedDetail').textContent=detail}
 
-document.getElementById('headerKevinProd').innerHTML=kevinProd('ready',true);document.getElementById('hubKevinProd').innerHTML=kevinProd('ready',false);load();setInterval(load,30000);addEventListener('resize',()=>load());
+let lastKmode='', lastTopoCount=-1, lastTopoW=0, lastTopoH=0, resizeTimer=0;
+function layoutChanged(top,count){
+  const w=top.clientWidth,h=top.clientHeight;
+  if(count!==lastTopoCount) return true;
+  if(Math.abs(w-lastTopoW)>=12 || Math.abs(h-lastTopoH)>=12) return true;
+  return false;
+}
+function paintWorkers(d,s){
+  const top=document.getElementById('topology'); if(!top) return [];
+  const visibleWorkers=WORKERS.filter(w=>w.key!=='night'||!nightForgeHidden(s));
+  const rebuild=layoutChanged(top,visibleWorkers.length);
+  const center={x:top.clientWidth/2,y:top.clientHeight/2},positions=ringPositions(top,visibleWorkers.length);
+  const active=[];
+  if(rebuild){
+    top.querySelectorAll('.worker,.line').forEach(x=>x.remove());
+    lastTopoCount=visibleWorkers.length; lastTopoW=top.clientWidth; lastTopoH=top.clientHeight;
+  }
+  visibleWorkers.forEach((w,i)=>{
+    const st=workerState(w.key,d,s),p=positions[i];
+    if(['working','building'].includes(st)) active.push({w,st});
+    if(rebuild){
+      lineBetween(top,center,p,st);
+      const line=top.querySelectorAll('.line'); if(line.length) line[line.length-1].dataset.key=w.key;
+      const prog=workerProgress(w.key,st,d,s);
+      const el=document.createElement('div');
+      el.className=`worker ${st}`;
+      el.dataset.key=w.key;
+      el.style.cssText=`left:${(p.x/top.clientWidth)*100}%;top:${(p.y/top.clientHeight)*100}%;--idc:${w.c};--statec:${stateColor(st)}`;
+      const progressHtml=prog?`<div class="worker-progress ${prog.measured?'measured':'checkpoint-wait'}" title="${esc(prog.detail)}"><div class="worker-progress-fill" style="width:${prog.percent}%"></div><span>${prog.percent}%</span></div>`:'';
+      el.innerHTML=`<div class="box">${owl(w.c,w.key)}<div class="worker-copy"><b>${w.name}</b><small>${w.role}</small><span class="state">${stateLabel(st)}</span></div></div>${progressHtml}`;
+      el.onclick=()=>selectWorker(w,st,d,s);
+      top.appendChild(el);
+    }else{
+      const el=top.querySelector(`.worker[data-key="${w.key}"]`);
+      if(el){
+        el.className=`worker ${st}`;
+        el.style.cssText=`left:${(p.x/top.clientWidth)*100}%;top:${(p.y/top.clientHeight)*100}%;--idc:${w.c};--statec:${stateColor(st)}`;
+        const stEl=el.querySelector('.state'); if(stEl) stEl.textContent=stateLabel(st);
+        el.onclick=()=>selectWorker(w,st,d,s);
+      }
+      const line=top.querySelector(`.line[data-key="${w.key}"]`);
+      if(line){ line.className=`line state-${st}${['working','building'].includes(st)?' active':''}`; line.style.setProperty('--statec',stateColor(st)); }
+    }
+  });
+  return active;
+}
+document.getElementById('headerKevinProd').innerHTML=kevinProd('ready',true);document.getElementById('hubKevinProd').innerHTML=kevinProd('ready',false);load();setInterval(load,30000);addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{const top=document.getElementById('topology'); if(!top)return; if(Math.abs(top.clientWidth-lastTopoW)<12 && Math.abs(top.clientHeight-lastTopoH)<12)return; load();},450);});
 
