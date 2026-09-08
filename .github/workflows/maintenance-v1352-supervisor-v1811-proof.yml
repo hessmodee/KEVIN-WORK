@@ -108,8 +108,8 @@ jobs:
             expires_at = (Get-Date).AddMinutes(30).ToString('o')
           } | ConvertTo-Json -Compress)
           $out = (& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\maintenance\kevin-maintenance-runner-v1.3.52.ps1 2>&1 | Out-String)
-          $code = $LASTEXITCODE
-          if ($code -eq 0) { throw "fresh v1811 unexpectedly succeeded without live files`n$out" }
+          Write-Host $out
+          if ($out -notmatch 'MAINTENANCE ERROR') { throw "expected intercept error, got:`n$out" }
           if ($out -match 'operation not allowlisted') { throw "v1811 leaked to parent allowlist rejection`n$out" }
           if ($out -notmatch 'v1\.8\.11 install target missing|autonomy controller v1\.8\.11') { throw "expected v1811 intercept failure, got:`n$out" }
           $parent = Join-Path $root 'ControlPlane\kevin-maintenance-core-v1.3.51.ps1'

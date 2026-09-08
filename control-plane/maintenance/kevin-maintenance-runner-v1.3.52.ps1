@@ -221,7 +221,10 @@ function Assert-AutonomyControllerV1811Install([object]$m){
     if([string]$m.production_effect-ne'NONE'){throw 'production_effect must be NONE'}
     if([string]$m.owner_policy-ne'Kevin Owner Authorization v1'){throw 'owner policy mismatch'}
     if([bool]$m.preauthorized-ne$true){throw 'manifest must be preauthorized'}
-    if($m.expires_at -and ((Get-Date) -gt [datetime]$m.expires_at)){throw 'manifest expired'}
+    if($m.expires_at){
+        try{$expiry=[DateTimeOffset]::Parse([string]$m.expires_at)}catch{throw 'manifest expiry invalid'}
+        if([DateTimeOffset]::Now -gt $expiry){throw 'manifest expired'}
+    }
     if([string]$m.operation-ne'install_autonomy_controller_v1811'){throw 'autonomy controller v1.8.11 install operation mismatch'}
 }
 function Install-StagedFile([string]$Stage,[string]$Target,[string]$ExpectedSha){

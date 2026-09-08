@@ -18,7 +18,7 @@ Until a newer runner is itself installed, a v1811 manifest would ERROR `operatio
 
 | Identity | SHA-256 |
 |---|---|
-| Candidate Maintenance v1.3.52 (LF Git blob) | `A2E5EB0EBE6E5653952D2EED7C66FCB1F3F2141BDAF3309A8C44CA57306F6568` |
+| Candidate Maintenance v1.3.52 (LF Git blob) | `C5ECCE66FF2DB764E8C6EC4449F76D9086A8DCCED37428F515B0C14DD803DD24` |
 | Installed Maintenance v1.3.51 (current) | `2D7F65C97A2934E7C34FEFF86BD317E84D0E73D6CABD9AC1D99DF0FF32448EAD` |
 | Parent of v1.3.52 | same v1.3.51 hash |
 | Supervisor expected-current (v1.8.10) | `BDA265ACCB929EC5129B2F38AC76FE276625A604052304FC32C917700BCB532E` |
@@ -29,7 +29,7 @@ Until a newer runner is itself installed, a v1811 manifest would ERROR `operatio
 | Invocation v1 python | `63FA334B85F895894481DF59314326F6F0F4B0785553B8FDD33DFBFC0E88147C` |
 | Forge v4.0 baseline (must not change) | `433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A` |
 
-Recompute the v1.3.52 runner hash on Windows after this file is on `main`. Use that hash as `expected_after_sha256` for the Maintenance-runner crossing.
+Recompute the v1.3.52 runner hash on Windows after this file is on `main` if bytes change. Current LF Git blob is `C5ECCE66FF2DB764E8C6EC4449F76D9086A8DCCED37428F515B0C14DD803DD24`. Use that hash as `expected_after_sha256` for the Maintenance-runner crossing.
 
 ## Two-step ladder — do not skip
 
