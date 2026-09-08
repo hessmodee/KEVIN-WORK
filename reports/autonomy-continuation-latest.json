@@ -2,8 +2,8 @@
     "schema":  1,
     "kind":  "kevin-autonomy-continuation-public",
     "version":  "1.8.11",
-    "generated_at":  "2026-09-08T10:56:10.3635720-06:00",
-    "status":  "WAITING_ITEM_BUDGETS",
+    "generated_at":  "2026-09-08T11:01:10.3812855-06:00",
+    "status":  "CONTROLLER_ERROR",
     "safe_for_public_repo":  true,
     "outcome_proven":  false,
     "model_call_counts_as_accomplishment":  false,
@@ -81,40 +81,7 @@
                     }
                 ],
     "history_error":  false,
-    "eligible_count":  6,
-    "work_conservation":  "ALL_ELIGIBLE_ITEMS_HAVE_RECORDED_DEFERRAL",
-    "deferred":  [
-                     {
-                         "id":  "autonomy-runtime-truth-reconciliation-v1",
-                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
-                         "turns":  3
-                     },
-                     {
-                         "id":  "autonomy-expired-manifest-regression-design-v1",
-                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
-                         "turns":  3
-                     },
-                     {
-                         "id":  "autonomy-reflection-runtime-integration-v1",
-                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
-                         "turns":  3
-                     },
-                     {
-                         "id":  "owner-west-motor-transport-dispatch-template-v1",
-                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
-                         "turns":  3
-                     },
-                     {
-                         "id":  "owner-dealership-operations-opportunity-scan-v1",
-                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
-                         "turns":  3
-                     },
-                     {
-                         "id":  "autonomy-browser-computer-qualification-v1",
-                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
-                         "turns":  3
-                     }
-                 ],
+    "failure_sha256":  "5DD94CED5A2AFB4AF3A0A9521DC8F9306236B23B01882C52A80E482AE00BE37F",
     "history_skipped":  1,
     "truth_boundary":  "Scheduled selection and runtime-attempt evidence only. No owner outcome, tool use, or autonomy transfer is inferred from a successful model turn."
 }
