@@ -1,0 +1,152 @@
+name: Maintenance v1.3.53 Supervisor v1.8.12 proof
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.53.ps1'
+      - 'control-plane/maintenance/kevin-maintenance-runner-v1.3.52.ps1'
+      - 'control-plane/autonomy/kevin-supervisor-v1.8.12.ps1'
+      - 'control-plane/autonomy/kevin-supervisor-v1.8.11.ps1'
+      - 'ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1'
+      - 'tests/test_maintenance_v1353_contract.py'
+      - 'tests/test_supervisor_v1812_contract.py'
+      - '.github/workflows/maintenance-v1353-supervisor-v1812-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Static v1.3.53 / v1.8.12 contract
+        run: python -m unittest tests/test_supervisor_v1812_contract.py tests/test_maintenance_v1353_contract.py -v
+
+  windows-proof:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Candidate SHA-256 identity
+        shell: powershell
+        run: |
+          $sha = (Get-FileHash -LiteralPath .\control-plane\maintenance\kevin-maintenance-runner-v1.3.53.ps1 -Algorithm SHA256).Hash.ToUpperInvariant()
+          if ($sha -notmatch '^[A-F0-9]{64}$') { throw "candidate SHA-256 invalid: $sha" }
+          Write-Host "MAINTENANCE_V1353_SHA256=$sha"
+          $parent = (Get-FileHash -LiteralPath .\control-plane\maintenance\kevin-maintenance-runner-v1.3.52.ps1 -Algorithm SHA256).Hash.ToUpperInvariant()
+          if ($parent -ne 'C5ECCE66FF2DB764E8C6EC4449F76D9086A8DCCED37428F515B0C14DD803DD24') { throw "parent identity drifted: $parent" }
+
+      - name: Parent v1.3.52 self-test remains healthy
+        shell: powershell
+        run: |
+          & powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\maintenance\kevin-maintenance-runner-v1.3.52.ps1 -SelfTest
+          if ($LASTEXITCODE -ne 0) { throw "v1.3.52 parent self-test failed: $LASTEXITCODE" }
+
+      - name: v1.3.53 wrapper self-test
+        shell: powershell
+        run: |
+          $out = (& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\maintenance\kevin-maintenance-runner-v1.3.53.ps1 -SelfTest 2>&1 | Out-String)
+          if ($LASTEXITCODE -ne 0) { throw "v1.3.53 self-test failed: $LASTEXITCODE`n$out" }
+          if ($out -notmatch 'KEVIN MAINTENANCE v1\.3\.3 SELFTEST PASS') { throw "v1.3.3 marker missing" }
+          if ($out -notmatch 'KEVIN MAINTENANCE v1\.3\.53 SELFTEST PASS') { throw "v1.3.53 marker missing" }
+          if ($out -notmatch 'v1812=allowlisted') { throw "v1812 allowlist marker missing" }
+          if ($out -notmatch 'worker_native_error=fail_closed') { throw "worker fail-closed marker missing" }
+          if ($out -notmatch 'expired_manifest=clean_idle') { throw "clean-idle contract marker missing" }
+
+      - name: Supervisor v1.8.12 self-test
+        shell: powershell
+        run: |
+          $out = (& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\autonomy\kevin-supervisor-v1.8.12.ps1 -SelfTest 2>&1 | Out-String)
+          Write-Host $out
+          if ($LASTEXITCODE -ne 0) { throw "Supervisor v1.8.12 self-test failed: $LASTEXITCODE`n$out" }
+          if ($out -notmatch 'KEVIN SUPERVISOR v1\.8\.12 SELFTEST PASS') { throw "v1.8.12 selftest marker missing" }
+          if ($out -notmatch 'invocation_worker_native_error_fail_closed=true') { throw "worker native fail-closed marker missing" }
+
+      - name: Expired canonical manifest is fail-closed clean idle
+        shell: powershell
+        run: |
+          $root = Join-Path $env:RUNNER_TEMP 'kevin-maint-v1353-expired'
+          New-Item -ItemType Directory -Force -Path $root | Out-Null
+          $env:KEVIN_MAINT_TEST_ROOT = $root
+          $env:KEVIN_MAINT_TEST_MANIFEST_TEXT = (@{
+            schema = 3
+            kind = 'kevin-self-maintenance-manifest'
+            id = 'ci-expired-clean-idle-001'
+            authority_class = 'GREEN'
+            authority_delta = 'NONE'
+            production_effect = 'NONE'
+            owner_policy = 'Kevin Owner Authorization v1'
+            preauthorized = $true
+            operation = 'install_autonomy_controller_v1812'
+            expires_at = (Get-Date).AddMinutes(-10).ToString('o')
+          } | ConvertTo-Json -Compress)
+          $out = (& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\maintenance\kevin-maintenance-runner-v1.3.53.ps1 2>&1 | Out-String)
+          $code = $LASTEXITCODE
+          if ($code -ne 0) { throw "expired v1812 returned nonzero: $code`n$out" }
+          $statePath = Join-Path $root 'reports\maintenance\latest.json'
+          if (-not (Test-Path -LiteralPath $statePath)) { throw "expired idle state missing" }
+          $state = Get-Content -LiteralPath $statePath -Raw | ConvertFrom-Json
+          if ($state.status -ne 'EXPIRED_IDLE') { throw "expected EXPIRED_IDLE, got $($state.status)" }
+          if ($state.manifest_id -ne 'ci-expired-clean-idle-001') { throw "manifest identity lost" }
+          if ($state.execution_attempted -ne $false) { throw "expired manifest was marked attempted" }
+          if ($state.parent_invoked -ne $false) { throw "expired manifest invoked parent" }
+          $parent = Join-Path $root 'ControlPlane\kevin-maintenance-core-v1.3.52.ps1'
+          if (Test-Path -LiteralPath $parent) { throw "expired path fetched or invoked parent unexpectedly" }
+
+      - name: Fresh v1812 intercepts before parent and fail-closes without live files
+        shell: powershell
+        run: |
+          $root = Join-Path $env:RUNNER_TEMP 'kevin-maint-v1353-v1812'
+          New-Item -ItemType Directory -Force -Path $root | Out-Null
+          $env:KEVIN_MAINT_TEST_ROOT = $root
+          $env:KEVIN_MAINT_TEST_MANIFEST_TEXT = (@{
+            schema = 3
+            kind = 'kevin-self-maintenance-manifest'
+            id = 'ci-v1812-intercept-001'
+            authority_class = 'GREEN'
+            authority_delta = 'NONE'
+            production_effect = 'NONE'
+            owner_policy = 'Kevin Owner Authorization v1'
+            preauthorized = $true
+            operation = 'install_autonomy_controller_v1812'
+            expires_at = (Get-Date).AddMinutes(30).ToString('o')
+          } | ConvertTo-Json -Compress)
+          $out = (& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\maintenance\kevin-maintenance-runner-v1.3.53.ps1 2>&1 | Out-String)
+          Write-Host $out
+          if ($out -notmatch 'MAINTENANCE ERROR') { throw "expected intercept error, got:`n$out" }
+          if ($out -match 'operation not allowlisted') { throw "v1812 leaked to parent allowlist rejection`n$out" }
+          if ($out -notmatch 'v1\.8\.12 install target missing|autonomy controller v1\.8\.12') { throw "expected v1812 intercept failure, got:`n$out" }
+          $parent = Join-Path $root 'ControlPlane\kevin-maintenance-core-v1.3.52.ps1'
+          if (Test-Path -LiteralPath $parent) { throw "v1812 intercept fetched parent unexpectedly" }
+          $global:LASTEXITCODE = 0
+
+      - name: Static authority and delegation guards
+        shell: powershell
+        run: |
+          $text = Get-Content .\control-plane\maintenance\kevin-maintenance-runner-v1.3.53.ps1 -Raw
+          foreach ($pattern in @('(?im)^\s*Invoke-Expression\b','(?im)^\s*kevin_shell\b','(?im)^\s*Start-Process\s+cmd\.exe\b')) {
+            if ($text -match $pattern) { throw "forbidden execution surface present: $pattern" }
+          }
+          foreach ($required in @(
+            'C5ECCE66FF2DB764E8C6EC4449F76D9086A8DCCED37428F515B0C14DD803DD24',
+            '685B34F31B797915B6ADC6058FCCDF4AEACD3CDD49D6B084FB31800FA966AB79',
+            'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB',
+            '16C49542847BBB22EACC09F254C030D2FF03DE0ADFB1B9DA08C9B617C73B0332',
+            'install_autonomy_controller_v1812',
+            'authority_class-ne''GREEN''',
+            'authority_delta-ne''NONE''',
+            'production_effect-ne''NONE''',
+            'execution_attempted=$false',
+            'parent_invoked=$false'
+          )) {
+            if (-not $text.Contains($required)) { throw "required guard missing: $required" }
+          }
+          Write-Host 'MAINTENANCE v1.3.53 WINDOWS PROOF PASS expired=clean_idle v1812=intercepted parent=exact_pin authority_delta=none'
