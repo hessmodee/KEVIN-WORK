@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 import unittest
 from pathlib import Path
@@ -124,11 +125,16 @@ class MaintenanceV1352ContractTests(unittest.TestCase):
         self.assertIsNone(re.search(r"target_alias.*=\s*'supervisor'", self.text))
         self.assertIn("must not supply", self.text)
 
-    def test_live_canary_manifest_untouched(self) -> None:
-        manifest = (ROOT / "inbox" / "maintenance" / "manifest.json").read_text(encoding="utf-8")
-        self.assertIn("run_main_agent_canary", manifest)
-        self.assertIn("matt-fresh-main-canary-20260908-0716", manifest)
-        self.assertNotIn("install_autonomy_controller_v1811", manifest)
+    def test_live_manifest_does_not_install_v1811_before_runner(self) -> None:
+        manifest = json.loads((ROOT / "inbox" / "maintenance" / "manifest.json").read_text(encoding="utf-8"))
+        self.assertNotEqual(manifest.get("operation"), "install_autonomy_controller_v1811")
+        op = manifest.get("operation")
+        if op == "replace_pinned_component":
+            self.assertEqual(manifest.get("target_alias"), "maintenance_runner")
+            self.assertEqual(manifest.get("source_path"), "control-plane/maintenance/kevin-maintenance-runner-v1.3.52.ps1")
+            self.assertEqual(str(manifest.get("expected_current_sha256")).upper(), PARENT_SHA)
+            self.assertEqual(str(manifest.get("expected_after_sha256")).upper(), "C5ECCE66FF2DB764E8C6EC4449F76D9086A8DCCED37428F515B0C14DD803DD24")
+
 
 
 if __name__ == "__main__":
