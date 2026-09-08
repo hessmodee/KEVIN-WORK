@@ -1,6 +1,6 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-08 09:37 UTC  
+**Updated:** 2026-09-08 10:22 UTC  
 **Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**: preserve live platform truth, make Kevin's PROVEN composite skills reusable on fresh owner inputs, then wire renewable WorkInstances into capability-aware Supervisor execution and automatic repair/resume.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
