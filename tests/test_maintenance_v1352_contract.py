@@ -125,15 +125,33 @@ class MaintenanceV1352ContractTests(unittest.TestCase):
         self.assertIsNone(re.search(r"target_alias.*=\s*'supervisor'", self.text))
         self.assertIn("must not supply", self.text)
 
-    def test_live_manifest_does_not_install_v1811_before_runner(self) -> None:
+    def test_live_manifest_queues_v1811_after_runner_install(self) -> None:
         manifest = json.loads((ROOT / "inbox" / "maintenance" / "manifest.json").read_text(encoding="utf-8"))
-        self.assertNotEqual(manifest.get("operation"), "install_autonomy_controller_v1811")
-        op = manifest.get("operation")
-        if op == "replace_pinned_component":
-            self.assertEqual(manifest.get("target_alias"), "maintenance_runner")
-            self.assertEqual(manifest.get("source_path"), "control-plane/maintenance/kevin-maintenance-runner-v1.3.52.ps1")
-            self.assertEqual(str(manifest.get("expected_current_sha256")).upper(), PARENT_SHA)
-            self.assertEqual(str(manifest.get("expected_after_sha256")).upper(), "C5ECCE66FF2DB764E8C6EC4449F76D9086A8DCCED37428F515B0C14DD803DD24")
+        self.assertEqual(manifest.get("operation"), "install_autonomy_controller_v1811")
+        allowed = {
+            "schema",
+            "kind",
+            "id",
+            "authority_class",
+            "authority_delta",
+            "production_effect",
+            "owner_policy",
+            "preauthorized",
+            "operation",
+            "expires_at",
+        }
+        self.assertEqual(set(manifest.keys()), allowed)
+        self.assertEqual(manifest.get("schema"), 3)
+        self.assertEqual(manifest.get("kind"), "kevin-self-maintenance-manifest")
+        self.assertEqual(manifest.get("authority_class"), "GREEN")
+        self.assertEqual(manifest.get("authority_delta"), "NONE")
+        self.assertEqual(manifest.get("production_effect"), "NONE")
+        self.assertEqual(manifest.get("owner_policy"), "Kevin Owner Authorization v1")
+        self.assertTrue(manifest.get("preauthorized"))
+        self.assertRegex(str(manifest.get("id")), r"^[A-Za-z0-9._-]{6,96}$")
+        self.assertNotIn("target_alias", manifest)
+        self.assertNotIn("source_path", manifest)
+        self.assertNotIn("source_sha256", manifest)
 
 
 
