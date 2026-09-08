@@ -64,11 +64,24 @@ jobs:
       - name: Supervisor v1.8.12 self-test
         shell: powershell
         run: |
+          $ErrorActionPreference = 'Continue'
+          $root = (Resolve-Path '.').Path
+          $env:USERPROFILE = $root
+          New-Item -ItemType Directory -Force -Path (Join-Path $root '.openclaw\workspace\ControlPlane') | Out-Null
+          New-Item -ItemType Directory -Force -Path (Join-Path $root '.openclaw\workspace\reports\autonomy-runtime') | Out-Null
+          Copy-Item control-plane/autonomy/kevin-work-selector-v1.2.py (Join-Path $root '.openclaw\workspace\ControlPlane\kevin-work-selector-v1.2.py') -Force
+          @'
+          param([string]$Action)
+          if($Action -eq 'SelfTest'){ Write-Host 'LEASE SELFTEST PASS'; exit 0 }
+          exit 0
+          '@ | Set-Content -LiteralPath (Join-Path $root '.openclaw\workspace\ControlPlane\Invoke-KevinMissionLease.ps1') -Encoding UTF8
           $out = (& powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File .\control-plane\autonomy\kevin-supervisor-v1.8.12.ps1 -SelfTest 2>&1 | Out-String)
           Write-Host $out
           if ($LASTEXITCODE -ne 0) { throw "Supervisor v1.8.12 self-test failed: $LASTEXITCODE`n$out" }
           if ($out -notmatch 'KEVIN SUPERVISOR v1\.8\.12 SELFTEST PASS') { throw "v1.8.12 selftest marker missing" }
           if ($out -notmatch 'invocation_worker_native_error_fail_closed=true') { throw "worker native fail-closed marker missing" }
+          if ($out -notmatch 'KEVIN SUPERVISOR MISSION-LEASE WIRE SELFTEST PASS') { throw "mission-lease wire marker missing" }
+
 
       - name: Expired canonical manifest is fail-closed clean idle
         shell: powershell

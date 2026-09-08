@@ -17,7 +17,7 @@ function primaryFrame(html) {
   const url = new URL(source[2], 'https://hq.invalid/');
   assert.equal(url.origin, 'https://hq.invalid', 'core remains same-origin');
   assert.equal(url.pathname, '/hq-core-v7.html', 'core uses v7');
-  assert.equal(url.hash, '#ops', 'core starts at Ops Floor');
+  assert.equal(url.hash, '#overview', 'core starts at Command overview');
 }
 
 const ownerRefinement = read('docs/hq-owner-refinement-v3.js');
@@ -29,13 +29,13 @@ assert.ok(ownerRefinement.includes("mdSection('green development lane',6)"), 'ow
 
 assert.ok(read('docs/hq-core-v7.html').length, 'core exists and is nonempty');
 primaryFrame(read('docs/index.html'));
-for (const source of ['./hq-core-v7.html#ops', './hq-core-v7.html?v=15#ops']) {
+for (const source of ['./hq-core-v7.html#overview', './hq-core-v7.html?v=19#overview']) {
   primaryFrame(`<iframe id="kevinCore" src="${source}"></iframe>`);
 }
-for (const source of ['./hq-core-v7.html#overview', './hq-core-v7.html#other', './other.html#ops', 'https://elsewhere.invalid/hq-core-v7.html#ops']) {
+for (const source of ['./hq-core-v7.html#ops', './hq-core-v7.html#other', './other.html#overview', 'https://elsewhere.invalid/hq-core-v7.html#overview']) {
   assert.throws(() => primaryFrame(`<iframe id="kevinCore" src="${source}"></iframe>`));
 }
-assert.throws(() => primaryFrame('<iframe src="./hq-core-v7.html#ops"></iframe>'));
+assert.throws(() => primaryFrame('<iframe src="./hq-core-v7.html#overview"></iframe>'));
 assert.throws(() => primaryFrame('<iframe id="kevinCore"></iframe>'));
 
 const overlay = read('docs/ops/ops-truth-patch-v1.js');

@@ -18,6 +18,7 @@ const SHELL=[
   `${BASE}hq-evidence-adapter-v1.js`,
   `${BASE}hq-overrides-v1.js`,
   `${BASE}hq-owner-console-v10.js`,
+  `${BASE}hq-growth-v1.js`,
   `${BASE}ops/index.html`,
   `${BASE}ops/embed.html`,
   `${BASE}ops/app.js`,
