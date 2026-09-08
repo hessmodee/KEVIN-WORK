@@ -1,0 +1,30 @@
+name: Proven Skill Invocation v1 Proof
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/autonomy/kevin-proven-skill-invocation-v1.py'
+      - 'tests/test_proven_skill_invocation_v1.py'
+      - '.github/workflows/proven-skill-invocation-v1-proof.yml'
+      - 'docs/engineering/KEVIN-PROVEN-SKILL-INVOCATION-v1.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract-proof:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile invocation lane
+        run: python -m py_compile control-plane/autonomy/kevin-proven-skill-invocation-v1.py
+      - name: Run fail-closed contract proof
+        run: python -m unittest tests/test_proven_skill_invocation_v1.py -v

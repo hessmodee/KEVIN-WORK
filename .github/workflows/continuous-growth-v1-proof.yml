@@ -59,10 +59,20 @@ jobs:
             assert not (set(map(str,item.get('effects',[]))) & protected), sid
             assert item.get('acceptance_criteria'), sid
             assert item.get('next_action'), sid
-          handoff_source=Path('inbox/CURRENT_TASK.md').read_text()
-          for phrase in ['maximum bounded autonomy','Self-heal','Self-maintain','Self-improve','24/7','Do not weaken']:
-            assert phrase.lower() in handoff_source.lower(), phrase
-          print('CONTINUOUS_GROWTH_CROSSCHECK_PASS standing_programs=7 protected_effects_enforced=true handover_source=true')
+          handoff_source=Path('inbox/CURRENT_TASK.md').read_text().lower()
+          for phrase in [
+            'maximum bounded autonomy',
+            'self-heal',
+            'self-maintain',
+            'self-improve',
+            'do not weaken',
+            'resolve capability',
+            'resume the owner objective',
+            'delegated yellow'
+          ]:
+            assert phrase in handoff_source, phrase
+          assert 'never solve `waiting_item_budgets` by deleting or resetting valid history' in handoff_source
+          print('CONTINUOUS_GROWTH_CROSSCHECK_PASS standing_programs=7 protected_effects_enforced=true autonomy_v3_handover=true')
           PY
       - name: Existing work-supply regression suite
         run: python tools/test-autonomy-work-supply-v1.py

@@ -47,6 +47,23 @@ function section(needle,limit=12){
   }
   return out;
 }
+function subsectionHeadings(needle,limit=12){
+  const lines=String(taskMd||'').split(/\r?\n/);let on=false,out=[];
+  for(const raw of lines){
+    const line=raw.trim();
+    if(/^##\s+/.test(line)){
+      if(on)break;
+      on=line.toLowerCase().includes(String(needle).toLowerCase());
+      continue;
+    }
+    if(!on)continue;
+    const m=line.match(/^###\s+\d+\.\s+(.+)$/);
+    if(m){out.push([clean(m[1]).replace(/[.:;]+$/,''),'']);if(out.length>=limit)break}
+  }
+  return out;
+}
+function sectionAny(needles,limit=12){for(const needle of needles){const rows=section(needle,limit);if(rows.length)return rows}return[]}
+function priorityRows(){const current=subsectionHeadings('highest-priority execution sequence',8);return current.length?current:section('current live platform repair targets',8)}
 function styles(){
   if(!doc||doc.getElementById('hqGrowthV1Style'))return;
   const st=doc.createElement('style');st.id='hqGrowthV1Style';st.textContent=`
@@ -59,18 +76,18 @@ function cardByKey(key){
   return [...page.querySelectorAll('.v3card')].find(c=>String(c.querySelector('.v3head .k')?.textContent||'').trim().toUpperCase()===key)||null;
 }
 function rewritePriorities(){
-  const rows=section('current live platform repair targets',8);if(!rows.length)return;
+  const rows=priorityRows();if(!rows.length)return;
   const card=cardByKey('NEXT');if(!card)return;
   card.querySelectorAll(':scope>.v3row').forEach(x=>x.remove());
   card.insertAdjacentHTML('beforeend',rows.map((x,i)=>`<div class="v3row"><i>${i+1}</i><div><b>${esc(x[0])}</b>${x[1]?`<div class="h">${esc(x[1])}</div>`:''}</div></div>`).join(''));
   const h=card.querySelector('.v3head .h');if(h)h.textContent='Live priorities parsed from the canonical current owner task.';
 }
 function rewriteSkills(){
-  const rows=section('owner-value skill wave',6);if(!rows.length)return;
+  const rows=sectionAny(['owner-value skill portfolio','owner-value skill wave'],10);if(!rows.length)return;
   const card=cardByKey('OWNER VALUE');if(!card)return;
   const grid=card.querySelector('.v3skills');if(!grid)return;
   grid.innerHTML=rows.map(x=>`<div><b>${esc(x[0].replace(/@1$/,''))}</b><span>${esc(x[1])}</span></div>`).join('');
-  const h=card.querySelector('.v3head .h');if(h)h.textContent='Current job, vehicles, business, creator income, crypto research and home — not stale construction defaults.';
+  const h=card.querySelector('.v3head .h');if(h)h.textContent='Current dealer, vehicle, home, business, research, computer, communications, gaming and errands capability portfolio.';
 }
 function sourceState(){
   const programs=new Set(Array.isArray(policy?.programs)?policy.programs:[]);
@@ -96,7 +113,7 @@ function growthCard(){
   if(src.ready){status='SOURCE READY · LIVE CROSSING PENDING';cls=''}
   if(src.ready&&live){status='LIVE EVIDENCE SEEN';cls='live'}
   const pills=EXPECTED.map(([id,label])=>`<div class="v4growthPill ${src.programs.has(id)?'':'off'}"><i></i><b>${esc(label)}</b></div>`).join('');
-  const html=`<section id="hqGrowthV1" class="v3card"><div class="v4growthTop"><div class="v3head"><div class="k">CONTINUOUS GROWTH</div><h2>Kevin’s self-reliance engine</h2><div class="h">Persistent, proactive growth without fake work or self-widening authority.</div></div><div class="v4growthState ${cls}"><i></i>${esc(status)}</div></div><div class="v4growthGrid">${pills}</div><div class="v4path"><b>Next production crossing</b><span>Desktop tools → Work Supply → capability-aware routing → mission leases/checkpoints → recurring scheduler windows → replayed owner outcomes.</span></div><div class="v4truth"><strong>Truth boundary:</strong> source policy and CI readiness are not 24/7 runtime proof. HQ only upgrades this card to LIVE when a growth occurrence carries active status, a lease and machine evidence.</div></section>`;
+  const html=`<section id="hqGrowthV1" class="v3card"><div class="v4growthTop"><div class="v3head"><div class="k">CONTINUOUS GROWTH</div><h2>Kevin’s self-reliance engine</h2><div class="h">Persistent, proactive growth without fake work or self-widening authority.</div></div><div class="v4growthState ${cls}"><i></i>${esc(status)}</div></div><div class="v4growthGrid">${pills}</div><div class="v4path"><b>Next production crossing</b><span>Standing WorkInstances → capability-aware routing → proven-skill invocation or capability acquisition → mission leases/checkpoints → verified owner outcomes → repair/resume.</span></div><div class="v4truth"><strong>Truth boundary:</strong> source policy and CI readiness are not 24/7 runtime proof. HQ only upgrades this card to LIVE when a growth occurrence carries active status, a lease and machine evidence.</div></section>`;
   const existing=doc.getElementById('hqGrowthV1');
   if(existing){existing.outerHTML=html;return}
   const stats=page.querySelector(':scope>.v3stats');if(stats)stats.insertAdjacentHTML('afterend',html);else page.insertAdjacentHTML('afterbegin',html);
