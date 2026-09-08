@@ -43,7 +43,9 @@ jobs:
               'LIVE EVIDENCE SEEN',
               'active&&lease&&evidence',
               'source policy and CI readiness are not 24/7 runtime proof',
+              'highest-priority execution sequence',
               'current live platform repair targets',
+              'owner-value skill portfolio',
               'owner-value skill wave',
               'setInterval(refresh,12000)'
           ]:
@@ -56,10 +58,17 @@ jobs:
               'knowledge-integrity-sweep-v1','capability-gap-growth-v1','owner-value-opportunity-scan-v1'
           }
           assert expected_standing.issubset(standing)
-          for heading in ['current live platform repair targets','owner-value skill wave']:
-              assert heading.lower() in task.lower(), heading
-          assert 'Continuous-growth live crossing' in task
-          print('HQ_GROWTH_V1_STATIC_PASS source_ready_is_not_live=true owner_task_parser_targets_current_headings=true')
+          task_lower=task.lower()
+          for phrase in [
+              'highest-priority execution sequence',
+              'owner-value skill portfolio',
+              'proven skill invocation v1',
+              'workinstance',
+              'delegated yellow',
+              'resume the owner objective'
+          ]:
+              assert phrase in task_lower, phrase
+          print('HQ_GROWTH_V1_STATIC_PASS source_ready_is_not_live=true autonomy_v3_task_contract=true')
       - name: Current task parser fixtures
         run: |
           node - <<'NODE'
@@ -83,12 +92,14 @@ jobs:
             }
             return out;
           }
-          const priorities=section('current live platform repair targets',8);
-          const skills=section('owner-value skill wave',6);
-          if(priorities.length!==4) throw new Error(`expected 4 priorities, got ${priorities.length}`);
-          if(skills.length!==6) throw new Error(`expected 6 owner skills, got ${skills.length}`);
-          if(!priorities[0][0].includes('Desktop exact-5 LIVE')) throw new Error(JSON.stringify(priorities[0]));
-          if(!priorities[3][0].includes('Continuous-growth live crossing')) throw new Error(JSON.stringify(priorities[3]));
-          if(!/dealer|Dealer/i.test(skills[0][0])) throw new Error(JSON.stringify(skills[0]));
-          console.log('HQ_GROWTH_V1_PARSER_PASS priorities=4 skills=6 desktop_exact5_truth=true');
+          function sectionAny(needles,limit=12){for(const needle of needles){const rows=section(needle,limit);if(rows.length)return rows}return[]}
+          const priorities=sectionAny(['highest-priority execution sequence','current live platform repair targets'],8);
+          const skills=sectionAny(['owner-value skill portfolio','owner-value skill wave'],10);
+          if(priorities.length!==6) throw new Error(`expected 6 autonomy-v3 priorities, got ${priorities.length}: ${JSON.stringify(priorities)}`);
+          if(skills.length!==10) throw new Error(`expected 10 owner-value capabilities, got ${skills.length}: ${JSON.stringify(skills)}`);
+          if(!/Proven Skill Invocation/i.test(priorities[0][0])) throw new Error(JSON.stringify(priorities[0]));
+          if(!/Missing-capability acquisition loop/i.test(priorities[5][0])) throw new Error(JSON.stringify(priorities[5]));
+          if(!/Dealer Recon/i.test(skills[0][0])) throw new Error(JSON.stringify(skills[0]));
+          if(!/Errands\/Commerce/i.test(skills[9][0])) throw new Error(JSON.stringify(skills[9]));
+          console.log('HQ_GROWTH_V1_PARSER_PASS priorities=6 skills=10 autonomy_v3=true backward_heading_fallback=true');
           NODE
