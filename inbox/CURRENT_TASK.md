@@ -1,13 +1,13 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-08 13:58 MT  
-**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**. Proven Skill Invocation v1 remains the production-skill milestone. Maintenance v1.3.52 **and Supervisor v1.8.11 are installed** on HESS-PC. Installed v1.8.11 then **crashed the scheduler** (`CONTROLLER_ERROR`, `consecutive_errors=7`) when it tried to invoke the worker. Source repair is Supervisor v1.8.12 + Maintenance v1.3.53. That source is not yet installed. The owner outcome is still the first fresh invoke of `west-motor-parts-chase-board-pack@1` on WorkInstance `owner-west-motor-parts-chase-fresh-8-v1`. A routing/stage receipt is not yet that outcome.
+**Updated:** 2026-09-08 14:35 MT  
+**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**. Proven Skill Invocation v1 remains the production-skill milestone. Maintenance v1.3.52 **and Supervisor v1.8.11 are installed** on HESS-PC. Installed v1.8.11 then **crashed the scheduler** (`CONTROLLER_ERROR`, `consecutive_errors=7`) when it tried to invoke the worker. Supervisor v1.8.12 + Maintenance v1.3.53 source is on `main` (PR 163). The immediate gate is the typed `replace_pinned_component` of the Maintenance runner so HESS-PC can then run `install_autonomy_controller_v1812`. Queueing is not installation. The owner outcome is still the first fresh invoke of `west-motor-parts-chase-board-pack@1` on WorkInstance `owner-west-motor-parts-chase-fresh-8-v1`.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
 
 **Architecture:** `docs/engineering/KEVIN-AUTONOMY-EXECUTION-PLAN-v3.md`  
 **Current production-skill milestone:** `docs/engineering/KEVIN-PROVEN-SKILL-INVOCATION-v1.md`  
-**Current typed crossing:** `docs/engineering/KEVIN-MAINTENANCE-V1353-SUPERVISOR-V1812.md` (source). Installed crossing remains `docs/engineering/KEVIN-MAINTENANCE-V1352-SUPERVISOR-V1811.md`.
+**Current typed crossing:** `docs/engineering/KEVIN-MAINTENANCE-V1353-SUPERVISOR-V1812.md` (source on `main`, runner install queued). Installed crossing remains `docs/engineering/KEVIN-MAINTENANCE-V1352-SUPERVISOR-V1811.md`.
 
 ## Owner strategic directive - maximum bounded autonomy
 
@@ -25,18 +25,18 @@ Target maturity is **T4 for routine bounded work**: Kevin detects the need, reso
 
 ## Current live platform truth
 
-- Maintenance v1.3.52 is installed/proven. Support hashes workspace `kevin-maintenance-runner.ps1` as `C5ECCE66FF2DB764E8C6EC4449F76D9086A8DCCED37428F515B0C14DD803DD24`. Do not repeat the v1.3.52 runner install. v1.3.53 is source-only until this PR is on `main` and a later queue write is independently proven.
+- Maintenance v1.3.52 is installed/proven. Support hashes workspace `kevin-maintenance-runner.ps1` as `C5ECCE66FF2DB764E8C6EC4449F76D9086A8DCCED37428F515B0C14DD803DD24`. Do not repeat the v1.3.52 runner install. v1.3.53 source is on `main` (PR 163). The queued GREEN crossing is `replace_pinned_component` / `maintenance_runner` id `grok-install-maint-v1353-20260908-2035`. Queueing is not installation.
 - Supervisor **v1.8.11 is installed**. Support hashes workspace `kevin-supervisor.ps1` as `685B34F31B797915B6ADC6058FCCDF4AEACD3CDD49D6B084FB31800FA966AB79`. Continuation `2026-09-08T13:30:23-06:00` publishes `version=1.8.11` **and `status=CONTROLLER_ERROR`** `failure_sha256=5DD94CED5A2AFB4AF3A0A9521DC8F9306236B23B01882C52A80E482AE00BE37F`. That is a scheduler crash, not idle, not an owner outcome.
 - Engineering `2026-09-08T13:55:56-06:00` reports `kevin-supervisor-v1` `last_status=error` `consecutive_errors=7`. The other five lanes are `ok`. UI Bridge heartbeat remains fresh (~2.4s).
 - Cause: v1.8.11 invokes the worker with `$ErrorActionPreference='Stop'` and `& powershell @workerArgs 2>&1`. Worker stderr/`throw` becomes a terminating NativeCommandError. The catch publishes `CONTROLLER_ERROR` and rethrows.
-- Source repair (this turn, not installed): Supervisor v1.8.12 `F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB` wraps that invoke with Continue + try/catch and maps failure to `BLOCKED_INVOCATION_RUNTIME` without crashing the scheduler. Maintenance v1.3.53 `EF32D990488F1B44C2122032DD5CB21DD15C97F9C851AEDF0657C193335C5C50` adds `install_autonomy_controller_v1812`. Worker pin `16C49542…` is unchanged.
+- Source repair is on `main` (PR 163, not installed): Supervisor v1.8.12 `F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB` wraps that invoke with Continue + try/catch and maps failure to `BLOCKED_INVOCATION_RUNTIME` without crashing the scheduler. Maintenance v1.3.53 `EF32D990488F1B44C2122032DD5CB21DD15C97F9C851AEDF0657C193335C5C50` adds `install_autonomy_controller_v1812`. Worker pin `16C49542…` is unchanged.
 - Fresh Benchmark remains PASS 30/30, critical 0 (Engineering `2026-09-08T13:48:19-06:00`).
 - Support's legacy aggregate `cron.ok=false` still publishes `Config warnings:` on the machine. Do not treat that field as lane failure. Supervisor `NO_ELIGIBLE_MISSION` in Support's stale cycle field is not the live continuation.
 - 27 composite skills are PROVEN; latest proven is `west-motor-parts-chase-board-pack@1`. Exact-five desktop policy remains intentional. Do not recreate those skills. Do not widen the worker allowlist until the first proof.
 - WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` is OPEN/GREEN/`blocked=false` with fictional 8-vehicle inputs and `required_skill_key=west-motor-parts-chase-board-pack@1`. The existing 1 burned turn at 09:31 stays inside the typical 3-turn budget; do not reset history. Do not send it to tool-less `fixed:main`.
 - Stale GitHub Action "Supervisor v1.8.2 Default-Agent Proof" failed on the PR 160 squash because `inbox/autonomy/work-items.json` was in that obsolete workflow's path filter. That email is not a production supervisor failure. This turn unhooks that path.
 - Engineering request `grok-flywheel-status-20260908-1652` is `DUPLICATE_IGNORED`. Do not invent a new Relay verb. A fresh `action_status` needs a new id after this source lands.
-- Live Maintenance slot stays GREEN `run_main_agent_canary` `grok-main-canary-20260908-1652`. Do not queue v1.3.53 or v1812 in this source PR.
+- Live Maintenance slot is GREEN `replace_pinned_component` / `maintenance_runner` `grok-install-maint-v1353-20260908-2035`. Do **not** queue `install_autonomy_controller_v1812` until Support hashes the runner `EF32D990…` and a typed apply receipt exists.
 
 ## Source-side this turn — not yet an owner outcome
 
@@ -44,7 +44,7 @@ Target maturity is **T4 for routine bounded work**: Kevin detects the need, reso
 - HQ / Command treat Supervisor hash `685B34F3…` or continuation `version=1.8.11` as invocation-runtime-installed, and must also label `CONTROLLER_ERROR` as a scheduler crash rather than ready/idle. `ROUTED_TO_PROVEN_SKILL_INVOCATION` remains the routing receipt, not the owner outcome. `BLOCKED_INVOCATION_RUNTIME` after v1.8.12 is fail-closed diagnostic, not PASS.
 - Do not recreate already-PROVEN skills. Do not widen the invocation worker allowlist past `west-motor-parts-chase-board-pack@1` until this first fresh invocation proves the path.
 - Do not expand desktop tools. Exact-five remains the production tool surface.
-- Do not queue the v1.3.53 runner install until this source is on `main`. Install fetches from `main`.
+- Queueing the v1.3.53 runner install is not HESS-PC proof. Install fetches from `main`. Do not queue `install_autonomy_controller_v1812` in this PR.
 
 ## Immediate execution gates
 
@@ -94,7 +94,7 @@ This loop is the primary mechanism for reducing Bess/Grok intervention over time
 
 ## Do not
 
-- Repeat Maintenance v1.3.51 / v1.3.52 runner installation or Supervisor v1.8.11 installation. v1.3.53 / v1.8.12 are source this turn; queue them only after `main` has the bytes.
+- Repeat Maintenance v1.3.51 / v1.3.52 runner installation or Supervisor v1.8.11 installation. v1.3.53 runner install is queued this turn; v1.8.12 install waits for the runner hash.
 - Reset histories or work budgets.
 - Recreate already-PROVEN skills.
 - Retry disproven Forge migration work.

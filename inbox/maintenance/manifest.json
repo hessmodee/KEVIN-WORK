@@ -1,12 +1,17 @@
 {
   "schema": 3,
   "kind": "kevin-self-maintenance-manifest",
-  "id": "grok-main-canary-20260908-1652",
+  "id": "grok-install-maint-v1353-20260908-2035",
   "authority_class": "GREEN",
   "authority_delta": "NONE",
   "production_effect": "NONE",
   "owner_policy": "Kevin Owner Authorization v1",
   "preauthorized": true,
-  "operation": "run_main_agent_canary",
+  "operation": "replace_pinned_component",
+  "target_alias": "maintenance_runner",
+  "source_path": "control-plane/maintenance/kevin-maintenance-runner-v1.3.53.ps1",
+  "source_sha256": "EF32D990488F1B44C2122032DD5CB21DD15C97F9C851AEDF0657C193335C5C50",
+  "expected_current_sha256": "C5ECCE66FF2DB764E8C6EC4449F76D9086A8DCCED37428F515B0C14DD803DD24",
+  "expected_after_sha256": "EF32D990488F1B44C2122032DD5CB21DD15C97F9C851AEDF0657C193335C5C50",
   "expires_at": "2026-09-09T18:30:00Z"
 }
