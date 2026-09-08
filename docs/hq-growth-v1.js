@@ -21,7 +21,7 @@ const EXPECTED_STANDING=new Set([
   'owner-value-opportunity-scan-v1'
 ]);
 let core=null,doc=null,bound=null,busy=false,taskMd='',catalog=null,policy=null,work=null,pending=false;
-const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[m]));
+const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 async function text(path){const r=await fetch(`${RAW}${path}?hqg=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw Error(path);return r.text()}
 async function json(path){const r=await fetch(`${RAW}${path}?hqg=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw Error(path);return r.json()}
 function clean(v){return String(v||'').replace(/\*\*/g,'').replace(/`/g,'').trim()}
