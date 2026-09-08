@@ -1,7 +1,7 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-08 09:40 MT  
-**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**. Proven Skill Invocation v1 and Supervisor v1.8.11 remain source-only. The immediate gate is the typed Maintenance v1.3.52 crossing so HESS-PC can install Supervisor v1.8.11 plus `kevin_proven_skill_invoke`. GitHub source is not machine proof.
+**Updated:** 2026-09-08 09:52 MT  
+**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**. Proven Skill Invocation v1 remains the production-skill milestone. Maintenance v1.3.52 source is on `main` (PR 157). The immediate gate is the typed `replace_pinned_component` of the Maintenance runner so HESS-PC can then run `install_autonomy_controller_v1811`. GitHub source is not machine proof.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
 
@@ -34,7 +34,7 @@ Target maturity is **T4 for routine bounded work**: Kevin detects the need, reso
 - 27 composite skills are PROVEN; latest proven is `west-motor-parts-chase-board-pack@1`.
 - Supervisor last published result remains `NO_ELIGIBLE_MISSION` / continuation `WAITING_ITEM_BUDGETS`. That is Supervisor-lane idle, not global true idle.
 - Engineering request `grok-flywheel-status-20260908-1505` was seen (`DUPLICATE_IGNORED` on the latest snapshot). A processed `action_status` is observation, not invocation proof.
-- Live Maintenance manifest remains `run_main_agent_canary` `matt-fresh-main-canary-20260908-0716`. Do not replace it with v1811 while v1.3.51 is the installed runner.
+- Maintenance v1.3.52 source is on `main` (PR 157). Candidate runner LF hash `C5ECCE66FF2DB764E8C6EC4449F76D9086A8DCCED37428F515B0C14DD803DD24`. Not yet installed. The queued GREEN crossing is `replace_pinned_component` / `maintenance_runner` id `grok-install-maint-v1352-20260908-1555`.
 - WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` is OPEN/GREEN with fictional 8-vehicle inputs, held `blocked=true` so installed v1.8.10 cannot charge tool-less `fixed:main`. Unblock only after invocation runtime is independently effective.
 
 ## Source-side this turn — not yet HESS-PC proven
