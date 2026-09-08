@@ -44,6 +44,10 @@ Target maturity is **T4 for routine bounded work**: Kevin detects the need, reso
 
 ## Immediate execution gates
 
+## Highest-priority execution sequence
+
+The highest-priority execution sequence, and the current live platform repair targets, are:
+
 ### 1. HESS-PC Proven Skill Invocation runtime qualification — NOW
 
 Prove the typed runtime capability `kevin_proven_skill_invoke` is independently effective on HESS-PC. Source CI is not machine proof. Qualification must show the runtime worker consumes the staged GREEN work orders, uses only the invocation allowlist, and publishes correlated DONE/FAILED evidence.
@@ -84,14 +88,6 @@ Every incident carries the interrupted WorkInstance/objective identity. After in
 
 This loop is the primary mechanism for reducing Bess/Grok intervention over time.
 
-## Authority expansion policy
-
-Do **not** solve the current idle by declaring Yellow work Green.
-
-GREEN already covers this next leap: research, source, tests, Skill Lab, proven-skill invocation, reversible local artifacts, and self-repair. Pizza orders, Amazon checkout, voice calls, and public posting remain Delegated Yellow. Kevin may prepare those autonomously; execution still needs a scoped owner grant.
-
-The bottleneck is not the GREEN/YELLOW line. The bottleneck is that proven skills are not yet callable on HESS-PC.
-
 ## Do not
 
 - Repeat Maintenance v1.3.51 installation.
@@ -101,3 +97,80 @@ The bottleneck is not the GREEN/YELLOW line. The bottleneck is that proven skill
 - Invent new Engineering Relay verbs.
 - Claim HESS-PC installation from this GitHub source change.
 - Treat a queued request, CI pass, or HQ label as an owner outcome.
+
+## Authority expansion policy
+
+Expand autonomy primarily by broadening safe reversible work inside GREEN, not by erasing boundaries.
+
+GREEN already covers this next leap: research, source, tests, Skill Lab, proven-skill invocation, reversible local artifacts, and self-repair. Do **not** solve the current idle by declaring Yellow work Green.
+
+### GREEN-A - autonomous read/observe
+Public web research, repo/files/log inspection, diagnostics, screenshots/snapshots of Kevin-owned surfaces, benchmarks and tests.
+
+### GREEN-B - autonomous reversible local work
+Approved roots/worktrees, code changes, tests, local artifacts, documents/spreadsheets, local prototypes, isolated dependency work, quarantine downloads, bounded subagents, Skill Lab staging/evaluation, backups and proven noncritical runbooks.
+
+### GREEN-C - autonomous proven self-improvement
+Known reversible repairs, regression tests, lessons/failure taxonomy, invocation of PROVEN skills, low-risk typed promotion through existing rollback/Benchmark gates and isolated candidate-skill construction.
+
+### DELEGATED YELLOW - scoped consequential grants
+Kevin may prepare autonomously. Execution requires a current narrowly scoped owner grant for external sends/calls/posts, account changes, system-wide/elevated installs, user-data changes outside approved roots, bookings, orders, checkout and purchases. Grants should be limited by action class, recipient/merchant/publisher, amount/scope, count/frequency, expiry, idempotency and receipt requirements.
+
+Pizza orders, Amazon checkout, voice calls, and public posting remain Delegated Yellow. The bottleneck is not the GREEN/YELLOW line. The bottleneck is that proven skills are not yet callable on HESS-PC.
+
+Never self-authorize arbitrary shell, credential access/exfiltration, safety/audit weakening, unbounded financial authority, automatic permission expansion or judge/benchmark weakening.
+
+## Capability waves after the invocation/renewable-work core
+
+1. **Self-reliance:** invocation, work supply, incident repair/resume, independent QA/reflection.
+2. **Self-learning:** Kevin-originated procedures -> Skill Lab -> proof -> repeated fresh invocation.
+3. **Web/computer fluency:** managed browser, Windows computer use, files/apps, reusable GUI composites, prompt-injection negative tests.
+4. **Communications:** HQ direct chat/mobile, Telegram/email workflows, scoped voice calling.
+5. **Apps/media/gaming:** autonomous app builds, image generation, qualified software downloads/installs, Minecraft player adapter and cooperative skills.
+6. **Transactions/errands:** research/cart preparation in GREEN; checkout/order only under Delegated Yellow with duplicate-effect protection.
+
+## Owner-value skill portfolio
+
+1. Dealer Recon - parts chase, reconditioning, lot readiness, transport and vehicle research.
+2. Vehicle Diagnostics - evidence-backed symptom/test/service-information/parts workflows.
+3. Home & Garage - maintenance, inventory, garden and project workflows.
+4. Appliance Repair - diagnostics, parts, market/pricing and owner-business workflows.
+5. Creator/App Factory - research, drafts, software, images and QA loops.
+6. Research Analyst - multi-source research, freshness, contradictions, provenance/confidence.
+7. Computer Operator - browser/Windows routines and GUI composites.
+8. Communications - HQ chat, Telegram/email, then scoped voice.
+9. Gaming - Minecraft as long-horizon perception/planning/recovery/collaboration benchmark.
+10. Errands/Commerce - GREEN research/preparation, Delegated-Yellow consequential execution.
+
+## Required autonomy metrics
+
+Track and trend:
+
+- verified owner outcomes / 24h and / 7d;
+- fresh PROVEN-skill invocations;
+- distinct skills repeatedly proven on new inputs;
+- self-repair success rate and median recovery time;
+- Bess/Grok interventions / 7d;
+- percentage of failures resolved without outside engineering;
+- objectives automatically resumed after repair;
+- autonomously selected work vs manually injected work;
+- productive vs blocked/idle/churn time;
+- GREEN vs Delegated-Yellow effects and why Yellow was needed;
+- maturity T0-T4/T5 by capability lane.
+
+## Stop / escalation rules
+
+- Do not claim source CI as HESS-PC runtime proof.
+- Do not claim a queue write or successful model turn as an owner outcome.
+- Do not reset valid history/budgets simply to create eligible work.
+- Do not manufacture Skill Lab/Forge churn to appear active.
+- Do not hard-code a healthy display over stale/bad truth.
+- Do not widen authority merely to pass a benchmark or produce activity.
+- Do not let Kevin silently redefine the benchmark/verifier/authority/audit system that judges Kevin.
+- For uncertain external effects, do not automatically retry without an idempotency/receipt decision.
+- When technology is ready but authority is blocked, prepare everything possible and surface the smallest scoped Delegated-Yellow grant Matt would need to give.
+
+## Continuation contract
+
+After every substantive transition, publish source/evidence so the canonical handover can advance. Keep repository/source truth separate from HESS-PC runtime truth. Local-only changes are unfinished.
+

@@ -355,7 +355,8 @@ def selftest() -> Dict[str, Any]:
             name = "note.md" if expected["operation"] == "create_text" else "board.xlsx"
             data = b"fictional verified artifact" + expected["operation"].encode()
             (artifacts / name).write_bytes(data)
-            record = {"schema": 1, "kind": "kevin-green-work-order", "id": expected["id"], "semantic_key": expected["semantic_key"], "authority": "GREEN", "operation": expected["operation"], "payload": next(o["payload"] for o in staged["orders"] if o["id"] == expected["id"]), "status": "DONE", "result": {"status": "DONE", "completed_at": now_iso(), "output_name": name, "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest().upper()}}
+            queued = read_json(ready / f'{expected["id"]}.json')
+            record = {"schema": 1, "kind": "kevin-green-work-order", "id": expected["id"], "semantic_key": expected["semantic_key"], "authority": "GREEN", "operation": expected["operation"], "payload": queued["payload"], "status": "DONE", "result": {"status": "DONE", "completed_at": now_iso(), "output_name": name, "bytes": len(data), "sha256": hashlib.sha256(data).hexdigest().upper()}}
             (done / f'{expected["id"]}.json').write_text(json.dumps(record), encoding="utf-8")
         out = reconcile(state, done, failed, receipt, artifacts)
         assert out["status"] == "PROVEN"
