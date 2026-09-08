@@ -1,0 +1,90 @@
+name: Autonomy Invocation Flywheel 20260908 Proof
+
+on:
+  pull_request:
+    paths:
+      - 'control-plane/autonomy/kevin-support-cron-truth-v1.py'
+      - 'control-plane/autonomy/kevin-proven-skill-request-builder-v1.py'
+      - 'control-plane/autonomy/kevin-proven-skill-invocation-v1.py'
+      - 'control-plane/autonomy/kevin-capability-router-v1.py'
+      - 'control-plane/autonomy/kevin-supervisor-v1.8.11.ps1'
+      - 'kevin-supervisor.ps1'
+      - 'docs/hq-evidence-adapter-v1.js'
+      - 'docs/hq-owner-console-v10.js'
+      - 'inbox/autonomy/work-items.json'
+      - 'tests/test_support_cron_truth_v1.py'
+      - 'tests/test_proven_skill_request_builder_v1.py'
+      - 'tools/test-kevin-capability-router-v1.py'
+      - '.github/workflows/autonomy-invocation-flywheel-20260908-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  flywheel-source-proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Compile and test cron truth + request builder + invocation + router
+        run: |
+          python -m py_compile control-plane/autonomy/kevin-support-cron-truth-v1.py control-plane/autonomy/kevin-proven-skill-request-builder-v1.py control-plane/autonomy/kevin-proven-skill-invocation-v1.py control-plane/autonomy/kevin-capability-router-v1.py
+          python -m unittest tests/test_support_cron_truth_v1.py tests/test_proven_skill_request_builder_v1.py tests/test_proven_skill_invocation_v1.py -v
+          python tools/test-kevin-capability-router-v1.py
+      - name: Supervisor v1.8.11 markers
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text = Path('kevin-supervisor.ps1').read_text(encoding='utf-8')
+          copy = Path('control-plane/autonomy/kevin-supervisor-v1.8.11.ps1').read_text(encoding='utf-8')
+          for token in [
+              'v1.8.11',
+              'ROUTED_TO_PROVEN_SKILL_INVOCATION',
+              'BLOCKED_INVOCATION_RUNTIME',
+              'required_skill_key',
+              'kevin-proven-skill-invoke-worker-v1.ps1',
+              'QUALIFY_AND_ENABLE_INVOCATION_RUNTIME',
+          ]:
+              assert token in text, token
+              assert token in copy, token
+          assert 'Write-JsonAtomic $SelectionPath $selectionRecord' in text
+          assert text.index('$selectionRecord = [ordered]@{') < text.index('if ($skillKeyOk)')
+          print('SUPERVISOR v1.8.11 MARKERS PASS')
+          PY
+      - name: HQ truth patches
+        run: |
+          node --check docs/hq-evidence-adapter-v1.js
+          node --check docs/hq-owner-console-v10.js
+          python tools/test-hq-v10.py
+          python - <<'PY'
+          from pathlib import Path
+          adapter = Path('docs/hq-evidence-adapter-v1.js').read_text(encoding='utf-8')
+          hq = Path('docs/hq-owner-console-v10.js').read_text(encoding='utf-8')
+          assert 'config_warnings' in adapter
+          assert 'support_ok_field_is_not_scheduler_health' in adapter or 'config_warnings' in adapter
+          assert 'BLOCKED_INVOCATION_RUNTIME' in hq
+          assert 'required_skill_key' in hq
+          print('HQ TRUTH PATCH PASS')
+          PY
+      - name: First owner-outcome work item is exact-skill bound
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          items = json.loads(Path('inbox/autonomy/work-items.json').read_text(encoding='utf-8'))['items']
+          match = [x for x in items if x.get('id') == 'owner-west-motor-parts-chase-fresh-8-v1']
+          assert len(match) == 1, match
+          item = match[0]
+          assert item['status'] == 'OPEN'
+          assert item['authority_class'] == 'GREEN'
+          assert item['required_skill_key'] == 'west-motor-parts-chase-board-pack@1'
+          assert item['program'] == 'capability-reuse'
+          assert len(item['owner_inputs']['vehicles']) == 8
+          print('OWNER OUTCOME WORK ITEM PASS')
+          PY

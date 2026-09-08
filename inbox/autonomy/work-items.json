@@ -4,6 +4,148 @@
   "safe_for_public_repo": true,
   "items": [
     {
+      "id": "owner-west-motor-parts-chase-fresh-8-v1",
+      "program": "capability-reuse",
+      "authority_class": "GREEN",
+      "status": "OPEN",
+      "lane": "production",
+      "work_type": "execution",
+      "priority": "high",
+      "severity": "high",
+      "owner_value": 5,
+      "required_skill_key": "west-motor-parts-chase-board-pack@1",
+      "required_capabilities": [
+        "kevin_proven_skill_invoke"
+      ],
+      "worker": "proven-skill-invocation",
+      "reuses_proven_capability": true,
+      "produces_owner_deliverable": true,
+      "closes_proof_gap": true,
+      "reduces_bess_intervention": true,
+      "near_acceptance": true,
+      "dependencies_ready": true,
+      "blocked": false,
+      "failure_attempts": 0,
+      "material_new_evidence": true,
+      "estimated_minutes": 20,
+      "acceptance_criteria": [
+        "Supervisor independently selects this OPEN GREEN WorkInstance because it names the exact PROVEN skill west-motor-parts-chase-board-pack@1.",
+        "Kevin invokes that skill on a fresh fictional 8-vehicle dataset rather than replaying Skill Lab qualification history.",
+        "Workbook includes priority, stock number, part/need, vendor/source, ordered date, ETA, blocker, owner, next action, and completion state.",
+        "Companion operating note is created beside the workbook.",
+        "PASS requires real artifacts + correlated DONE records + output hashes + immutable invocation receipt. Conversational claims do not count.",
+        "Stay GREEN: fictional example data only; no customer PII, credentials, purchases, public posting, or live financial effects."
+      ],
+      "next_action": "Qualify kevin_proven_skill_invoke on HESS-PC, then Supervisor routes this WorkInstance to the invocation worker with the bound fictional owner_inputs.",
+      "owner_inputs": {
+        "dataset": "fictional-eight-dealership-vehicles",
+        "vehicles": [
+          {
+            "priority": "HIGH",
+            "stock_number": "WM-EX-1001",
+            "part_need": "Driver-side mirror glass",
+            "vendor_source": "Example Auto Glass Co",
+            "ordered_date": "2026-09-03",
+            "eta": "2026-09-09",
+            "blocker": "Backorder",
+            "owner": "Recon",
+            "next_action": "Confirm ETA with example vendor",
+            "completion_state": "OPEN"
+          },
+          {
+            "priority": "HIGH",
+            "stock_number": "WM-EX-1002",
+            "part_need": "Rear brake pad set",
+            "vendor_source": "Example OEM Parts Desk",
+            "ordered_date": "2026-09-04",
+            "eta": "2026-09-08",
+            "blocker": "Awaiting delivery",
+            "owner": "Service",
+            "next_action": "Check dock in the morning",
+            "completion_state": "ORDERED"
+          },
+          {
+            "priority": "MED",
+            "stock_number": "WM-EX-1003",
+            "part_need": "Tailgate handle assembly",
+            "vendor_source": "Example Body Supply",
+            "ordered_date": "2026-09-02",
+            "eta": "2026-09-11",
+            "blocker": "Paint match pending",
+            "owner": "Body",
+            "next_action": "Hold install until color is confirmed",
+            "completion_state": "OPEN"
+          },
+          {
+            "priority": "MED",
+            "stock_number": "WM-EX-1004",
+            "part_need": "Cabin air filter",
+            "vendor_source": "Example Local Jobber",
+            "ordered_date": "2026-09-05",
+            "eta": "2026-09-06",
+            "blocker": "None",
+            "owner": "Detail",
+            "next_action": "Install on arrival",
+            "completion_state": "ORDERED"
+          },
+          {
+            "priority": "LOW",
+            "stock_number": "WM-EX-1005",
+            "part_need": "Wheel-lock key",
+            "vendor_source": "Example Dealer Stock",
+            "ordered_date": "2026-09-01",
+            "eta": "2026-09-07",
+            "blocker": "Internal transfer",
+            "owner": "Parts",
+            "next_action": "Pull from example shelf bin",
+            "completion_state": "OPEN"
+          },
+          {
+            "priority": "HIGH",
+            "stock_number": "WM-EX-1006",
+            "part_need": "Radiator upper hose",
+            "vendor_source": "Example Cooling Supply",
+            "ordered_date": "2026-09-04",
+            "eta": "2026-09-10",
+            "blocker": "Freight",
+            "owner": "Service",
+            "next_action": "Track example freight number",
+            "completion_state": "ORDERED"
+          },
+          {
+            "priority": "MED",
+            "stock_number": "WM-EX-1007",
+            "part_need": "Backup-camera pigtail",
+            "vendor_source": "Example Electrical",
+            "ordered_date": "2026-09-05",
+            "eta": "2026-09-12",
+            "blocker": "Special order",
+            "owner": "Electrical",
+            "next_action": "Call if not scanned by Friday",
+            "completion_state": "OPEN"
+          },
+          {
+            "priority": "LOW",
+            "stock_number": "WM-EX-1008",
+            "part_need": "Spare key fob battery",
+            "vendor_source": "Example Counter Stock",
+            "ordered_date": "2026-09-06",
+            "eta": "2026-09-06",
+            "blocker": "None",
+            "owner": "Delivery",
+            "next_action": "Install before example delivery rehearsal",
+            "completion_state": "RECEIVED"
+          }
+        ]
+      },
+      "evidence_pointers": [
+        "docs/engineering/KEVIN-PROVEN-SKILL-INVOCATION-v1.md",
+        "control-plane/autonomy/kevin-proven-skill-invocation-v1.py",
+        "reports/engineering/latest.json"
+      ],
+      "downstream_consumer": "FIRST_FRESH_OWNER_OUTCOME_AND_T3_INVOCATION_PROOF"
+    },
+    {
       "id": "owner-west-motor-transport-dispatch-template-v1",
       "program": "owner-value-skills",
       "authority_class": "GREEN",

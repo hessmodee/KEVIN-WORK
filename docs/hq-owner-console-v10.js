@@ -28,8 +28,10 @@ function fresh(obj,limit){const v=obj?.generated_at||obj?.at||obj?.updated_at;re
 function activeTask(t){return !!t&&!/(done|complete|completed|failed|stopped|idle|queued|wait|cooldown|yield|skip|cancel|reject)/i.test(String(t.phase||t.status||''))}
 function items(){return Array.isArray(cache.work?.items)?cache.work.items:[]}
 function openItems(){return items().filter(x=>!TERMINAL.has(String(x?.status||'').toUpperCase()))}
-function blockedItems(){return openItems().filter(x=>x?.blocked===true||x?.dependencies_ready===false||String(x?.status||'').toUpperCase()==='BLOCKED')}
-function eligibleItems(){return openItems().filter(x=>x?.blocked!==true&&x?.dependencies_ready!==false&&String(x?.status||'').toUpperCase()!=='BLOCKED'&&String(x?.authority_class||'GREEN').toUpperCase()==='GREEN')}
+function invocationRuntimeEffective(){return String(cache.continuation?.status||'').toUpperCase()==='ROUTED_TO_PROVEN_SKILL_INVOCATION'}
+function skillBound(x){return !!String(x?.required_skill_key||x?.proven_skill_key||'').trim()}
+function blockedItems(){return openItems().filter(x=>x?.blocked===true||x?.dependencies_ready===false||String(x?.status||'').toUpperCase()==='BLOCKED'||(skillBound(x)&&!invocationRuntimeEffective()))}
+function eligibleItems(){return openItems().filter(x=>x?.blocked!==true&&x?.dependencies_ready!==false&&String(x?.status||'').toUpperCase()!=='BLOCKED'&&String(x?.authority_class||'GREEN').toUpperCase()==='GREEN'&&!(skillBound(x)&&!invocationRuntimeEffective()))}
 function sortWork(xs){return [...xs].sort((a,b)=>(Number(b.owner_value||0)-Number(a.owner_value||0))||String(a.id||'').localeCompare(String(b.id||'')))}
 function supportFresh(){return fresh(cache.support,360)}
 function activeWorkers(){if(!supportFresh())return 0;return Object.values(cache.support?.active_workers||{}).reduce((n,v)=>n+(Number(v)||0),0)}
@@ -49,7 +51,7 @@ function executionTruth(){
   if(blocked>0)return{mode:'blocked',headline:`No executable work; ${blocked} item${blocked===1?' is':'s are'} blocked`,detail:'Kevin is not shown as working because no machine execution is proven.',task:null,workers:0,eligible,blocked};
   return{mode:'idle',headline:'Kevin is idle with no eligible governed work',detail:'No active task, worker, or eligible queue entry is proven.',task:null,workers:0,eligible,blocked};
 }
-function humanStatus(s){const x=String(s||'UNKNOWN').toUpperCase();if(x==='AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF')return'Attempt completed · no outcome proof';if(x==='WAITING_ITEM_BUDGETS')return'Waiting on bounded retry budget';if(x==='IDLE_NO_ELIGIBLE_DEMAND')return'No eligible demand';if(x==='ROUTED_TO_SKILL_LAB')return'Routed to Skill Lab';if(x==='ROUTED_TO_ENGINEERING_RELAY')return'Routed to Engineering';return x.replaceAll('_',' ')}
+function humanStatus(s){const x=String(s||'UNKNOWN').toUpperCase();if(x==='AGENT_TURN_COMPLETED_NOT_OUTCOME_PROOF')return'Attempt completed · no outcome proof';if(x==='WAITING_ITEM_BUDGETS')return'Waiting on bounded retry budget';if(x==='IDLE_NO_ELIGIBLE_DEMAND')return'No eligible demand';if(x==='ROUTED_TO_SKILL_LAB')return'Routed to Skill Lab';if(x==='ROUTED_TO_ENGINEERING_RELAY')return'Routed to Engineering';if(x==='ROUTED_TO_PROVEN_SKILL_INVOCATION')return'Routed to proven skill invocation';if(x==='BLOCKED_INVOCATION_RUNTIME')return'Invocation runtime not installed';return x.replaceAll('_',' ')}
 function serviceState(name){const s=String(cache.dashboard?.services?.[name]||'unknown').toLowerCase();return s==='healthy'?'ok':s==='unknown'?'':'bad'}
 function sourceBadge(name,obj,limit){const a=age(obj?.generated_at||obj?.at||obj?.updated_at);const ok=a<=limit;return`<span class="v10-source ${ok?'ok':'stale'}"><b>${esc(name)}</b> ${esc(ageText(a))}</span>`}
 function workName(x){return safeText(x?.title||x?.label||x?.id||'unnamed work',110).replace(/[-_]+/g,' ')}
