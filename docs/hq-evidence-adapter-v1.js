@@ -69,15 +69,34 @@ async function adaptSupport(url,init){
     rawJson(sibling(url,'reports/main-agent-canary-omen.json')).catch(()=>null)
   ]);
   body.hq_evidence_precedence=body.hq_evidence_precedence||{};
+  const rawCron=body.cron||{};
+  const warningOnly=(!Array.isArray(rawCron.jobs)||rawCron.jobs.length===0)&&/^config warnings?:/i.test(String(rawCron.error||''));
+  if(warningOnly){
+    body.config_warnings=String(rawCron.error||'');
+    body.cron_representation={
+      scheduler_ok:null,
+      config_warnings:body.config_warnings,
+      support_ok_field_is_not_scheduler_health:true,
+      evidence_source:'support.cron warning-only parse'
+    };
+  }
   if(healthyEngineeringCron(eng)){
     body.cron={
       ok:true,
       jobs:eng.action.cron,
       evidence_source:'reports/engineering/latest.json',
       evidence_at:eng.generated_at,
+      config_warnings:warningOnly?String(rawCron.error||''):undefined,
+      support_ok_field_is_not_scheduler_health:warningOnly,
       supersedes:'support cron parser output when it returns Config warnings without parsed jobs'
     };
     body.hq_evidence_precedence.cron='engineering/latest.json';
+    body.cron_representation={
+      scheduler_ok:true,
+      config_warnings:warningOnly?String(rawCron.error||''):'',
+      support_ok_field_is_not_scheduler_health:warningOnly,
+      evidence_source:'reports/engineering/latest.json'
+    };
   }
   if(exactFiveCanary(canary)){
     body.public_truth=body.public_truth||{};

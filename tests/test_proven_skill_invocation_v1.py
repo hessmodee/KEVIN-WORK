@@ -24,7 +24,8 @@ class ProvenSkillInvocationV1Tests(unittest.TestCase):
         self.ready = self.root / "reports" / "action-era" / "queue" / "ready"
         self.done = self.root / "reports" / "action-era" / "queue" / "done"
         self.failed = self.root / "reports" / "action-era" / "queue" / "failed"
-        for p in (self.registry_path.parent, self.proof_root, self.ready, self.done, self.failed):
+        self.artifacts = self.root / "reports" / "invocations" / "artifacts"
+        for p in (self.registry_path.parent, self.proof_root, self.ready, self.done, self.failed, self.artifacts):
             p.mkdir(parents=True, exist_ok=True)
 
         self.manifest = {
@@ -99,8 +100,19 @@ class ProvenSkillInvocationV1Tests(unittest.TestCase):
     def make_done(self, order_meta):
         ready_path = self.ready / f'{order_meta["id"]}.json'
         order = json.loads(ready_path.read_text(encoding="utf-8"))
+        name = order["payload"]["filename"]
+        data = b"fictional-verified-artifact:" + name.encode("utf-8")
+        artifact = self.artifacts / name
+        artifact.write_bytes(data)
+        digest = mod.sha256_file(artifact)
         order["status"] = "DONE"
-        order["result"] = {"status": "DONE", "completed_at": "2026-09-08T03:00:00Z", "output_name": order["payload"]["filename"], "sha256": "B" * 64, "bytes": 123}
+        order["result"] = {
+            "status": "DONE",
+            "completed_at": "2026-09-08T03:00:00Z",
+            "output_name": name,
+            "sha256": digest,
+            "bytes": len(data),
+        }
         self.write(self.done / ready_path.name, order)
 
     def test_stage_and_reconcile_fresh_run(self):
@@ -110,11 +122,12 @@ class ProvenSkillInvocationV1Tests(unittest.TestCase):
         self.assertTrue(all(x["id"].startswith("invoke-parts-board-fictional-8-001-") for x in state["orders"]))
         for order in state["orders"]:
             self.make_done(order)
-        receipt = mod.reconcile(self.state_path, self.done, self.failed, self.receipt_path)
+        receipt = mod.reconcile(self.state_path, self.done, self.failed, self.receipt_path, self.artifacts)
         self.assertEqual("PROVEN", receipt["status"])
         self.assertEqual(self.registry["skills"][0]["manifest_sha256"], receipt["proven_identity"]["manifest_sha256"])
         self.assertEqual(self.registry["skills"][0]["proof_sha256"], receipt["proven_identity"]["proof_sha256"])
         self.assertRegex(receipt["receipt_sha256"], r"^[A-F0-9]{64}$")
+        self.assertTrue(all(r["verified_sha256"] == r["sha256"] for r in receipt["step_results"]))
 
     def test_same_invocation_is_idempotent(self):
         first = self.stage()
@@ -172,7 +185,7 @@ class ProvenSkillInvocationV1Tests(unittest.TestCase):
         tampered["payload"]["filename"] = "tampered.xlsx"
         self.write(target, tampered)
         with self.assertRaisesRegex(mod.InvocationError, "FINAL_ORDER_CORRELATION_MISMATCH"):
-            mod.reconcile(self.state_path, self.done, self.failed, self.receipt_path)
+            mod.reconcile(self.state_path, self.done, self.failed, self.receipt_path, self.artifacts)
 
 
 if __name__ == "__main__":
