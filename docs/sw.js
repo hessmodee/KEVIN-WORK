@@ -1,12 +1,13 @@
-/* Kevin HQ resilient app shell v6
+/* Kevin HQ resilient app shell v7
  * Scope: GitHub Pages /KEVIN-WORK/
  * Public static assets + sanitized public telemetry only.
  * Network remains authoritative; cache is outage fallback, never proof of freshness.
- * Historical proof compatibility marker only: kevin-hq-shell-v4
+ * Historical proof compatibility marker only: kevin-hq-shell-v4, kevin-hq-shell-v6
+ * v7 drops retired V8 painters from the shell cache so the dual-stack fight cannot revive offline.
  */
 'use strict';
 
-const VERSION='kevin-hq-shell-v6';
+const VERSION='kevin-hq-shell-v7';
 const SHELL_CACHE=`${VERSION}-static`;
 const DATA_CACHE=`${VERSION}-public-data`;
 const BASE='/KEVIN-WORK/';
@@ -17,13 +18,6 @@ const SHELL=[
   `${BASE}hq-evidence-adapter-v1.js`,
   `${BASE}hq-overrides-v1.js`,
   `${BASE}hq-owner-console-v10.js`,
-  // Retired V8 files remain cached for rollback/offline proof compatibility only.
-  // index.html does not execute them.
-  `${BASE}hq-truth-v2.js`,
-  `${BASE}hq-owner-refinement-v3.js`,
-  `${BASE}hq-growth-v1.js`,
-  `${BASE}hq-ground-truth-v8.js`,
-  `${BASE}hq-repair-v9.js`,
   `${BASE}ops/index.html`,
   `${BASE}ops/embed.html`,
   `${BASE}ops/app.js`,
