@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Kevin Work Admission v1: Work Supply -> Selector -> Capability Router.
+"""Kevin Work Admission v1.1: Work Supply -> Selector -> Capability Router.
 
 Authority effect: NONE. Plans dispatch only; does not execute, install Desktop,
-or widen Relay beyond typed operations.
+or widen Relay beyond typed operations. v1.1 can pass an immutable composite
+skill registry into the router so an exact WorkInstance skill requirement can
+resolve into the separately qualified Proven Skill Invocation lane.
 """
 from __future__ import annotations
 
@@ -61,30 +63,23 @@ def admit(
     selector_path: Path,
     supply_path: Path,
     router_path: Path,
+    skill_registry: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     supply = load_mod("supply", supply_path)
     selector = load_mod("selector", selector_path)
     router = load_mod("router", router_path)
 
-    merged, supply_state = supply.build_supply(
-        items, catalog, inventory, support, engineering, autonomy, skills, now
-    )
-    # Normalize skill-lab lane WIP into staging bucket for selector contract.
+    merged, supply_state = supply.build_supply(items, catalog, inventory, support, engineering, autonomy, skills, now)
     wip_state = json.loads(json.dumps(state))
     wip = wip_state.setdefault("wip", {})
     for lane in ("production", "staging", "research"):
         wip.setdefault(lane, 0)
-    # Map skill-lab -> staging for WIP accounting without inventing a fourth live Supervisor WIP key.
-    for it in merged.get("items") or []:
-        if str(it.get("lane", "")).lower() in {"skill-lab", "skill_lab"}:
-            it = it  # selector v1.2 accepts skill-lab; v1.1 would unknown-lane.
 
     selection = selector.select(programs, merged, wip_state, families, now)
-    routing = router.route_selection(selection, merged, inventory)
+    routing = router.route_selection(selection, merged, inventory, skill_registry or {})
 
-    # Compose truth: Supervisor NO_ELIGIBLE must not erase Skill Lab demand.
     truth = supply_state.get("truth_state")
-    if routing.get("skill_lab_ready_ids"):
+    if routing.get("skill_lab_ready_ids") or routing.get("proven_invocation_ready_ids"):
         truth = "ELIGIBLE_WORK"
     elif routing.get("truth_state") == "BLOCKED_WORK_PRESENT" or supply_state.get("blocked_count", 0):
         if truth == "TRUE_IDLE":
@@ -94,6 +89,8 @@ def admit(
     supervisor_action = "IDLE_CHECK_ONLY"
     if dispatch == "ROUTE_TO_FIXED_MAIN":
         supervisor_action = "DISPATCH_FIXED_MAIN"
+    elif dispatch == "ROUTE_TO_PROVEN_SKILL_INVOCATION":
+        supervisor_action = "DEFER_TO_PROVEN_SKILL_INVOCATION_DO_NOT_CALL_MAIN"
     elif dispatch == "ROUTE_TO_SKILL_LAB":
         supervisor_action = "DEFER_TO_SKILL_LAB_DO_NOT_CALL_MAIN"
     elif dispatch == "ROUTE_TO_ENGINEERING_RELAY":
@@ -106,7 +103,7 @@ def admit(
     out = {
         "schema": 1,
         "kind": "kevin-work-admission-state",
-        "version": "1.0.0",
+        "version": "1.1.0",
         "at": now.isoformat().replace("+00:00", "Z"),
         "authority_effect": "NONE_ADMISSION_ONLY",
         "truth_state": truth,
@@ -129,28 +126,30 @@ def admit(
         "supervisor_action": supervisor_action,
         "invariants": {
             "no_desktop_to_toolless_main": True,
-            "no_skill_lab_to_fixed_main": supervisor_action != "DISPATCH_FIXED_MAIN"
-            or (routing.get("route") or {}).get("worker") == "fixed:main",
+            "no_skill_lab_to_fixed_main": supervisor_action != "DISPATCH_FIXED_MAIN" or (routing.get("route") or {}).get("worker") == "fixed:main",
+            "no_proven_invocation_to_fixed_main": supervisor_action != "DISPATCH_FIXED_MAIN" or (routing.get("route") or {}).get("worker") != "proven-skill-invocation",
             "supervisor_idle_does_not_erase_skill_lab": True,
+            "supervisor_idle_does_not_erase_proven_invocation": True,
+            "exact_skill_identity_required": True,
             "no_work_invention": True,
             "relay_arbitrary_shell": False,
             "desktop_production_install": False,
         },
         "work_items_supplied": merged,
     }
-    # Strengthen skill-lab invariant explicitly.
     route = routing.get("route") or {}
     if route.get("worker") == "skill-lab":
         out["invariants"]["no_skill_lab_to_fixed_main"] = supervisor_action == "DEFER_TO_SKILL_LAB_DO_NOT_CALL_MAIN"
         assert supervisor_action == "DEFER_TO_SKILL_LAB_DO_NOT_CALL_MAIN"
+    if route.get("worker") == "proven-skill-invocation":
+        if route.get("dispatch") == "ROUTE_TO_PROVEN_SKILL_INVOCATION":
+            assert supervisor_action == "DEFER_TO_PROVEN_SKILL_INVOCATION_DO_NOT_CALL_MAIN"
+        assert route.get("forbid_fixed_main") is True
     if route.get("forbid_fixed_main") and supervisor_action == "DISPATCH_FIXED_MAIN":
         raise AssertionError("admission attempted fixed:main dispatch for forbid_fixed_main route")
 
     material = {k: v for k, v in out.items() if k not in {"at", "fingerprint", "work_items_supplied"}}
-    # Include selected id + dispatch in fingerprint material only.
-    out["fingerprint"] = hashlib.sha256(
-        json.dumps(material, sort_keys=True, separators=(",", ":"), default=str).encode()
-    ).hexdigest().upper()
+    out["fingerprint"] = hashlib.sha256(json.dumps(material, sort_keys=True, separators=(",", ":"), default=str).encode()).hexdigest().upper()
     return out
 
 
@@ -166,6 +165,7 @@ def main() -> int:
     ap.add_argument("--engineering", default="")
     ap.add_argument("--autonomy", default="")
     ap.add_argument("--skills-dir", default="")
+    ap.add_argument("--skill-registry", default="")
     ap.add_argument("--now", default="")
     ap.add_argument("--selector", default=str(HERE / "kevin-work-selector-v1.2.py"))
     ap.add_argument("--supply", default=str(HERE / "kevin-work-supply-v1.py"))
@@ -193,6 +193,7 @@ def main() -> int:
         Path(args.selector),
         Path(args.supply),
         Path(args.router),
+        skill_registry=load_json(args.skill_registry, {}) if args.skill_registry else {},
     )
     if args.output_items:
         write_json(args.output_items, result.get("work_items_supplied"))
