@@ -843,13 +843,41 @@ async function fetchSupport(){
   return r.json();
 }
 
+window.__kevinCoreV7 = window.__kevinCoreV7 || {};
+window.__kevinCoreV7.stopAutonomousPaint = function(){
+  if(window.__kevinCoreV7.loadTimer){
+    clearInterval(window.__kevinCoreV7.loadTimer);
+    window.__kevinCoreV7.loadTimer = 0;
+  }
+  if(typeof nwTimer !== "undefined" && nwTimer){
+    clearInterval(nwTimer);
+    nwTimer = 0;
+  }
+  window.__kevinCoreV7.yielded = true;
+};
+function coreOwnedByV10(){
+  try{
+    return !!(window.parent && window.parent !== window && window.parent.__kevinOwnerConsoleV10);
+  }catch(_e){
+    return false;
+  }
+}
 async function load(){
+ if(window.__kevinCoreV7?.yielded || coreOwnedByV10()){
+  window.__kevinCoreV7.stopAutonomousPaint();
+  return;
+ }
  try{
   const pair=await Promise.all([fetchState(),fetchExternalNewswire().catch(()=>null),fetchSupport().catch(()=>null)]);
+  if(window.__kevinCoreV7?.yielded || coreOwnedByV10()){
+    window.__kevinCoreV7.stopAutonomousPaint();
+    return;
+  }
   S=pair[0];if(pair[1])EXT_NEWS=pair[1];if(pair[2])HQ_SUPPORT=pair[2];
   renderNav();
   draw();
  }catch(e){
+  if(window.__kevinCoreV7?.yielded || coreOwnedByV10())return;
   if(S){
    renderNav();
    draw();
@@ -865,11 +893,17 @@ addEventListener("message",e=>{
  if(frame&&Number.isFinite(h)&&h>400&&h<3000)frame.style.height=Math.ceil(h)+"px";
 });
 addEventListener("hashchange",()=>{
+ if(window.__kevinCoreV7?.yielded || coreOwnedByV10())return;
  const next=(location.hash||"#overview").slice(1);
  if(!TABS.some(x=>x[0]===next)||next===tab)return;
  tab=next;renderNav();draw();
 });
-load();setInterval(load,15000);
+if(coreOwnedByV10()){
+  window.__kevinCoreV7.stopAutonomousPaint();
+}else{
+  load();
+  window.__kevinCoreV7.loadTimer = setInterval(load, 15000);
+}
 </script>
 </body>
 </html>
