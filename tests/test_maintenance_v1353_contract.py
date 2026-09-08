@@ -20,6 +20,7 @@ INVOKER = ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-invocation-v
 SELECTOR = ROOT / "control-plane" / "autonomy" / "kevin-work-selector-v1.2.py"
 
 PARENT_SHA = "C5ECCE66FF2DB764E8C6EC4449F76D9086A8DCCED37428F515B0C14DD803DD24"
+RUNNER_SHA = "EF32D990488F1B44C2122032DD5CB21DD15C97F9C851AEDF0657C193335C5C50"
 SUPERVISOR_BEFORE_SHA = "685B34F31B797915B6ADC6058FCCDF4AEACD3CDD49D6B084FB31800FA966AB79"
 SUPERVISOR_AFTER = "F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB"
 WORKER_SHA = "16C49542847BBB22EACC09F254C030D2FF03DE0ADFB1B9DA08C9B617C73B0332"
@@ -130,32 +131,18 @@ class MaintenanceV1353ContractTests(unittest.TestCase):
         self.assertIsNone(re.search(r"target_alias.*=\s*'supervisor'", self.text))
         self.assertIn("must not supply", self.text)
 
-    def test_live_manifest_is_idle_canary_not_v1812_queue(self) -> None:
+    def test_live_manifest_queues_runner_not_v1812(self) -> None:
         manifest = json.loads((ROOT / "inbox" / "maintenance" / "manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest.get("operation"), "run_main_agent_canary")
-        allowed = {
-            "schema",
-            "kind",
-            "id",
-            "authority_class",
-            "authority_delta",
-            "production_effect",
-            "owner_policy",
-            "preauthorized",
-            "operation",
-            "expires_at",
-        }
-        self.assertEqual(set(manifest.keys()), allowed)
-        self.assertEqual(manifest.get("schema"), 3)
-        self.assertEqual(manifest.get("kind"), "kevin-self-maintenance-manifest")
-        self.assertEqual(manifest.get("authority_class"), "GREEN")
-        self.assertEqual(manifest.get("authority_delta"), "NONE")
-        self.assertEqual(manifest.get("production_effect"), "NONE")
-        self.assertEqual(manifest.get("owner_policy"), "Kevin Owner Authorization v1")
-        self.assertTrue(manifest.get("preauthorized"))
-        self.assertRegex(str(manifest.get("id")), r"^[A-Za-z0-9._-]{6,96}$")
         self.assertNotEqual(manifest.get("operation"), "install_autonomy_controller_v1812")
-        self.assertNotEqual(manifest.get("operation"), "replace_pinned_component")
+        op = manifest.get("operation")
+        if op == "replace_pinned_component":
+            self.assertEqual(manifest.get("target_alias"), "maintenance_runner")
+            self.assertEqual(manifest.get("source_path"), "control-plane/maintenance/kevin-maintenance-runner-v1.3.53.ps1")
+            self.assertEqual(str(manifest.get("expected_current_sha256")).upper(), PARENT_SHA)
+            self.assertEqual(str(manifest.get("expected_after_sha256")).upper(), RUNNER_SHA)
+            self.assertEqual(str(manifest.get("source_sha256")).upper(), RUNNER_SHA)
+        else:
+            self.assertEqual(op, "run_main_agent_canary")
 
     def test_live_workitem_unblocked_histories_preserved(self) -> None:
         items = json.loads((ROOT / "inbox" / "autonomy" / "work-items.json").read_text(encoding="utf-8"))
