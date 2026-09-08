@@ -2,7 +2,7 @@
 
 > **THIS IS THE ONE CURRENT HANDOVER FOR KEVIN.** Do not create a competing dated handover. Update the source task/evidence and let the canonical handover refresh replace stale state.
 
-**Semantic checkpoint evidence through:** 2026-09-08T09:57:26.6031734-06:00  
+**Semantic checkpoint evidence through:** 2026-09-08T10:13:26.7394139-06:00  
 **Canonical repository:** `hessmodee/KEVIN-WORK` / `main`  
 **Machine twin:** `reports/handoff-latest.json` (not a second authority)
 
@@ -29,11 +29,11 @@ If an agent cannot access one route, use another. Matt should never need to reco
 
 ## Automatic semantic snapshot
 
-- Engineering evidence at checkpoint: `2026-09-08T09:57:26.6031734-06:00`
-- Support evidence at checkpoint: `2026-09-08T09:57:19.0261598-06:00`
-- Autonomy evidence at checkpoint: `2026-09-08T09:56:10.2349722-06:00`
+- Engineering evidence at checkpoint: `2026-09-08T10:13:26.7394139-06:00`
+- Support evidence at checkpoint: `2026-09-08T10:00:18.9081910-06:00`
+- Autonomy evidence at checkpoint: `2026-09-08T10:11:10.9850720-06:00`
 - Benchmark: **PASS — 30/30, critical 0**
-- UI Bridge health at checkpoint: **FRESH** (age then: 3.7 seconds)
+- UI Bridge health at checkpoint: **FRESH** (age then: 4.2 seconds)
 - Maintenance: **ALREADY_APPLIED_PROVEN** — Maintenance previously proven.
 - Supervisor last result: **NO_ELIGIBLE_MISSION**
 - Proven composite skills: **27**
@@ -51,8 +51,8 @@ The block below is pulled from `inbox/CURRENT_TASK.md`. That file is an executio
 
 # CURRENT_TASK
 
-**Updated:** 2026-09-08 09:52 MT  
-**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**. Proven Skill Invocation v1 remains the production-skill milestone. Maintenance v1.3.52 source is on `main` (PR 157). The immediate gate is the typed `replace_pinned_component` of the Maintenance runner so HESS-PC can then run `install_autonomy_controller_v1811`. GitHub source is not machine proof.
+**Updated:** 2026-09-08 10:10 MT  
+**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**. Proven Skill Invocation v1 remains the production-skill milestone. Maintenance v1.3.52 is **installed** on HESS-PC (Support hash `C5ECCE66…` + typed `ALREADY_APPLIED_PROVEN` for `grok-install-maint-v1352-20260908-1555`). The immediate gate is GREEN `install_autonomy_controller_v1811` so Supervisor v1.8.11 and the invocation worker can land. A queued manifest is not machine proof.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
 
@@ -76,22 +76,22 @@ Target maturity is **T4 for routine bounded work**: Kevin detects the need, reso
 
 ## Current live platform truth
 
-- Maintenance v1.3.51 is already installed/proven on HESS-PC. Support reports installed Maintenance hash `2D7F65C97A2934E7C34FEFF86BD317E84D0E73D6CABD9AC1D99DF0FF32448EAD` and status `ALREADY_APPLIED_PROVEN`. Do not repeat the retired v1.3.50 -> v1.3.51 installation mission.
-- Supervisor **installed** identity remains v1.8.10 / hash `BDA265ACCB929EC5129B2F38AC76FE276625A604052304FC32C917700BCB532E`. Supervisor **v1.8.11 is source-only** until Maintenance v1.3.52 is installed and `install_autonomy_controller_v1811` independently proves the crossing.
-- Fresh Benchmark remains PASS 30/30, critical 0 (Engineering 2026-09-08T09:27:44-06:00).
+- Maintenance v1.3.52 is installed/proven on HESS-PC. Support 2026-09-08T10:00:18-06:00 hashes workspace `kevin-maintenance-runner.ps1` as `C5ECCE66FF2DB764E8C6EC4449F76D9086A8DCCED37428F515B0C14DD803DD24`. Typed Maintenance latest for id `grok-install-maint-v1352-20260908-1555` is `ALREADY_APPLIED_PROVEN` / "Maintenance previously proven." That is the post-apply attempt-ledger short-circuit after a successful first apply of this new id, not a false success of the retired 1.3.51 canary. Do not repeat the v1.3.51 -> v1.3.52 runner install.
+- Support file hash and typed apply receipt are different signals. The hash is the installed workspace runner identity. The receipt is the per-manifest attempt ledger. Both now agree on v1.3.52.
+- Supervisor **installed** identity remains v1.8.10 / hash `BDA265ACCB929EC5129B2F38AC76FE276625A604052304FC32C917700BCB532E`. Supervisor **v1.8.11 is still source-only** until `install_autonomy_controller_v1811` independently proves the crossing (expected-after `685B34F3…`) plus the canonical invocation worker `16C49542…`.
+- Fresh Benchmark remains PASS 30/30, critical 0 (Support/Engineering 2026-09-08T09:57:43-06:00).
 - Fresh Engineering telemetry reports the six canonical scheduler lanes enabled, `last_status=ok`, `consecutive_errors=0`.
-- Support's legacy aggregate `cron.ok=false` still publishes `Config warnings:` on the machine. Source now separates that warning from scheduler health (`kevin-support-cron-truth-v1.py` + HQ adapter). Do not treat the Support field as lane failure, and do not claim the HESS-PC Support publisher is repaired until a fresh snapshot proves it.
+- Support's legacy aggregate `cron.ok=false` still publishes `Config warnings:` on the machine. Source already separates that warning from scheduler health (`kevin-support-cron-truth-v1.py` + HQ adapter). Do not treat the Support field as lane failure, and do not claim the HESS-PC Support publisher is repaired until a fresh snapshot proves it.
 - UI Bridge heartbeat remains fresh in current Engineering evidence.
 - 27 composite skills are PROVEN; latest proven is `west-motor-parts-chase-board-pack@1`.
-- Supervisor last published result remains `NO_ELIGIBLE_MISSION` / continuation `WAITING_ITEM_BUDGETS`. That is Supervisor-lane idle, not global true idle.
-- Engineering request `grok-flywheel-status-20260908-1505` was seen (`DUPLICATE_IGNORED` on the latest snapshot). A processed `action_status` is observation, not invocation proof.
-- Maintenance v1.3.52 source is on `main` (PR 157). Candidate runner LF hash `C5ECCE66FF2DB764E8C6EC4449F76D9086A8DCCED37428F515B0C14DD803DD24`. Not yet installed. The queued GREEN crossing is `replace_pinned_component` / `maintenance_runner` id `grok-install-maint-v1352-20260908-1555`.
-- WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` is OPEN/GREEN with fictional 8-vehicle inputs, held `blocked=true` so installed v1.8.10 cannot charge tool-less `fixed:main`. Unblock only after invocation runtime is independently effective.
+- Supervisor last published result remains `NO_ELIGIBLE_MISSION` / continuation `WAITING_ITEM_BUDGETS` / version `1.8.10`. That is Supervisor-lane idle, not global true idle.
+- Engineering request `grok-flywheel-status-20260908-1505` was seen (`DUPLICATE_IGNORED`). A processed `action_status` is observation, not invocation proof. Fresh request `grok-flywheel-status-20260908-1625` is queued so the next snapshot is not a duplicate ignore.
+- The live GREEN Maintenance crossing is now `install_autonomy_controller_v1811` id `grok-install-v1811-20260908-1625` with no extra properties. Queueing is not installation.
+- WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` is OPEN/GREEN with fictional 8-vehicle inputs, held `blocked=true` so installed v1.8.10 cannot charge tool-less `fixed:main`. Unblock only after invocation runtime is independently effective (Supervisor hash `685B34F3…` and/or continuation `ROUTED_TO_PROVEN_SKILL_INVOCATION` / worker present). The existing 1 burned turn stays inside the typical 3-turn budget; do not reset history.
 
 ## Source-side this turn — not yet HESS-PC proven
 
-- Maintenance v1.3.52 is a thin v1.3.51 wrapper that adds only `install_autonomy_controller_v1811`. It pins Supervisor `BDA265AC…` -> `685B34F3…`, copies the canonical invocation worker `16C49542…`, and preserves Benchmark 30/30 / histories.
-- Ladder: merge this source -> `replace_pinned_component` maintenance_runner 1.3.51 -> 1.3.52 -> then `install_autonomy_controller_v1811`. Do not skip a rung.
+- `install_autonomy_controller_v1811` is now on the live Maintenance slot because the v1.3.52 runner is independently installed. v1.3.52 intercepts this verb, copies Supervisor v1.8.11, selector v1.2 if needed, the canonical worker, and the two Python files, rewrites the Benchmark supervisor pin, requires selftest markers `proven_skill_before_skill_lab=true invocation_not_main=true`, requires fresh Benchmark 30/30, rolls back on failure, and preserves continuation history / work-items / leases.
 - Supervisor v1.8.11 routes exact `required_skill_key` to the invocation worker before Skill Lab / fixed:main, and publishes `BLOCKED_INVOCATION_RUNTIME` instead of fake idle when the worker is missing.
 - HQ no longer treats Support `cron.ok=false` warning-only parses as scheduler failure, and treats skill-bound work as BLOCKED until invocation runtime is independently effective.
 
@@ -101,9 +101,9 @@ Target maturity is **T4 for routine bounded work**: Kevin detects the need, reso
 
 The highest-priority execution sequence, and the current live platform repair targets, are:
 
-### 1. Typed Maintenance v1.3.52 then HESS-PC Proven Skill Invocation runtime qualification — NOW
+### 1. HESS-PC Proven Skill Invocation runtime qualification — NOW
 
-Land Maintenance v1.3.52 on `main`, install that runner through `replace_pinned_component`, then run `install_autonomy_controller_v1811`. Prove the typed runtime capability `kevin_proven_skill_invoke` is independently effective on HESS-PC. Source CI is not machine proof. Qualification must show the runtime worker consumes the staged GREEN work orders, uses only the invocation allowlist, and publishes correlated DONE/FAILED evidence.
+Run the already-queued GREEN `install_autonomy_controller_v1811`. Prove the typed runtime capability `kevin_proven_skill_invoke` is independently effective on HESS-PC. Source CI is not machine proof. Qualification must show Support supervisor hash `685B34F3…`, worker present, fresh Benchmark 30/30, and that the runtime worker consumes staged GREEN work orders, uses only the invocation allowlist, and publishes correlated DONE/FAILED evidence. A queued manifest, CI pass, or HQ label is not that proof.
 
 ### 2. First fresh production-skill acceptance test — NEXT
 
@@ -143,8 +143,7 @@ This loop is the primary mechanism for reducing Bess/Grok intervention over time
 
 ## Do not
 
-- Repeat Maintenance v1.3.51 installation.
-- Queue `install_autonomy_controller_v1811` while v1.3.51 is still the installed runner.
+- Repeat Maintenance v1.3.51 or v1.3.52 runner installation.
 - Reset histories or work budgets.
 - Recreate already-PROVEN skills.
 - Retry disproven Forge migration work.
@@ -265,6 +264,6 @@ Never infer a higher state from a lower one. Never widen authority merely to mak
 
 This handover is generated by `.github/scripts/build-canonical-handover.py` and refreshed by `.github/workflows/canonical-handover.yml`.
 
-Semantic fingerprint: `30B56E936BE34D84CF5A11505E5AA050AE3AB1EE4074CF618F5A77E0C80F9F3F`
+Semantic fingerprint: `A472ED2DB523AAC473162E42678A62CD0E9BBDEA3D23446F6923135CFD68CE95`
 
 **Fresh runtime evidence first; one handover; publish every durable local change; then continue.**
