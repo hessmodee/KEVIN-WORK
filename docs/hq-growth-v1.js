@@ -21,7 +21,7 @@ const EXPECTED_STANDING=new Set([
   'owner-value-opportunity-scan-v1'
 ]);
 let core=null,doc=null,bound=null,busy=false,taskMd='',catalog=null,policy=null,work=null,pending=false;
-const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[m]));
 async function text(path){const r=await fetch(`${RAW}${path}?hqg=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw Error(path);return r.text()}
 async function json(path){const r=await fetch(`${RAW}${path}?hqg=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw Error(path);return r.json()}
 function clean(v){return String(v||'').replace(/\*\*/g,'').replace(/`/g,'').trim()}
@@ -47,7 +47,23 @@ function section(needle,limit=12){
   }
   return out;
 }
+function subsectionHeadings(needle,limit=12){
+  const lines=String(taskMd||'').split(/\r?\n/);let on=false,out=[];
+  for(const raw of lines){
+    const line=raw.trim();
+    if(/^##\s+/.test(line)){
+      if(on)break;
+      on=line.toLowerCase().includes(String(needle).toLowerCase());
+      continue;
+    }
+    if(!on)continue;
+    const m=line.match(/^###\s+\d+\.\s+(.+)$/);
+    if(m){out.push([clean(m[1]).replace(/[.:;]+$/,''),'']);if(out.length>=limit)break}
+  }
+  return out;
+}
 function sectionAny(needles,limit=12){for(const needle of needles){const rows=section(needle,limit);if(rows.length)return rows}return[]}
+function priorityRows(){const current=subsectionHeadings('highest-priority execution sequence',8);return current.length?current:section('current live platform repair targets',8)}
 function styles(){
   if(!doc||doc.getElementById('hqGrowthV1Style'))return;
   const st=doc.createElement('style');st.id='hqGrowthV1Style';st.textContent=`
@@ -60,7 +76,7 @@ function cardByKey(key){
   return [...page.querySelectorAll('.v3card')].find(c=>String(c.querySelector('.v3head .k')?.textContent||'').trim().toUpperCase()===key)||null;
 }
 function rewritePriorities(){
-  const rows=sectionAny(['highest-priority execution sequence','current live platform repair targets'],8);if(!rows.length)return;
+  const rows=priorityRows();if(!rows.length)return;
   const card=cardByKey('NEXT');if(!card)return;
   card.querySelectorAll(':scope>.v3row').forEach(x=>x.remove());
   card.insertAdjacentHTML('beforeend',rows.map((x,i)=>`<div class="v3row"><i>${i+1}</i><div><b>${esc(x[0])}</b>${x[1]?`<div class="h">${esc(x[1])}</div>`:''}</div></div>`).join(''));
