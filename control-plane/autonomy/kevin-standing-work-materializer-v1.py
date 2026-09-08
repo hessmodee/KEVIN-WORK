@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 UTC=dt.timezone.utc
 ID_RE=re.compile(r"^[a-z0-9][a-z0-9._-]{2,96}$")
+SKILL_KEY_RE=re.compile(r"^[A-Za-z0-9._-]{4,80}@[A-Za-z0-9._-]{1,32}$")
 ALLOWED_SELECTOR_LANES={"production","staging","research","skill-lab"}
 LANE_MAP={"guardian":"research"}
 class ContractError(ValueError): pass
@@ -52,6 +53,9 @@ def materialize(catalog,current,now,max_new=8):
         require(bool(ID_RE.fullmatch(parent)),f"standing id invalid: {parent}")
         effects=set(map(str,raw.get("effects") or []))
         if effects & deny: raise ContractError(f"standing item {parent} contains protected effect")
+        skill_key=str(raw.get("required_skill_key","") or "").strip()
+        if skill_key:
+            require(bool(SKILL_KEY_RE.fullmatch(skill_key)),f"{parent}: required_skill_key invalid")
         trigger=raw.get("trigger") or {}
         trigger_kind=str(trigger.get("kind",""))
         if trigger_kind!="always":
@@ -87,6 +91,8 @@ def materialize(catalog,current,now,max_new=8):
           "next_action":str(raw.get("next_action","")),"standing_trigger":trigger,
           "standing_recurrence":recurrence,"downstream_consumer":"KEVIN_STANDING_PROGRAM_AND_OWNER_VALUE_PORTFOLIO"
         }
+        if skill_key:
+            item["required_skill_key"]=skill_key
         require(item["next_action"],f"{parent}: next_action required")
         emitted.append(item); seen.add(iid)
     out=dict(current); out["items"]=existing+emitted
@@ -99,6 +105,7 @@ def selftest():
       "policy":{"never_auto_authorize":["arbitrary_shell","purchase","credential_access","external_send"]},
       "standing_work":[{"id":"platform-self-heal-watch-v1","program":"self-heal","lane":"guardian",
       "work_type":"verification","owner_value":5,"worker":"guardian","required_capabilities":["kevin_system_status"],
+      "required_skill_key":"west-motor-parts-chase-board-pack@1",
       "effects":[],"trigger":{"kind":"always"},"recurrence":{"kind":"interval_hours","hours":2},
       "acceptance_criteria":["Inspect fresh runtime truth."],"next_action":"Inspect runtime truth."}]}
     cur={"schema":1,"kind":"kevin-work-items","items":[{"id":"existing-owner-item","status":"OPEN"}]}
@@ -108,6 +115,7 @@ def selftest():
     n=a["items"][1]
     require(n["id"]=="platform-self-heal-watch-v1--slot-20260907t1800z","slot mismatch")
     require(n["lane"]=="research" and n["source_lane"]=="guardian","lane mapping failed")
+    require(n["required_skill_key"]=="west-motor-parts-chase-board-pack@1","exact skill key not preserved")
     require(a["items"][0]["id"]=="existing-owner-item","existing work changed")
     b=materialize(cat,a,parse_time("2026-09-07T19:59:59Z"))
     require(len(b["items"])==2 and b["materialization"]["new_count"]==0,"same slot duplicated")
@@ -117,10 +125,14 @@ def selftest():
     try: materialize(bad,cur,t)
     except ContractError: pass
     else: raise AssertionError("protected effect materialized")
+    badkey=json.loads(json.dumps(cat)); badkey["standing_work"][0]["required_skill_key"]="fuzzy skill maybe"
+    try: materialize(badkey,cur,t)
+    except ContractError: pass
+    else: raise AssertionError("invalid skill key materialized")
     ev=json.loads(json.dumps(cat)); ev["standing_work"][0]["trigger"]={"kind":"report_stale"}
     d=materialize(ev,cur,t)
     require(d["materialization"]["new_count"]==0,"evidence trigger did not fail closed")
-    print("KEVIN STANDING WORK MATERIALIZER v1 SELFTEST PASS recurrence_slots=true history_preserved=true protected_effects=blocked guardian_safe_lane=true evidence_triggers=fail_closed authority_effect=none")
+    print("KEVIN STANDING WORK MATERIALIZER v1 SELFTEST PASS recurrence_slots=true history_preserved=true exact_skill_key_preserved=true protected_effects=blocked guardian_safe_lane=true evidence_triggers=fail_closed authority_effect=none")
 def main():
     ap=argparse.ArgumentParser(); ap.add_argument("--catalog"); ap.add_argument("--items"); ap.add_argument("--now"); ap.add_argument("--output"); ap.add_argument("--max-new",type=int,default=8); ap.add_argument("--selftest",action="store_true")
     a=ap.parse_args()
