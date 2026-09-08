@@ -18,6 +18,8 @@ assert "[['overview','LIVE'],['ops','OPS FLOOR'],['capabilities','SKILLS'],['sys
 assert '24-hour computer telemetry' in hq
 assert 'hover for exact timestamp and values' in hq
 assert 'No active execution right now.' in hq
+assert '685B34F31B797915B6ADC6058FCCDF4AEACD3CDD49D6B084FB31800FA966AB79' in hq
+assert "version||'')==='1.8.11'" in hq
 assert "if(task||workers>0)" in ops
 assert "if(q>0)return{state:'ready',label:'ARMED'" in ops
 assert "label:'WORKING'" in ops

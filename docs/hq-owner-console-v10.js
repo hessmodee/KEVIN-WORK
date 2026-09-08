@@ -28,7 +28,13 @@ function fresh(obj,limit){const v=obj?.generated_at||obj?.at||obj?.updated_at;re
 function activeTask(t){return !!t&&!/(done|complete|completed|failed|stopped|idle|queued|wait|cooldown|yield|skip|cancel|reject)/i.test(String(t.phase||t.status||''))}
 function items(){return Array.isArray(cache.work?.items)?cache.work.items:[]}
 function openItems(){return items().filter(x=>!TERMINAL.has(String(x?.status||'').toUpperCase()))}
-function invocationRuntimeEffective(){return String(cache.continuation?.status||'').toUpperCase()==='ROUTED_TO_PROVEN_SKILL_INVOCATION'}
+function invocationRuntimeEffective(){
+  const st=String(cache.continuation?.status||'').toUpperCase();
+  if(st==='ROUTED_TO_PROVEN_SKILL_INVOCATION')return true;
+  if(String(cache.continuation?.version||'')==='1.8.11')return true;
+  const h=String(cache.support?.hashes?.supervisor||'').toUpperCase();
+  return h==='685B34F31B797915B6ADC6058FCCDF4AEACD3CDD49D6B084FB31800FA966AB79';
+}
 function skillBound(x){return !!String(x?.required_skill_key||x?.proven_skill_key||'').trim()}
 function blockedItems(){return openItems().filter(x=>x?.blocked===true||x?.dependencies_ready===false||String(x?.status||'').toUpperCase()==='BLOCKED'||(skillBound(x)&&!invocationRuntimeEffective()))}
 function eligibleItems(){return openItems().filter(x=>x?.blocked!==true&&x?.dependencies_ready!==false&&String(x?.status||'').toUpperCase()!=='BLOCKED'&&String(x?.authority_class||'GREEN').toUpperCase()==='GREEN'&&!(skillBound(x)&&!invocationRuntimeEffective()))}
