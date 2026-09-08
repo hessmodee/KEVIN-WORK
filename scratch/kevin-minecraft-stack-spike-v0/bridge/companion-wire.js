@@ -9,6 +9,7 @@
 const { findMattEntity, isMattName } = require("./find-matt");
 const { attachCompanionDefaults, loadVendor } = require("./create-bot-injected");
 const { assertBotIdentity, KEVIN_TAG, MATT_TAGS } = require("./paths");
+const rawAuth = require("./raw-auth-chase");
 
 const PLAYER_DENY = new Set(["player", "hessmodee", "kevinsk8erkid"]);
 
@@ -31,18 +32,46 @@ function followMatt(bot, opts = {}) {
     return { ok: false, status: "NOT_PROVEN", reason: "NO_PATHFINDER_OR_GOALFOLLOW" };
   }
   try {
-    bot.pathfinder.setGoal(new GoalFollow(matt, range), true);
-    return {
-      ok: false,
-      status: "WIRED_NOT_PROVEN",
-      action: "GoalFollow",
-      target: "hessmodee",
-      range,
-      entityPresent: true,
-    };
+    const goal = new GoalFollow(matt, range);
+    // bedrockflayer uses goto(goal); setGoal is Mineflayer-only and missing here.
+    if (typeof bot.pathfinder.goto === "function") {
+      Promise.resolve(bot.pathfinder.goto(goal)).catch(function (err) {
+        try { console.error("[followMatt] goto fail", err && err.message || err); } catch (e2) {}
+      });
+      return {
+        ok: false,
+        status: "WIRED_NOT_PROVEN",
+        action: "GoalFollow.goto",
+        target: "hessmodee",
+        range,
+        entityPresent: true,
+      };
+    }
+    if (typeof bot.pathfinder.setGoal === "function") {
+      bot.pathfinder.setGoal(goal, true);
+      return {
+        ok: false,
+        status: "WIRED_NOT_PROVEN",
+        action: "GoalFollow.setGoal",
+        target: "hessmodee",
+        range,
+        entityPresent: true,
+      };
+    }
+    return { ok: false, status: "NOT_PROVEN", reason: "PATHFINDER_NO_GOTO_OR_SETGOAL" };
   } catch (e) {
     return { ok: false, status: "NOT_PROVEN", reason: String(e && e.message || e) };
   }
+}
+
+
+function crudeChaseMatt(bot, opts = {}) {
+  // Prefer Realms-safe player_auth_input on the live gym client.
+  const client = opts.client || (bot && (bot._kevinClient || bot.client));
+  if (client && bot) {
+    return rawAuth.authInputChaseTick(bot, client, opts);
+  }
+  return { ok: false, status: "NOT_PROVEN", reason: "NO_CLIENT_FOR_AUTH_INPUT" };
 }
 
 function enableHostileGuard(bot, opts = {}) {
@@ -165,6 +194,8 @@ function queueChat(client, message, sourceName) {
       platform_chat_id: "",
       filtered_message: "",
       message: String(message || ""),
+      category: "authored",
+      has_filtered_message: false,
     });
     return { ok: true, status: "QUEUED", packet: "text" };
   } catch (e) {
@@ -201,6 +232,10 @@ function queueAttackRuntime(client, entityRuntimeId, playerPos, heldItem) {
 
 module.exports = {
   followMatt,
+  crudeChaseMatt,
+  startAuthChaseLoop: rawAuth.startAuthChaseLoop,
+  ensureSerializer: rawAuth.ensureSerializer,
+  syncSelfFromStartGame: rawAuth.syncSelfFromStartGame,
   enableHostileGuard,
   enableAutoEatIfSafe,
   enableStayCompanion,
