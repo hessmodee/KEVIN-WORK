@@ -1,6 +1,6 @@
 # CURRENT_TASK
 
-**Updated:** 2026-09-08 07:10 MT  
+**Updated:** 2026-09-08 07:33 MT  
 **Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**. Source-side Proven Skill Invocation v1 and WorkInstance -> exact-PROVEN-skill routing are now merged and CI-proven. The immediate gate is **HESS-PC runtime qualification and first fresh owner-outcome invocation**, followed by capability-aware Supervisor execution and automatic repair/resume.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
@@ -157,3 +157,6 @@ Track and trend:
 ## Continuation contract
 
 After every substantive transition, publish source/evidence so the canonical handover can advance. Keep repository/source truth separate from HESS-PC runtime truth. Local-only changes are unfinished.
+
+## Layer status (wire)
+Isolate PASS + OK-WRITE + daily-2026-09-08 present. Stop. No further layer advance this run.
