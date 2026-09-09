@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill-pack",
+  "key": "kevin-self-codify-log-pack@1",
+  "version": "1.0.0",
+  "authority": "GREEN",
+  "authority_delta": "NONE",
+  "production_effect": "NONE",
+  "description": "Codify a failure or success into a Kevin-owned lesson + failure-family entry + regression test stub. Turns outside-engineer interventions into reusable institutional memory.",
+  "primitives": ["create_text"],
+  "inputs_required": ["failure_family", "symptom", "root_cause", "repair", "prevention", "regression_test_name"],
+  "outputs": ["lesson_md", "failure_family_json", "regression_stub"],
+  "safety": {
+    "no_pii": true,
+    "no_credentials": true,
+    "no_purchases": true,
+    "no_public_posting": true,
+    "no_live_financial_effects": true
+  },
+  "pass_criteria": "lesson file exists, failure-family entry exists, regression stub references a real test name, hashes recorded"
+}

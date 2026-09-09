@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill-pack",
+  "key": "kevin-self-test-matrix-pack@1",
+  "version": "1.0.0",
+  "authority": "GREEN",
+  "authority_delta": "NONE",
+  "production_effect": "NONE",
+  "description": "Run Kevin's self-test matrix: positive, negative, and regression checks for the invocation worker, Supervisor routing, and console hygiene. Records results as DONE/FAILED with hashes. Does not widen authority.",
+  "primitives": ["create_text"],
+  "inputs_required": ["test_targets"],
+  "outputs": ["test_report", "pass_fail_matrix"],
+  "safety": {
+    "no_pii": true,
+    "no_credentials": true,
+    "no_purchases": true,
+    "no_public_posting": true,
+    "no_live_financial_effects": true
+  },
+  "pass_criteria": "report exists, every target has a recorded result, hashes recorded"
+}
