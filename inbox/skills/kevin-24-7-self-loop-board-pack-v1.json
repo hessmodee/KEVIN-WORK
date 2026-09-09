@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "kevin-24-7-self-loop-board-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Kevin 24/7 Self-Loop Board Pack",
+  "description": "Creates a five-sheet 24/7 operating board plus SOP so Kevin stays on task: cadence, faculty, blocked-alternate, metrics, daily log. No purchases, no public posting, no Night Forge, no invoke-worker pin change.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin 24-7 Self-Loop Board.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Cadence",
+              "rows": [
+                ["Slot", "Start Hour MT", "End Hour MT", "Faculty", "Zone", "Primary Beat", "When P0 Blocked", "Owner"],
+                ["Night watch", "0", "6", "TEST", "GREEN", "Benchmark and canary", "Keep testing", "Kevin"],
+                ["Dawn brief", "6", "9", "MOTIVATE", "GREEN", "Rank owner-value work", "Pick next GREEN objective", "Kevin"],
+                ["Primary act", "9", "12", "BUILD", "GREEN", "8-vehicle parts chase", "Diagnose worker; parallel hygiene", "Kevin"],
+                ["Codify", "12", "15", "CODIFY", "GREEN", "Candidate skills and lessons", "Codify NativeCommandError family", "Kevin"],
+                ["Yellow incubator", "15", "18", "BUILD", "YELLOW", "Prepare grants and carts", "Prep does not wait on invoke", "Kevin"],
+                ["Comms and HQ", "18", "21", "BUILD", "GREEN", "HQ truth and drafts", "Keep HQ honest", "Kevin"],
+                ["Learn and resume", "21", "24", "MOTIVATE", "GREEN", "Lessons and resume pointer", "Resume 8-vehicle WorkInstance", "Kevin"]
+              ]
+            },
+            {
+              "name": "Faculty",
+              "rows": [
+                ["Faculty", "Meaning", "Proof", "Blocked Alternate", "Never"],
+                ["BUILD", "Construct or repair a capability", "Artifact plus receipt", "Stage another GREEN pack", "Invent authority"],
+                ["TEST", "Run positive, negative, regression", "Independent verifier", "Record failure family", "Rewrite Benchmark"],
+                ["CODIFY", "Write lesson, recipe, skill", "Checked-in source", "Update CURRENT_TASK evidence", "Second handover file"],
+                ["MOTIVATE", "Select next owner-value work", "Selected WorkInstance id", "Rank remaining GREEN queue", "Manufacture idle work"]
+              ]
+            },
+            {
+              "name": "Blocked Alternate",
+              "rows": [
+                ["Blocked Family", "Why Blocked", "Independent GREEN Move", "Resume Pointer", "Status"],
+                ["invocation-worker", "BLOCKED_INVOCATION_RUNTIME 68845506", "Console hygiene plus self-loop packs", "owner-west-motor-parts-chase-fresh-8-v1", "OPEN"],
+                ["Night Forge", "Disabled on purpose", "Leave disabled", "none", "RETIRED"]
+              ]
+            },
+            {
+              "name": "Metrics",
+              "rows": [
+                ["Metric", "Window", "Target", "Actual", "Notes"],
+                ["Verified owner outcomes", "24h", "1+", "", "Workbook plus note plus hashes plus receipt"],
+                ["Fresh PROVEN-skill invocations", "7d", "1+", "", "Do not count routing receipts"],
+                ["Self-repair success", "7d", "trend up", "", "Median recovery time"],
+                ["Bess Grok interventions", "7d", "trend down", "", "Teach-and-transfer each one"],
+                ["GREEN vs Yellow effects", "7d", "honest split", "", "Why Yellow was needed"]
+              ]
+            },
+            {
+              "name": "Daily Log",
+              "rows": [
+                ["Date", "Slot", "Faculty", "WorkInstance", "Result", "Next"],
+                ["", "", "", "", "OPEN / DONE / BLOCKED", ""]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin 24-7 Self-Loop SOP.md",
+        "content": "# Kevin 24/7 Self-Loop\n\nIdle-without-reason is a defect. When one family is blocked, select another independent GREEN objective. Never solve a blocked invoke by declaring Yellow work Green.\n\n## Operating rule\nStay on the cadence board. Primary owner outcome remains west-motor-parts-chase-board-pack on owner-west-motor-parts-chase-fresh-8-v1. Parallel GREEN work is allowed and required while that gate is blocked.\n\n## Required sequence\n1. Sense live Support, Engineering, continuation.\n2. Reflect: classify blocked vs idle vs working honestly.\n3. Select the highest-value eligible GREEN work.\n4. If the selected work needs a missing capability, research/build/test/codify it.\n5. Verify with independent evidence.\n6. Learn: write a lesson or failure-family entry.\n7. Resume the interrupted owner objective.\n\n## Protective behavior\nDo not recopy Supervisor v1.8.12. Do not install Maintenance v1.3.54 or queue v1.3.55 before slot expiry. Do not re-enable Night Forge. Do not widen exact-five. Do not reset history. Do not send the 8-vehicle job to tool-less fixed:main.\n"
+      }
+    }
+  ]
+}

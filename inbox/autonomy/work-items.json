@@ -604,6 +604,131 @@
         "Leave a bounded next work item or skill candidate only when it has a named downstream owner use."
       ],
       "next_action": "Produce one owner-useful opportunity brief and a bounded candidate for the next reusable Kevin skill."
+    },
+    {
+      "id": "owner-kevin-24-7-self-loop-board-v1",
+      "program": "self-reliance",
+      "authority_class": "GREEN",
+      "status": "OPEN",
+      "lane": "staging",
+      "work_type": "execution",
+      "priority": "high",
+      "owner_value": 4,
+      "required_skill_key": "kevin-24-7-self-loop-board-pack@1",
+      "reuses_proven_capability": false,
+      "produces_owner_deliverable": true,
+      "closes_proof_gap": true,
+      "reduces_bess_intervention": true,
+      "dependencies_ready": true,
+      "blocked": false,
+      "failure_attempts": 0,
+      "estimated_minutes": 15,
+      "acceptance_criteria": [
+        "Stage kevin-24-7-self-loop-board-pack@1 via existing Engineering Relay stage_composite_skill.",
+        "Skill Lab reaches PROVEN with create_spreadsheet + create_text receipts.",
+        "Board includes Cadence, Faculty, Blocked Alternate, Metrics, Daily Log.",
+        "Stay GREEN. Do not wait on the invocation worker. Do not re-enable Night Forge.",
+        "Does not replace or complete owner-west-motor-parts-chase-fresh-8-v1."
+      ],
+      "next_action": "Stage the GREEN self-loop board pack through Skill Lab. Independent of the invoke worker. Idle-without-reason is a defect.",
+      "evidence_pointers": [
+        "inbox/skills/kevin-24-7-self-loop-board-pack-v1.json",
+        "docs/engineering/KEVIN-24-7-SELF-LOOP-v1.md"
+      ],
+      "downstream_consumer": "KEVIN_24_7_SELF_LOOP"
+    },
+    {
+      "id": "owner-kevin-self-test-matrix-v1",
+      "program": "self-reliance",
+      "authority_class": "GREEN",
+      "status": "OPEN",
+      "lane": "staging",
+      "work_type": "execution",
+      "priority": "high",
+      "owner_value": 4,
+      "required_skill_key": "kevin-self-test-matrix-pack@1",
+      "reuses_proven_capability": false,
+      "produces_owner_deliverable": true,
+      "closes_proof_gap": true,
+      "reduces_bess_intervention": true,
+      "dependencies_ready": true,
+      "blocked": false,
+      "failure_attempts": 0,
+      "estimated_minutes": 15,
+      "acceptance_criteria": [
+        "Stage kevin-self-test-matrix-pack@1 via existing stage_composite_skill.",
+        "Matrix includes Suites, Last Run, Failures, Negatives, Resume.",
+        "Resume pointer remains owner-west-motor-parts-chase-fresh-8-v1.",
+        "Night Forge stays Disabled. Do not rewrite Benchmark."
+      ],
+      "next_action": "Stage the GREEN self-test matrix. Kevin tests himself; a synthetic pass is not an owner outcome.",
+      "evidence_pointers": [
+        "inbox/skills/kevin-self-test-matrix-pack-v1.json",
+        "docs/engineering/KEVIN-24-7-SELF-LOOP-v1.md"
+      ],
+      "downstream_consumer": "KEVIN_SELF_TEST"
+    },
+    {
+      "id": "owner-kevin-self-codify-log-v1",
+      "program": "self-learning",
+      "authority_class": "GREEN",
+      "status": "OPEN",
+      "lane": "staging",
+      "work_type": "execution",
+      "priority": "high",
+      "owner_value": 4,
+      "required_skill_key": "kevin-self-codify-log-pack@1",
+      "reuses_proven_capability": false,
+      "produces_owner_deliverable": true,
+      "closes_proof_gap": true,
+      "reduces_bess_intervention": true,
+      "dependencies_ready": true,
+      "blocked": false,
+      "failure_attempts": 0,
+      "estimated_minutes": 15,
+      "acceptance_criteria": [
+        "Stage kevin-self-codify-log-pack@1 via existing stage_composite_skill.",
+        "Log includes Gap, Candidate, Tests, Lesson, Next.",
+        "First gap logged is invocation-worker NativeCommandError.",
+        "Do not create a second handover file."
+      ],
+      "next_action": "Stage the GREEN self-codify log so the worker family becomes Kevin-owned.",
+      "evidence_pointers": [
+        "inbox/skills/kevin-self-codify-log-pack-v1.json",
+        "docs/engineering/LESSON-invocation-worker-nativecommanderror-2026-09-08.md"
+      ],
+      "downstream_consumer": "KEVIN_SELF_CODIFY"
+    },
+    {
+      "id": "owner-kevin-yellow-grant-prep-v1",
+      "program": "yellow-incubator",
+      "authority_class": "GREEN",
+      "status": "OPEN",
+      "lane": "staging",
+      "work_type": "execution",
+      "priority": "high",
+      "owner_value": 4,
+      "required_skill_key": "kevin-yellow-grant-prep-pack@1",
+      "reuses_proven_capability": false,
+      "produces_owner_deliverable": true,
+      "closes_proof_gap": true,
+      "reduces_bess_intervention": true,
+      "dependencies_ready": true,
+      "blocked": false,
+      "failure_attempts": 0,
+      "estimated_minutes": 15,
+      "acceptance_criteria": [
+        "Stage kevin-yellow-grant-prep-pack@1 via existing stage_composite_skill.",
+        "Board includes Grant Card, Prepared Effects, Limits, Idempotency, Review.",
+        "Pizza, Amazon, email, voice, public post stay prepare-only. Live trade stays RESERVED.",
+        "Do not execute a checkout, send, call, or post. Do not relabel Yellow as Green."
+      ],
+      "next_action": "Stage the GREEN yellow-grant-prep pack. Preparation is authorized. Execution still needs a scoped owner grant.",
+      "evidence_pointers": [
+        "inbox/skills/kevin-yellow-grant-prep-pack-v1.json",
+        "docs/engineering/KEVIN-YELLOW-INCUBATOR-v1.md"
+      ],
+      "downstream_consumer": "KEVIN_YELLOW_INCUBATOR"
     }
   ]
 }

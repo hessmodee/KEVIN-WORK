@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "kind": "kevin-yellow-incubator",
+  "id": "kevin-yellow-incubator-v1",
+  "authority": "YELLOW-PREPARE",
+  "safe_for_public_repo": true,
+  "isolation": [
+    "no money spent",
+    "no purchase/order/trade placed",
+    "no owner credential exposed",
+    "no external message that represents Matt",
+    "no destructive owner-data mutation",
+    "no permission widened"
+  ],
+  "reserved_always_ask": ["finance.live.trade", "purchasing without grant", "credential invention", "unrestricted shell"],
+  "capabilities": [
+    {"id": "pizza-checkout", "actionClass": "checkout.food", "status": "PREPARED", "reserved": false},
+    {"id": "amazon-checkout", "actionClass": "checkout.retail", "status": "INCUBATING", "reserved": false},
+    {"id": "email-send", "actionClass": "comms.email.send", "status": "PREPARED", "reserved": false},
+    {"id": "sms-send", "actionClass": "comms.sms.send", "status": "INCUBATING", "reserved": false},
+    {"id": "voice-call", "actionClass": "comms.voice.call", "status": "INCUBATING", "reserved": false},
+    {"id": "public-post", "actionClass": "media.public.post", "status": "INCUBATING", "reserved": false},
+    {"id": "calendar-book", "actionClass": "calendar.book", "status": "INCUBATING", "reserved": false},
+    {"id": "signed-install", "actionClass": "system.install.signed", "status": "INCUBATING", "reserved": false},
+    {"id": "browser-submit", "actionClass": "browser.consequential.submit", "status": "INCUBATING", "reserved": false},
+    {"id": "live-trade", "actionClass": "finance.live.trade", "status": "RESERVED", "reserved": true}
+  ]
+}

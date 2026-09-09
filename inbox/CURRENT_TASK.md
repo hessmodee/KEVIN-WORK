@@ -2,12 +2,14 @@
 
 > **LAYER / READER / DAILY LOOP:** Do not replace or truncate this file. Write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only. This file is the Extreme Autonomy Flywheel execution contract.
 
-**Updated:** 2026-09-08 22:50 MT  
-**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**. Proven Skill Invocation v1 remains the production-skill milestone. Maintenance v1.3.53 **is installed** (Support hash `EF32D990…`). Supervisor **v1.8.12 is independently proven**: Support hash `F17F4B0A…`, typed `ALREADY_APPLIED_PROVEN` for `grok-install-v1812-20260908-2050` / "Supervisor v1.8.12 worker-native fail-closed applied/verified.", continuation `version=1.8.12`. The live gate is **`BLOCKED_INVOCATION_RUNTIME`** on WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` (`failure_sha256=68845506…`, `eligible_count=7`, 1 burned turn at 09:31 kept). That is fail-closed diagnostic, not a crash and not PASS. Maintenance v1.3.55 is **SOURCE ONLY** (hash `3E11C429…`); do not queue it until the v1812 slot expires `2026-09-09T22:00:00Z`. Owner-facing GREEN self-repair this cycle: stop HQ remount bounce and wrap background PowerShell with VBS SW_HIDE. That is not PASS either.
+**Updated:** 2026-09-08 23:20 MT  
+**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution** plus the **24/7 self-loop** and **Yellow incubator** source programs. Proven Skill Invocation v1 remains the production-skill milestone. Maintenance v1.3.53 **is installed** (Support hash `EF32D990…`). Supervisor **v1.8.12 is independently proven**: Support hash `F17F4B0A…`, typed `ALREADY_APPLIED_PROVEN` for `grok-install-v1812-20260908-2050` / "Supervisor v1.8.12 worker-native fail-closed applied/verified.", continuation `version=1.8.12`. The live gate is **`BLOCKED_INVOCATION_RUNTIME`** on WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` (`failure_sha256=68845506…`, `eligible_count=7`, 1 burned turn at 09:31 kept). That is fail-closed diagnostic, not a crash and not PASS. Idle-without-reason is a defect: while the worker is blocked, Kevin continues independent GREEN self-build / self-test / self-codify / self-motivate work and Yellow *prepare* (not execute). Maintenance v1.3.55 is **SOURCE ONLY** (hash `3E11C429…`); do not queue it until the v1812 slot expires `2026-09-09T22:00:00Z`. Owner-facing GREEN self-repair this cycle: stop HQ remount bounce and wrap background PowerShell with VBS SW_HIDE. That is not PASS either.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
 
 **Architecture:** `docs/engineering/KEVIN-AUTONOMY-EXECUTION-PLAN-v3.md`  
+**24/7 self-loop:** `docs/engineering/KEVIN-24-7-SELF-LOOP-v1.md`  
+**Yellow incubator:** `docs/engineering/KEVIN-YELLOW-INCUBATOR-v1.md`  
 **Current production-skill milestone:** `docs/engineering/KEVIN-PROVEN-SKILL-INVOCATION-v1.md`  
 **Current typed crossing:** `docs/engineering/KEVIN-MAINTENANCE-V1353-SUPERVISOR-V1812.md` (runner installed; v1.8.12 file hash + typed receipt live). Source prevention: `docs/engineering/KEVIN-MAINTENANCE-V1354-IDEMPOTENT-RECEIPT.md` (do **not** install v1.3.54 for this worker family). Next typed crossing (source only): `docs/engineering/KEVIN-MAINTENANCE-V1355-INVOCATION-WORKER-V11.md`. Worker NativeCommandError lesson: `docs/engineering/LESSON-invocation-worker-nativecommanderror-2026-09-08.md`. OpenClaw lesson: `docs/engineering/LESSON-openclaw-local-autonomy-2026-09-08.md`. HQ/console lesson: `docs/engineering/LESSON-hq-bounce-powershell-flash-2026-09-08.md`.
 
@@ -51,6 +53,9 @@ Target maturity is **T4 for routine bounded work**: Kevin detects the need, reso
 - Nested `& powershell @workerArgs` inside Supervisor still flashes a child console even if the parent scheduled task is VBS-hidden. Do not recopy v1.8.12 to fix that. Wrap scheduled tasks (including UI Bridge `-RunLoop`) with `tools/Repair-Kevin-ConsoleHygiene-v1.7.ps1`. GitHub source is not HESS-PC apply.
 - Do not recreate already-PROVEN skills. Do not widen the invocation worker allowlist past `west-motor-parts-chase-board-pack@1` until this first fresh invocation proves the path.
 - Do not expand desktop tools. Exact-five remains the production tool surface.
+- 24/7 self-loop source program landed: `docs/engineering/KEVIN-24-7-SELF-LOOP-v1.md` plus GREEN packs `kevin-24-7-self-loop-board-pack@1`, `kevin-self-test-matrix-pack@1`, `kevin-self-codify-log-pack@1`. Idle-without-reason is a defect. Stage via existing `stage_composite_skill`. Do not wait on the invoke worker. Do not manufacture Skill Lab churn — these packs are the operating system for staying on task.
+- Yellow incubator source program landed: `docs/engineering/KEVIN-YELLOW-INCUBATOR-v1.md` plus GREEN prepare pack `kevin-yellow-grant-prep-pack@1` and catalog `inbox/autonomy/yellow-incubator.json`. Kevin prepares pizza/Amazon/email/voice/post grant cards. Execution still needs a scoped owner grant. Live trades stay RESERVED. Do not relabel Yellow as Green.
+- Command Center next-level: 24/7 loop tab, Zones tab (GREEN / Yellow incubator / RED), cadence bar, grant cards. Truth mode stays honest about `BLOCKED_INVOCATION_RUNTIME`. A cadence tick is not PASS.
 
 ## Immediate execution gates
 
@@ -106,6 +111,14 @@ Every incident carries the interrupted WorkInstance/objective identity. After in
 `gap -> research -> candidate -> isolated build -> positive/negative/regression tests -> Skill Lab -> proof -> registry -> invocation -> resume original objective`
 
 This loop is the primary mechanism for reducing Bess/Grok intervention over time.
+
+### 7. 24/7 self-loop — NOW, parallel, does not replace P0
+
+While the invoke worker is fail-closed, Kevin continues independent GREEN work: self-build, self-test, self-codify, self-motivate. Stage the four new GREEN composites through existing `stage_composite_skill`. Night Forge stays Disabled. Resume pointer remains `owner-west-motor-parts-chase-fresh-8-v1`.
+
+### 8. Yellow incubator — NOW, prepare only
+
+Build Yellow skills/tools/abilities in isolation. Fill grant cards. Do not checkout, send, call, post, or trade. Pizza, Amazon, voice, and public posting stay Delegated Yellow. Live trades stay reserved.
 
 ## Do not
 
