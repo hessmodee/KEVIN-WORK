@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "kevin-yellow-grant-prep-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Kevin Yellow Grant Prep Pack",
+  "description": "Creates a five-sheet Yellow grant-prep board plus SOP. Kevin fills grant cards and carts without executing purchases, sends, posts, calls, or live trades.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin Yellow Grant Prep Board.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Grant Card",
+              "rows": [
+                ["Capability", "Action Class", "Scope", "Limit", "Expiry", "Idempotency", "Status"],
+                ["Pizza order", "checkout.food", "one merchant one ticket", "one order", "4 hours", "merchant+ticket+day", "PREPARED"],
+                ["Amazon checkout", "checkout.retail", "named ASIN set", "amount cap by Matt", "24 hours", "asin-set+day", "INCUBATING"],
+                ["Send email", "comms.email.send", "named recipients", "count cap", "8 hours", "to+subject+body-hash", "PREPARED"],
+                ["Send SMS", "comms.sms.send", "named numbers", "count cap", "4 hours", "to+body-hash+day", "INCUBATING"],
+                ["Voice call", "comms.voice.call", "one number one purpose", "one call", "2 hours", "number+purpose+day", "INCUBATING"],
+                ["Public post", "media.public.post", "one platform one draft", "one post", "12 hours", "platform+draft-hash", "INCUBATING"],
+                ["Calendar book", "calendar.book", "named calendar", "one event", "24 hours", "start+title+invitees", "INCUBATING"],
+                ["Signed install", "system.install.signed", "named package", "one package", "24 hours", "package+version", "INCUBATING"],
+                ["Form submit", "browser.consequential.submit", "named origin", "one submit", "2 hours", "origin+form-hash+day", "INCUBATING"],
+                ["Live trade", "finance.live.trade", "named venue", "amount cap by Matt", "named window", "venue+instrument+side+day", "RESERVED"]
+              ]
+            },
+            {
+              "name": "Prepared Effects",
+              "rows": [
+                ["Capability", "GREEN Prepare", "YELLOW Execute", "Must Not", "Receipt Needed"],
+                ["Pizza", "menu cart hours duplicate key", "place paid order", "pay without grant", "merchant confirmation"],
+                ["Amazon", "research cart price band", "paid checkout", "buy without grant", "order id"],
+                ["Email", "draft recipient subject", "send", "send as Matt without grant", "message id"],
+                ["Voice", "script number purpose", "place call", "call without grant", "call log"],
+                ["Public post", "draft asset platform", "publish", "post without grant", "post url"],
+                ["Live trade", "paper thesis watchlist", "ask Matt", "never self-authorize", "broker fill"]
+              ]
+            },
+            {
+              "name": "Limits",
+              "rows": [
+                ["Grant Id", "Capability", "Amount or Count", "Merchant or Recipient", "Expires At", "Signed By"],
+                ["", "", "", "", "", "MATT"]
+              ]
+            },
+            {
+              "name": "Idempotency",
+              "rows": [
+                ["Grant Id", "Key", "Last Attempt At", "Result", "Retry Allowed"],
+                ["", "", "", "NONE / SENT / REJECTED", "NO until receipt decision"]
+              ]
+            },
+            {
+              "name": "Review",
+              "rows": [
+                ["Date", "Capability", "Prepared?", "Grant Current?", "Executed?", "Notes"],
+                ["", "", "NO", "NO", "NO", "Prep is not PASS"]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Yellow Grant Prep SOP.md",
+        "content": "# Kevin Yellow Grant Prep\n\nKevin may prepare Yellow work autonomously. Execution of consequential effects requires a current narrowly scoped owner grant. Live trades and unpaid-ask purchases stay reserved.\n\n## Isolation rules for incubator work\nNo money spent. No purchase or order placed. No owner credential exposed. No external message that represents Matt. No destructive owner-data mutation. No permission widened.\n\n## Required sequence\n1. Fill Grant Card with action class, scope, limit, expiry, idempotency.\n2. Record GREEN prepare vs YELLOW execute on Prepared Effects.\n3. Leave Limits and Review blank until Matt signs.\n4. Never retry an uncertain external effect without an idempotency decision.\n5. Keep pizza, Amazon checkout, voice, and public posting Delegated Yellow.\n\n## Protective behavior\nDo not relabel Yellow as Green to create activity. Do not invent Matt's Windows password. Do not publish secrets. ASCII-safe payloads. Sheet names use spaces only.\n"
+      }
+    }
+  ]
+}
