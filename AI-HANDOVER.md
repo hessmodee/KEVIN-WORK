@@ -2,7 +2,7 @@
 
 > **THIS IS THE ONE CURRENT HANDOVER FOR KEVIN.** Do not create a competing dated handover. Update the source task/evidence and let the canonical handover refresh replace stale state.
 
-**Semantic checkpoint evidence through:** 2026-09-08T22:24:10.7065045-06:00  
+**Semantic checkpoint evidence through:** 2026-09-08T23:06:05.8038686-06:00  
 **Canonical repository:** `hessmodee/KEVIN-WORK` / `main`  
 **Machine twin:** `reports/handoff-latest.json` (not a second authority)
 
@@ -29,11 +29,11 @@ If an agent cannot access one route, use another. Matt should never need to reco
 
 ## Automatic semantic snapshot
 
-- Engineering evidence at checkpoint: `2026-09-08T22:24:10.7065045-06:00`
-- Support evidence at checkpoint: `2026-09-08T22:15:42.6537903-06:00`
-- Autonomy evidence at checkpoint: `2026-09-08T22:20:15.3859104-06:00`
+- Engineering evidence at checkpoint: `2026-09-08T23:06:05.8038686-06:00`
+- Support evidence at checkpoint: `2026-09-08T22:51:43.1507310-06:00`
+- Autonomy evidence at checkpoint: `2026-09-08T23:05:16.2434951-06:00`
 - Benchmark: **PASS — 30/30, critical 0**
-- UI Bridge health at checkpoint: **FRESH** (age then: 4.6 seconds)
+- UI Bridge health at checkpoint: **FRESH** (age then: 4.9 seconds)
 - Maintenance: **ALREADY_APPLIED_PROVEN** — Supervisor v1.8.12 worker-native fail-closed applied/verified.
 - Supervisor last result: **NO_ELIGIBLE_MISSION**
 - Proven composite skills: **27**
@@ -53,14 +53,14 @@ The block below is pulled from `inbox/CURRENT_TASK.md`. That file is an executio
 
 > **LAYER / READER / DAILY LOOP:** Do not replace or truncate this file. Write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only. This file is the Extreme Autonomy Flywheel execution contract.
 
-**Updated:** 2026-09-08 22:17 MT  
-**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**. Proven Skill Invocation v1 remains the production-skill milestone. Maintenance v1.3.53 **is installed** (Support hash `EF32D990…`). Supervisor **v1.8.12 is independently proven**: Support hash `F17F4B0A…`, typed `ALREADY_APPLIED_PROVEN` for `grok-install-v1812-20260908-2050` / "Supervisor v1.8.12 worker-native fail-closed applied/verified.", continuation `version=1.8.12`. The live gate is **`BLOCKED_INVOCATION_RUNTIME`** on WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` (`failure_sha256=68845506…`, `eligible_count=7`, 1 burned turn at 09:31 kept). That is fail-closed diagnostic, not a crash and not PASS. Owner-facing GREEN self-repair this cycle: stop HQ remount bounce and wrap background PowerShell with VBS SW_HIDE. That is not PASS either.
+**Updated:** 2026-09-08 22:50 MT  
+**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**. Proven Skill Invocation v1 remains the production-skill milestone. Maintenance v1.3.53 **is installed** (Support hash `EF32D990…`). Supervisor **v1.8.12 is independently proven**: Support hash `F17F4B0A…`, typed `ALREADY_APPLIED_PROVEN` for `grok-install-v1812-20260908-2050` / "Supervisor v1.8.12 worker-native fail-closed applied/verified.", continuation `version=1.8.12`. The live gate is **`BLOCKED_INVOCATION_RUNTIME`** on WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` (`failure_sha256=68845506…`, `eligible_count=7`, 1 burned turn at 09:31 kept). That is fail-closed diagnostic, not a crash and not PASS. Maintenance v1.3.55 is **SOURCE ONLY** (hash `3E11C429…`); do not queue it until the v1812 slot expires `2026-09-09T22:00:00Z`. Owner-facing GREEN self-repair this cycle: stop HQ remount bounce and wrap background PowerShell with VBS SW_HIDE. That is not PASS either.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
 
 **Architecture:** `docs/engineering/KEVIN-AUTONOMY-EXECUTION-PLAN-v3.md`  
 **Current production-skill milestone:** `docs/engineering/KEVIN-PROVEN-SKILL-INVOCATION-v1.md`  
-**Current typed crossing:** `docs/engineering/KEVIN-MAINTENANCE-V1353-SUPERVISOR-V1812.md` (runner installed; v1.8.12 file hash + typed receipt live). Source prevention: `docs/engineering/KEVIN-MAINTENANCE-V1354-IDEMPOTENT-RECEIPT.md` (do **not** install v1.3.54 for this worker family). OpenClaw lesson: `docs/engineering/LESSON-openclaw-local-autonomy-2026-09-08.md`. HQ/console lesson: `docs/engineering/LESSON-hq-bounce-powershell-flash-2026-09-08.md`.
+**Current typed crossing:** `docs/engineering/KEVIN-MAINTENANCE-V1353-SUPERVISOR-V1812.md` (runner installed; v1.8.12 file hash + typed receipt live). Source prevention: `docs/engineering/KEVIN-MAINTENANCE-V1354-IDEMPOTENT-RECEIPT.md` (do **not** install v1.3.54 for this worker family). Next typed crossing (source only): `docs/engineering/KEVIN-MAINTENANCE-V1355-INVOCATION-WORKER-V11.md`. Worker NativeCommandError lesson: `docs/engineering/LESSON-invocation-worker-nativecommanderror-2026-09-08.md`. OpenClaw lesson: `docs/engineering/LESSON-openclaw-local-autonomy-2026-09-08.md`. HQ/console lesson: `docs/engineering/LESSON-hq-bounce-powershell-flash-2026-09-08.md`.
 
 ## Owner strategic directive - maximum bounded autonomy
 
@@ -87,11 +87,13 @@ Target maturity is **T4 for routine bounded work**: Kevin detects the need, reso
 - 27 composite skills are PROVEN; latest proven is `west-motor-parts-chase-board-pack@1`. Exact-five desktop policy remains intentional. Do not recreate those skills. Do not widen the worker allowlist until the first proof. Do not install PCClaw or unvetted ClawHub skills.
 - Night Forge scheduled task is **Disabled**. Leave it disabled. It is retired fat, not a live worker.
 - WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` is OPEN/GREEN/`blocked=false` with fictional 8-vehicle inputs and `required_skill_key=west-motor-parts-chase-board-pack@1`. The existing 1 burned turn at 09:31 stays inside the typical 3-turn budget; do not reset history.
-- Live Maintenance slot may remain GREEN `install_autonomy_controller_v1812` `grok-install-v1812-20260908-2050` until expiry 2026-09-09T22:00:00Z (already applied). Do **not** replace it with `replace_pinned_component` for v1.3.54. Do **not** repeat `replace_pinned_component` for the v1.3.53 runner.
+- Live Maintenance slot may remain GREEN `install_autonomy_controller_v1812` `grok-install-v1812-20260908-2050` until expiry 2026-09-09T22:00:00Z (already applied). Do **not** replace it with `replace_pinned_component` for v1.3.54 or v1.3.55. Do **not** repeat `replace_pinned_component` for the v1.3.53 runner. Do **not** queue `install_invocation_worker_v11` until that slot expires. GitHub ControlPlane worker pin stays `16C49542…` until HESS-PC apply.
 - Layer/reader/daily agents must not write `inbox/CURRENT_TASK.md`. Heartbeat/daily loops write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only.
 
 ## Source-side this turn — not yet an owner outcome
 
+- Maintenance v1.3.55 source pack landed: `control-plane/maintenance/kevin-maintenance-runner-v1.3.55.ps1` hash `3E11C429D4540DBD5C4F6F7AD60AA1729D2C0A78D7DA209E76F196654589C261`. Thin wrap of v1.3.53. Adds only `install_invocation_worker_v11` plus StrictMode-safe receipts. Does not recopy Supervisor. Does not overwrite GitHub ControlPlane worker v1. **Do not queue** `replace_pinned_component` for v1.3.55 and **do not queue** `install_invocation_worker_v11` until `grok-install-v1812-20260908-2050` expires `2026-09-09T22:00:00Z`.
+- After expiry: (1) `replace_pinned_component` maintenance_runner `EF32D990…` → `3E11C429…`; (2) `install_invocation_worker_v11` ControlPlane worker `16C49542…` → `7E1129B7…` from `control-plane/autonomy/kevin-proven-skill-invoke-worker-v1.1.ps1`; (3) resume `owner-west-motor-parts-chase-fresh-8-v1` keeping the 09:31 burned turn. GitHub ControlPlane worker stays `16C49542…` until that HESS-PC apply.
 - HQ Pages: skip remount when truth signature is unchanged; restore scroll; 30s refresh; treat `BLOCKED_INVOCATION_RUNTIME` as blocked. Ops floor fetches continuation and stops showing stale `NO_ELIGIBLE_MISSION`.
 - Command Center: silent snapshot poll (no route invalidate / pending remount), persisted tabs, ops-floor motion tied to live truth.
 - Console hygiene v1.7 (GREEN self-repair, does not recopy v1.8.12): `tools/kevin-hidden-run.vbs` + `tools/Repair-Kevin-ConsoleHygiene-v1.7.ps1` + watchdog `kevin-self-reliance-watchdog-v1.7.0.ps1`. `-WindowStyle Hidden` is not enough. Wrap Kevin/OpenClaw PowerShell scheduled tasks with `wscript.exe` SW_HIDE. Keep UI Bridge InteractiveToken. GitHub source is not HESS-PC apply.
@@ -102,6 +104,10 @@ Target maturity is **T4 for routine bounded work**: Kevin detects the need, reso
 - Do not expand desktop tools. Exact-five remains the production tool surface.
 
 ## Immediate execution gates
+
+- Do not queue `replace_pinned_component` for Maintenance v1.3.55 or `install_invocation_worker_v11` until `grok-install-v1812-20260908-2050` expires at `2026-09-09T22:00:00Z`.
+- After expiry: runner `EF32D990…` → `3E11C429…`, then worker `16C49542…` → `7E1129B7…`, then resume the same 8-vehicle WorkInstance. Keep the 09:31 burned turn.
+- GitHub `ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1` stays `16C49542…` until HESS-PC apply.
 
 
 ## Highest-priority execution sequence
@@ -156,6 +162,8 @@ This loop is the primary mechanism for reducing Bess/Grok intervention over time
 
 - Repeat Maintenance v1.3.51 / v1.3.52 / v1.3.53 runner installation or Supervisor v1.8.11 / v1.8.12 installation. v1.8.12 **is independently proven**.
 - Queue `replace_pinned_component` for Maintenance v1.3.54 for this worker family.
+- Queue `replace_pinned_component` for Maintenance v1.3.55 or `install_invocation_worker_v11` before `2026-09-09T22:00:00Z`.
+- Overwrite GitHub `ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1` while the v1812 slot remains.
 - Treat Support supervisor hash `F17F4B0A…` without the typed receipt as the whole story; the receipt now exists. Treat `BLOCKED_INVOCATION_RUNTIME` as the remaining machine gate for the owner outcome.
 - Treat continuation `CONTROLLER_ERROR` from 14:30 as a live v1.8.12 crash.
 - Reset histories or work budgets.
@@ -282,6 +290,6 @@ Never infer a higher state from a lower one. Never widen authority merely to mak
 
 This handover is generated by `.github/scripts/build-canonical-handover.py` and refreshed by `.github/workflows/canonical-handover.yml`.
 
-Semantic fingerprint: `E5CB1E104B68B1221F145368B6BDBF38B0297AE09EA2263D8007B13BE6EEDA71`
+Semantic fingerprint: `DD94E2C9BFC7A5E3466A09A17AD9C748A6275DE13D13A383C57F6A68A3039A50`
 
 **Fresh runtime evidence first; one handover; publish every durable local change; then continue.**
