@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill-pack",
+  "key": "kevin-proactive-forecast-pack@1",
+  "version": "1.0.0",
+  "authority": "GREEN",
+  "authority_delta": "NONE",
+  "production_effect": "NONE",
+  "description": "Scan standing objectives + recent failures + calendar-ish cues and emit the next 3 most valuable eligible WorkInstances Kevin can start without being asked. Anti-narcissism: each forecast must cite evidence (open WorkInstance, failure family, or standing duty), not vibes.",
+  "primitives": ["create_text", "create_spreadsheet"],
+  "inputs_required": ["standing_objectives", "open_work_items", "recent_failures", "proven_skills"],
+  "outputs": ["forecast_board", "ranked_next_actions"],
+  "safety": {
+    "no_pii": true,
+    "no_credentials": true,
+    "no_purchases": true,
+    "no_public_posting": true,
+    "no_live_financial_effects": true
+  },
+  "pass_criteria": "forecast board exists with ≥3 ranked items, each citing evidence, hashes recorded"
+}
