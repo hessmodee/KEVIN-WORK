@@ -18,10 +18,11 @@
       "attempts": 1,
       "severity": "high",
       "scope": "Proven Skill Invocation worker on HESS-PC",
-      "current_evidence": "Supervisor v1.8.12 independently proven (hash F17F4B0A, typed ALREADY_APPLIED_PROVEN for grok-install-v1812-20260908-2050). Continuation 2026-09-08T15:55:08-06:00 status=BLOCKED_INVOCATION_RUNTIME selected_id=owner-west-motor-parts-chase-fresh-8-v1 eligible_count=7 failure_sha256=68845506ED61C6DBA473728C038321FC76D0E510B0FAF2CACE963475DB95C065 outcome_proven=false. One burned turn at 09:31 kept. Public payload omits reason. failure_sha256 implies a private failure key, which the missing-worker path does not set; treat as worker ran/threw until a public reason exists. Scheduler consecutive_errors=0. Do not send to fixed:main. Do not recopy v1.8.12. Do not install v1.3.54 for this family.",
+      "current_evidence": "Supervisor v1.8.12 independently proven (hash F17F4B0A, typed ALREADY_APPLIED_PROVEN for grok-install-v1812-20260908-2050). Continuation status=BLOCKED_INVOCATION_RUNTIME selected_id=owner-west-motor-parts-chase-fresh-8-v1 eligible_count=7 failure_sha256=68845506ED61C6DBA473728C038321FC76D0E510B0FAF2CACE963475DB95C065 outcome_proven=false. One burned turn at 09:31 kept. Public payload omits reason. failure_sha256 implies a private failure key, which the missing-worker path does not set; treat as worker ran/threw. Live worker 16C49542 uses Stop + native python; stderr becomes NativeCommandError. Source wrap worker-v1.1 hash 7E1129B7 is on main. Maintenance v1.3.55 (3E11C429) is SOURCE ONLY and must not be queued until grok-install-v1812-20260908-2050 expires 2026-09-09T22:00:00Z. Do not send to fixed:main. Do not recopy v1.8.12. Do not install v1.3.54 for this family. Do not overwrite GitHub ControlPlane worker pin.",
       "allowed_next": [
         "read-only diagnosis of worker reason vs PROVEN_SKILL_INVOCATION_WORKER_NOT_INSTALLED",
-        "smallest GREEN worker wrap (python Continue + explicit reject) without widening the allowlist",
+        "keep GitHub ControlPlane worker pin 16C49542 until v1812 slot expiry",
+        "after expiry, install Maintenance v1.3.55 then install_invocation_worker_v11 (16C49542 -> 7E1129B7) without widening the allowlist",
         "publish reason in public continuation when it matches ^[A-Z][A-Z0-9_]{2,80}$",
         "resume owner-west-motor-parts-chase-fresh-8-v1 after independently proven worker repair"
       ],
