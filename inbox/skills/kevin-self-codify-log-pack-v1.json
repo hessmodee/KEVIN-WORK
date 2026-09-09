@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill",
+  "id": "kevin-self-codify-log-pack",
+  "version": "1",
+  "authority": "GREEN",
+  "name": "Kevin Self-Codify Log Pack",
+  "description": "Creates a five-sheet self-codify log plus SOP so every Grok or Bess repair becomes a Kevin-owned diagnostic, test, lesson, and recipe. GREEN only.",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin Self-Codify Log.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Gap",
+              "rows": [
+                ["Gap", "Detected By", "Family", "Owner Outcome Blocked", "Status"],
+                ["Invocation worker NativeCommandError", "Supervisor v1.8.12", "invocation-worker-fail-closed-v1", "owner-west-motor-parts-chase-fresh-8-v1", "OPEN"],
+                ["HQ remount bounce", "Owner UX", "hq-dom-remount-bounce-v1", "typing", "SOURCE"],
+                ["PowerShell flash", "Owner UX", "owner-ux-console-flash-v1", "typing", "SOURCE"]
+              ]
+            },
+            {
+              "name": "Candidate",
+              "rows": [
+                ["Gap", "Candidate Path", "Authority", "Isolated?", "Rollback"],
+                ["Invocation worker", "control-plane/autonomy/kevin-proven-skill-invoke-worker-v1.1.ps1", "GREEN", "YES", "keep pin 16C49542 until slot expiry"],
+                ["Console hygiene", "tools/Repair-Kevin-ConsoleHygiene-v1.7.ps1", "GREEN", "YES", "restore prior task actions"]
+              ]
+            },
+            {
+              "name": "Tests",
+              "rows": [
+                ["Candidate", "Positive", "Negative", "Regression", "Result"],
+                ["worker v1.1", "hidden python process returns stdout", "stderr no longer NativeCommandError", "Benchmark 30/30", "SOURCE"],
+                ["console hygiene v1.7", "wscript SW_HIDE wrap", "Night Forge stays Disabled", "UI Bridge InteractiveToken kept", "SOURCE"]
+              ]
+            },
+            {
+              "name": "Lesson",
+              "rows": [
+                ["Date", "Lesson Path", "Teaches", "Next Owner"],
+                ["2026-09-08", "docs/engineering/LESSON-invocation-worker-nativecommanderror-2026-09-08.md", "Stop plus native python", "Kevin"],
+                ["2026-09-08", "docs/engineering/LESSON-hq-bounce-powershell-flash-2026-09-08.md", "VBS SW_HIDE not WindowStyle Hidden", "Kevin"]
+              ]
+            },
+            {
+              "name": "Next",
+              "rows": [
+                ["Priority", "Action", "Blocked On", "After"],
+                ["P0", "Install worker v1.1 via v1.3.55 after slot expiry", "2026-09-09T22:00:00Z", "Resume 8-vehicle WorkInstance"],
+                ["P0b", "Apply console hygiene v1.7 on HESS-PC", "local apply", "Keep typing unblocked"]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin Self-Codify SOP.md",
+        "content": "# Kevin Self-Codify\n\nEvery outside-engineer intervention must leave behind a Kevin-owned diagnostic, test, failure-family, repair recipe, reusable skill, or invocation path.\n\n## Operating rule\nIf Bess or Grok did it, Kevin must be able to detect, classify, repair, verify, and resume the next occurrence. A chat-only fix is incomplete.\n\n## Required sequence\n1. Name the gap and the interrupted WorkInstance.\n2. Write or update a failure family.\n3. Point at an isolated candidate with rollback.\n4. Attach positive, negative, and regression tests.\n5. Check the lesson into docs/engineering.\n6. Resume the original objective.\n\n## Protective behavior\nDo not create a second handover file. Do not invent Engineering Relay verbs. Do not claim GitHub source as HESS-PC proof. ASCII-safe payloads only.\n"
+      }
+    }
+  ]
+}
