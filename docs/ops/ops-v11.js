@@ -5,6 +5,7 @@ const STATE_COLORS={
  working:'#79c56a',
  building:'#f06dbb',
  cooldown:'#b38cff',
+ blocked:'#f0c36a',
  degraded:'#ff9a3d',
  disabled:'#81887f',
  offline:'#e46f61'
@@ -25,7 +26,7 @@ const WORKERS=[
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function norm(v){return String(v||'').toLowerCase()}
 function stateColor(st){return STATE_COLORS[st]||STATE_COLORS.degraded}
-function stateLabel(st){return ({ready:'READY',working:'WORKING',building:'BUILDING',cooldown:'COOLDOWN',degraded:'DEGRADED',disabled:'DISABLED',offline:'OFFLINE'})[st]||String(st||'').toUpperCase()}
+function stateLabel(st){return ({ready:'READY',working:'WORKING',building:'BUILDING',cooldown:'COOLDOWN',blocked:'BLOCKED',degraded:'DEGRADED',disabled:'DISABLED',offline:'OFFLINE'})[st]||String(st||'').toUpperCase()}
 function nightForgeTaskState(s){return String(s?.public_truth?.night_forge_task_state||'').trim()}
 function nightForgeHidden(s){const st=nightForgeTaskState(s).toLowerCase();return st==='disabled'||st==='absent'}
 function owl(c,id='worker'){
@@ -132,7 +133,8 @@ function kevinStates(d,s){
  if(health && health!=='healthy' && health!=='ready')return ['degraded'];
  if(['bridge','tick','ollama','gateway'].some(k=>d?.services?.[k]&&norm(d.services[k])!=='healthy'))return ['degraded'];
  const cont=continuationStatus();
- if(cont==='CONTROLLER_ERROR'||cont==='BLOCKED_INVOCATION_RUNTIME')return ['degraded'];
+ if(cont==='CONTROLLER_ERROR')return ['degraded'];
+ if(cont==='BLOCKED_INVOCATION_RUNTIME')return ['blocked'];
  const active=new Set();
  for(const w of WORKERS){
    if(['bridge','tick'].includes(w.key))continue;

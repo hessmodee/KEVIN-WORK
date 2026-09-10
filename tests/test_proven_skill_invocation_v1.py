@@ -143,7 +143,41 @@ class ProvenSkillInvocationV1Tests(unittest.TestCase):
         with self.assertRaisesRegex(mod.InvocationError, "INVOCATION_ID_REUSED_WITH_DIFFERENT_REQUEST"):
             self.stage()
 
+    def test_catalog_sibling_notepad_does_not_block_parts_chase(self):
+        sibling = {
+            "id": "kevin-ui-recovery-functional-proof",
+            "version": "1",
+            "key": "kevin-ui-recovery-functional-proof@1",
+            "authority": "GREEN",
+            "status": "PROVEN",
+            "name": "UI recovery functional proof",
+            "manifest_sha256": "B" * 64,
+            "proof_sha256": "C" * 64,
+            "proven_at": "2026-09-04T08:00:00-06:00",
+            "primitive_steps": "ui_notepad_write",
+            "result_file": "kevin-ui-recovery-functional-proof--1.json",
+        }
+        one_step = dict(self.registry["skills"][0])
+        one_step["id"] = "watchtower-create-text-proof"
+        one_step["key"] = "watchtower-create-text-proof@1"
+        one_step["primitive_steps"] = "create_text"
+        one_step["result_file"] = "watchtower-create-text-proof--1.json"
+        one_step["manifest_sha256"] = "D" * 64
+        one_step["proof_sha256"] = "E" * 64
+        self.registry["skills"] = [sibling, one_step, self.registry["skills"][0]]
+        self.write(self.registry_path, self.registry)
+        state = self.stage()
+        self.assertEqual("RUNNING", state["status"])
+        self.assertEqual("west-motor-parts-chase-board-pack@1", state["skill_key"])
+
+    def test_target_notepad_skill_is_not_invocation_v1(self):
+        self.registry["skills"][0]["primitive_steps"] = ["create_spreadsheet", "ui_notepad_write"]
+        self.write(self.registry_path, self.registry)
+        with self.assertRaisesRegex(mod.InvocationError, "SKILL_NOT_INVOCATION_V1_COMPATIBLE"):
+            self.stage()
+
     def test_unknown_or_unproven_skill_refuses(self):
+
         changed = copy.deepcopy(self.request)
         changed["skill_key"] = "unknown-skill@1"
         self.write(self.request_path, changed)

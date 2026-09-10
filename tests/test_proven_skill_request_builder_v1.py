@@ -57,6 +57,13 @@ class RequestBuilderTests(unittest.TestCase):
             rebuilt = builder.build_parts_chase_request("parts-board-fictional-8-002", loaded)
             self.assertEqual(request["skill_key"], rebuilt["skill_key"])
 
+    def test_operating_note_is_deterministic(self):
+        first = builder.build_parts_chase_request("parts-board-fictional-8-det")
+        second = builder.build_parts_chase_request("parts-board-fictional-8-det")
+        self.assertEqual(first["steps"][1]["payload"]["content"], second["steps"][1]["payload"]["content"])
+        self.assertNotIn("rehearsal date:", first["steps"][1]["payload"]["content"])
+        self.assertEqual(invocation.sha256_obj(first), invocation.sha256_obj(second))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -70,7 +70,7 @@ jobs:
           assert frames[0][2].fragment=='overview'
 
           scripts=[x[2].path for x in shell if x[0]=='script' and x[2].path]
-          expected=['./hq-overrides-v1.js','./hq-truth-v2.js','./hq-owner-refinement-v3.js','./hq-growth-v1.js']
+          expected=['./hq-evidence-adapter-v1.js','./hq-overrides-v1.js','./hq-owner-console-v10.js']
           assert scripts==expected, scripts
           assert './hq-owner-refinement-v2.js' not in scripts
           assert './hq-fun-v2.js' not in scripts
