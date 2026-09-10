@@ -41,6 +41,12 @@ class HqBlockedNotDegradedTests(unittest.TestCase):
         self.assertIn("hq-owner-console-v10.js", idx)
         self.assertIn("assert 'hq-owner-console-v10.js' in sw", wf)
 
+    def test_tools_chip_stale_canary_is_not_kevin_dead(self) -> None:
+        console = CONSOLE.read_text(encoding="utf-8")
+        self.assertIn("function toolsChip()", console)
+        self.assertIn("5 · CANARY STALE", console)
+        self.assertIn("?v=7", INDEX.read_text(encoding="utf-8"))
+
 
 if __name__ == "__main__":
     unittest.main()
