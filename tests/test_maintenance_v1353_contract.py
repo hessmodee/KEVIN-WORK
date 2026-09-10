@@ -139,6 +139,7 @@ class MaintenanceV1353ContractTests(unittest.TestCase):
             "install_autonomy_controller_v1812",
             "replace_pinned_component",
             "run_main_agent_canary",
+            "install_invocation_worker_v11",
         })
         self.assertEqual(manifest.get("authority_class"), "GREEN")
         self.assertEqual(manifest.get("authority_delta"), "NONE")

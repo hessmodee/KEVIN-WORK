@@ -39,6 +39,7 @@ class HqBlockedNotDegradedTests(unittest.TestCase):
         self.assertIn("hq-owner-console-v10.js", wf)
         self.assertIn("hq-evidence-adapter-v1.js", idx)
         self.assertIn("hq-owner-console-v10.js", idx)
+        self.assertIn("assert 'hq-owner-console-v10.js' in sw", wf)
 
 
 if __name__ == "__main__":

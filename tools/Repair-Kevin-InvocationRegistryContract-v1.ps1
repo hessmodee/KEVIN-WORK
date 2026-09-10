@@ -76,8 +76,8 @@ if ($SelfTest) {
 New-Item -ItemType Directory -Force -Path $Autonomy | Out-Null
 $invPath = Join-Path $Autonomy 'kevin-proven-skill-invocation-v1.py'
 $bldPath = Join-Path $Autonomy 'kevin-proven-skill-request-builder-v1.py'
-$invHash = Install-RepoFile 'control-plane/autonomy/kevin-proven-skill-invocation-v1.py' $invPath $InvExpected 'CATALOG_PRIMITIVES'
-$bldHash = Install-RepoFile 'control-plane/autonomy/kevin-proven-skill-request-builder-v1.py' $bldPath $BldExpected 'fictional eight-vehicle GREEN example'
+$invHash = Install-RepoFile 'control-plane/autonomy/kevin-proven-skill-invocation-v1.1.1.py' $invPath $InvExpected 'CATALOG_PRIMITIVES'
+$bldHash = Install-RepoFile 'control-plane/autonomy/kevin-proven-skill-request-builder-v1.0.1.py' $bldPath $BldExpected 'fictional eight-vehicle GREEN example'
 
 $runRoot = Join-Path $Workspace 'reports\invocations\runs'
 $qRoot = Join-Path $Workspace 'reports\invocations\quarantine'

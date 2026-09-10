@@ -29,7 +29,8 @@ A second landmine: the request builder put `date.today()` in the operating note.
 
 ## Durable artifacts
 
-- `control-plane/autonomy/kevin-proven-skill-invocation-v1.py` (v1.1.1, catalog vs lane split)
-- `control-plane/autonomy/kevin-proven-skill-request-builder-v1.py` (v1.0.1, deterministic note)
+- `control-plane/autonomy/kevin-proven-skill-invocation-v1.1.1.py` (catalog vs lane split). Repair copies this onto live `kevin-proven-skill-invocation-v1.py`. Historical GitHub pin `63FA334B…` stays so Maintenance v1.3.52/v1.3.53 contracts do not move.
+- `control-plane/autonomy/kevin-proven-skill-request-builder-v1.0.1.py` (deterministic note). Repair copies this onto live `kevin-proven-skill-request-builder-v1.py`. Historical pin `8E1CDB69…` stays.
+- GitHub `ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1` stays `16C49542…`. Live HESS-PC worker is already `7E1129B7…` via Maintenance. Do not recopy it.
 - `tools/Repair-Kevin-InvocationRegistryContract-v1.ps1`
 - Tests: sibling Notepad catalog still stages; target Notepad still refuses; builder hash is stable

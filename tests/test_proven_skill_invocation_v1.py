@@ -6,7 +6,9 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MOD_PATH = ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-invocation-v1.py"
+# Catalog-contract repair lives on the versioned file so historical
+# Maintenance pins on kevin-proven-skill-invocation-v1.py stay 63FA334B.
+MOD_PATH = ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-invocation-v1.1.1.py"
 spec = importlib.util.spec_from_file_location("kevin_proven_skill_invocation_v1", MOD_PATH)
 mod = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(mod)
@@ -220,6 +222,11 @@ class ProvenSkillInvocationV1Tests(unittest.TestCase):
         self.write(target, tampered)
         with self.assertRaisesRegex(mod.InvocationError, "FINAL_ORDER_CORRELATION_MISMATCH"):
             mod.reconcile(self.state_path, self.done, self.failed, self.receipt_path, self.artifacts)
+
+    def test_versioned_repair_identity(self):
+        self.assertEqual(mod.VERSION, "1.1.1")
+        self.assertIn("ui_notepad_write", mod.CATALOG_PRIMITIVES)
+        self.assertNotIn("ui_notepad_write", mod.ALLOWED_PRIMITIVES)
 
 
 if __name__ == "__main__":

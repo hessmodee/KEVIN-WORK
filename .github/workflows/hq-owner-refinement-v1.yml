@@ -106,7 +106,7 @@ jobs:
           assert 'lease' in growth and 'machine_evidence' in growth
 
           # Service worker must know the active owner layer; old files may remain historical only.
-          assert 'hq-owner-refinement-v3.js' in sw
+          assert 'hq-owner-console-v10.js' in sw
 
           # Contract itself must forbid stale/fake truth.
           for token in ['WORKING','ELIGIBLE WORK','BLOCKED WORK','TRUE IDLE','UNVERIFIED / STALE','AI-HANDOVER.md']:

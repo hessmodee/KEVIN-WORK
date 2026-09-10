@@ -22,7 +22,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
 
-VERSION = "1.1.0"
+VERSION = "1.1.1"
+# Skill Lab's proven catalog may include ui_notepad_write. This invocation
+# lane still executes only create_text + create_spreadsheet. Do not reject
+# the whole catalog because a sibling skill used Notepad.
+CATALOG_PRIMITIVES = {"create_text", "create_spreadsheet", "ui_notepad_write"}
 ALLOWED_PRIMITIVES = {"create_text", "create_spreadsheet"}
 SAFE_EXTENSIONS = {"create_text": {".md", ".txt"}, "create_spreadsheet": {".xlsx"}}
 ID_RE = re.compile(r"^[A-Za-z0-9._-]{4,96}$")
@@ -123,11 +127,10 @@ def validate_registry(registry: Dict[str, Any]) -> None:
             raise InvocationError("SKILL_REGISTRY_INVALID_PROOF_TIMESTAMP")
         if not RESULT_FILE_RE.fullmatch(entry["result_file"]) or ".." in entry["result_file"]:
             raise InvocationError("SKILL_REGISTRY_INVALID_RESULT_NAME")
-        primitives = entry.get("primitive_steps")
-        if not isinstance(primitives, list) or not (1 <= len(primitives) <= 12):
-            raise InvocationError("SKILL_REGISTRY_INVALID_PRIMITIVES")
-        if any(p not in ALLOWED_PRIMITIVES for p in primitives):
+        primitives = normalize_primitives(entry.get("primitive_steps"))
+        if any(p not in CATALOG_PRIMITIVES for p in primitives):
             raise InvocationError("SKILL_REGISTRY_UNAUTHORIZED_PRIMITIVE")
+        entry["primitive_steps"] = primitives
 
 
 def validate_filename(name: Any, allowed: Iterable[str]) -> None:
@@ -194,11 +197,27 @@ def validate_request(request: Dict[str, Any]) -> None:
         validate_step(step)
 
 
+def normalize_primitives(value: Any) -> List[str]:
+    """Accept Skill Lab's PowerShell ConvertTo-Json scalar for a 1-step skill."""
+    if isinstance(value, str):
+        value = [value]
+    if not isinstance(value, list) or not (1 <= len(value) <= 12):
+        raise InvocationError("SKILL_REGISTRY_INVALID_PRIMITIVES")
+    if any(not isinstance(p, str) or not p for p in value):
+        raise InvocationError("SKILL_REGISTRY_INVALID_PRIMITIVES")
+    return value
+
+
 def find_entry(registry: Dict[str, Any], skill_key: str) -> Dict[str, Any]:
     matches = [entry for entry in registry["skills"] if entry["key"] == skill_key]
     if len(matches) != 1:
         raise InvocationError("PROVEN_SKILL_NOT_FOUND")
-    return matches[0]
+    entry = matches[0]
+    primitives = normalize_primitives(entry.get("primitive_steps"))
+    if any(p not in ALLOWED_PRIMITIVES for p in primitives):
+        raise InvocationError("SKILL_NOT_INVOCATION_V1_COMPATIBLE")
+    entry["primitive_steps"] = primitives
+    return entry
 
 
 def validate_preserved_proof(entry: Dict[str, Any], proof: Dict[str, Any]) -> None:

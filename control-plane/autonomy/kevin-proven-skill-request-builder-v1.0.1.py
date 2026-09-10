@@ -9,11 +9,10 @@ from __future__ import annotations
 
 import argparse
 import json
-from datetime import date
 from pathlib import Path
 from typing import Any, Dict, List
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 PARTS_CHASE_KEY = "west-motor-parts-chase-board-pack@1"
 REQUIRED_FIELDS = (
     "priority",
@@ -92,7 +91,7 @@ def operating_note(rows: List[Dict[str, str]]) -> str:
         f"## This example\n"
         f"- Vehicles: {len(rows)}\n"
         f"- Still chasing: {open_count}\n"
-        f"- Generated for owner rehearsal date: {date.today().isoformat()}\n"
+        "- Generated for owner rehearsal: fictional eight-vehicle GREEN example.\n"
         "- Authority: GREEN example data only; no checkout, send, or DMS write.\n"
     )
 
