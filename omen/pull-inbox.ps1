@@ -1,4 +1,4 @@
-# Kevin GitHubBridge puller v1.2
+# Kevin GitHubBridge puller v1.3
 # GREEN-C. Copies inbox + self-updates this script + applies the catalog-contract
 # python repair when live hashes mismatch. Does not recopy Supervisor v1.8.12.
 # Does not replace the live worker pin. Does not reset history. Not PASS.
@@ -6,7 +6,7 @@ $ErrorActionPreference = 'Continue'
 $ws = Join-Path $env:USERPROFILE '.openclaw\workspace'
 New-Item -ItemType Directory -Force -Path $ws, (Join-Path $ws 'inbox'), (Join-Path $ws 'reports'), (Join-Path $ws 'tools') | Out-Null
 
-$InvExpected = '75D6031EFA64C0A9568EF006B4F95C71D3EDE1E3BAA4A35E2C1EE436326AD5EF'
+$InvExpected = '471E505151E211C254FAB9DD090AEA76E7D304B01333FEA03B115D2ECE39B7E8'
 $BldExpected = '93A8A881E04CC8E6AE0B900275C6158AF166484F663988EBB564BC47C4140031'
 
 $files = @(
@@ -17,7 +17,8 @@ $files = @(
   'workspace/SOUL.md',
   'omen/apply-lean.js',
   'omen/pull-inbox.ps1',
-  'tools/Repair-Kevin-InvocationRegistryContract-v1.ps1'
+  'tools/Repair-Kevin-InvocationRegistryContract-v1.ps1',
+  'tools/Diagnose-Kevin-InvocationStage-v1.ps1'
 )
 
 function Get-GitHubBytes([string]$RepoPath) {
@@ -65,12 +66,21 @@ if ($invGot -ne $InvExpected -or $bldGot -ne $BldExpected) {
 } else {
   Write-Host 'registry contract hashes already live'
 }
+$diag = Join-Path $ws 'tools\Diagnose-Kevin-InvocationStage-v1.ps1'
+if (Test-Path -LiteralPath $diag -PathType Leaf) {
+  try {
+    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $diag
+    Write-Host ('diagnose exit=' + $LASTEXITCODE)
+  } catch { Write-Host "diagnose skip: $_" }
+}
 
+$invGot = Get-Sha256Upper $invPath
+$bldGot = Get-Sha256Upper $bldPath
 $stamp = @{
   at = (Get-Date).ToString('o')
   host = $env:COMPUTERNAME
   bridge = 'ok'
-  puller = 'v1.2'
+  puller = 'v1.3'
   inv_sha256 = $invGot
   bld_sha256 = $bldGot
 }

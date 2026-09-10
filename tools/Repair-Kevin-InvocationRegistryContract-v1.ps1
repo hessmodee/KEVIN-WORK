@@ -1,9 +1,8 @@
 param([switch]$SelfTest)
 # Repair-Kevin-InvocationRegistryContract-v1.ps1
 # GREEN-C self-repair. Authority delta: NONE.
-# Root cause: invocation v1 rejected Skill Lab's whole proven catalog if any sibling
-# used ui_notepad_write, or if PowerShell serialized a 1-step primitive_steps as a string.
-# This copies the repaired python files and quarantines sticky RequestId run files.
+# v1.1 copies invocation v1.1.2 (PowerShell proof-pin + catalog contract) and
+# quarantines sticky RequestId run files. Then Diagnose publishes the python reason.
 # Does not recopy Supervisor v1.8.12. Does not replace the live worker pin.
 # Does not reset continuation history. Not PASS.
 
@@ -13,7 +12,7 @@ $Utf8 = New-Object System.Text.UTF8Encoding($false)
 
 $Workspace = if ($env:USERPROFILE) { Join-Path $env:USERPROFILE '.openclaw\workspace' } else { Split-Path -Parent $PSScriptRoot }
 $Autonomy = Join-Path $Workspace 'control-plane\autonomy'
-$InvExpected = '75D6031EFA64C0A9568EF006B4F95C71D3EDE1E3BAA4A35E2C1EE436326AD5EF'
+$InvExpected = '471E505151E211C254FAB9DD090AEA76E7D304B01333FEA03B115D2ECE39B7E8'
 $BldExpected = '93A8A881E04CC8E6AE0B900275C6158AF166484F663988EBB564BC47C4140031'
 $StickyId = 'invoke-owner-west-motor-parts-chase-fresh-8-v1'
 
@@ -76,7 +75,7 @@ if ($SelfTest) {
 New-Item -ItemType Directory -Force -Path $Autonomy | Out-Null
 $invPath = Join-Path $Autonomy 'kevin-proven-skill-invocation-v1.py'
 $bldPath = Join-Path $Autonomy 'kevin-proven-skill-request-builder-v1.py'
-$invHash = Install-RepoFile 'control-plane/autonomy/kevin-proven-skill-invocation-v1.1.1.py' $invPath $InvExpected 'CATALOG_PRIMITIVES'
+$invHash = Install-RepoFile 'control-plane/autonomy/kevin-proven-skill-invocation-v1.1.2.py' $invPath $InvExpected 'CATALOG_PRIMITIVES'
 $bldHash = Install-RepoFile 'control-plane/autonomy/kevin-proven-skill-request-builder-v1.0.1.py' $bldPath $BldExpected 'fictional eight-vehicle GREEN example'
 
 $runRoot = Join-Path $Workspace 'reports\invocations\runs'
@@ -95,7 +94,7 @@ if (Test-Path -LiteralPath $runRoot) {
 $reject = [ordered]@{
     schema = 1
     kind = 'kevin-invocation-public-reject'
-    version = '1.1.0'
+    version = '1.2.0'
     authority = 'GREEN'
     generated_at = [datetime]::Now.ToString('o')
     safe_for_public_repo = $true
@@ -106,9 +105,13 @@ $reject = [ordered]@{
     builder_py_sha256 = $bldHash
     quarantined_run_files = $quarantined
     outcome_proven = $false
-    truth_boundary = 'Python catalog contract repaired. Supervisor must re-invoke the same WorkInstance. This is not PASS.'
+    truth_boundary = 'Python catalog+proof-pin repaired (v1.1.2). Supervisor must re-invoke the same WorkInstance. This is not PASS.'
 }
 $outPath = Join-Path $Workspace 'reports\invocations\latest-public-reject.json'
 Write-Utf8NoBom $outPath (($reject | ConvertTo-Json -Depth 6) + "`n")
 Write-Output ($reject | ConvertTo-Json -Depth 6)
+$diag = Join-Path $Workspace 'tools\Diagnose-Kevin-InvocationStage-v1.ps1'
+if (Test-Path -LiteralPath $diag -PathType Leaf) {
+    try { & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $diag } catch { Write-Host ('diagnose skip: ' + $_) }
+}
 exit 0
