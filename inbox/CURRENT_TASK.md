@@ -2,7 +2,7 @@
 
 > **LAYER / READER / DAILY LOOP:** Do not replace or truncate this file. Write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only. This file is the Extreme Autonomy Flywheel execution contract.
 
-**Updated:** 2026-09-10 07:26 MT  
+**Updated:** 2026-09-10 09:22 MT  
 **Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**. Proven Skill Invocation v1 remains the production-skill milestone. Maintenance v1.3.55 **is independently proven** (`3E11C429…`). Supervisor **v1.8.12 remains independently proven** (`F17F4B0A…`). Invocation worker v1.1 **is independently applied** (`ALREADY_APPLIED_PROVEN` for `grok-install-worker-v11-20260909-1910`). Continuation remains `BLOCKED_INVOCATION_RUNTIME` on WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` (`failure_sha256=68845506…`, `eligible_count=7`, 1 burned turn at 09:31 kept). Root cause of that exit=1 class: invocation python rejected Skill Lab's whole proven catalog (`ui_notepad_write` siblings and/or PowerShell 1-step `primitive_steps` string). **THIS CYCLE:** GREEN agents run `tools/Repair-Kevin-InvocationRegistryContract-v1.ps1` once (fetch if missing). That copies versioned invocation v1.1.1 + builder v1.0.1 onto the live python names. That is not PASS.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
@@ -189,15 +189,5 @@ Track and trend:
 ## Stop / escalation rules
 
 - Do not claim source CI as HESS-PC runtime proof.
-- Do not claim a queue write or successful model turn as an owner outcome.
-- Do not reset valid history/budgets simply to create eligible work.
-- Do not manufacture Skill Lab/Forge churn to appear active.
-- Do not hard-code a healthy display over stale/bad truth.
-- Do not widen authority merely to pass a benchmark or produce activity.
-- Do not let Kevin silently redefine the benchmark/verifier/authority/audit system that judges Kevin.
-- For uncertain external effects, do not automatically retry without an idempotency/receipt decision.
-- When technology is ready but authority is blocked, prepare everything possible and surface the smallest scoped Delegated-Yellow grant Matt would need to give.
-
-## Continuation contract
-
-After every substantive transition, publish source/evidence so the canonical handover can advance. Keep repository/source truth separate from HESS-PC runtime truth. Local-only changes are unfinished.
+- Do not claim a queue write or successive model turns as the owner outcome.
+- After every substantive transition, publish source/evidence so the canonical handover can advance. Keep repository/source truth separate from HESS-PC runtime truth. Local-only changes are unfinished.
