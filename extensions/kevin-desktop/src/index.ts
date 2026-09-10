@@ -111,7 +111,7 @@ export default defineToolPlugin({
       name: "kevin_app_launch",
       label: "Launch approved Windows app",
       description:
-        "Launch one fixed approved local Windows application. Allowed: notepad, calculator, paint, explorer. Launch only: does not type, click, draw, or save. Tool result sets typed=false and capability=launch_only. No caller-selected executable, arguments, URI, command, or shell.",
+        "Launch one fixed approved local Windows application. Allowed: notepad, calculator, paint, explorer. No caller-selected executable, arguments, URI, command, or shell.",
       parameters: appParams,
       optional: true,
       async execute(params, _config, context): Promise<DesktopResult> {

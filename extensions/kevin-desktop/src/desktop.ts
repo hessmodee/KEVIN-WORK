@@ -20,12 +20,6 @@ export type DesktopResult = {
   count?: number;
   truncated?: boolean;
   redacted?: number;
-  launched?: boolean;
-  typed?: boolean;
-  clicked?: boolean;
-  saved?: boolean;
-  capability?: "launch_only";
-  note?: string;
   error?:
     | "invalid_name"
     | "invalid_root"
@@ -54,17 +48,6 @@ export const APP_ALLOWLIST = Object.freeze({
 });
 
 export type AllowedApp = keyof typeof APP_ALLOWLIST;
-
-const LAUNCH_ONLY_NOTE =
-  "LAUNCH_ONLY. Process start requested. typed=false clicked=false saved=false. Do not claim typing, drawing, or saving. Report NOT_EXECUTED: capability_unavailable for operate steps.";
-
-export function system32Exe(exe: string, env: NodeJS.ProcessEnv = process.env): string {
-  if (!/^(notepad|calc|mspaint|explorer)\.exe$/i.test(exe)) {
-    return exe;
-  }
-  const root = (env.SystemRoot || env.WINDIR || "C:\\Windows").replace(/[\\/]+$/, "");
-  return `${root}\\System32\\${exe}`;
-}
 
 /** Fixed known-user-folder roots for list_folder only. No arbitrary paths. */
 export const LIST_ROOT_ALLOWLIST = Object.freeze([
@@ -233,7 +216,7 @@ export async function openDesktopFolder(
     : { ok: false, action: "open_folder", name, matches: 1, error: "launch_failed" };
 }
 
-export function launchAllowedApp(app: string, spawnFn: SpawnFn = nodeSpawn, env: NodeJS.ProcessEnv = process.env): DesktopResult {
+export function launchAllowedApp(app: string, spawnFn: SpawnFn = nodeSpawn): DesktopResult {
   if (process.platform !== "win32" && spawnFn === nodeSpawn) {
     return { ok: false, action: "launch_app", app, error: "unsupported_platform" };
   }
@@ -241,21 +224,10 @@ export function launchAllowedApp(app: string, spawnFn: SpawnFn = nodeSpawn, env:
     return { ok: false, action: "launch_app", app, error: "unsafe_target" };
   }
   const spec = APP_ALLOWLIST[app as AllowedApp];
-  const exe = system32Exe(spec.exe, env);
-  const launched = launchDetached(exe, spec.args, spawnFn);
+  const launched = launchDetached(spec.exe, spec.args, spawnFn);
   return launched
-    ? {
-        ok: true,
-        action: "launch_app",
-        app,
-        launched: true,
-        typed: false,
-        clicked: false,
-        saved: false,
-        capability: "launch_only",
-        note: LAUNCH_ONLY_NOTE,
-      }
-    : { ok: false, action: "launch_app", app, error: "launch_failed", typed: false, capability: "launch_only" };
+    ? { ok: true, action: "launch_app", app }
+    : { ok: false, action: "launch_app", app, error: "launch_failed" };
 }
 
 export type ListFolderOptions = {

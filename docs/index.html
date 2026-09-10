@@ -40,7 +40,7 @@ Historical core marker: hq-core-v7.html?v=15#ops
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
     navigator.serviceWorker.getRegistrations().then(regs=>Promise.all(regs.map(r=>r.update()))).finally(()=>{
-      navigator.serviceWorker.register('./sw.js?v=10',{scope:'./'}).catch(()=>{});
+      navigator.serviceWorker.register('./sw.js?v=9',{scope:'./'}).catch(()=>{});
     });
   });
 }
