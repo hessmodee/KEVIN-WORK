@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'control-plane/autonomy/kevin-proven-skill-invocation-v1.py'
+      - 'control-plane/autonomy/kevin-proven-skill-invocation-v1.1.1.py'
       - 'tests/test_proven_skill_invocation_v1.py'
       - '.github/workflows/proven-skill-invocation-v1-proof.yml'
       - 'docs/engineering/KEVIN-PROVEN-SKILL-INVOCATION-v1.md'
@@ -25,6 +26,6 @@ jobs:
         with:
           python-version: '3.12'
       - name: Compile invocation lane
-        run: python -m py_compile control-plane/autonomy/kevin-proven-skill-invocation-v1.py
+        run: python -m py_compile control-plane/autonomy/kevin-proven-skill-invocation-v1.py control-plane/autonomy/kevin-proven-skill-invocation-v1.1.1.py
       - name: Run fail-closed contract proof
-        run: python -m unittest tests/test_proven_skill_invocation_v1.py -v
+        run: python -m unittest tests/test_proven_skill_invocation_v1.py tests/test_invocation_registry_contract_v111.py -v

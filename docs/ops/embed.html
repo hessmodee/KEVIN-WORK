@@ -30,7 +30,7 @@ body{padding:0!important;background:none!important}
 <div class="topology" id="topology"><div class="gridline"></div>
 <div class="hub owner-selected" id="kevinHub" tabindex="0" role="button" aria-label="Select Kevin, Chief of Staff"><div class="hub-inner"><h2>Kevin</h2><div class="role">Chief of Staff</div><div id="hubKevinProd"></div><div class="kevin-states" id="kevinState" aria-live="polite"><span class="loop state-ready" style="--kstatec:#244f8f">READY</span></div><div class="kevin-meta" id="kevinMeta"><div><b>Autonomy loop enabled</b></div><div>Waiting for telemetry…</div></div></div></div>
 </div>
-<div class="legend owner-compact"><span><i style="background:#244f8f"></i>Ready</span><span><i style="background:#68d8ce"></i>Armed</span><span><i style="background:#ffd166"></i>Active</span><span><i style="background:#79c56a"></i>Working</span><span><i style="background:#f06dbb"></i>Building</span><span><i style="background:#b38cff"></i>Cooldown</span><span><i style="background:#ff9a3d"></i>Degraded</span><span><i style="background:#e46f61"></i>Offline</span></div>
+<div class="legend owner-compact"><span><i style="background:#244f8f"></i>Ready</span><span><i style="background:#68d8ce"></i>Armed</span><span><i style="background:#ffd166"></i>Active</span><span><i style="background:#79c56a"></i>Working</span><span><i style="background:#f06dbb"></i>Building</span><span><i style="background:#b38cff"></i>Cooldown</span><span><i style="background:#f0c36a"></i>Blocked</span><span><i style="background:#ff9a3d"></i>Degraded</span><span><i style="background:#e46f61"></i>Offline</span></div>
 <div class="owner-status-guide" aria-label="Kevin status definitions">
 <div class="owner-status-item"><i style="background:#244f8f;color:#244f8f"></i><b>READY</b><span>Healthy and available; no active job right now.</span></div>
 <div class="owner-status-item"><i style="background:#68d8ce;color:#68d8ce"></i><b>ARMED</b><span>Autonomy enabled; waiting between governed work cycles.</span></div>
@@ -38,6 +38,7 @@ body{padding:0!important;background:none!important}
 <div class="owner-status-item"><i style="background:#79c56a;color:#79c56a"></i><b>WORKING</b><span>A real task is executing now.</span></div>
 <div class="owner-status-item"><i style="background:#f06dbb;color:#f06dbb"></i><b>BUILDING</b><span>Build Lab / Forge is creating or testing a candidate.</span></div>
 <div class="owner-status-item"><i style="background:#b38cff;color:#b38cff"></i><b>COOLDOWN</b><span>Bounded pause after throttling, retry, or recovery.</span></div>
+<div class="owner-status-item"><i style="background:#f0c36a;color:#f0c36a"></i><b>BLOCKED</b><span>Scheduler healthy; a governed job fail-closed. Not a crash.</span></div>
 <div class="owner-status-item"><i style="background:#ff9a3d;color:#ff9a3d"></i><b>DEGRADED</b><span>Online, but a health or evidence issue needs attention.</span></div>
 <div class="owner-status-item"><i style="background:#e46f61;color:#e46f61"></i><b>OFFLINE</b><span>Fresh telemetry is unavailable beyond the allowed source-age window.</span></div>
 </div>

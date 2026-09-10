@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location(
     "builder",
-    ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-request-builder-v1.py",
+    ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-request-builder-v1.0.1.py",
 )
 builder = importlib.util.module_from_spec(spec)
 assert spec.loader
@@ -15,7 +15,7 @@ spec.loader.exec_module(builder)
 
 inv_spec = importlib.util.spec_from_file_location(
     "invocation",
-    ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-invocation-v1.py",
+    ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-invocation-v1.1.1.py",
 )
 invocation = importlib.util.module_from_spec(inv_spec)
 assert inv_spec.loader
@@ -56,6 +56,14 @@ class RequestBuilderTests(unittest.TestCase):
             self.assertEqual(8, len(loaded))
             rebuilt = builder.build_parts_chase_request("parts-board-fictional-8-002", loaded)
             self.assertEqual(request["skill_key"], rebuilt["skill_key"])
+
+    def test_operating_note_is_deterministic(self):
+        first = builder.build_parts_chase_request("parts-board-fictional-8-det")
+        second = builder.build_parts_chase_request("parts-board-fictional-8-det")
+        self.assertEqual(first["steps"][1]["payload"]["content"], second["steps"][1]["payload"]["content"])
+        self.assertNotIn("rehearsal date:", first["steps"][1]["payload"]["content"])
+        self.assertEqual(invocation.sha256_obj(first), invocation.sha256_obj(second))
+        self.assertEqual(builder.VERSION, "1.0.1")
 
 
 if __name__ == "__main__":

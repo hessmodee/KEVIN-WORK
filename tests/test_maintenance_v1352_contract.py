@@ -137,7 +137,7 @@ class MaintenanceV1352ContractTests(unittest.TestCase):
                 "control-plane/maintenance/kevin-maintenance-runner-v1.3.53.ps1",
             ))
         else:
-            self.assertEqual(op, "run_main_agent_canary")
+            self.assertIn(op, {"run_main_agent_canary", "install_invocation_worker_v11"})
 
     def test_live_workitem_unblocked_after_v1811_install(self) -> None:
         items = json.loads((ROOT / "inbox" / "autonomy" / "work-items.json").read_text(encoding="utf-8"))

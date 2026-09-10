@@ -2,14 +2,14 @@
 
 > **LAYER / READER / DAILY LOOP:** Do not replace or truncate this file. Write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only. This file is the Extreme Autonomy Flywheel execution contract.
 
-**Updated:** 2026-09-09 19:10 MT  
-**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**. Proven Skill Invocation v1 remains the production-skill milestone. Maintenance v1.3.55 **is independently proven** (Support hash `3E11C429…`, typed `APPLIED_PREAUTHORIZED_PROVEN` for `grok-install-maint-v1355-20260909-1850` at `2026-09-09T19:04:03-06:00`). Supervisor **v1.8.12 remains independently proven** (`F17F4B0A…`). Continuation remains `BLOCKED_INVOCATION_RUNTIME` on WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` (`failure_sha256=68845506…`, `eligible_count=7`, 1 burned turn at 09:31 kept). That is fail-closed diagnostic, not a crash and not PASS. Live queue this turn: `install_invocation_worker_v11` id `grok-install-worker-v11-20260909-1910` expires `2026-09-10T22:00:00Z`. That manifest must supply only the 10 allowed keys (hashes are runner-pinned `16C49542…` → `7E1129B7…`). Owner-facing GREEN self-repair remains console hygiene v1.7. That is not PASS either.
+**Updated:** 2026-09-10 07:26 MT  
+**Status:** Core platform is operational and Benchmark is 30/30. The active program is **Extreme Autonomy Flywheel v3 execution**. Proven Skill Invocation v1 remains the production-skill milestone. Maintenance v1.3.55 **is independently proven** (`3E11C429…`). Supervisor **v1.8.12 remains independently proven** (`F17F4B0A…`). Invocation worker v1.1 **is independently applied** (`ALREADY_APPLIED_PROVEN` for `grok-install-worker-v11-20260909-1910`). Continuation remains `BLOCKED_INVOCATION_RUNTIME` on WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` (`failure_sha256=68845506…`, `eligible_count=7`, 1 burned turn at 09:31 kept). Root cause of that exit=1 class: invocation python rejected Skill Lab's whole proven catalog (`ui_notepad_write` siblings and/or PowerShell 1-step `primitive_steps` string). **THIS CYCLE:** GREEN agents run `tools/Repair-Kevin-InvocationRegistryContract-v1.ps1` once (fetch if missing). That copies versioned invocation v1.1.1 + builder v1.0.1 onto the live python names. That is not PASS.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
 
 **Architecture:** `docs/engineering/KEVIN-AUTONOMY-EXECUTION-PLAN-v3.md`  
 **Current production-skill milestone:** `docs/engineering/KEVIN-PROVEN-SKILL-INVOCATION-v1.md`  
-**Current typed crossing:** `docs/engineering/KEVIN-MAINTENANCE-V1355-INVOCATION-WORKER-V11.md` (runner v1.3.55 independently proven; worker v1.1 queued). Prior: `docs/engineering/KEVIN-MAINTENANCE-V1353-SUPERVISOR-V1812.md` (v1.8.12 file hash + typed receipt live). Source prevention: `docs/engineering/KEVIN-MAINTENANCE-V1354-IDEMPOTENT-RECEIPT.md` (do **not** install v1.3.54 for this worker family). Worker NativeCommandError lesson: `docs/engineering/LESSON-invocation-worker-nativecommanderror-2026-09-08.md`. OpenClaw lesson: `docs/engineering/LESSON-openclaw-local-autonomy-2026-09-08.md`. HQ/console lesson: `docs/engineering/LESSON-hq-bounce-powershell-flash-2026-09-08.md`. Go-max research: `docs/engineering/LESSON-hermes-henry-go-max-2026-09-09.md`.
+**Current typed crossing:** `docs/engineering/KEVIN-MAINTENANCE-V1355-INVOCATION-WORKER-V11.md` (runner v1.3.55 independently proven; worker v1.1 applied). Prior: `docs/engineering/KEVIN-MAINTENANCE-V1353-SUPERVISOR-V1812.md`. Source prevention: `docs/engineering/KEVIN-MAINTENANCE-V1354-IDEMPOTENT-RECEIPT.md` (do **not** install v1.3.54 for this worker family). Worker NativeCommandError lesson: `docs/engineering/LESSON-invocation-worker-nativecommanderror-2026-09-08.md`. Registry catalog lesson: `docs/engineering/LESSON-invocation-registry-catalog-contract-2026-09-09.md`. HQ lesson: `docs/engineering/LESSON-hq-blocked-vs-degraded-2026-09-09.md`. OpenClaw lesson: `docs/engineering/LESSON-openclaw-local-autonomy-2026-09-08.md`. HQ/console lesson: `docs/engineering/LESSON-hq-bounce-powershell-flash-2026-09-08.md`. Go-max research: `docs/engineering/LESSON-hermes-henry-go-max-2026-09-09.md`.
 
 ## Owner strategic directive - maximum bounded autonomy
 
@@ -28,35 +28,33 @@ Target maturity is **T4 for routine bounded work**: Kevin detects the need, reso
 ## Current live platform truth
 
 - Maintenance v1.3.55 is installed/proven. Support hashes workspace `kevin-maintenance-runner.ps1` as `3E11C429D4540DBD5C4F6F7AD60AA1729D2C0A78D7DA209E76F196654589C261`. Typed `APPLIED_PREAUTHORIZED_PROVEN` for `grok-install-maint-v1355-20260909-1850`. Do **not** repeat the v1.3.53 or v1.3.55 runner install.
-- Supervisor **v1.8.12 is independently proven**. Support hashes workspace `kevin-supervisor.ps1` as `F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB`. That hash did not move during the v1.3.55 apply. Do not recopy v1.8.12.
-- Continuation publishes `version=1.8.12` `status=BLOCKED_INVOCATION_RUNTIME` `selected_id=owner-west-motor-parts-chase-fresh-8-v1` `eligible_count=7` `failure_sha256=68845506ED61C6DBA473728C038321FC76D0E510B0FAF2CACE963475DB95C065` `outcome_proven=false` `turn` still 1 at 09:31. Treat 68845506 as **worker ran or threw**, not as a missing worker script. Do not send this work to Skill Lab replay or tool-less `fixed:main`.
-- Engineering `2026-09-09T19:06:30-06:00` reports all six canonical scheduler lanes `last_status=ok` `consecutive_errors=0` including `kevin-supervisor-v1` and `kevin-maintenance-intake-v1`. UI Bridge heartbeat 2.1s FRESH. Benchmark PASS 30/30 at 19:03:22 MT. Request `grok-status-20260909-1850` is `DUPLICATE_IGNORED`. This turn queues `action_status` id `grok-status-20260909-1910` with `created_at=2026-09-10T01:08:00Z` (at-or-before machine now). Do not reuse 0455, 1651, or 1850.
+- Supervisor **v1.8.12 is independently proven**. Support hashes workspace `kevin-supervisor.ps1` as `F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB`. Do not recopy v1.8.12.
+- Invocation worker v1.1 is independently applied. Support maintenance `ALREADY_APPLIED_PROVEN` for `grok-install-worker-v11-20260909-1910` / "Invocation worker v1.1 Continue wrap applied/verified. Supervisor untouched." GitHub ControlPlane pin stays `16C49542…` (CI identity). Live HESS-PC worker hash is `7E1129B7…`. Do **not** overwrite the GitHub pin. Do **not** queue another worker install while that slot remains (`expires 2026-09-10T22:00:00Z`).
+- Continuation publishes `version=1.8.12` `status=BLOCKED_INVOCATION_RUNTIME` `selected_id=owner-west-motor-parts-chase-fresh-8-v1` `eligible_count=7` `failure_sha256=68845506ED61C6DBA473728C038321FC76D0E510B0FAF2CACE963475DB95C065` `outcome_proven=false` `turn` still 1 at 09:31. Treat 68845506 as **worker ran and threw STAGE_REJECTED**, not as a missing worker script. Root cause: catalog contract, not NativeCommandError (that family was already wrapped by v1.1). Do not send this work to Skill Lab replay or tool-less `fixed:main`.
+- Engineering `2026-09-10T07:25:19-06:00` reports all six canonical scheduler lanes `last_status=ok` `consecutive_errors=0`. Queues `ready=0 / running=0 / done=67 / failed=1`. Benchmark PASS 30/30. Request `grok-status-20260909-1910` is `DUPLICATE_IGNORED`. This turn queues `action_status` id `grok-status-20260910-0726` with `created_at=2026-09-10T13:18:00Z` (at-or-before machine now). Do not reuse 0455, 1651, 1850, 1910, or 2155.
 - Fresh Benchmark remains PASS 30/30, critical 0.
-- Support's legacy aggregate `cron.ok=false` still publishes `Config warnings:` on the machine. Do not treat that field as lane failure. Support's stale `NO_ELIGIBLE_MISSION` cycle field is not the live continuation. HQ / ops floor must not display it as current work.
+- Support's legacy aggregate `cron.ok=false` still publishes `Config warnings:` on the machine. Do not treat that field as lane failure. Support's stale `NO_ELIGIBLE_MISSION` cycle field is not the live continuation. HQ / ops floor must not display it as current work. Ops-v11 now paints `BLOCKED_INVOCATION_RUNTIME` as BLOCKED, not DEGRADED.
 - 27 composite skills are PROVEN; latest proven is `west-motor-parts-chase-board-pack@1`. Exact-five desktop policy remains intentional. Do not recreate those skills. Do not widen the worker allowlist until the first proof. Do not install PCClaw or unvetted ClawHub skills.
 - Night Forge scheduled task is **Disabled**. Leave it disabled. It is retired fat, not a live worker.
 - WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` is OPEN/GREEN/`blocked=false` with fictional 8-vehicle inputs and `required_skill_key=west-motor-parts-chase-board-pack@1`. The existing 1 burned turn at 09:31 stays inside the typical 3-turn budget; do not reset history.
-- Live Maintenance slot is **`APPLIED_PREAUTHORIZED_PROVEN`** for `replace_pinned_component` `grok-install-maint-v1355-20260909-1850` (Support `2026-09-09T19:04:03-06:00`, hash `3E11C429…`). Subsequent handoff tick is `ALREADY_APPLIED_PROVEN`. This turn queues GREEN `install_invocation_worker_v11` id `grok-install-worker-v11-20260909-1910` expires `2026-09-10T22:00:00Z`. That operation must **not** supply `source_path`, hashes, `target_alias`, or `notes` — v1.3.55 pins worker `16C49542…` → `7E1129B7…` internally. Do **not** repeat the v1.3.55 runner install. Do **not** queue v1.3.54. GitHub ControlPlane worker pin stays `16C49542…` until HESS-PC apply.
+- Live Maintenance slot is **`ALREADY_APPLIED_PROVEN`** for `install_invocation_worker_v11` `grok-install-worker-v11-20260909-1910` until `2026-09-10T22:00:00Z`. Do **not** replace it. Do **not** queue v1.3.54. Do **not** repeat the v1.3.55 runner install.
 - Layer/reader/daily agents must not write `inbox/CURRENT_TASK.md`. Heartbeat/daily loops write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only.
 
 ## Source-side this turn — not yet an owner outcome
 
-- `install_invocation_worker_v11` is **queued** this turn: `inbox/maintenance/manifest.json` id `grok-install-worker-v11-20260909-1910` operation `install_invocation_worker_v11` expires `2026-09-10T22:00:00Z`. Allowed keys only: schema, kind, id, authority_class, authority_delta, production_effect, owner_policy, preauthorized, operation, expires_at. Hashes are inside the installed v1.3.55 runner (`16C49542…` → `7E1129B7…` from `control-plane/autonomy/kevin-proven-skill-invoke-worker-v1.1.ps1`). Does not recopy Supervisor. Does not overwrite GitHub ControlPlane worker v1 until HESS-PC apply. A queue write is not HESS-PC apply and not PASS.
-- Install order now: (1) v1.3.55 runner **done** (`3E11C429…` + typed `APPLIED_PREAUTHORIZED_PROVEN`); (2) wait typed `APPLIED_PREAUTHORIZED_PROVEN` / `ALREADY_APPLIED_PROVEN` for worker v1.1 and live ControlPlane hash `7E1129B7…` with Supervisor still `F17F4B0A…` and Benchmark 30/30; (3) resume `owner-west-motor-parts-chase-fresh-8-v1` keeping the 09:31 burned turn. GitHub ControlPlane worker stays `16C49542…` until that HESS-PC apply.
-- HQ Pages: skip remount when truth signature is unchanged; restore scroll; 30s refresh; treat `BLOCKED_INVOCATION_RUNTIME` as blocked. Ops floor fetches continuation and stops showing stale `NO_ELIGIBLE_MISSION`.
-- Command Center: silent snapshot poll (no route invalidate / pending remount), persisted tabs, ops-floor motion tied to live truth.
-- Console hygiene v1.7 (GREEN self-repair, does not recopy v1.8.12): `tools/kevin-hidden-run.vbs` + `tools/Repair-Kevin-ConsoleHygiene-v1.7.ps1` + watchdog `kevin-self-reliance-watchdog-v1.7.0.ps1`. `-WindowStyle Hidden` is not enough. Wrap Kevin/OpenClaw PowerShell scheduled tasks with `wscript.exe` SW_HIDE. Keep UI Bridge InteractiveToken. GitHub source is not HESS-PC apply.
-- If this workspace already contains `tools/Repair-Kevin-ConsoleHygiene-v1.7.ps1`, GREEN agents MAY run it once as reversible local self-repair. If it is missing, fetch it from GitHub (`repos/hessmodee/KEVIN-WORK/contents/tools/Repair-Kevin-ConsoleHygiene-v1.7.ps1`) the same way GitHubBridge pulls inbox files, write it under `tools/`, then run once. Also fetch `tools/kevin-hidden-run.vbs` if missing. Do not invent a new Engineering Relay verb. Do not re-queue the v1.3.55 runner.
-- Next smallest machine repair for the owner outcome remains the invocation worker path (python Continue wrap / explicit reject / public `reason`), not another Supervisor copy and not v1.3.54. Live worker still uses `$ErrorActionPreference='Stop'` plus native `python`; stderr becomes NativeCommandError. Source wrap is `control-plane/autonomy/kevin-proven-skill-invoke-worker-v1.1.ps1`. Do **not** change live worker pin `16C49542…` until `install_invocation_worker_v11` independently proves on HESS-PC.
-- Nested `& powershell @workerArgs` inside Supervisor still flashes a child console even if the parent scheduled task is VBS-hidden. Do not recopy v1.8.12 to fix that. Wrap scheduled tasks (including UI Bridge `-RunLoop`) with `tools/Repair-Kevin-ConsoleHygiene-v1.7.ps1`. GitHub source is not HESS-PC apply.
+- Root-cause source repair landed as **versioned** files so historical Maintenance pins do not move: `kevin-proven-skill-invocation-v1.1.1.py` (`75D6031E…`) and `kevin-proven-skill-request-builder-v1.0.1.py` (`93A8A881…`). Catalog validation accepts Skill Lab's three GREEN primitives; the selected skill still must be `create_text` + `create_spreadsheet`. Builder drops `date.today()`. GitHub unversioned python and ControlPlane worker stay at historical pins `63FA334B…` / `8E1CDB69…` / `16C49542…`. GitHub source is not HESS-PC apply.
+- **THIS CYCLE — do not wait.** GREEN self-repair Kevin can run now without a new Maintenance slot: `tools/Repair-Kevin-InvocationRegistryContract-v1.ps1`. If missing, fetch it from GitHub (`repos/hessmodee/KEVIN-WORK/contents/tools/Repair-Kevin-InvocationRegistryContract-v1.ps1`) the same way GitHubBridge pulls inbox files, write it under `tools/`, then run once. It fetches the versioned python files, writes them onto the live names the worker already calls, and quarantines only sticky run files for RequestId `invoke-owner-west-motor-parts-chase-fresh-8-v1`. It does not recopy Supervisor. It does not replace the live worker. Expected hashes: inv `75D6031E…`, bld `93A8A881…`. A repair run is not PASS.
+- After the repair receipt `reason=REGISTRY_CONTRACT_REPAIRED` is on disk, let Supervisor re-select the same WorkInstance. If `reports/action-era/queue/ready` gains the two GREEN orders, wait Action Era. If continuation is still `68845506`, publish `reports/invocations/latest-public-reject.json` with the python reason and keep going — do not recopy Supervisor.
+- If this workspace already contains `tools/Repair-Kevin-ConsoleHygiene-v1.7.ps1`, GREEN agents MAY run it once as reversible local self-repair. Parallel, not a substitute.
+- HQ Pages: `BLOCKED_INVOCATION_RUNTIME` is BLOCKED, not DEGRADED. CI static-ui-contract expected scripts now match the live V10 shell. Skip remount when truth signature is unchanged.
 - Do not recreate already-PROVEN skills. Do not widen the invocation worker allowlist past `west-motor-parts-chase-board-pack@1` until this first fresh invocation proves the path.
 - Do not expand desktop tools. Exact-five remains the production tool surface.
 
 ## Immediate execution gates
 
-- v1.3.55 runner is independently proven (`3E11C429…` + `APPLIED_PREAUTHORIZED_PROVEN`). Live queue is `install_invocation_worker_v11` id `grok-install-worker-v11-20260909-1910` expires `2026-09-10T22:00:00Z`.
-- After typed worker proof (`7E1129B7…` + Supervisor still `F17F4B0A…` + Benchmark 30/30): resume the same 8-vehicle WorkInstance. Keep the 09:31 burned turn. Do not skip a rung.
-- GitHub `ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1` stays `16C49542…` until HESS-PC apply.
+- Worker v1.1 is independently applied. Do not queue another `install_invocation_worker_v11` before `2026-09-10T22:00:00Z`.
+- GREEN agents run `Repair-Kevin-InvocationRegistryContract-v1.ps1` once **this cycle**, then let Supervisor re-select `owner-west-motor-parts-chase-fresh-8-v1`. Keep the 09:31 burned turn. Do not skip a rung.
+- GitHub `ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1` stays `16C49542…`. Live worker is `7E1129B7…`. Do not overwrite the GitHub pin. Do not recopy Supervisor v1.8.12.
 
 
 ## Highest-priority execution sequence
@@ -65,11 +63,11 @@ The highest-priority execution sequence, and the current live platform repair ta
 
 ### 1. Proven Skill Invocation v1 — first fresh 8-vehicle owner outcome — NOW
 
-Supervisor v1.8.12 is independently proven (`F17F4B0A…` + typed `ALREADY_APPLIED_PROVEN`). It already selected `owner-west-motor-parts-chase-fresh-8-v1` and fail-closed `BLOCKED_INVOCATION_RUNTIME`. Repair the worker so the same WorkInstance can be invoked as `west-motor-parts-chase-board-pack@1` on the already-bound fictional 8-vehicle dataset. Do not charge tool-less `fixed:main`. Do not reset the 1 burned 09:31 turn.
+Supervisor v1.8.12 is independently proven (`F17F4B0A…` + typed `ALREADY_APPLIED_PROVEN`). It already selected `owner-west-motor-parts-chase-fresh-8-v1` and fail-closed `BLOCKED_INVOCATION_RUNTIME`. Apply the catalog-contract python repair so the same WorkInstance can be invoked as `west-motor-parts-chase-board-pack@1` on the already-bound fictional 8-vehicle dataset. Do not charge tool-less `fixed:main`. Do not reset the 1 burned 09:31 turn.
 
 Required output fields: priority, stock number, part/need, vendor/source, ordered date, ETA, blocker, owner, next action, completion state.
 
-PASS requires a real workbook + companion operating note + correlated DONE records + output hashes + immutable invocation receipt. No customer PII, credentials, purchases, public posting or live financial effects. A model turn, a queue write, CI, HQ label, fail-closed receipt, or routing receipt is not PASS.
+PASS requires a real workbook + companion operating note + correlated DONE records + output hashes + immutable invocation receipt. No customer PII, credentials, purchases, public posting or live financial effects. A model turn, a queue write, CI, HQ label, fail-closed receipt, repair script, or routing receipt is not PASS.
 
 ### 1b. Owner-UX console hygiene — NOW, parallel, not a substitute
 
@@ -109,18 +107,19 @@ This loop is the primary mechanism for reducing Bess/Grok intervention over time
 
 ## Do not
 
-- Repeat Maintenance v1.3.51 / v1.3.52 / v1.3.53 / v1.3.55 runner installation or Supervisor v1.8.11 / v1.8.12 installation. v1.3.55 and v1.8.12 **are independently proven**.
+- Repeat Maintenance v1.3.51 / v1.3.52 / v1.3.53 / v1.3.55 runner installation or Supervisor v1.8.11 / v1.8.12 installation. v1.3.55, v1.8.12, and worker v1.1 **are independently proven**.
 - Queue `replace_pinned_component` for Maintenance v1.3.54 for this worker family.
-- Supply `source_path`, hashes, `target_alias`, or `notes` on the `install_invocation_worker_v11` manifest. v1.3.55 rejects extra keys.
-- Overwrite GitHub `ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1` before HESS-PC apply of worker v1.1.
-- Treat Support supervisor hash `F17F4B0A…` without the typed receipt as the whole story; the receipt now exists. Treat `BLOCKED_INVOCATION_RUNTIME` as the remaining machine gate for the owner outcome.
+- Queue another `install_invocation_worker_v11` before `2026-09-10T22:00:00Z`.
+- Recopy Supervisor v1.8.12.
+- Overwrite GitHub `ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1` (`16C49542…`). Live HESS-PC already has worker v1.1 (`7E1129B7…`).
+- Treat Support supervisor hash `F17F4B0A…` without the typed receipt as the whole story; the receipt now exists. Treat `BLOCKED_INVOCATION_RUNTIME` as the remaining machine gate for the owner outcome until the catalog-contract repair is on disk and Supervisor restages.
 - Treat continuation `CONTROLLER_ERROR` from 14:30 as a live v1.8.12 crash.
 - Reset histories or work budgets.
 - Recreate already-PROVEN skills.
 - Retry disproven Forge migration work.
 - Invent new Engineering Relay verbs.
 - Claim HESS-PC installation from a GitHub source change.
-- Treat a queued request, CI pass, HQ label, routing receipt, fail-closed receipt, or model turn as an owner outcome.
+- Treat a queued request, CI pass, HQ label, routing receipt, fail-closed receipt, repair script, or model turn as an owner outcome.
 - Send `owner-west-motor-parts-chase-fresh-8-v1` to tool-less `fixed:main`.
 - Widen desktop tools past the exact-five policy. Do not install PCClaw. Do not install unvetted ClawHub skills.
 - Truncate this file. The growth panel and the next agent both need the headings below. Layer/reader/daily agents write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only.
@@ -145,7 +144,7 @@ Known reversible repairs, regression tests, lessons/failure taxonomy, invocation
 ### DELEGATED YELLOW - scoped consequential grants
 Kevin may prepare autonomously. Execution requires a current narrowly scoped owner grant for external sends/calls/posts, account changes, system-wide/elevated installs, user-data changes outside approved roots, bookings, orders, checkout and purchases. Grants should be limited by action class, recipient/merchant/publisher, amount/scope, count/frequency, expiry, idempotency and receipt requirements.
 
-Pizza orders, Amazon checkout, voice calls, and public posting remain Delegated Yellow. The bottleneck is not the GREEN/YELLOW line. The bottleneck is that the first fresh PROVEN-skill invoke fail-closed on the worker path. First owner outcome still has to be independently proven after that worker repair.
+Pizza orders, Amazon checkout, voice calls, and public posting remain Delegated Yellow. The bottleneck is not the GREEN/YELLOW line. The bottleneck is that the first fresh PROVEN-skill invoke fail-closed on the catalog contract. First owner outcome still has to be independently proven after that python repair is on disk.
 
 Never self-authorize arbitrary shell, credential access/exfiltration, safety/audit weakening, unbounded financial authority, automatic permission expansion or judge/benchmark weakening.
 
