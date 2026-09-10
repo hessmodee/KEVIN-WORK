@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 # Catalog-contract repair lives on the versioned file so historical
 # Maintenance pins on kevin-proven-skill-invocation-v1.py stay 63FA334B.
-MOD_PATH = ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-invocation-v1.1.1.py"
+MOD_PATH = ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-invocation-v1.1.2.py"
 spec = importlib.util.spec_from_file_location("kevin_proven_skill_invocation_v1", MOD_PATH)
 mod = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(mod)
@@ -224,9 +224,34 @@ class ProvenSkillInvocationV1Tests(unittest.TestCase):
             mod.reconcile(self.state_path, self.done, self.failed, self.receipt_path, self.artifacts)
 
     def test_versioned_repair_identity(self):
-        self.assertEqual(mod.VERSION, "1.1.1")
+        self.assertEqual(mod.VERSION, "1.1.2")
         self.assertIn("ui_notepad_write", mod.CATALOG_PRIMITIVES)
         self.assertNotIn("ui_notepad_write", mod.ALLOWED_PRIMITIVES)
+
+    def test_powershell_manifest_pin_is_trusted(self):
+        """Live Skill Lab proofs are PowerShell-hashed. Python rehash must not reject them."""
+        self.registry["skills"][0]["manifest_sha256"] = "F" * 64
+        self.proof["manifest_sha256"] = "F" * 64
+        self.write(self.registry_path, self.registry)
+        self.write(self.proof_root / self.proof_file, self.proof)
+        state = self.stage()
+        self.assertEqual("RUNNING", state["status"])
+        self.assertEqual("F" * 64, state["proven_identity"]["manifest_sha256"])
+
+    def test_mismatched_stored_pin_still_refuses(self):
+        self.proof["manifest_sha256"] = "0" * 64
+        self.write(self.proof_root / self.proof_file, self.proof)
+        with self.assertRaisesRegex(mod.InvocationError, "PRESERVED_PROOF_MANIFEST_MISMATCH"):
+            self.stage()
+
+    def test_microsoft_json_date_is_accepted(self):
+        self.registry["updated_at"] = "/Date(1757034561724)/"
+        self.registry["skills"][0]["proven_at"] = "/Date(1757034561724-0600)/"
+        self.proof["completed_at"] = "/Date(1757034561724-0600)/"
+        self.write(self.registry_path, self.registry)
+        self.write(self.proof_root / self.proof_file, self.proof)
+        state = self.stage()
+        self.assertEqual("RUNNING", state["status"])
 
 
 if __name__ == "__main__":

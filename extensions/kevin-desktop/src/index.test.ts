@@ -194,9 +194,11 @@ describe("list_folder boundary", () => {
 describe("Application launch boundary", () => {
   it("launches only fixed allowlisted executable identities", () => {
     const calls: Array<{ exe: string; args: readonly string[]; shell: unknown }> = [];
-    const result = launchAllowedApp("notepad", fakeSpawn(calls));
+    const result = launchAllowedApp("notepad", fakeSpawn(calls), { SystemRoot: "C:\\Windows" });
     expect(result.ok).toBe(true);
-    expect(calls).toEqual([{ exe: "notepad.exe", args: [], shell: false }]);
+    expect(result.typed).toBe(false);
+    expect(result.capability).toBe("launch_only");
+    expect(calls).toEqual([{ exe: "C:\\Windows\\System32\\notepad.exe", args: [], shell: false }]);
   });
 
   it("rejects arbitrary executables and commands", () => {
