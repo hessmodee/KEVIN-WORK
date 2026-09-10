@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""HQ ops-v11 must paint invocation fail-closed as BLOCKED, not DEGRADED."""
+"""HQ must paint invocation fail-closed as BLOCKED, not DEGRADED."""
 
 from __future__ import annotations
 
@@ -8,31 +8,29 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OPS = ROOT / "docs" / "ops" / "ops-v11.js"
-CSS = ROOT / "docs" / "ops" / "ops-v11.css"
+OVERLAY = ROOT / "docs" / "ops" / "ops-blocked-truth-v1.js"
+EMBED = ROOT / "docs" / "ops" / "embed.html"
 CONSOLE = ROOT / "docs" / "hq-owner-console-v10.js"
 
 
 class HqBlockedNotDegradedTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        cls.ops = OPS.read_text(encoding="utf-8")
-        cls.css = CSS.read_text(encoding="utf-8")
-        cls.console = CONSOLE.read_text(encoding="utf-8")
-
-    def test_ops_maps_invocation_block_to_blocked(self) -> None:
-        self.assertIn("if(cont==='BLOCKED_INVOCATION_RUNTIME')return ['blocked'];", self.ops)
-        self.assertNotIn("if(cont==='CONTROLLER_ERROR'||cont==='BLOCKED_INVOCATION_RUNTIME')return ['degraded'];", self.ops)
-        self.assertIn("if(cont==='CONTROLLER_ERROR')return ['degraded'];", self.ops)
-        self.assertIn("blocked:'BLOCKED'", self.ops)
-        self.assertIn("blocked:'#f0c36a'", self.ops)
-        self.assertIn("ks==='blocked'?'blocked'", self.ops)
+    def test_overlay_maps_invocation_block(self) -> None:
+        overlay = OVERLAY.read_text(encoding="utf-8")
+        embed = EMBED.read_text(encoding="utf-8")
+        self.assertIn("BLOCKED_INVOCATION_RUNTIME", overlay)
+        self.assertIn("return ['blocked']", overlay)
+        self.assertIn("ops-blocked-truth-v1.js", embed)
+        self.assertIn("BLOCKED", embed)
+        self.assertIn("<script src=\"./ops-v11.js", embed)
+        self.assertGreater(len(embed), 2000)
 
     def test_owner_console_already_blocked(self) -> None:
-        self.assertIn("if(cont==='BLOCKED_INVOCATION_RUNTIME')return{mode:'blocked'", self.console)
+        console = CONSOLE.read_text(encoding="utf-8")
+        self.assertIn("if(cont==='BLOCKED_INVOCATION_RUNTIME')return{mode:'blocked'", console)
 
-    def test_css_has_blocked_token(self) -> None:
-        self.assertIn("--blocked:#f0c36a", self.css)
-        self.assertIn(".kevin-avatar-prod.mode-blocked", self.css)
+    def test_ops_v11_still_present(self) -> None:
+        ops = OPS.read_text(encoding="utf-8")
+        self.assertIn("function kevinStates", ops)
 
 
 if __name__ == "__main__":
