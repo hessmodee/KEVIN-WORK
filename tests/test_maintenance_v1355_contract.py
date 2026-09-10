@@ -121,13 +121,18 @@ class MaintenanceV1355ContractTests(unittest.TestCase):
         self.assertIsNone(re.search(r"target_alias.*=\s*'supervisor'", self.text))
         self.assertIn("must not supply", self.text)
 
-    def test_live_manifest_remains_v1812_slot(self) -> None:
+    def test_live_manifest_is_v1355_replace_pinned_component(self) -> None:
         manifest = json.loads((ROOT / "inbox" / "maintenance" / "manifest.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest.get("operation"), "install_autonomy_controller_v1812")
-        self.assertEqual(manifest.get("id"), "grok-install-v1812-20260908-2050")
-        self.assertEqual(manifest.get("expires_at"), "2026-09-09T22:00:00Z")
+        self.assertEqual(manifest.get("operation"), "replace_pinned_component")
+        self.assertEqual(manifest.get("id"), "grok-install-maint-v1355-20260909-1850")
+        self.assertEqual(manifest.get("target_alias"), "maintenance_runner")
+        self.assertEqual(manifest.get("source_path"), "control-plane/maintenance/kevin-maintenance-runner-v1.3.55.ps1")
+        self.assertEqual(manifest.get("source_sha256"), RUNNER_SHA)
+        self.assertEqual(manifest.get("expected_current_sha256"), PARENT_SHA)
+        self.assertEqual(manifest.get("expected_after_sha256"), RUNNER_SHA)
+        self.assertEqual(manifest.get("expires_at"), "2026-09-10T22:00:00Z")
         self.assertNotEqual(manifest.get("operation"), "install_invocation_worker_v11")
-        self.assertNotEqual(manifest.get("operation"), "replace_pinned_component")
+        self.assertNotEqual(manifest.get("operation"), "install_autonomy_controller_v1812")
         allowed = {
             "schema",
             "kind",
@@ -138,6 +143,11 @@ class MaintenanceV1355ContractTests(unittest.TestCase):
             "owner_policy",
             "preauthorized",
             "operation",
+            "target_alias",
+            "source_path",
+            "source_sha256",
+            "expected_current_sha256",
+            "expected_after_sha256",
             "expires_at",
         }
         self.assertEqual(set(manifest.keys()), allowed)
@@ -147,6 +157,7 @@ class MaintenanceV1355ContractTests(unittest.TestCase):
         self.assertEqual(manifest.get("authority_delta"), "NONE")
         self.assertEqual(manifest.get("production_effect"), "NONE")
         self.assertTrue(manifest.get("preauthorized"))
+        self.assertNotIn("notes", manifest)
 
     def test_live_workitem_unblocked_histories_preserved(self) -> None:
         items = json.loads((ROOT / "inbox" / "autonomy" / "work-items.json").read_text(encoding="utf-8"))
