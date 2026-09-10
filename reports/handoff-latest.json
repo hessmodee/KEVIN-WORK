@@ -3,8 +3,8 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-10T13:51:37.8142121-06:00",
-  "semantic_fingerprint_sha256": "62E02BD6ABF20D243209D3E86CF7B449904D5645661FEFB7720C80612637F013",
+  "evidence_updated_at": "2026-09-10T16:04:27.0397336-06:00",
+  "semantic_fingerprint_sha256": "74D320E93ACDAFFCD340300FD3FB669368877714E4000D5FA147EEB257547038",
   "semantic_checkpoint": {
     "current_task_sha256": "8F2CB73D36B7643418B497FAED8C75DEE87470006CC1AAAB549062C7CBC2B258",
     "benchmark": {
@@ -19,8 +19,8 @@
     "autonomy_status": "BLOCKED_INVOCATION_RUNTIME",
     "autonomy_eligible_count": 7,
     "maintenance": {
-      "status": "ALREADY_APPLIED_PROVEN",
-      "detail": "Invocation worker v1.1 Continue wrap applied/verified. Supervisor untouched."
+      "status": "EXPIRED_IDLE",
+      "detail": "Expired canonical manifest refused without scheduler failure."
     },
     "queues": {
       "ready": 0,
@@ -37,9 +37,9 @@
   },
   "source_hashes": {
     "current_task_sha256": "8F2CB73D36B7643418B497FAED8C75DEE87470006CC1AAAB549062C7CBC2B258",
-    "engineering_sha256_at_checkpoint": "FDA9E90979F58C7B2CC7AB7CC382FC54569EF61A6895D0D9D799C36EA3F36574",
-    "support_sha256_at_checkpoint": "8A48AEBC6DC45D1E3F8D5C254D452A7174E182BAEFF8E095072A58064726874A",
-    "autonomy_sha256_at_checkpoint": "7FC1D8865965BC8AB86846A05B56BA9CD8B7DB0351878F0EC14B3D8A3BB4373F"
+    "engineering_sha256_at_checkpoint": "E07E211FAED71A869646422445B5624AD6AFAAF2ED71EE11BC897BE7A2A46F41",
+    "support_sha256_at_checkpoint": "73648B82701C01DA74B6C850F026699CE0FC1BFD972F25503088EA6670A73A8A",
+    "autonomy_sha256_at_checkpoint": "9442E7B6B3C2D74DDF59B42F3AA790BDC359E8C8BE1F1A24F40A2D2BA2E9BFC3"
   },
   "universal_access": {
     "github": "https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md",
@@ -55,20 +55,20 @@
     "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at_checkpoint": "2026-09-10T13:51:37.8142121-06:00",
-    "support_at_checkpoint": "2026-09-10T13:43:21.3575913-06:00",
-    "autonomy_at_checkpoint": "2026-09-10T13:48:11.4799670-06:00",
+    "engineering_at_checkpoint": "2026-09-10T16:03:48.6081408-06:00",
+    "support_at_checkpoint": "2026-09-10T16:04:27.0397336-06:00",
+    "autonomy_at_checkpoint": "2026-09-10T16:03:20.9002213-06:00",
     "benchmark": {
       "status": "PASS",
       "passed": 30,
       "total": 30,
       "critical": 0
     },
-    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 4.9,
+    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 3.8,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
-    "maintenance_status": "ALREADY_APPLIED_PROVEN",
-    "maintenance_detail": "Invocation worker v1.1 Continue wrap applied/verified. Supervisor untouched.",
+    "maintenance_status": "EXPIRED_IDLE",
+    "maintenance_detail": "Expired canonical manifest refused without scheduler failure.",
     "proven_composite_skills": 27,
     "maintenance_runner_sha256": "3E11C429D4540DBD5C4F6F7AD60AA1729D2C0A78D7DA209E76F196654589C261"
   },
