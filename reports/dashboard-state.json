@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-09T20:04:27.2719483-06:00",
+  "generated_at": "2026-09-09T20:05:14-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -20,8 +20,8 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 42,
-    "cpu_pct": 3,
+    "memory_pct": 43,
+    "cpu_pct": 15,
     "gpu": "RTX 3060",
     "gpu_pct": 0
   },
@@ -29,13 +29,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-08T20:05:15-06:00",
-        "estimated": false,
-        "ram": 41,
-        "cpu": 33,
-        "gpu": 31
-      },
       {
         "at": "2026-09-08T20:20:14-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 42,
         "cpu": 3,
         "gpu": 0
+      },
+      {
+        "at": "2026-09-09T20:05:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 15,
+        "gpu": 0
       }
     ],
     "ram": [
-      41,
       40,
       41,
       39,
@@ -798,10 +797,10 @@
       42,
       41,
       42,
-      42
+      42,
+      43
     ],
     "cpu": [
-      33,
       9,
       17,
       37,
@@ -896,10 +895,10 @@
       13,
       5,
       15,
-      3
+      3,
+      15
     ],
     "gpu": [
-      31,
       39,
       10,
       17,
@@ -994,6 +993,7 @@
       18,
       0,
       34,
+      0,
       0
     ]
   },
@@ -1093,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 94,
-      "total": 96
+      "done": 95,
+      "total": 97
     }
   ],
   "roadmap": {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-09T19:50:14-06:00",
+      "at": "2026-09-09T20:05:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "idle"
   },
   "sync": {
-    "last": "2026-09-09T20:04:27.2719483-06:00",
+    "last": "2026-09-09T20:05:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
