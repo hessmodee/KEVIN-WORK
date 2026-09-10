@@ -23,7 +23,7 @@ assert "existing.length===TABS.length" in console
 assert "htmlFor" in console
 assert "v10Chart" in console
 assert 'src="./hq-core-v7.html?v=19#overview"' in index
-assert "sw.js?v=8" in index
+assert "sw.js?v=9" in index
 assert "kevin-hq-shell-v8" in sw
 assert "ops-live-truth-v2.js" not in sw
 assert "ops-truth-patch-v1.js" not in sw
