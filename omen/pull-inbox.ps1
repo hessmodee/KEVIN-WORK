@@ -1,10 +1,11 @@
-# Kevin GitHubBridge puller v1.5
+# Kevin GitHubBridge puller v1.6
 # GREEN-C. Copies inbox + self-updates this script + applies the catalog-contract
 # python repair when live hashes mismatch. Builder pin is v1.0.3 (uniqueness).
-# Does not recopy Supervisor v1.8.12. Does not replace the live worker pin.
+# Always quarantines sticky Supervisor RequestId leftovers. Diagnoses worker
+# hashes. Does not recopy Supervisor v1.8.12. Does not replace the live worker pin.
 # Does not reset history. Not PASS.
 $ErrorActionPreference = 'Continue'
-$PullerVersion = 'v1.5'
+$PullerVersion = 'v1.6'
 $ws = Join-Path $env:USERPROFILE '.openclaw\workspace'
 New-Item -ItemType Directory -Force -Path $ws, (Join-Path $ws 'inbox'), (Join-Path $ws 'reports'), (Join-Path $ws 'tools') | Out-Null
 
@@ -21,6 +22,7 @@ $files = @(
   'omen/pull-inbox.ps1',
   'tools/Repair-Kevin-InvocationRegistryContract-v1.ps1',
   'tools/Repair-Kevin-WorkItems-Uniqueness-v1.ps1',
+  'tools/Repair-Kevin-StickyInvokeState-v1.ps1',
   'tools/Diagnose-Kevin-InvocationStage-v1.ps1'
 )
 
@@ -86,6 +88,13 @@ if (Test-Path -LiteralPath $uniq -PathType Leaf) {
     Write-Host ('uniqueness repair exit=' + $LASTEXITCODE)
   } catch { Write-Host "uniqueness skip: $_" }
 }
+$sticky = Join-Path $ws 'tools\Repair-Kevin-StickyInvokeState-v1.ps1'
+if (Test-Path -LiteralPath $sticky -PathType Leaf) {
+  try {
+    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $sticky
+    Write-Host ('sticky repair exit=' + $LASTEXITCODE)
+  } catch { Write-Host "sticky skip: $_" }
+}
 $diag = Join-Path $ws 'tools\Diagnose-Kevin-InvocationStage-v1.ps1'
 if (Test-Path -LiteralPath $diag -PathType Leaf) {
   try {
@@ -96,6 +105,8 @@ if (Test-Path -LiteralPath $diag -PathType Leaf) {
 
 $invGot = Get-Sha256Upper $invPath
 $bldGot = Get-Sha256Upper $bldPath
+$workerLive = Get-Sha256Upper (Join-Path $ws 'ControlPlane\kevin-proven-skill-invoke-worker-v1.ps1')
+$workerV11 = Get-Sha256Upper (Join-Path $ws 'control-plane\autonomy\kevin-proven-skill-invoke-worker-v1.1.ps1')
 $stamp = @{
   at = (Get-Date).ToString('o')
   host = $env:COMPUTERNAME
@@ -103,13 +114,15 @@ $stamp = @{
   puller = $PullerVersion
   inv_sha256 = $invGot
   bld_sha256 = $bldGot
+  worker_sha256 = $workerLive
+  worker_v11_sha256 = $workerV11
 }
 $stamp | ConvertTo-Json | Set-Content -Encoding utf8 (Join-Path $ws 'reports\bridge-latest.json')
 try {
   $b64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes((Get-Content -Raw (Join-Path $ws 'reports\bridge-latest.json'))))
   $api = 'repos/hessmodee/KEVIN-WORK/contents/reports/bridge-latest.json'
   $sha = $null
-  try { $sha = gh api $api --jq .sha 2>$null } catch {}
+  try { $sha = $null; $sha = gh api $api --jq .sha 2>$null } catch {}
   if ($sha) { gh api --method PUT $api -f message='bridge ping' -f content=$b64 -f sha=$sha | Out-Null }
   else { gh api --method PUT $api -f message='bridge ping' -f content=$b64 | Out-Null }
 } catch { Write-Host "upload skip: $_" }

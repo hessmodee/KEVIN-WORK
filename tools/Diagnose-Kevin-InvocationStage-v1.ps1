@@ -5,7 +5,10 @@ param([switch]$SelfTest)
 # Uses an isolated diagnose queue so it cannot collide with Supervisor orders.
 # If live python hashes mismatch, runs Repair once (-SkipDiagnose) then retries.
 # If builder returns WORK_ITEM_NOT_UNIQUE or WORK_ITEM_NOT_FOUND, runs
-# --repair-unique once then retries the builder. Does not recopy Supervisor.
+# --repair-unique once then retries the builder.
+# After isolated STAGE_OK: quarantines sticky invoke-<work-id> leftovers, then
+# stages the Supervisor RequestId (invoke-<work-id>) into diagnose-worker-sim
+# (never Action Era). Publishes live worker hashes. Does not recopy Supervisor.
 # Does not replace the live worker pin. Not PASS.
 
 Set-StrictMode -Version 2.0
@@ -21,13 +24,19 @@ $Registry = Join-Path $Workspace 'reports\capabilities\composite-skills.json'
 $ProofRoot = Join-Path $Workspace 'reports\action-era\skills\done'
 $Ready = Join-Path $Workspace 'reports\invocations\diagnose-ready'
 $RunRoot = Join-Path $Workspace 'reports\invocations\diagnose-runs'
+$SimReady = Join-Path $Workspace 'reports\invocations\diagnose-worker-sim'
 $OutDir = Join-Path $Workspace 'reports\invocations'
 $LiveReady = Join-Path $Workspace 'reports\action-era\queue\ready'
 $Archive = Join-Path $Workspace 'inbox\autonomy\archive'
 $WorkId = 'owner-west-motor-parts-chase-fresh-8-v1'
 $RequestId = 'diagnose-' + $WorkId
+$SupervisorRequestId = 'invoke-' + $WorkId
 $InvExpected = '471E505151E211C254FAB9DD090AEA76E7D304B01333FEA03B115D2ECE39B7E8'
 $BldExpected = '83B3EDA62AA60A6CD479D79C18BB564B9E33CBD852B4898C365EF99B43EB0875'
+$WorkerExpectedV1 = '16C49542847BBB22EACC09F254C030D2FF03DE0ADFB1B9DA08C9B617C73B0332'
+$WorkerExpectedV11 = '7E1129B7FE2B21C90EED634B7A1A356B55630B56DD700A15A7A8C307AEB827AE'
+$WorkerLivePath = Join-Path $Workspace 'ControlPlane\kevin-proven-skill-invoke-worker-v1.ps1'
+$WorkerV11Path = Join-Path $Workspace 'control-plane\autonomy\kevin-proven-skill-invoke-worker-v1.1.ps1'
 
 function Get-Sha256Upper([string]$Path) {
     if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return '' }
@@ -85,6 +94,9 @@ function Field-FromJson([string]$Text, [string]$Name) {
 if ($SelfTest) {
     if ($InvExpected.Length -ne 64) { throw 'inv hash pin' }
     if ($BldExpected.Length -ne 64) { throw 'bld hash pin' }
+    if ($WorkerExpectedV1.Length -ne 64) { throw 'worker v1 pin' }
+    if ($WorkerExpectedV11.Length -ne 64) { throw 'worker v11 pin' }
+    if ($SupervisorRequestId -ne 'invoke-owner-west-motor-parts-chase-fresh-8-v1') { throw 'supervisor request id' }
     $tb = "Traceback (most recent call last):`n  File `"x.py`", line 1`njson.decoder.JSONDecodeError: Unexpected UTF-8 BOM"
     if ((Reason-FromJson $tb) -ne 'WORK_ITEMS_UTF8_BOM') { throw 'bom reason map' }
     $jsonLine = '{"status": "REJECTED", "reason": "VEHICLE_COUNT_MUST_BE_8"}'
@@ -96,13 +108,21 @@ if ($SelfTest) {
     $nu = '{"status": "REJECTED", "reason": "WORK_ITEM_NOT_UNIQUE", "match_count": 2}'
     if ((Reason-FromJson $nu) -ne 'WORK_ITEM_NOT_UNIQUE') { throw 'not unique reason' }
     if ([int](Field-FromJson $nu 'match_count') -ne 2) { throw 'match count 2' }
+    $reuse = '{"status": "REJECTED", "reason": "INVOCATION_ID_REUSED_WITH_DIFFERENT_REQUEST"}'
+    if ((Reason-FromJson $reuse) -ne 'INVOCATION_ID_REUSED_WITH_DIFFERENT_REQUEST') { throw 'reuse reason' }
     Write-Host 'KEVIN INVOCATION STAGE DIAGNOSE v1 SELFTEST PASS'
     exit 0
 }
 
-New-Item -ItemType Directory -Force -Path $RunRoot, $Ready, $OutDir, $Archive | Out-Null
+New-Item -ItemType Directory -Force -Path $RunRoot, $Ready, $SimReady, $OutDir, $Archive | Out-Null
 $invHash = Get-Sha256Upper $Invoker
 $bldHash = Get-Sha256Upper $Builder
+$workerLiveHash = Get-Sha256Upper $WorkerLivePath
+$workerV11Hash = Get-Sha256Upper $WorkerV11Path
+$workerHasHidden = $false
+if (Test-Path -LiteralPath $WorkerLivePath -PathType Leaf) {
+    $workerHasHidden = ([IO.File]::ReadAllText($WorkerLivePath) -match 'Invoke-HiddenPython')
+}
 $missing = @()
 foreach ($pair in @(@('builder',$Builder), @('invoker',$Invoker), @('registry',$Registry), @('work-items',$Items), @('proof-root',$ProofRoot))) {
     if (-not (Test-Path -LiteralPath $pair[1])) { $missing += $pair[0] }
@@ -116,6 +136,9 @@ $liveReadyCount = 0
 $matchCount = $null
 $itemsCount = $null
 $repairUnique = $null
+$stickyStatus = $null
+$stickyCount = $null
+$supervisorRequestReason = $null
 if ($missing.Count -gt 0) {
     $reason = 'MISSING:' + (($missing | Select-Object -First 6) -join ',')
     $class = 'MISSING_INPUT'
@@ -195,6 +218,38 @@ if ($missing.Count -gt 0) {
                 } else {
                     $reason = 'STAGE_OK_WAITING_ACTION_ERA'
                     $class = 'STAGED'
+                    $sticky = Join-Path $Workspace 'tools\Repair-Kevin-StickyInvokeState-v1.ps1'
+                    if (Test-Path -LiteralPath $sticky -PathType Leaf) {
+                        try {
+                            $stickyOut = & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $sticky
+                            $stickyStatus = Reason-FromJson ([string]$stickyOut)
+                            $sc = Field-FromJson ([string]$stickyOut) 'quarantined_count'
+                            if ($null -ne $sc) { $stickyCount = [int]$sc }
+                            Write-Host ('sticky repair=' + $stickyStatus + ' count=' + $stickyCount)
+                        } catch { Write-Host ('sticky skip: ' + $_) }
+                    }
+                    $simReq = Join-Path $RunRoot ($SupervisorRequestId + '.request.json')
+                    $simSt = Join-Path $RunRoot ($SupervisorRequestId + '.sim.json')
+                    if (Test-Path -LiteralPath $simSt) { Remove-Item -LiteralPath $simSt -Force }
+                    $builtSup = Invoke-HiddenPython @($Builder, '--invocation-id', $SupervisorRequestId, '--output', $simReq, '--work-items', $Items, '--work-id', $WorkId)
+                    if ($builtSup.ExitCode -ne 0) {
+                        $reason = Reason-FromJson $builtSup.Combined
+                        if (-not $reason) { $reason = 'BUILDER_REJECTED' }
+                        $class = 'SUPERVISOR_REQUEST_ID_BUILDER'
+                        $exitCode = $builtSup.ExitCode
+                        $supervisorRequestReason = $reason
+                    } else {
+                        $stageSup = Invoke-HiddenPython @($Invoker, 'stage', '--registry', $Registry, '--proof-root', $ProofRoot, '--request', $simReq, '--state', $simSt, '--queue-ready', $SimReady)
+                        $supervisorRequestReason = Reason-FromJson $stageSup.Combined
+                        if ($stageSup.ExitCode -ne 0) {
+                            $reason = $supervisorRequestReason
+                            if (-not $reason) { $reason = 'STAGE_REJECTED' }
+                            $class = 'SUPERVISOR_REQUEST_ID_STAGE'
+                            $exitCode = $stageSup.ExitCode
+                        } else {
+                            $supervisorRequestReason = 'STAGE_OK'
+                        }
+                    }
                 }
             }
         }
@@ -210,7 +265,7 @@ if (Test-Path -LiteralPath $LiveReady) {
 $reject = [ordered]@{
     schema = 1
     kind = 'kevin-invocation-public-reject'
-    version = '1.3.1'
+    version = '1.3.2'
     authority = 'GREEN'
     generated_at = [datetime]::Now.ToString('o')
     safe_for_public_repo = $true
@@ -222,6 +277,15 @@ $reject = [ordered]@{
     match_count = $matchCount
     items_count = $itemsCount
     uniqueness_repair = $repairUnique
+    sticky_repair = $stickyStatus
+    sticky_quarantined_count = $stickyCount
+    supervisor_request_id = $SupervisorRequestId
+    supervisor_request_id_reason = $supervisorRequestReason
+    worker_live_sha256 = $workerLiveHash
+    worker_v11_sha256 = $workerV11Hash
+    worker_has_hidden_python = $workerHasHidden
+    expected_worker_v1_sha256 = $WorkerExpectedV1
+    expected_worker_v11_sha256 = $WorkerExpectedV11
     invocation_py_sha256 = $invHash
     builder_py_sha256 = $bldHash
     expected_invocation_py_sha256 = $InvExpected
@@ -230,7 +294,7 @@ $reject = [ordered]@{
     live_action_era_ready_invoke_count = $liveReadyCount
     isolated_diagnose_queue = $true
     outcome_proven = $false
-    truth_boundary = 'Diagnostic reason-code only. Isolated diagnose queue is not Action Era. STAGE_OK is not PASS. PASS still requires workbook + note + DONE + hashes + receipt.'
+    truth_boundary = 'Diagnostic reason-code only. Isolated diagnose queue is not Action Era. Supervisor RequestId sim is not PASS. PASS still requires workbook + note + DONE + hashes + receipt.'
 }
 $outPath = Join-Path $OutDir 'latest-public-reject.json'
 Write-Utf8NoBom $outPath (($reject | ConvertTo-Json -Depth 6) + "`n")
