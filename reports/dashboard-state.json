@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-11T05:34:30.2246148-06:00",
+  "generated_at": "2026-09-11T05:35:14-06:00",
   "status": "degraded",
   "health": {
     "overall": "degraded",
@@ -21,7 +21,7 @@
   },
   "system": {
     "memory_pct": 46,
-    "cpu_pct": 9,
+    "cpu_pct": 14,
     "gpu": "RTX 3060",
     "gpu_pct": 0
   },
@@ -29,13 +29,6 @@
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-10T05:50:14-06:00",
-        "estimated": false,
-        "ram": 49,
-        "cpu": 8,
-        "gpu": 3
-      },
       {
         "at": "2026-09-10T05:57:32-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 46,
         "cpu": 9,
         "gpu": 0
+      },
+      {
+        "at": "2026-09-11T05:35:14-06:00",
+        "estimated": false,
+        "ram": 46,
+        "cpu": 14,
+        "gpu": 0
       }
     ],
     "ram": [
-      49,
       18,
       15,
       21,
@@ -798,10 +797,10 @@
       46,
       46,
       46,
+      46,
       46
     ],
     "cpu": [
-      8,
       11,
       0,
       3,
@@ -896,10 +895,10 @@
       24,
       7,
       12,
-      9
+      9,
+      14
     ],
     "gpu": [
-      3,
       0,
       0,
       0,
@@ -994,6 +993,7 @@
       7,
       1,
       6,
+      0,
       0
     ]
   },
@@ -1093,7 +1093,7 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 31,
+      "done": 30,
       "total": 97
     }
   ],
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-11T05:20:14-06:00",
+      "at": "2026-09-11T05:35:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "warning"
   },
   "sync": {
-    "last": "2026-09-11T05:34:30.2246148-06:00",
+    "last": "2026-09-11T05:35:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
