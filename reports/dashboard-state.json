@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-11T00:04:24.8298490-06:00",
+  "generated_at": "2026-09-11T00:05:14-06:00",
   "status": "degraded",
   "health": {
     "overall": "degraded",
@@ -21,21 +21,14 @@
   },
   "system": {
     "memory_pct": 44,
-    "cpu_pct": 2,
+    "cpu_pct": 23,
     "gpu": "RTX 3060",
-    "gpu_pct": 23
+    "gpu_pct": 0
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-10T00:20:14-06:00",
-        "estimated": false,
-        "ram": 44,
-        "cpu": 3,
-        "gpu": 0
-      },
       {
         "at": "2026-09-10T00:35:15-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 44,
         "cpu": 2,
         "gpu": 23
+      },
+      {
+        "at": "2026-09-11T00:05:14-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 23,
+        "gpu": 0
       }
     ],
     "ram": [
-      44,
       45,
       45,
       46,
@@ -798,10 +797,10 @@
       41,
       42,
       44,
+      44,
       44
     ],
     "cpu": [
-      3,
       11,
       13,
       12,
@@ -896,10 +895,10 @@
       21,
       11,
       17,
-      2
+      2,
+      23
     ],
     "gpu": [
-      0,
       0,
       41,
       3,
@@ -994,11 +993,12 @@
       2,
       29,
       4,
-      23
+      23,
+      0
     ]
   },
   "weather": {
-    "summary": "Tonight 54 | Wind 3 mph | Mostly Cloudy"
+    "summary": "Overnight 54 | Wind 3 mph | Mostly Cloudy"
   },
   "capabilities": [
     {
@@ -1094,7 +1094,7 @@
       "id": "health_24h",
       "label": "System health 24h",
       "done": 53,
-      "total": 97
+      "total": 98
     }
   ],
   "roadmap": {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-10T23:50:14-06:00",
+      "at": "2026-09-11T00:05:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "warning"
   },
   "sync": {
-    "last": "2026-09-11T00:04:24.8298490-06:00",
+    "last": "2026-09-11T00:05:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
