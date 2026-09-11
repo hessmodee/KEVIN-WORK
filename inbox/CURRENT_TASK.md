@@ -88,6 +88,8 @@ After the first fresh invocation is independently proven, bind other due owner-v
 
 Recurring responsibilities create distinct due WorkInstances. Historical completions remain proof.
 
+Never solve `WAITING_ITEM_BUDGETS` by deleting or resetting valid history.
+
 ### 5. Incident/Reflection automatic resume
 
 The interrupted objective here is `owner-west-motor-parts-chase-fresh-8-v1`. After independently proven repair, automatically return that objective to eligible execution.
@@ -117,6 +119,19 @@ The interrupted objective here is `owner-west-motor-parts-chase-fresh-8-v1`. Aft
 ## Authority expansion policy
 
 GREEN already covers this next leap. Do **not** solve the current idle by declaring Yellow work Green. Pizza orders, Amazon checkout, voice calls, and public posting remain Delegated Yellow.
+
+## Owner-value skill portfolio
+
+1. Dealer Recon - parts chase, reconditioning, lot readiness, transport and vehicle research.
+2. Vehicle Diagnostics - evidence-backed symptom/test/service-information/parts workflows.
+3. Home & Garage - maintenance, inventory, garden and project workflows.
+4. Appliance Repair - diagnostics, parts, market/pricing and owner-business workflows.
+5. Creator/App Factory - research, drafts, software, images and QA loops.
+6. Research Analyst - multi-source research, freshness, contradictions, provenance/confidence.
+7. Computer Operator - browser/Windows routines and GUI composites.
+8. Communications - HQ chat, Telegram/email, then scoped voice.
+9. Gaming - Minecraft as long-horizon perception/planning/recovery/collaboration benchmark.
+10. Errands/Commerce - GREEN research/preparation, Delegated-Yellow consequential execution.
 
 ## Required autonomy metrics
 
