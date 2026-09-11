@@ -1,0 +1,18 @@
+{
+  "name": "STAGE_OK_WAITING",
+  "input": {
+    "continuationStatus": "STAGE_OK_WAITING_ACTION_ERA",
+    "failureSha256": null,
+    "rejectReason": "supervisor_request_id_reason=STAGE_OK",
+    "stickyRequestIdFamily": null
+  },
+  "expect": {
+    "paint": "WAITING",
+    "cls": "warn",
+    "stateLabel": "BLOCKED · waiting",
+    "celebrate": false,
+    "isPass": false,
+    "reasonIncludes": ["STAGE_OK", "Supervisor"],
+    "noteIncludes": ["STAGE_OK", "Action Era", "PASS"]
+  }
+}

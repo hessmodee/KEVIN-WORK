@@ -1,0 +1,17 @@
+{
+  "name": "BLOCKED_INVOCATION",
+  "input": {
+    "continuationStatus": "BLOCKED_INVOCATION_RUNTIME",
+    "failureSha256": "68845506abcdef0123456789deadbeef00001111222233334444555566667777",
+    "rejectReason": "INVOCATION_WORKER_FAILED",
+    "stickyRequestIdFamily": "owner-west-motor-parts-chase-fresh-8-v1"
+  },
+  "expect": {
+    "paint": "BLOCKED",
+    "cls": "bad",
+    "stateLabel": "BLOCKED",
+    "celebrate": false,
+    "isPass": false,
+    "reasonIncludes": ["sticky", "owner-west-motor"]
+  }
+}
