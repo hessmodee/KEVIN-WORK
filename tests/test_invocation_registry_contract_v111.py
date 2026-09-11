@@ -4,7 +4,8 @@
 v1.1.1 (75D6031E) stays on disk as the catalog-contract identity.
 v1.1.2 (471E5051) is the live invocation python.
 v1.0.1 (93A8A881) stays on disk as the historical BOM-unsafe builder.
-v1.0.2 (EC92A4E3) is the live BOM-safe builder the puller/repair script copies.
+v1.0.2 (EC92A4E3) stays on disk as the historical BOM-safe builder.
+v1.0.3 (83B3EDA6) is the live uniqueness builder the puller/repair script copies.
 Historical unversioned python and ControlPlane worker pins do not move.
 """
 
@@ -17,7 +18,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 INV111 = ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-invocation-v1.1.1.py"
 INV112 = ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-invocation-v1.1.2.py"
-BLD = ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-request-builder-v1.0.2.py"
+BLD102 = ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-request-builder-v1.0.2.py"
+BLD103 = ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-request-builder-v1.0.3.py"
 BLD101 = ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-request-builder-v1.0.1.py"
 HIST_INV = ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-invocation-v1.py"
 HIST_BLD = ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-request-builder-v1.py"
@@ -28,7 +30,8 @@ DIAGNOSE = ROOT / "tools" / "Diagnose-Kevin-InvocationStage-v1.ps1"
 
 INV111_SHA = "75D6031EFA64C0A9568EF006B4F95C71D3EDE1E3BAA4A35E2C1EE436326AD5EF"
 INV112_SHA = "471E505151E211C254FAB9DD090AEA76E7D304B01333FEA03B115D2ECE39B7E8"
-BLD_SHA = "EC92A4E3384321C34A6CA62F38D4D9C0FB33C7956F112F07065946B7F06E1525"
+BLD102_SHA = "EC92A4E3384321C34A6CA62F38D4D9C0FB33C7956F112F07065946B7F06E1525"
+BLD103_SHA = "83B3EDA62AA60A6CD479D79C18BB564B9E33CBD852B4898C365EF99B43EB0875"
 BLD101_SHA = "93A8A881E04CC8E6AE0B900275C6158AF166484F663988EBB564BC47C4140031"
 HIST_INV_SHA = "63FA334B85F895894481DF59314326F6F0F4B0785553B8FDD33DFBFC0E88147C"
 HIST_BLD_SHA = "8E1CDB6911A4F087099788C1DAD9E5A425686B63A6FED471E49D9478688ACCF9"
@@ -43,14 +46,18 @@ class InvocationRegistryContractV111Tests(unittest.TestCase):
     def test_versioned_repair_hashes(self) -> None:
         self.assertEqual(sha256(INV111), INV111_SHA)
         self.assertEqual(sha256(INV112), INV112_SHA)
-        self.assertEqual(sha256(BLD), BLD_SHA)
+        self.assertEqual(sha256(BLD102), BLD102_SHA)
+        self.assertEqual(sha256(BLD103), BLD103_SHA)
         self.assertEqual(sha256(BLD101), BLD101_SHA)
         self.assertIn("CATALOG_PRIMITIVES", INV111.read_text(encoding="utf-8"))
         self.assertIn("CATALOG_PRIMITIVES", INV112.read_text(encoding="utf-8"))
         self.assertIn("MS_DATE_RE", INV112.read_text(encoding="utf-8"))
-        self.assertIn("WORK_ITEMS_UTF8_BOM", BLD.read_text(encoding="utf-8"))
-        self.assertIn("fictional eight-vehicle GREEN example", BLD.read_text(encoding="utf-8"))
-        self.assertIn('VERSION = "1.0.2"', BLD.read_text(encoding="utf-8"))
+        self.assertIn("WORK_ITEMS_UTF8_BOM", BLD102.read_text(encoding="utf-8"))
+        self.assertIn("fictional eight-vehicle GREEN example", BLD102.read_text(encoding="utf-8"))
+        self.assertIn('VERSION = "1.0.2"', BLD102.read_text(encoding="utf-8"))
+        self.assertIn("WORK_ITEM_NOT_FOUND", BLD103.read_text(encoding="utf-8"))
+        self.assertIn("--repair-unique", BLD103.read_text(encoding="utf-8"))
+        self.assertIn('VERSION = "1.0.3"', BLD103.read_text(encoding="utf-8"))
 
     def test_historical_pins_unmoved(self) -> None:
         self.assertEqual(sha256(HIST_INV), HIST_INV_SHA)
@@ -61,20 +68,23 @@ class InvocationRegistryContractV111Tests(unittest.TestCase):
     def test_repair_script_fetches_versioned_paths(self) -> None:
         text = REPAIR.read_text(encoding="utf-8")
         self.assertIn("kevin-proven-skill-invocation-v1.1.2.py", text)
-        self.assertIn("kevin-proven-skill-request-builder-v1.0.2.py", text)
+        self.assertIn("kevin-proven-skill-request-builder-v1.0.3.py", text)
         self.assertIn(INV112_SHA, text)
-        self.assertIn(BLD_SHA, text)
+        self.assertIn(BLD103_SHA, text)
         self.assertIn("Does not recopy Supervisor", text)
         self.assertIn("Does not replace the live worker pin", text)
         puller = PULLER.read_text(encoding="utf-8")
-        self.assertIn("PullerVersion = 'v1.4'", puller)
+        self.assertIn("PullerVersion = 'v1.5'", puller)
         self.assertIn(INV112_SHA, puller)
+        self.assertIn(BLD103_SHA, puller)
         self.assertIn("Diagnose-Kevin-InvocationStage-v1.ps1", puller)
         diagnose = DIAGNOSE.read_text(encoding="utf-8")
         self.assertIn("diagnose-ready", diagnose)
         self.assertIn(INV112_SHA, diagnose)
-        self.assertIn(BLD_SHA, diagnose)
+        self.assertIn(BLD103_SHA, diagnose)
         self.assertIn("WORK_ITEMS_UTF8_BOM", diagnose)
+        self.assertIn("WORK_ITEM_NOT_FOUND", diagnose)
+        self.assertIn("--repair-unique", diagnose)
         self.assertIn("SkipDiagnose", text)
 
 

@@ -1,9 +1,9 @@
 param([switch]$SelfTest, [switch]$SkipDiagnose)
 # Repair-Kevin-InvocationRegistryContract-v1.ps1
 # GREEN-C self-repair. Authority delta: NONE.
-# Copies invocation v1.1.2 and builder v1.0.2 (UTF-8 BOM-safe), strips BOM from
-# work-items.json, quarantines sticky RequestId run files. Then Diagnose publishes
-# the python reason unless -SkipDiagnose (diagnose may call this to avoid a loop).
+# Copies invocation v1.1.2 and builder v1.0.3 (uniqueness + BOM-safe), strips BOM
+# from work-items.json, repairs work-id uniqueness, quarantines sticky RequestId
+# run files. Then Diagnose publishes the python reason unless -SkipDiagnose.
 # Does not recopy Supervisor v1.8.12. Does not replace the live worker pin.
 # Does not reset continuation history. Not PASS.
 
@@ -14,7 +14,7 @@ $Utf8 = New-Object System.Text.UTF8Encoding($false)
 $Workspace = if ($env:USERPROFILE) { Join-Path $env:USERPROFILE '.openclaw\workspace' } else { Split-Path -Parent $PSScriptRoot }
 $Autonomy = Join-Path $Workspace 'control-plane\autonomy'
 $InvExpected = '471E505151E211C254FAB9DD090AEA76E7D304B01333FEA03B115D2ECE39B7E8'
-$BldExpected = 'EC92A4E3384321C34A6CA62F38D4D9C0FB33C7956F112F07065946B7F06E1525'
+$BldExpected = '83B3EDA62AA60A6CD479D79C18BB564B9E33CBD852B4898C365EF99B43EB0875'
 $StickyId = 'invoke-owner-west-motor-parts-chase-fresh-8-v1'
 
 function Get-Sha256Upper([string]$Path) {
@@ -76,7 +76,7 @@ New-Item -ItemType Directory -Force -Path $Autonomy | Out-Null
 $invPath = Join-Path $Autonomy 'kevin-proven-skill-invocation-v1.py'
 $bldPath = Join-Path $Autonomy 'kevin-proven-skill-request-builder-v1.py'
 $invHash = Install-RepoFile 'control-plane/autonomy/kevin-proven-skill-invocation-v1.1.2.py' $invPath $InvExpected 'CATALOG_PRIMITIVES'
-$bldHash = Install-RepoFile 'control-plane/autonomy/kevin-proven-skill-request-builder-v1.0.2.py' $bldPath $BldExpected 'fictional eight-vehicle GREEN example'
+$bldHash = Install-RepoFile 'control-plane/autonomy/kevin-proven-skill-request-builder-v1.0.3.py' $bldPath $BldExpected 'WORK_ITEM_NOT_FOUND'
 
 $items = Join-Path $Workspace 'inbox\autonomy\work-items.json'
 $bomStripped = $false
@@ -89,6 +89,18 @@ if (Test-Path -LiteralPath $items -PathType Leaf) {
         $bomStripped = $true
         Write-Host 'stripped UTF-8 BOM from work-items.json'
     }
+}
+
+$uniqueness = $null
+$uniq = Join-Path $Workspace 'tools\Repair-Kevin-WorkItems-Uniqueness-v1.ps1'
+if (Test-Path -LiteralPath $uniq -PathType Leaf) {
+    try {
+        $prev = $ErrorActionPreference
+        $ErrorActionPreference = 'Continue'
+        $uniqueness = & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $uniq
+        $ErrorActionPreference = $prev
+        Write-Host ('uniqueness repair exit=' + $LASTEXITCODE)
+    } catch { Write-Host ('uniqueness skip: ' + $_) }
 }
 
 $runRoot = Join-Path $Workspace 'reports\invocations\runs'
@@ -107,7 +119,7 @@ if (Test-Path -LiteralPath $runRoot) {
 $reject = [ordered]@{
     schema = 1
     kind = 'kevin-invocation-public-reject'
-    version = '1.3.0'
+    version = '1.3.1'
     authority = 'GREEN'
     generated_at = [datetime]::Now.ToString('o')
     safe_for_public_repo = $true
@@ -117,9 +129,10 @@ $reject = [ordered]@{
     invocation_py_sha256 = $invHash
     builder_py_sha256 = $bldHash
     work_items_bom_stripped = $bomStripped
+    uniqueness_repair = [string]$uniqueness
     quarantined_run_files = $quarantined
     outcome_proven = $false
-    truth_boundary = 'Python catalog+proof-pin+BOM-safe builder repaired (invocation v1.1.2 / builder v1.0.2). Supervisor must re-invoke the same WorkInstance. This is not PASS.'
+    truth_boundary = 'Python catalog+proof-pin+BOM-safe uniqueness builder repaired (invocation v1.1.2 / builder v1.0.3). Supervisor must re-invoke the same WorkInstance. This is not PASS.'
 }
 $outPath = Join-Path $Workspace 'reports\invocations\latest-public-reject.json'
 Write-Utf8NoBom $outPath (($reject | ConvertTo-Json -Depth 6) + "`n")
