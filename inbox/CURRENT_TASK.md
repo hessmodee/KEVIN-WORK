@@ -2,14 +2,15 @@
 
 > **LAYER / READER / DAILY LOOP:** Do not replace or truncate this file. Write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only. This file is the Extreme Autonomy Flywheel execution contract.
 
-**Updated:** 2026-09-10 22:58 MT  
-**Status:** Core platform is operational and Benchmark is 30/30. HQ LIVE badge already paints **BLOCKED** (correct). Remaining HQ lies this cycle: Bridge UNKNOWN, ops-floor Kevin/Bridge DEGRADED, SKILLS/SYSTEM Tools UNVERIFIED, NEWSWIRE "Platform evidence unavailable or stale", last-attempt clock using continuation `generated_at` instead of 09:31 `last_turn_at`. Diagnose on HESS-PC published `BUILDER_REJECTED` / `reason=Traceback` / `python_exit=1` with live hashes invocation `471E5051…` / builder `93A8A881…`. Independently reproduced: builder v1.0.1 crashes exit 1 on UTF-8 BOM `work-items.json` (PowerShell default). **THIS CYCLE:** install builder **v1.0.2** (`EC92A4E3…`), diagnose reason parser, HQ paint honesty, puller v1.4. Not PASS.
+**Updated:** 2026-09-10 23:20 MT  
+**Status:** Core platform is operational and Benchmark is 30/30. HQ LIVE badge already paints **BLOCKED** (correct). Builder v1.0.2 is live (`EC92A4E3…`) and the BOM/Traceback family is closed. Diagnose on HESS-PC published `BUILDER_REJECTED` / `reason=WORK_ITEM_NOT_UNIQUE` / `python_exit=2` at 23:13 MT with live hashes invocation `471E5051…` / builder `EC92A4E3…`. GitHub `work-items.json` is unique (17 items, one 8-vehicle id). Local HESS-PC `work-items.json` is the file the builder reads; GitHubBridge does not pull it. **THIS CYCLE:** install builder **v1.0.3** (`83B3EDA6…`) uniqueness repair, diagnose v1.3.1 match_count, puller v1.5. Not PASS.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
 
 **Architecture:** `docs/engineering/KEVIN-AUTONOMY-EXECUTION-PLAN-v3.md`  
 **Current production-skill milestone:** `docs/engineering/KEVIN-PROVEN-SKILL-INVOCATION-v1.md`  
 **BOM lesson:** `docs/engineering/LESSON-builder-work-items-utf8-bom-2026-09-10.md`  
+**Uniqueness lesson:** `docs/engineering/LESSON-builder-work-item-not-unique-2026-09-10.md`  
 **Proof-pin lesson:** `docs/engineering/LESSON-invocation-powershell-proof-pin-2026-09-10.md`  
 **Live audit:** `docs/engineering/KEVIN-AUDIT-AND-GAMEPLAN-2026-09-10.md`
 
@@ -32,20 +33,20 @@ Target maturity is **T4 for routine bounded work**. T4 does not mean unrestricte
 - Maintenance v1.3.55 is installed/proven (`3E11C429…`). Do not repeat the runner install.
 - Supervisor **v1.8.12 is independently proven** (`F17F4B0A…`). Do not recopy it.
 - Invocation worker v1.1 is independently applied. GitHub ControlPlane pin stays `16C49542…`. Live HESS-PC worker hash is `7E1129B7…`. Do **not** overwrite the GitHub pin. Do **not** queue another worker install. The 22:00Z slot is expired and already applied.
-- Continuation publishes `version=1.8.12` `status=BLOCKED_INVOCATION_RUNTIME` `selected_id=owner-west-motor-parts-chase-fresh-8-v1` `eligible_count=7` `failure_sha256=68845506…` `outcome_proven=false` `turn` still 1 at 09:31. Public diagnose proved the hidden python reason is **builder UTF-8 BOM**, not a missing skill and not a Supervisor crash.
-- Engineering request `grok-status-20260910-1328` is `DUPLICATE_IGNORED`. This turn queues `action_status` id `grok-status-20260910-2258`. Do not reuse 0455, 1651, 1850, 1910, 2155, 0726, 1240, or 1328.
+- Continuation publishes `version=1.8.12` `status=BLOCKED_INVOCATION_RUNTIME` `selected_id=owner-west-motor-parts-chase-fresh-8-v1` `eligible_count=7` `failure_sha256=68845506…` `outcome_proven=false` `turn` still 1 at 09:31. Public diagnose proved the hidden python reason is **WORK_ITEM_NOT_UNIQUE**, not a missing skill, not UTF-8 BOM, and not a Supervisor crash.
+- Engineering request `grok-status-20260910-2258` may be `DUPLICATE_IGNORED`. This turn queues `action_status` id `grok-status-20260910-2320`. Do not reuse 0455, 1651, 1850, 1910, 2155, 0726, 1240, 1328, or 2258.
 - Fresh Benchmark remains PASS 30/30, critical 0. 27 composite skills PROVEN; latest `west-motor-parts-chase-board-pack@1`.
 - Night Forge scheduled task is **Disabled**. Leave it disabled.
-- WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` is OPEN/GREEN/`blocked=false` with fictional 8-vehicle inputs. Keep the 1 burned 09:31 turn.
+- WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` is OPEN/GREEN/`blocked=false` with fictional 8-vehicle inputs on GitHub. Keep the 1 burned 09:31 turn. Do not wipe other WorkInstances to make the id unique.
 - Exact-five desktop policy remains intentional. Launch ≠ operate. First PASS is Action Era `create_spreadsheet` + `create_text`, not Notepad.
 - The AI-agent access bridge is this public repo: `inbox/CURRENT_TASK.md`, `inbox/FROM_GROK.md`, `inbox/engineering/request.json`, and `reports/*`. Do not invent a remote shell.
 
 ## Source-side this turn — not yet an owner outcome
 
-- Builder **v1.0.2** (`EC92A4E3…`) strips UTF-8 BOM, maps JSON errors to typed reasons, exit 2. v1.0.1 (`93A8A881…`) stays as historical pin. Unversioned builder stays `8E1CDB69…`.
-- Diagnose v1.3.0 refuses `Traceback` as a reason; maps Unexpected UTF-8 BOM; if hashes mismatch, runs Repair once then retries (so scheduled puller v1.3 still self-heals after this merge).
-- Repair copies builder v1.0.2 and strips BOM from live `work-items.json`.
-- Puller **v1.4**. HQ: bridge-latest override, ops-v11 BLOCKED before DEGRADED, V10 paints NEWSWIRE, last-attempt uses `last_turn_at`, SW cache `kevin-hq-shell-v9` + `sw.js?v=10`.
+- Builder **v1.0.3** (`83B3EDA6…`) splits `WORK_ITEM_NOT_FOUND` (0) vs `WORK_ITEM_NOT_UNIQUE` (2+), emits `match_count`, and `--repair-unique`. v1.0.2 (`EC92A4E3…`) stays as the BOM-safe historical pin. v1.0.1 (`93A8A881…`) stays as the crash pin.
+- Diagnose v1.3.1 parses match_count; if uniqueness family, repairs once then retries the builder.
+- Repair copies builder v1.0.3, strips BOM, then uniqueness-repairs local `work-items.json` (insert canonical or archive extras). Other items stay.
+- Puller **v1.5**.
 - **THIS CYCLE — one paste on HESS-PC** (see FROM_GROK). Then let Supervisor re-select `owner-west-motor-parts-chase-fresh-8-v1`. Keep the 09:31 burned turn. Do not send that job to `fixed:main`.
 - If diagnose returns `STAGE_OK_WAITING_ACTION_ERA`, wait Supervisor + Action Era. If another reason-code, repair that family next — do not recopy Supervisor.
 - PASS = workbook + note + DONE + hashes + immutable receipt. A merge, CI, paste, diagnose, HQ label, or repair script is not PASS.
@@ -53,20 +54,20 @@ Target maturity is **T4 for routine bounded work**. T4 does not mean unrestricte
 ## Immediate execution gates
 
 - Worker v1.1 is independently applied. Do not queue another `install_invocation_worker_v11`.
-- Overwrite GitHubBridge `pull-inbox.ps1` with v1.4 once **this cycle**.
+- Overwrite GitHubBridge `pull-inbox.ps1` with v1.5 once **this cycle**.
 - GitHub `ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1` stays `16C49542…`. Do not recopy Supervisor v1.8.12.
 
 ## Highest-priority execution sequence
 
 ### 1. Proven Skill Invocation v1 — first fresh 8-vehicle owner outcome — NOW
 
-Apply builder v1.0.2 so the same WorkInstance can be invoked as `west-motor-parts-chase-board-pack@1` on the already-bound fictional 8-vehicle dataset.
+Apply builder v1.0.3 so the same WorkInstance can be invoked as `west-motor-parts-chase-board-pack@1` on the already-bound fictional 8-vehicle dataset.
 
 PASS requires a real workbook + companion operating note + correlated DONE records + output hashes + immutable invocation receipt. No customer PII, credentials, purchases, public posting or live financial effects.
 
 ### 1b. HQ paint honesty — NOW, parallel, not a substitute
 
-Bridge UNKNOWN, ops DEGRADED, NEWSWIRE stale, SKILLS/SYSTEM UNVERIFIED, and last-attempt 9:53 PM are paint bugs. They are not the owner outcome.
+Bridge UNKNOWN, ops DEGRADED, NEWSWIRE stale, SKILLS/SYSTEM UNVERIFIED, and last-attempt clock bugs are paint bugs. They are not the owner outcome. Show `WORK_ITEM_NOT_UNIQUE` as BLOCKED, not DEGRADED.
 
 ### 2. Capability-aware Supervisor execution — NEXT
 
@@ -105,6 +106,7 @@ The interrupted objective here is `owner-west-motor-parts-chase-fresh-8-v1`. Aft
 - Recopy Supervisor v1.8.12.
 - Overwrite GitHub `ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1` (`16C49542…`).
 - Reset histories or work budgets.
+- Delete other WorkInstances to make the 8-vehicle id unique.
 - Recreate already-PROVEN skills.
 - Retry disproven Forge migration work.
 - Invent new Engineering Relay verbs.
@@ -141,3 +143,14 @@ Track verified owner outcomes, fresh PROVEN-skill invocations, self-repair succe
 
 - Do not claim source CI as HESS-PC runtime proof.
 - Do not claim a queue write or successive model turns as the owner outcome.
+- Do not reset valid history/budgets simply to create eligible work.
+- Do not manufacture Skill Lab/Forge churn to appear active.
+- Do not hard-code a healthy display over stale/bad truth.
+- Do not widen authority merely to pass a benchmark or produce activity.
+- Do not let Kevin silently redefine the benchmark/verifier/authority/audit system that judges Kevin.
+- For uncertain external effects, do not automatically retry without an idempotency/receipt decision.
+- When technology is ready but authority is blocked, prepare everything possible and surface the smallest scoped Delegated-Yellow grant Matt would need to give.
+
+## Continuation contract
+
+After every substantive transition, publish source/evidence so the canonical handover can advance. Keep repository/source truth separate from HESS-PC runtime truth. Local-only changes are unfinished.

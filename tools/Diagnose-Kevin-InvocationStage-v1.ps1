@@ -4,7 +4,9 @@ param([switch]$SelfTest)
 # a reason-code (+ hashes). No raw logs, configs, environment, or secrets.
 # Uses an isolated diagnose queue so it cannot collide with Supervisor orders.
 # If live python hashes mismatch, runs Repair once (-SkipDiagnose) then retries.
-# Does not recopy Supervisor. Does not replace the live worker pin. Not PASS.
+# If builder returns WORK_ITEM_NOT_UNIQUE or WORK_ITEM_NOT_FOUND, runs
+# --repair-unique once then retries the builder. Does not recopy Supervisor.
+# Does not replace the live worker pin. Not PASS.
 
 Set-StrictMode -Version 2.0
 $ErrorActionPreference = 'Continue'
@@ -21,10 +23,11 @@ $Ready = Join-Path $Workspace 'reports\invocations\diagnose-ready'
 $RunRoot = Join-Path $Workspace 'reports\invocations\diagnose-runs'
 $OutDir = Join-Path $Workspace 'reports\invocations'
 $LiveReady = Join-Path $Workspace 'reports\action-era\queue\ready'
+$Archive = Join-Path $Workspace 'inbox\autonomy\archive'
 $WorkId = 'owner-west-motor-parts-chase-fresh-8-v1'
 $RequestId = 'diagnose-' + $WorkId
 $InvExpected = '471E505151E211C254FAB9DD090AEA76E7D304B01333FEA03B115D2ECE39B7E8'
-$BldExpected = 'EC92A4E3384321C34A6CA62F38D4D9C0FB33C7956F112F07065946B7F06E1525'
+$BldExpected = '83B3EDA62AA60A6CD479D79C18BB564B9E33CBD852B4898C365EF99B43EB0875'
 
 function Get-Sha256Upper([string]$Path) {
     if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return '' }
@@ -57,14 +60,26 @@ function Reason-FromJson([string]$Text) {
         if ($o.reason) { return [string]$o.reason }
         if ($o.status) { return [string]$o.status }
     } catch {}
-    # Case-sensitive reason codes only. PowerShell -match is case-insensitive
-    # and would otherwise publish "Traceback" from a python crash dump.
     $m = [regex]::Match($Text, '(?<![A-Za-z])([A-Z][A-Z0-9_]{5,80})(?![A-Za-z])')
     if ($m.Success) {
         $code = $m.Groups[1].Value
         if ($code -notin @('TRACEBACK','FILE','PYTHON')) { return $code }
     }
     return 'UNPARSEABLE_REASON'
+}
+function Field-FromJson([string]$Text, [string]$Name) {
+    if ([string]::IsNullOrWhiteSpace($Text)) { return $null }
+    foreach ($line in ($Text -split "`r?`n")) {
+        $line = $line.Trim()
+        if ($line.StartsWith('{') -and $line.EndsWith('}')) {
+            try {
+                $o = $line | ConvertFrom-Json
+                $val = $o.$Name
+                if ($null -ne $val) { return $val }
+            } catch {}
+        }
+    }
+    return $null
 }
 
 if ($SelfTest) {
@@ -75,11 +90,17 @@ if ($SelfTest) {
     $jsonLine = '{"status": "REJECTED", "reason": "VEHICLE_COUNT_MUST_BE_8"}'
     if ((Reason-FromJson $jsonLine) -ne 'VEHICLE_COUNT_MUST_BE_8') { throw 'json reason' }
     if ((Reason-FromJson 'Traceback (most recent call last):') -eq 'Traceback') { throw 'traceback not a reason' }
+    $nf = '{"status": "REJECTED", "reason": "WORK_ITEM_NOT_FOUND", "match_count": 0, "items_count": 17}'
+    if ((Reason-FromJson $nf) -ne 'WORK_ITEM_NOT_FOUND') { throw 'not found reason' }
+    if ([int](Field-FromJson $nf 'match_count') -ne 0) { throw 'match count 0' }
+    $nu = '{"status": "REJECTED", "reason": "WORK_ITEM_NOT_UNIQUE", "match_count": 2}'
+    if ((Reason-FromJson $nu) -ne 'WORK_ITEM_NOT_UNIQUE') { throw 'not unique reason' }
+    if ([int](Field-FromJson $nu 'match_count') -ne 2) { throw 'match count 2' }
     Write-Host 'KEVIN INVOCATION STAGE DIAGNOSE v1 SELFTEST PASS'
     exit 0
 }
 
-New-Item -ItemType Directory -Force -Path $RunRoot, $Ready, $OutDir | Out-Null
+New-Item -ItemType Directory -Force -Path $RunRoot, $Ready, $OutDir, $Archive | Out-Null
 $invHash = Get-Sha256Upper $Invoker
 $bldHash = Get-Sha256Upper $Builder
 $missing = @()
@@ -92,6 +113,9 @@ $class = 'PRECHECK'
 $exitCode = -1
 $readyCount = 0
 $liveReadyCount = 0
+$matchCount = $null
+$itemsCount = $null
+$repairUnique = $null
 if ($missing.Count -gt 0) {
     $reason = 'MISSING:' + (($missing | Select-Object -First 6) -join ',')
     $class = 'MISSING_INPUT'
@@ -108,7 +132,7 @@ if ($missing.Count -gt 0) {
     }
     if ($invHash -ne $InvExpected -or $bldHash -ne $BldExpected) {
         $reason = 'PYTHON_HASH_MISMATCH'
-        $class = 'PYTHON_NOT_V102'
+        $class = 'PYTHON_NOT_V103'
     } else {
         $py = $null
         foreach ($cand in @('python','python3','py')) {
@@ -139,8 +163,25 @@ if ($missing.Count -gt 0) {
                 return [pscustomobject]@{ ExitCode = [int]$p.ExitCode; Combined = ([string]$stdout + [string]$stderr).Trim() }
             }
             $built = Invoke-HiddenPython @($Builder, '--invocation-id', $RequestId, '--output', $req, '--work-items', $Items, '--work-id', $WorkId)
-            if ($built.ExitCode -ne 0) {
+            $reason = Reason-FromJson $built.Combined
+            $mc = Field-FromJson $built.Combined 'match_count'
+            $ic = Field-FromJson $built.Combined 'items_count'
+            if ($null -ne $mc) { $matchCount = [int]$mc }
+            if ($null -ne $ic) { $itemsCount = [int]$ic }
+            if ($built.ExitCode -ne 0 -and $reason -in @('WORK_ITEM_NOT_UNIQUE','WORK_ITEM_NOT_FOUND') -and $env:KEVIN_WORKITEMS_REPAIR_ONCE -ne '1') {
+                $env:KEVIN_WORKITEMS_REPAIR_ONCE = '1'
+                Write-Host ('diagnose: ' + $reason + '; repairing work-items uniqueness once')
+                $fixed = Invoke-HiddenPython @($Builder, '--repair-unique', '--work-items', $Items, '--work-id', $WorkId, '--archive', $Archive)
+                $repairUnique = Reason-FromJson $fixed.Combined
+                Write-Host ('uniqueness repair=' + $repairUnique + ' exit=' + $fixed.ExitCode)
+                $built = Invoke-HiddenPython @($Builder, '--invocation-id', $RequestId, '--output', $req, '--work-items', $Items, '--work-id', $WorkId)
                 $reason = Reason-FromJson $built.Combined
+                $mc = Field-FromJson $built.Combined 'match_count'
+                $ic = Field-FromJson $built.Combined 'items_count'
+                if ($null -ne $mc) { $matchCount = [int]$mc }
+                if ($null -ne $ic) { $itemsCount = [int]$ic }
+            }
+            if ($built.ExitCode -ne 0) {
                 if (-not $reason) { $reason = 'BUILDER_REJECTED' }
                 $class = 'BUILDER_REJECTED'
                 $exitCode = $built.ExitCode
@@ -169,7 +210,7 @@ if (Test-Path -LiteralPath $LiveReady) {
 $reject = [ordered]@{
     schema = 1
     kind = 'kevin-invocation-public-reject'
-    version = '1.3.0'
+    version = '1.3.1'
     authority = 'GREEN'
     generated_at = [datetime]::Now.ToString('o')
     safe_for_public_repo = $true
@@ -178,6 +219,9 @@ $reject = [ordered]@{
     reason = $reason
     reason_class = $class
     python_exit = $exitCode
+    match_count = $matchCount
+    items_count = $itemsCount
+    uniqueness_repair = $repairUnique
     invocation_py_sha256 = $invHash
     builder_py_sha256 = $bldHash
     expected_invocation_py_sha256 = $InvExpected

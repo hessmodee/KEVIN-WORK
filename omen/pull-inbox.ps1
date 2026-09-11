@@ -1,15 +1,15 @@
-# Kevin GitHubBridge puller v1.4
+# Kevin GitHubBridge puller v1.5
 # GREEN-C. Copies inbox + self-updates this script + applies the catalog-contract
-# python repair when live hashes mismatch. Builder pin is v1.0.2 (BOM-safe).
+# python repair when live hashes mismatch. Builder pin is v1.0.3 (uniqueness).
 # Does not recopy Supervisor v1.8.12. Does not replace the live worker pin.
 # Does not reset history. Not PASS.
 $ErrorActionPreference = 'Continue'
-$PullerVersion = 'v1.4'
+$PullerVersion = 'v1.5'
 $ws = Join-Path $env:USERPROFILE '.openclaw\workspace'
 New-Item -ItemType Directory -Force -Path $ws, (Join-Path $ws 'inbox'), (Join-Path $ws 'reports'), (Join-Path $ws 'tools') | Out-Null
 
 $InvExpected = '471E505151E211C254FAB9DD090AEA76E7D304B01333FEA03B115D2ECE39B7E8'
-$BldExpected = 'EC92A4E3384321C34A6CA62F38D4D9C0FB33C7956F112F07065946B7F06E1525'
+$BldExpected = '83B3EDA62AA60A6CD479D79C18BB564B9E33CBD852B4898C365EF99B43EB0875'
 
 $files = @(
   'inbox/FROM_GROK.md',
@@ -20,6 +20,7 @@ $files = @(
   'omen/apply-lean.js',
   'omen/pull-inbox.ps1',
   'tools/Repair-Kevin-InvocationRegistryContract-v1.ps1',
+  'tools/Repair-Kevin-WorkItems-Uniqueness-v1.ps1',
   'tools/Diagnose-Kevin-InvocationStage-v1.ps1'
 )
 
@@ -77,6 +78,13 @@ if ($invGot -ne $InvExpected -or $bldGot -ne $BldExpected) {
   }
 } else {
   Write-Host 'registry contract hashes already live'
+}
+$uniq = Join-Path $ws 'tools\Repair-Kevin-WorkItems-Uniqueness-v1.ps1'
+if (Test-Path -LiteralPath $uniq -PathType Leaf) {
+  try {
+    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $uniq
+    Write-Host ('uniqueness repair exit=' + $LASTEXITCODE)
+  } catch { Write-Host "uniqueness skip: $_" }
 }
 $diag = Join-Path $ws 'tools\Diagnose-Kevin-InvocationStage-v1.ps1'
 if (Test-Path -LiteralPath $diag -PathType Leaf) {
