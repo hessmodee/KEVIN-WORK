@@ -2,7 +2,7 @@
 
 > **THIS IS THE ONE CURRENT HANDOVER FOR KEVIN.** Do not create a competing dated handover. Update the source task/evidence and let the canonical handover refresh replace stale state.
 
-**Semantic checkpoint evidence through:** 2026-09-11T00:03:31.5638417-06:00  
+**Semantic checkpoint evidence through:** 2026-09-11T07:10:11.9853005-06:00  
 **Canonical repository:** `hessmodee/KEVIN-WORK` / `main`  
 **Machine twin:** `reports/handoff-latest.json` (not a second authority)
 
@@ -29,11 +29,11 @@ If an agent cannot access one route, use another. Matt should never need to reco
 
 ## Automatic semantic snapshot
 
-- Engineering evidence at checkpoint: `2026-09-11T00:01:59.1964668-06:00`
-- Support evidence at checkpoint: `2026-09-10T23:58:40.1747321-06:00`
-- Autonomy evidence at checkpoint: `2026-09-11T00:03:31.5638417-06:00`
+- Engineering evidence at checkpoint: `2026-09-11T07:10:11.9853005-06:00`
+- Support evidence at checkpoint: `2026-09-11T06:58:49.9116869-06:00`
+- Autonomy evidence at checkpoint: `2026-09-11T07:08:40.1073836-06:00`
 - Benchmark: **PASS — 30/30, critical 0**
-- UI Bridge health at checkpoint: **FRESH** (age then: 0.8 seconds)
+- UI Bridge health at checkpoint: **FRESH** (age then: 4.4 seconds)
 - Maintenance: **EXPIRED_IDLE** — Expired canonical manifest refused without scheduler failure.
 - Supervisor last result: **NO_ELIGIBLE_MISSION**
 - Proven composite skills: **27**
@@ -53,8 +53,8 @@ The block below is pulled from `inbox/CURRENT_TASK.md`. That file is an executio
 
 > **LAYER / READER / DAILY LOOP:** Do not replace or truncate this file. Write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only. This file is the Extreme Autonomy Flywheel execution contract.
 
-**Updated:** 2026-09-10 23:20 MT  
-**Status:** Core platform is operational and Benchmark is 30/30. HQ LIVE badge already paints **BLOCKED** (correct). Builder v1.0.2 is live (`EC92A4E3…`) and the BOM/Traceback family is closed. Diagnose on HESS-PC published `BUILDER_REJECTED` / `reason=WORK_ITEM_NOT_UNIQUE` / `python_exit=2` at 23:13 MT with live hashes invocation `471E5051…` / builder `EC92A4E3…`. GitHub `work-items.json` is unique (17 items, one 8-vehicle id). Local HESS-PC `work-items.json` is the file the builder reads; GitHubBridge does not pull it. **THIS CYCLE:** install builder **v1.0.3** (`83B3EDA6…`) uniqueness repair, diagnose v1.3.1 match_count, puller v1.5. Not PASS.
+**Updated:** 2026-09-11 07:05 MT  
+**Status:** Core platform is operational and Benchmark is 30/30. HQ LIVE badge already paints **BLOCKED** (correct). Uniqueness is **closed**: live builder `83B3EDA6…`, invocation `471E5051…`, isolated diagnose `STAGE_OK_WAITING_ACTION_ERA` / `python_exit=0` at 06:58 MT. Continuation 33s later is still `BLOCKED_INVOCATION_RUNTIME` / `68845506…`. Diagnose RequestId `diagnose-…` is not the Supervisor RequestId `invoke-…`. **THIS CYCLE:** puller **v1.6** sticky-RequestId quarantine + diagnose v1.3.2 worker hashes + Supervisor RequestId sim. Not PASS.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
 
@@ -63,6 +63,7 @@ Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover rem
 **BOM lesson:** `docs/engineering/LESSON-builder-work-items-utf8-bom-2026-09-10.md`  
 **Uniqueness lesson:** `docs/engineering/LESSON-builder-work-item-not-unique-2026-09-10.md`  
 **Proof-pin lesson:** `docs/engineering/LESSON-invocation-powershell-proof-pin-2026-09-10.md`  
+**Sticky RequestId lesson:** `docs/engineering/LESSON-sticky-invoke-requestid-2026-09-11.md`  
 **Live audit:** `docs/engineering/KEVIN-AUDIT-AND-GAMEPLAN-2026-09-10.md`
 
 ## Owner strategic directive - maximum bounded autonomy
@@ -84,8 +85,8 @@ Target maturity is **T4 for routine bounded work**. T4 does not mean unrestricte
 - Maintenance v1.3.55 is installed/proven (`3E11C429…`). Do not repeat the runner install.
 - Supervisor **v1.8.12 is independently proven** (`F17F4B0A…`). Do not recopy it.
 - Invocation worker v1.1 is independently applied. GitHub ControlPlane pin stays `16C49542…`. Live HESS-PC worker hash is `7E1129B7…`. Do **not** overwrite the GitHub pin. Do **not** queue another worker install. The 22:00Z slot is expired and already applied.
-- Continuation publishes `version=1.8.12` `status=BLOCKED_INVOCATION_RUNTIME` `selected_id=owner-west-motor-parts-chase-fresh-8-v1` `eligible_count=7` `failure_sha256=68845506…` `outcome_proven=false` `turn` still 1 at 09:31. Public diagnose proved the hidden python reason is **WORK_ITEM_NOT_UNIQUE**, not a missing skill, not UTF-8 BOM, and not a Supervisor crash.
-- Engineering request `grok-status-20260910-2258` may be `DUPLICATE_IGNORED`. This turn queues `action_status` id `grok-status-20260910-2320`. Do not reuse 0455, 1651, 1850, 1910, 2155, 0726, 1240, 1328, or 2258.
+- Continuation publishes `version=1.8.12` `status=BLOCKED_INVOCATION_RUNTIME` `selected_id=owner-west-motor-parts-chase-fresh-8-v1` `eligible_count=7` `failure_sha256=68845506…` `outcome_proven=false` `turn` still 1 at 09:31. Public diagnose now proves isolated builder+stage **STAGE_OK**. `68845506` is still `SHA256("INVOCATION_WORKER_FAILED exit=1")` on the Supervisor RequestId path, not a missing skill and not uniqueness.
+- Engineering request `grok-status-20260910-2342` may be `DUPLICATE_IGNORED`. This turn queues `action_status` id `grok-status-20260911-0705`. Do not reuse 0455, 1651, 1850, 1910, 2155, 0726, 1240, 1328, 2258, 2320, or 2342.
 - Fresh Benchmark remains PASS 30/30, critical 0. 27 composite skills PROVEN; latest `west-motor-parts-chase-board-pack@1`.
 - Night Forge scheduled task is **Disabled**. Leave it disabled.
 - WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` is OPEN/GREEN/`blocked=false` with fictional 8-vehicle inputs on GitHub. Keep the 1 burned 09:31 turn. Do not wipe other WorkInstances to make the id unique.
@@ -94,31 +95,30 @@ Target maturity is **T4 for routine bounded work**. T4 does not mean unrestricte
 
 ## Source-side this turn — not yet an owner outcome
 
-- Builder **v1.0.3** (`83B3EDA6…`) splits `WORK_ITEM_NOT_FOUND` (0) vs `WORK_ITEM_NOT_UNIQUE` (2+), emits `match_count`, and `--repair-unique`. v1.0.2 (`EC92A4E3…`) stays as the BOM-safe historical pin. v1.0.1 (`93A8A881…`) stays as the crash pin.
-- Diagnose v1.3.1 parses match_count; if uniqueness family, repairs once then retries the builder.
-- Repair copies builder v1.0.3, strips BOM, then uniqueness-repairs local `work-items.json` (insert canonical or archive extras). Other items stay.
-- Puller **v1.5**.
+- Uniqueness family is closed on HESS-PC (builder v1.0.3 live, isolated STAGE_OK).
+- Diagnose **v1.3.2** quarantines sticky `invoke-<work-id>` leftovers, sims the Supervisor RequestId into `diagnose-worker-sim` (never Action Era), and publishes live worker hashes.
+- Puller **v1.6** always runs sticky quarantine even when python hashes already match.
 - **THIS CYCLE — one paste on HESS-PC** (see FROM_GROK). Then let Supervisor re-select `owner-west-motor-parts-chase-fresh-8-v1`. Keep the 09:31 burned turn. Do not send that job to `fixed:main`.
-- If diagnose returns `STAGE_OK_WAITING_ACTION_ERA`, wait Supervisor + Action Era. If another reason-code, repair that family next — do not recopy Supervisor.
+- If diagnose returns `STAGE_OK_WAITING_ACTION_ERA` with `supervisor_request_id_reason=STAGE_OK`, wait Supervisor + Action Era. If another reason-code, repair that family next — do not recopy Supervisor.
 - PASS = workbook + note + DONE + hashes + immutable receipt. A merge, CI, paste, diagnose, HQ label, or repair script is not PASS.
 
 ## Immediate execution gates
 
 - Worker v1.1 is independently applied. Do not queue another `install_invocation_worker_v11`.
-- Overwrite GitHubBridge `pull-inbox.ps1` with v1.5 once **this cycle**.
+- Overwrite GitHubBridge `pull-inbox.ps1` with v1.6 once **this cycle**.
 - GitHub `ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1` stays `16C49542…`. Do not recopy Supervisor v1.8.12.
 
 ## Highest-priority execution sequence
 
 ### 1. Proven Skill Invocation v1 — first fresh 8-vehicle owner outcome — NOW
 
-Apply builder v1.0.3 so the same WorkInstance can be invoked as `west-motor-parts-chase-board-pack@1` on the already-bound fictional 8-vehicle dataset.
+Apply sticky-RequestId quarantine so the same WorkInstance can be invoked as `west-motor-parts-chase-board-pack@1` on the already-bound fictional 8-vehicle dataset. Isolated STAGE_OK is not that invocation.
 
 PASS requires a real workbook + companion operating note + correlated DONE records + output hashes + immutable invocation receipt. No customer PII, credentials, purchases, public posting or live financial effects.
 
 ### 1b. HQ paint honesty — NOW, parallel, not a substitute
 
-Bridge UNKNOWN, ops DEGRADED, NEWSWIRE stale, SKILLS/SYSTEM UNVERIFIED, and last-attempt clock bugs are paint bugs. They are not the owner outcome. Show `WORK_ITEM_NOT_UNIQUE` as BLOCKED, not DEGRADED.
+Bridge UNKNOWN, ops DEGRADED, NEWSWIRE stale, SKILLS/SYSTEM UNVERIFIED, and last-attempt clock bugs are paint bugs. They are not the owner outcome. Show `STAGE_OK_WAITING_ACTION_ERA` plus continuation `BLOCKED_INVOCATION_RUNTIME` as BLOCKED, not DEGRADED. Isolated diagnose is not PASS.
 
 ### 2. Capability-aware Supervisor execution — NEXT
 
@@ -242,6 +242,6 @@ Never infer a higher state from a lower one. Never widen authority merely to mak
 
 This handover is generated by `.github/scripts/build-canonical-handover.py` and refreshed by `.github/workflows/canonical-handover.yml`.
 
-Semantic fingerprint: `32345F2CA531B361801E47E568B3CED6C1F39866743964D3AE18E34DB307418F`
+Semantic fingerprint: `09F38D138E80C5470610D23ECE01FC859B1C128B44D5D17C03C5501479138F27`
 
 **Fresh runtime evidence first; one handover; publish every durable local change; then continue.**
