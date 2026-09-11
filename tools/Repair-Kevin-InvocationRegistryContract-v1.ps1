@@ -3,7 +3,9 @@ param([switch]$SelfTest, [switch]$SkipDiagnose)
 # GREEN-C self-repair. Authority delta: NONE.
 # Copies invocation v1.1.2 and builder v1.0.3 (uniqueness + BOM-safe), strips BOM
 # from work-items.json, repairs work-id uniqueness, quarantines sticky RequestId
-# run files. Then Diagnose publishes the python reason unless -SkipDiagnose.
+# run files AND stale Action Era invoke-invoke-* leftovers. Then Diagnose
+# publishes the python reason unless -SkipDiagnose.
+
 # Does not recopy Supervisor v1.8.12. Does not replace the live worker pin.
 # Does not reset continuation history. Not PASS.
 
@@ -103,6 +105,18 @@ if (Test-Path -LiteralPath $uniq -PathType Leaf) {
     } catch { Write-Host ('uniqueness skip: ' + $_) }
 }
 
+$stickyStatus = $null
+$sticky = Join-Path $Workspace 'tools\Repair-Kevin-StickyInvokeState-v1.ps1'
+if (Test-Path -LiteralPath $sticky -PathType Leaf) {
+    try {
+        $prev = $ErrorActionPreference
+        $ErrorActionPreference = 'Continue'
+        $stickyStatus = & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $sticky
+        $ErrorActionPreference = $prev
+        Write-Host ('sticky repair exit=' + $LASTEXITCODE)
+    } catch { Write-Host ('sticky skip: ' + $_) }
+}
+
 $runRoot = Join-Path $Workspace 'reports\invocations\runs'
 $qRoot = Join-Path $Workspace 'reports\invocations\quarantine'
 New-Item -ItemType Directory -Force -Path $qRoot | Out-Null
@@ -119,7 +133,7 @@ if (Test-Path -LiteralPath $runRoot) {
 $reject = [ordered]@{
     schema = 1
     kind = 'kevin-invocation-public-reject'
-    version = '1.3.1'
+    version = '1.3.2'
     authority = 'GREEN'
     generated_at = [datetime]::Now.ToString('o')
     safe_for_public_repo = $true
@@ -130,6 +144,7 @@ $reject = [ordered]@{
     builder_py_sha256 = $bldHash
     work_items_bom_stripped = $bomStripped
     uniqueness_repair = [string]$uniqueness
+    sticky_repair = [string]$stickyStatus
     quarantined_run_files = $quarantined
     outcome_proven = $false
     truth_boundary = 'Python catalog+proof-pin+BOM-safe uniqueness builder repaired (invocation v1.1.2 / builder v1.0.3). Supervisor must re-invoke the same WorkInstance. This is not PASS.'

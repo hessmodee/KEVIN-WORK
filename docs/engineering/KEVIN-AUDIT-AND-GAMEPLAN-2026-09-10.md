@@ -1,28 +1,27 @@
-# KEVIN AUDIT AND GAME PLAN — 2026-09-10 23:20 MT
+# KEVIN AUDIT AND GAME PLAN — 2026-09-11 07:05 MT
 
-Not PASS. Live evidence outranks the 22:58 audit.
+Not PASS. Live evidence outranks the 23:20 uniqueness audit.
 
 ## One-screen verdict
 
 | Item | Live truth |
 |---|---|
 | HQ LIVE badge | **BLOCKED** (correct). Worker diagnostic, not a crash. |
-| Platform | GREEN. Benchmark **30/30**, critical 0. Builder v1.0.2 live. |
+| Platform | GREEN. Benchmark **30/30**, critical 0. Builder v1.0.3 live. |
 | 8-vehicle job | Still **BLOCKED_INVOCATION_RUNTIME** / `68845506`. Turn 1 at 09:31 kept. |
-| Diagnose 23:13 MT | `BUILDER_REJECTED` / `reason=WORK_ITEM_NOT_UNIQUE` / `python_exit=2`. Live python `471E5051…` / `EC92A4E3…`. Puller v1.4. Isolated diagnose queue. |
-| GitHub work-items | Unique. 17 items. Exactly one `owner-west-motor-parts-chase-fresh-8-v1`. |
-| HESS-PC work-items | Diverged. Builder reads the local file. GitHubBridge does not pull it. v1.0.2 cannot tell 0 matches from 2+. |
-| Next repair | Builder **v1.0.3** (`83B3EDA6…`) + uniqueness repair + diagnose v1.3.1 + puller v1.5. |
+| Diagnose 06:58 MT | `STAGE_OK_WAITING_ACTION_ERA` / `python_exit=0` / `diagnose_ready=2` / `live_ready=0`. Live python `471E5051…` / `83B3EDA6…`. Puller v1.5. Isolated diagnose queue. |
+| Uniqueness | **Closed.** GitHub and the live builder now agree on one 8-vehicle id. |
+| Next repair | Sticky Supervisor RequestId leftovers + diagnose v1.3.2 worker hashes + puller v1.6. |
 | Chat / calculator | Exact-five **launch-only**. First PASS is Action Era spreadsheet+note. |
 | First PASS | Workbook + note + DONE + hashes + receipt for `owner-west-motor-parts-chase-fresh-8-v1`. |
 
 ## Where we are
 
-Kevin's **platform** works. Kevin's **execution muscle** for the owner outcome is blocked on a local work-items uniqueness check. That is progress: last cycle was an uncaught UTF-8 BOM traceback; this cycle is a typed builder reject. HQ LIVE BLOCKED remains the honest badge.
+Kevin's **platform** works. Isolated diagnose can build and stage the 8-vehicle request. Supervisor still fail-closes on `invoke-<work-id>` because that RequestId is sticky and isolated diagnose uses a different id. `68845506` is `INVOCATION_WORKER_FAILED exit=1`, not uniqueness, not BOM, not a missing skill.
 
 ## Where we are going
 
-1. Land builder v1.0.3 on HESS-PC (paste).
+1. Quarantine sticky invoke leftovers (paste).
 2. First fresh PROVEN-skill PASS (8-vehicle board).
 3. Repeat invocation of the other 26 PROVEN skills.
 4. Then UI Phase 2 operate (Calculator/Notepad type) as a typed crossing — after PASS, not instead of it.
@@ -30,26 +29,7 @@ Kevin's **platform** works. Kevin's **execution muscle** for the owner outcome i
 
 ## Game plan (this cycle)
 
-1. Merge this PR (builder v1.0.3 + uniqueness repair + diagnose v1.3.1 + puller v1.5).
+1. Merge this PR (sticky repair + diagnose v1.3.2 + puller v1.6).
 2. Matt runs the Grokbot paste in FROM_GROK (same shape as the paste that already worked).
-3. Read `reports/invocations/latest-public-reject.json`. Expect `match_count` populated. If `STAGE_OK_WAITING_ACTION_ERA`, wait Supervisor + Action Era. If another reason-code, repair that family next — do not recopy Supervisor.
+3. Read `reports/invocations/latest-public-reject.json`. Expect version `1.3.2`, `worker_live_sha256`, and either `STAGE_OK` on the Supervisor RequestId sim or the next typed python reason. Then wait Supervisor + Action Era. Do not recopy Supervisor.
 4. PASS definition unchanged.
-
-## AI-agent access bridge
-
-Any AI Matt tasks uses this public GitHub repo:
-
-- `inbox/CURRENT_TASK.md`
-- `inbox/FROM_GROK.md`
-- `inbox/engineering/request.json`
-- `reports/invocations/latest-public-reject.json`
-- `reports/autonomy-continuation-latest.json`
-- `reports/bridge-latest.json`
-- `reports/support-latest.json`
-- `reports/engineering/latest.json`
-
-That is the typed bridge. Do not invent remote PowerShell.
-
-## Do not
-
-Recopy Supervisor. Overwrite GitHub ControlPlane pin. Queue another worker install. Widen tools. Send the 8-vehicle job to `fixed:main`. Delete other WorkInstances to make the id unique. Claim this chat, this PR, or a diagnose JSON as PASS.
