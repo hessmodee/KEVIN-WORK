@@ -79,6 +79,18 @@ function workerProgress(key,state,d,s){
 }
 
 
+function bridgeLatestOk(){
+ const b=window.__kevinBridgeLatest||{};
+ const at=Date.parse(b.at||b.generated_at||'');
+ const age=Date.now()-at;
+ const puller=String(b.puller||'');
+ return Number.isFinite(at)&&age>=-60000&&age<=15*60*1000 && String(b.bridge||'').toLowerCase()==='ok' && /^v1\.[3-9]/.test(puller);
+}
+function bridgeHealthy(d){
+ if(norm(d?.services?.bridge)==='healthy')return true;
+ if(bridgeLatestOk())return true;
+ return false;
+}
 function workerState(key,d,s){
  const fresh=x=>{const age=Date.now()-Date.parse(x?.generated_at||'');return Number.isFinite(age)&&age>=-60000&&age<=600000};
  const bw=fresh(s)?s?.active_workers||{}:{};
@@ -86,7 +98,7 @@ function workerState(key,d,s){
  const tt=taskText(t);
  if(telemetryOffline(d,s)) return 'offline';
  if(key==='bridge'){
-   if(norm(d?.services?.bridge)!=='healthy')return 'degraded';
+   if(!bridgeHealthy(d))return 'degraded';
    return Number(bw.bridge)>0?'working':'ready';
  }
  if(key==='tick'){
@@ -129,12 +141,14 @@ function workerState(key,d,s){
 function continuationStatus(){return String(window.__kevinContinuation?.status||'').toUpperCase()}
 function kevinStates(d,s){
  if(telemetryOffline(d,s))return ['offline'];
- const health=norm(d?.health?.overall||d?.status);
- if(health && health!=='healthy' && health!=='ready')return ['degraded'];
- if(['bridge','tick','ollama','gateway'].some(k=>d?.services?.[k]&&norm(d.services[k])!=='healthy'))return ['degraded'];
  const cont=continuationStatus();
- if(cont==='CONTROLLER_ERROR')return ['degraded'];
  if(cont==='BLOCKED_INVOCATION_RUNTIME')return ['blocked'];
+ if(cont==='CONTROLLER_ERROR')return ['degraded'];
+ const health=norm(d?.health?.overall||d?.status);
+ const servicesUnhealthy=['tick','ollama','gateway'].some(k=>d?.services?.[k]&&norm(d.services[k])!=='healthy');
+ if(servicesUnhealthy)return ['degraded'];
+ if(!bridgeHealthy(d) && d?.services?.bridge)return ['degraded'];
+ if(health && health!=='healthy' && health!=='ready' && !(bridgeLatestOk() && !servicesUnhealthy))return ['degraded'];
  const active=new Set();
  for(const w of WORKERS){
    if(['bridge','tick'].includes(w.key))continue;
@@ -182,12 +196,14 @@ function renderKevinCenter(d,s,states){
 async function load(){
  let d={},s={},c={};
  try{
-  [d,s,c]=await Promise.all([
+  [d,s,c,b]=await Promise.all([
     fetch(RAW+'dashboard-state.json?'+Date.now()).then(r=>r.json()),
     fetch(RAW+'support-latest.json?'+Date.now()).then(r=>r.json()),
-    fetch('https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/autonomy-continuation-latest.json?'+Date.now()).then(r=>r.json()).catch(()=>({}))
+    fetch('https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/autonomy-continuation-latest.json?'+Date.now()).then(r=>r.json()).catch(()=>({})),
+    fetch(RAW+'bridge-latest.json?'+Date.now()).then(r=>r.json()).catch(()=>({}))
   ]);
   window.__kevinContinuation=c||{};
+  window.__kevinBridgeLatest=b||{};
  }catch(e){document.getElementById('newsText').textContent='Telemetry fetch failed: '+e.message;document.getElementById('kevinState').innerHTML='<span class="loop state-offline" style="--kstatec:#e46f61">OFFLINE</span>';return}
  const overall=norm(d?.health?.overall||d?.status||'unknown'),chip=document.getElementById('overallChip');
  chip.textContent=overall==='healthy'?'HEALTHY':overall.toUpperCase();chip.className='chip '+(overall==='healthy'?'ok':'');
@@ -199,7 +215,7 @@ async function load(){
  const detail=contSt==='BLOCKED_INVOCATION_RUNTIME'?`Fail-closed on ${String(liveMission).replace(/[-_]+/g,' ')} · worker diagnostic, not PASS.`:(/THROTTLED|SATURATED/i.test(String(liveResult||''))?'Recovery cooldown is active after bounded recovery attempts.':(liveResult?`Mission ${liveMission} · ${liveResult}`:'Control plane healthy.'));
  document.getElementById('newsText').textContent=`Chief of Staff | ${detail}`;
  const rail=document.getElementById('serviceRail');rail.innerHTML='';
- [['Reader','ready'],['Night Forge',(s?.active_workers?.night_forge||0)>0?'active':'ready'],['Build Lab',(s?.active_workers?.design_forge||0)>0?'active':'ready'],['Ollama',d?.services?.ollama==='healthy'?'ready':''],['Bridge',workerState('bridge',d,s)==='working'?'active':(d?.services?.bridge==='healthy'?'ready':'')],['Tick',d?.services?.tick==='healthy'?'ready':'']].filter(([n])=>n!=='Night Forge'||!nightForgeHidden(s)).forEach(([n,st])=>rail.insertAdjacentHTML('beforeend',`<div class="svc"><i class="dot ${st}"></i><b>${esc(n)}</b><span>${st==='active'?'ACTIVE':st==='ready'?'READY':'CHECK'}</span></div>`));
+ [['Reader','ready'],['Night Forge',(s?.active_workers?.night_forge||0)>0?'active':'ready'],['Build Lab',(s?.active_workers?.design_forge||0)>0?'active':'ready'],['Ollama',d?.services?.ollama==='healthy'?'ready':''],['Bridge',workerState('bridge',d,s)==='working'?'active':(bridgeHealthy(d)?'ready':'')],['Tick',d?.services?.tick==='healthy'?'ready':'']].filter(([n])=>n!=='Night Forge'||!nightForgeHidden(s)).forEach(([n,st])=>rail.insertAdjacentHTML('beforeend',`<div class="svc"><i class="dot ${st}"></i><b>${esc(n)}</b><span>${st==='active'?'ACTIVE':st==='ready'?'READY':'CHECK'}</span></div>`));
  const active=paintWorkers(d,s);
  window.__kevinLaneSnapshot={dashboard:d,support:s};
  const kstates=kevinStates(d,s),ks=kstates[0],kmode=ks==='offline'?'disconnected':ks==='degraded'?'degraded':kstates.some(x=>['working','building'].includes(x))?'working':'ready';
@@ -224,7 +240,7 @@ function workerEvidenceDetail(key,d,s){
  if(reports[key])return `${reports[key]} ${working?'Current execution is attributed to this lane.':'No current execution is attributed to this lane; READY alone does not prove tool access or autonomous use.'}`;
  return '';
 }
-function selectWorker(w,st,d,s){document.getElementById('selectedName').textContent=`${w.name} — ${w.role}`;document.getElementById('selectedStatus').textContent=stateLabel(st);let detail='Telemetry-backed worker state.';if(w.key==='benchmark')detail=`Regression ${s?.benchmark?.regression?.passed||0}/${s?.benchmark?.regression?.total||0}, critical failures ${s?.benchmark?.regression?.critical_failures||0}.`;if(w.key==='bridge')detail=`GitHub sync service: ${d?.services?.bridge||'unknown'}. A recent Bridge run is WORKING; otherwise a healthy Bridge is READY.`;if(w.key==='build')detail=`Design Forge workers active: ${s?.active_workers?.design_forge||0}.`;if(w.key==='ollama')detail=`Primary local inference service: ${d?.services?.ollama||'unknown'}.`;document.getElementById('selectedDetail').textContent=detail}
+function selectWorker(w,st,d,s){document.getElementById('selectedName').textContent=`${w.name} — ${w.role}`;document.getElementById('selectedStatus').textContent=stateLabel(st);let detail='Telemetry-backed worker state.';if(w.key==='benchmark')detail=`Regression ${s?.benchmark?.regression?.passed||0}/${s?.benchmark?.regression?.total||0}, critical failures ${s?.benchmark?.regression?.critical_failures||0}.`;if(w.key==='bridge')detail=`GitHub sync service: ${bridgeHealthy(d)?'ok':(d?.services?.bridge||'unknown')}. Fresh puller evidence outranks dashboard unknown.`;if(w.key==='build')detail=`Design Forge workers active: ${s?.active_workers?.design_forge||0}.`;if(w.key==='ollama')detail=`Primary local inference service: ${d?.services?.ollama||'unknown'}.`;document.getElementById('selectedDetail').textContent=detail}
 
 let lastKmode='', lastTopoCount=-1, lastTopoW=0, lastTopoH=0, resizeTimer=0;
 function layoutChanged(top,count){

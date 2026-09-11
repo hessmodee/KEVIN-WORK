@@ -6,6 +6,7 @@ on:
       - 'control-plane/autonomy/kevin-support-cron-truth-v1.py'
       - 'control-plane/autonomy/kevin-proven-skill-request-builder-v1.py'
       - 'control-plane/autonomy/kevin-proven-skill-request-builder-v1.0.1.py'
+      - 'control-plane/autonomy/kevin-proven-skill-request-builder-v1.0.2.py'
       - 'control-plane/autonomy/kevin-proven-skill-invocation-v1.py'
       - 'control-plane/autonomy/kevin-proven-skill-invocation-v1.1.1.py'
       - 'control-plane/autonomy/kevin-capability-router-v1.py'
@@ -36,7 +37,7 @@ jobs:
           node-version: '22'
       - name: Compile and test cron truth + request builder + invocation + router
         run: |
-          python -m py_compile control-plane/autonomy/kevin-support-cron-truth-v1.py control-plane/autonomy/kevin-proven-skill-request-builder-v1.py control-plane/autonomy/kevin-proven-skill-request-builder-v1.0.1.py control-plane/autonomy/kevin-proven-skill-invocation-v1.py control-plane/autonomy/kevin-proven-skill-invocation-v1.1.1.py control-plane/autonomy/kevin-capability-router-v1.py
+          python -m py_compile control-plane/autonomy/kevin-support-cron-truth-v1.py control-plane/autonomy/kevin-proven-skill-request-builder-v1.py control-plane/autonomy/kevin-proven-skill-request-builder-v1.0.1.py control-plane/autonomy/kevin-proven-skill-request-builder-v1.0.2.py control-plane/autonomy/kevin-proven-skill-invocation-v1.py control-plane/autonomy/kevin-proven-skill-invocation-v1.1.1.py control-plane/autonomy/kevin-proven-skill-invocation-v1.1.2.py control-plane/autonomy/kevin-capability-router-v1.py
           python -m unittest tests/test_support_cron_truth_v1.py tests/test_proven_skill_request_builder_v1.py tests/test_proven_skill_invocation_v1.py tests/test_invocation_registry_contract_v111.py -v
           python tools/test-kevin-capability-router-v1.py
       - name: Supervisor v1.8.11 markers

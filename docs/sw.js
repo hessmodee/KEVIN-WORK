@@ -2,12 +2,12 @@
  * Scope: GitHub Pages /KEVIN-WORK/
  * Public static assets + sanitized public telemetry only.
  * Network remains authoritative; cache is outage fallback, never proof of freshness.
- * Historical proof compatibility marker only: kevin-hq-shell-v4, kevin-hq-shell-v6, kevin-hq-shell-v7
- * v8 drops competing ops overlay painters from the shell cache so the 1s X-eyes fight cannot revive offline.
+ * Historical proof compatibility marker only: kevin-hq-shell-v4, kevin-hq-shell-v6, kevin-hq-shell-v7, kevin-hq-shell-v8
+ * v9 busts the v8 cache so SKILLS/SYSTEM pick up toolsChip after query-strip.
  */
 'use strict';
 
-const VERSION='kevin-hq-shell-v8';
+const VERSION='kevin-hq-shell-v9';
 const SHELL_CACHE=`${VERSION}-static`;
 const DATA_CACHE=`${VERSION}-public-data`;
 const BASE='/KEVIN-WORK/';

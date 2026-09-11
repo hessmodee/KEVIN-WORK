@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location(
     "builder",
-    ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-request-builder-v1.0.1.py",
+    ROOT / "control-plane" / "autonomy" / "kevin-proven-skill-request-builder-v1.0.2.py",
 )
 builder = importlib.util.module_from_spec(spec)
 assert spec.loader
@@ -63,7 +63,31 @@ class RequestBuilderTests(unittest.TestCase):
         self.assertEqual(first["steps"][1]["payload"]["content"], second["steps"][1]["payload"]["content"])
         self.assertNotIn("rehearsal date:", first["steps"][1]["payload"]["content"])
         self.assertEqual(invocation.sha256_obj(first), invocation.sha256_obj(second))
-        self.assertEqual(builder.VERSION, "1.0.1")
+        self.assertEqual(builder.VERSION, "1.0.2")
+
+
+    def test_utf8_bom_work_items_loads(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "work-items.json"
+            body = json.dumps({
+                "schema": 1,
+                "kind": "kevin-work-items",
+                "items": [{
+                    "id": "owner-west-motor-parts-chase-fresh-8-v1",
+                    "required_skill_key": "west-motor-parts-chase-board-pack@1",
+                    "owner_inputs": {"vehicles": builder.fictional_eight_vehicles()},
+                }],
+            }).encode("utf-8")
+            path.write_bytes(b"\xef\xbb\xbf" + body)
+            loaded = builder.load_work_item_vehicles(path, "owner-west-motor-parts-chase-fresh-8-v1")
+            self.assertEqual(8, len(loaded))
+
+    def test_unreadable_work_items_is_builder_error_not_traceback(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "work-items.json"
+            path.write_bytes(b"\xef\xbb\xbf{not-json")
+            with self.assertRaisesRegex(builder.BuilderError, "WORK_ITEMS_UNREADABLE"):
+                builder.load_work_item_vehicles(path, "owner-west-motor-parts-chase-fresh-8-v1")
 
 
 if __name__ == "__main__":
