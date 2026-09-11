@@ -1,14 +1,10 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-09-09T20:14:00.2860344-06:00",
-    "request":  {
-                    "id":  "bess-run-ui-watchdog-20260903-1102",
-                    "verb":  "run_typed_maintenance",
-                    "target":  "kevin-maintenance-v1"
-                },
-    "status":  "IDLE_TERMINAL",
-    "detail":  "Current work order is already terminal; awaiting replacement",
+    "generated_at":  "2026-09-11T11:35:07.2219453-06:00",
+    "request":  null,
+    "status":  "FAILED",
+    "detail":  "GitHub GET failed: Get \"https://api.github.com/repos/hessmodee/KEVIN-WORK/contents/control-plane/orders/CURRENT.json?ref=kevin-control-plane-v1\": dial tcp 172.182.252.137:443: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
