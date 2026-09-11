@@ -1,57 +1,55 @@
-# KEVIN AUDIT AND GAME PLAN — 2026-09-10 13:42 MT
+# KEVIN AUDIT AND GAME PLAN — 2026-09-10 22:58 MT
 
-Not PASS. Live evidence outranks the Sep 9 pasted audit.
+Not PASS. Live evidence outranks the 13:42 audit.
 
 ## One-screen verdict
 
 | Item | Live truth |
 |---|---|
-| HQ badge | **BLOCKED** (correct). Not degraded. Ops floor matches. |
-| Platform | GREEN. Benchmark **30/30**, critical 0, RAM 33%, CPU 16%. Six scheduler lanes ok. |
+| HQ LIVE badge | **BLOCKED** (correct). Worker diagnostic, not a crash. |
+| HQ remaining lies | Bridge UNKNOWN, ops Kevin/Bridge DEGRADED, SKILLS/SYSTEM Tools UNVERIFIED, NEWSWIRE stale, last-attempt 9:53 PM. Paint bugs; this cycle ships the honesty patches. |
+| Platform | GREEN. Benchmark **30/30**, critical 0. Six scheduler lanes ok. |
 | 8-vehicle job | Still **BLOCKED_INVOCATION_RUNTIME** / `68845506`. Turn 1 at 09:31 kept. |
-| Catalog repair | **Ran** 12:53 MT. Live python `75D6031E…` / `93A8A881…`. Did not unblock stage (`ready=0` at 13:39). |
-| Tools chip | Canary OMEN_PROVEN 2026-09-08 10:59 MT. Service rail already has `5 · CANARY STALE` in V10 source; Pages still cached `?v=7` so it paints **UNVERIFIED**. This PR cache-busts `?v=8` and uses `toolsChip()` on SKILLS/SYSTEM too. Tools exist. Do not widen. |
-| Next repair | Invocation **v1.1.2** (`471E5051…`) + diagnose reason-code. |
-| Chat / calculator | Exact-five **launch-only**. Notepad/Paint/Explorer are allowlisted. Tool does not type. qwen2.5:14b hallucinated operate. |
+| Diagnose | `BUILDER_REJECTED` / `reason=Traceback` / `python_exit=1`. Live python `471E5051…` / `93A8A881…`. |
+| Root cause | Builder v1.0.1 `json.loads(utf-8)` dies on PowerShell UTF-8 BOM `work-items.json`. Reproduced: BOM → exit 1 Traceback; no BOM → BUILT exit 0. |
+| Next repair | Builder **v1.0.2** (`EC92A4E3…`) + diagnose parser + HQ paint. |
+| Chat / calculator | Exact-five **launch-only**. First PASS is Action Era spreadsheet+note. |
 | First PASS | Workbook + note + DONE + hashes + receipt for `owner-west-motor-parts-chase-fresh-8-v1`. |
 
 ## Where we are
 
-Kevin's **platform** works. Kevin's **execution muscle** for the owner outcome does not. Supervisor correctly selects the 8-vehicle WorkInstance and fail-closes instead of charging `fixed:main`. That is honest. Idle-without-reason would be the defect.
-
-The calculator/Notepad chat is a **different lane**. Chat cannot write files or type. Action Era `create_spreadsheet` + `create_text` is how Kevin uses the computer for this job.
+Kevin's **platform** works. Kevin's **execution muscle** for the owner outcome is blocked on a BOM the builder could not read. HQ looks worse than the machine is: the LIVE badge is honest (BLOCKED); the other chips are stale-cache / dashboard-unknown-bridge / V7 newswire using a stopped iframe fetch.
 
 ## Where we are going
 
-1. First fresh PROVEN-skill PASS (8-vehicle board).
-2. Repeat invocation of the other 26 PROVEN skills.
-3. Then UI Phase 2 operate (Calculator/Notepad type) as a typed crossing — after PASS, not instead of it.
-4. T4 for routine GREEN work: sense → repair → resume without Grok.
-
-## Goals not yet accomplished
-
-- 8-vehicle PASS
-- Public python reason-code on every fail-closed invoke (this cycle ships the diagnose)
-- Fresh main-agent canary (after 22:00Z if allowlisted)
-- Console hygiene VBS if not already applied
-- Post-22:00Z: do **not** re-queue worker v1.1; it is already applied
-- Do not recopy Supervisor v1.8.12
+1. Land builder v1.0.2 on HESS-PC (paste).
+2. First fresh PROVEN-skill PASS (8-vehicle board).
+3. Repeat invocation of the other 26 PROVEN skills.
+4. Then UI Phase 2 operate (Calculator/Notepad type) as a typed crossing — after PASS, not instead of it.
+5. T4 for routine GREEN work: sense → repair → resume without Grok.
 
 ## Game plan (this cycle)
 
-1. Merge this PR (v1.1.2 + diagnose + pull-inbox v1.3).
+1. Merge this PR (builder v1.0.2 + diagnose v1.3 + puller v1.4 + HQ honesty).
 2. Matt runs the Grokbot paste in FROM_GROK (same shape as the paste that already worked).
 3. Read `reports/invocations/latest-public-reject.json`. If `STAGE_OK_WAITING_ACTION_ERA`, wait Supervisor + Action Era. If another reason-code, repair that family next — do not recopy Supervisor.
 4. PASS definition unchanged.
 
-## Desktop disconnect — root cause (verified)
+## AI-agent access bridge
 
-OpenClaw 2026-09-09 17:14–18:33 MT: Matt asked Kevin to open Notepad and write a status note. `kevin_app_launch` fired. Kevin claimed to type "Hello, Matt". The tool contract is launch-only (`notepad.exe` / `calc.exe` / `mspaint.exe` / `explorer.exe`, no args). SOUL.md already forbids the claim. qwen2.5:14b ignored it.
+Any AI Matt tasks uses this public GitHub repo:
 
-Correct Chat reply: `LAUNCHED notepad. NOT_EXECUTED: capability_unavailable` for typing/saving.
+- `inbox/CURRENT_TASK.md`
+- `inbox/FROM_GROK.md`
+- `inbox/engineering/request.json`
+- `reports/invocations/latest-public-reject.json`
+- `reports/autonomy-continuation-latest.json`
+- `reports/bridge-latest.json`
+- `reports/support-latest.json`
+- `reports/engineering/latest.json`
 
-This PR adds `typed:false` / `capability:launch_only` to the **source** plugin result so the model sees the boundary in the tool payload. Production Chat still uses the installed plugin until a typed desktop crossing. Do not widen exact-five to fake operate.
+That is the typed bridge. Do not invent remote PowerShell.
 
 ## Do not
 
-Recopy Supervisor. Overwrite GitHub ControlPlane pin. Queue another worker install before 22:00Z. Widen tools. Send the 8-vehicle job to `fixed:main`. Claim this chat, this PR, or a diagnose JSON as PASS.
+Recopy Supervisor. Overwrite GitHub ControlPlane pin. Queue another worker install. Widen tools. Send the 8-vehicle job to `fixed:main`. Claim this chat, this PR, or a diagnose JSON as PASS.

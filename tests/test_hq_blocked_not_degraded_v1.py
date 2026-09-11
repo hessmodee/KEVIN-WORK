@@ -18,6 +18,8 @@ class HqBlockedNotDegradedTests(unittest.TestCase):
     def test_ops_v11_maps_invocation_block(self) -> None:
         ops = OPS.read_text(encoding="utf-8")
         self.assertIn("if(cont==='BLOCKED_INVOCATION_RUNTIME')return ['blocked'];", ops)
+        self.assertIn("bridge-latest.json", ops)
+        self.assertIn("function bridgeLatestOk", ops)
         self.assertNotIn("cont==='CONTROLLER_ERROR'||cont==='BLOCKED_INVOCATION_RUNTIME'", ops)
         self.assertIn("blocked:'#f0c36a'", ops)
         self.assertIn("blocked:'BLOCKED'", ops)
@@ -31,6 +33,9 @@ class HqBlockedNotDegradedTests(unittest.TestCase):
     def test_owner_console_already_blocked(self) -> None:
         console = CONSOLE.read_text(encoding="utf-8")
         self.assertIn("if(cont==='BLOCKED_INVOCATION_RUNTIME')return{mode:'blocked'", console)
+        self.assertIn("reports/bridge-latest.json", console)
+        self.assertIn("hit.last_turn_at", console)
+        self.assertIn("paintNewswire", console)
 
     def test_ci_matches_live_v10_shell(self) -> None:
         wf = WORKFLOW.read_text(encoding="utf-8")
@@ -45,7 +50,7 @@ class HqBlockedNotDegradedTests(unittest.TestCase):
         console = CONSOLE.read_text(encoding="utf-8")
         self.assertIn("function toolsChip()", console)
         self.assertIn("5 · CANARY STALE", console)
-        self.assertIn("?v=7", INDEX.read_text(encoding="utf-8"))
+        self.assertIn("?v=9", INDEX.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

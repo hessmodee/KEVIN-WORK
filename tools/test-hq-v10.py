@@ -30,4 +30,7 @@ assert 'ops-live-truth-v2.js' in embed
 assert "kevin-hq-shell-v6" in sw
 assert 'hq-owner-console-v10.js' in sw
 assert 'ops/ops-v11.js' in sw
+assert 'reports/bridge-latest.json' in hq
+assert 'paintNewswire' in hq
+assert 'hit.last_turn_at' in hq
 print('KEVIN HQ V10 LIVE TRUTH SELFTEST PASS tabs=4 work_truth=machine_evidence telemetry=24h_hover ops_armed_not_working=true retired_layers_not_executed=true')

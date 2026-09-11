@@ -21,8 +21,15 @@ function paint(){
   el.className='newswire show'+(sev&&sev!=='normal'?' sev-'+sev:'');
 }
 function refreshNewswire(){
-  if(!core||!doc||typeof core.newswireStories!=='function')return;
-  let items=[];try{items=(core.newswireStories()||[]).map(x=>({...x,text:normalizeStoryText(x.text)})).filter(x=>x.text)}catch(_e){return}
+  if(!core||!doc)return;
+  if(doc.getElementById('hqNewswire')?.dataset?.v10Nw==='1')return;
+  let items=[];
+  try{
+    const v10=window.__kevinOwnerConsoleV10;
+    const src=(typeof v10?.newswireStories==='function')?v10.newswireStories:(typeof core.newswireStories==='function'?core.newswireStories:null);
+    if(!src)return;
+    items=(src()||[]).map(x=>({...x,text:normalizeStoryText(x.text)})).filter(x=>x.text);
+  }catch(_e){return}
   const seen=new Set();items=items.filter(x=>{const k=String(x.text).toLowerCase().replace(/\W+/g,'').slice(0,180);if(!k||seen.has(k))return false;seen.add(k);return true}).slice(0,18);
   if(!items.length)return;
   const currentId=nwItems[nwIndex]?.id,oldSig=signature(nwItems),newSig=signature(items);nwItems=items;

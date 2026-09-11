@@ -3,6 +3,7 @@ param([switch]$SelfTest)
 # GREEN-A/C. Runs builder+stage against live HESS-PC files and publishes ONLY
 # a reason-code (+ hashes). No raw logs, configs, environment, or secrets.
 # Uses an isolated diagnose queue so it cannot collide with Supervisor orders.
+# If live python hashes mismatch, runs Repair once (-SkipDiagnose) then retries.
 # Does not recopy Supervisor. Does not replace the live worker pin. Not PASS.
 
 Set-StrictMode -Version 2.0
@@ -23,7 +24,7 @@ $LiveReady = Join-Path $Workspace 'reports\action-era\queue\ready'
 $WorkId = 'owner-west-motor-parts-chase-fresh-8-v1'
 $RequestId = 'diagnose-' + $WorkId
 $InvExpected = '471E505151E211C254FAB9DD090AEA76E7D304B01333FEA03B115D2ECE39B7E8'
-$BldExpected = '93A8A881E04CC8E6AE0B900275C6158AF166484F663988EBB564BC47C4140031'
+$BldExpected = 'EC92A4E3384321C34A6CA62F38D4D9C0FB33C7956F112F07065946B7F06E1525'
 
 function Get-Sha256Upper([string]$Path) {
     if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return '' }
@@ -35,17 +36,45 @@ function Write-Utf8NoBom([string]$Path, [string]$Text) {
 }
 function Reason-FromJson([string]$Text) {
     if ([string]::IsNullOrWhiteSpace($Text)) { return '' }
+    if ($Text -match 'Unexpected UTF-8 BOM' -or $Text -match 'utf-8 BOM') { return 'WORK_ITEMS_UTF8_BOM' }
+    foreach ($line in ($Text -split "`r?`n")) {
+        $line = $line.Trim()
+        if ($line.StartsWith('{') -and $line.EndsWith('}')) {
+            try {
+                $o = $line | ConvertFrom-Json
+                if ($o.reason) {
+                    $r = [string]$o.reason
+                    if ($r -match 'UTF-8 BOM|Unexpected UTF-8 BOM') { return 'WORK_ITEMS_UTF8_BOM' }
+                    return $r
+                }
+                if ($o.status -and [string]$o.status -ne 'REJECTED') { return [string]$o.status }
+                if ($o.status) { return [string]$o.status }
+            } catch {}
+        }
+    }
     try {
         $o = $Text | ConvertFrom-Json
         if ($o.reason) { return [string]$o.reason }
         if ($o.status) { return [string]$o.status }
     } catch {}
-    if ($Text -match '([A-Z][A-Z0-9_]{5,80})') { return $Matches[1] }
+    # Case-sensitive reason codes only. PowerShell -match is case-insensitive
+    # and would otherwise publish "Traceback" from a python crash dump.
+    $m = [regex]::Match($Text, '(?<![A-Za-z])([A-Z][A-Z0-9_]{5,80})(?![A-Za-z])')
+    if ($m.Success) {
+        $code = $m.Groups[1].Value
+        if ($code -notin @('TRACEBACK','FILE','PYTHON')) { return $code }
+    }
     return 'UNPARSEABLE_REASON'
 }
 
 if ($SelfTest) {
     if ($InvExpected.Length -ne 64) { throw 'inv hash pin' }
+    if ($BldExpected.Length -ne 64) { throw 'bld hash pin' }
+    $tb = "Traceback (most recent call last):`n  File `"x.py`", line 1`njson.decoder.JSONDecodeError: Unexpected UTF-8 BOM"
+    if ((Reason-FromJson $tb) -ne 'WORK_ITEMS_UTF8_BOM') { throw 'bom reason map' }
+    $jsonLine = '{"status": "REJECTED", "reason": "VEHICLE_COUNT_MUST_BE_8"}'
+    if ((Reason-FromJson $jsonLine) -ne 'VEHICLE_COUNT_MUST_BE_8') { throw 'json reason' }
+    if ((Reason-FromJson 'Traceback (most recent call last):') -eq 'Traceback') { throw 'traceback not a reason' }
     Write-Host 'KEVIN INVOCATION STAGE DIAGNOSE v1 SELFTEST PASS'
     exit 0
 }
@@ -66,54 +95,66 @@ $liveReadyCount = 0
 if ($missing.Count -gt 0) {
     $reason = 'MISSING:' + (($missing | Select-Object -First 6) -join ',')
     $class = 'MISSING_INPUT'
-} elseif ($invHash -ne $InvExpected -or $bldHash -ne $BldExpected) {
-    $reason = 'PYTHON_HASH_MISMATCH'
-    $class = 'PYTHON_NOT_V112'
 } else {
-    $py = $null
-    foreach ($cand in @('python','python3','py')) {
-        $cmd = Get-Command $cand -ErrorAction SilentlyContinue
-        if ($cmd) { $py = $cmd.Source; break }
-    }
-    if (-not $py) {
-        $reason = 'PYTHON_NOT_AVAILABLE'
-        $class = 'PYTHON_NOT_AVAILABLE'
-    } else {
-        $req = Join-Path $RunRoot ($RequestId + '.request.json')
-        $st = Join-Path $RunRoot ($RequestId + '.json')
-        if (Test-Path -LiteralPath $st) { Remove-Item -LiteralPath $st -Force }
-        function Invoke-HiddenPython([string[]]$PyArgs) {
-            $psi = New-Object System.Diagnostics.ProcessStartInfo
-            $psi.FileName = $py
-            $psi.Arguments = ($PyArgs | ForEach-Object { if ($_ -match '\s') { '"' + $_ + '"' } else { $_ } }) -join ' '
-            $psi.UseShellExecute = $false
-            $psi.RedirectStandardOutput = $true
-            $psi.RedirectStandardError = $true
-            $psi.CreateNoWindow = $true
-            $p = New-Object System.Diagnostics.Process
-            $p.StartInfo = $psi
-            [void]$p.Start()
-            $stdout = $p.StandardOutput.ReadToEnd()
-            $stderr = $p.StandardError.ReadToEnd()
-            $p.WaitForExit()
-            return [pscustomobject]@{ ExitCode = [int]$p.ExitCode; Combined = ([string]$stdout + [string]$stderr).Trim() }
+    if ($invHash -ne $InvExpected -or $bldHash -ne $BldExpected) {
+        $repair = Join-Path $Workspace 'tools\Repair-Kevin-InvocationRegistryContract-v1.ps1'
+        if ($env:KEVIN_DIAGNOSE_REPAIR_ONCE -ne '1' -and (Test-Path -LiteralPath $repair -PathType Leaf)) {
+            $env:KEVIN_DIAGNOSE_REPAIR_ONCE = '1'
+            Write-Host 'diagnose: python hash mismatch; applying registry repair once'
+            try { & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $repair -SkipDiagnose } catch { Write-Host ('repair skip: ' + $_) }
+            $invHash = Get-Sha256Upper $Invoker
+            $bldHash = Get-Sha256Upper $Builder
         }
-        $built = Invoke-HiddenPython @($Builder, '--invocation-id', $RequestId, '--output', $req, '--work-items', $Items, '--work-id', $WorkId)
-        if ($built.ExitCode -ne 0) {
-            $reason = Reason-FromJson $built.Combined
-            if (-not $reason) { $reason = 'BUILDER_REJECTED' }
-            $class = 'BUILDER_REJECTED'
-            $exitCode = $built.ExitCode
+    }
+    if ($invHash -ne $InvExpected -or $bldHash -ne $BldExpected) {
+        $reason = 'PYTHON_HASH_MISMATCH'
+        $class = 'PYTHON_NOT_V102'
+    } else {
+        $py = $null
+        foreach ($cand in @('python','python3','py')) {
+            $cmd = Get-Command $cand -ErrorAction SilentlyContinue
+            if ($cmd) { $py = $cmd.Source; break }
+        }
+        if (-not $py) {
+            $reason = 'PYTHON_NOT_AVAILABLE'
+            $class = 'PYTHON_NOT_AVAILABLE'
         } else {
-            $stage = Invoke-HiddenPython @($Invoker, 'stage', '--registry', $Registry, '--proof-root', $ProofRoot, '--request', $req, '--state', $st, '--queue-ready', $Ready)
-            $exitCode = $stage.ExitCode
-            if ($stage.ExitCode -ne 0) {
-                $reason = Reason-FromJson $stage.Combined
-                if (-not $reason) { $reason = 'STAGE_REJECTED' }
-                $class = 'STAGE_REJECTED'
+            $req = Join-Path $RunRoot ($RequestId + '.request.json')
+            $st = Join-Path $RunRoot ($RequestId + '.json')
+            if (Test-Path -LiteralPath $st) { Remove-Item -LiteralPath $st -Force }
+            function Invoke-HiddenPython([string[]]$PyArgs) {
+                $psi = New-Object System.Diagnostics.ProcessStartInfo
+                $psi.FileName = $py
+                $psi.Arguments = ($PyArgs | ForEach-Object { if ($_ -match '\s') { '"' + $_ + '"' } else { $_ } }) -join ' '
+                $psi.UseShellExecute = $false
+                $psi.RedirectStandardOutput = $true
+                $psi.RedirectStandardError = $true
+                $psi.CreateNoWindow = $true
+                $p = New-Object System.Diagnostics.Process
+                $p.StartInfo = $psi
+                [void]$p.Start()
+                $stdout = $p.StandardOutput.ReadToEnd()
+                $stderr = $p.StandardError.ReadToEnd()
+                $p.WaitForExit()
+                return [pscustomobject]@{ ExitCode = [int]$p.ExitCode; Combined = ([string]$stdout + [string]$stderr).Trim() }
+            }
+            $built = Invoke-HiddenPython @($Builder, '--invocation-id', $RequestId, '--output', $req, '--work-items', $Items, '--work-id', $WorkId)
+            if ($built.ExitCode -ne 0) {
+                $reason = Reason-FromJson $built.Combined
+                if (-not $reason) { $reason = 'BUILDER_REJECTED' }
+                $class = 'BUILDER_REJECTED'
+                $exitCode = $built.ExitCode
             } else {
-                $reason = 'STAGE_OK_WAITING_ACTION_ERA'
-                $class = 'STAGED'
+                $stage = Invoke-HiddenPython @($Invoker, 'stage', '--registry', $Registry, '--proof-root', $ProofRoot, '--request', $req, '--state', $st, '--queue-ready', $Ready)
+                $exitCode = $stage.ExitCode
+                if ($stage.ExitCode -ne 0) {
+                    $reason = Reason-FromJson $stage.Combined
+                    if (-not $reason) { $reason = 'STAGE_REJECTED' }
+                    $class = 'STAGE_REJECTED'
+                } else {
+                    $reason = 'STAGE_OK_WAITING_ACTION_ERA'
+                    $class = 'STAGED'
+                }
             }
         }
     }
@@ -128,7 +169,7 @@ if (Test-Path -LiteralPath $LiveReady) {
 $reject = [ordered]@{
     schema = 1
     kind = 'kevin-invocation-public-reject'
-    version = '1.2.0'
+    version = '1.3.0'
     authority = 'GREEN'
     generated_at = [datetime]::Now.ToString('o')
     safe_for_public_repo = $true
