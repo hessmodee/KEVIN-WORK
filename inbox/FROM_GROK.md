@@ -1,14 +1,21 @@
-# From Grok / CoS (2026-09-11 07:05 MT)
+# From Grok / CoS (2026-09-11 ~13:50 MT)
 
-GREEN-C. Not PASS. Do not recopy Supervisor v1.8.12. Do not widen tools. Do not overwrite GitHub ControlPlane pin `16C49542…`. Do not queue another worker install.
+GREEN-C. Not PASS. Do not recopy Supervisor v1.8.12. Do not widen tools. Do not overwrite GitHub ControlPlane pin `16C49542…`. Do not queue another worker install. Minecraft paused.
 
-Uniqueness is **closed**. Live builder `83B3EDA6…`, invocation `471E5051…`, puller v1.5. Isolated diagnose published `STAGE_OK_WAITING_ACTION_ERA` / `python_exit=0` at 06:58 MT. Continuation 33 seconds later is still `BLOCKED_INVOCATION_RUNTIME` / `68845506…` (worker exit 1). Diagnose uses RequestId `diagnose-owner-west-motor-parts-chase-fresh-8-v1`. Supervisor uses sticky `invoke-owner-west-motor-parts-chase-fresh-8-v1`. Isolated diagnose is not Action Era.
+## Ground truth (public HESS receipts ~13:43–13:46 MT)
+- Diagnose v1.3.2: `STAGE_OK_WAITING_ACTION_ERA` / `python_exit=0` / `sticky_repair=ALREADY_CLEAN` / `supervisor_request_id_reason=STAGE_OK`
+- Worker live `7E1129B7…` matches expected v1.1; builder `83B3EDA6…`; invocation `471E5051…`
+- Action Era: `ready=0`, `failed=1`, `done=70` — expected after sticky quarantine until live re-stage
+- Continuation still `BLOCKED_INVOCATION_RUNTIME` / `68845506…` on Supervisor RequestId `invoke-owner-west-motor-parts-chase-fresh-8-v1`
+- Keep the 09:31 burned turn. Do not send that job to `fixed:main`.
 
-Chat exact-5: `kevin_app_launch` launches notepad/calculator/paint/explorer. It does **not** type. First PASS is Action Era spreadsheet+note, not Notepad operate.
+## THIS CYCLE — if diagnose is already STAGE_OK (it is)
+**Do not re-paste puller v1.6 unless hashes drift.** Let autonomy/Supervisor re-select `owner-west-motor-parts-chase-fresh-8-v1` and stage fresh Action Era `create_spreadsheet` + `create_text`. If continuation stays `68845506…`, chase live worker exit=1 typed reason (not another Supervisor copy).
 
-**Any AI agent Matt tasks:** this public repo is the access bridge. Read `inbox/CURRENT_TASK.md`, this file, `reports/invocations/latest-public-reject.json`, `reports/autonomy-continuation-latest.json`, `reports/bridge-latest.json`, `reports/support-latest.json`, `reports/engineering/latest.json`. Do not invent a remote shell. Do not fake PASS.
+Self-reliance: `docs/engineering/KEVIN-HESS-SELF-RELIANCE-BRIDGE-RECOVERY-v1.md` + `docs/engineering/LESSON-action-era-ready-zero-after-stage-ok-2026-09-11.md`.
 
-**THIS CYCLE — one paste on HESS-PC (Grokbot / admin PowerShell). After it runs, v1.6 quarantines sticky invoke leftovers, sims the Supervisor RequestId, and publishes the live worker hash:**
+## Only if diagnose is NOT STAGE_OK / sticky dirty / hashes wrong
+One paste (Grokbot / admin PowerShell) to refresh puller v1.6:
 
 ```
 # GREEN-C once — sticky invoke state + diagnose v1.3.2. Not PASS.
@@ -24,8 +31,6 @@ function Get-GH($p){
 powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $ws 'pull-inbox.ps1')
 ```
 
-Expected after that pull: puller `v1.6`, builder `83B3EDA6…`, invocation `471E5051…`, `reports/invocations/latest-public-reject.json` version `1.3.2` with `worker_live_sha256` populated and either `STAGE_OK_WAITING_ACTION_ERA` plus `supervisor_request_id_reason=STAGE_OK`, or the next typed python reason (`INVOCATION_ID_REUSED_WITH_DIFFERENT_REQUEST` / `WORK_ORDER_ID_COLLISION` / other). Never `Traceback`. Then let Supervisor re-select `owner-west-motor-parts-chase-fresh-8-v1`. Keep the 09:31 burned turn. Do not send that job to `fixed:main`.
-
 PASS = workbook + note + DONE + hashes + immutable receipt. A merge, CI, paste, diagnose, or repair script is not PASS.
 
-Desktop: launch ≠ operate. Exact-five does not type into Calculator or Notepad. Do not claim app use without a same-turn receipt.
+**Any AI:** read `AI-HANDOVER.md`, `inbox/CURRENT_TASK.md`, this file, `reports/*`. No invented remote shell. CoS local-exec may be empty — Kevin BootRecovery/Tick must own puller when Computers is offline.
