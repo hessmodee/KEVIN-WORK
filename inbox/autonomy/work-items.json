@@ -624,7 +624,7 @@
                   {
                       "id":  "autonomy-expired-manifest-regression-design-fresh-2026-09-11-v1",
                       "authority_class":  "GREEN",
-                      "status":  "OPEN",
+                      "status":  "COMPLETE",
                       "priority":  "high",
                       "owner_value":  5,
                       "program":  "self-improvement",
@@ -635,7 +635,7 @@
                       "reduces_bess_intervention":  true,
                       "repairs_false_success":  true,
                       "dependencies_ready":  true,
-                      "blocked":  false,
+                      "blocked":  true,
                       "failure_attempts":  0,
                       "material_new_evidence":  true,
                       "production_effect":  "NONE",
@@ -658,12 +658,14 @@
                                                   "Patch-ready regression design: expired/terminal input non-executable but truthful idle/terminal result; tests for expired/duplicate/malformed/valid.",
                                                   "No production Maintenance write in this research item; no PASS claim."
                                               ],
-                      "next_action":  "Lab PROVEN — Supervisor F17F when eligible",
+                      "next_action":  "DONE PROVEN 742A522663CA5B37B49A10F1B051B1160BF994E4B2788EA087FA31177C724AF8",
                       "evidence_pointers":  [
                                                 "ControlPlane/kevin-maintenance-core-v1.3.53.ps1",
                                                 "reports/maintenance",
                                                 "docs/engineering"
-                                            ]
+                                            ],
+                      "block_reason":  "COMPLETE_DO_NOT_RESELECT — invoke PROVEN; no PASS from RUNTIME",
+                      "last_receipt_sha256":  "742A522663CA5B37B49A10F1B051B1160BF994E4B2788EA087FA31177C724AF8"
                   }
               ],
     "updated_at":  "2026-09-12T01:55:18.897049+00:00"
