@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
-VERSION = "1.0.12"
+VERSION = "1.0.13"
 PARTS_CHASE_KEY = "west-motor-parts-chase-board-pack@1"
 PARTS_CHASE_WORK_ID = "owner-west-motor-parts-chase-fresh-8-v1"
 TRANSPORT_KEY = "vehicle-transport-mission-pack@1"
@@ -38,6 +38,8 @@ AGING_INV_KEY = "west-motor-aging-inventory-action-pack@1"
 AGING_INV_WORK_ID = "owner-west-motor-aging-inventory-fresh-2026-09-11-v1"
 DELIVERY_PREP_KEY = "west-motor-delivery-prep-pack@1"
 DELIVERY_PREP_WORK_ID = "owner-west-motor-delivery-prep-fresh-2026-09-11-v1"
+RECON_BOARD_KEY = "west-motor-recon-priority-board-pack@1"
+RECON_BOARD_WORK_ID = "owner-west-motor-recon-priority-board-fresh-2026-09-11-v1"
 TRANSPORT_FIELDS = (
     "priority",
     "request_id",
@@ -356,10 +358,15 @@ def build_delivery_prep_request(invocation_id: str) -> Dict[str, Any]:
     steps = json.loads("[{\"operation\":\"create_spreadsheet\",\"payload\":{\"filename\":\"Kevin West Motor Delivery Prep Board.xlsx\",\"workbook\":{\"schema\":1,\"kind\":\"kevin-xlsx-spec\",\"sheets\":[{\"name\":\"Delivery Board\",\"rows\":[[\"Stock / Unit\",\"Customer / Deal\",\"Target Delivery\",\"Stage\",\"Open Blockers\",\"Owner\",\"Keys Ready\",\"Docs Ready\",\"Detail Done\",\"Front Line OK\",\"Next Action\"],[\"\",\"\",\"\",\"RECON / DETAIL / PAPERWORK / READY\",\"\",\"\",\"NO\",\"NO\",\"NO\",\"NO\",\"\"]]},{\"name\":\"Paperwork Checklist\",\"rows\":[[\"Stock / Unit\",\"Bill of Sale\",\"Title / Lien\",\"Warranty Forms\",\"Trade Docs\",\"Temp Tag\",\"Disclosure\",\"Signed?\",\"Missing Item\",\"Owner\"],[\"\",\"NO\",\"NO\",\"NO\",\"NO\",\"NO\",\"NO\",\"NO\",\"\",\"\"]]},{\"name\":\"Unit Condition\",\"rows\":[[\"Stock / Unit\",\"Fuel\",\"Charge / Battery\",\"Clean Inside\",\"Clean Outside\",\"Tire / Spare\",\"Accessories\",\"Known Issues\",\"Photos Taken\",\"OK to Deliver\"],[\"\",\"\",\"\",\"NO\",\"NO\",\"NO\",\"NO\",\"\",\"NO\",\"NO\"]]},{\"name\":\"Handoff Log\",\"rows\":[[\"Date\",\"Stock / Unit\",\"Customer Contacted\",\"Pickup Window\",\"Who Briefed Customer\",\"Walkaround Done\",\"Issues Raised\",\"Resolved?\",\"Delivered?\"],[\"\",\"\",\"NO\",\"\",\"\",\"NO\",\"\",\"NO\",\"NO\"]]},{\"name\":\"Blockers Chase\",\"rows\":[[\"Stock / Unit\",\"Blocker\",\"Blocks Delivery?\",\"Vendor / Desk\",\"Asked At\",\"ETA\",\"Chase Owner\",\"Status\",\"Notes\"],[\"\",\"\",\"YES\",\"\",\"\",\"\",\"\",\"OPEN\",\"No auto purchase\"]]}]}}},{\"operation\":\"create_text\",\"payload\":{\"filename\":\"Kevin West Motor Delivery Prep - SOP.md\",\"content\":\"# Kevin West Motor Delivery Prep\\n\\nUse this pack so a sold or promised unit is honestly ready for customer pickup or delivery.\\n\\n## Operating rule\\nDelivery readiness is false until paperwork, unit condition, and handoff walkaround are true. Prefer the smallest chase that clears the next blocker.\\n\\n## Required sequence\\n1. Rank units on Delivery Board with stage, blockers, and owners.\\n2. Complete Paperwork Checklist without inventing signed status.\\n3. Verify Unit Condition (fuel/charge, clean, tires, accessories, photos).\\n4. Log customer handoff contact and walkaround outcomes.\\n5. Chase Blockers without placing paid orders unless Matt names the purchase.\\n\\n## Protective behavior\\nKevin must not purchase parts, write live DMS, post listings, widen Chat tools beyond Desktop exact-5, or claim READY while blockers remain. Sheet count stays at or below five. Payloads stay ASCII-safe.\\n\"}}]")
     return {"schema":1,"kind":"kevin-proven-skill-invocation","authority":"GREEN","skill_key":DELIVERY_PREP_KEY,"invocation_id":invocation_id,"steps":steps}
 
+
+def build_recon_board_request(invocation_id: str) -> Dict[str, Any]:
+    steps = json.loads("[{\"operation\":\"create_spreadsheet\",\"payload\":{\"filename\":\"Kevin West Motor Recon Priority Board.xlsx\",\"workbook\":{\"schema\":1,\"kind\":\"kevin-xlsx-spec\",\"sheets\":[{\"name\":\"Priority Board\",\"rows\":[[\"Priority\",\"Stock / Unit\",\"Year\",\"Make\",\"Model\",\"Stage\",\"Aging Days\",\"Blocker\",\"Owner\",\"Ready Front Line?\",\"Next Action\",\"Due\"],[\"P1\",\"\",\"\",\"\",\"\",\"INTAKE / CLEAN / REPAIR / PARTS / DETAIL / READY\",\"\",\"\",\"\",\"NO\",\"\",\"\"]]},{\"name\":\"Parts Holds\",\"rows\":[[\"Stock / Unit\",\"Part Needed\",\"Vendor\",\"Ordered?\",\"ETA\",\"Cost Cap Note\",\"Blocks Stage\",\"Chase Owner\",\"Status\",\"Notes\"],[\"\",\"\",\"\",\"NO\",\"\",\"Ask Matt before paid order\",\"REPAIR\",\"\",\"OPEN\",\"No auto purchase\"]]},{\"name\":\"Daily Moves\",\"rows\":[[\"Date\",\"Stock / Unit\",\"From Stage\",\"To Stage\",\"By\",\"Minutes\",\"Still Blocked?\",\"Evidence / Photo Note\",\"Follow-up\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"NO\",\"\",\"\"]]},{\"name\":\"Aging Alerts\",\"rows\":[[\"Stock / Unit\",\"Days In Recon\",\"Stage Stuck\",\"Why Stuck\",\"Customer / Sales Impact\",\"Escalate To\",\"Escalated?\",\"Resolution\"],[\"\",\"\",\"\",\"\",\"\",\"Matt / Manager\",\"NO\",\"\"]]},{\"name\":\"Ready Checklist\",\"rows\":[[\"Stock / Unit\",\"Clean\",\"Mechanical\",\"Parts Complete\",\"Keys / Books\",\"Photos Ready\",\"Price / Board\",\"Front Line OK\",\"Signed By\",\"Date\"],[\"\",\"NO\",\"NO\",\"NO\",\"NO\",\"NO\",\"NO\",\"NO\",\"\",\"\"]]}]}}},{\"operation\":\"create_text\",\"payload\":{\"filename\":\"Kevin West Motor Recon Priority Board - SOP.md\",\"content\":\"# Kevin West Motor Recon Priority Board\\n\\nUse this pack to keep West Motor recon honest: one board, clear stages, aging, and parts holds without fake busywork.\\n\\n## Operating rule\\nA unit is real work when it is not front-line ready. Prefer the smallest stage move that unblocks sales.\\n\\n## Required sequence\\n1. Rank units on Priority Board with stage, aging, blocker, and owner.\\n2. Log Parts Holds without placing paid orders unless Matt names the purchase.\\n3. Record Daily Moves with from/to stage and whether the block remains.\\n4. Escalate Aging Alerts when a unit sits without a next action.\\n5. Mark Ready Checklist only when clean, mechanical, parts, keys, photos, and board price are truly done.\\n\\n## Protective behavior\\nKevin must not purchase parts, write live DMS, post listings, widen Chat tools, or treat Supervisor IDLE as global idle while recon backlog remains. Sheet count stays at or below five. Payloads stay ASCII-safe.\\n\"}}]")
+    return {"schema":1,"kind":"kevin-proven-skill-invocation","authority":"GREEN","skill_key":RECON_BOARD_KEY,"invocation_id":invocation_id,"steps":steps}
+
 def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) -> str:
     if item and str(item.get("required_skill_key") or "").strip():
         key = str(item.get("required_skill_key")).strip()
-        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY, RUNTIME_TRUTH_KEY, EXPIRED_MANIFEST_KEY, REFLECTION_RUNTIME_KEY, BROWSER_COMPUTER_KEY, LOT_WALK_KEY, AGING_INV_KEY, DELIVERY_PREP_KEY}:
+        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY, RUNTIME_TRUTH_KEY, EXPIRED_MANIFEST_KEY, REFLECTION_RUNTIME_KEY, BROWSER_COMPUTER_KEY, LOT_WALK_KEY, AGING_INV_KEY, DELIVERY_PREP_KEY, RECON_BOARD_KEY}:
             return key
         raise BuilderError("UNSUPPORTED_SKILL_KEY")
     if work_id == TRANSPORT_WORK_ID:
@@ -382,6 +389,8 @@ def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) 
         return AGING_INV_KEY
     if work_id == DELIVERY_PREP_WORK_ID:
         return DELIVERY_PREP_KEY
+    if work_id == RECON_BOARD_WORK_ID:
+        return RECON_BOARD_KEY
     raise BuilderError("UNSUPPORTED_WORK_ID")
 
 
@@ -682,6 +691,12 @@ def main() -> int:
             return 0
         if skill == DELIVERY_PREP_KEY:
             request = build_delivery_prep_request(args.invocation_id)
+            Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
+            print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
+            return 0
+        if skill == RECON_BOARD_KEY:
+            request = build_recon_board_request(args.invocation_id)
             Path(args.output).parent.mkdir(parents=True, exist_ok=True)
             Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
             print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
