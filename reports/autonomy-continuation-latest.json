@@ -2,10 +2,10 @@
     "schema":  1,
     "kind":  "kevin-autonomy-continuation-public",
     "version":  "1.8.12",
-    "generated_at":  "2026-09-11T22:50:22.3493390-06:00",
-    "status":  "OUTCOME_PROVEN",
+    "generated_at":  "2026-09-11T22:50:26.8182053-06:00",
+    "status":  "BLOCKED_INVOCATION_RUNTIME",
     "safe_for_public_repo":  true,
-    "outcome_proven":  true,
+    "outcome_proven":  false,
     "model_call_counts_as_accomplishment":  false,
     "tool_calls":  null,
     "history":  [
@@ -70,8 +70,7 @@
                         "fingerprint":  "71E36D7B1AD80B6E0D8C11E294B19A6B9E685E3D652BDD689D075C0DCC60FBAC",
                         "turns":  2,
                         "last_turn_at":  "2026-09-11T20:09:59.3703133-06:00",
-                        "status":  "OUTCOME_PROVEN_VERIFY_PASS_MIXED",
-                        "last_outcome_at":  "2026-09-11T22:50:22.3493390-06:00"
+                        "status":  "IN_PROGRESS"
                     },
                     {
                         "id":  "owner-west-motor-transport-dispatch-template-v1",
@@ -82,9 +81,27 @@
                     }
                 ],
     "history_error":  false,
-    "selected_id":  "owner-west-motor-transport-dispatch-template-v1",
-    "fingerprint":  "9ECE3CE6FF327A5F4374988123101480DEFF795F50D079A81A32EC3065A62BB2",
+    "selected_id":  "owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1",
+    "fingerprint":  "B1F35506B40A6E3CF2779C6D1FF9D1BB84CB24A2876838CCCEC049408B934B15",
     "eligible_count":  6,
+    "failure_sha256":  "68845506ED61C6DBA473728C038321FC76D0E510B0FAF2CACE963475DB95C065",
+    "deferred":  [
+                     {
+                         "id":  "autonomy-runtime-truth-reconciliation-v1",
+                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
+                         "turns":  3
+                     },
+                     {
+                         "id":  "autonomy-expired-manifest-regression-design-v1",
+                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
+                         "turns":  3
+                     },
+                     {
+                         "id":  "autonomy-reflection-runtime-integration-v1",
+                         "reason":  "BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE",
+                         "turns":  3
+                     }
+                 ],
     "history_skipped":  1,
-    "truth_boundary":  "OUTCOME_PROVEN public sync. MIXED actor. ready=0 expected."
+    "truth_boundary":  "Scheduled selection and runtime-attempt evidence only. No owner outcome, tool use, or autonomy transfer is inferred from a successful model turn."
 }
