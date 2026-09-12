@@ -628,7 +628,7 @@
                       "priority":  "high",
                       "owner_value":  5,
                       "program":  "self-improvement",
-                      "lane":  "research",
+                      "lane":  "production",
                       "work_type":  "design",
                       "severity":  "high",
                       "closes_proof_gap":  true,
@@ -641,7 +641,7 @@
                       "production_effect":  "NONE",
                       "estimated_minutes":  30,
                       "hypothesis_id":  "expired-manifest-should-clean-idle-without-execution",
-                      "reuses_proven_capability":  false,
+                      "reuses_proven_capability":  true,
                       "produces_owner_deliverable":  true,
                       "successor_of":  "autonomy-expired-manifest-regression-design-v1",
                       "lineage":  "autonomy-expired-manifest-regression-design",
@@ -649,8 +649,8 @@
                       "materialized_by":  "GROKBOT_ACTED",
                       "never_kevin_learned_claim":  true,
                       "downstream_consumer":  "MAINTENANCE_V1_3_51_PATCH_AND_REGRESSION",
-                      "required_skill_key":  null,
-                      "worker":  null,
+                      "required_skill_key":  "expired-manifest-regression-design-pack@1",
+                      "worker":  "proven-skill-invocation",
                       "notepad_banned":  true,
                       "acceptance_criteria":  [
                                                   "Fresh WorkInstance without resetting predecessor BOUNDED history.",
@@ -658,7 +658,7 @@
                                                   "Patch-ready regression design: expired/terminal input non-executable but truthful idle/terminal result; tests for expired/duplicate/malformed/valid.",
                                                   "No production Maintenance write in this research item; no PASS claim."
                                               ],
-                      "next_action":  "SKILL_LAB_GAP — stage expired-manifest-regression-design-pack@1 then Lab PROVE",
+                      "next_action":  "Lab PROVEN — Supervisor F17F when eligible",
                       "evidence_pointers":  [
                                                 "ControlPlane/kevin-maintenance-core-v1.3.53.ps1",
                                                 "reports/maintenance",
