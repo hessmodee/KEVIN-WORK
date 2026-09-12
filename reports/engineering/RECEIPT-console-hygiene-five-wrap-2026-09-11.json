@@ -1,0 +1,38 @@
+{
+    "schema":  1,
+    "kind":  "kevin-console-hygiene-receipt",
+    "authority":  "GREEN",
+    "grant":  "inbox/grants/OWNER-STANDING-GRANT-GREEN-YELLOW-v1.md",
+    "actor":  "GROKBOT_ACTED",
+    "not_kevin_acted":  true,
+    "at":  "2026-09-11T19:46:54.9922766-06:00",
+    "method":  "Password-\u003eInteractive+VBS via elevated RunAs one-shot tools/Wrap-Kevin-ConsoleHygiene-Five-v1.ps1",
+    "wrapped_this_cycle":  [
+                               "KevinTick",
+                               "KevinGitHubBridge",
+                               "KevinGatewayKeeper",
+                               "Kevin UI Bridge Watchdog v1",
+                               "KevinBootRecovery"
+                           ],
+    "wrap_map":  {
+                     "KevinGatewayKeeper":  "Y",
+                     "KevinGitHubBridge":  "Y",
+                     "KevinTick":  "Y",
+                     "Kevin UI Bridge v0.3":  "Y",
+                     "KevinReaderRestartOnce":  "Y",
+                     "Kevin UI Bridge Watchdog v1":  "Y",
+                     "KevinBootRecovery":  "Y",
+                     "Kevin Self-Reliance Watchdog v1":  "Y"
+                 },
+    "detect_risk_count_after":  0,
+    "watch_120s_unique_ps":  4,
+    "watch_events":  [
+                         "19:44:47 pid=2068 parent=svchost.exe cmd=\"C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File \"C:",
+                         "19:45:07 pid=19672 parent= cmd=\"C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -WindowStyle Hidden -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:\\",
+                         "19:45:07 pid=21372 parent=powershell.exe cmd=\"powershell.exe\" -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -File C:\\Users\\hessm\\.openclaw\\workspace\\kevin-maint",
+                         "19:45:18 pid=13136 parent= cmd=\"C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File C:\\"
+                     ],
+    "night_forge":  "Disabled",
+    "success_bar_zero_focus_steal":  true,
+    "notes":  "Did not invent password. Did not disable Tick/GitHubBridge/UI Bridge. SYSTEM task register denied; RunAs UAC path succeeded."
+}
