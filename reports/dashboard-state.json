@@ -1,7 +1,7 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-11T23:19:35.7652661-06:00",
-  "status": "working",
+  "generated_at": "2026-09-11T23:22:35.8825047-06:00",
+  "status": "degraded",
   "health": {
     "overall": "degraded",
     "failed_checks": 1
@@ -17,7 +17,7 @@
     "title": "Supervisor autonomous cycle",
     "category": "supervisor",
     "phase": "Goal-aware Supervisor cycle active.",
-    "started_at": "2026-09-11T23:14:32.2098167-06:00",
+    "started_at": "2026-09-11T23:19:35.7652661-06:00",
     "source": "hq-live-ops"
   },
   "services": {
@@ -27,22 +27,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 48,
-    "cpu_pct": 38,
+    "memory_pct": 47,
+    "cpu_pct": 24,
     "gpu": "RTX 3060",
-    "gpu_pct": 37
+    "gpu_pct": 40
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-11T00:20:14-06:00",
-        "estimated": false,
-        "ram": 44,
-        "cpu": 2,
-        "gpu": 0
-      },
       {
         "at": "2026-09-11T00:35:14-06:00",
         "estimated": false,
@@ -707,10 +700,16 @@
         "ram": 48,
         "cpu": 38,
         "gpu": 37
+      },
+      {
+        "at": "2026-09-11T23:20:14-06:00",
+        "estimated": false,
+        "ram": 47,
+        "cpu": 24,
+        "gpu": 40
       }
     ],
     "ram": [
-      44,
       45,
       44,
       45,
@@ -805,10 +804,10 @@
       43,
       45,
       45,
-      48
+      48,
+      47
     ],
     "cpu": [
-      2,
       16,
       8,
       14,
@@ -903,10 +902,10 @@
       14,
       25,
       35,
-      38
+      38,
+      24
     ],
     "gpu": [
-      0,
       0,
       0,
       5,
@@ -1001,7 +1000,8 @@
       31,
       37,
       38,
-      37
+      37,
+      40
     ]
   },
   "weather": {
@@ -1155,7 +1155,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-11T23:05:15-06:00",
+      "at": "2026-09-11T23:20:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1382,7 +1382,7 @@
     "state": "warning"
   },
   "sync": {
-    "last": "2026-09-11T23:19:35.7652661-06:00",
+    "last": "2026-09-11T23:22:35.8825047-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,34 +1419,34 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-11T23:19:35.7652661-06:00",
+    "generated_at": "2026-09-11T23:22:35.8825047-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
-    "supervisor_active": true,
+    "supervisor_active": false,
     "benchmark_active": false,
     "minecraft_active": false,
     "primary": {
       "id": "supervisor",
       "name": "Supervisor",
-      "title": "Supervisor autonomous cycle",
+      "title": "Kevin autonomous system armed",
       "category": "supervisor",
-      "state": "coordinating",
-      "detail": "Goal-aware Supervisor cycle active.",
-      "what": "Selecting and advancing the highest-value authorized mission.",
+      "state": "ready",
+      "detail": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
+      "what": "Waiting only for the next scheduled three-minute control cycle.",
       "engine": "Supervisor v1.4",
-      "action": "Mission coordination"
+      "action": "Autonomous schedule armed"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "coordinating",
-        "detail": "Selecting, evaluating, staging, or recording autonomous work.",
+        "state": "ready",
+        "detail": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
-        "action": "Autonomous coordination"
+        "action": "Awaiting next 3-minute cycle"
       },
       {
         "id": "benchmark",
@@ -1471,17 +1471,17 @@
     ]
   },
   "execution": {
-    "running": true,
-    "state": "coordinating",
-    "phase": "Goal-aware Supervisor cycle active.",
+    "running": false,
+    "state": "ready",
+    "phase": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
     "worker": "Supervisor",
     "engine": "Supervisor v1.4",
-    "action": "Mission coordination"
+    "action": "Autonomous schedule armed"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | COORDINATING | Goal-aware Supervisor cycle active.",
+      "text": "Supervisor | READY | No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
       "severity": "normal"
     }
   ]
