@@ -1,0 +1,197 @@
+{
+    "schema":  1,
+    "kind":  "kevin-composite-skill-run",
+    "status":  "PROVEN",
+    "started_at":  "2026-09-11T23:02:35.3583954-06:00",
+    "last_transition_at":  "2026-09-11T23:02:52.1044399-06:00",
+    "runner_heartbeat_at":  "2026-09-11T23:02:52.1044399-06:00",
+    "manifest":  {
+                     "schema":  1,
+                     "kind":  "kevin-composite-skill",
+                     "id":  "runtime-truth-reconciliation-diagnosis-pack",
+                     "version":  "1",
+                     "authority":  "GREEN",
+                     "name":  "Runtime Truth Reconciliation Diagnosis Pack",
+                     "description":  "GREEN diagnosis board: compare freshest local Engineering/Support/Benchmark/Supervisor/Maintenance evidence vs stale HQ/publisher displays; leave a durable typed repair target. Spreadsheet+text only. Notepad banned. Actor staging GROKBOT_ACTED (not Kevin-learned).",
+                     "steps":  [
+                                   {
+                                       "operation":  "create_spreadsheet",
+                                       "payload":  {
+                                                       "filename":  "runtime-truth-reconciliation-diagnosis.xlsx",
+                                                       "workbook":  {
+                                                                        "schema":  1,
+                                                                        "kind":  "kevin-xlsx-spec",
+                                                                        "sheets":  [
+                                                                                       {
+                                                                                           "name":  "Source Freshness",
+                                                                                           "rows":  [
+                                                                                                        [
+                                                                                                            "Source",
+                                                                                                            "Path",
+                                                                                                            "Freshest At (fill)",
+                                                                                                            "Status",
+                                                                                                            "Notes"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Continuation",
+                                                                                                            "reports/autonomy-continuation-latest.json",
+                                                                                                            "",
+                                                                                                            "OPEN",
+                                                                                                            "Supervisor truth plane"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "HQ Live Floor",
+                                                                                                            "reports/hq-live-floor.json",
+                                                                                                            "",
+                                                                                                            "OPEN",
+                                                                                                            "ONE CLOCK authority"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Support Latest",
+                                                                                                            "reports/support-latest.json",
+                                                                                                            "",
+                                                                                                            "OPEN",
+                                                                                                            "Must sync UP to floor only"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Public Reject",
+                                                                                                            "reports/invocations/latest-public-reject.json",
+                                                                                                            "",
+                                                                                                            "OPEN",
+                                                                                                            "Hashes + reason-code"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Benchmark",
+                                                                                                            "reports (benchmark latest)",
+                                                                                                            "",
+                                                                                                            "OPEN",
+                                                                                                            "If present"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Maintenance",
+                                                                                                            "reports/maintenance",
+                                                                                                            "",
+                                                                                                            "OPEN",
+                                                                                                            "Do not alter protected state"
+                                                                                                        ]
+                                                                                                    ]
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "Stale Displays",
+                                                                                           "rows":  [
+                                                                                                        [
+                                                                                                            "Display / Report",
+                                                                                                            "Suspected Stale?",
+                                                                                                            "Contradicts Source",
+                                                                                                            "Evidence Pointer",
+                                                                                                            "Owner Impact"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "HQ Pages cycle paint",
+                                                                                                            "MAYBE",
+                                                                                                            "support.cycle 449 vs floor\u003e=450",
+                                                                                                            "LESSON-one-clock-floor-cycle-authority",
+                                                                                                            "Matt sees frozen 449"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Public reject lag",
+                                                                                                            "MAYBE",
+                                                                                                            "outcome_proven stripe vs live invoke",
+                                                                                                            "latest-public-reject.json",
+                                                                                                            "False PASS/lag risk"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Skill lab GAP paint",
+                                                                                                            "MAYBE",
+                                                                                                            "failed leftovers vs new PROVEN packs",
+                                                                                                            "hq-live-floor.skill_lab",
+                                                                                                            "Misleads Lab-first"
+                                                                                                        ]
+                                                                                                    ]
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "Repair Target",
+                                                                                           "rows":  [
+                                                                                                        [
+                                                                                                            "Field",
+                                                                                                            "Value"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Smallest typed repair",
+                                                                                                            "Tick-owned publisher/support sync UP + Pages read floor.cycle only"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Forbidden",
+                                                                                                            "history reset; fixed:main workaround; Notepad Lab proof; Supervisor recopy"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Consumer",
+                                                                                                            "SUPPORT_HQ_TRUTH_PUBLISHER_REPAIR"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "WorkInstance",
+                                                                                                            "autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Predecessor",
+                                                                                                            "autonomy-runtime-truth-reconciliation-v1"
+                                                                                                        ]
+                                                                                                    ]
+                                                                                       }
+                                                                                   ]
+                                                                    }
+                                                   }
+                                   },
+                                   {
+                                       "operation":  "create_text",
+                                       "payload":  {
+                                                       "filename":  "runtime-truth-reconciliation-diagnosis-brief.md",
+                                                       "content":  "# Runtime truth reconciliation diagnosis brief\n\n**WorkInstance:** autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1\n**Predecessor:** autonomy-runtime-truth-reconciliation-v1 (BOUNDED evidence; no history reset)\n**Actor staging:** GROKBOT_ACTED (Lab prove path; not Kevin-learned claim)\n**Notepad:** banned for Lab proof\n**Primitives:** create_spreadsheet + create_text only\n\n## Intent\nCompare freshest local Engineering / Support / Benchmark / Supervisor / Maintenance evidence against stale HQ/publisher displays. Leave a durable bounded repair target for the engineering/maintenance lane. Do not alter protected production state. A model reply alone is not repair proof.\n\n## ONE CLOCK\n`reports/hq-live-floor.json` cycle is authoritative. `support-latest.supervisor.cycle` syncs UP only and is never a painter freeze sentinel.\n\n## Success\nDurable diagnosis pointer naming freshest source, stale display, and smallest typed reconciliation mechanism."
+                                                   }
+                                   }
+                               ]
+                 },
+    "manifest_sha256":  "0E57C98C34DDE194D8C664553EF2634DE0C6DEE1B44E9DBC32814B42C47926FB",
+    "step_index":  2,
+    "current_order_id":  "",
+    "current_order_file":  "",
+    "current_order_state":  "",
+    "current_step_payload_sha256":  "",
+    "current_semantic_key":  "",
+    "step_started_at":  "2026-09-11T23:02:49.5232583-06:00",
+    "step_results":  [
+                         {
+                             "step_index":  0,
+                             "operation":  "create_spreadsheet",
+                             "order_id":  "skill-runtime-truth-reconciliation-diagnosis-pack-1-s01",
+                             "semantic_key":  "skill:runtime-truth-reconciliation-diagnosis-pack:1:step:1",
+                             "payload_sha256":  "76D79DA7C5E1B19BC99F9F1A7C187371936DBD39EDFD6B6CB61438075117FE63",
+                             "order_record_sha256":  "12B1F310220E7A55BE7821DB864393816DEA734ABF76346EFE46480357677AE7",
+                             "completed_at":  "2026-09-11T23:02:48.0228755-06:00",
+                             "output_name":  "runtime-truth-reconciliation-diagnosis.xlsx",
+                             "sha256":  "01D68D7F8C631ACE5AF653F9564C74ABDE49D7E25FB408F5C60388943C361DC3",
+                             "bytes":  5080,
+                             "screenshot_name":  "",
+                             "screenshot_sha256":  ""
+                         },
+                         {
+                             "step_index":  1,
+                             "operation":  "create_text",
+                             "order_id":  "skill-runtime-truth-reconciliation-diagnosis-pack-1-s02",
+                             "semantic_key":  "skill:runtime-truth-reconciliation-diagnosis-pack:1:step:2",
+                             "payload_sha256":  "6BFD24B4F70CF8B0DAB4C7A94D422844E9C09DF00071776B9A7D6B99E4D7E713",
+                             "order_record_sha256":  "BF14EF37DCC9BAD2E5620F36D637470A430224B6F4B0CE442E362B8943B21727",
+                             "completed_at":  "2026-09-11T23:02:51.2047831-06:00",
+                             "output_name":  "runtime-truth-reconciliation-diagnosis-brief.md",
+                             "sha256":  "3B7D5C0D0E2820987C23C16A15552F911E4C5E085A79C49F61219E0C92B0B1BE",
+                             "bytes":  957,
+                             "screenshot_name":  "",
+                             "screenshot_sha256":  ""
+                         }
+                     ],
+    "recovery_attempts":  0,
+    "last_recovery_reason":  "consumed skill-runtime-truth-reconciliation-diagnosis-pack-1-s02",
+    "failure_evidence_sha256":  "",
+    "completed_at":  "2026-09-11T23:02:52.6898461-06:00",
+    "proof_sha256":  "D64DB8EB340FC06A2537447A6DCBB31DBD7A59B62BC1B33C5F74685EBCA1A374"
+}
