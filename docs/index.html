@@ -26,6 +26,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0b0e0b}#ke
 <script src="./hq-overrides-v1.js?v=7"></script>
 <script src="./hq-owner-console-v10.js?v=9"></script>
 <script src="./hq-p1-ground-truth-v1.js?v=2"></script>
+<script src="./hq-p0-floor-painter-v1.js?v=1"></script>
 <!--
 RETIRED LAYER COMPATIBILITY MARKERS — NOT LOADED OR EXECUTED.
 These literal identities keep historical repository proof jobs able to validate the
@@ -41,7 +42,7 @@ Historical core marker: hq-core-v7.html?v=15#ops
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
     navigator.serviceWorker.getRegistrations().then(regs=>Promise.all(regs.map(r=>r.update()))).finally(()=>{
-      navigator.serviceWorker.register('./sw.js?v=10',{scope:'./'}).catch(()=>{});
+      navigator.serviceWorker.register('./sw.js?v=11',{scope:'./'}).catch(()=>{});
     });
   });
 }

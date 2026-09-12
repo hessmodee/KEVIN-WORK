@@ -11,7 +11,7 @@ sw=(ROOT/'docs/sw.js').read_text(encoding='utf-8')
 # but no retired owner layer may execute alongside V10.
 active_index=re.sub(r'<!--.*?-->','',index,flags=re.S)
 active_scripts=re.findall(r'<script\s+src="\.\/([^"?]+)',active_index)
-assert active_scripts==['hq-evidence-adapter-v1.js','hq-overrides-v1.js','hq-owner-console-v10.js','hq-p1-ground-truth-v1.js'],active_scripts
+assert active_scripts==['hq-evidence-adapter-v1.js','hq-overrides-v1.js','hq-owner-console-v10.js','hq-p1-ground-truth-v1.js','hq-p0-floor-painter-v1.js'],active_scripts
 assert 'RETIRED LAYER COMPATIBILITY MARKERS — NOT LOADED OR EXECUTED' in index
 assert '#ops' in index
 assert "[['overview','LIVE'],['ops','OPS FLOOR'],['capabilities','SKILLS'],['system','SYSTEM']]" in hq
@@ -30,8 +30,9 @@ assert 'ops-live-truth-v2.js' in embed
 assert "kevin-hq-shell-v6" in sw
 assert 'hq-owner-console-v10.js' in sw
 assert 'hq-p1-ground-truth-v1.js' in sw
+assert 'hq-p0-floor-painter-v1.js' in sw
 assert 'ops/ops-v11.js' in sw
 assert 'reports/bridge-latest.json' in hq
 assert 'paintNewswire' in hq
 assert 'hit.last_turn_at' in hq
-print('KEVIN HQ V10 LIVE TRUTH SELFTEST PASS tabs=4 work_truth=machine_evidence telemetry=24h_hover ops_armed_not_working=true retired_layers_not_executed=true')
+print('KEVIN HQ V10 LIVE TRUTH SELFTEST PASS tabs=4 work_truth=machine_evidence telemetry=24h_hover ops_armed_not_working=true retired_layers_not_executed=true painter=true')

@@ -13,6 +13,7 @@ on:
       - 'docs/hq-growth-v1.js'
       - 'docs/hq-ground-truth-v8.js'
       - 'docs/hq-p1-ground-truth-v1.js'
+      - 'docs/hq-p0-floor-painter-v1.js'
       - '.github/workflows/hq-offline-resilience-v1-proof.yml'
   pull_request:
     paths:
@@ -25,6 +26,7 @@ on:
       - 'docs/hq-growth-v1.js'
       - 'docs/hq-ground-truth-v8.js'
       - 'docs/hq-p1-ground-truth-v1.js'
+      - 'docs/hq-p0-floor-painter-v1.js'
       - '.github/workflows/hq-offline-resilience-v1-proof.yml'
   workflow_dispatch:
 
@@ -45,7 +47,7 @@ jobs:
           from pathlib import Path
           index=Path('docs/index.html').read_text(encoding='utf-8')
           sw=Path('docs/sw.js').read_text(encoding='utf-8')
-          assert "navigator.serviceWorker.register('./sw.js?v=10',{scope:'./'})" in index
+          assert "navigator.serviceWorker.register('./sw.js?v=11',{scope:'./'})" in index
           assert "const BASE='/KEVIN-WORK/'" in sw
           assert "raw.githubusercontent.com" in sw
           assert "networkFirst(req,DATA_CACHE)" in sw
@@ -64,7 +66,7 @@ jobs:
           sw=Path('docs/sw.js').read_text(encoding='utf-8')
           required=[
             'docs/index.html','docs/hq-core-v7.html','docs/hq-evidence-adapter-v1.js',
-            'docs/hq-overrides-v1.js','docs/hq-owner-console-v10.js','docs/hq-p1-ground-truth-v1.js','docs/hq-growth-v1.js',
+            'docs/hq-overrides-v1.js','docs/hq-owner-console-v10.js','docs/hq-p1-ground-truth-v1.js','docs/hq-p0-floor-painter-v1.js','docs/hq-p0-floor-painter-v1.b64.01.txt','docs/hq-p0-floor-painter-v1.b64.02.txt','docs/hq-p0-floor-painter-v1.b64.03.txt','docs/hq-p0-floor-painter-v1.b64.04.txt','docs/hq-p0-floor-painter-v1.b64.05.txt','docs/hq-p0-floor-painter-v1.b64.06.txt','docs/hq-p0-floor-painter-v1.b64.07.txt','docs/hq-p0-floor-painter-v1.b64.08.txt','docs/hq-growth-v1.js',
             'docs/ops/index.html','docs/ops/embed.html','docs/ops/app.js','docs/ops/style.css',
             'docs/ops/ops-v11.css','docs/ops/ops-v11.js'
           ]
@@ -79,10 +81,10 @@ jobs:
                   rel=p[len('docs/'):]
                   assert rel in shell_entries, f'not cached: {rel}'
 
-          # Live V10 executes four scripts (V10 shell + P1 ground-truth overlay). Retired V8 layers remain as comments only.
+          # Live V10 executes five scripts (V10 shell + P1 ground-truth + P0 floor painter). Retired V8 layers remain as comments only.
           active_index=re.sub(r'<!--.*?-->','',index,flags=re.S)
           scripts=re.findall(r'<script\s+src="\.\/([^"?]+)(?:\?[^\"]*)?"',active_index)
-          assert scripts==['hq-evidence-adapter-v1.js','hq-overrides-v1.js','hq-owner-console-v10.js','hq-p1-ground-truth-v1.js'], scripts
+          assert scripts==['hq-evidence-adapter-v1.js','hq-overrides-v1.js','hq-owner-console-v10.js','hq-p1-ground-truth-v1.js','hq-p0-floor-painter-v1.js'], scripts
           for rel in scripts:
               assert Path('docs',rel).is_file(), rel
               assert rel in shell_entries, f'index script not in service-worker shell: {rel}'
