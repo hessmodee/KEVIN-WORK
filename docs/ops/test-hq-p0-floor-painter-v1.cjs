@@ -215,6 +215,81 @@ test('painted_hint COMPLETED refuses READY (stripe owns COMPLETED)', () => {
   assert.notStrictEqual(c.label, 'COMPLETED');
 });
 
+
+test('center never OUTCOME_PROVEN (status→stripe; HOLD THROTTLED)', () => {
+  const c = API.floorCenterState({
+    floor: {
+      schema: 'kevin.hq-live-floor.v1',
+      cycle: 451,
+      status: 'OUTCOME_PROVEN',
+      painted_hint: 'OUTCOME_PROVEN',
+      center: 'OUTCOME_PROVEN',
+      center_status: 'OUTCOME_PROVEN',
+      outcome_proven: true,
+      waiting_item_budgets: true,
+      action_era_ready_count: 0,
+      west_motor_proven: true,
+      transport_proven: true,
+      selected_id: 'owner-west-motor-transport-dispatch-template-v1',
+      supervisor_sha256: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB',
+      supervisor_version: '1.8.12'
+    },
+    continuation: { generated_at: '2026-09-12T04:30:00Z', waiting_item_budgets: true },
+    engineering: { action: { queues: { ready: 0 }, composite_skills: { ready: 0 } } },
+    support: { generated_at: '2026-09-12T04:30:00Z', hashes: { supervisor: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB' }, supervisor: { cycle: 451 }, active_workers: {} },
+    receipt, reject: { ...rejectProven, outcome_proven: true, reason: 'OUTCOME_PROVEN', verify_actor: 'MIXED' }
+  }, now);
+  assert.notStrictEqual(c.label, 'OUTCOME_PROVEN');
+  assert.notStrictEqual(c.label, 'PASS');
+  assert.notStrictEqual(c.label, 'COMPLETED');
+  assert.strictEqual(c.label, 'THROTTLED');
+  assert.strictEqual(c.proven, true);
+});
+
+test('OUTCOME_PROVEN status + painted_hint THROTTLED stays THROTTLED', () => {
+  const c = API.floorCenterState({
+    floor: {
+      schema: 'kevin.hq-live-floor.v1',
+      cycle: 451,
+      status: 'OUTCOME_PROVEN',
+      painted_hint: 'THROTTLED',
+      center: 'THROTTLED',
+      waiting_item_budgets: true,
+      action_era_ready_count: 0,
+      supervisor_sha256: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB',
+      supervisor_version: '1.8.12'
+    },
+    continuation: { generated_at: '2026-09-12T04:30:00Z' },
+    engineering: { action: { queues: { ready: 0 }, composite_skills: { ready: 0 } } },
+    support: { generated_at: '2026-09-12T04:30:00Z', hashes: { supervisor: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB' }, supervisor: { cycle: 451 }, active_workers: {} },
+    receipt, reject: { ...rejectProven, outcome_proven: true, reason: 'OUTCOME_PROVEN', verify_actor: 'MIXED' }
+  }, now);
+  assert.strictEqual(c.label, 'THROTTLED');
+  assert.notStrictEqual(c.label, 'OUTCOME_PROVEN');
+});
+
+test('OUTCOME_PROVEN status HOLD cleared → READY (never OUTCOME_PROVEN center)', () => {
+  const c = API.floorCenterState({
+    floor: {
+      schema: 'kevin.hq-live-floor.v1',
+      cycle: 452,
+      status: 'OUTCOME_PROVEN',
+      painted_hint: 'OUTCOME_PROVEN',
+      center: 'OUTCOME_PROVEN',
+      waiting_item_budgets: false,
+      action_era_ready_count: 0,
+      supervisor_sha256: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB',
+      supervisor_version: '1.8.12'
+    },
+    continuation: { generated_at: '2026-09-12T04:30:00Z', waiting_item_budgets: false },
+    engineering: { action: { queues: { ready: 0 }, composite_skills: { ready: 0 } } },
+    support: { generated_at: '2026-09-12T04:30:00Z', hashes: { supervisor: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB' }, supervisor: { cycle: 452 }, active_workers: {} },
+    receipt, reject: { ...rejectProven, outcome_proven: true, reason: 'OUTCOME_PROVEN', verify_actor: 'MIXED' }
+  }, now);
+  assert.strictEqual(c.label, 'READY');
+  assert.notStrictEqual(c.label, 'OUTCOME_PROVEN');
+});
+
 console.log(`\n${passed} tests passed`);
 if (process.exitCode) { console.error('TEST SUITE FAILED'); process.exit(process.exitCode); }
 console.log('TEST SUITE OK');
