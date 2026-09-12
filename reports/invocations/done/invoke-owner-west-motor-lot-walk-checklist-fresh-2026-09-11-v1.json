@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation-receipt",
+  "version": "1.1.2",
+  "status": "PROVEN",
+  "authority": "GREEN",
+  "completed_at": "2026-09-12T05:27:45.979728Z",
+  "invocation_id": "invoke-owner-west-motor-lot-walk-checklist-fresh-2026-09-11-v1",
+  "skill_key": "west-motor-lot-walk-checklist-pack@1",
+  "proven_identity": {
+    "manifest_sha256": "DB708B98F6B81094984C9534A469E110403296DD00F017D6E364760267213237",
+    "proof_sha256": "69697689DDCAA5A40A5528E32FC2CC72439610FDBB46D0BADC4E33B8A9179C63",
+    "result_file": "west-motor-lot-walk-checklist-pack--1.json",
+    "primitive_steps": [
+      "create_spreadsheet",
+      "create_text"
+    ],
+    "proven_at": "2026-09-04T15:27:07.7032204-06:00"
+  },
+  "request_sha256": "A86BCDFC1FFDF6107ADE22DDDB87E3A9A8ECCE3BF05E429779C1639167C22050",
+  "step_results": [
+    {
+      "index": 0,
+      "order_id": "invoke-invoke-owner-west-motor-lot-walk-checklist-fresh-2026-09-11-v1-s01",
+      "semantic_key": "invoke:west-motor-lot-walk-checklist-pack@1:invoke-owner-west-motor-lot-walk-checklist-fresh-2026-09-11-v1:step:1",
+      "operation": "create_spreadsheet",
+      "final_state": "DONE",
+      "order_record_sha256": "E6E6615A0113C4DE17930412EF1AEC2DDBD410A33AE7619DFC75C4C470F41308",
+      "completed_at": "2026-09-11T23:27:42.3806977-06:00",
+      "output_name": "Kevin West Motor Lot Walk Checklist (2).xlsx",
+      "sha256": "BC29308B8DB82278939810324197FA15C340F6B8DDEB57D0E238BF8FF6D847AF",
+      "bytes": 5278,
+      "verified_sha256": "BC29308B8DB82278939810324197FA15C340F6B8DDEB57D0E238BF8FF6D847AF",
+      "verified_bytes": 5278
+    },
+    {
+      "index": 1,
+      "order_id": "invoke-invoke-owner-west-motor-lot-walk-checklist-fresh-2026-09-11-v1-s02",
+      "semantic_key": "invoke:west-motor-lot-walk-checklist-pack@1:invoke-owner-west-motor-lot-walk-checklist-fresh-2026-09-11-v1:step:2",
+      "operation": "create_text",
+      "final_state": "DONE",
+      "order_record_sha256": "C1DE952F147E72423BD26D3B051650F02FEFB75E8AEDCFD17A195BD83FF12F92",
+      "completed_at": "2026-09-11T23:27:43.0006121-06:00",
+      "output_name": "Kevin West Motor Lot Walk Checklist - SOP (2).md",
+      "sha256": "D723DC8DD2C648F6B63541DCEC4A8522EE9002326C032ED97D3B5A21C1B3319B",
+      "bytes": 727,
+      "verified_sha256": "D723DC8DD2C648F6B63541DCEC4A8522EE9002326C032ED97D3B5A21C1B3319B",
+      "verified_bytes": 727
+    }
+  ],
+  "failure": null,
+  "verification": {
+    "artifact_root_bounded": true,
+    "artifact_hashes_rechecked": true,
+    "artifact_sizes_rechecked": true
+  },
+  "receipt_sha256": "4A4FE020CD842103B071189C86D4497F838A5F200B3B8259F2FF6D27EC89DD42"
+}
