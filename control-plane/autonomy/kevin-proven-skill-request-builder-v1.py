@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
-VERSION = "1.0.6"
+VERSION = "1.0.7"
 PARTS_CHASE_KEY = "west-motor-parts-chase-board-pack@1"
 PARTS_CHASE_WORK_ID = "owner-west-motor-parts-chase-fresh-8-v1"
 TRANSPORT_KEY = "vehicle-transport-mission-pack@1"
@@ -26,6 +26,8 @@ DEALERSHIP_SCAN_KEY = "dealership-operations-opportunity-scan-pack@1"
 DEALERSHIP_SCAN_WORK_ID = "owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1"
 RUNTIME_TRUTH_KEY = "runtime-truth-reconciliation-diagnosis-pack@1"
 RUNTIME_TRUTH_WORK_ID = "autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1"
+EXPIRED_MANIFEST_KEY = "expired-manifest-regression-design-pack@1"
+EXPIRED_MANIFEST_WORK_ID = "autonomy-expired-manifest-regression-design-fresh-2026-09-11-v1"
 TRANSPORT_FIELDS = (
     "priority",
     "request_id",
@@ -313,10 +315,16 @@ def build_runtime_truth_request(invocation_id: str) -> Dict[str, Any]:
     }
 
 
+def build_expired_manifest_request(invocation_id: str) -> Dict[str, Any]:
+    """GREEN design pack — Lab-PROVEN spreadsheet+text."""
+    steps = json.loads("[{\"operation\": \"create_spreadsheet\", \"payload\": {\"filename\": \"expired-manifest-regression-design.xlsx\", \"workbook\": {\"schema\": 1, \"kind\": \"kevin-xlsx-spec\", \"sheets\": [{\"name\": \"Current Semantics\", \"rows\": [[\"Question\", \"Finding (fill from runner)\", \"Evidence Pointer\", \"Risk if wrong\"], [\"Expired canonical refused before exec?\", \"OPEN\", \"Maintenance runner\", \"Cron health poison\"], [\"Terminal/duplicate path?\", \"OPEN\", \"Maintenance runner\", \"Replay/exec\"], [\"Malformed fail-closed?\", \"OPEN\", \"Maintenance runner\", \"Silent skip\"], [\"Valid path still executes?\", \"OPEN\", \"Maintenance runner\", \"False idle\"]]}, {\"name\": \"Design Delta\", \"rows\": [[\"Change\", \"Smallest fail-closed behavior\", \"Auditable result kind\", \"Forbidden\"], [\"Expired input\", \"Refuse before execution\", \"IDLE_EXPIRED or TERMINAL_EXPIRED receipt\", \"Execute stale work\"], [\"Duplicate/terminal\", \"Refuse; keep prior receipt\", \"TERMINAL_DUPLICATE\", \"Reset history\"], [\"Malformed\", \"Fail closed with reason-code\", \"REJECT_MALFORMED\", \"Best-effort run\"], [\"Valid\", \"Unchanged execute path\", \"SUCCESS/receipt as today\", \"Widen authority\"]]}, {\"name\": \"Regression Matrix\", \"rows\": [[\"Case\", \"Input fixture\", \"Expect exec?\", \"Expect result kind\", \"Proof\"], [\"EXPIRED\", \"expired canonical manifest\", \"NO\", \"IDLE/TERMINAL expired\", \"unit/harness\"], [\"DUPLICATE_TERMINAL\", \"already terminal id\", \"NO\", \"terminal duplicate\", \"unit/harness\"], [\"MALFORMED\", \"broken JSON/schema\", \"NO\", \"reject malformed\", \"unit/harness\"], [\"VALID\", \"current good manifest\", \"YES\", \"normal success path\", \"unit/harness\"], [\"ROLLBACK\", \"exact-current/exact-after\", \"N/A\", \"identity gates preserved\", \"Benchmark gate\"]]}, {\"name\": \"Acceptance Contract\", \"rows\": [[\"Field\", \"Value\"], [\"WorkInstance\", \"autonomy-expired-manifest-regression-design-fresh-2026-09-11-v1\"], [\"Predecessor\", \"autonomy-expired-manifest-regression-design-v1\"], [\"Consumer\", \"MAINTENANCE_V1_3_51_PATCH_AND_REGRESSION\"], [\"Production write this item\", \"NONE\"], [\"Primitives\", \"create_spreadsheet + create_text\"], [\"Notepad\", \"BANNED\"]]}]}}}, {\"operation\": \"create_text\", \"payload\": {\"filename\": \"expired-manifest-regression-design-brief.md\", \"content\": \"# Expired manifest regression design brief\\n\\n**WorkInstance:** autonomy-expired-manifest-regression-design-fresh-2026-09-11-v1\\n**Predecessor:** autonomy-expired-manifest-regression-design-v1 (BOUNDED evidence; no history reset)\\n**Actor staging:** GROKBOT_ACTED (Lab prove path; not Kevin-learned)\\n**Notepad:** banned\\n**Primitives:** create_spreadsheet + create_text only\\n**Production write:** NONE in this research item\\n\\n## Goal\\nConfirm Maintenance refuses expired canonical manifests before execution, then design the smallest fail-closed change so expired/terminal input stays non-executable but records a truthful auditable idle/terminal result instead of poisoning scheduled cron health.\\n\\n## Tests (deterministic)\\n1. EXPIRED \\u00e2\\u20ac\\u201d no exec; idle/terminal expired receipt\\n2. DUPLICATE/TERMINAL \\u00e2\\u20ac\\u201d no exec; terminal duplicate\\n3. MALFORMED \\u00e2\\u20ac\\u201d fail closed with reason-code\\n4. VALID \\u00e2\\u20ac\\u201d still executes\\n5. Preserve rollback + exact-current/exact-after identity + Benchmark gates for later promotion\\n\\n## Out of scope\\nNo production Maintenance patch apply in this WI. Downstream consumer applies after design acceptance.\"}}]")
+    return {"schema":1,"kind":"kevin-proven-skill-invocation","authority":"GREEN","skill_key":EXPIRED_MANIFEST_KEY,"invocation_id":invocation_id,"steps":steps}
+
+
 def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) -> str:
     if item and str(item.get("required_skill_key") or "").strip():
         key = str(item.get("required_skill_key")).strip()
-        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY, RUNTIME_TRUTH_KEY}:
+        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY, RUNTIME_TRUTH_KEY, EXPIRED_MANIFEST_KEY}:
             return key
         raise BuilderError("UNSUPPORTED_SKILL_KEY")
     if work_id == TRANSPORT_WORK_ID:
@@ -327,6 +335,8 @@ def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) 
         return DEALERSHIP_SCAN_KEY
     if work_id == RUNTIME_TRUTH_WORK_ID:
         return RUNTIME_TRUTH_KEY
+    if work_id == EXPIRED_MANIFEST_WORK_ID:
+        return EXPIRED_MANIFEST_KEY
     raise BuilderError("UNSUPPORTED_WORK_ID")
 
 
@@ -591,6 +601,12 @@ def main() -> int:
             return 0
         if skill == RUNTIME_TRUTH_KEY:
             request = build_runtime_truth_request(args.invocation_id)
+            Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
+            print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
+            return 0
+        if skill == EXPIRED_MANIFEST_KEY:
+            request = build_expired_manifest_request(args.invocation_id)
             Path(args.output).parent.mkdir(parents=True, exist_ok=True)
             Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
             print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
