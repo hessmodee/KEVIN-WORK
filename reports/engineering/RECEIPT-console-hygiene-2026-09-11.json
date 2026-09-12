@@ -1,0 +1,40 @@
+{
+    "schema":  1,
+    "kind":  "kevin-console-hygiene-receipt",
+    "authority":  "GREEN",
+    "actor":  "GROKBOT_ACTED",
+    "not_kevin_acted":  true,
+    "at":  "2026-09-11T19:30:37.9595277-06:00",
+    "repair_script":  "tools/Repair-Kevin-ConsoleHygiene-v1.7.ps1",
+    "changed":  3,
+    "failures":  6,
+    "wrapped_ok":  [
+                       "Kevin Self-Reliance Watchdog v1",
+                       "Kevin UI Bridge v0.3",
+                       "KevinReaderRestartOnce"
+                   ],
+    "still_unwrapped_active":  [
+                                   "KevinTick",
+                                   "KevinGitHubBridge",
+                                   "KevinGatewayKeeper",
+                                   "Kevin UI Bridge Watchdog v1",
+                                   "KevinBootRecovery"
+                               ],
+    "still_unwrapped_disabled":  [
+                                     "KevinNightForge"
+                                 ],
+    "openclaw_gateway":  {
+                             "OpenClaw Gateway":  "Disabled; gateway.vbs",
+                             "OpenClaw Gateway (reader)":  "Ready; gateway.vbs (already VBS, not kevin-hidden-run.vbs)"
+                         },
+    "blocker":  "Password-logon tasks Access Denied on Set-ScheduledTask; subsequent wrap attempts Auto-review blocked / denied. Need CoS grant: Interactive principal re-register OR stored-password/elevation for remaining five.",
+    "watch_note":  "120s process sample saw WindowStyle Hidden powershell for UI Bridge / Self-Reliance (child of wrapped or unwrapped parents). Success bar zero focus-steal consoles NOT yet met for unwrapped Password tasks.",
+    "do_not":  [
+                   "did not disable Tick/GitHubBridge/UI Bridge",
+                   "did not Night Forge enable",
+                   "no OpenClaw Update",
+                   "no Supervisor recopy",
+                   "no Minecraft",
+                   "no puller paste"
+               ]
+}
