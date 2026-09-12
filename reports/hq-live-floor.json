@@ -1,9 +1,9 @@
 {
     "schema":  "kevin.hq-live-floor.v1",
     "kind":  "kevin.hq-live-floor.v1",
-    "updated_at":  "2026-09-11T22:57:06.7963055-06:00",
-    "generated_at":  "2026-09-11T22:57:06.7963055-06:00",
-    "cycle":  468,
+    "updated_at":  "2026-09-11T23:00:04.6582690-06:00",
+    "generated_at":  "2026-09-11T23:00:04.6582690-06:00",
+    "cycle":  469,
     "cycle_authority":  "hq-live-floor",
     "one_clock":  "floor",
     "painter_frozen":  false,
@@ -12,10 +12,10 @@
     "supervisor_version":  "1.8.12",
     "supervisor_sha256":  "F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB",
     "supervisor_sha":  "F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB",
-    "selected_id":  "owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1",
-    "status":  "ROUTED_TO_PROVEN_SKILL_INVOCATION",
-    "center_status":  "READY",
-    "center":  "READY",
+    "selected_id":  "",
+    "status":  "WAITING_ITEM_BUDGETS",
+    "center_status":  "THROTTLED",
+    "center":  "THROTTLED",
     "outcome_proven":  false,
     "action_era_ready_count":  0,
     "ready_count":  0,
@@ -23,10 +23,10 @@
     "last_invoke_completed_at":  "2026-09-12T02:33:30.501071Z",
     "last_actor":  "MIXED",
     "verify_actor":  "MIXED",
-    "waiting_item_budgets":  false,
+    "waiting_item_budgets":  true,
     "budget_remaining":  null,
-    "throttled":  false,
-    "throttle_reason":  null,
+    "throttled":  true,
+    "throttle_reason":  "WAITING_ITEM_BUDGETS",
     "west_motor_proven":  true,
     "west_motor_completed_at":  "2026-09-12T00:54:57.610246Z",
     "west_motor_receipt_sha256":  "F6E408EFF3EB75904C29D45D9AFC25B69B703E0CB8B0001067B89F224759B37F",
@@ -47,7 +47,7 @@
                      "one_line":  "",
                      "updated_at":  "2026-09-11T21:28:37.9413339-06:00"
                  },
-    "painted_hint":  "READY",
+    "painted_hint":  "THROTTLED",
     "skill_lab":  {
                       "stage":  "GAP",
                       "ready_count":  0,
@@ -62,9 +62,9 @@
     "bridge":  {
                    "status":  "ok",
                    "puller":  "v1.6",
-                   "at":  "2026-09-11T22:43:09.7990544-06:00",
+                   "at":  "2026-09-11T22:58:10.9707299-06:00",
                    "host":  "HESS-PC",
                    "why":  "Local HESS bridge file present; HQ UNKNOWN means public main bridge-latest was not refreshed"
                },
-    "detail":  "READY"
+    "detail":  "WAITING_ITEM_BUDGETS â€” HOLD select"
 }
