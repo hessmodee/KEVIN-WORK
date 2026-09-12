@@ -1,7 +1,7 @@
 param([switch]$SelfTest, [switch]$SkipDiagnose)
 # Repair-Kevin-InvocationRegistryContract-v1.ps1
 # GREEN-C self-repair. Authority delta: NONE.
-# Copies invocation v1.1.2 and builder v1.0.3 (uniqueness + BOM-safe), strips BOM
+# Copies invocation v1.1.2 and builder v1.0.4 (parts-chase + transport bind), strips BOM
 # from work-items.json, repairs work-id uniqueness, quarantines sticky RequestId
 # run files AND stale Action Era invoke-invoke-* leftovers. Then Diagnose
 # publishes the python reason unless -SkipDiagnose.
@@ -16,7 +16,7 @@ $Utf8 = New-Object System.Text.UTF8Encoding($false)
 $Workspace = if ($env:USERPROFILE) { Join-Path $env:USERPROFILE '.openclaw\workspace' } else { Split-Path -Parent $PSScriptRoot }
 $Autonomy = Join-Path $Workspace 'control-plane\autonomy'
 $InvExpected = '471E505151E211C254FAB9DD090AEA76E7D304B01333FEA03B115D2ECE39B7E8'
-$BldExpected = '83B3EDA62AA60A6CD479D79C18BB564B9E33CBD852B4898C365EF99B43EB0875'
+$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
 $StickyId = 'invoke-owner-west-motor-parts-chase-fresh-8-v1'
 
 function Get-Sha256Upper([string]$Path) {
@@ -78,7 +78,7 @@ New-Item -ItemType Directory -Force -Path $Autonomy | Out-Null
 $invPath = Join-Path $Autonomy 'kevin-proven-skill-invocation-v1.py'
 $bldPath = Join-Path $Autonomy 'kevin-proven-skill-request-builder-v1.py'
 $invHash = Install-RepoFile 'control-plane/autonomy/kevin-proven-skill-invocation-v1.1.2.py' $invPath $InvExpected 'CATALOG_PRIMITIVES'
-$bldHash = Install-RepoFile 'control-plane/autonomy/kevin-proven-skill-request-builder-v1.0.3.py' $bldPath $BldExpected 'WORK_ITEM_NOT_FOUND'
+$bldHash = Install-RepoFile 'control-plane/autonomy/kevin-proven-skill-request-builder-v1.py' $bldPath $BldExpected 'WORK_ITEM_NOT_FOUND'
 
 $items = Join-Path $Workspace 'inbox\autonomy\work-items.json'
 $bomStripped = $false
@@ -147,7 +147,7 @@ $reject = [ordered]@{
     sticky_repair = [string]$stickyStatus
     quarantined_run_files = $quarantined
     outcome_proven = $false
-    truth_boundary = 'Python catalog+proof-pin+BOM-safe uniqueness builder repaired (invocation v1.1.2 / builder v1.0.3). Supervisor must re-invoke the same WorkInstance. This is not PASS.'
+    truth_boundary = 'Python catalog+proof-pin+BOM-safe uniqueness builder repaired (invocation v1.1.2 / builder v1.0.4). Supervisor must re-invoke the same WorkInstance. This is not PASS.'
 }
 $outPath = Join-Path $Workspace 'reports\invocations\latest-public-reject.json'
 Write-Utf8NoBom $outPath (($reject | ConvertTo-Json -Depth 6) + "`n")
