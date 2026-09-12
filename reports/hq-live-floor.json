@@ -1,7 +1,7 @@
 {
     "schema":  "kevin.hq-live-floor.v1",
     "kind":  "kevin.hq-live-floor.v1",
-    "updated_at":  "2026-09-11T22:38:37.7008223-06:00",
+    "updated_at":  "2026-09-11T22:38:41.0430721-06:00",
     "generated_at":  "2026-09-11T22:38:37.7008223-06:00",
     "cycle":  461,
     "painter_frozen":  false,
@@ -10,10 +10,10 @@
     "supervisor_sha256":  "F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB",
     "supervisor_sha":  "F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB",
     "selected_id":  "owner-west-motor-transport-dispatch-template-v1",
-    "status":  "ROUTED_TO_PROVEN_SKILL_INVOCATION",
+    "status":  "OUTCOME_PROVEN",
     "center_status":  "THROTTLED",
     "center":  "THROTTLED",
-    "outcome_proven":  false,
+    "outcome_proven":  true,
     "action_era_ready_count":  0,
     "ready_count":  0,
     "last_invoke_started_at":  "2026-09-12T02:31:24.979451Z",
@@ -49,7 +49,13 @@
                       "entrypoint":  "kevin-skill-lab.ps1",
                       "cron":  "kevin-skill-lab-v1",
                       "required_skill_key_missing":  true,
-                      "reason":  "capability GAP / prior lab fails; Lab-first when budgets clear"
+                      "latest_proven_key":  "cache-valley-appliance-repair-launch-pack@2",
+                      "latest_proven_note":  "PROVEN this cycle (create_spreadsheet+create_text only; no Notepad)",
+                      "notepad_proof_banned":  true,
+                      "skip_skills":  [
+                                          "engineering-relay-first-composite@1"
+                                      ],
+                      "reason":  "cache-valley@2 PROVEN; engineering-relay skipped — HARD BAN ui_notepad_write Lab proof"
                   },
     "bridge":  {
                    "status":  "ok",
