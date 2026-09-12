@@ -161,7 +161,7 @@
                       "closes_proof_gap":  true,
                       "reduces_bess_intervention":  true,
                       "dependencies_ready":  true,
-                      "blocked":  false,
+                      "blocked":  true,
                       "failure_attempts":  0,
                       "material_new_evidence":  true,
                       "acceptance_criteria":  [
@@ -172,7 +172,7 @@
                                                   "Semantically verify the artifacts as owner-useful outputs, record durable evidence/lesson, and require a subsequent scheduled continuation/idle decision without Bess supplying the immediate next item id.",
                                                   "Public BIND evidence present 2026-09-11: reports/action-era/skills/done/vehicle-transport-mission-pack--1.json PROVEN (manifest E6D2C525… proof 0B3304AB…) + public-proven-skills-index-v1.json; CoS authorized Supervisor select."
                                               ],
-                      "next_action":  "COMPLETE — VERIFY judges from receipt/artifacts.",
+                      "next_action":  "COMPLETE — do not reselect",
                       "evidence_pointers":  [
                                                 "reports/engineering/latest.json",
                                                 "reports/autonomy-continuation-latest.json",
@@ -272,7 +272,8 @@
                       "near_acceptance":  true,
                       "severity":  "high",
                       "completed_at":  "2026-09-11T20:34:01.262870-06:00",
-                      "completion_note":  "Invocation receipt PROVEN 2026-09-11; VERIFY judges PASS. Do not reopen."
+                      "completion_note":  "Invocation receipt PROVEN 2026-09-11; VERIFY judges PASS. Do not reopen.",
+                      "block_reason":  "COMPLETE_DO_NOT_RESELECT — VERIFY PASS/MIXED already; successor dealership fresh WI is next"
                   },
                   {
                       "id":  "owner-composite-appliance-repair-pack-v2-prove",
