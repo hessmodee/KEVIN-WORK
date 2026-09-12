@@ -7,7 +7,7 @@
       "id": "owner-west-motor-parts-chase-fresh-8-v1",
       "program": "capability-reuse",
       "authority_class": "GREEN",
-      "status": "OPEN",
+      "status": "COMPLETE",
       "lane": "production",
       "work_type": "execution",
       "priority": "high",
@@ -36,7 +36,7 @@
         "PASS requires real artifacts + correlated DONE records + output hashes + immutable invocation receipt. Conversational claims do not count.",
         "Stay GREEN: fictional example data only; no customer PII, credentials, purchases, public posting, or live financial effects."
       ],
-      "next_action": "Select this OPEN GREEN WorkInstance and route west-motor-parts-chase-board-pack@1 through the invocation worker. Do not send to tool-less fixed:main. Keep the existing 1 burned turn. PASS still requires real workbook + note + hashes + invocation receipt. Do not invent PASS from STAGE_OK; cite VERIFY PASS MIXED only when a public reject receipt says so.",
+      "next_action": "COMPLETE \u2014 do not reopen. Transport WI is next owner select under CoS authorize.",
       "owner_inputs": {
         "dataset": "fictional-eight-dealership-vehicles",
         "vehicles": [
@@ -143,7 +143,9 @@
         "control-plane/autonomy/kevin-proven-skill-invocation-v1.py",
         "reports/engineering/latest.json"
       ],
-      "downstream_consumer": "FIRST_FRESH_OWNER_OUTCOME_AND_T3_INVOCATION_PROOF"
+      "downstream_consumer": "FIRST_FRESH_OWNER_OUTCOME_AND_T3_INVOCATION_PROOF",
+      "completed_at": "2026-09-11T20:09:43.580917-06:00",
+      "completion_note": "VERIFY PASS MIXED 2026-09-11; DONE receipt PROVEN. Closed so Supervisor can select next owner WI. Do not reopen."
     },
     {
       "id": "owner-west-motor-transport-dispatch-template-v1",
@@ -167,9 +169,10 @@
         "Produce a useful reusable vehicle-transport dispatch workbook/template for Matt's dealership transport workflow using existing proven spreadsheet/text capability, with generic example data only and no customer PII, credentials, external sends, purchases, trades, or new authority.",
         "Workbook includes practical dispatch fields for request/priority, origin, destination, vehicle or unit, driver/assignee, target date/time, status, contact/coordination notes, completion and exception tracking, while remaining within the proven workbook sheet cap.",
         "Produce a short companion operating note explaining how Matt can use the board for daily dispatch, handoff and exception follow-up.",
-        "Semantically verify the artifacts as owner-useful outputs, record durable evidence/lesson, and require a subsequent scheduled continuation/idle decision without Bess supplying the immediate next item id."
+        "Semantically verify the artifacts as owner-useful outputs, record durable evidence/lesson, and require a subsequent scheduled continuation/idle decision without Bess supplying the immediate next item id.",
+        "Public BIND evidence present 2026-09-11: reports/action-era/skills/done/vehicle-transport-mission-pack--1.json PROVEN (manifest E6D2C525\u2026 proof 0B3304AB\u2026) + public-proven-skills-index-v1.json; CoS authorized Supervisor select."
       ],
-      "next_action": "Supervisor may select; builder binds vehicle-transport-mission-pack@1 (already PROVEN). Do not hand-invoke from RUNTIME until CoS/VERIFY gate.",
+      "next_action": "Select this OPEN GREEN WorkInstance and route vehicle-transport-mission-pack@1 through the invocation worker. Do not send to tool-less fixed:main. CoS AUTHORIZED 2026-09-11 under OWNER GRANT. PASS still requires real workbook + note + hashes + invocation receipt; VERIFY judges.",
       "evidence_pointers": [
         "reports/engineering/latest.json",
         "reports/autonomy-continuation-latest.json",
@@ -261,7 +264,13 @@
             "exception": "None"
           }
         ]
-      }
+      },
+      "required_capabilities": [
+        "kevin_proven_skill_invoke"
+      ],
+      "worker": "proven-skill-invocation",
+      "near_acceptance": true,
+      "severity": "high"
     },
     {
       "id": "owner-composite-appliance-repair-pack-v2-prove",
