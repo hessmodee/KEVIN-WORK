@@ -1,9 +1,9 @@
 {
     "schema":  "kevin.hq-live-floor.v1",
     "kind":  "kevin.hq-live-floor.v1",
-    "updated_at":  "2026-09-11T22:24:04.0457070-06:00",
-    "generated_at":  "2026-09-11T22:24:04.0457070-06:00",
-    "cycle":  453,
+    "updated_at":  "2026-09-11T22:25:24.9183572-06:00",
+    "generated_at":  "2026-09-11T22:25:24.9183572-06:00",
+    "cycle":  454,
     "painter_frozen":  false,
     "cycle_frozen":  false,
     "supervisor_version":  "1.8.12",
@@ -41,15 +41,15 @@
                  },
     "painted_hint":  "THROTTLED",
     "skill_lab":  {
-                      "stage":  "LAB",
-                      "ready_count":  2,
+                      "stage":  "GAP",
+                      "ready_count":  0,
                       "running_count":  0,
-                      "failed_count":  3,
+                      "failed_count":  5,
                       "done_count":  27,
                       "entrypoint":  "kevin-skill-lab.ps1",
                       "cron":  "kevin-skill-lab-v1",
-                      "required_skill_key_missing":  false,
-                      "reason":  ""
+                      "required_skill_key_missing":  true,
+                      "reason":  "capability GAP / prior lab fails; Lab-first when budgets clear"
                   },
     "bridge":  {
                    "status":  "ok",
