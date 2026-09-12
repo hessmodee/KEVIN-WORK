@@ -1,34 +1,10 @@
 {
     "schema":  1,
     "kind":  "kevin-console-hygiene-detect",
-    "at":  "2026-09-11T19:35:26.8637715-06:00",
-    "visible_console_risk_count":  5,
+    "at":  "2026-09-11T19:44:46.9387254-06:00",
+    "visible_console_risk_count":  0,
     "tasks":  [
-                  {
-                      "task":  "Kevin UI Bridge Watchdog v1",
-                      "execute":  "C:\\windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-                      "arguments":  "-NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File \"C:\\Users\\hessm\\.openclaw\\workspace\\ControlPlane\\kevin-ui-bridge-watchdog-v1.ps1\""
-                  },
-                  {
-                      "task":  "KevinBootRecovery",
-                      "execute":  "powershell.exe",
-                      "arguments":  "-NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -File \"C:\\Users\\hessm\\.openclaw\\workspace\\kevin-boot-recovery.ps1\""
-                  },
-                  {
-                      "task":  "KevinGatewayKeeper",
-                      "execute":  "powershell.exe",
-                      "arguments":  "-NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -File \"C:\\Users\\hessm\\.openclaw\\workspace\\kevin-gateway-keeper.ps1\""
-                  },
-                  {
-                      "task":  "KevinGitHubBridge",
-                      "execute":  "powershell.exe",
-                      "arguments":  "-NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -File \"C:\\Users\\hessm\\.openclaw\\workspace\\pull-inbox.ps1\""
-                  },
-                  {
-                      "task":  "KevinTick",
-                      "execute":  "powershell.exe",
-                      "arguments":  "-NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -File \"C:\\Users\\hessm\\.openclaw\\workspace\\kevin-tick.ps1\""
-                  }
+
               ],
     "truth_boundary":  "Detector only. Does not wrap tasks. No PASS claim."
 }
