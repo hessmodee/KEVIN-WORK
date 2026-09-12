@@ -7,7 +7,7 @@
  */
 'use strict';
 
-const VERSION='kevin-hq-shell-v9';
+const VERSION='kevin-hq-shell-v10';
 const SHELL_CACHE=`${VERSION}-static`;
 const DATA_CACHE=`${VERSION}-public-data`;
 const BASE='/KEVIN-WORK/';
@@ -19,6 +19,7 @@ const SHELL=[
   `${BASE}hq-overrides-v1.js`,
   `${BASE}hq-owner-console-v10.js`,
   `${BASE}hq-p1-ground-truth-v1.js`,
+  `${BASE}hq-p0-floor-painter-v1.js`,
   `${BASE}hq-growth-v1.js`,
   `${BASE}ops/index.html`,
   `${BASE}ops/embed.html`,
