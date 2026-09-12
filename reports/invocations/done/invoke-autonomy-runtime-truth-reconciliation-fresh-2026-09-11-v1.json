@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation-receipt",
+  "version": "1.1.2",
+  "status": "PROVEN",
+  "authority": "GREEN",
+  "completed_at": "2026-09-12T05:06:25.537268Z",
+  "invocation_id": "invoke-autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1",
+  "skill_key": "runtime-truth-reconciliation-diagnosis-pack@1",
+  "proven_identity": {
+    "manifest_sha256": "0E57C98C34DDE194D8C664553EF2634DE0C6DEE1B44E9DBC32814B42C47926FB",
+    "proof_sha256": "D64DB8EB340FC06A2537447A6DCBB31DBD7A59B62BC1B33C5F74685EBCA1A374",
+    "result_file": "runtime-truth-reconciliation-diagnosis-pack--1.json",
+    "primitive_steps": [
+      "create_spreadsheet",
+      "create_text"
+    ],
+    "proven_at": "2026-09-11T23:02:52.6898461-06:00"
+  },
+  "request_sha256": "1BA12DD3736B3CB669B957645DD31018BCC7C798015F28EF349060635295F94C",
+  "step_results": [
+    {
+      "index": 0,
+      "order_id": "invoke-invoke-autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1-s01",
+      "semantic_key": "invoke:runtime-truth-reconciliation-diagnosis-pack@1:invoke-autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1:step:1",
+      "operation": "create_spreadsheet",
+      "final_state": "DONE",
+      "order_record_sha256": "B554C7C867CA8E1A70F4ECB20F656629495E760B214B8A84FBCDDD338B5372A9",
+      "completed_at": "2026-09-11T23:06:21.7565557-06:00",
+      "output_name": "runtime-truth-reconciliation-diagnosis (2).xlsx",
+      "sha256": "7B82CF6606B4DE217BF26360548A5527D5111CC500721683E2F49D4E2C0FC45C",
+      "bytes": 5080,
+      "verified_sha256": "7B82CF6606B4DE217BF26360548A5527D5111CC500721683E2F49D4E2C0FC45C",
+      "verified_bytes": 5080
+    },
+    {
+      "index": 1,
+      "order_id": "invoke-invoke-autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1-s02",
+      "semantic_key": "invoke:runtime-truth-reconciliation-diagnosis-pack@1:invoke-autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1:step:2",
+      "operation": "create_text",
+      "final_state": "DONE",
+      "order_record_sha256": "8BFD35BC0C9CCEB4899289C8DA6BD222E6EBB103EA902D1003BC2C840F82D5DE",
+      "completed_at": "2026-09-11T23:06:22.7877692-06:00",
+      "output_name": "runtime-truth-reconciliation-diagnosis-brief (2).md",
+      "sha256": "3B7D5C0D0E2820987C23C16A15552F911E4C5E085A79C49F61219E0C92B0B1BE",
+      "bytes": 957,
+      "verified_sha256": "3B7D5C0D0E2820987C23C16A15552F911E4C5E085A79C49F61219E0C92B0B1BE",
+      "verified_bytes": 957
+    }
+  ],
+  "failure": null,
+  "verification": {
+    "artifact_root_bounded": true,
+    "artifact_hashes_rechecked": true,
+    "artifact_sizes_rechecked": true
+  },
+  "receipt_sha256": "F6470F0CBF149B3B32869C2496F1E24631A3899029062C97EE28B40DA69B65C5"
+}
