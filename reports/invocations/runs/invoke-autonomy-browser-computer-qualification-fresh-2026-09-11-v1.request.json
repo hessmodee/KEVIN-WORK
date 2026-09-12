@@ -1,0 +1,176 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation",
+  "authority": "GREEN",
+  "skill_key": "browser-computer-qualification-design-pack@1",
+  "invocation_id": "invoke-autonomy-browser-computer-qualification-fresh-2026-09-11-v1",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "browser-computer-qualification-design.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Inventory",
+              "rows": [
+                [
+                  "Capability",
+                  "Installed evidence (fill)",
+                  "Version/path",
+                  "Protected?",
+                  "Notes"
+                ],
+                [
+                  "OpenClaw runtime",
+                  "OPEN",
+                  "",
+                  "YES",
+                  "no credential read"
+                ],
+                [
+                  "Managed browser",
+                  "OPEN",
+                  "",
+                  "YES",
+                  "isolated only"
+                ],
+                [
+                  "Windows Computer Use",
+                  "OPEN",
+                  "",
+                  "YES",
+                  "no personal browser"
+                ],
+                [
+                  "Model/tool prereqs",
+                  "OPEN",
+                  "",
+                  "YES",
+                  "list only"
+                ]
+              ]
+            },
+            {
+              "name": "Contract Gap",
+              "rows": [
+                [
+                  "Required contract",
+                  "Current",
+                  "Gap",
+                  "Risk"
+                ],
+                [
+                  "Isolated managed browser",
+                  "OPEN",
+                  "OPEN",
+                  "credential leak"
+                ],
+                [
+                  "Windows Computer Use bound",
+                  "OPEN",
+                  "OPEN",
+                  "unbounded desktop"
+                ],
+                [
+                  "No personal browser",
+                  "OPEN",
+                  "OPEN",
+                  "PII/session"
+                ],
+                [
+                  "No credential handling",
+                  "OPEN",
+                  "OPEN",
+                  "secret exposure"
+                ]
+              ]
+            },
+            {
+              "name": "Qualification Plan",
+              "rows": [
+                [
+                  "Phase",
+                  "Action",
+                  "Rollback",
+                  "Negative test",
+                  "Promote?"
+                ],
+                [
+                  "1 Inventory",
+                  "Read-only evidence",
+                  "N/A",
+                  "fail if secrets touched",
+                  "NO"
+                ],
+                [
+                  "2 Isolated browser stage",
+                  "Stage managed profile only",
+                  "revert profile",
+                  "fail if personal profile",
+                  "NO"
+                ],
+                [
+                  "3 Computer Use stage",
+                  "Bounded harness",
+                  "disable harness",
+                  "fail if unbounded",
+                  "NO"
+                ],
+                [
+                  "4 Independent prove",
+                  "Receipt+VERIFY",
+                  "keep prior",
+                  "fail if no receipt",
+                  "later"
+                ]
+              ]
+            },
+            {
+              "name": "Acceptance",
+              "rows": [
+                [
+                  "Field",
+                  "Value"
+                ],
+                [
+                  "WorkInstance",
+                  "autonomy-browser-computer-qualification-fresh-2026-09-11-v1"
+                ],
+                [
+                  "Predecessor",
+                  "autonomy-browser-computer-qualification-v1"
+                ],
+                [
+                  "Notepad",
+                  "BANNED"
+                ],
+                [
+                  "Chat/tool widen",
+                  "FORBIDDEN this pack"
+                ],
+                [
+                  "Primitives",
+                  "create_spreadsheet + create_text"
+                ],
+                [
+                  "Production upgrade",
+                  "NONE"
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "browser-computer-qualification-design-brief.md",
+        "content": "# Browser / Computer Use qualification design brief\n\n**WorkInstance:** autonomy-browser-computer-qualification-fresh-2026-09-11-v1\n**Predecessor:** autonomy-browser-computer-qualification-v1 (BOUNDED; no history reset)\n**Actor:** GROKBOT_ACTED staging (not Kevin-learned)\n**Notepad:** banned | **Chat/tool widen:** forbidden in this pack\n**Primitives:** create_spreadsheet + create_text only\n**Production upgrade:** NONE\n\n## Plan\n1. Inventory installed OpenClaw/browser/computer-use evidence without credentials or protected config changes.\n2. Compare to isolated managed-browser and Windows Computer Use contracts.\n3. Reversible qualification with explicit rollback, model/tool prerequisites, negative tests, and no-personal-browser / no-credential-handling boundary.\n4. Do not blindly upgrade production; stage and independently prove before any later promotion."
+      }
+    }
+  ]
+}
