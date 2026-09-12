@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
-VERSION = "1.0.10"
+VERSION = "1.0.11"
 PARTS_CHASE_KEY = "west-motor-parts-chase-board-pack@1"
 PARTS_CHASE_WORK_ID = "owner-west-motor-parts-chase-fresh-8-v1"
 TRANSPORT_KEY = "vehicle-transport-mission-pack@1"
@@ -34,6 +34,8 @@ BROWSER_COMPUTER_KEY = "browser-computer-qualification-design-pack@1"
 BROWSER_COMPUTER_WORK_ID = "autonomy-browser-computer-qualification-fresh-2026-09-11-v1"
 LOT_WALK_KEY = "west-motor-lot-walk-checklist-pack@1"
 LOT_WALK_WORK_ID = "owner-west-motor-lot-walk-checklist-fresh-2026-09-11-v1"
+AGING_INV_KEY = "west-motor-aging-inventory-action-pack@1"
+AGING_INV_WORK_ID = "owner-west-motor-aging-inventory-fresh-2026-09-11-v1"
 TRANSPORT_FIELDS = (
     "priority",
     "request_id",
@@ -342,10 +344,15 @@ def build_lot_walk_request(invocation_id: str) -> Dict[str, Any]:
     return {"schema":1,"kind":"kevin-proven-skill-invocation","authority":"GREEN","skill_key":LOT_WALK_KEY,"invocation_id":invocation_id,"steps":steps}
 
 
+def build_aging_inv_request(invocation_id: str) -> Dict[str, Any]:
+    steps = json.loads("[{\"operation\": \"create_spreadsheet\", \"payload\": {\"filename\": \"Kevin West Motor Aging Inventory Action Board.xlsx\", \"workbook\": {\"schema\": 1, \"kind\": \"kevin-xlsx-spec\", \"sheets\": [{\"name\": \"Aging Board\", \"rows\": [[\"Stock\", \"Year Make Model\", \"Days In Stock\", \"Age Band\", \"Stage\", \"Owner\", \"List Status\", \"Next Action\", \"Due\", \"Notes\"], [\"\", \"\", \"\", \"0-30 / 31-60 / 61-90 / 90+\", \"HOLD / RETAIL PUSH / WHOLESALE REVIEW / SPECIAL\", \"\", \"LISTED / UNLISTED / UNK\", \"\", \"\", \"Do not invent prices\"]]}, {\"name\": \"Action Ladder\", \"rows\": [[\"Stock\", \"Current Ladder Step\", \"Photo Ready\", \"Price Review Due\", \"Wholesale Option\", \"Retail Push Idea\", \"Trade Special?\", \"Who Decides\", \"Status\", \"Notes\"], [\"\", \"PHOTO / PRICE / CHANNEL / DISPOSITION\", \"NO\", \"\", \"REVIEW ONLY\", \"\", \"NO\", \"MATT\", \"OPEN\", \"No auto purchase or post\"]]}, {\"name\": \"Price Notes\", \"rows\": [[\"Stock\", \"Current Ask\", \"Ask Source\", \"Market Notes\", \"Recon Left Band\", \"Honest Margin Guess\", \"Verified?\", \"Blocks Sale?\", \"Updated At\", \"Notes\"], [\"\", \"\", \"DMS / SHEET / UNK\", \"\", \"\", \"\", \"NO\", \"MAYBE\", \"\", \"Never invent ACV wholesale or retail\"]]}, {\"name\": \"Blockers Chase\", \"rows\": [[\"Stock\", \"Blocker\", \"Blocks Sale?\", \"Who Owns\", \"Asked At\", \"ETA\", \"Status\", \"Needs Purchase?\", \"Needs Live Post?\", \"Notes\"], [\"\", \"\", \"YES\", \"\", \"\", \"\", \"OPEN\", \"NO\", \"NO\", \"No auto purchase no DMS write no live post\"]]}, {\"name\": \"Weekly Focus\", \"rows\": [[\"Week Of\", \"Top Aged Unit\", \"Why This Week\", \"One Move\", \"Owner\", \"Done?\", \"Carry Forward?\", \"Risk If Idle\", \"Review With\", \"Notes\"], [\"\", \"\", \"\", \"\", \"\", \"NO\", \"MAYBE\", \"\", \"MATT\", \"Pick the smallest honest move\"]]}]}}}, {\"operation\": \"create_text\", \"payload\": {\"filename\": \"Kevin West Motor Aging Inventory Action - SOP.md\", \"content\": \"# Kevin West Motor Aging Inventory Action\\n\\nUse this pack to chase aged inventory with honest next actions. Do not invent prices or market values.\\n\\n## Operating rule\\nAging action is false until the unit is on Aging Board with an age band, owner, and a real next action. Prefer the smallest ladder step that clears the next blocker. Never invent ACV, wholesale, or retail figures.\\n\\n## Required sequence\\n1. Log aged units on Aging Board with days, age band, stage, and known facts only.\\n2. Place each unit on Action Ladder (photo, price review, channel, disposition) without auto-posting.\\n3. Fill Price Notes only from asks already in hand; mark UNK and Verified=NO when unknown.\\n4. Chase Blockers without purchases, live DMS writes, or live public posts.\\n5. Pick one Weekly Focus unit and one honest move; review with Matt before paid or live side effects.\\n\\n## Protective behavior\\nKevin must not invent prices, purchase reports, write live DMS, post listings, widen Chat tools beyond Desktop exact-5, or claim READY while blockers remain. Sheet count stays at or below five. Payloads stay ASCII-safe. Sheet names use spaces only (no slash).\\n\"}}]")
+    return {"schema":1,"kind":"kevin-proven-skill-invocation","authority":"GREEN","skill_key":AGING_INV_KEY,"invocation_id":invocation_id,"steps":steps}
+
+
 def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) -> str:
     if item and str(item.get("required_skill_key") or "").strip():
         key = str(item.get("required_skill_key")).strip()
-        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY, RUNTIME_TRUTH_KEY, EXPIRED_MANIFEST_KEY, REFLECTION_RUNTIME_KEY, BROWSER_COMPUTER_KEY, LOT_WALK_KEY}:
+        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY, RUNTIME_TRUTH_KEY, EXPIRED_MANIFEST_KEY, REFLECTION_RUNTIME_KEY, BROWSER_COMPUTER_KEY, LOT_WALK_KEY, AGING_INV_KEY}:
             return key
         raise BuilderError("UNSUPPORTED_SKILL_KEY")
     if work_id == TRANSPORT_WORK_ID:
@@ -364,6 +371,8 @@ def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) 
         return BROWSER_COMPUTER_KEY
     if work_id == LOT_WALK_WORK_ID:
         return LOT_WALK_KEY
+    if work_id == AGING_INV_WORK_ID:
+        return AGING_INV_KEY
     raise BuilderError("UNSUPPORTED_WORK_ID")
 
 
@@ -652,6 +661,12 @@ def main() -> int:
             return 0
         if skill == LOT_WALK_KEY:
             request = build_lot_walk_request(args.invocation_id)
+            Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
+            print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
+            return 0
+        if skill == AGING_INV_KEY:
+            request = build_aging_inv_request(args.invocation_id)
             Path(args.output).parent.mkdir(parents=True, exist_ok=True)
             Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
             print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
