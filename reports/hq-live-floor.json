@@ -1,9 +1,9 @@
 {
     "schema":  "kevin.hq-live-floor.v1",
     "kind":  "kevin.hq-live-floor.v1",
-    "updated_at":  "2026-09-12T00:14:16.2764608-06:00",
-    "generated_at":  "2026-09-12T00:14:16.2764608-06:00",
-    "cycle":  485,
+    "updated_at":  "2026-09-12T07:29:30.9981865-06:00",
+    "generated_at":  "2026-09-12T07:29:30.9981865-06:00",
+    "cycle":  486,
     "cycle_authority":  "hq-live-floor",
     "one_clock":  "floor",
     "painter_frozen":  false,
@@ -49,20 +49,20 @@
                  },
     "painted_hint":  "THROTTLED",
     "skill_lab":  {
-                      "stage":  "GAP",
+                      "stage":  "IDLE",
                       "ready_count":  0,
                       "running_count":  0,
-                      "failed_count":  4,
+                      "failed_count":  0,
                       "done_count":  33,
                       "entrypoint":  "kevin-skill-lab.ps1",
                       "cron":  "kevin-skill-lab-v1",
-                      "required_skill_key_missing":  true,
-                      "reason":  "capability GAP / prior lab fails; Lab-first when budgets clear"
+                      "required_skill_key_missing":  false,
+                      "reason":  ""
                   },
     "bridge":  {
                    "status":  "ok",
                    "puller":  "v1.6",
-                   "at":  "2026-09-12T00:13:11.2218170-06:00",
+                   "at":  "2026-09-12T07:28:09.4627894-06:00",
                    "host":  "HESS-PC",
                    "why":  "Local HESS bridge file present; HQ UNKNOWN means public main bridge-latest was not refreshed"
                },
