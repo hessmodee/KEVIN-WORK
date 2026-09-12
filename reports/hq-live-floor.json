@@ -1,9 +1,9 @@
 {
     "schema":  "kevin.hq-live-floor.v1",
     "kind":  "kevin.hq-live-floor.v1",
-    "updated_at":  "2026-09-11T22:38:41.0430721-06:00",
-    "generated_at":  "2026-09-11T22:38:37.7008223-06:00",
-    "cycle":  461,
+    "updated_at":  "2026-09-11T22:46:51.0438882-06:00",
+    "generated_at":  "2026-09-11T22:46:53.2071296-06:00",
+    "cycle":  463,
     "painter_frozen":  false,
     "cycle_frozen":  false,
     "supervisor_version":  "1.8.12",
@@ -11,8 +11,8 @@
     "supervisor_sha":  "F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB",
     "selected_id":  "owner-west-motor-transport-dispatch-template-v1",
     "status":  "OUTCOME_PROVEN",
-    "center_status":  "THROTTLED",
-    "center":  "THROTTLED",
+    "center_status":  "LAB",
+    "center":  "LAB",
     "outcome_proven":  true,
     "action_era_ready_count":  0,
     "ready_count":  0,
@@ -39,30 +39,27 @@
                      "one_line":  "",
                      "updated_at":  "2026-09-11T21:28:37.9413339-06:00"
                  },
-    "painted_hint":  "THROTTLED",
+    "painted_hint":  "LAB",
     "skill_lab":  {
-                      "stage":  "GAP",
-                      "ready_count":  0,
+                      "stage":  "LAB",
+                      "ready_count":  1,
                       "running_count":  0,
                       "failed_count":  4,
                       "done_count":  28,
                       "entrypoint":  "kevin-skill-lab.ps1",
                       "cron":  "kevin-skill-lab-v1",
-                      "required_skill_key_missing":  true,
-                      "latest_proven_key":  "cache-valley-appliance-repair-launch-pack@2",
-                      "latest_proven_note":  "PROVEN this cycle (create_spreadsheet+create_text only; no Notepad)",
+                      "work_instance_id":  "owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1",
+                      "candidate":  "dealership-operations-opportunity-scan-pack@1",
                       "notepad_proof_banned":  true,
-                      "skip_skills":  [
-                                          "engineering-relay-first-composite@1"
-                                      ],
-                      "reason":  "cache-valley@2 PROVEN; engineering-relay skipped — HARD BAN ui_notepad_write Lab proof"
+                      "latest_proven_key":  "cache-valley-appliance-repair-launch-pack@2",
+                      "reason":  "NEW WI materialized; Skill Lab GAP→LAB for dealership scan pack (no Notepad)"
                   },
     "bridge":  {
                    "status":  "ok",
                    "puller":  "v1.6",
-                   "at":  "2026-09-11T22:28:10.7349711-06:00",
+                   "at":  "2026-09-11T22:43:09.7990544-06:00",
                    "host":  "HESS-PC",
                    "why":  "Local HESS bridge file present; HQ UNKNOWN means public main bridge-latest was not refreshed"
                },
-    "detail":  "WAITING_ITEM_BUDGETS â€” HOLD select"
+    "detail":  "24/7: owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1 in Skill Lab (LAB). HOLD Supervisor select until PROVEN. Center LAB not OUTCOME_PROVEN."
 }
