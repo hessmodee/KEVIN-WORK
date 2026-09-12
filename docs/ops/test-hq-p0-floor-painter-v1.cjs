@@ -9,7 +9,7 @@ function loadPainterApi() {
   const source = path.join(ROOT, 'docs/ops/hq-p0-floor-painter-v1.source.js');
   if (fs.existsSync(source)) return require(source);
   const parts = [];
-  for (let i = 1; i <= 8; i++) {
+  for (let i = 1; i <= 16; i++) {
     const id = String(i).padStart(2, '0');
     parts.push(fs.readFileSync(path.join(ROOT, `docs/hq-p0-floor-painter-v1.b64.${id}.txt`), 'utf8'));
   }
@@ -99,6 +99,7 @@ test('scaffold never KEVIN_ACTED', () => {
   assert.strictEqual(sc.actor, 'GROKBOT_ACTED');
   assert.notStrictEqual(sc.actor, 'KEVIN_ACTED');
 });
+
 
 test('skill_lab GAP → center GAP', () => {
   const c = API.floorCenterState({
