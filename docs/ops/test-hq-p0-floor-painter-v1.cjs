@@ -334,6 +334,64 @@ test('cycleFrozen ignores support-only 449 when floor.cycle absent → not froze
   assert.strictEqual(API.cycleFrozen(bundle, now), false);
 });
 
+
+test('floor west_motor+transport+dealership proven → stripe items>=3', () => {
+  const bundle = {
+    floor: {
+      schema: 'kevin.hq-live-floor.v1',
+      cycle: 470,
+      painted_hint: 'THROTTLED',
+      waiting_item_budgets: true,
+      action_era_ready_count: 0,
+      west_motor_proven: true,
+      west_motor_completed_at: '2026-09-12T00:54:57Z',
+      transport_proven: true,
+      transport_completed_at: '2026-09-12T02:33:30.501071Z',
+      dealership_proven: true,
+      dealership_completed_at: '2026-09-12T03:10:00Z',
+      selected_id: 'owner-west-motor-transport-dispatch-template-v1',
+      supervisor_sha256: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB',
+      supervisor_version: '1.8.12'
+    },
+    continuation: { generated_at: '2026-09-12T03:10:00Z', selected_id: 'owner-west-motor-transport-dispatch-template-v1' },
+    engineering: { action: { queues: { ready: 0 }, composite_skills: { ready: 0 } } },
+    support: { generated_at: '2026-09-12T03:10:00Z', hashes: { supervisor: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB' }, active_workers: {} },
+    receipt, reject: { ...rejectProven, outcome_proven: true, verify_actor: 'MIXED' },
+    selection: { id: 'owner-west-motor-transport-dispatch-template-v1' }
+  };
+  const stripe = API.completedStripe(bundle);
+  assert.strictEqual(stripe.show, true);
+  assert.ok(Array.isArray(stripe.items));
+  assert.ok(stripe.items.length >= 3, 'expected >=3 proven items, got ' + stripe.items.length);
+  const labels = stripe.items.map(x => x.label);
+  assert.ok(labels.includes('dealership'), 'dealership missing from ' + labels.join(','));
+  assert.ok(labels.includes('west-motor'));
+  assert.ok(labels.includes('transport'));
+  assert.strictEqual(stripe.dealershipCompleted, true);
+  assert.strictEqual(stripe.westMotorRetained, true);
+  assert.strictEqual(stripe.transportCompleted, true);
+  assert.ok(typeof API.floorProvenItems === 'function');
+  assert.ok(API.floorProvenItems(bundle).length >= 3);
+});
+
+test('lastAttemptClock picks newest among dealership vs west_motor completed_at', () => {
+  const bundle = {
+    floor: {
+      west_motor_proven: true,
+      west_motor_completed_at: '2026-09-12T00:54:57Z',
+      dealership_proven: true,
+      dealership_completed_at: '2026-09-12T03:10:00Z',
+      last_invoke_completed_at: '2026-09-12T02:00:00Z'
+    },
+    receipt: { completed_at: '2026-09-12T00:54:57Z', status: 'PROVEN', invocation_id: 'invoke-owner-west-motor-parts-chase-fresh-8-v1', skill_key: 'west-motor-parts-chase-board-pack@1' }
+  };
+  const clock = API.lastAttemptClock(bundle, now);
+  assert.strictEqual(clock.at, '2026-09-12T03:10:00Z');
+  assert.ok(String(clock.source).includes('dealership_completed_at'));
+  assert.strictEqual(clock.unknown, false);
+});
+
+
 console.log(`\n${passed} tests passed`);
 if (process.exitCode) { console.error('TEST SUITE FAILED'); process.exit(process.exitCode); }
 console.log('TEST SUITE OK');
