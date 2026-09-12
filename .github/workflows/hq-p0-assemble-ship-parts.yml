@@ -1,0 +1,66 @@
+name: Assemble HQ P0 ship parts
+on:
+  push:
+    branches: [grok/hq-p0-proven-stripes-20260911]
+    paths: ['docs/_ship_parts/**', '.github/workflows/hq-p0-assemble-ship-parts.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: grok/hq-p0-proven-stripes-20260911
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Assemble staged parts
+        shell: python
+        run: |
+          from pathlib import Path
+          import hashlib, sys
+          root = Path('.')
+          parts_dir = root / 'docs' / '_ship_parts'
+          if not parts_dir.is_dir():
+            print('NO_PARTS')
+            sys.exit(0)
+          jobs = [
+            ('b64_16', 'docs/hq-p0-floor-painter-v1.b64.16.txt', 'c8dcc87ccb9a320f0052f4a902aaffaca2a32d11449e64bffebef5cde285ffb6'),
+            ('test', 'docs/ops/test-hq-p0-floor-painter-v1.cjs', 'b1751963d49a83e7ea6a4fe3e33c60b15532d1adf3e30b092b7c0a85344da76a'),
+            ('source', 'docs/ops/hq-p0-floor-painter-v1.source.js', '948a20b13ca1b5fbe5a2a7284ab41ef1d044e2bee88874fcbd31c1870aeb8caf'),
+          ]
+          changed = False
+          for prefix, dest, want in jobs:
+            files = sorted(parts_dir.glob(f'{prefix}_*.txt'), key=lambda p: p.name)
+            files = [p for p in files if p.stem.split('_')[-1].isdigit()]
+            if not files:
+              print('SKIP', prefix)
+              continue
+            data = ''.join(p.read_text() for p in files)
+            got = hashlib.sha256(data.encode()).hexdigest()
+            print(prefix, 'parts', len(files), 'len', len(data), 'sha', got)
+            if got != want:
+              print('SHA_MISMATCH', prefix, 'want', want)
+              sys.exit(1)
+            Path(dest).parent.mkdir(parents=True, exist_ok=True)
+            Path(dest).write_text(data)
+            changed = True
+          if changed:
+            for p in parts_dir.glob('*'):
+              p.unlink()
+            try:
+              parts_dir.rmdir()
+            except OSError:
+              pass
+          print('ASSEMBLE_OK', changed)
+      - name: Commit assembled files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "NO_CHANGES"
+            exit 0
+          fi
+          git commit -m "hq-p0 stripes: assemble staged painter parts (b64/source/test)"
+          git push origin HEAD:grok/hq-p0-proven-stripes-20260911
