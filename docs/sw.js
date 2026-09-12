@@ -8,7 +8,7 @@
  */
 'use strict';
 
-const VERSION='kevin-hq-shell-v15';
+const VERSION='kevin-hq-shell-v16';
 const SHELL_CACHE=`${VERSION}-static`;
 const DATA_CACHE=`${VERSION}-public-data`;
 const BASE='/KEVIN-WORK/';
