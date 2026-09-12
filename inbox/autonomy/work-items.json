@@ -24,7 +24,7 @@
                       "reduces_bess_intervention":  true,
                       "near_acceptance":  true,
                       "dependencies_ready":  true,
-                      "blocked":  false,
+                      "blocked":  true,
                       "failure_attempts":  0,
                       "material_new_evidence":  true,
                       "estimated_minutes":  20,
@@ -145,7 +145,8 @@
                                             ],
                       "downstream_consumer":  "FIRST_FRESH_OWNER_OUTCOME_AND_T3_INVOCATION_PROOF",
                       "completed_at":  "2026-09-11T20:09:43.580917-06:00",
-                      "completion_note":  "VERIFY PASS MIXED 2026-09-11; DONE receipt PROVEN. Closed so Supervisor can select next owner WI. Do not reopen."
+                      "completion_note":  "VERIFY PASS MIXED 2026-09-11; DONE receipt PROVEN. Closed so Supervisor can select next owner WI. Do not reopen.",
+                      "block_reason":  "COMPLETE_DO_NOT_RESELECT"
                   },
                   {
                       "id":  "owner-west-motor-transport-dispatch-template-v1",
@@ -273,28 +274,31 @@
                       "severity":  "high",
                       "completed_at":  "2026-09-11T20:34:01.262870-06:00",
                       "completion_note":  "Invocation receipt PROVEN 2026-09-11; VERIFY judges PASS. Do not reopen.",
-                      "block_reason":  "COMPLETE_DO_NOT_RESELECT — VERIFY PASS/MIXED already; successor dealership fresh WI is next"
+                      "block_reason":  "COMPLETE_DO_NOT_RESELECT"
                   },
                   {
                       "id":  "owner-composite-appliance-repair-pack-v2-prove",
                       "status":  "COMPLETE",
                       "program":  "owner-value-skills",
                       "authority_class":  "GREEN",
-                      "next_action":  "DONE - appliance pack@3 PROVEN (5 sheets). See skills/done + registry."
+                      "next_action":  "DONE - appliance pack@3 PROVEN (5 sheets). See skills/done + registry.",
+                      "block_reason":  "COMPLETE_DO_NOT_RESELECT"
                   },
                   {
                       "id":  "owner-composite-creator-monetization-prove-v1",
                       "status":  "COMPLETE",
                       "program":  "owner-value-skills",
                       "authority_class":  "GREEN",
-                      "next_action":  "Closed. PROVEN 08:17 MT."
+                      "next_action":  "Closed. PROVEN 08:17 MT.",
+                      "block_reason":  "COMPLETE_DO_NOT_RESELECT"
                   },
                   {
                       "id":  "owner-composite-home-garage-org-prove-v1",
                       "status":  "COMPLETE",
                       "program":  "owner-value-skills",
                       "authority_class":  "GREEN",
-                      "next_action":  "Closed. PROVEN 08:09 MT. Next: creator-monetization or appliance v2 (\u003c=5 sheets)."
+                      "next_action":  "Closed. PROVEN 08:09 MT. Next: creator-monetization or appliance v2 (\u003c=5 sheets).",
+                      "block_reason":  "COMPLETE_DO_NOT_RESELECT"
                   },
                   {
                       "id":  "finish-forge-v40-runtime-convergence",
@@ -330,28 +334,32 @@
                       "status":  "COMPLETE",
                       "program":  "autonomy-debt",
                       "authority_class":  "GREEN",
-                      "next_action":  "No more doctrine-building for this item. Measure whether the live Standing Orders change Kevin behavior; behavioral work selection remains a separate proof gap."
+                      "next_action":  "No more doctrine-building for this item. Measure whether the live Standing Orders change Kevin behavior; behavioral work selection remains a separate proof gap.",
+                      "block_reason":  "COMPLETE_DO_NOT_RESELECT"
                   },
                   {
                       "id":  "native-runtime-capability-audit-v1",
                       "status":  "COMPLETE",
                       "program":  "platform-reliability",
                       "authority_class":  "GREEN",
-                      "next_action":  "Do not rerun unchanged probes. Consumers should use this receipt until installed runtime/config materially changes."
+                      "next_action":  "Do not rerun unchanged probes. Consumers should use this receipt until installed runtime/config materially changes.",
+                      "block_reason":  "COMPLETE_DO_NOT_RESELECT"
                   },
                   {
                       "id":  "real-owner-task-reader-e2e",
                       "status":  "COMPLETE",
                       "program":  "reader-evidence",
                       "authority_class":  "GREEN",
-                      "next_action":  "Closed. Do not rename canary. Do not re-run unless Reader allowlist/runtime materially changes."
+                      "next_action":  "Closed. Do not rename canary. Do not re-run unless Reader allowlist/runtime materially changes.",
+                      "block_reason":  "COMPLETE_DO_NOT_RESELECT"
                   },
                   {
                       "id":  "hq-direct-chat-real-roundtrip",
                       "status":  "COMPLETE",
                       "program":  "owner-communications",
                       "authority_class":  "GREEN",
-                      "next_action":  "Closed. Do not reselect. Owner Control UI path proven; prefer openclaw dashboard / Desktop Kevin Control UI. Public HQ must not embed gateway token."
+                      "next_action":  "Closed. Do not reselect. Owner Control UI path proven; prefer openclaw dashboard / Desktop Kevin Control UI. Public HQ must not embed gateway token.",
+                      "block_reason":  "COMPLETE_DO_NOT_RESELECT"
                   },
                   {
                       "id":  "skill-workshop-self-learning-proof",
@@ -384,7 +392,8 @@
                       "status":  "COMPLETE",
                       "program":  "skill-learning",
                       "authority_class":  "GREEN",
-                      "next_action":  "Closed. Trajectory gate connected to sanitized evidence without new authority. Do not manufacture synthetic trials for promotion count."
+                      "next_action":  "Closed. Trajectory gate connected to sanitized evidence without new authority. Do not manufacture synthetic trials for promotion count.",
+                      "block_reason":  "COMPLETE_DO_NOT_RESELECT"
                   },
                   {
                       "id":  "autonomy-runtime-truth-reconciliation-v1",
@@ -808,7 +817,7 @@
                   {
                       "id":  "owner-west-motor-aging-inventory-fresh-2026-09-11-v1",
                       "authority_class":  "GREEN",
-                      "status":  "OPEN",
+                      "status":  "COMPLETE",
                       "priority":  "high",
                       "owner_value":  8,
                       "program":  "owner-value-skills",
@@ -818,7 +827,7 @@
                       "produces_owner_deliverable":  true,
                       "reduces_bess_intervention":  true,
                       "dependencies_ready":  true,
-                      "blocked":  false,
+                      "blocked":  true,
                       "failure_attempts":  0,
                       "material_new_evidence":  true,
                       "production_effect":  "NONE",
@@ -840,10 +849,12 @@
                                                   "No Notepad; no Chat widen; no history reset.",
                                                   "Five-pack when PROVEN; RUNTIME no PASS."
                                               ],
-                      "next_action":  "PROVEN skill bound — F17F when eligible",
+                      "next_action":  "DONE PROVEN 8D6FF1B13AF4CE6E7EE27806A256503CBF004FA02634A6CD64206AC52FDB3E6F",
                       "evidence_pointers":  [
                                                 "reports/action-era/skills/done/west-motor-aging-inventory-action-pack--1.json"
-                                            ]
+                                            ],
+                      "last_receipt_sha256":  "8D6FF1B13AF4CE6E7EE27806A256503CBF004FA02634A6CD64206AC52FDB3E6F",
+                      "block_reason":  "COMPLETE_DO_NOT_RESELECT"
                   }
               ],
     "updated_at":  "2026-09-12T01:55:18.897049+00:00"
