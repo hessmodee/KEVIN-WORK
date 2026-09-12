@@ -1,0 +1,43 @@
+{
+  "schema": "kevin.hq-live-floor.v1",
+  "kind": "kevin.hq-live-floor.v1",
+  "generated_at": "2026-09-12T02:00:00Z",
+  "center_status": "WAITING_ITEM_BUDGETS",
+  "selected_id": "owner-west-motor-transport-dispatch-template-v1",
+  "action_era_ready": 0,
+  "ready_count": 0,
+  "throttled": true,
+  "throttle_reason": "WAITING_ITEM_BUDGETS",
+  "budget_remaining": 0,
+  "supervisor_sha": "F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB",
+  "supervisor_version": "1.8.12",
+  "west_motor_proven": true,
+  "events": [
+    {
+      "id": "cont",
+      "text": "CONTINUATION \u00b7 WAITING_ITEM_BUDGETS \u00b7 transport deferred",
+      "at": "2026-09-12T02:00:00Z",
+      "severity": "caution"
+    },
+    {
+      "id": "reject",
+      "text": "REJECT \u00b7 OUTCOME_PROVEN \u00b7 west-motor",
+      "at": "2026-09-12T00:54:57Z"
+    },
+    {
+      "id": "bridge",
+      "text": "BRIDGE \u00b7 ok \u00b7 puller v1.6",
+      "at": "2026-09-12T01:50:00Z"
+    },
+    {
+      "id": "pr",
+      "text": "PR \u00b7 hq/p0-ops-floor-painter-v1 open",
+      "at": "2026-09-12T02:10:00Z"
+    },
+    {
+      "id": "sel",
+      "text": "SELECT \u00b7 transport-dispatch \u00b7 score 230",
+      "at": "2026-09-12T01:13:46Z"
+    }
+  ]
+}
