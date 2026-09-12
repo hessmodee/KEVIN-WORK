@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
-VERSION = "1.0.8"
+VERSION = "1.0.9"
 PARTS_CHASE_KEY = "west-motor-parts-chase-board-pack@1"
 PARTS_CHASE_WORK_ID = "owner-west-motor-parts-chase-fresh-8-v1"
 TRANSPORT_KEY = "vehicle-transport-mission-pack@1"
@@ -30,6 +30,8 @@ EXPIRED_MANIFEST_KEY = "expired-manifest-regression-design-pack@1"
 EXPIRED_MANIFEST_WORK_ID = "autonomy-expired-manifest-regression-design-fresh-2026-09-11-v1"
 REFLECTION_RUNTIME_KEY = "reflection-runtime-integration-design-pack@1"
 REFLECTION_RUNTIME_WORK_ID = "autonomy-reflection-runtime-integration-fresh-2026-09-11-v1"
+BROWSER_COMPUTER_KEY = "browser-computer-qualification-design-pack@1"
+BROWSER_COMPUTER_WORK_ID = "autonomy-browser-computer-qualification-fresh-2026-09-11-v1"
 TRANSPORT_FIELDS = (
     "priority",
     "request_id",
@@ -328,10 +330,15 @@ def build_reflection_runtime_request(invocation_id: str) -> Dict[str, Any]:
     return {"schema":1,"kind":"kevin-proven-skill-invocation","authority":"GREEN","skill_key":REFLECTION_RUNTIME_KEY,"invocation_id":invocation_id,"steps":steps}
 
 
+def build_browser_computer_request(invocation_id: str) -> Dict[str, Any]:
+    steps = json.loads("[{\"operation\": \"create_spreadsheet\", \"payload\": {\"filename\": \"browser-computer-qualification-design.xlsx\", \"workbook\": {\"schema\": 1, \"kind\": \"kevin-xlsx-spec\", \"sheets\": [{\"name\": \"Inventory\", \"rows\": [[\"Capability\", \"Installed evidence (fill)\", \"Version/path\", \"Protected?\", \"Notes\"], [\"OpenClaw runtime\", \"OPEN\", \"\", \"YES\", \"no credential read\"], [\"Managed browser\", \"OPEN\", \"\", \"YES\", \"isolated only\"], [\"Windows Computer Use\", \"OPEN\", \"\", \"YES\", \"no personal browser\"], [\"Model/tool prereqs\", \"OPEN\", \"\", \"YES\", \"list only\"]]}, {\"name\": \"Contract Gap\", \"rows\": [[\"Required contract\", \"Current\", \"Gap\", \"Risk\"], [\"Isolated managed browser\", \"OPEN\", \"OPEN\", \"credential leak\"], [\"Windows Computer Use bound\", \"OPEN\", \"OPEN\", \"unbounded desktop\"], [\"No personal browser\", \"OPEN\", \"OPEN\", \"PII/session\"], [\"No credential handling\", \"OPEN\", \"OPEN\", \"secret exposure\"]]}, {\"name\": \"Qualification Plan\", \"rows\": [[\"Phase\", \"Action\", \"Rollback\", \"Negative test\", \"Promote?\"], [\"1 Inventory\", \"Read-only evidence\", \"N/A\", \"fail if secrets touched\", \"NO\"], [\"2 Isolated browser stage\", \"Stage managed profile only\", \"revert profile\", \"fail if personal profile\", \"NO\"], [\"3 Computer Use stage\", \"Bounded harness\", \"disable harness\", \"fail if unbounded\", \"NO\"], [\"4 Independent prove\", \"Receipt+VERIFY\", \"keep prior\", \"fail if no receipt\", \"later\"]]}, {\"name\": \"Acceptance\", \"rows\": [[\"Field\", \"Value\"], [\"WorkInstance\", \"autonomy-browser-computer-qualification-fresh-2026-09-11-v1\"], [\"Predecessor\", \"autonomy-browser-computer-qualification-v1\"], [\"Notepad\", \"BANNED\"], [\"Chat/tool widen\", \"FORBIDDEN this pack\"], [\"Primitives\", \"create_spreadsheet + create_text\"], [\"Production upgrade\", \"NONE\"]]}]}}}, {\"operation\": \"create_text\", \"payload\": {\"filename\": \"browser-computer-qualification-design-brief.md\", \"content\": \"# Browser / Computer Use qualification design brief\\n\\n**WorkInstance:** autonomy-browser-computer-qualification-fresh-2026-09-11-v1\\n**Predecessor:** autonomy-browser-computer-qualification-v1 (BOUNDED; no history reset)\\n**Actor:** GROKBOT_ACTED staging (not Kevin-learned)\\n**Notepad:** banned | **Chat/tool widen:** forbidden in this pack\\n**Primitives:** create_spreadsheet + create_text only\\n**Production upgrade:** NONE\\n\\n## Plan\\n1. Inventory installed OpenClaw/browser/computer-use evidence without credentials or protected config changes.\\n2. Compare to isolated managed-browser and Windows Computer Use contracts.\\n3. Reversible qualification with explicit rollback, model/tool prerequisites, negative tests, and no-personal-browser / no-credential-handling boundary.\\n4. Do not blindly upgrade production; stage and independently prove before any later promotion.\"}}]")
+    return {"schema":1,"kind":"kevin-proven-skill-invocation","authority":"GREEN","skill_key":BROWSER_COMPUTER_KEY,"invocation_id":invocation_id,"steps":steps}
+
+
 def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) -> str:
     if item and str(item.get("required_skill_key") or "").strip():
         key = str(item.get("required_skill_key")).strip()
-        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY, RUNTIME_TRUTH_KEY, EXPIRED_MANIFEST_KEY, REFLECTION_RUNTIME_KEY}:
+        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY, RUNTIME_TRUTH_KEY, EXPIRED_MANIFEST_KEY, REFLECTION_RUNTIME_KEY, BROWSER_COMPUTER_KEY}:
             return key
         raise BuilderError("UNSUPPORTED_SKILL_KEY")
     if work_id == TRANSPORT_WORK_ID:
@@ -346,6 +353,8 @@ def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) 
         return EXPIRED_MANIFEST_KEY
     if work_id == REFLECTION_RUNTIME_WORK_ID:
         return REFLECTION_RUNTIME_KEY
+    if work_id == BROWSER_COMPUTER_WORK_ID:
+        return BROWSER_COMPUTER_KEY
     raise BuilderError("UNSUPPORTED_WORK_ID")
 
 
@@ -622,6 +631,12 @@ def main() -> int:
             return 0
         if skill == REFLECTION_RUNTIME_KEY:
             request = build_reflection_runtime_request(args.invocation_id)
+            Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
+            print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
+            return 0
+        if skill == BROWSER_COMPUTER_KEY:
+            request = build_browser_computer_request(args.invocation_id)
             Path(args.output).parent.mkdir(parents=True, exist_ok=True)
             Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
             print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
