@@ -578,7 +578,7 @@
                       "priority":  "high",
                       "owner_value":  5,
                       "program":  "platform-reliability",
-                      "lane":  "research",
+                      "lane":  "production",
                       "work_type":  "research",
                       "severity":  "high",
                       "closes_proof_gap":  true,
@@ -590,7 +590,7 @@
                       "material_new_evidence":  true,
                       "production_effect":  "NONE",
                       "estimated_minutes":  20,
-                      "reuses_proven_capability":  false,
+                      "reuses_proven_capability":  true,
                       "produces_owner_deliverable":  true,
                       "successor_of":  "autonomy-runtime-truth-reconciliation-v1",
                       "lineage":  "autonomy-runtime-truth-reconciliation",
@@ -598,8 +598,8 @@
                       "materialized_by":  "GROKBOT_ACTED",
                       "never_kevin_learned_claim":  true,
                       "downstream_consumer":  "SUPPORT_HQ_TRUTH_PUBLISHER_REPAIR",
-                      "required_skill_key":  null,
-                      "worker":  null,
+                      "required_skill_key":  "runtime-truth-reconciliation-diagnosis-pack@1",
+                      "worker":  "proven-skill-invocation",
                       "notepad_banned":  true,
                       "acceptance_criteria":  [
                                                   "Fresh WorkInstance selected without resetting predecessor BOUNDED history.",
@@ -607,7 +607,7 @@
                                                   "Durable diagnosis pointer: freshest source vs stale display + smallest typed repair target.",
                                                   "No PASS claim; VERIFY judges owner outcomes separately."
                                               ],
-                      "next_action":  "SKILL_LAB_GAP — stage runtime-truth-reconciliation-diagnosis-pack@1 then Lab PROVE",
+                      "next_action":  "Lab PROVEN — eligible for Supervisor F17F ROUTED when budgets clear; no history reset on predecessor",
                       "evidence_pointers":  [
                                                 "reports/autonomy-continuation-latest.json",
                                                 "reports/hq-live-floor.json",
