@@ -2,7 +2,7 @@
 
 > **LAYER / READER / DAILY LOOP:** Do not replace or truncate this file. Write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only. This file is the Extreme Autonomy Flywheel execution contract.
 
-**Updated:** 2026-09-11 07:05 MT  
+**Updated:** 2026-09-12 09:06 MT  
 **Status:** Core platform is operational and Benchmark is 30/30. HQ LIVE badge already paints **BLOCKED** (correct). Uniqueness is **closed**: live builder `83B3EDA6…`, invocation `471E5051…`, isolated diagnose `STAGE_OK_WAITING_ACTION_ERA` / `python_exit=0` at 06:58 MT. Continuation 33s later is still `BLOCKED_INVOCATION_RUNTIME` / `68845506…`. Diagnose RequestId `diagnose-…` is not the Supervisor RequestId `invoke-…`. **THIS CYCLE:** puller **v1.6** sticky-RequestId quarantine + diagnose v1.3.2 worker hashes + Supervisor RequestId sim. Not PASS.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
