@@ -17,13 +17,15 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
-VERSION = "1.0.5"
+VERSION = "1.0.6"
 PARTS_CHASE_KEY = "west-motor-parts-chase-board-pack@1"
 PARTS_CHASE_WORK_ID = "owner-west-motor-parts-chase-fresh-8-v1"
 TRANSPORT_KEY = "vehicle-transport-mission-pack@1"
 TRANSPORT_WORK_ID = "owner-west-motor-transport-dispatch-template-v1"
 DEALERSHIP_SCAN_KEY = "dealership-operations-opportunity-scan-pack@1"
 DEALERSHIP_SCAN_WORK_ID = "owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1"
+RUNTIME_TRUTH_KEY = "runtime-truth-reconciliation-diagnosis-pack@1"
+RUNTIME_TRUTH_WORK_ID = "autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1"
 TRANSPORT_FIELDS = (
     "priority",
     "request_id",
@@ -298,10 +300,23 @@ def build_dealership_scan_request(invocation_id: str) -> Dict[str, Any]:
     }
 
 
+def build_runtime_truth_request(invocation_id: str) -> Dict[str, Any]:
+    """GREEN diagnosis pack — mirrors Lab-PROVEN spreadsheet+text steps."""
+    steps = json.loads("[{\"operation\": \"create_spreadsheet\", \"payload\": {\"filename\": \"runtime-truth-reconciliation-diagnosis.xlsx\", \"workbook\": {\"schema\": 1, \"kind\": \"kevin-xlsx-spec\", \"sheets\": [{\"name\": \"Source Freshness\", \"rows\": [[\"Source\", \"Path\", \"Freshest At (fill)\", \"Status\", \"Notes\"], [\"Continuation\", \"reports/autonomy-continuation-latest.json\", \"\", \"OPEN\", \"Supervisor truth plane\"], [\"HQ Live Floor\", \"reports/hq-live-floor.json\", \"\", \"OPEN\", \"ONE CLOCK authority\"], [\"Support Latest\", \"reports/support-latest.json\", \"\", \"OPEN\", \"Must sync UP to floor only\"], [\"Public Reject\", \"reports/invocations/latest-public-reject.json\", \"\", \"OPEN\", \"Hashes + reason-code\"], [\"Benchmark\", \"reports (benchmark latest)\", \"\", \"OPEN\", \"If present\"], [\"Maintenance\", \"reports/maintenance\", \"\", \"OPEN\", \"Do not alter protected state\"]]}, {\"name\": \"Stale Displays\", \"rows\": [[\"Display / Report\", \"Suspected Stale?\", \"Contradicts Source\", \"Evidence Pointer\", \"Owner Impact\"], [\"HQ Pages cycle paint\", \"MAYBE\", \"support.cycle 449 vs floor>=450\", \"LESSON-one-clock-floor-cycle-authority\", \"Matt sees frozen 449\"], [\"Public reject lag\", \"MAYBE\", \"outcome_proven stripe vs live invoke\", \"latest-public-reject.json\", \"False PASS/lag risk\"], [\"Skill lab GAP paint\", \"MAYBE\", \"failed leftovers vs new PROVEN packs\", \"hq-live-floor.skill_lab\", \"Misleads Lab-first\"]]}, {\"name\": \"Repair Target\", \"rows\": [[\"Field\", \"Value\"], [\"Smallest typed repair\", \"Tick-owned publisher/support sync UP + Pages read floor.cycle only\"], [\"Forbidden\", \"history reset; fixed:main workaround; Notepad Lab proof; Supervisor recopy\"], [\"Consumer\", \"SUPPORT_HQ_TRUTH_PUBLISHER_REPAIR\"], [\"WorkInstance\", \"autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1\"], [\"Predecessor\", \"autonomy-runtime-truth-reconciliation-v1\"]]}]}}}, {\"operation\": \"create_text\", \"payload\": {\"filename\": \"runtime-truth-reconciliation-diagnosis-brief.md\", \"content\": \"# Runtime truth reconciliation diagnosis brief\\n\\n**WorkInstance:** autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1\\n**Predecessor:** autonomy-runtime-truth-reconciliation-v1 (BOUNDED evidence; no history reset)\\n**Actor staging:** GROKBOT_ACTED (Lab prove path; not Kevin-learned claim)\\n**Notepad:** banned for Lab proof\\n**Primitives:** create_spreadsheet + create_text only\\n\\n## Intent\\nCompare freshest local Engineering / Support / Benchmark / Supervisor / Maintenance evidence against stale HQ/publisher displays. Leave a durable bounded repair target for the engineering/maintenance lane. Do not alter protected production state. A model reply alone is not repair proof.\\n\\n## ONE CLOCK\\n`reports/hq-live-floor.json` cycle is authoritative. `support-latest.supervisor.cycle` syncs UP only and is never a painter freeze sentinel.\\n\\n## Success\\nDurable diagnosis pointer naming freshest source, stale display, and smallest typed reconciliation mechanism.\"}}]")
+    return {
+        "schema": 1,
+        "kind": "kevin-proven-skill-invocation",
+        "authority": "GREEN",
+        "skill_key": RUNTIME_TRUTH_KEY,
+        "invocation_id": invocation_id,
+        "steps": steps,
+    }
+
+
 def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) -> str:
     if item and str(item.get("required_skill_key") or "").strip():
         key = str(item.get("required_skill_key")).strip()
-        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY}:
+        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY, RUNTIME_TRUTH_KEY}:
             return key
         raise BuilderError("UNSUPPORTED_SKILL_KEY")
     if work_id == TRANSPORT_WORK_ID:
@@ -310,6 +325,8 @@ def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) 
         return PARTS_CHASE_KEY
     if work_id == DEALERSHIP_SCAN_WORK_ID:
         return DEALERSHIP_SCAN_KEY
+    if work_id == RUNTIME_TRUTH_WORK_ID:
+        return RUNTIME_TRUTH_KEY
     raise BuilderError("UNSUPPORTED_WORK_ID")
 
 
@@ -568,6 +585,12 @@ def main() -> int:
             return 0
         if skill == DEALERSHIP_SCAN_KEY:
             request = build_dealership_scan_request(args.invocation_id)
+            Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
+            print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
+            return 0
+        if skill == RUNTIME_TRUTH_KEY:
+            request = build_runtime_truth_request(args.invocation_id)
             Path(args.output).parent.mkdir(parents=True, exist_ok=True)
             Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
             print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
