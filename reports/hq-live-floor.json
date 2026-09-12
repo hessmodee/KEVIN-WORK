@@ -1,9 +1,9 @@
 {
     "schema":  "kevin.hq-live-floor.v1",
     "kind":  "kevin.hq-live-floor.v1",
-    "updated_at":  "2026-09-11T22:46:51.0438882-06:00",
+    "updated_at":  "2026-09-11T22:48:44.4843644-06:00",
     "generated_at":  "2026-09-11T22:46:53.2071296-06:00",
-    "cycle":  463,
+    "cycle":  464,
     "painter_frozen":  false,
     "cycle_frozen":  false,
     "supervisor_version":  "1.8.12",
@@ -11,8 +11,8 @@
     "supervisor_sha":  "F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB",
     "selected_id":  "owner-west-motor-transport-dispatch-template-v1",
     "status":  "OUTCOME_PROVEN",
-    "center_status":  "LAB",
-    "center":  "LAB",
+    "center_status":  "READY",
+    "center":  "READY",
     "outcome_proven":  true,
     "action_era_ready_count":  0,
     "ready_count":  0,
@@ -39,20 +39,20 @@
                      "one_line":  "",
                      "updated_at":  "2026-09-11T21:28:37.9413339-06:00"
                  },
-    "painted_hint":  "LAB",
+    "painted_hint":  "READY",
     "skill_lab":  {
-                      "stage":  "LAB",
-                      "ready_count":  1,
+                      "stage":  "PROVE",
+                      "ready_count":  0,
                       "running_count":  0,
                       "failed_count":  4,
-                      "done_count":  28,
+                      "done_count":  29,
                       "entrypoint":  "kevin-skill-lab.ps1",
                       "cron":  "kevin-skill-lab-v1",
                       "work_instance_id":  "owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1",
-                      "candidate":  "dealership-operations-opportunity-scan-pack@1",
+                      "latest_proven_key":  "dealership-operations-opportunity-scan-pack@1",
                       "notepad_proof_banned":  true,
-                      "latest_proven_key":  "cache-valley-appliance-repair-launch-pack@2",
-                      "reason":  "NEW WI materialized; Skill Lab GAP→LAB for dealership scan pack (no Notepad)"
+                      "promote_to_registry_pending":  false,
+                      "reason":  "Lab PROVEN dealership-operations-opportunity-scan-pack@1; WI bound; Supervisor select next when eligible"
                   },
     "bridge":  {
                    "status":  "ok",
@@ -61,5 +61,5 @@
                    "host":  "HESS-PC",
                    "why":  "Local HESS bridge file present; HQ UNKNOWN means public main bridge-latest was not refreshed"
                },
-    "detail":  "24/7: owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1 in Skill Lab (LAB). HOLD Supervisor select until PROVEN. Center LAB not OUTCOME_PROVEN."
+    "detail":  "24/7: dealership scan pack PROVEN + WI bound. Center READY (not OUTCOME_PROVEN). HOLD until F17F routes."
 }
