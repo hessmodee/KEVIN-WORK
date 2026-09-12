@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation-receipt",
+  "version": "1.1.2",
+  "status": "PROVEN",
+  "authority": "GREEN",
+  "completed_at": "2026-09-12T02:33:30.501071Z",
+  "invocation_id": "invoke-owner-west-motor-transport-dispatch-template-v1",
+  "skill_key": "vehicle-transport-mission-pack@1",
+  "proven_identity": {
+    "manifest_sha256": "E6D2C52524A6B322C7EC1993034212E07F1BC4477A02500AE47E0084B88B2641",
+    "proof_sha256": "0B3304ABAAA53950AE412E8EFD25C7D9E6537B2A98CB3D4C6B3BF23F9D932724",
+    "result_file": "vehicle-transport-mission-pack--1.json",
+    "primitive_steps": [
+      "create_spreadsheet",
+      "create_text"
+    ],
+    "proven_at": "2026-09-04T10:10:36.7598745-06:00"
+  },
+  "request_sha256": "ED46704B250CBF59DED50A69ED90970F7ACE72AC8D3E8B65F46C9FD7F3CBAE14",
+  "step_results": [
+    {
+      "index": 0,
+      "order_id": "invoke-invoke-owner-west-motor-transport-dispatch-template-v1-s01",
+      "semantic_key": "invoke:vehicle-transport-mission-pack@1:invoke-owner-west-motor-transport-dispatch-template-v1:step:1",
+      "operation": "create_spreadsheet",
+      "final_state": "DONE",
+      "order_record_sha256": "465F391CFD987F85C9991BB0BD795F9C6612E6F4FFAB27C93CF5F6F18FEA1C5A",
+      "completed_at": "2026-09-11T20:32:43.3510187-06:00",
+      "output_name": "Kevin-West-Motor-Transport-Dispatch-Fictional.xlsx",
+      "sha256": "63D5F80FF9458CEA0ADD44685E04FA6406A09F45AA69FE35DE0A6BF34A54345A",
+      "bytes": 4570,
+      "verified_sha256": "63D5F80FF9458CEA0ADD44685E04FA6406A09F45AA69FE35DE0A6BF34A54345A",
+      "verified_bytes": 4570
+    },
+    {
+      "index": 1,
+      "order_id": "invoke-invoke-owner-west-motor-transport-dispatch-template-v1-s02",
+      "semantic_key": "invoke:vehicle-transport-mission-pack@1:invoke-owner-west-motor-transport-dispatch-template-v1:step:2",
+      "operation": "create_text",
+      "final_state": "DONE",
+      "order_record_sha256": "6BBDA55FEB32306D5BD7F499D7AE6E95AF9EA87A80A62081228F7575995B1EA6",
+      "completed_at": "2026-09-11T20:33:17.0125740-06:00",
+      "output_name": "Kevin-West-Motor-Transport-Dispatch-Fictional-Note.md",
+      "sha256": "87EDF3F428B01B18C5D6A3DDA7E05112278C399B4A86FADECA1D39F1982FB549",
+      "bytes": 649,
+      "verified_sha256": "87EDF3F428B01B18C5D6A3DDA7E05112278C399B4A86FADECA1D39F1982FB549",
+      "verified_bytes": 649
+    }
+  ],
+  "failure": null,
+  "verification": {
+    "artifact_root_bounded": true,
+    "artifact_hashes_rechecked": true,
+    "artifact_sizes_rechecked": true
+  },
+  "receipt_sha256": "2539BD7AE5090C3BCC48C1E97BA154F7C58628851728C3F66FDEFC392AFE1D5F"
+}
