@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-11T23:12:50.8897045-06:00",
+    "generated_at":  "2026-09-11T23:14:50.8059183-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
@@ -27,25 +27,25 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  4
+                                     "heartbeat_age_seconds":  1.6
                                  },
                    "queues":  {
                                   "ready":  0,
                                   "running":  0,
-                                  "done":  84,
+                                  "done":  86,
                                   "failed":  1
                               },
                    "composite_skills":  {
                                             "ready":  0,
                                             "running":  0,
-                                            "done":  31,
+                                            "done":  32,
                                             "failed":  4,
-                                            "proven_count":  31,
+                                            "proven_count":  32,
                                             "latest_proven":  {
-                                                                  "key":  "expired-manifest-regression-design-pack@1",
-                                                                  "proven_at":  "2026-09-11T23:11:12.7184746-06:00",
-                                                                  "manifest_sha256":  "60A4F89F6A4C4D911DA5A4ED414EA470165041B0C5515911541A751D6F308E3A",
-                                                                  "proof_sha256":  "B7547266C66311730A7302F09CD8648EE7B8F26F0707C8A5AD4622FD197D7888",
+                                                                  "key":  "reflection-runtime-integration-design-pack@1",
+                                                                  "proven_at":  "2026-09-11T23:13:19.2441915-06:00",
+                                                                  "manifest_sha256":  "173DBD2479DB23585546542DD867FB1C6DAB1A8C013D4BDDBC84F235D2B6903F",
+                                                                  "proof_sha256":  "F590A0CF7DB96716E113553579B2E1191F4AE7BDF5CCD4728A55A6A7EB020A26",
                                                                   "primitive_steps":  [
                                                                                           "create_spreadsheet",
                                                                                           "create_text"
@@ -75,6 +75,13 @@
                                     "consecutive_errors":  0
                                 },
                                 {
+                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
                                     "declaration_key":  "kevin-maintenance-intake-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
@@ -85,13 +92,6 @@
                                     "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-support-bridge-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
