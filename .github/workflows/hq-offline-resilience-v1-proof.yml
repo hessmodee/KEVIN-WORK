@@ -14,6 +14,7 @@ on:
       - 'docs/hq-ground-truth-v8.js'
       - 'docs/hq-p1-ground-truth-v1.js'
       - 'docs/hq-p0-floor-painter-v1.js'
+      - 'docs/hq-p0-floor-painter-v1.b64.*.txt'
       - '.github/workflows/hq-offline-resilience-v1-proof.yml'
   pull_request:
     paths:
@@ -27,6 +28,7 @@ on:
       - 'docs/hq-ground-truth-v8.js'
       - 'docs/hq-p1-ground-truth-v1.js'
       - 'docs/hq-p0-floor-painter-v1.js'
+      - 'docs/hq-p0-floor-painter-v1.b64.*.txt'
       - '.github/workflows/hq-offline-resilience-v1-proof.yml'
   workflow_dispatch:
 
@@ -66,7 +68,8 @@ jobs:
           sw=Path('docs/sw.js').read_text(encoding='utf-8')
           required=[
             'docs/index.html','docs/hq-core-v7.html','docs/hq-evidence-adapter-v1.js',
-            'docs/hq-overrides-v1.js','docs/hq-owner-console-v10.js','docs/hq-p1-ground-truth-v1.js','docs/hq-p0-floor-painter-v1.js','docs/hq-p0-floor-painter-v1.b64.01.txt','docs/hq-p0-floor-painter-v1.b64.02.txt','docs/hq-p0-floor-painter-v1.b64.03.txt','docs/hq-p0-floor-painter-v1.b64.04.txt','docs/hq-p0-floor-painter-v1.b64.05.txt','docs/hq-p0-floor-painter-v1.b64.06.txt','docs/hq-p0-floor-painter-v1.b64.07.txt','docs/hq-p0-floor-painter-v1.b64.08.txt','docs/hq-growth-v1.js',
+            'docs/hq-overrides-v1.js','docs/hq-owner-console-v10.js','docs/hq-p1-ground-truth-v1.js','docs/hq-p0-floor-painter-v1.js',
+            'docs/hq-p0-floor-painter-v1.b64.01.txt','docs/hq-p0-floor-painter-v1.b64.02.txt','docs/hq-p0-floor-painter-v1.b64.03.txt','docs/hq-p0-floor-painter-v1.b64.04.txt','docs/hq-p0-floor-painter-v1.b64.05.txt','docs/hq-p0-floor-painter-v1.b64.06.txt','docs/hq-p0-floor-painter-v1.b64.07.txt','docs/hq-p0-floor-painter-v1.b64.08.txt','docs/hq-p0-floor-painter-v1.b64.09.txt','docs/hq-p0-floor-painter-v1.b64.10.txt','docs/hq-p0-floor-painter-v1.b64.11.txt','docs/hq-p0-floor-painter-v1.b64.12.txt','docs/hq-p0-floor-painter-v1.b64.13.txt','docs/hq-p0-floor-painter-v1.b64.14.txt','docs/hq-p0-floor-painter-v1.b64.15.txt','docs/hq-p0-floor-painter-v1.b64.16.txt','docs/hq-growth-v1.js',
             'docs/ops/index.html','docs/ops/embed.html','docs/ops/app.js','docs/ops/style.css',
             'docs/ops/ops-v11.css','docs/ops/ops-v11.js'
           ]
