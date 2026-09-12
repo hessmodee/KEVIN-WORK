@@ -1,0 +1,231 @@
+{
+    "schema":  1,
+    "kind":  "kevin-composite-skill-run",
+    "status":  "PROVEN",
+    "started_at":  "2026-09-11T23:11:04.7408676-06:00",
+    "last_transition_at":  "2026-09-11T23:11:12.1259836-06:00",
+    "runner_heartbeat_at":  "2026-09-11T23:11:12.1259836-06:00",
+    "manifest":  {
+                     "schema":  1,
+                     "kind":  "kevin-composite-skill",
+                     "id":  "expired-manifest-regression-design-pack",
+                     "version":  "1",
+                     "authority":  "GREEN",
+                     "name":  "Expired Manifest Regression Design Pack",
+                     "description":  "GREEN research design board for fail-closed expired/terminal Maintenance manifest handling: refuse execution, record truthful idle/terminal, deterministic regression matrix. Spreadsheet+text only. Notepad banned. GROKBOT_ACTED staging (not Kevin-learned). No production write.",
+                     "steps":  [
+                                   {
+                                       "operation":  "create_spreadsheet",
+                                       "payload":  {
+                                                       "filename":  "expired-manifest-regression-design.xlsx",
+                                                       "workbook":  {
+                                                                        "schema":  1,
+                                                                        "kind":  "kevin-xlsx-spec",
+                                                                        "sheets":  [
+                                                                                       {
+                                                                                           "name":  "Current Semantics",
+                                                                                           "rows":  [
+                                                                                                        [
+                                                                                                            "Question",
+                                                                                                            "Finding (fill from runner)",
+                                                                                                            "Evidence Pointer",
+                                                                                                            "Risk if wrong"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Expired canonical refused before exec?",
+                                                                                                            "OPEN",
+                                                                                                            "Maintenance runner",
+                                                                                                            "Cron health poison"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Terminal/duplicate path?",
+                                                                                                            "OPEN",
+                                                                                                            "Maintenance runner",
+                                                                                                            "Replay/exec"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Malformed fail-closed?",
+                                                                                                            "OPEN",
+                                                                                                            "Maintenance runner",
+                                                                                                            "Silent skip"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Valid path still executes?",
+                                                                                                            "OPEN",
+                                                                                                            "Maintenance runner",
+                                                                                                            "False idle"
+                                                                                                        ]
+                                                                                                    ]
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "Design Delta",
+                                                                                           "rows":  [
+                                                                                                        [
+                                                                                                            "Change",
+                                                                                                            "Smallest fail-closed behavior",
+                                                                                                            "Auditable result kind",
+                                                                                                            "Forbidden"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Expired input",
+                                                                                                            "Refuse before execution",
+                                                                                                            "IDLE_EXPIRED or TERMINAL_EXPIRED receipt",
+                                                                                                            "Execute stale work"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Duplicate/terminal",
+                                                                                                            "Refuse; keep prior receipt",
+                                                                                                            "TERMINAL_DUPLICATE",
+                                                                                                            "Reset history"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Malformed",
+                                                                                                            "Fail closed with reason-code",
+                                                                                                            "REJECT_MALFORMED",
+                                                                                                            "Best-effort run"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Valid",
+                                                                                                            "Unchanged execute path",
+                                                                                                            "SUCCESS/receipt as today",
+                                                                                                            "Widen authority"
+                                                                                                        ]
+                                                                                                    ]
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "Regression Matrix",
+                                                                                           "rows":  [
+                                                                                                        [
+                                                                                                            "Case",
+                                                                                                            "Input fixture",
+                                                                                                            "Expect exec?",
+                                                                                                            "Expect result kind",
+                                                                                                            "Proof"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "EXPIRED",
+                                                                                                            "expired canonical manifest",
+                                                                                                            "NO",
+                                                                                                            "IDLE/TERMINAL expired",
+                                                                                                            "unit/harness"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "DUPLICATE_TERMINAL",
+                                                                                                            "already terminal id",
+                                                                                                            "NO",
+                                                                                                            "terminal duplicate",
+                                                                                                            "unit/harness"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "MALFORMED",
+                                                                                                            "broken JSON/schema",
+                                                                                                            "NO",
+                                                                                                            "reject malformed",
+                                                                                                            "unit/harness"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "VALID",
+                                                                                                            "current good manifest",
+                                                                                                            "YES",
+                                                                                                            "normal success path",
+                                                                                                            "unit/harness"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "ROLLBACK",
+                                                                                                            "exact-current/exact-after",
+                                                                                                            "N/A",
+                                                                                                            "identity gates preserved",
+                                                                                                            "Benchmark gate"
+                                                                                                        ]
+                                                                                                    ]
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "Acceptance Contract",
+                                                                                           "rows":  [
+                                                                                                        [
+                                                                                                            "Field",
+                                                                                                            "Value"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "WorkInstance",
+                                                                                                            "autonomy-expired-manifest-regression-design-fresh-2026-09-11-v1"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Predecessor",
+                                                                                                            "autonomy-expired-manifest-regression-design-v1"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Consumer",
+                                                                                                            "MAINTENANCE_V1_3_51_PATCH_AND_REGRESSION"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Production write this item",
+                                                                                                            "NONE"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Primitives",
+                                                                                                            "create_spreadsheet + create_text"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Notepad",
+                                                                                                            "BANNED"
+                                                                                                        ]
+                                                                                                    ]
+                                                                                       }
+                                                                                   ]
+                                                                    }
+                                                   }
+                                   },
+                                   {
+                                       "operation":  "create_text",
+                                       "payload":  {
+                                                       "filename":  "expired-manifest-regression-design-brief.md",
+                                                       "content":  "# Expired manifest regression design brief\n\n**WorkInstance:** autonomy-expired-manifest-regression-design-fresh-2026-09-11-v1\n**Predecessor:** autonomy-expired-manifest-regression-design-v1 (BOUNDED evidence; no history reset)\n**Actor staging:** GROKBOT_ACTED (Lab prove path; not Kevin-learned)\n**Notepad:** banned\n**Primitives:** create_spreadsheet + create_text only\n**Production write:** NONE in this research item\n\n## Goal\nConfirm Maintenance refuses expired canonical manifests before execution, then design the smallest fail-closed change so expired/terminal input stays non-executable but records a truthful auditable idle/terminal result instead of poisoning scheduled cron health.\n\n## Tests (deterministic)\n1. EXPIRED â€” no exec; idle/terminal expired receipt\n2. DUPLICATE/TERMINAL â€” no exec; terminal duplicate\n3. MALFORMED â€” fail closed with reason-code\n4. VALID â€” still executes\n5. Preserve rollback + exact-current/exact-after identity + Benchmark gates for later promotion\n\n## Out of scope\nNo production Maintenance patch apply in this WI. Downstream consumer applies after design acceptance."
+                                                   }
+                                   }
+                               ]
+                 },
+    "manifest_sha256":  "60A4F89F6A4C4D911DA5A4ED414EA470165041B0C5515911541A751D6F308E3A",
+    "step_index":  2,
+    "current_order_id":  "",
+    "current_order_file":  "",
+    "current_order_state":  "",
+    "current_step_payload_sha256":  "",
+    "current_semantic_key":  "",
+    "step_started_at":  "2026-09-11T23:11:09.4421157-06:00",
+    "step_results":  [
+                         {
+                             "step_index":  0,
+                             "operation":  "create_spreadsheet",
+                             "order_id":  "skill-expired-manifest-regression-design-pack-1-s01",
+                             "semantic_key":  "skill:expired-manifest-regression-design-pack:1:step:1",
+                             "payload_sha256":  "78118304F3F672F64C319EC01A19D23EDD098822937513E22E934FA4D17FA0C9",
+                             "order_record_sha256":  "7B42DE4813D067D0603E490A251E127BF876C8CEDCF6F5D1AC1935F9E89DF318",
+                             "completed_at":  "2026-09-11T23:11:07.8903795-06:00",
+                             "output_name":  "expired-manifest-regression-design.xlsx",
+                             "sha256":  "CEFB7A68063E80C9876685AC23A7B80FC681E35B42FEAB106EE595F9DC2E1E62",
+                             "bytes":  5735,
+                             "screenshot_name":  "",
+                             "screenshot_sha256":  ""
+                         },
+                         {
+                             "step_index":  1,
+                             "operation":  "create_text",
+                             "order_id":  "skill-expired-manifest-regression-design-pack-1-s02",
+                             "semantic_key":  "skill:expired-manifest-regression-design-pack:1:step:2",
+                             "payload_sha256":  "978D2D74C4F0C8E3C4A105EF305314D5AAE4E61D7A9960129D0714FA1CEB2173",
+                             "order_record_sha256":  "114E40B3F1BDC18124DB404225342420BE7EB9DE9086433B387FE9E61E2F0765",
+                             "completed_at":  "2026-09-11T23:11:11.2204682-06:00",
+                             "output_name":  "expired-manifest-regression-design-brief.md",
+                             "sha256":  "E28BA715F1F8A0EEA81FBB4890CD831E6DCFA79E1526F7932340227FC3DEA55E",
+                             "bytes":  1134,
+                             "screenshot_name":  "",
+                             "screenshot_sha256":  ""
+                         }
+                     ],
+    "recovery_attempts":  0,
+    "last_recovery_reason":  "consumed skill-expired-manifest-regression-design-pack-1-s02",
+    "failure_evidence_sha256":  "",
+    "completed_at":  "2026-09-11T23:11:12.7184746-06:00",
+    "proof_sha256":  "B7547266C66311730A7302F09CD8648EE7B8F26F0707C8A5AD4622FD197D7888"
+}
