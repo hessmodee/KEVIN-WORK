@@ -1,81 +1,188 @@
 {
   "schema": 1,
-  "kind": "kevin-owner-outcome-scorecard",
-  "generated_at": "2026-08-31T12:29:10-06:00",
-  "safe_for_public_repo": true,
-  "measurement_contract": "docs/engineering/REAL-WORLD-OWNER-OUTCOME-PROTOCOL-v1.md",
-  "today": {
-    "verified_owner_outcomes": 1,
-    "owner_accepted_outcomes": 0,
-    "bess_interventions_per_verified_outcome": 1.0,
-    "first_pass_success_rate": 1.0,
-    "known_failure_self_recovery_rate": 0.0,
-    "note": "One real Omen maintenance outcome is verified. It is not counted as a Kevin autonomy transfer because Bess detected/initiated the repair. Owner acceptance is not applicable to this maintenance outcome."
+  "kind": "kevin-owner-outcomes-latest",
+  "generated_at": "2026-09-12T06:14:15.800030Z",
+  "authority": "RUNTIME_REPORT_ONLY",
+  "pass_claim": false,
+  "freeze": {
+    "clone_prove_minting": "HARD_STOP"
   },
-  "verified_outcomes": [
+  "newest_receipt": {
+    "work_id": "owner-dealership-friction-reducer-fresh-2026-09-11-v1",
+    "receipt_sha256": "AB113CA2A39C828BBFDC4838FAE9B03955E84E534EB0FB22117CDE413AE79EEB",
+    "completed_at": "2026-09-12T06:00:08.297879Z",
+    "skill_key": "dealership-friction-reducer-pack@1"
+  },
+  "count": 13,
+  "outcomes": [
     {
-      "outcome_id": "20260831-ui-bridge-fresh-heartbeat-repair",
-      "owner_goal": "reliable self-maintaining Kevin runtime and truthful interactive UI health",
-      "result": "PASS",
-      "workflow": "typed Maintenance v1.3.4 restart_ui_bridge",
-      "acceptance_criteria": [
-        "installed UI Bridge hash equals the expected pinned identity",
-        "Kevin UI Bridge v0.3 scheduled task exists",
-        "restart produces a fresh READY heartbeat within the bounded timeout",
-        "fresh Benchmark returns PASS 30/30 with zero critical failures",
-        "fresh independent Engineering snapshot sees a near-real-time heartbeat"
-      ],
-      "evidence": [
-        "reports/support-latest.json maintenance manifest ui-bridge-fresh-heartbeat-repair-20260831-1218 = APPLIED_PREAUTHORIZED_PROVEN",
-        "reports/engineering/latest.json generated 2026-08-31T12:29:06.8177047-06:00: UI Bridge heartbeat age 3.4 seconds, exact hash match, task present",
-        "reports/engineering/latest.json: Benchmark PASS 30/30 critical 0"
-      ],
-      "technical_proof": "OMEN-PROVEN repair and independent fresh-health cross-check",
-      "transfer_level": "T2 for this repair path; do not promote overall UI Bridge ownership solely from this event",
-      "bess_interventions": 1,
-      "owner_interventions": 0,
-      "owner_acceptance": "not-applicable",
-      "first_pass_success": true,
-      "retries": 0,
+      "work_id": "owner-dealership-friction-reducer-fresh-2026-09-11-v1",
+      "invocation_id": "invoke-owner-dealership-friction-reducer-fresh-2026-09-11-v1",
+      "skill_key": "dealership-friction-reducer-pack@1",
+      "receipt_sha256": "AB113CA2A39C828BBFDC4838FAE9B03955E84E534EB0FB22117CDE413AE79EEB",
+      "completed_at": "2026-09-12T06:00:08.297879Z",
+      "status": "PROVEN",
+      "actor": "MIXED",
       "autonomy_credit": false,
-      "autonomy_gap": "Bess noticed the stale heartbeat and issued the typed repair. Kevin still needs to prove notice -> diagnose -> repair -> verify without Bess."
-    }
-  ],
-  "real_capability_evidence_not_yet_counted_as_owner_outcome": [
-    {
-      "capability": "business-budget-starter-pack@1",
-      "proof": "OMEN-PROVEN Skill Lab composite",
-      "proven_at": "2026-08-31T08:10:29.3271378-06:00",
-      "why_not_counted": "Executable capability proof exists, but a real owner-requested deliverable produced through this composite has not yet been recorded as accepted."
-    }
-  ],
-  "active_operational_incidents": [
-    {
-      "id": "forge-round-robin-spin",
-      "state": "ACTIVE_BLOCKER",
-      "latest_observed_iteration": 273,
-      "symptom": "Legacy Forge continues demandless/repeated candidate execution.",
-      "remediation_state": "Demand-driven Forge v4.0 is CI-qualified. Direct typed install correctly rolled back because Benchmark R03 pins the previous Forge identity. A coordinated component + validator-pin migration is now in CI qualification."
+      "family": "dealership-owner-value",
+      "clone_spreadsheet_text": true,
+      "verify_note": "VERIFY may PASS/MIXED; RUNTIME does not claim PASS"
     },
     {
-      "id": "ui-bridge-stale-heartbeat",
-      "state": "RESOLVED_PROVEN",
-      "symptom": "Interactive UI Bridge task/hash was present but heartbeat was ~17h stale.",
-      "remediation_state": "Typed restart completed. Fresh Engineering cross-check reports heartbeat age 3.4 seconds, exact hash match, task present, Benchmark 30/30 critical 0."
+      "work_id": "owner-west-motor-trade-intake-fresh-2026-09-11-v1",
+      "invocation_id": "invoke-owner-west-motor-trade-intake-fresh-2026-09-11-v1",
+      "skill_key": "west-motor-trade-intake-pack@1",
+      "receipt_sha256": "C15662FE6D2FFE512DF0BB991CF87C5F80C97DCF1D76E5DB6077D48E8FC0EF32",
+      "completed_at": "2026-09-12T05:54:22.558934Z",
+      "status": "PROVEN",
+      "actor": "MIXED",
+      "autonomy_credit": false,
+      "family": "west-motor-owner-value",
+      "clone_spreadsheet_text": true,
+      "verify_note": "VERIFY may PASS/MIXED; RUNTIME does not claim PASS"
     },
     {
-      "id": "autonomy-work-selection",
-      "state": "NEEDS_REVIEW",
-      "symptom": "Autonomy has not yet proven demand-aware self-selection of useful work when another lane is blocked.",
-      "remediation_state": "Retest after Forge/runtime convergence; do not claim T3 work selection until Kevin independently selects, executes and verifies useful work."
+      "work_id": "owner-west-motor-recon-priority-board-fresh-2026-09-11-v1",
+      "invocation_id": "invoke-owner-west-motor-recon-priority-board-fresh-2026-09-11-v1",
+      "skill_key": "west-motor-recon-priority-board-pack@1",
+      "receipt_sha256": "0E2437A6CF159EC7CA61838582FB456019635C5F02F0554E1116154B34E47168",
+      "completed_at": "2026-09-12T05:49:45.012054Z",
+      "status": "PROVEN",
+      "actor": "MIXED",
+      "autonomy_credit": false,
+      "family": "west-motor-owner-value",
+      "clone_spreadsheet_text": true,
+      "verify_note": "VERIFY may PASS/MIXED; RUNTIME does not claim PASS"
+    },
+    {
+      "work_id": "owner-west-motor-delivery-prep-fresh-2026-09-11-v1",
+      "invocation_id": "invoke-owner-west-motor-delivery-prep-fresh-2026-09-11-v1",
+      "skill_key": "west-motor-delivery-prep-pack@1",
+      "receipt_sha256": "94BF0D605C5EBEB6DA4730504A9BC357901D0CF28ADE8D3336FA9E2560E834EB",
+      "completed_at": "2026-09-12T05:44:30.863461Z",
+      "status": "PROVEN",
+      "actor": "MIXED",
+      "autonomy_credit": false,
+      "family": "west-motor-owner-value",
+      "clone_spreadsheet_text": true,
+      "verify_note": "VERIFY may PASS/MIXED; RUNTIME does not claim PASS"
+    },
+    {
+      "work_id": "owner-west-motor-aging-inventory-fresh-2026-09-11-v1",
+      "invocation_id": "invoke-owner-west-motor-aging-inventory-fresh-2026-09-11-v1",
+      "skill_key": "west-motor-aging-inventory-action-pack@1",
+      "receipt_sha256": "8D6FF1B13AF4CE6E7EE27806A256503CBF004FA02634A6CD64206AC52FDB3E6F",
+      "completed_at": "2026-09-12T05:33:36.955223Z",
+      "status": "PROVEN",
+      "actor": "MIXED",
+      "autonomy_credit": false,
+      "family": "west-motor-owner-value",
+      "clone_spreadsheet_text": true,
+      "verify_note": "VERIFY may PASS/MIXED; RUNTIME does not claim PASS"
+    },
+    {
+      "work_id": "owner-west-motor-lot-walk-checklist-fresh-2026-09-11-v1",
+      "invocation_id": "invoke-owner-west-motor-lot-walk-checklist-fresh-2026-09-11-v1",
+      "skill_key": "west-motor-lot-walk-checklist-pack@1",
+      "receipt_sha256": "4A4FE020CD842103B071189C86D4497F838A5F200B3B8259F2FF6D27EC89DD42",
+      "completed_at": "2026-09-12T05:27:45.979728Z",
+      "status": "PROVEN",
+      "actor": "MIXED",
+      "autonomy_credit": false,
+      "family": "west-motor-owner-value",
+      "clone_spreadsheet_text": true,
+      "verify_note": "VERIFY may PASS/MIXED; RUNTIME does not claim PASS"
+    },
+    {
+      "work_id": "autonomy-browser-computer-qualification-fresh-2026-09-11-v1",
+      "invocation_id": "invoke-autonomy-browser-computer-qualification-fresh-2026-09-11-v1",
+      "skill_key": "browser-computer-qualification-design-pack@1",
+      "receipt_sha256": "515D8F1168CDBFE40BE7624F1EC6665FFBFB2078D3129B4797C796A4A8F4506A",
+      "completed_at": "2026-09-12T05:22:27.296996Z",
+      "status": "PROVEN",
+      "actor": "MIXED",
+      "autonomy_credit": false,
+      "family": "platform-design",
+      "clone_spreadsheet_text": false,
+      "verify_note": "VERIFY may PASS/MIXED; RUNTIME does not claim PASS"
+    },
+    {
+      "work_id": "autonomy-reflection-runtime-integration-fresh-2026-09-11-v1",
+      "invocation_id": "invoke-autonomy-reflection-runtime-integration-fresh-2026-09-11-v1",
+      "skill_key": "reflection-runtime-integration-design-pack@1",
+      "receipt_sha256": "C2A20625478A83662093D617769B6D9485D78EE64BBCB29959E48923B275E19C",
+      "completed_at": "2026-09-12T05:17:33.224124Z",
+      "status": "PROVEN",
+      "actor": "MIXED",
+      "autonomy_credit": false,
+      "family": "platform-design",
+      "clone_spreadsheet_text": false,
+      "verify_note": "VERIFY may PASS/MIXED; RUNTIME does not claim PASS"
+    },
+    {
+      "work_id": "autonomy-expired-manifest-regression-design-fresh-2026-09-11-v1",
+      "invocation_id": "invoke-autonomy-expired-manifest-regression-design-fresh-2026-09-11-v1",
+      "skill_key": "expired-manifest-regression-design-pack@1",
+      "receipt_sha256": "742A522663CA5B37B49A10F1B051B1160BF994E4B2788EA087FA31177C724AF8",
+      "completed_at": "2026-09-12T05:12:09.111549Z",
+      "status": "PROVEN",
+      "actor": "MIXED",
+      "autonomy_credit": false,
+      "family": "platform-design",
+      "clone_spreadsheet_text": false,
+      "verify_note": "VERIFY may PASS/MIXED; RUNTIME does not claim PASS"
+    },
+    {
+      "work_id": "autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1",
+      "invocation_id": "invoke-autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1",
+      "skill_key": "runtime-truth-reconciliation-diagnosis-pack@1",
+      "receipt_sha256": "F6470F0CBF149B3B32869C2496F1E24631A3899029062C97EE28B40DA69B65C5",
+      "completed_at": "2026-09-12T05:06:25.537268Z",
+      "status": "PROVEN",
+      "actor": "MIXED",
+      "autonomy_credit": false,
+      "family": "platform-design",
+      "clone_spreadsheet_text": false,
+      "verify_note": "VERIFY may PASS/MIXED; RUNTIME does not claim PASS"
+    },
+    {
+      "work_id": "owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1",
+      "invocation_id": "invoke-owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1",
+      "skill_key": "dealership-operations-opportunity-scan-pack@1",
+      "receipt_sha256": "B33C1AE09CAC2DCFF15A68E059E49DC1AE5774BE487C8CD68BE6882E1D3D7322",
+      "completed_at": "2026-09-12T04:54:25.117772Z",
+      "status": "PROVEN",
+      "actor": "MIXED",
+      "autonomy_credit": false,
+      "family": "dealership-owner-value",
+      "clone_spreadsheet_text": true,
+      "verify_note": "VERIFY may PASS/MIXED; RUNTIME does not claim PASS"
+    },
+    {
+      "work_id": "owner-west-motor-transport-dispatch-template-v1",
+      "invocation_id": "invoke-owner-west-motor-transport-dispatch-template-v1",
+      "skill_key": "vehicle-transport-mission-pack@1",
+      "receipt_sha256": "2539BD7AE5090C3BCC48C1E97BA154F7C58628851728C3F66FDEFC392AFE1D5F",
+      "completed_at": "2026-09-12T02:33:30.501071Z",
+      "status": "PROVEN",
+      "actor": "MIXED",
+      "autonomy_credit": false,
+      "family": "west-motor-owner-value",
+      "clone_spreadsheet_text": true,
+      "verify_note": "VERIFY may PASS/MIXED; RUNTIME does not claim PASS"
+    },
+    {
+      "work_id": "owner-west-motor-parts-chase-fresh-8-v1",
+      "invocation_id": "invoke-owner-west-motor-parts-chase-fresh-8-v1",
+      "skill_key": "west-motor-parts-chase-board-pack@1",
+      "receipt_sha256": "F6E408EFF3EB75904C29D45D9AFC25B69B703E0CB8B0001067B89F224759B37F",
+      "completed_at": "2026-09-12T00:54:57.610246Z",
+      "status": "PROVEN",
+      "actor": "MIXED",
+      "autonomy_credit": false,
+      "family": "west-motor-owner-value",
+      "clone_spreadsheet_text": true,
+      "verify_note": "VERIFY may PASS/MIXED; RUNTIME does not claim PASS"
     }
-  ],
-  "next_real_world_test": {
-    "target": "Complete one useful owner-value task E2E through Kevin's actual runtime and record acceptance, time, retries, evidence and Bess intervention.",
-    "preferred_examples": [
-      "Reader answers a useful current status/research question with provenance",
-      "Kevin uses a proven file/spreadsheet composite on a real owner deliverable",
-      "HQ direct chat completes a genuine Matt->Kevin->Matt correlated round trip"
-    ]
-  }
+  ]
 }
