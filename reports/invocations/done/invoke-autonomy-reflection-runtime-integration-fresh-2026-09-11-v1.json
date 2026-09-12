@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation-receipt",
+  "version": "1.1.2",
+  "status": "PROVEN",
+  "authority": "GREEN",
+  "completed_at": "2026-09-12T05:17:33.224124Z",
+  "invocation_id": "invoke-autonomy-reflection-runtime-integration-fresh-2026-09-11-v1",
+  "skill_key": "reflection-runtime-integration-design-pack@1",
+  "proven_identity": {
+    "manifest_sha256": "173DBD2479DB23585546542DD867FB1C6DAB1A8C013D4BDDBC84F235D2B6903F",
+    "proof_sha256": "F590A0CF7DB96716E113553579B2E1191F4AE7BDF5CCD4728A55A6A7EB020A26",
+    "result_file": "reflection-runtime-integration-design-pack--1.json",
+    "primitive_steps": [
+      "create_spreadsheet",
+      "create_text"
+    ],
+    "proven_at": "2026-09-11T23:13:19.2441915-06:00"
+  },
+  "request_sha256": "48B8AE28B7DBB107C8C3B49BDB68A5BFF8C16C9A970E831302386B66CA677438",
+  "step_results": [
+    {
+      "index": 0,
+      "order_id": "invoke-invoke-autonomy-reflection-runtime-integration-fresh-2026-09-11-v1-s01",
+      "semantic_key": "invoke:reflection-runtime-integration-design-pack@1:invoke-autonomy-reflection-runtime-integration-fresh-2026-09-11-v1:step:1",
+      "operation": "create_spreadsheet",
+      "final_state": "DONE",
+      "order_record_sha256": "14EEA08C2763C8491132C9DD9B6E2FE42BBC11B7B5C2DED50C373050A68C1B1C",
+      "completed_at": "2026-09-11T23:17:30.0775635-06:00",
+      "output_name": "reflection-runtime-integration-design (2).xlsx",
+      "sha256": "2615A9677A4947923F915F490BACD105EE169BEE97828B7AF47B57055A40EE98",
+      "bytes": 5376,
+      "verified_sha256": "2615A9677A4947923F915F490BACD105EE169BEE97828B7AF47B57055A40EE98",
+      "verified_bytes": 5376
+    },
+    {
+      "index": 1,
+      "order_id": "invoke-invoke-autonomy-reflection-runtime-integration-fresh-2026-09-11-v1-s02",
+      "semantic_key": "invoke:reflection-runtime-integration-design-pack@1:invoke-autonomy-reflection-runtime-integration-fresh-2026-09-11-v1:step:2",
+      "operation": "create_text",
+      "final_state": "DONE",
+      "order_record_sha256": "2C8E918D656DF019D5A76B73BEDE8E9345BD13A83FFE26D2C35AC6D92FA50544",
+      "completed_at": "2026-09-11T23:17:30.7227553-06:00",
+      "output_name": "reflection-runtime-integration-design-brief (2).md",
+      "sha256": "BD3775ED0C70605F345CC24AB0298ED2467D6E200F56F8E0E7CB251030EE09F9",
+      "bytes": 739,
+      "verified_sha256": "BD3775ED0C70605F345CC24AB0298ED2467D6E200F56F8E0E7CB251030EE09F9",
+      "verified_bytes": 739
+    }
+  ],
+  "failure": null,
+  "verification": {
+    "artifact_root_bounded": true,
+    "artifact_hashes_rechecked": true,
+    "artifact_sizes_rechecked": true
+  },
+  "receipt_sha256": "C2A20625478A83662093D617769B6D9485D78EE64BBCB29959E48923B275E19C"
+}
