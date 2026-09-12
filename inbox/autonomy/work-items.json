@@ -501,7 +501,10 @@
                                                   "Produce a reversible qualification plan with explicit rollback, model/tool prerequisites, negative tests and a no-personal-browser/no-credential-handling boundary.",
                                                   "Do not blindly upgrade production; any later upgrade must be staged and independently proven before promotion."
                                               ],
-                      "next_action":  "Create a fact-based reversible qualification plan for isolated browser first, then Windows Computer Use."
+                      "next_action":  "Create a fact-based reversible qualification plan for isolated browser first, then Windows Computer Use.",
+                      "evidence_only_predecessor":  true,
+                      "successor_work_instance":  "autonomy-browser-computer-qualification-fresh-2026-09-11-v1",
+                      "bounded_note":  "BOUNDED_TURNS evidence intact; no history reset"
                   },
                   {
                       "id":  "owner-dealership-operations-opportunity-scan-v1",
@@ -712,8 +715,50 @@
                                                 "kevin-supervisor.ps1",
                                                 "kevin-skill-lab.ps1"
                                             ],
-                      "block_reason":  "COMPLETE_DO_NOT_RESELECT",
-                      "last_receipt_sha256":  "C2A20625478A83662093D617769B6D9485D78EE64BBCB29959E48923B275E19C"
+                      "last_receipt_sha256":  "C2A20625478A83662093D617769B6D9485D78EE64BBCB29959E48923B275E19C",
+                      "block_reason":  "COMPLETE_DO_NOT_RESELECT"
+                  },
+                  {
+                      "id":  "autonomy-browser-computer-qualification-fresh-2026-09-11-v1",
+                      "authority_class":  "GREEN",
+                      "status":  "OPEN",
+                      "priority":  "high",
+                      "owner_value":  5,
+                      "program":  "computer-fluency",
+                      "lane":  "research",
+                      "work_type":  "research",
+                      "severity":  "medium",
+                      "closes_proof_gap":  true,
+                      "reduces_bess_intervention":  true,
+                      "dependencies_ready":  true,
+                      "blocked":  false,
+                      "failure_attempts":  0,
+                      "material_new_evidence":  true,
+                      "production_effect":  "NONE",
+                      "estimated_minutes":  40,
+                      "successor_of":  "autonomy-browser-computer-qualification-v1",
+                      "lineage":  "autonomy-browser-computer-qualification",
+                      "materialized_at":  "2026-09-11T23:18:44.5173242-06:00",
+                      "materialized_by":  "GROKBOT_ACTED",
+                      "never_kevin_learned_claim":  true,
+                      "downstream_consumer":  "OPENCLAW_BROWSER_WINDOWS_COMPUTER_STAGING_QUALIFICATION",
+                      "required_skill_key":  null,
+                      "worker":  null,
+                      "notepad_banned":  true,
+                      "reuses_proven_capability":  false,
+                      "produces_owner_deliverable":  true,
+                      "acceptance_criteria":  [
+                                                  "Fresh WI; predecessor BOUNDED intact.",
+                                                  "Lab PROVEN design pack create_spreadsheet+create_text only; Notepad banned; no Chat/tool widen.",
+                                                  "Reversible qualification plan: inventory vs contract, rollback, negative tests, no-personal-browser/no-credential boundary.",
+                                                  "No production upgrade; no PASS claim."
+                                              ],
+                      "next_action":  "SKILL_LAB_GAP — stage browser-computer-qualification-design-pack@1",
+                      "evidence_pointers":  [
+                                                "ControlPlane",
+                                                "reports",
+                                                "docs/engineering"
+                                            ]
                   }
               ],
     "updated_at":  "2026-09-12T01:55:18.897049+00:00"
