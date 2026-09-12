@@ -673,7 +673,7 @@
                   {
                       "id":  "autonomy-reflection-runtime-integration-fresh-2026-09-11-v1",
                       "authority_class":  "GREEN",
-                      "status":  "OPEN",
+                      "status":  "COMPLETE",
                       "priority":  "high",
                       "owner_value":  5,
                       "program":  "autonomy-debt",
@@ -683,7 +683,7 @@
                       "closes_proof_gap":  true,
                       "reduces_bess_intervention":  true,
                       "dependencies_ready":  true,
-                      "blocked":  false,
+                      "blocked":  true,
                       "failure_attempts":  0,
                       "material_new_evidence":  true,
                       "production_effect":  "NONE",
@@ -706,12 +706,14 @@
                                                   "Wiring contract: failure trigger → reflection artifact → repair → resume original owner task.",
                                                   "No primitive widen; no PASS claim."
                                               ],
-                      "next_action":  "Lab PROVEN — F17F when eligible",
+                      "next_action":  "DONE PROVEN ",
                       "evidence_pointers":  [
                                                 "reports/autonomy-continuation-latest.json",
                                                 "kevin-supervisor.ps1",
                                                 "kevin-skill-lab.ps1"
-                                            ]
+                                            ],
+                      "block_reason":  "COMPLETE_DO_NOT_RESELECT",
+                      "last_receipt_sha256":  null
                   }
               ],
     "updated_at":  "2026-09-12T01:55:18.897049+00:00"
