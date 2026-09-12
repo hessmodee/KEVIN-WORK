@@ -523,11 +523,8 @@
                   },
                   {
                       "id":  "owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1",
-                      "program":  "owner-value-scan",
                       "authority_class":  "GREEN",
                       "status":  "OPEN",
-                      "lane":  "research",
-                      "work_type":  "research",
                       "priority":  "high",
                       "owner_value":  5,
                       "reuses_proven_capability":  true,
@@ -544,8 +541,6 @@
                       "materialized_at":  "2026-09-11T22:46:51.0438882-06:00",
                       "materialized_by":  "GROKBOT_ACTED",
                       "never_kevin_learned_claim":  true,
-                      "required_skill_key":  null,
-                      "worker":  null,
                       "downstream_consumer":  "OWNER_VALUE_BACKLOG_AND_NEXT_PROVEN_SKILL",
                       "acceptance_criteria":  [
                                                   "Identify one concrete GREEN dealership/vehicle-workflow improvement that could save Matt time using already-proven local document/spreadsheet capability (no Notepad UI proof).",
@@ -554,12 +549,21 @@
                                                   "Leave a bounded next work item or skill candidate only when it has a named downstream owner use.",
                                                   "Skill Lab path: GAP→LAB→PROVE registry before Supervisor F17F select; no Grok-pack-as-Kevin-learned; no ui_notepad_write."
                                               ],
-                      "next_action":  "Skill Lab: prove dealership-operations-opportunity-scan-pack@1 (spreadsheet+text). Old v1 remains BOUNDED evidence.",
+                      "next_action":  "PROVEN in Skill Lab — eligible for Supervisor F17F ROUTED_TO_PROVEN_SKILL_INVOCATION",
                       "evidence_pointers":  [
                                                 "inbox/autonomy/work-items.json",
                                                 "reports/engineering/preflight-next-wi-2026-09-11.json",
                                                 "owner-dealership-operations-opportunity-scan-v1 (BOUNDED evidence)"
-                                            ]
+                                            ],
+                      "required_skill_key":  "dealership-operations-opportunity-scan-pack@1",
+                      "skill_sha256":  "1D1FD96BE9F963DD03034B2F1C248812A604454FB902ECD389065BCB1C2AF3AA",
+                      "worker":  "proven-skill-invocation",
+                      "required_capabilities":  [
+                                                    "kevin_proven_skill_invoke"
+                                                ],
+                      "program":  "owner-value-skills",
+                      "lane":  "production",
+                      "work_type":  "execution"
                   }
               ],
     "updated_at":  "2026-09-12T01:55:18.897049+00:00"
