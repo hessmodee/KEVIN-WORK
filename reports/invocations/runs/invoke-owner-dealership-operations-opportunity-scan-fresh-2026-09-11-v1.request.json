@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation",
+  "authority": "GREEN",
+  "skill_key": "dealership-operations-opportunity-scan-pack@1",
+  "invocation_id": "invoke-owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "dealership-operations-opportunity-scan.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Opportunities",
+              "rows": [
+                [
+                  "ID",
+                  "Problem",
+                  "Owner value",
+                  "Inputs needed",
+                  "Privacy boundary",
+                  "Success metric",
+                  "Deliverable",
+                  "Reusable skill candidate",
+                  "Status"
+                ],
+                [
+                  "OPP-001",
+                  "Daily lot/ops status scattered across chats",
+                  "High \u00e2\u20ac\u201d less Matt chase time",
+                  "Lot walk notes + open RO list (no PII)",
+                  "No customer PII/VIN/phone",
+                  "One board Matt opens each morning",
+                  "Spreadsheet board + 1-page brief",
+                  "dealership-ops-morning-board@1",
+                  "Candidate"
+                ],
+                [
+                  "OPP-002",
+                  "Transport exceptions lack a single exception lane",
+                  "Medium",
+                  "Dispatch board exceptions column",
+                  "Generic examples only",
+                  "Exceptions cleared same day",
+                  "Exception filter view on dispatch board",
+                  "(reuse vehicle-transport-mission-pack)",
+                  "Candidate"
+                ]
+              ]
+            },
+            {
+              "name": "Next skill",
+              "rows": [
+                [
+                  "Field",
+                  "Value"
+                ],
+                [
+                  "Recommended first skill",
+                  "dealership-ops-morning-board@1"
+                ],
+                [
+                  "Primitives",
+                  "create_spreadsheet + create_text only"
+                ],
+                [
+                  "Notepad",
+                  "BANNED for Lab proof"
+                ],
+                [
+                  "Downstream",
+                  "OWNER morning ops visibility"
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "dealership-operations-opportunity-brief.md",
+        "content": "# Dealership operations opportunity brief\n\n**WorkInstance:** owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1  \n**Actor staging:** GROKBOT_ACTED (Lab prove path; not Kevin-learned claim)  \n**Notepad:** banned for Lab proof\n\n## Top opportunity\nMorning ops visibility: one GREEN spreadsheet board Matt can open for lot/ops status without chasing chats. Uses already-proven create_spreadsheet + create_text only.\n\n## Privacy\nNo customer PII, live VIN, phones, sends, purchases, or new authority.\n\n## Success metric\nMatt opens one board in the morning and sees blockers/exceptions without a Slack scavenger hunt.\n\n## Bounded next skill candidate\n`dealership-ops-morning-board@1` \u00e2\u20ac\u201d after this scan pack is PROVEN in Skill Lab registry.\n\n## Predecessor\n`owner-dealership-operations-opportunity-scan-v1` remains BOUNDED_TURNS evidence (not reset)."
+      }
+    }
+  ]
+}
