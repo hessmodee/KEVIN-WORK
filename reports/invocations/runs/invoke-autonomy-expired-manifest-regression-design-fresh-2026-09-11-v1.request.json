@@ -1,0 +1,178 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation",
+  "authority": "GREEN",
+  "skill_key": "expired-manifest-regression-design-pack@1",
+  "invocation_id": "invoke-autonomy-expired-manifest-regression-design-fresh-2026-09-11-v1",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "expired-manifest-regression-design.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Current Semantics",
+              "rows": [
+                [
+                  "Question",
+                  "Finding (fill from runner)",
+                  "Evidence Pointer",
+                  "Risk if wrong"
+                ],
+                [
+                  "Expired canonical refused before exec?",
+                  "OPEN",
+                  "Maintenance runner",
+                  "Cron health poison"
+                ],
+                [
+                  "Terminal/duplicate path?",
+                  "OPEN",
+                  "Maintenance runner",
+                  "Replay/exec"
+                ],
+                [
+                  "Malformed fail-closed?",
+                  "OPEN",
+                  "Maintenance runner",
+                  "Silent skip"
+                ],
+                [
+                  "Valid path still executes?",
+                  "OPEN",
+                  "Maintenance runner",
+                  "False idle"
+                ]
+              ]
+            },
+            {
+              "name": "Design Delta",
+              "rows": [
+                [
+                  "Change",
+                  "Smallest fail-closed behavior",
+                  "Auditable result kind",
+                  "Forbidden"
+                ],
+                [
+                  "Expired input",
+                  "Refuse before execution",
+                  "IDLE_EXPIRED or TERMINAL_EXPIRED receipt",
+                  "Execute stale work"
+                ],
+                [
+                  "Duplicate/terminal",
+                  "Refuse; keep prior receipt",
+                  "TERMINAL_DUPLICATE",
+                  "Reset history"
+                ],
+                [
+                  "Malformed",
+                  "Fail closed with reason-code",
+                  "REJECT_MALFORMED",
+                  "Best-effort run"
+                ],
+                [
+                  "Valid",
+                  "Unchanged execute path",
+                  "SUCCESS/receipt as today",
+                  "Widen authority"
+                ]
+              ]
+            },
+            {
+              "name": "Regression Matrix",
+              "rows": [
+                [
+                  "Case",
+                  "Input fixture",
+                  "Expect exec?",
+                  "Expect result kind",
+                  "Proof"
+                ],
+                [
+                  "EXPIRED",
+                  "expired canonical manifest",
+                  "NO",
+                  "IDLE/TERMINAL expired",
+                  "unit/harness"
+                ],
+                [
+                  "DUPLICATE_TERMINAL",
+                  "already terminal id",
+                  "NO",
+                  "terminal duplicate",
+                  "unit/harness"
+                ],
+                [
+                  "MALFORMED",
+                  "broken JSON/schema",
+                  "NO",
+                  "reject malformed",
+                  "unit/harness"
+                ],
+                [
+                  "VALID",
+                  "current good manifest",
+                  "YES",
+                  "normal success path",
+                  "unit/harness"
+                ],
+                [
+                  "ROLLBACK",
+                  "exact-current/exact-after",
+                  "N/A",
+                  "identity gates preserved",
+                  "Benchmark gate"
+                ]
+              ]
+            },
+            {
+              "name": "Acceptance Contract",
+              "rows": [
+                [
+                  "Field",
+                  "Value"
+                ],
+                [
+                  "WorkInstance",
+                  "autonomy-expired-manifest-regression-design-fresh-2026-09-11-v1"
+                ],
+                [
+                  "Predecessor",
+                  "autonomy-expired-manifest-regression-design-v1"
+                ],
+                [
+                  "Consumer",
+                  "MAINTENANCE_V1_3_51_PATCH_AND_REGRESSION"
+                ],
+                [
+                  "Production write this item",
+                  "NONE"
+                ],
+                [
+                  "Primitives",
+                  "create_spreadsheet + create_text"
+                ],
+                [
+                  "Notepad",
+                  "BANNED"
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "expired-manifest-regression-design-brief.md",
+        "content": "# Expired manifest regression design brief\n\n**WorkInstance:** autonomy-expired-manifest-regression-design-fresh-2026-09-11-v1\n**Predecessor:** autonomy-expired-manifest-regression-design-v1 (BOUNDED evidence; no history reset)\n**Actor staging:** GROKBOT_ACTED (Lab prove path; not Kevin-learned)\n**Notepad:** banned\n**Primitives:** create_spreadsheet + create_text only\n**Production write:** NONE in this research item\n\n## Goal\nConfirm Maintenance refuses expired canonical manifests before execution, then design the smallest fail-closed change so expired/terminal input stays non-executable but records a truthful auditable idle/terminal result instead of poisoning scheduled cron health.\n\n## Tests (deterministic)\n1. EXPIRED \u00e2\u20ac\u201d no exec; idle/terminal expired receipt\n2. DUPLICATE/TERMINAL \u00e2\u20ac\u201d no exec; terminal duplicate\n3. MALFORMED \u00e2\u20ac\u201d fail closed with reason-code\n4. VALID \u00e2\u20ac\u201d still executes\n5. Preserve rollback + exact-current/exact-after identity + Benchmark gates for later promotion\n\n## Out of scope\nNo production Maintenance patch apply in this WI. Downstream consumer applies after design acceptance."
+      }
+    }
+  ]
+}
