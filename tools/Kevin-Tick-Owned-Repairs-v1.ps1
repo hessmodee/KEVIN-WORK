@@ -64,3 +64,24 @@ $fail = 0
 if ($outcome.exit_code -and $outcome.exit_code -ne 0) { $fail = 1 }
 if ($hygiene.exit_code -and $hygiene.exit_code -ne 0) { $fail = 1 }
 exit $fail
+
+# HQ live floor every Tick (honest cycle++)
+try {
+  
+# Tick-owned: AE/Lab collision + stale operator-failed order quarantine (never delete DONE)
+try {
+  & (Join-Path $PSScriptRoot 'Kevin-Tick-Owned-LabCollisionHygiene-v1.ps1')
+} catch { Write-Host "lab-collision-hygiene FAIL: $_" }
+# Halt gate: rebuild owner-outcomes before ONE CLOCK floor (MIXED, autonomy_credit=false). No clone F17F.
+try {
+  & (Join-Path $PSScriptRoot 'Publish-Kevin-OwnerOutcomes-v1.ps1')
+} catch {
+  Write-Host "owner-outcomes rebuild FAIL: $_"
+}
+& (Join-Path $PSScriptRoot 'Publish-Kevin-HqLiveFloor-v1.ps1') -PushPublic
+} catch { Write-Host "hq-live-floor FAIL: $_" }
+
+# Post-PROVEN public five-pack (HESS PROVEN ≠ public PASS)
+try {
+  & (Join-Path $PSScriptRoot 'Publish-Kevin-InvocationFivePack-v1.ps1')
+} catch { Write-Host "five-pack publish FAIL: $_" }
