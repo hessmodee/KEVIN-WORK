@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation-receipt",
+  "version": "1.1.2",
+  "status": "PROVEN",
+  "authority": "GREEN",
+  "completed_at": "2026-09-12T00:54:57.610246Z",
+  "invocation_id": "invoke-owner-west-motor-parts-chase-fresh-8-v1",
+  "skill_key": "west-motor-parts-chase-board-pack@1",
+  "proven_identity": {
+    "manifest_sha256": "4F7744161CA858AC119164EDB136991A8D247C3F4A107A58C1FE52040DB65B37",
+    "proof_sha256": "45367C928245E0177B754299FDF5F7391D60F6518D1B9923E284B0EC2B6FE1AE",
+    "result_file": "west-motor-parts-chase-board-pack--1.json",
+    "primitive_steps": [
+      "create_spreadsheet",
+      "create_text"
+    ],
+    "proven_at": "2026-09-04T23:29:21.7242283-06:00"
+  },
+  "request_sha256": "E72F66716E0F97E6270D6A79656C03DAFC52825A1ADBDEB23B686ECC62E76BC4",
+  "step_results": [
+    {
+      "index": 0,
+      "order_id": "invoke-invoke-owner-west-motor-parts-chase-fresh-8-v1-s01",
+      "semantic_key": "invoke:west-motor-parts-chase-board-pack@1:invoke-owner-west-motor-parts-chase-fresh-8-v1:step:1",
+      "operation": "create_spreadsheet",
+      "final_state": "DONE",
+      "order_record_sha256": "28F593EEC92FBFB0651C21696C68DC70D588E18BF3A8EB558E43018160B35A04",
+      "completed_at": "2026-09-11T18:54:56.1004371-06:00",
+      "output_name": "Kevin-West-Motor-Parts-Chase-Fictional-8 (50).xlsx",
+      "sha256": "90E3FD81EC70985ADDB9C76D4A736E4B81FD900AA64465A1006A6D6CF3EAEAC6",
+      "bytes": 4699,
+      "verified_sha256": "90E3FD81EC70985ADDB9C76D4A736E4B81FD900AA64465A1006A6D6CF3EAEAC6",
+      "verified_bytes": 4699
+    },
+    {
+      "index": 1,
+      "order_id": "invoke-invoke-owner-west-motor-parts-chase-fresh-8-v1-s02",
+      "semantic_key": "invoke:west-motor-parts-chase-board-pack@1:invoke-owner-west-motor-parts-chase-fresh-8-v1:step:2",
+      "operation": "create_text",
+      "final_state": "DONE",
+      "order_record_sha256": "0FC8CC5E55FAF12F5EEBE403AB0BB518F3753BD2F931200DC70E9D4ED0421C9A",
+      "completed_at": "2026-09-11T18:54:56.7111684-06:00",
+      "output_name": "Kevin-West-Motor-Parts-Chase-Fictional-8-Note (50).md",
+      "sha256": "3532C72C59117EA737C30C82ED55E2917ADB20CD2788ADA7DF5D6446A36D8BBF",
+      "bytes": 646,
+      "verified_sha256": "3532C72C59117EA737C30C82ED55E2917ADB20CD2788ADA7DF5D6446A36D8BBF",
+      "verified_bytes": 646
+    }
+  ],
+  "failure": null,
+  "verification": {
+    "artifact_root_bounded": true,
+    "artifact_hashes_rechecked": true,
+    "artifact_sizes_rechecked": true
+  },
+  "receipt_sha256": "F6E408EFF3EB75904C29D45D9AFC25B69B703E0CB8B0001067B89F224759B37F"
+}
