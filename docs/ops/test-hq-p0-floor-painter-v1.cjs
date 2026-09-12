@@ -100,6 +100,44 @@ test('scaffold never KEVIN_ACTED', () => {
   assert.notStrictEqual(sc.actor, 'KEVIN_ACTED');
 });
 
+test('skill_lab GAP → center GAP', () => {
+  const c = API.floorCenterState({
+    floor: load('hq-live-floor-skill-lab-gap.json'),
+    continuation: { status: 'IDLE_NO_ELIGIBLE_DEMAND', generated_at: '2026-09-12T03:05:00Z' },
+    engineering: { action: { queues: { ready: 0 }, composite_skills: { ready: 0 } } },
+    support: { generated_at: '2026-09-12T03:05:00Z', hashes: { supervisor: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB' }, active_workers: {} },
+    receipt, reject: rejectProven
+  }, now);
+  assert.strictEqual(c.label, 'GAP');
+  assert.strictEqual(c.skillLab.chrome, 'GAP');
+  assert.notStrictEqual(c.label, 'WORKING');
+  assert.notStrictEqual(c.label, 'READY');
+});
+test('skill_lab LAB when running/ready > 0', () => {
+  const c = API.floorCenterState({
+    floor: load('hq-live-floor-skill-lab-lab.json'),
+    continuation: { status: 'IDLE_NO_ELIGIBLE_DEMAND', generated_at: '2026-09-12T03:05:00Z' },
+    engineering: { action: { queues: { ready: 0 }, composite_skills: { ready: 0 } } },
+    support: { generated_at: '2026-09-12T03:05:00Z', hashes: { supervisor: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB' }, active_workers: {} },
+    receipt, reject: rejectProven
+  }, now);
+  assert.strictEqual(c.label, 'LAB');
+  assert.ok(c.skillLab.running_count >= 1 || c.skillLab.ready_count >= 1);
+  assert.notStrictEqual(c.label, 'WORKING');
+});
+test('skill_lab PROVE promote-to-registry pending', () => {
+  const c = API.floorCenterState({
+    floor: load('hq-live-floor-skill-lab-prove.json'),
+    continuation: { status: 'IDLE_NO_ELIGIBLE_DEMAND', generated_at: '2026-09-12T03:05:00Z' },
+    engineering: { action: { queues: { ready: 0 }, composite_skills: { ready: 0 } } },
+    support: { generated_at: '2026-09-12T03:05:00Z', hashes: { supervisor: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB' }, active_workers: {} },
+    receipt, reject: rejectProven
+  }, now);
+  assert.strictEqual(c.label, 'PROVE');
+  assert.strictEqual(c.skillLab.provePending, true);
+  assert.notStrictEqual(c.label, 'READY');
+});
+
 console.log(`\n${passed} tests passed`);
 if (process.exitCode) { console.error('TEST SUITE FAILED'); process.exit(process.exitCode); }
 console.log('TEST SUITE OK');
