@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
-VERSION = "1.0.7"
+VERSION = "1.0.8"
 PARTS_CHASE_KEY = "west-motor-parts-chase-board-pack@1"
 PARTS_CHASE_WORK_ID = "owner-west-motor-parts-chase-fresh-8-v1"
 TRANSPORT_KEY = "vehicle-transport-mission-pack@1"
@@ -28,6 +28,8 @@ RUNTIME_TRUTH_KEY = "runtime-truth-reconciliation-diagnosis-pack@1"
 RUNTIME_TRUTH_WORK_ID = "autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1"
 EXPIRED_MANIFEST_KEY = "expired-manifest-regression-design-pack@1"
 EXPIRED_MANIFEST_WORK_ID = "autonomy-expired-manifest-regression-design-fresh-2026-09-11-v1"
+REFLECTION_RUNTIME_KEY = "reflection-runtime-integration-design-pack@1"
+REFLECTION_RUNTIME_WORK_ID = "autonomy-reflection-runtime-integration-fresh-2026-09-11-v1"
 TRANSPORT_FIELDS = (
     "priority",
     "request_id",
@@ -321,10 +323,15 @@ def build_expired_manifest_request(invocation_id: str) -> Dict[str, Any]:
     return {"schema":1,"kind":"kevin-proven-skill-invocation","authority":"GREEN","skill_key":EXPIRED_MANIFEST_KEY,"invocation_id":invocation_id,"steps":steps}
 
 
+def build_reflection_runtime_request(invocation_id: str) -> Dict[str, Any]:
+    steps = json.loads("[{\"operation\": \"create_spreadsheet\", \"payload\": {\"filename\": \"reflection-runtime-integration-design.xlsx\", \"workbook\": {\"schema\": 1, \"kind\": \"kevin-xlsx-spec\", \"sheets\": [{\"name\": \"Surface Map\", \"rows\": [[\"Surface\", \"Artifact / path\", \"Reflection hook today\", \"Gap\"], [\"Supervisor\", \"reports/autonomy-continuation-latest.json\", \"partial\", \"failure\\u00e2\\u2020\\u2019reflection missing\"], [\"Maintenance\", \"reports/maintenance\", \"partial\", \"expired/terminal idle vs poison\"], [\"Skill Lab\", \"reports/action-era/skills\", \"partial\", \"PROVEN\\u00e2\\u2030\\u00a0owner resume\"], [\"Engineering\", \"reports/engineering\", \"partial\", \"lesson not auto-wired\"]]}, {\"name\": \"Trigger Contract\", \"rows\": [[\"Field\", \"Rule\"], [\"Trigger\", \"Real failure with durable evidence (not model-only)\"], [\"Record\", \"fingerprint, hypotheses, tests, independent verify, lesson, dependency-retirement if external eng, resume pointer\"], [\"Authority\", \"Recommend/stage only; typed crossing for protected effects\"], [\"Resume\", \"Original owner task continues after successful repair\"]]}, {\"name\": \"Replay Test\", \"rows\": [[\"Step\", \"Expect\"], [\"1 Induce bounded failure\", \"reflection artifact written\"], [\"2 Repair succeeds\", \"lesson + resume pointer\"], [\"3 Replay\", \"owner task resumes; does not end at repair\"], [\"4 Authority check\", \"no new primitives\"]]}, {\"name\": \"Acceptance\", \"rows\": [[\"Field\", \"Value\"], [\"WorkInstance\", \"autonomy-reflection-runtime-integration-fresh-2026-09-11-v1\"], [\"Predecessor\", \"autonomy-reflection-runtime-integration-v1\"], [\"Consumer\", \"INCIDENT_REFLECTION_RUNTIME_WIRE\"], [\"Notepad\", \"BANNED\"], [\"Primitives\", \"create_spreadsheet + create_text\"]]}]}}}, {\"operation\": \"create_text\", \"payload\": {\"filename\": \"reflection-runtime-integration-design-brief.md\", \"content\": \"# Reflection runtime integration design brief\\n\\n**WorkInstance:** autonomy-reflection-runtime-integration-fresh-2026-09-11-v1\\n**Predecessor:** autonomy-reflection-runtime-integration-v1 (BOUNDED; no history reset)\\n**Actor:** GROKBOT_ACTED staging (not Kevin-learned)\\n**Notepad:** banned | **Primitives:** spreadsheet + text only\\n\\n## Contract\\nBounded runtime trigger on real failures records fingerprint, competing hypotheses, tests, independent verification, lesson, dependency-retirement when external engineering was used, and a resume pointer. Reflection may recommend/stage; protected effects still use existing typed crossings. Replay must prove the original owner task resumes after successful repair rather than ending at the repair.\"}}]")
+    return {"schema":1,"kind":"kevin-proven-skill-invocation","authority":"GREEN","skill_key":REFLECTION_RUNTIME_KEY,"invocation_id":invocation_id,"steps":steps}
+
+
 def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) -> str:
     if item and str(item.get("required_skill_key") or "").strip():
         key = str(item.get("required_skill_key")).strip()
-        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY, RUNTIME_TRUTH_KEY, EXPIRED_MANIFEST_KEY}:
+        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY, RUNTIME_TRUTH_KEY, EXPIRED_MANIFEST_KEY, REFLECTION_RUNTIME_KEY}:
             return key
         raise BuilderError("UNSUPPORTED_SKILL_KEY")
     if work_id == TRANSPORT_WORK_ID:
@@ -337,6 +344,8 @@ def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) 
         return RUNTIME_TRUTH_KEY
     if work_id == EXPIRED_MANIFEST_WORK_ID:
         return EXPIRED_MANIFEST_KEY
+    if work_id == REFLECTION_RUNTIME_WORK_ID:
+        return REFLECTION_RUNTIME_KEY
     raise BuilderError("UNSUPPORTED_WORK_ID")
 
 
@@ -607,6 +616,12 @@ def main() -> int:
             return 0
         if skill == EXPIRED_MANIFEST_KEY:
             request = build_expired_manifest_request(args.invocation_id)
+            Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
+            print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
+            return 0
+        if skill == REFLECTION_RUNTIME_KEY:
+            request = build_reflection_runtime_request(args.invocation_id)
             Path(args.output).parent.mkdir(parents=True, exist_ok=True)
             Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
             print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
