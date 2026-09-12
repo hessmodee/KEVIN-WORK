@@ -1,0 +1,142 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation",
+  "authority": "GREEN",
+  "skill_key": "vehicle-transport-mission-pack@1",
+  "invocation_id": "invoke-owner-west-motor-transport-dispatch-template-v1",
+  "steps": [
+    {
+      "operation": "create_spreadsheet",
+      "payload": {
+        "filename": "Kevin-West-Motor-Transport-Dispatch-Fictional.xlsx",
+        "workbook": {
+          "schema": 1,
+          "kind": "kevin-xlsx-spec",
+          "sheets": [
+            {
+              "name": "Dispatch Board",
+              "rows": [
+                [
+                  "Priority",
+                  "Request / Mission ID",
+                  "Origin",
+                  "Destination",
+                  "Vehicle / Unit",
+                  "Driver / Assignee",
+                  "Target Date/Time",
+                  "Status",
+                  "Coordination Notes",
+                  "Exception / Completion"
+                ],
+                [
+                  "HIGH",
+                  "XT-EX-9001",
+                  "Example Lot A - West Motor",
+                  "Example Body Shop North",
+                  "EX-SUV-221 (stock WM-EX-221)",
+                  "Driver Example-1",
+                  "2026-09-12 09:00",
+                  "PLANNED",
+                  "Fictional keys+folder staged at desk",
+                  "None"
+                ],
+                [
+                  "HIGH",
+                  "XT-EX-9002",
+                  "Example Auction Yard",
+                  "Example Lot B - West Motor",
+                  "EX-TRUCK-118 (stock WM-EX-118)",
+                  "Driver Example-2",
+                  "2026-09-12 13:30",
+                  "ASSIGNED",
+                  "Trailer example dual-axle",
+                  "None"
+                ],
+                [
+                  "MED",
+                  "XT-EX-9003",
+                  "Example Lot C",
+                  "Example Detail Bay 2",
+                  "EX-SEDAN-044",
+                  "Driver Example-1",
+                  "2026-09-13 08:00",
+                  "PLANNED",
+                  "Inter-store move example",
+                  "None"
+                ],
+                [
+                  "MED",
+                  "XT-EX-9004",
+                  "Example Customer Hold (generic)",
+                  "Example Service Ramp",
+                  "EX-VAN-077",
+                  "Unassigned",
+                  "2026-09-13 15:00",
+                  "BLOCKED",
+                  "Awaiting example paperwork check",
+                  "Missing example checklist"
+                ],
+                [
+                  "LOW",
+                  "XT-EX-9005",
+                  "Example Storage Compound",
+                  "Example Front Line",
+                  "EX-CUV-309",
+                  "Driver Example-3",
+                  "2026-09-14 10:00",
+                  "PLANNED",
+                  "Generic labels only",
+                  "None"
+                ],
+                [
+                  "LOW",
+                  "XT-EX-9006",
+                  "Example Lot A",
+                  "Example Photo Pad",
+                  "EX-COUPE-015",
+                  "Driver Example-2",
+                  "2026-09-14 11:30",
+                  "DONE",
+                  "Example complete - fictional",
+                  "None"
+                ]
+              ]
+            },
+            {
+              "name": "Board Legend",
+              "rows": [
+                [
+                  "Field",
+                  "Meaning",
+                  "Rule"
+                ],
+                [
+                  "Priority",
+                  "HIGH / MED / LOW",
+                  "Do not invent urgency"
+                ],
+                [
+                  "Status",
+                  "PLANNED / ASSIGNED / IN_TRANSIT / DONE / BLOCKED",
+                  "No auto send"
+                ],
+                [
+                  "Vehicle / Unit",
+                  "Example stock/unit labels",
+                  "No live customer VIN"
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "operation": "create_text",
+      "payload": {
+        "filename": "Kevin-West-Motor-Transport-Dispatch-Fictional-Note.md",
+        "content": "# West Motor Transport Dispatch - fictional operating note\n\nGREEN example board for daily vehicle-transport dispatch. Generic example data only.\nNo customer PII, no live VIN, no purchases, sends, or DMS writes.\n\n## How Matt can use it\n1. Sort by Priority then Target Date/Time.\n2. Assign Driver/Assignee on PLANNED rows before departure.\n3. Move Status PLANNED -> ASSIGNED -> IN_TRANSIT -> DONE.\n4. Put blockers in Exception / Completion; do not invent live facts.\n\n## This example\n- Rows: 6\n- Still open: 5\n- Skill bind: vehicle-transport-mission-pack@1 (already PROVEN create_spreadsheet+create_text).\n- Authority: GREEN fictional rehearsal only.\n"
+      }
+    }
+  ]
+}
