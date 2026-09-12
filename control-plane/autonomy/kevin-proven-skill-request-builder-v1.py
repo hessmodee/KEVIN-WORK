@@ -17,11 +17,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
-VERSION = "1.0.4"
+VERSION = "1.0.5"
 PARTS_CHASE_KEY = "west-motor-parts-chase-board-pack@1"
 PARTS_CHASE_WORK_ID = "owner-west-motor-parts-chase-fresh-8-v1"
 TRANSPORT_KEY = "vehicle-transport-mission-pack@1"
 TRANSPORT_WORK_ID = "owner-west-motor-transport-dispatch-template-v1"
+DEALERSHIP_SCAN_KEY = "dealership-operations-opportunity-scan-pack@1"
+DEALERSHIP_SCAN_WORK_ID = "owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1"
 TRANSPORT_FIELDS = (
     "priority",
     "request_id",
@@ -283,16 +285,31 @@ def load_work_item_dispatch(path: Path, work_id: str) -> List[Dict[str, str]] | 
     return rows
 
 
+def build_dealership_scan_request(invocation_id: str) -> Dict[str, Any]:
+    """GREEN fictional opportunity scan — mirrors Lab-PROVEN pack (spreadsheet+text only)."""
+    steps = json.loads("[{\"operation\": \"create_spreadsheet\", \"payload\": {\"filename\": \"dealership-operations-opportunity-scan.xlsx\", \"workbook\": {\"schema\": 1, \"kind\": \"kevin-xlsx-spec\", \"sheets\": [{\"name\": \"Opportunities\", \"rows\": [[\"ID\", \"Problem\", \"Owner value\", \"Inputs needed\", \"Privacy boundary\", \"Success metric\", \"Deliverable\", \"Reusable skill candidate\", \"Status\"], [\"OPP-001\", \"Daily lot/ops status scattered across chats\", \"High \\u00e2\\u20ac\\u201d less Matt chase time\", \"Lot walk notes + open RO list (no PII)\", \"No customer PII/VIN/phone\", \"One board Matt opens each morning\", \"Spreadsheet board + 1-page brief\", \"dealership-ops-morning-board@1\", \"Candidate\"], [\"OPP-002\", \"Transport exceptions lack a single exception lane\", \"Medium\", \"Dispatch board exceptions column\", \"Generic examples only\", \"Exceptions cleared same day\", \"Exception filter view on dispatch board\", \"(reuse vehicle-transport-mission-pack)\", \"Candidate\"]]}, {\"name\": \"Next skill\", \"rows\": [[\"Field\", \"Value\"], [\"Recommended first skill\", \"dealership-ops-morning-board@1\"], [\"Primitives\", \"create_spreadsheet + create_text only\"], [\"Notepad\", \"BANNED for Lab proof\"], [\"Downstream\", \"OWNER morning ops visibility\"]]}]}}}, {\"operation\": \"create_text\", \"payload\": {\"filename\": \"dealership-operations-opportunity-brief.md\", \"content\": \"# Dealership operations opportunity brief\\n\\n**WorkInstance:** owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1  \\n**Actor staging:** GROKBOT_ACTED (Lab prove path; not Kevin-learned claim)  \\n**Notepad:** banned for Lab proof\\n\\n## Top opportunity\\nMorning ops visibility: one GREEN spreadsheet board Matt can open for lot/ops status without chasing chats. Uses already-proven create_spreadsheet + create_text only.\\n\\n## Privacy\\nNo customer PII, live VIN, phones, sends, purchases, or new authority.\\n\\n## Success metric\\nMatt opens one board in the morning and sees blockers/exceptions without a Slack scavenger hunt.\\n\\n## Bounded next skill candidate\\n`dealership-ops-morning-board@1` \\u00e2\\u20ac\\u201d after this scan pack is PROVEN in Skill Lab registry.\\n\\n## Predecessor\\n`owner-dealership-operations-opportunity-scan-v1` remains BOUNDED_TURNS evidence (not reset).\"}}]")
+    return {
+        "schema": 1,
+        "kind": "kevin-proven-skill-invocation",
+        "authority": "GREEN",
+        "skill_key": DEALERSHIP_SCAN_KEY,
+        "invocation_id": invocation_id,
+        "steps": steps,
+    }
+
+
 def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) -> str:
     if item and str(item.get("required_skill_key") or "").strip():
         key = str(item.get("required_skill_key")).strip()
-        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY}:
+        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY}:
             return key
         raise BuilderError("UNSUPPORTED_SKILL_KEY")
     if work_id == TRANSPORT_WORK_ID:
         return TRANSPORT_KEY
     if work_id == PARTS_CHASE_WORK_ID:
         return PARTS_CHASE_KEY
+    if work_id == DEALERSHIP_SCAN_WORK_ID:
+        return DEALERSHIP_SCAN_KEY
     raise BuilderError("UNSUPPORTED_WORK_ID")
 
 
@@ -548,6 +565,12 @@ def main() -> int:
             Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
             n = len(request["steps"][0]["payload"]["workbook"]["sheets"][0]["rows"]) - 1
             print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "dispatch_rows": n, "builder_version": VERSION}))
+            return 0
+        if skill == DEALERSHIP_SCAN_KEY:
+            request = build_dealership_scan_request(args.invocation_id)
+            Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
+            print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
             return 0
         rows = load_work_item_vehicles(Path(args.work_items), args.work_id)
     request = build_parts_chase_request(args.invocation_id, rows)
