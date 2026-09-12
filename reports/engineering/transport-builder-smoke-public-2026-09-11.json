@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "kind": "kevin-builder-smoke-public",
+  "actor": "GROKBOT_ACTED",
+  "generated_at": "2026-09-11T20:03:09.391945-06:00",
+  "safe_for_public_repo": true,
+  "public_payload_policy": "status + skill_key + step ops + payload sha256 only; no workbook cell contents",
+  "status": "BUILT",
+  "builder_version": "1.0.4",
+  "builder_sha256": "E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3",
+  "work_id": "owner-west-motor-transport-dispatch-template-v1",
+  "skill_key": "vehicle-transport-mission-pack@1",
+  "authority": "GREEN",
+  "request_sha256": "10F4E50354D0377F686829DB1F4A5F7DD01DE13BE1DDA94099E795913C52545B",
+  "steps": [
+    {
+      "index": 0,
+      "operation": "create_spreadsheet",
+      "payload_filename": "Kevin-West-Motor-Transport-Dispatch-Fictional.xlsx",
+      "payload_sha256": "708F9CBD22802039D0EA2B47768DFA773DF8B49158A219D89706427FD91E4B9F"
+    },
+    {
+      "index": 1,
+      "operation": "create_text",
+      "payload_filename": "Kevin-West-Motor-Transport-Dispatch-Fictional-Note.md",
+      "payload_sha256": "2056C7C15B9BB7D2ED8BB16F9F6D50A16913DD5EDA37C8FC741459D386347F89"
+    }
+  ]
+}
