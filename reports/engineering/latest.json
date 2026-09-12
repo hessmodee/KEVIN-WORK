@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-11T22:46:47.8001687-06:00",
+    "generated_at":  "2026-09-11T22:48:48.3261517-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
@@ -27,25 +27,25 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  4.7
+                                     "heartbeat_age_seconds":  2.9
                                  },
                    "queues":  {
                                   "ready":  0,
                                   "running":  0,
-                                  "done":  72,
+                                  "done":  74,
                                   "failed":  1
                               },
                    "composite_skills":  {
-                                            "ready":  1,
+                                            "ready":  0,
                                             "running":  0,
-                                            "done":  28,
+                                            "done":  29,
                                             "failed":  4,
-                                            "proven_count":  28,
+                                            "proven_count":  29,
                                             "latest_proven":  {
-                                                                  "key":  "cache-valley-appliance-repair-launch-pack@2",
-                                                                  "proven_at":  "2026-09-11T22:35:24.6835711-06:00",
-                                                                  "manifest_sha256":  "25E3B3A4E5E7AAE3D7EAFC425475DBAC20674FA742FCB9B93DE90B1490919E96",
-                                                                  "proof_sha256":  "064850E73DFBCBC7BC4D1F5C10E12E5820AF52CDB201390618B4A5798B804C1E",
+                                                                  "key":  "dealership-operations-opportunity-scan-pack@1",
+                                                                  "proven_at":  "2026-09-11T22:47:27.9590238-06:00",
+                                                                  "manifest_sha256":  "1D1FD96BE9F963DD03034B2F1C248812A604454FB902ECD389065BCB1C2AF3AA",
+                                                                  "proof_sha256":  "548221C1697D825F3E9922B279241DF51EBE0825EB9CFFA7B199CAED3C1F4757",
                                                                   "primitive_steps":  [
                                                                                           "create_spreadsheet",
                                                                                           "create_text"
@@ -61,21 +61,14 @@
                                  },
                    "cron":  [
                                 {
-                                    "declaration_key":  "kevin-engineering-relay-v1",
+                                    "declaration_key":  "kevin-skill-lab-v1",
                                     "enabled":  true,
                                     "every_ms":  120000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-support-bridge-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-skill-lab-v1",
+                                    "declaration_key":  "kevin-engineering-relay-v1",
                                     "enabled":  true,
                                     "every_ms":  120000,
                                     "last_status":  "ok",
@@ -99,6 +92,13 @@
                                     "declaration_key":  "kevin-benchmark-v1",
                                     "enabled":  true,
                                     "every_ms":  600000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 }
