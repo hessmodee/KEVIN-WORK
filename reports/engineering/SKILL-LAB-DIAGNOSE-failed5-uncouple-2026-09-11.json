@@ -1,0 +1,47 @@
+{
+    "schema":  1,
+    "kind":  "kevin-skill-lab-diagnose",
+    "at":  "2026-09-11T22:23:01.8600188-06:00",
+    "actor":  "GROKBOT_ACTED",
+    "never_kevin_learned":  true,
+    "uncoupled_from_waiting_item_budgets":  true,
+    "skill_lab_version":  "1.0.10",
+    "failed_count_observed":  5,
+    "families":  [
+                     {
+                         "family":  "malformed_throw_as_cmdlet",
+                         "count":  3,
+                         "samples":  [
+                                         "cache-valley-appliance-repair-launch-pack--1",
+                                         "cache-valley-appliance-repair-launch-pack--3",
+                                         "west-motor-trade-intake-pack--1"
+                                     ],
+                         "root_cause":  "kevin-skill-lab.ps1 used throw\u0027...\u0027 without space; Windows PowerShell parses as command name (throwworkbook...), not throw. Validation errors became cmdlet-not-found REJECTED stubs; manifests overwritten/lost.",
+                         "smallest_fix":  "Replace throw\u0027 with throw \u0027 (43 sites). Bump v1.0.10. GROKBOT_ACTED.",
+                         "kevin_owned_next":  "Re-stage manifests via Lab ready queue when source packs available; do not hand-author as Kevin-learned."
+                     },
+                     {
+                         "family":  "runner_FAILED",
+                         "count":  2,
+                         "samples":  [
+                                         "cache-valley-appliance-repair-launch-pack--2 (work-order collision/replay mismatch)",
+                                         "engineering-relay-first-composite--1 (operator step failed)"
+                                     ],
+                         "root_cause":  "AE queue collision/replay or operator step FAILED while RUNNING; manifests retained on failed receipts.",
+                         "smallest_fix":  "No pack rewrite. Watch Lab/operator; requeue only with Kevin-owned Lab path after evidence.",
+                         "kevin_owned_next":  "Lab requeue of retained-manifest FAILED after operator/queue hygiene — not Grok bind."
+                     }
+                 ],
+    "regression":  {
+                       "candidate":  "lab-throw-syntax-regression--1",
+                       "while_waiting_item_budgets":  true,
+                       "lab_log":  "SKILL LAB UNCOUPLED_FROM_BUDGETS waiting_item_budgets=True (lab continues); SKILL LAB REJECTED workbook sheets invalid",
+                       "proof_file":  "reports/engineering/lab-throw-syntax-regression-REJECTED-2026-09-11.json",
+                       "pass":  true
+                   },
+    "paths":  {
+                  "runner":  "kevin-skill-lab.ps1",
+                  "cron":  "kevin-skill-lab-v1",
+                  "lesson":  "docs/engineering/LESSON-skill-lab-uncouple-budgets-throw-space-2026-09-11.md"
+              }
+}
