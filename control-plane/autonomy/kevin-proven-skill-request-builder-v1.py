@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
-VERSION = "1.0.14"
+VERSION = "1.0.15"
 PARTS_CHASE_KEY = "west-motor-parts-chase-board-pack@1"
 PARTS_CHASE_WORK_ID = "owner-west-motor-parts-chase-fresh-8-v1"
 TRANSPORT_KEY = "vehicle-transport-mission-pack@1"
@@ -42,6 +42,8 @@ RECON_BOARD_KEY = "west-motor-recon-priority-board-pack@1"
 RECON_BOARD_WORK_ID = "owner-west-motor-recon-priority-board-fresh-2026-09-11-v1"
 TRADE_INTAKE_KEY = "west-motor-trade-intake-pack@1"
 TRADE_INTAKE_WORK_ID = "owner-west-motor-trade-intake-fresh-2026-09-11-v1"
+FRICTION_KEY = "dealership-friction-reducer-pack@1"
+FRICTION_WORK_ID = "owner-dealership-friction-reducer-fresh-2026-09-11-v1"
 TRANSPORT_FIELDS = (
     "priority",
     "request_id",
@@ -370,10 +372,15 @@ def build_trade_intake_request(invocation_id: str) -> Dict[str, Any]:
     steps = json.loads("[{\"operation\":\"create_spreadsheet\",\"payload\":{\"filename\":\"Kevin West Motor Trade Intake Board.xlsx\",\"workbook\":{\"schema\":1,\"kind\":\"kevin-xlsx-spec\",\"sheets\":[{\"name\":\"Trade Board\",\"rows\":[[\"Stock / Customer\",\"Year Make Model\",\"VIN / Plate\",\"Miles\",\"Asking / Offer Target\",\"Stage\",\"Owner\",\"Payoff Known\",\"Condition Grade\",\"Photo Set\",\"Next Action\"],[\"\",\"\",\"\",\"\",\"\",\"INTAKE / APPRAISE / OFFER / DECISION\",\"\",\"NO\",\"UNK\",\"NO\",\"\"]]},{\"name\":\"Condition Notes\",\"rows\":[[\"Stock / Customer\",\"Exterior\",\"Interior\",\"Tires\",\"Mechanical Notes\",\"Accident / Frame\",\"Warning Lights\",\"Service History\",\"Recon Estimate Band\",\"Honest Notes\"],[\"\",\"\",\"\",\"\",\"\",\"UNK\",\"NONE SEEN\",\"UNK\",\"\",\"Do not invent values\"]]},{\"name\":\"Payoff Equity\",\"rows\":[[\"Stock / Customer\",\"Lienholder\",\"Payoff Quote\",\"Quote Date\",\"Good Through\",\"Customer Equity Guess\",\"Verified?\",\"Source\",\"Blocks Offer?\",\"Notes\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"NO\",\"CUSTOMER / LENDER\",\"MAYBE\",\"No paid payoff pull unless Matt names it\"]]},{\"name\":\"Photo Checklist\",\"rows\":[[\"Stock / Customer\",\"Front\",\"Rear\",\"Sides\",\"Interior\",\"Dash / Odo\",\"Tires / Wheels\",\"Damage Closeups\",\"VIN Plate\",\"Complete?\"],[\"\",\"NO\",\"NO\",\"NO\",\"NO\",\"NO\",\"NO\",\"NO\",\"NO\",\"NO\"]]},{\"name\":\"Blockers Chase\",\"rows\":[[\"Stock / Customer\",\"Blocker\",\"Blocks Offer?\",\"Who Owns\",\"Asked At\",\"ETA\",\"Status\",\"Needs Purchase?\",\"Notes\"],[\"\",\"\",\"YES\",\"\",\"\",\"\",\"OPEN\",\"NO\",\"No auto purchase / no DMS write\"]]}]}}},{\"operation\":\"create_text\",\"payload\":{\"filename\":\"Kevin West Motor Trade Intake - SOP.md\",\"content\":\"# Kevin West Motor Trade Intake\\n\\nUse this pack to capture an honest trade appraisal / intake board without inventing numbers.\\n\\n## Operating rule\\nTrade readiness is false until condition notes, photo set, and payoff status are honestly logged. Prefer the smallest chase that clears the next blocker. Never invent ACV, wholesale, or retail figures.\\n\\n## Required sequence\\n1. Log the unit on Trade Board with stage, owner, and known facts only.\\n2. Fill Condition Notes from visible evidence; mark UNK when unknown.\\n3. Record Payoff / Equity only from customer or lender quotes already in hand; do not place paid payoff pulls unless Matt names the purchase.\\n4. Complete Photo Checklist before calling the intake photo-complete.\\n5. Chase Blockers without purchases, live DMS writes, or public posting.\\n\\n## Protective behavior\\nKevin must not invent appraisal values, call paid appraisal vendors, purchase reports, write live DMS, post listings, widen Chat tools beyond Desktop exact-5, or claim READY while blockers remain. Sheet count stays at or below five. Payloads stay ASCII-safe.\\n\"}}]")
     return {"schema":1,"kind":"kevin-proven-skill-invocation","authority":"GREEN","skill_key":TRADE_INTAKE_KEY,"invocation_id":invocation_id,"steps":steps}
 
+
+def build_friction_request(invocation_id: str) -> Dict[str, Any]:
+    steps = json.loads("[{\"operation\":\"create_spreadsheet\",\"payload\":{\"filename\":\"Kevin Dealership Friction Reducer Pack.xlsx\",\"workbook\":{\"schema\":1,\"kind\":\"kevin-xlsx-spec\",\"sheets\":[{\"name\":\"Friction Queue\",\"rows\":[[\"Priority\",\"Friction ID\",\"Area\",\"Problem\",\"Owner\",\"Aging Days\",\"Customer / Unit Impact\",\"Status\",\"Next Action\",\"Due\"],[\"P1\",\"\",\"Sales / Service / Recon / Delivery / Parts / Admin\",\"\",\"\",\"\",\"\",\"OPEN\",\"\",\"\"]]},{\"name\":\"Root Cause\",\"rows\":[[\"Friction ID\",\"Observed Symptom\",\"Likely Cause\",\"Evidence\",\"Missing Prerequisite\",\"Who Can Unblock\",\"Cost of Delay\",\"Notes\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]]},{\"name\":\"Daily Clears\",\"rows\":[[\"Date\",\"Friction ID\",\"Action Taken\",\"By\",\"Result\",\"Still Blocked?\",\"Follow-up Needed\",\"Evidence Path\"],[\"\",\"\",\"\",\"\",\"\",\"NO\",\"\",\"\"]]},{\"name\":\"Recurring Patterns\",\"rows\":[[\"Pattern\",\"Count (30d)\",\"Areas Hit\",\"First Seen\",\"Last Seen\",\"System Fix Candidate\",\"Owner Value\",\"Status\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"WATCH\"]]},{\"name\":\"Escalations\",\"rows\":[[\"Severity\",\"Friction ID\",\"Why Escalate\",\"Asked Of\",\"Asked At\",\"Response Needed By\",\"Resolved?\",\"Resolution\"],[\"HIGH\",\"\",\"\",\"\",\"\",\"\",\"NO\",\"\"]]}]}}},{\"operation\":\"create_text\",\"payload\":{\"filename\":\"Kevin Dealership Friction Reducer Pack - SOP.md\",\"content\":\"# Kevin Dealership Friction Reducer Pack\\n\\nUse this pack to convert dealership slowdowns into a short, evidence-backed clear list.\\n\\n## Operating rule\\nA friction item is real work when it blocks sales, service, recon, delivery, parts, or admin throughput. Prefer the smallest safe unblock over reporting idle.\\n\\n## Required sequence\\n1. Capture the friction with area, owner, aging, and customer/unit impact.\\n2. Record the observed symptom and likely cause with evidence.\\n3. Log the daily clear action and whether the block remains.\\n4. Promote repeats into Recurring Patterns for a durable system fix.\\n5. Escalate only when an owner decision or external dependency is required.\\n\\n## Protective behavior\\nKevin must not invent work, widen tool authority, purchase, trade, send external messages, or treat Supervisor NO_ELIGIBLE_MISSION as global idle while Skill Lab or owner backlog remains. Sheet count stays at or below five. Payloads stay ASCII-safe.\\n\"}}]")
+    return {"schema":1,"kind":"kevin-proven-skill-invocation","authority":"GREEN","skill_key":FRICTION_KEY,"invocation_id":invocation_id,"steps":steps}
+
 def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) -> str:
     if item and str(item.get("required_skill_key") or "").strip():
         key = str(item.get("required_skill_key")).strip()
-        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY, RUNTIME_TRUTH_KEY, EXPIRED_MANIFEST_KEY, REFLECTION_RUNTIME_KEY, BROWSER_COMPUTER_KEY, LOT_WALK_KEY, AGING_INV_KEY, DELIVERY_PREP_KEY, RECON_BOARD_KEY, TRADE_INTAKE_KEY}:
+        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY, RUNTIME_TRUTH_KEY, EXPIRED_MANIFEST_KEY, REFLECTION_RUNTIME_KEY, BROWSER_COMPUTER_KEY, LOT_WALK_KEY, AGING_INV_KEY, DELIVERY_PREP_KEY, RECON_BOARD_KEY, TRADE_INTAKE_KEY, FRICTION_KEY}:
             return key
         raise BuilderError("UNSUPPORTED_SKILL_KEY")
     if work_id == TRANSPORT_WORK_ID:
@@ -400,6 +407,8 @@ def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) 
         return RECON_BOARD_KEY
     if work_id == TRADE_INTAKE_WORK_ID:
         return TRADE_INTAKE_KEY
+    if work_id == FRICTION_WORK_ID:
+        return FRICTION_KEY
     raise BuilderError("UNSUPPORTED_WORK_ID")
 
 
@@ -712,6 +721,12 @@ def main() -> int:
             return 0
         if skill == TRADE_INTAKE_KEY:
             request = build_trade_intake_request(args.invocation_id)
+            Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
+            print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
+            return 0
+        if skill == FRICTION_KEY:
+            request = build_friction_request(args.invocation_id)
             Path(args.output).parent.mkdir(parents=True, exist_ok=True)
             Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
             print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
