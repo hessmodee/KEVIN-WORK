@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-12T09:49:45.5131816-06:00",
+  "generated_at": "2026-09-12T09:50:13-06:00",
   "status": "degraded",
   "health": {
     "overall": "degraded",
@@ -21,21 +21,14 @@
   },
   "system": {
     "memory_pct": 39,
-    "cpu_pct": 11,
+    "cpu_pct": 6,
     "gpu": "RTX 3060",
-    "gpu_pct": 41
+    "gpu_pct": 26
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-11T11:05:14-06:00",
-        "estimated": false,
-        "ram": 46,
-        "cpu": 13,
-        "gpu": 9
-      },
       {
         "at": "2026-09-11T11:20:15-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 39,
         "cpu": 11,
         "gpu": 41
+      },
+      {
+        "at": "2026-09-12T09:50:13-06:00",
+        "estimated": false,
+        "ram": 39,
+        "cpu": 6,
+        "gpu": 26
       }
     ],
     "ram": [
-      46,
       45,
       46,
       45,
@@ -798,10 +797,10 @@
       39,
       38,
       40,
+      39,
       39
     ],
     "cpu": [
-      13,
       16,
       22,
       6,
@@ -896,10 +895,10 @@
       10,
       9,
       21,
-      11
+      11,
+      6
     ],
     "gpu": [
-      9,
       8,
       42,
       8,
@@ -994,11 +993,12 @@
       35,
       37,
       42,
-      41
+      41,
+      26
     ]
   },
   "weather": {
-    "summary": "Today 85 | Wind 3 to 14 mph | Partly Sunny then Slight Chance Rain Showers"
+    "summary": "Today 85 | Wind 3 to 14 mph | Mostly Sunny then Slight Chance Rain Showers"
   },
   "capabilities": [
     {
@@ -1094,7 +1094,7 @@
       "id": "health_24h",
       "label": "System health 24h",
       "done": 0,
-      "total": 101
+      "total": 102
     }
   ],
   "roadmap": {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-12T09:49:44-06:00",
+      "at": "2026-09-12T09:50:13-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "warning"
   },
   "sync": {
-    "last": "2026-09-12T09:49:45.5131816-06:00",
+    "last": "2026-09-12T09:50:13-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
