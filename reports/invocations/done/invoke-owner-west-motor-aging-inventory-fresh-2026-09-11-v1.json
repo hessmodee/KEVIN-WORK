@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation-receipt",
+  "version": "1.1.2",
+  "status": "PROVEN",
+  "authority": "GREEN",
+  "completed_at": "2026-09-12T05:33:36.955223Z",
+  "invocation_id": "invoke-owner-west-motor-aging-inventory-fresh-2026-09-11-v1",
+  "skill_key": "west-motor-aging-inventory-action-pack@1",
+  "proven_identity": {
+    "manifest_sha256": "C8CD85F6C5224741506C13A814350CFB95D2125502D5D164B5AA565DCD1CD8BC",
+    "proof_sha256": "632AEA6A59D2768CFB1AD8F112961D8B87AA345B4AD9AB22066D6005B89F800E",
+    "result_file": "west-motor-aging-inventory-action-pack--1.json",
+    "primitive_steps": [
+      "create_spreadsheet",
+      "create_text"
+    ],
+    "proven_at": "2026-09-04T18:53:12.0228368-06:00"
+  },
+  "request_sha256": "CF4B527B0895136BBCF9AD17ADA66A91EAC495ABBE67421205154770E1DD3B5A",
+  "step_results": [
+    {
+      "index": 0,
+      "order_id": "invoke-invoke-owner-west-motor-aging-inventory-fresh-2026-09-11-v1-s01",
+      "semantic_key": "invoke:west-motor-aging-inventory-action-pack@1:invoke-owner-west-motor-aging-inventory-fresh-2026-09-11-v1:step:1",
+      "operation": "create_spreadsheet",
+      "final_state": "DONE",
+      "order_record_sha256": "2867FD1974C6D30309CF10FC612BC6AA418E13CBE61B236266918FBF701D6F79",
+      "completed_at": "2026-09-11T23:33:32.4532806-06:00",
+      "output_name": "Kevin West Motor Aging Inventory Action Board (2).xlsx",
+      "sha256": "58EBCA8F59065FB993DB4656745E6A644B67EBFC0390662F57A3EF4BF89A6F5C",
+      "bytes": 6272,
+      "verified_sha256": "58EBCA8F59065FB993DB4656745E6A644B67EBFC0390662F57A3EF4BF89A6F5C",
+      "verified_bytes": 6272
+    },
+    {
+      "index": 1,
+      "order_id": "invoke-invoke-owner-west-motor-aging-inventory-fresh-2026-09-11-v1-s02",
+      "semantic_key": "invoke:west-motor-aging-inventory-action-pack@1:invoke-owner-west-motor-aging-inventory-fresh-2026-09-11-v1:step:2",
+      "operation": "create_text",
+      "final_state": "DONE",
+      "order_record_sha256": "3B5B4F6C9CF09555611AD13BC734397D47F8EBD09B4B662EC05ED25BE7ADC764",
+      "completed_at": "2026-09-11T23:33:33.1401240-06:00",
+      "output_name": "Kevin West Motor Aging Inventory Action - SOP (2).md",
+      "sha256": "F795E0629660300867F5A71C79012EE68BB4CD4B8F53A730F3C899D4398B83DE",
+      "bytes": 1139,
+      "verified_sha256": "F795E0629660300867F5A71C79012EE68BB4CD4B8F53A730F3C899D4398B83DE",
+      "verified_bytes": 1139
+    }
+  ],
+  "failure": null,
+  "verification": {
+    "artifact_root_bounded": true,
+    "artifact_hashes_rechecked": true,
+    "artifact_sizes_rechecked": true
+  },
+  "receipt_sha256": "8D6FF1B13AF4CE6E7EE27806A256503CBF004FA02634A6CD64206AC52FDB3E6F"
+}
