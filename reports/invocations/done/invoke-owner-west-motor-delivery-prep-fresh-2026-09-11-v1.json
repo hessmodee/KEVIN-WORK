@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation-receipt",
+  "version": "1.1.2",
+  "status": "PROVEN",
+  "authority": "GREEN",
+  "completed_at": "2026-09-12T05:44:30.863461Z",
+  "invocation_id": "invoke-owner-west-motor-delivery-prep-fresh-2026-09-11-v1",
+  "skill_key": "west-motor-delivery-prep-pack@1",
+  "proven_identity": {
+    "manifest_sha256": "B533D343C40C5C2E0E309AECDF6B5598785BC997A1CFD45EA72BA15E8BBD7685",
+    "proof_sha256": "777E1F4291425AC82B59CC8D140DFD9027E1F62EE3FC591021A6DEE21AD06ECD",
+    "result_file": "west-motor-delivery-prep-pack--1.json",
+    "primitive_steps": [
+      "create_spreadsheet",
+      "create_text"
+    ],
+    "proven_at": "2026-09-04T16:17:10.3706570-06:00"
+  },
+  "request_sha256": "1305306BCD8BE969C2C69C23E6636D676AB9D50F4D2840C5505F97C61D565C9A",
+  "step_results": [
+    {
+      "index": 0,
+      "order_id": "invoke-invoke-owner-west-motor-delivery-prep-fresh-2026-09-11-v1-s01",
+      "semantic_key": "invoke:west-motor-delivery-prep-pack@1:invoke-owner-west-motor-delivery-prep-fresh-2026-09-11-v1:step:1",
+      "operation": "create_spreadsheet",
+      "final_state": "DONE",
+      "order_record_sha256": "35CEB3B911107F28B7BD18B26924ECF05009F4324F8F8D887C3D85B6FA4E6D7C",
+      "completed_at": "2026-09-11T23:44:25.5497338-06:00",
+      "output_name": "Kevin West Motor Delivery Prep Board (2).xlsx",
+      "sha256": "F66E53295228290D91612565B63023EA4676650D641DBD6EFCF86468C3FA41AB",
+      "bytes": 6061,
+      "verified_sha256": "F66E53295228290D91612565B63023EA4676650D641DBD6EFCF86468C3FA41AB",
+      "verified_bytes": 6061
+    },
+    {
+      "index": 1,
+      "order_id": "invoke-invoke-owner-west-motor-delivery-prep-fresh-2026-09-11-v1-s02",
+      "semantic_key": "invoke:west-motor-delivery-prep-pack@1:invoke-owner-west-motor-delivery-prep-fresh-2026-09-11-v1:step:2",
+      "operation": "create_text",
+      "final_state": "DONE",
+      "order_record_sha256": "30216966F74235F5A2E4C056D27FF96CCC26753AC922FA6781825F3C84AE5E23",
+      "completed_at": "2026-09-11T23:44:26.1802173-06:00",
+      "output_name": "Kevin West Motor Delivery Prep - SOP (2).md",
+      "sha256": "48292E9C2B21DDA743C1717D283DDEAD64E970F984750D20B304CA335F59E39B",
+      "bytes": 885,
+      "verified_sha256": "48292E9C2B21DDA743C1717D283DDEAD64E970F984750D20B304CA335F59E39B",
+      "verified_bytes": 885
+    }
+  ],
+  "failure": null,
+  "verification": {
+    "artifact_root_bounded": true,
+    "artifact_hashes_rechecked": true,
+    "artifact_sizes_rechecked": true
+  },
+  "receipt_sha256": "94BF0D605C5EBEB6DA4730504A9BC357901D0CF28ADE8D3336FA9E2560E834EB"
+}
