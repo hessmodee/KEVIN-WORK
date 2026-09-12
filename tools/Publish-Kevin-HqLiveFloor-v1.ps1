@@ -212,6 +212,44 @@ $doc = [ordered]@{
   detail = $(if ($waiting) { 'WAITING_ITEM_BUDGETS — HOLD select' } else { $hint })
 }
 
+
+# Owner-outcomes stripes + last_attempt (halt gate; not painter). Merge if present.
+$ooPath = Join-Path $ws 'reports\owner-outcomes-latest.json'
+if (Test-Path -LiteralPath $ooPath) {
+  try {
+    $oo = Get-Content $ooPath -Raw -Encoding UTF8 | ConvertFrom-Json
+    if ($oo.newest_receipt -and $oo.newest_receipt.completed_at) {
+      $doc['last_attempt'] = [string]$oo.newest_receipt.completed_at
+      if (-not $doc['last_invoke_completed_at'] -or [string]$doc['last_invoke_completed_at'] -lt [string]$oo.newest_receipt.completed_at) {
+        $doc['last_invoke_completed_at'] = [string]$oo.newest_receipt.completed_at
+      }
+    }
+    $doc['owner_outcomes_path'] = 'reports/owner-outcomes-latest.json'
+    $doc['west_motor_family_loop'] = 'docs/engineering/KEVIN-WEST-MOTOR-ONE-FAMILY-LOOP-v1.md'
+    $doc['clone_prove_freeze'] = $true
+    $map = @{
+      'west-motor-lot-walk-checklist-pack@1' = 'lot_walk'
+      'west-motor-aging-inventory-action-pack@1' = 'aging_inventory'
+      'west-motor-delivery-prep-pack@1' = 'delivery_prep'
+      'west-motor-recon-priority-board-pack@1' = 'recon_priority'
+      'west-motor-trade-intake-pack@1' = 'trade_intake'
+      'dealership-friction-reducer-pack@1' = 'friction_reducer'
+    }
+    foreach ($row in @($oo.outcomes)) {
+      $sk = [string]$row.skill_key
+      if ($map.ContainsKey($sk)) {
+        $pfx = $map[$sk]
+        $doc[($pfx + '_proven')] = $true
+        $doc[($pfx + '_completed')] = $true
+        $doc[($pfx + '_receipt_sha256')] = [string]$row.receipt_sha256
+        $doc[($pfx + '_skill_key')] = $sk
+        $doc[($pfx + '_invocation_id')] = [string]$row.invocation_id
+        $doc[($pfx + '_completed_at')] = [string]$row.completed_at
+      }
+    }
+  } catch {}
+}
+
 [IO.File]::WriteAllText($floorPath, (($doc | ConvertTo-Json -Depth 10) + "`n"), $utf8)
 Write-Host ("hq-live-floor cycle={0} hint={1} status={2} ready={3}" -f $cycle, $hint, $doc.status, $readyCount)
 
