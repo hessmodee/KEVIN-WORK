@@ -1,0 +1,253 @@
+{
+  "schema": 1,
+  "kind": "kevin-composite-skill-run",
+  "status": "PROVEN",
+  "started_at": "2026-09-04T10:06:36.2408634-06:00",
+  "last_transition_at": "2026-09-04T10:10:36.3232166-06:00",
+  "runner_heartbeat_at": "2026-09-04T10:10:36.3232166-06:00",
+  "manifest": {
+    "schema": 1,
+    "kind": "kevin-composite-skill",
+    "id": "vehicle-transport-mission-pack",
+    "version": "1",
+    "authority": "GREEN",
+    "name": "Vehicle Transport Mission Pack",
+    "description": "Creates a structured transport planning, inspection and delivery workbook for dealer trades, customer deliveries, auction pickups and inter-store vehicle movement.",
+    "steps": [
+      {
+        "operation": "create_spreadsheet",
+        "payload": {
+          "filename": "Kevin Vehicle Transport Mission Pack.xlsx",
+          "workbook": {
+            "schema": 1,
+            "kind": "kevin-xlsx-spec",
+            "sheets": [
+              {
+                "name": "Transport Queue",
+                "rows": [
+                  [
+                    "Priority",
+                    "Mission ID",
+                    "Type",
+                    "Pickup",
+                    "Delivery",
+                    "Vehicle",
+                    "VIN Last 8",
+                    "Deadline",
+                    "Driver",
+                    "Truck / Trailer",
+                    "Status",
+                    "Blocker"
+                  ],
+                  [
+                    "P1",
+                    "",
+                    "Dealer Trade / Customer / Auction / Inter-store",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "PLANNED",
+                    ""
+                  ]
+                ]
+              },
+              {
+                "name": "Vehicle Detail",
+                "rows": [
+                  [
+                    "Mission ID",
+                    "Year",
+                    "Make",
+                    "Model",
+                    "VIN",
+                    "Stock / Unit",
+                    "Keys",
+                    "Fuel / Charge",
+                    "Runs / Drives",
+                    "Special Handling",
+                    "Paperwork",
+                    "Notes"
+                  ],
+                  [
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                  ]
+                ]
+              },
+              {
+                "name": "Route and Stops",
+                "rows": [
+                  [
+                    "Mission ID",
+                    "Sequence",
+                    "Stop",
+                    "Address",
+                    "Purpose",
+                    "Appointment / Deadline",
+                    "Contact",
+                    "Phone",
+                    "ETA",
+                    "Notes"
+                  ],
+                  [
+                    "",
+                    1,
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                  ]
+                ]
+              },
+              {
+                "name": "Condition Handoff",
+                "rows": [
+                  [
+                    "Mission ID",
+                    "Stage",
+                    "Odometer",
+                    "Fuel / Charge",
+                    "Exterior Condition",
+                    "Interior Condition",
+                    "Warning Lights",
+                    "Keys Count",
+                    "Docs Received",
+                    "Photos / Evidence",
+                    "Confirmed By"
+                  ],
+                  [
+                    "",
+                    "PICKUP",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                  ],
+                  [
+                    "",
+                    "DELIVERY",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                  ]
+                ]
+              },
+              {
+                "name": "Trip Record",
+                "rows": [
+                  [
+                    "Mission ID",
+                    "Depart",
+                    "Arrive",
+                    "Miles",
+                    "Fuel",
+                    "Tolls / Parking",
+                    "Other Expense",
+                    "Delay",
+                    "Cause",
+                    "Completed?",
+                    "Completion Evidence"
+                  ],
+                  [
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "NO",
+                    ""
+                  ]
+                ]
+              }
+            ]
+          }
+        }
+      },
+      {
+        "operation": "create_text",
+        "payload": {
+          "filename": "Kevin Vehicle Transport Mission Pack - SOP.md",
+          "content": "# Kevin Vehicle Transport Mission Pack\n\nUse this pack to turn a transport request into a verified mission rather than a string of assumptions.\n\n## Required sequence\n1. Capture pickup, destination, vehicle identity and required delivery time.\n2. Resolve driver and truck/trailer suitability.\n3. Confirm keys, paperwork, run/drive condition and special handling before departure.\n4. Record pickup condition and evidence.\n5. Track delays and changes explicitly.\n6. Record delivery condition and completion evidence.\n\n## Protective behavior\nKevin should flag VIN/vehicle mismatches, missing keys or documents, impossible timing, unknown pickup/delivery location, unverified trailer suitability, unresolved warning conditions and conflicting instructions. Kevin may prepare calls/messages or purchase needs but may not send, purchase or commit on Matt's behalf without the required authority.\n"
+        }
+      }
+    ]
+  },
+  "manifest_sha256": "E6D2C52524A6B322C7EC1993034212E07F1BC4477A02500AE47E0084B88B2641",
+  "step_index": 2,
+  "current_order_id": "",
+  "current_order_file": "",
+  "current_order_state": "",
+  "current_step_payload_sha256": "",
+  "current_semantic_key": "",
+  "step_started_at": "2026-09-04T10:08:36.8679397-06:00",
+  "step_results": [
+    {
+      "step_index": 0,
+      "operation": "create_spreadsheet",
+      "order_id": "skill-vehicle-transport-mission-pack-1-s01",
+      "semantic_key": "skill:vehicle-transport-mission-pack:1:step:1",
+      "payload_sha256": "15C2372877230A628A9494A58E5FB5B84348F5FACCA8BD52A31E0D93D95DB2E6",
+      "order_record_sha256": "5CC80F79D53F80040071B963620F6CAA604763D4FCD7D9BB42D36180288C79B9",
+      "completed_at": "2026-09-04T10:08:20.9017388-06:00",
+      "output_name": "Kevin Vehicle Transport Mission Pack.xlsx",
+      "sha256": "E71B83FE661E3A378407FB428A838DB28FC7E9CA0BC9FB3CBFA94E680A1D4875",
+      "bytes": 6171,
+      "screenshot_name": "",
+      "screenshot_sha256": ""
+    },
+    {
+      "step_index": 1,
+      "operation": "create_text",
+      "order_id": "skill-vehicle-transport-mission-pack-1-s02",
+      "semantic_key": "skill:vehicle-transport-mission-pack:1:step:2",
+      "payload_sha256": "BE1299FF6760714EE1E16871D816B44FD78E342CF4069F4585026CD58015C98B",
+      "order_record_sha256": "49311182551C2F055D649F3FD028806CE46275CA98472C3C39A99E9BF5101589",
+      "completed_at": "2026-09-04T10:10:20.6684369-06:00",
+      "output_name": "Kevin Vehicle Transport Mission Pack - SOP.md",
+      "sha256": "F28429B961B6E0B88A6075602EFD9AC83D78B8B66ADEAB46A8BE81578A238BF5",
+      "bytes": 888,
+      "screenshot_name": "",
+      "screenshot_sha256": ""
+    }
+  ],
+  "recovery_attempts": 0,
+  "last_recovery_reason": "consumed skill-vehicle-transport-mission-pack-1-s02",
+  "failure_evidence_sha256": "",
+  "completed_at": "2026-09-04T10:10:36.7598745-06:00",
+  "proof_sha256": "0B3304ABAAA53950AE412E8EFD25C7D9E6537B2A98CB3D4C6B3BF23F9D932724",
+  "safe_for_public_repo": true,
+  "public_payload_policy": "PROVEN composite receipt; hashes + step payload digests only; no secrets"
+}
