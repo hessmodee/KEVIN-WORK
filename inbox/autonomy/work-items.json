@@ -411,7 +411,10 @@
                                                   "Record which source is freshest, which display/report is stale, and the smallest exact publisher or reconciliation mechanism that would make Support/HQ reflect the live truth.",
                                                   "Do not count a model response alone as repair proof; produce a durable diagnosis/evidence pointer that a typed repair can consume."
                                               ],
-                      "next_action":  "Refresh runtime evidence, diagnose the stale-truth path, and leave a durable bounded repair target for the engineering/maintenance lane."
+                      "next_action":  "Refresh runtime evidence, diagnose the stale-truth path, and leave a durable bounded repair target for the engineering/maintenance lane.",
+                      "evidence_only_predecessor":  true,
+                      "successor_work_instance":  "autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1",
+                      "bounded_note":  "BOUNDED_TURNS evidence left intact; fresh WI materialized 2026-09-11; no history reset"
                   },
                   {
                       "id":  "autonomy-expired-manifest-regression-design-v1",
@@ -567,6 +570,50 @@
                       "last_receipt_sha256":  "B33C1AE09CAC2DCFF15A68E059E49DC1AE5774BE487C8CD68BE6882E1D3D7322",
                       "blocked":  true,
                       "block_reason":  "COMPLETE_DO_NOT_RESELECT — invocation PROVEN; awaiting VERIFY"
+                  },
+                  {
+                      "id":  "autonomy-runtime-truth-reconciliation-fresh-2026-09-11-v1",
+                      "authority_class":  "GREEN",
+                      "status":  "OPEN",
+                      "priority":  "high",
+                      "owner_value":  5,
+                      "program":  "platform-reliability",
+                      "lane":  "research",
+                      "work_type":  "research",
+                      "severity":  "high",
+                      "closes_proof_gap":  true,
+                      "reduces_bess_intervention":  true,
+                      "repairs_false_success":  true,
+                      "dependencies_ready":  true,
+                      "blocked":  false,
+                      "failure_attempts":  0,
+                      "material_new_evidence":  true,
+                      "production_effect":  "NONE",
+                      "estimated_minutes":  20,
+                      "reuses_proven_capability":  false,
+                      "produces_owner_deliverable":  true,
+                      "successor_of":  "autonomy-runtime-truth-reconciliation-v1",
+                      "lineage":  "autonomy-runtime-truth-reconciliation",
+                      "materialized_at":  "2026-09-11T23:02:31.0111956-06:00",
+                      "materialized_by":  "GROKBOT_ACTED",
+                      "never_kevin_learned_claim":  true,
+                      "downstream_consumer":  "SUPPORT_HQ_TRUTH_PUBLISHER_REPAIR",
+                      "required_skill_key":  null,
+                      "worker":  null,
+                      "notepad_banned":  true,
+                      "acceptance_criteria":  [
+                                                  "Fresh WorkInstance selected without resetting predecessor BOUNDED history.",
+                                                  "Skill Lab PROVEN diagnosis pack (create_spreadsheet+create_text only; Notepad banned) OR bind existing PROVEN key.",
+                                                  "Durable diagnosis pointer: freshest source vs stale display + smallest typed repair target.",
+                                                  "No PASS claim; VERIFY judges owner outcomes separately."
+                                              ],
+                      "next_action":  "SKILL_LAB_GAP — stage runtime-truth-reconciliation-diagnosis-pack@1 then Lab PROVE",
+                      "evidence_pointers":  [
+                                                "reports/autonomy-continuation-latest.json",
+                                                "reports/hq-live-floor.json",
+                                                "reports/support-latest.json",
+                                                "reports/invocations/latest-public-reject.json"
+                                            ]
                   }
               ],
     "updated_at":  "2026-09-12T01:55:18.897049+00:00"
