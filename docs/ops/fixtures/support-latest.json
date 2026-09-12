@@ -1,0 +1,132 @@
+{
+    "schema":  1,
+    "kind":  "kevin-support-snapshot",
+    "generated_at":  "2026-09-11T19:11:28.7008288-06:00",
+    "safe_for_public_repo":  true,
+    "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
+    "hashes":  {
+                   "supervisor":  "F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB",
+                   "benchmark":  "4C766122A83A3A3B268C07F0AE0A8A7C9F33BA1A7B25ECE6855ABA61E3297964",
+                   "forge":  "433534B91CE2096BD3A9FEE55E492CA31DB7689E6940A136FB927B65E19E482A",
+                   "goal_os":  "B20C7AC8EDC35C656ED544C4D13D3EB4FF4A79453AF0F49BD60B7DF31092AEF0",
+                   "promotion_policy":  "0A10B3C1F379EDAEC7D0AA1C227A46990C8CE80D6FDC5D9C04B67EB8AA26952E",
+                   "support_bridge":  "556B763094714520336BD9A468448AA607F883A0AA4D00568D7347D2EA17FB66",
+                   "maintenance_runner":  "3E11C429D4540DBD5C4F6F7AD60AA1729D2C0A78D7DA209E76F196654589C261"
+               },
+    "governance":  {
+                       "ok":  true,
+                       "version":  "1.0",
+                       "owner_locked_horizons":  [
+                                                     "north_star",
+                                                     "one_year",
+                                                     "ninety_day",
+                                                     "thirty_day"
+                                                 ],
+                       "supervisor_may_update":  [
+                                                     "mission_selection",
+                                                     "candidate_progress",
+                                                     "candidate_champions",
+                                                     "lessons",
+                                                     "diagnostics",
+                                                     "scorecards",
+                                                     "goal_proposals"
+                                                 ],
+                       "never_self_authorize":  [
+                                                    "permissions",
+                                                    "arbitrary_shell",
+                                                    "production_chat_tools",
+                                                    "financial_transactions",
+                                                    "purchases",
+                                                    "external_sends",
+                                                    "credential_access",
+                                                    "safety_weakening",
+                                                    "automatic_production_promotion"
+                                                ],
+                       "missing_locks":  [
+
+                                         ],
+                       "improperly_mutable":  [
+
+                                              ],
+                       "missing_never_self_authorize":  [
+
+                                                        ],
+                       "explicit_owner_adoption":  true
+                   },
+    "cron":  {
+                 "ok":  false,
+                 "jobs":  [
+
+                          ],
+                 "error":  "Config warnings:"
+             },
+    "supervisor":  {
+                       "cycle":  449,
+                       "last_mission":  "",
+                       "last_result":  "NO_ELIGIBLE_MISSION",
+                       "next_eligible_at":  "2026-09-01T21:32:49.0537454-06:00",
+                       "last_iteration":  0,
+                       "consecutive_failures":  0
+                   },
+    "recovery":  {
+                     "fingerprint":  "61530E1B82C5314B80A3F4D9B27D65361CFC350ED6F687B12765DFBEE4D6640D",
+                     "round":  1,
+                     "last_at":  "2026-09-01T07:08:46.7889581-06:00",
+                     "last_brief":  "20260901-070846-round1.json"
+                 },
+    "benchmark":  {
+                      "at":  "2026-09-11T19:10:21.6491752-06:00",
+                      "status":  "PASS",
+                      "regression":  {
+                                         "passed":  30,
+                                         "total":  30,
+                                         "percent":  100,
+                                         "critical_failures":  0,
+                                         "failed":  [
+
+                                                    ]
+                                     },
+                      "model_status":  "SKIPPED_NOT_DUE"
+                  },
+    "latest_evaluation":  {
+                              "file":  "20260901-070553-forge-v4-i391-evaluation.json",
+                              "at":  "2026-09-01T07:06:41.6870163-06:00",
+                              "mission":  "forge-v4",
+                              "iteration":  391,
+                              "verdict":  "REJECT",
+                              "score":  2,
+                              "result":  "",
+                              "failure_count":  7,
+                              "security_finding_count":  4,
+                              "has_reusable_lesson":  true,
+                              "has_next_experiment":  true
+                          },
+    "maintenance":  {
+                        "at":  "2026-09-11T19:09:15.3385301-06:00",
+                        "status":  "EXPIRED_IDLE",
+                        "manifest_id":  "grok-install-worker-v11-20260909-1910",
+                        "stage_path":  "",
+                        "detail":  "Expired canonical manifest refused without scheduler failure."
+                    },
+    "active_workers":  {
+                           "design_forge":  0,
+                           "night_forge":  0,
+                           "supervisor":  0,
+                           "benchmark":  0
+                       },
+    "public_truth":  {
+                         "schema":  1,
+                         "kind":  "kevin-public-truth-v1",
+                         "safe_for_public_repo":  true,
+                         "desktop_tool_inventory_count":  4,
+                         "desktop_tool_inventory_status":  "REPORTED_NONEMPTY",
+                         "desktop_tool_inventory_source":  "p01_desktop_crossing_receipt",
+                         "night_forge_task_state":  "Disabled",
+                         "night_forge_task_name":  "KevinNightForge",
+                         "mission_lease":  null,
+                         "routed_to_skill_lab":  null,
+                         "drive_interim":  null,
+                         "grants_budget_unlock":  null
+                     },
+    "semantic_hash":  "002BB0437FDB0B5FA21F1E663913D124275F5D72B97FF4EFF18F894C770DF98F"
+}
