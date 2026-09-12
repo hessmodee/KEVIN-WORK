@@ -1,7 +1,7 @@
 (() => {
 'use strict';
 /** P0 OPS FLOOR painter loader — MCP size workaround; chunks are exact base64 of painter source */
-const N=8;
+const N=16;
 async function load() {
   const texts=[];
   for (let i=1;i<=N;i++) {
