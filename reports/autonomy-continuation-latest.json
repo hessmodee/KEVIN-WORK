@@ -2,10 +2,10 @@
     "schema":  1,
     "kind":  "kevin-autonomy-continuation-public",
     "version":  "1.8.12",
-    "generated_at":  "2026-09-11T23:50:21.9251452-06:00",
-    "status":  "OUTCOME_PROVEN",
+    "generated_at":  "2026-09-11T23:53:27.2413402-06:00",
+    "status":  "ROUTED_TO_PROVEN_SKILL_INVOCATION",
     "safe_for_public_repo":  true,
-    "outcome_proven":  true,
+    "outcome_proven":  false,
     "model_call_counts_as_accomplishment":  false,
     "tool_calls":  null,
     "history":  [
@@ -70,8 +70,7 @@
                         "fingerprint":  "71E36D7B1AD80B6E0D8C11E294B19A6B9E685E3D652BDD689D075C0DCC60FBAC",
                         "turns":  2,
                         "last_turn_at":  "2026-09-11T20:09:59.3703133-06:00",
-                        "status":  "OUTCOME_PROVEN_VERIFY_PASS_MIXED",
-                        "last_outcome_at":  "2026-09-11T23:50:21.9251452-06:00"
+                        "status":  "IN_PROGRESS"
                     },
                     {
                         "id":  "owner-west-motor-transport-dispatch-template-v1",
@@ -82,8 +81,8 @@
                     }
                 ],
     "history_error":  false,
-    "selected_id":  "owner-west-motor-recon-priority-board-fresh-2026-09-11-v1",
-    "fingerprint":  "3433B06C1A9BD02643000EEC4CAA7B8CBDDB956692C31C7E91D3D691879168B4",
+    "selected_id":  "owner-west-motor-trade-intake-fresh-2026-09-11-v1",
+    "fingerprint":  "DDAA74A51085239D52E4FCE43F5C1960B31B2DE5C1B0753945A503426142E8B6",
     "eligible_count":  6,
     "deferred":  [
                      {
@@ -103,5 +102,5 @@
                      }
                  ],
     "history_skipped":  1,
-    "truth_boundary":  "OUTCOME_PROVEN public sync. MIXED actor. ready=0 expected."
+    "truth_boundary":  "Scheduled selection and runtime-attempt evidence only. No owner outcome, tool use, or autonomy transfer is inferred from a successful model turn."
 }
