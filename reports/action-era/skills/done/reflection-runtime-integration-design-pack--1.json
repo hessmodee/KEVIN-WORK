@@ -1,0 +1,195 @@
+{
+    "schema":  1,
+    "kind":  "kevin-composite-skill-run",
+    "status":  "PROVEN",
+    "started_at":  "2026-09-11T23:13:11.5260329-06:00",
+    "last_transition_at":  "2026-09-11T23:13:18.7255554-06:00",
+    "runner_heartbeat_at":  "2026-09-11T23:13:18.7255554-06:00",
+    "manifest":  {
+                     "schema":  1,
+                     "kind":  "kevin-composite-skill",
+                     "id":  "reflection-runtime-integration-design-pack",
+                     "version":  "1",
+                     "authority":  "GREEN",
+                     "name":  "Reflection Runtime Integration Design Pack",
+                     "description":  "GREEN design board: map Incident/Reflection v1 to Supervisor/Maintenance/Skill Lab/Engineering; bounded failure trigger â†’ fingerprint/hypotheses/tests/verify/lesson/resume; replay test that owner task resumes after repair. Spreadsheet+text only. Notepad banned. GROKBOT_ACTED staging.",
+                     "steps":  [
+                                   {
+                                       "operation":  "create_spreadsheet",
+                                       "payload":  {
+                                                       "filename":  "reflection-runtime-integration-design.xlsx",
+                                                       "workbook":  {
+                                                                        "schema":  1,
+                                                                        "kind":  "kevin-xlsx-spec",
+                                                                        "sheets":  [
+                                                                                       {
+                                                                                           "name":  "Surface Map",
+                                                                                           "rows":  [
+                                                                                                        [
+                                                                                                            "Surface",
+                                                                                                            "Artifact / path",
+                                                                                                            "Reflection hook today",
+                                                                                                            "Gap"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Supervisor",
+                                                                                                            "reports/autonomy-continuation-latest.json",
+                                                                                                            "partial",
+                                                                                                            "failureâ†’reflection missing"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Maintenance",
+                                                                                                            "reports/maintenance",
+                                                                                                            "partial",
+                                                                                                            "expired/terminal idle vs poison"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Skill Lab",
+                                                                                                            "reports/action-era/skills",
+                                                                                                            "partial",
+                                                                                                            "PROVENâ‰ owner resume"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Engineering",
+                                                                                                            "reports/engineering",
+                                                                                                            "partial",
+                                                                                                            "lesson not auto-wired"
+                                                                                                        ]
+                                                                                                    ]
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "Trigger Contract",
+                                                                                           "rows":  [
+                                                                                                        [
+                                                                                                            "Field",
+                                                                                                            "Rule"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Trigger",
+                                                                                                            "Real failure with durable evidence (not model-only)"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Record",
+                                                                                                            "fingerprint, hypotheses, tests, independent verify, lesson, dependency-retirement if external eng, resume pointer"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Authority",
+                                                                                                            "Recommend/stage only; typed crossing for protected effects"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Resume",
+                                                                                                            "Original owner task continues after successful repair"
+                                                                                                        ]
+                                                                                                    ]
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "Replay Test",
+                                                                                           "rows":  [
+                                                                                                        [
+                                                                                                            "Step",
+                                                                                                            "Expect"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "1 Induce bounded failure",
+                                                                                                            "reflection artifact written"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "2 Repair succeeds",
+                                                                                                            "lesson + resume pointer"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "3 Replay",
+                                                                                                            "owner task resumes; does not end at repair"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "4 Authority check",
+                                                                                                            "no new primitives"
+                                                                                                        ]
+                                                                                                    ]
+                                                                                       },
+                                                                                       {
+                                                                                           "name":  "Acceptance",
+                                                                                           "rows":  [
+                                                                                                        [
+                                                                                                            "Field",
+                                                                                                            "Value"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "WorkInstance",
+                                                                                                            "autonomy-reflection-runtime-integration-fresh-2026-09-11-v1"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Predecessor",
+                                                                                                            "autonomy-reflection-runtime-integration-v1"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Consumer",
+                                                                                                            "INCIDENT_REFLECTION_RUNTIME_WIRE"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Notepad",
+                                                                                                            "BANNED"
+                                                                                                        ],
+                                                                                                        [
+                                                                                                            "Primitives",
+                                                                                                            "create_spreadsheet + create_text"
+                                                                                                        ]
+                                                                                                    ]
+                                                                                       }
+                                                                                   ]
+                                                                    }
+                                                   }
+                                   },
+                                   {
+                                       "operation":  "create_text",
+                                       "payload":  {
+                                                       "filename":  "reflection-runtime-integration-design-brief.md",
+                                                       "content":  "# Reflection runtime integration design brief\n\n**WorkInstance:** autonomy-reflection-runtime-integration-fresh-2026-09-11-v1\n**Predecessor:** autonomy-reflection-runtime-integration-v1 (BOUNDED; no history reset)\n**Actor:** GROKBOT_ACTED staging (not Kevin-learned)\n**Notepad:** banned | **Primitives:** spreadsheet + text only\n\n## Contract\nBounded runtime trigger on real failures records fingerprint, competing hypotheses, tests, independent verification, lesson, dependency-retirement when external engineering was used, and a resume pointer. Reflection may recommend/stage; protected effects still use existing typed crossings. Replay must prove the original owner task resumes after successful repair rather than ending at the repair."
+                                                   }
+                                   }
+                               ]
+                 },
+    "manifest_sha256":  "173DBD2479DB23585546542DD867FB1C6DAB1A8C013D4BDDBC84F235D2B6903F",
+    "step_index":  2,
+    "current_order_id":  "",
+    "current_order_file":  "",
+    "current_order_state":  "",
+    "current_step_payload_sha256":  "",
+    "current_semantic_key":  "",
+    "step_started_at":  "2026-09-11T23:13:16.2441109-06:00",
+    "step_results":  [
+                         {
+                             "step_index":  0,
+                             "operation":  "create_spreadsheet",
+                             "order_id":  "skill-reflection-runtime-integration-design-pack-1-s01",
+                             "semantic_key":  "skill:reflection-runtime-integration-design-pack:1:step:1",
+                             "payload_sha256":  "8D42C62524E3C74DF1EB79F1D1BE573604C58BF82B552B1478DAF6E86926E162",
+                             "order_record_sha256":  "618006F0D680D6734A50FD1A9DE18CABABDE21F307AD074916CE5A5ED9A31019",
+                             "completed_at":  "2026-09-11T23:13:14.7260141-06:00",
+                             "output_name":  "reflection-runtime-integration-design.xlsx",
+                             "sha256":  "3AB90DF98B106545389A11B97A1D54A23974E37AAA513653E93CAB06F3EC674F",
+                             "bytes":  5376,
+                             "screenshot_name":  "",
+                             "screenshot_sha256":  ""
+                         },
+                         {
+                             "step_index":  1,
+                             "operation":  "create_text",
+                             "order_id":  "skill-reflection-runtime-integration-design-pack-1-s02",
+                             "semantic_key":  "skill:reflection-runtime-integration-design-pack:1:step:2",
+                             "payload_sha256":  "B118CA4AE379C78FFE53D3CDD1758A8F022C3957795688E378F2A94B21F240BF",
+                             "order_record_sha256":  "29B929E09965183A4880143D02FEA23940694EDB066936FAC249A0856E07497F",
+                             "completed_at":  "2026-09-11T23:13:17.8901296-06:00",
+                             "output_name":  "reflection-runtime-integration-design-brief.md",
+                             "sha256":  "BD3775ED0C70605F345CC24AB0298ED2467D6E200F56F8E0E7CB251030EE09F9",
+                             "bytes":  739,
+                             "screenshot_name":  "",
+                             "screenshot_sha256":  ""
+                         }
+                     ],
+    "recovery_attempts":  0,
+    "last_recovery_reason":  "consumed skill-reflection-runtime-integration-design-pack-1-s02",
+    "failure_evidence_sha256":  "",
+    "completed_at":  "2026-09-11T23:13:19.2441915-06:00",
+    "proof_sha256":  "F590A0CF7DB96716E113553579B2E1191F4AE7BDF5CCD4728A55A6A7EB020A26"
+}
