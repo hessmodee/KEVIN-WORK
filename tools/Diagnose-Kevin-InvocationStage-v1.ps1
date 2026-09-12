@@ -31,10 +31,10 @@ $Archive = Join-Path $Workspace 'inbox\autonomy\archive'
 $WorkId = 'owner-west-motor-parts-chase-fresh-8-v1'
 $RequestId = 'diagnose-' + $WorkId
 $SupervisorRequestId = 'invoke-' + $WorkId
-$InvExpected$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
-$BldExpected$BldExpected$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
-$WorkerExpectedV1$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
-$WorkerExpectedV11$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
+$InvExpected$BldExpected$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
+$BldExpected$BldExpected$BldExpected$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
+$WorkerExpectedV1$BldExpected$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
+$WorkerExpectedV11$BldExpected$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
 $WorkerLivePath = Join-Path $Workspace 'ControlPlane\kevin-proven-skill-invoke-worker-v1.ps1'
 $WorkerV11Path = Join-Path $Workspace 'control-plane\autonomy\kevin-proven-skill-invoke-worker-v1.1.ps1'
 
