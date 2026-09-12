@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation-receipt",
+  "version": "1.1.2",
+  "status": "PROVEN",
+  "authority": "GREEN",
+  "completed_at": "2026-09-12T04:54:25.117772Z",
+  "invocation_id": "invoke-owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1",
+  "skill_key": "dealership-operations-opportunity-scan-pack@1",
+  "proven_identity": {
+    "manifest_sha256": "1D1FD96BE9F963DD03034B2F1C248812A604454FB902ECD389065BCB1C2AF3AA",
+    "proof_sha256": "548221C1697D825F3E9922B279241DF51EBE0825EB9CFFA7B199CAED3C1F4757",
+    "result_file": "dealership-operations-opportunity-scan-pack--1.json",
+    "primitive_steps": [
+      "create_spreadsheet",
+      "create_text"
+    ],
+    "proven_at": "2026-09-11T22:47:27.9590238-06:00"
+  },
+  "request_sha256": "D581C40F2B860D1387BFAC2A7DD55CCC6BF1825C530FBA294F708CE05D80E569",
+  "step_results": [
+    {
+      "index": 0,
+      "order_id": "invoke-invoke-owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1-s01",
+      "semantic_key": "invoke:dealership-operations-opportunity-scan-pack@1:invoke-owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1:step:1",
+      "operation": "create_spreadsheet",
+      "final_state": "DONE",
+      "order_record_sha256": "9C9C6466D2EFD225FBAC07006E8A800F2569AEC9B51EA82F607EF504D3BD0D7D",
+      "completed_at": "2026-09-11T22:52:48.0324838-06:00",
+      "output_name": "dealership-operations-opportunity-scan (2).xlsx",
+      "sha256": "31D36048C5A008DD6D8E32805270C20F84E23AA95EFA27235A15BC5F958FC13C",
+      "bytes": 4212,
+      "verified_sha256": "31D36048C5A008DD6D8E32805270C20F84E23AA95EFA27235A15BC5F958FC13C",
+      "verified_bytes": 4212
+    },
+    {
+      "index": 1,
+      "order_id": "invoke-invoke-owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1-s02",
+      "semantic_key": "invoke:dealership-operations-opportunity-scan-pack@1:invoke-owner-dealership-operations-opportunity-scan-fresh-2026-09-11-v1:step:2",
+      "operation": "create_text",
+      "final_state": "DONE",
+      "order_record_sha256": "68994710FFC5F5CCDC1BC904C0B56A875D9F996787D4810EBC5E50BB0428C9C6",
+      "completed_at": "2026-09-11T22:54:14.0753572-06:00",
+      "output_name": "dealership-operations-opportunity-brief (2).md",
+      "sha256": "F9BD557DE88D3F9155A450CB5BCE3662DBA3AA62DE37E7C45D5D304A6E1310AA",
+      "bytes": 863,
+      "verified_sha256": "F9BD557DE88D3F9155A450CB5BCE3662DBA3AA62DE37E7C45D5D304A6E1310AA",
+      "verified_bytes": 863
+    }
+  ],
+  "failure": null,
+  "verification": {
+    "artifact_root_bounded": true,
+    "artifact_hashes_rechecked": true,
+    "artifact_sizes_rechecked": true
+  },
+  "receipt_sha256": "B33C1AE09CAC2DCFF15A68E059E49DC1AE5774BE487C8CD68BE6882E1D3D7322"
+}
