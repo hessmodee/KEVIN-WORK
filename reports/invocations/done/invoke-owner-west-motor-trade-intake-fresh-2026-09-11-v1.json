@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation-receipt",
+  "version": "1.1.2",
+  "status": "PROVEN",
+  "authority": "GREEN",
+  "completed_at": "2026-09-12T05:54:22.558934Z",
+  "invocation_id": "invoke-owner-west-motor-trade-intake-fresh-2026-09-11-v1",
+  "skill_key": "west-motor-trade-intake-pack@1",
+  "proven_identity": {
+    "manifest_sha256": "083951174E35334524FAE42346293456D981808900684C177AEBFC0E023F9740",
+    "proof_sha256": "A74320691A9EABF511D4E77F10B1524C847596EB2B9860254CAB07E2708FDFE9",
+    "result_file": "west-motor-trade-intake-pack--1.json",
+    "primitive_steps": [
+      "create_spreadsheet",
+      "create_text"
+    ],
+    "proven_at": "2026-09-04T17:15:10.8444895-06:00"
+  },
+  "request_sha256": "D1DF91F65136BFD209AB7D7A1B3BCB4DECC85AF82D7D50433092261A47EDBE42",
+  "step_results": [
+    {
+      "index": 0,
+      "order_id": "invoke-invoke-owner-west-motor-trade-intake-fresh-2026-09-11-v1-s01",
+      "semantic_key": "invoke:west-motor-trade-intake-pack@1:invoke-owner-west-motor-trade-intake-fresh-2026-09-11-v1:step:1",
+      "operation": "create_spreadsheet",
+      "final_state": "DONE",
+      "order_record_sha256": "60FFC1A19317F446FB51C22419792AFBDFEEEB2F86678A16148421DC849A1CEC",
+      "completed_at": "2026-09-11T23:54:19.4286236-06:00",
+      "output_name": "Kevin West Motor Trade Intake Board (2).xlsx",
+      "sha256": "590462AE515F136F90496BD481C204A43564995C84E13838FB77FB843049D56D",
+      "bytes": 6176,
+      "verified_sha256": "590462AE515F136F90496BD481C204A43564995C84E13838FB77FB843049D56D",
+      "verified_bytes": 6176
+    },
+    {
+      "index": 1,
+      "order_id": "invoke-invoke-owner-west-motor-trade-intake-fresh-2026-09-11-v1-s02",
+      "semantic_key": "invoke:west-motor-trade-intake-pack@1:invoke-owner-west-motor-trade-intake-fresh-2026-09-11-v1:step:2",
+      "operation": "create_text",
+      "final_state": "DONE",
+      "order_record_sha256": "E3449CD698E1F9FDEEB2F22502BC0AF1A7376403CE67CDB2A6894C80F9B67069",
+      "completed_at": "2026-09-11T23:54:20.0663567-06:00",
+      "output_name": "Kevin West Motor Trade Intake - SOP (2).md",
+      "sha256": "7243041822A94EE43BC0610AE9D2CAEFBA704F6D206A7996D6931C2DEFD02A18",
+      "bytes": 1079,
+      "verified_sha256": "7243041822A94EE43BC0610AE9D2CAEFBA704F6D206A7996D6931C2DEFD02A18",
+      "verified_bytes": 1079
+    }
+  ],
+  "failure": null,
+  "verification": {
+    "artifact_root_bounded": true,
+    "artifact_hashes_rechecked": true,
+    "artifact_sizes_rechecked": true
+  },
+  "receipt_sha256": "C15662FE6D2FFE512DF0BB991CF87C5F80C97DCF1D76E5DB6077D48E8FC0EF32"
+}
