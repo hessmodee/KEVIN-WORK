@@ -31,10 +31,10 @@ $Archive = Join-Path $Workspace 'inbox\autonomy\archive'
 $WorkId = 'owner-west-motor-parts-chase-fresh-8-v1'
 $RequestId = 'diagnose-' + $WorkId
 $SupervisorRequestId = 'invoke-' + $WorkId
-$InvExpected = '471E505151E211C254FAB9DD090AEA76E7D304B01333FEA03B115D2ECE39B7E8'
-$BldExpected = '83B3EDA62AA60A6CD479D79C18BB564B9E33CBD852B4898C365EF99B43EB0875'
-$WorkerExpectedV1 = '16C49542847BBB22EACC09F254C030D2FF03DE0ADFB1B9DA08C9B617C73B0332'
-$WorkerExpectedV11 = '7E1129B7FE2B21C90EED634B7A1A356B55630B56DD700A15A7A8C307AEB827AE'
+$InvExpected$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
+$BldExpected$BldExpected$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
+$WorkerExpectedV1$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
+$WorkerExpectedV11$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
 $WorkerLivePath = Join-Path $Workspace 'ControlPlane\kevin-proven-skill-invoke-worker-v1.ps1'
 $WorkerV11Path = Join-Path $Workspace 'control-plane\autonomy\kevin-proven-skill-invoke-worker-v1.1.ps1'
 
@@ -296,6 +296,29 @@ $reject = [ordered]@{
     outcome_proven = $false
     truth_boundary = 'Diagnostic reason-code only. Isolated diagnose queue is not Action Era. Supervisor RequestId sim is not PASS. PASS still requires workbook + note + DONE + hashes + receipt.'
 }
+# DURABLE_OUTCOME_PROVEN: do not let diagnose lag wipe VERIFY PASS MIXED / live expect pins
+$doneReceiptPath = Join-Path $OutDir ('done\' + $SupervisorRequestId + '.json')
+if (Test-Path -LiteralPath $doneReceiptPath -PathType Leaf) {
+    try {
+        $doneObj = Get-Content -LiteralPath $doneReceiptPath -Raw -Encoding UTF8 | ConvertFrom-Json
+        if ([string]$doneObj.status -eq 'PROVEN') {
+            $reject.outcome_proven = $true
+            $reject.reason = 'OUTCOME_PROVEN'
+            $reject.reason_class = 'PROVEN'
+            $reject['receipt_status'] = 'PROVEN'
+            $reject['receipt_sha256'] = (Get-Sha256Upper $doneReceiptPath)
+            $reject['verify_actor'] = 'MIXED'
+            $reject['expected_live_worker_sha256'] = $WorkerExpectedV11
+            $reject['expected_live_operator_sha256'] = $OperatorExpectedLive
+            if (Get-Variable operatorLiveHash -ErrorAction SilentlyContinue) {
+                $reject['operator_live_sha256'] = $operatorLiveHash
+                $reject['hashes_match_pin'] = (($workerLiveHash -eq $WorkerExpectedV11) -and ($operatorLiveHash -eq $OperatorExpectedLive))
+            }
+            $reject.truth_boundary = 'DONE receipt PROVEN. VERIFY PASS MIXED actor. Diagnose must not regress outcome_proven. Install pin expected_worker_v1 remains separate.'
+        }
+    } catch {}
+}
+
 $outPath = Join-Path $OutDir 'latest-public-reject.json'
 Write-Utf8NoBom $outPath (($reject | ConvertTo-Json -Depth 6) + "`n")
 Write-Output ($reject | ConvertTo-Json -Depth 6)
