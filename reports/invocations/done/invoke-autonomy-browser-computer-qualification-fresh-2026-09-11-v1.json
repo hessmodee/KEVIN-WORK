@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation-receipt",
+  "version": "1.1.2",
+  "status": "PROVEN",
+  "authority": "GREEN",
+  "completed_at": "2026-09-12T05:22:27.296996Z",
+  "invocation_id": "invoke-autonomy-browser-computer-qualification-fresh-2026-09-11-v1",
+  "skill_key": "browser-computer-qualification-design-pack@1",
+  "proven_identity": {
+    "manifest_sha256": "04C4C7C67D244DE4849A74453AC62A83CD01A2A995BB5F7463C263F9EA924E00",
+    "proof_sha256": "15FFBAF8DB004FFBF382F1E2BE581576454A937E15D12F05605C7A61AD08C68C",
+    "result_file": "browser-computer-qualification-design-pack--1.json",
+    "primitive_steps": [
+      "create_spreadsheet",
+      "create_text"
+    ],
+    "proven_at": "2026-09-11T23:18:55.8268073-06:00"
+  },
+  "request_sha256": "FF0435E41A873D1381EB0E9CBDD925FC3980B564E1899A810AE2201C370E3940",
+  "step_results": [
+    {
+      "index": 0,
+      "order_id": "invoke-invoke-autonomy-browser-computer-qualification-fresh-2026-09-11-v1-s01",
+      "semantic_key": "invoke:browser-computer-qualification-design-pack@1:invoke-autonomy-browser-computer-qualification-fresh-2026-09-11-v1:step:1",
+      "operation": "create_spreadsheet",
+      "final_state": "DONE",
+      "order_record_sha256": "49F94D6CCA4EC87E82B27FCA1A7FE57449853D63647F6B7A6A99F984CEC94669",
+      "completed_at": "2026-09-11T23:22:23.3162443-06:00",
+      "output_name": "browser-computer-qualification-design (2).xlsx",
+      "sha256": "A74E50F508DBA462E3FF2C680C66517BF8A8017546A5B73185E7FA2C6BF1B730",
+      "bytes": 5496,
+      "verified_sha256": "A74E50F508DBA462E3FF2C680C66517BF8A8017546A5B73185E7FA2C6BF1B730",
+      "verified_bytes": 5496
+    },
+    {
+      "index": 1,
+      "order_id": "invoke-invoke-autonomy-browser-computer-qualification-fresh-2026-09-11-v1-s02",
+      "semantic_key": "invoke:browser-computer-qualification-design-pack@1:invoke-autonomy-browser-computer-qualification-fresh-2026-09-11-v1:step:2",
+      "operation": "create_text",
+      "final_state": "DONE",
+      "order_record_sha256": "B4B0789C59951BDC1CE60C073056AD4043B0788EC8E24B671873E1D480D82B9F",
+      "completed_at": "2026-09-11T23:22:24.0903283-06:00",
+      "output_name": "browser-computer-qualification-design-brief (2).md",
+      "sha256": "87186534D17A53CE78B883BB490745E3F2DC37381BE6FE160C50F712E0E83E11",
+      "bytes": 864,
+      "verified_sha256": "87186534D17A53CE78B883BB490745E3F2DC37381BE6FE160C50F712E0E83E11",
+      "verified_bytes": 864
+    }
+  ],
+  "failure": null,
+  "verification": {
+    "artifact_root_bounded": true,
+    "artifact_hashes_rechecked": true,
+    "artifact_sizes_rechecked": true
+  },
+  "receipt_sha256": "515D8F1168CDBFE40BE7624F1EC6665FFBFB2078D3129B4797C796A4A8F4506A"
+}
