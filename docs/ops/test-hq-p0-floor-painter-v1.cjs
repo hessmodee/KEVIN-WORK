@@ -290,6 +290,50 @@ test('OUTCOME_PROVEN status HOLD cleared → READY (never OUTCOME_PROVEN center)
   assert.notStrictEqual(c.label, 'OUTCOME_PROVEN');
 });
 
+
+test('floor.cycle wins; support.supervisor.cycle=449 never freezes when floor advanced', () => {
+  const bundle = {
+    floor: {
+      schema: 'kevin.hq-live-floor.v1',
+      cycle: 464,
+      painted_hint: 'READY',
+      center: 'READY',
+      status: 'OUTCOME_PROVEN',
+      waiting_item_budgets: false,
+      action_era_ready_count: 0,
+      painter_frozen: false,
+      cycle_frozen: false,
+      supervisor_sha256: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB',
+      supervisor_version: '1.8.12',
+      skill_lab: { stage: 'LAB', ready_count: 1, running_count: 0 }
+    },
+    continuation: { generated_at: '2026-09-12T04:50:00Z' },
+    engineering: { action: { queues: { ready: 0 }, composite_skills: { ready: 0 } } },
+    support: { generated_at: '2026-01-01T00:00:00Z', hashes: { supervisor: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB' }, supervisor: { cycle: 449 }, active_workers: {} },
+    receipt, reject: { ...rejectProven, outcome_proven: true, reason: 'OUTCOME_PROVEN', verify_actor: 'MIXED' }
+  };
+  assert.strictEqual(API.floorCycle(bundle), 464);
+  assert.strictEqual(API.cycleFrozen(bundle, now), false);
+  const c = API.floorCenterState(bundle, now);
+  assert.notStrictEqual(c.label, 'OUTCOME_PROVEN');
+  assert.strictEqual(c.label, 'LAB'); // skill_lab.stage=LAB
+  const n = API.nowStrip(bundle, now);
+  assert.strictEqual(n.cycle, 464);
+  assert.notStrictEqual(n.cycle, 449);
+});
+
+test('cycleFrozen ignores support-only 449 when floor.cycle absent → not frozen from support', () => {
+  const bundle = {
+    floor: { schema: 'kevin.hq-live-floor.v1', painted_hint: 'READY', waiting_item_budgets: false, action_era_ready_count: 0, supervisor_sha256: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB', supervisor_version: '1.8.12' },
+    continuation: { generated_at: '2026-09-12T04:50:00Z' },
+    support: { generated_at: '2026-01-01T00:00:00Z', supervisor: { cycle: 449 }, hashes: { supervisor: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB' }, active_workers: {} },
+    engineering: { action: { queues: { ready: 0 }, composite_skills: { ready: 0 } } },
+    receipt, reject: rejectProven
+  };
+  assert.strictEqual(API.floorCycle(bundle), null);
+  assert.strictEqual(API.cycleFrozen(bundle, now), false);
+});
+
 console.log(`\n${passed} tests passed`);
 if (process.exitCode) { console.error('TEST SUITE FAILED'); process.exit(process.exitCode); }
 console.log('TEST SUITE OK');
