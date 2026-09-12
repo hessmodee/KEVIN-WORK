@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List
 
-VERSION = "1.0.9"
+VERSION = "1.0.10"
 PARTS_CHASE_KEY = "west-motor-parts-chase-board-pack@1"
 PARTS_CHASE_WORK_ID = "owner-west-motor-parts-chase-fresh-8-v1"
 TRANSPORT_KEY = "vehicle-transport-mission-pack@1"
@@ -32,6 +32,8 @@ REFLECTION_RUNTIME_KEY = "reflection-runtime-integration-design-pack@1"
 REFLECTION_RUNTIME_WORK_ID = "autonomy-reflection-runtime-integration-fresh-2026-09-11-v1"
 BROWSER_COMPUTER_KEY = "browser-computer-qualification-design-pack@1"
 BROWSER_COMPUTER_WORK_ID = "autonomy-browser-computer-qualification-fresh-2026-09-11-v1"
+LOT_WALK_KEY = "west-motor-lot-walk-checklist-pack@1"
+LOT_WALK_WORK_ID = "owner-west-motor-lot-walk-checklist-fresh-2026-09-11-v1"
 TRANSPORT_FIELDS = (
     "priority",
     "request_id",
@@ -335,10 +337,15 @@ def build_browser_computer_request(invocation_id: str) -> Dict[str, Any]:
     return {"schema":1,"kind":"kevin-proven-skill-invocation","authority":"GREEN","skill_key":BROWSER_COMPUTER_KEY,"invocation_id":invocation_id,"steps":steps}
 
 
+def build_lot_walk_request(invocation_id: str) -> Dict[str, Any]:
+    steps = json.loads("[{\"operation\": \"create_spreadsheet\", \"payload\": {\"filename\": \"Kevin West Motor Lot Walk Checklist.xlsx\", \"workbook\": {\"schema\": 1, \"kind\": \"kevin-xlsx-spec\", \"sheets\": [{\"name\": \"Lot Walk\", \"rows\": [[\"Priority\", \"Stock / Unit\", \"Year\", \"Make\", \"Model\", \"Location Zone\", \"Cleanliness\", \"Tire / Battery\", \"Keys Present\", \"Ready For Sale?\", \"Issue Found\", \"Next Action\", \"Owner\"], [\"P1\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"NO\", \"\", \"\", \"\"]]}, {\"name\": \"Issue Queue\", \"rows\": [[\"Priority\", \"Unit\", \"Issue\", \"Category\", \"Blocked Sale?\", \"Parts / Detail Needed\", \"Assigned\", \"Due\", \"Status\", \"Evidence\"], [\"P1\", \"\", \"\", \"Detail / Mech / Paper / Photo\", \"YES\", \"\", \"\", \"\", \"OPEN\", \"\"]]}, {\"name\": \"Follow-ups\", \"rows\": [[\"Date\", \"Unit\", \"Ask / Message Draft\", \"Audience\", \"Sent?\", \"Response\", \"Outcome\", \"Notes\"], [\"\", \"\", \"\", \"Sales / Detail / Parts / GM\", \"NO\", \"\", \"\", \"\"]]}, {\"name\": \"Daily Summary\", \"rows\": [[\"Date\", \"Units Walked\", \"Ready Count\", \"Blocked Count\", \"Top Blockers\", \"Wins\", \"Owner Notes\"], [\"\", \"\", \"\", \"\", \"\", \"\", \"\"]]}]}}}, {\"operation\": \"create_text\", \"payload\": {\"filename\": \"Kevin West Motor Lot Walk Checklist - SOP.md\", \"content\": \"# West Motor Lot Walk Checklist\\n\\n## Purpose\\nGive Kevin a repeatable morning lot-walk pack so inventory readiness issues are visible before customers arrive.\\n\\n## Sequence\\n1. Walk zones systematically (front line, side lot, back row, detail hold).\\n2. Capture unit identity and obvious readiness flags (clean, tires/battery, keys, paperwork/photos).\\n3. Log blockers in Issue Queue with whether they block a sale.\\n4. Draft follow-ups for humans; do not send messages or purchase parts without authority.\\n5. Close with Daily Summary counts.\\n\\n## Protective behavior\\nFlag missing keys, unsafe units, unknown stock numbers, and contradictory ready-for-sale claims. Never invent VINs. Never discard or move vehicles. Never spend money.\\n\"}}]")
+    return {"schema":1,"kind":"kevin-proven-skill-invocation","authority":"GREEN","skill_key":LOT_WALK_KEY,"invocation_id":invocation_id,"steps":steps}
+
+
 def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) -> str:
     if item and str(item.get("required_skill_key") or "").strip():
         key = str(item.get("required_skill_key")).strip()
-        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY, RUNTIME_TRUTH_KEY, EXPIRED_MANIFEST_KEY, REFLECTION_RUNTIME_KEY, BROWSER_COMPUTER_KEY}:
+        if key in {PARTS_CHASE_KEY, TRANSPORT_KEY, DEALERSHIP_SCAN_KEY, RUNTIME_TRUTH_KEY, EXPIRED_MANIFEST_KEY, REFLECTION_RUNTIME_KEY, BROWSER_COMPUTER_KEY, LOT_WALK_KEY}:
             return key
         raise BuilderError("UNSUPPORTED_SKILL_KEY")
     if work_id == TRANSPORT_WORK_ID:
@@ -355,6 +362,8 @@ def resolve_skill_for_work_id(work_id: str, item: Dict[str, Any] | None = None) 
         return REFLECTION_RUNTIME_KEY
     if work_id == BROWSER_COMPUTER_WORK_ID:
         return BROWSER_COMPUTER_KEY
+    if work_id == LOT_WALK_WORK_ID:
+        return LOT_WALK_KEY
     raise BuilderError("UNSUPPORTED_WORK_ID")
 
 
@@ -637,6 +646,12 @@ def main() -> int:
             return 0
         if skill == BROWSER_COMPUTER_KEY:
             request = build_browser_computer_request(args.invocation_id)
+            Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
+            print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
+            return 0
+        if skill == LOT_WALK_KEY:
+            request = build_lot_walk_request(args.invocation_id)
             Path(args.output).parent.mkdir(parents=True, exist_ok=True)
             Path(args.output).write_text(json.dumps(request, indent=2) + "\n", encoding="utf-8")
             print(json.dumps({"status": "BUILT", "skill_key": request["skill_key"], "invocation_id": args.invocation_id, "steps": len(request["steps"]), "builder_version": VERSION}))
