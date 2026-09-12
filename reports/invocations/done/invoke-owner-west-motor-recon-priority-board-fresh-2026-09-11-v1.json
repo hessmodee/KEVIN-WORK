@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation-receipt",
+  "version": "1.1.2",
+  "status": "PROVEN",
+  "authority": "GREEN",
+  "completed_at": "2026-09-12T05:49:45.012054Z",
+  "invocation_id": "invoke-owner-west-motor-recon-priority-board-fresh-2026-09-11-v1",
+  "skill_key": "west-motor-recon-priority-board-pack@1",
+  "proven_identity": {
+    "manifest_sha256": "2C572991144611AB75BD5B4FE5B7652A9D3AC2B251848DA5C0AD2396E1D95467",
+    "proof_sha256": "E56E03737AA5B29DC5E8764E54E0B73428F321225685B313A5EC6D319D7BF69D",
+    "result_file": "west-motor-recon-priority-board-pack--1.json",
+    "primitive_steps": [
+      "create_spreadsheet",
+      "create_text"
+    ],
+    "proven_at": "2026-09-04T15:41:07.8336847-06:00"
+  },
+  "request_sha256": "6EDDF240ABE3882C8B5516163DEAA367E082C0A97DE70DA9DA01F4F8752FF370",
+  "step_results": [
+    {
+      "index": 0,
+      "order_id": "invoke-invoke-owner-west-motor-recon-priority-board-fresh-2026-09-11-v1-s01",
+      "semantic_key": "invoke:west-motor-recon-priority-board-pack@1:invoke-owner-west-motor-recon-priority-board-fresh-2026-09-11-v1:step:1",
+      "operation": "create_spreadsheet",
+      "final_state": "DONE",
+      "order_record_sha256": "F06F5281BCD999A74DD3C23612584E717356235634DDA2E728C1563F6AC60D7B",
+      "completed_at": "2026-09-11T23:48:51.7129113-06:00",
+      "output_name": "Kevin West Motor Recon Priority Board (2).xlsx",
+      "sha256": "0A6F2B4B5C6215F471072D971D6807E8BF8E4EBA345A1A27931BD7A6FE73E401",
+      "bytes": 6059,
+      "verified_sha256": "0A6F2B4B5C6215F471072D971D6807E8BF8E4EBA345A1A27931BD7A6FE73E401",
+      "verified_bytes": 6059
+    },
+    {
+      "index": 1,
+      "order_id": "invoke-invoke-owner-west-motor-recon-priority-board-fresh-2026-09-11-v1-s02",
+      "semantic_key": "invoke:west-motor-recon-priority-board-pack@1:invoke-owner-west-motor-recon-priority-board-fresh-2026-09-11-v1:step:2",
+      "operation": "create_text",
+      "final_state": "DONE",
+      "order_record_sha256": "CA5AF314799DF3E6B6699955068D749DA50982B19721AA55FEBAD6DBF7ABE923",
+      "completed_at": "2026-09-11T23:49:42.3686109-06:00",
+      "output_name": "Kevin West Motor Recon Priority Board - SOP (2).md",
+      "sha256": "F89665D3B905186D44E54F0E4DB42F294A4FFD8AED230C564FCDAA22D703CA79",
+      "bytes": 933,
+      "verified_sha256": "F89665D3B905186D44E54F0E4DB42F294A4FFD8AED230C564FCDAA22D703CA79",
+      "verified_bytes": 933
+    }
+  ],
+  "failure": null,
+  "verification": {
+    "artifact_root_bounded": true,
+    "artifact_hashes_rechecked": true,
+    "artifact_sizes_rechecked": true
+  },
+  "receipt_sha256": "0E2437A6CF159EC7CA61838582FB456019635C5F02F0554E1116154B34E47168"
+}
