@@ -192,6 +192,29 @@ test('painted_hint THROTTLED + skill_lab GAP refuses READY', () => {
   assert.notStrictEqual(c.label, 'GAP'); // throttle beats GAP for center when published THROTTLED
 });
 
+
+test('painted_hint COMPLETED refuses READY (stripe owns COMPLETED)', () => {
+  const c = API.floorCenterState({
+    floor: {
+      schema: 'kevin.hq-live-floor.v1',
+      cycle: 450,
+      painted_hint: 'COMPLETED',
+      center: 'COMPLETED',
+      outcome_proven: true,
+      action_era_ready_count: 0,
+      selected_id: 'owner-west-motor-transport-dispatch-template-v1',
+      supervisor_sha256: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB',
+      supervisor_version: '1.8.12'
+    },
+    continuation: { generated_at: '2026-09-12T03:40:00Z' },
+    engineering: { action: { queues: { ready: 0 }, composite_skills: { ready: 0 } } },
+    support: { generated_at: '2026-09-12T03:40:00Z', hashes: { supervisor: 'F17F4B0AA151CAFC889D299C283EDF4A55DC395734BD1A9B4D3155D5843DECBB' }, supervisor: { cycle: 450 }, active_workers: {} },
+    receipt, reject: { ...rejectProven, outcome_proven: true, verify_actor: 'MIXED' }
+  }, now);
+  assert.notStrictEqual(c.label, 'READY');
+  assert.notStrictEqual(c.label, 'COMPLETED');
+});
+
 console.log(`\n${passed} tests passed`);
 if (process.exitCode) { console.error('TEST SUITE FAILED'); process.exit(process.exitCode); }
 console.log('TEST SUITE OK');

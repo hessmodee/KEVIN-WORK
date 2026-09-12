@@ -49,7 +49,7 @@ jobs:
           from pathlib import Path
           index=Path('docs/index.html').read_text(encoding='utf-8')
           sw=Path('docs/sw.js').read_text(encoding='utf-8')
-          assert "navigator.serviceWorker.register('./sw.js?v=12',{scope:'./'})" in index
+          assert "navigator.serviceWorker.register('./sw.js?v=13',{scope:'./'})" in index
           assert "const BASE='/KEVIN-WORK/'" in sw
           assert "raw.githubusercontent.com" in sw
           assert "networkFirst(req,DATA_CACHE)" in sw
