@@ -1,0 +1,28 @@
+{
+    "schema":  1,
+    "kind":  "kevin-maintenance-receipt",
+    "authority":  "GREEN",
+    "actor":  "GROKBOT_ACTED",
+    "not_kevin_acted":  true,
+    "at":  "2026-09-11T19:12:55.8611843-06:00",
+    "maintenance":  "typed-live-expect-hash-pin-refresh-smallest",
+    "changed":  [
+                    "tools/Diagnose-Kevin-InvocationStage-v1.ps1 expected live worker/operator pins",
+                    "docs/engineering/TICK-BOOT-RULES-invoke-failure-family-v1.json hashes_match_pin=true",
+                    "tools/Refresh-Kevin-PublicOutcomeProven-v1.ps1 hashes_match_pin=true"
+                ],
+    "forbidden_not_done":  [
+                               "overwrite GitHub ControlPlane install pin 16C49542",
+                               "queue install_invocation_worker_v11",
+                               "recopy Supervisor",
+                               "OpenClaw Update"
+                           ],
+    "pins":  {
+                 "github_controlplane_install_pin":  "16C49542847BBB22EACC09F254C030D2FF03DE0ADFB1B9DA08C9B617C73B0332",
+                 "expected_live_worker":  "DC28901FA3326974DF3EE695AFCF5186D506E9DA6F19CE20E3291C93B95DA01A",
+                 "expected_live_operator":  "20CB3740E22E39A59EDDCA2B31D08D6B981D89F3D944A34355C3329EED1CDFE6",
+                 "hashes_match_pin":  true,
+                 "live_worker_observed":  "DC28901FA3326974DF3EE695AFCF5186D506E9DA6F19CE20E3291C93B95DA01A",
+                 "live_operator_observed":  "20CB3740E22E39A59EDDCA2B31D08D6B981D89F3D944A34355C3329EED1CDFE6"
+             }
+}
