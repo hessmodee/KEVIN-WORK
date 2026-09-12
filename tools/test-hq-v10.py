@@ -11,7 +11,7 @@ sw=(ROOT/'docs/sw.js').read_text(encoding='utf-8')
 # but no retired owner layer may execute alongside V10.
 active_index=re.sub(r'<!--.*?-->','',index,flags=re.S)
 active_scripts=re.findall(r'<script\s+src="\.\/([^"?]+)',active_index)
-assert active_scripts==['hq-evidence-adapter-v1.js','hq-overrides-v1.js','hq-owner-console-v10.js'],active_scripts
+assert active_scripts==['hq-evidence-adapter-v1.js','hq-overrides-v1.js','hq-owner-console-v10.js','hq-p1-ground-truth-v1.js'],active_scripts
 assert 'RETIRED LAYER COMPATIBILITY MARKERS — NOT LOADED OR EXECUTED' in index
 assert '#ops' in index
 assert "[['overview','LIVE'],['ops','OPS FLOOR'],['capabilities','SKILLS'],['system','SYSTEM']]" in hq
@@ -29,6 +29,7 @@ assert "label:'WORKING'" in ops
 assert 'ops-live-truth-v2.js' in embed
 assert "kevin-hq-shell-v6" in sw
 assert 'hq-owner-console-v10.js' in sw
+assert 'hq-p1-ground-truth-v1.js' in sw
 assert 'ops/ops-v11.js' in sw
 assert 'reports/bridge-latest.json' in hq
 assert 'paintNewswire' in hq

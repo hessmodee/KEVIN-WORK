@@ -12,6 +12,7 @@ on:
       - 'docs/hq-owner-refinement-v3.js'
       - 'docs/hq-growth-v1.js'
       - 'docs/hq-ground-truth-v8.js'
+      - 'docs/hq-p1-ground-truth-v1.js'
       - '.github/workflows/hq-offline-resilience-v1-proof.yml'
   pull_request:
     paths:
@@ -23,6 +24,7 @@ on:
       - 'docs/hq-owner-refinement-v3.js'
       - 'docs/hq-growth-v1.js'
       - 'docs/hq-ground-truth-v8.js'
+      - 'docs/hq-p1-ground-truth-v1.js'
       - '.github/workflows/hq-offline-resilience-v1-proof.yml'
   workflow_dispatch:
 
@@ -62,7 +64,7 @@ jobs:
           sw=Path('docs/sw.js').read_text(encoding='utf-8')
           required=[
             'docs/index.html','docs/hq-core-v7.html','docs/hq-evidence-adapter-v1.js',
-            'docs/hq-overrides-v1.js','docs/hq-owner-console-v10.js','docs/hq-growth-v1.js',
+            'docs/hq-overrides-v1.js','docs/hq-owner-console-v10.js','docs/hq-p1-ground-truth-v1.js','docs/hq-growth-v1.js',
             'docs/ops/index.html','docs/ops/embed.html','docs/ops/app.js','docs/ops/style.css',
             'docs/ops/ops-v11.css','docs/ops/ops-v11.js'
           ]
@@ -77,10 +79,10 @@ jobs:
                   rel=p[len('docs/'):]
                   assert rel in shell_entries, f'not cached: {rel}'
 
-          # Live V10 executes three scripts. Retired V8 layers remain as comments only.
+          # Live V10 executes four scripts (V10 shell + P1 ground-truth overlay). Retired V8 layers remain as comments only.
           active_index=re.sub(r'<!--.*?-->','',index,flags=re.S)
           scripts=re.findall(r'<script\s+src="\.\/([^"?]+)(?:\?[^\"]*)?"',active_index)
-          assert scripts==['hq-evidence-adapter-v1.js','hq-overrides-v1.js','hq-owner-console-v10.js'], scripts
+          assert scripts==['hq-evidence-adapter-v1.js','hq-overrides-v1.js','hq-owner-console-v10.js','hq-p1-ground-truth-v1.js'], scripts
           for rel in scripts:
               assert Path('docs',rel).is_file(), rel
               assert rel in shell_entries, f'index script not in service-worker shell: {rel}'
