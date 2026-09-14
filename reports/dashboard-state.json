@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-13T18:35:05.0444066-06:00",
+  "generated_at": "2026-09-13T18:35:14-06:00",
   "status": "working",
   "health": {
     "overall": "degraded",
@@ -17,7 +17,7 @@
     "title": "Supervisor autonomous cycle",
     "category": "supervisor",
     "phase": "Goal-aware Supervisor cycle active.",
-    "started_at": "2026-09-13T18:25:02.2393152-06:00",
+    "started_at": "2026-09-13T18:35:05.0444066-06:00",
     "source": "hq-live-ops"
   },
   "services": {
@@ -27,22 +27,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 40,
-    "cpu_pct": 3,
+    "memory_pct": 41,
+    "cpu_pct": 9,
     "gpu": "RTX 3060",
-    "gpu_pct": 28
+    "gpu_pct": 37
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-12T18:35:13-06:00",
-        "estimated": false,
-        "ram": 41,
-        "cpu": 20,
-        "gpu": 43
-      },
       {
         "at": "2026-09-12T18:50:14-06:00",
         "estimated": false,
@@ -707,10 +700,16 @@
         "ram": 40,
         "cpu": 3,
         "gpu": 28
+      },
+      {
+        "at": "2026-09-13T18:35:14-06:00",
+        "estimated": false,
+        "ram": 41,
+        "cpu": 9,
+        "gpu": 37
       }
     ],
     "ram": [
-      41,
       39,
       41,
       39,
@@ -805,10 +804,10 @@
       41,
       40,
       41,
-      40
+      40,
+      41
     ],
     "cpu": [
-      20,
       6,
       20,
       4,
@@ -903,10 +902,10 @@
       17,
       8,
       13,
-      3
+      3,
+      9
     ],
     "gpu": [
-      43,
       68,
       32,
       29,
@@ -1001,7 +1000,8 @@
       30,
       39,
       31,
-      28
+      28,
+      37
     ]
   },
   "weather": {
@@ -1155,7 +1155,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-13T18:20:14-06:00",
+      "at": "2026-09-13T18:35:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1382,7 +1382,7 @@
     "state": "warning"
   },
   "sync": {
-    "last": "2026-09-13T18:35:05.0444066-06:00",
+    "last": "2026-09-13T18:35:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
