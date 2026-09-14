@@ -2,8 +2,8 @@
 
 > **LAYER / READER / DAILY LOOP:** Do not replace or truncate this file. Write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only. This file is the Extreme Autonomy Flywheel execution contract.
 
-**Updated:** 2026-09-12 18:22 MT  
-**Status:** Core platform is operational and Benchmark is 30/30. HQ LIVE badge already paints **BLOCKED** (correct). Uniqueness is **closed**: live builder `83B3EDA6…`, invocation `471E5051…`, isolated diagnose `STAGE_OK_WAITING_ACTION_ERA` / `python_exit=0` at 06:58 MT. Continuation 33s later is still `BLOCKED_INVOCATION_RUNTIME` / `68845506…`. Diagnose RequestId `diagnose-…` is not the Supervisor RequestId `invoke-…`. **THIS CYCLE:** puller **v1.6** sticky-RequestId quarantine + diagnose v1.3.2 worker hashes + Supervisor RequestId sim. Not PASS.
+**Updated:** 2026-09-14 07:33 MT  
+**Status:** Core platform is operational and Benchmark is 30/30. HQ LIVE badge already paints **BLOCKED** (correct). Uniqueness is **closed**: live builder `83B3EDA6…`, invocation `471E5051…`, isolated diagnose `STAGE_OK_WAITING_ACTION_ERA` / `python_exit=0` at 06:58 MT. Continuation 33s later is still `BLOCKED_INVOCATION_RUNTIME` / `68845506…`. Diagnose RequestId `diagnose-…` is not the Supervisor RequestId `invoke-…`. **THIS CYCLE:** puller **v1.7** sticky-RequestId quarantine + diagnose v1.3.2 worker hashes + Supervisor RequestId sim. Not PASS.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
 
@@ -46,7 +46,7 @@ Target maturity is **T4 for routine bounded work**. T4 does not mean unrestricte
 
 - Uniqueness family is closed on HESS-PC (builder v1.0.3 live, isolated STAGE_OK).
 - Diagnose **v1.3.2** quarantines sticky `invoke-<work-id>` leftovers, sims the Supervisor RequestId into `diagnose-worker-sim` (never Action Era), and publishes live worker hashes.
-- Puller **v1.6** always runs sticky quarantine even when python hashes already match.
+- Puller **v1.7** always runs sticky quarantine even when python hashes already match.
 - **THIS CYCLE — one paste on HESS-PC** (see FROM_GROK). Then let Supervisor re-select `owner-west-motor-parts-chase-fresh-8-v1`. Keep the 09:31 burned turn. Do not send that job to `fixed:main`.
 - If diagnose returns `STAGE_OK_WAITING_ACTION_ERA` with `supervisor_request_id_reason=STAGE_OK`, wait Supervisor + Action Era. If another reason-code, repair that family next — do not recopy Supervisor.
 - PASS = workbook + note + DONE + hashes + immutable receipt. A merge, CI, paste, diagnose, HQ label, or repair script is not PASS.
@@ -54,7 +54,7 @@ Target maturity is **T4 for routine bounded work**. T4 does not mean unrestricte
 ## Immediate execution gates
 
 - Worker v1.1 is independently applied. Do not queue another `install_invocation_worker_v11`.
-- Overwrite GitHubBridge `pull-inbox.ps1` with v1.6 once **this cycle**.
+- Overwrite GitHubBridge `pull-inbox.ps1` with v1.7 once **this cycle**.
 - GitHub `ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1` stays `16C49542…`. Do not recopy Supervisor v1.8.12.
 
 ## Highest-priority execution sequence
