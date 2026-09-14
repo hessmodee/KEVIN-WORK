@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-14T02:19:44.2730662-06:00",
+  "generated_at": "2026-09-14T02:20:14-06:00",
   "status": "degraded",
   "health": {
     "overall": "degraded",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 44,
-    "cpu_pct": 18,
+    "memory_pct": 43,
+    "cpu_pct": 5,
     "gpu": "RTX 3060",
-    "gpu_pct": 70
+    "gpu_pct": 28
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-13T02:20:14-06:00",
-        "estimated": false,
-        "ram": 39,
-        "cpu": 4,
-        "gpu": 36
-      },
       {
         "at": "2026-09-13T02:35:14-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 44,
         "cpu": 18,
         "gpu": 70
+      },
+      {
+        "at": "2026-09-14T02:20:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 5,
+        "gpu": 28
       }
     ],
     "ram": [
-      39,
       40,
       39,
       40,
@@ -798,10 +797,10 @@
       43,
       43,
       43,
-      44
+      44,
+      43
     ],
     "cpu": [
-      4,
       14,
       3,
       16,
@@ -896,10 +895,10 @@
       8,
       13,
       6,
-      18
+      18,
+      5
     ],
     "gpu": [
-      36,
       37,
       37,
       33,
@@ -994,11 +993,12 @@
       28,
       31,
       29,
-      70
+      70,
+      28
     ]
   },
   "weather": {
-    "summary": "Overnight 42 | Wind 5 to 13 mph | Partly Cloudy"
+    "summary": "Overnight 42 | Wind 5 to 10 mph | Partly Cloudy"
   },
   "capabilities": [
     {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-14T02:05:14-06:00",
+      "at": "2026-09-14T02:20:14-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "warning"
   },
   "sync": {
-    "last": "2026-09-14T02:19:44.2730662-06:00",
+    "last": "2026-09-14T02:20:14-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
