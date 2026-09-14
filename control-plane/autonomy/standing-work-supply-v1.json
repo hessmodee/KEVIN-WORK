@@ -48,6 +48,46 @@
   },
   "standing_work": [
     {
+      "id": "west-motor-owner-value-family-loop-v1",
+      "program": "owner-value-skills",
+      "lane": "production",
+      "work_type": "execution",
+      "severity": "high",
+      "owner_value": 8,
+      "worker": "proven-skill-invocation",
+      "required_capabilities": [
+        "kevin_proven_skill_invoke"
+      ],
+      "required_skill_key": "west-motor-parts-chase-board-pack@1",
+      "effects": [],
+      "trigger": {
+        "kind": "always"
+      },
+      "recurrence": {
+        "kind": "interval_hours",
+        "hours": 24
+      },
+      "acceptance_criteria": [
+        "When production owner-value execution WorkInstances are COMPLETE and Supervisor reports WAITING_ITEM_BUDGETS, materialize one new due instance bound to an EXISTING proven West Motor skill key.",
+        "Do not mint a new spreadsheet+text PROVE pack, xlsx alias, or skill JSON.",
+        "Do not reopen or wipe COMPLETE history, burned turns, or item budgets.",
+        "Invoke west-motor-parts-chase-board-pack@1 on the standing fictional 8-vehicle dataset and publish workbook + note + DONE + hashes + immutable receipt."
+      ],
+      "verification_plan": [
+        "New WorkInstance id is unique.",
+        "required_skill_key exactly matches an already-PROVEN registry key.",
+        "COMPLETE parents remain COMPLETE.",
+        "PASS only from invocation receipt, not cycle or paint."
+      ],
+      "retry_policy": {
+        "max_attempts_without_material_new_evidence": 3,
+        "cooldown_seconds_after_exhaustion": 300
+      },
+      "next_action": "Materialize at most one family-loop refresh WI and let Supervisor select/invoke the existing proven pack.",
+      "clone_prove_freeze": true,
+      "family": "west-motor-owner-value"
+    },
+    {
       "id": "autonomy-full-audit-refresh-v1",
       "program": "platform-reliability",
       "lane": "guardian",
@@ -55,9 +95,15 @@
       "severity": "high",
       "owner_value": 5,
       "worker": "guardian",
-      "required_capabilities": ["kevin_full_autonomy_audit"],
+      "required_capabilities": [
+        "kevin_full_autonomy_audit"
+      ],
       "effects": [],
-      "trigger": {"kind": "report_stale", "report": "autonomy", "older_than_minutes": 30},
+      "trigger": {
+        "kind": "report_stale",
+        "report": "autonomy",
+        "older_than_minutes": 30
+      },
       "acceptance_criteria": [
         "A fresh full-autonomy assessment is generated from live runtime evidence.",
         "Benchmark remains PASS and platform verification state is evidence-backed.",
@@ -73,18 +119,30 @@
       "severity": "high",
       "owner_value": 5,
       "worker": "guardian",
-      "required_capabilities": ["kevin_full_autonomy_audit"],
+      "required_capabilities": [
+        "kevin_full_autonomy_audit"
+      ],
       "effects": [],
-      "trigger": {"kind": "always"},
-      "recurrence": {"kind": "interval_hours", "hours": 2},
+      "trigger": {
+        "kind": "always"
+      },
+      "recurrence": {
+        "kind": "interval_hours",
+        "hours": 2
+      },
       "acceptance_criteria": [
         "Inspect fresh platform/runtime truth for broken, stale, contradictory or repeatedly failing Kevin-owned components.",
         "If an already-qualified typed recovery verb exists, route the smallest bounded repair and require an independent semantic postcondition.",
         "If no qualified repair exists, publish the exact blocker and candidate recovery contract instead of improvising authority.",
         "Repeated identical failures obey the bounded retry/cooldown policy and do not hot-loop."
       ],
-      "verification_plan": ["Compare pre/post fresh runtime evidence and benchmark state."],
-      "retry_policy": {"max_attempts_without_material_new_evidence": 3, "cooldown_seconds_after_exhaustion": 300},
+      "verification_plan": [
+        "Compare pre/post fresh runtime evidence and benchmark state."
+      ],
+      "retry_policy": {
+        "max_attempts_without_material_new_evidence": 3,
+        "cooldown_seconds_after_exhaustion": 300
+      },
       "next_action": "Audit for the highest-impact self-healable platform defect and route only an already-qualified bounded recovery or a precise repair candidate."
     },
     {
@@ -95,16 +153,25 @@
       "severity": "medium",
       "owner_value": 4,
       "worker": "guardian",
-      "required_capabilities": ["kevin_system_status"],
+      "required_capabilities": [
+        "kevin_system_status"
+      ],
       "effects": [],
-      "trigger": {"kind": "always"},
-      "recurrence": {"kind": "interval_hours", "hours": 6},
+      "trigger": {
+        "kind": "always"
+      },
+      "recurrence": {
+        "kind": "interval_hours",
+        "hours": 6
+      },
       "acceptance_criteria": [
         "Review Kevin-owned service health, resource pressure, checkpoint/backup evidence, queue consistency and stale artifacts without destructive cleanup.",
         "Create a bounded maintenance/recovery item for any actionable defect; otherwise record a truthful healthy result.",
         "Do not claim self-care from heartbeat churn alone."
       ],
-      "verification_plan": ["Use fresh system/service evidence and record the exact maintenance findings."],
+      "verification_plan": [
+        "Use fresh system/service evidence and record the exact maintenance findings."
+      ],
       "next_action": "Run the bounded runtime self-maintenance audit and route any safe repair prerequisite."
     },
     {
@@ -115,16 +182,25 @@
       "severity": "high",
       "owner_value": 5,
       "worker": "guardian",
-      "required_capabilities": ["kevin_full_autonomy_audit"],
+      "required_capabilities": [
+        "kevin_full_autonomy_audit"
+      ],
       "effects": [],
-      "trigger": {"kind": "always"},
-      "recurrence": {"kind": "interval_hours", "hours": 4},
+      "trigger": {
+        "kind": "always"
+      },
+      "recurrence": {
+        "kind": "interval_hours",
+        "hours": 4
+      },
       "acceptance_criteria": [
         "Inspect the highest-value/oldest real blocked owner item and identify the smallest safe missing prerequisite.",
         "Create or route a bounded prerequisite when already authorized, otherwise state the exact owner/engineering dependency.",
         "Never rename/reset an exhausted item or erase failure history merely to make it eligible again."
       ],
-      "verification_plan": ["Show the blocker before state and the new prerequisite/escalation after state."],
+      "verification_plan": [
+        "Show the blocker before state and the new prerequisite/escalation after state."
+      ],
       "next_action": "Recover one meaningful blocked owner item without resetting its history or widening authority."
     },
     {
@@ -135,16 +211,25 @@
       "severity": "medium",
       "owner_value": 4,
       "worker": "reviewer",
-      "required_capabilities": ["kevin_vault_note_validate"],
+      "required_capabilities": [
+        "kevin_vault_note_validate"
+      ],
       "effects": [],
-      "trigger": {"kind": "always"},
-      "recurrence": {"kind": "interval_hours", "hours": 12},
+      "trigger": {
+        "kind": "always"
+      },
+      "recurrence": {
+        "kind": "interval_hours",
+        "hours": 12
+      },
       "acceptance_criteria": [
         "Audit a bounded batch of settled private-vault claims for source presence, freshness and contradiction state.",
         "A falsified/stale load-bearing source invalidates dependent settled claims or returns them to review.",
         "No private source content or secrets are published to the public repository."
       ],
-      "verification_plan": ["Validate note/provenance contract and dependent-claim state changes mechanically."],
+      "verification_plan": [
+        "Validate note/provenance contract and dependent-claim state changes mechanically."
+      ],
       "next_action": "Run a bounded provenance/freshness integrity sweep on the private vault and quarantine invalid settled claims."
     },
     {
@@ -155,17 +240,26 @@
       "severity": "medium",
       "owner_value": 4,
       "worker": "skill-lab",
-      "required_capabilities": ["kevin_skill_lab_execute"],
+      "required_capabilities": [
+        "kevin_skill_lab_execute"
+      ],
       "effects": [],
-      "trigger": {"kind": "always"},
-      "recurrence": {"kind": "interval_hours", "hours": 8},
+      "trigger": {
+        "kind": "always"
+      },
+      "recurrence": {
+        "kind": "interval_hours",
+        "hours": 8
+      },
       "acceptance_criteria": [
         "Select one measurable capability gap that blocks a current owner outcome or reduces repeated intervention.",
         "Build/test the smallest candidate using GREEN primitives, positive tests, forbidden tests and explicit verification.",
         "Do not automatically promote a newly learned capability into a protected production boundary.",
         "Require replay before REPEATEDLY_PROVEN credit."
       ],
-      "verification_plan": ["Run deterministic/negative tests and record replayable proof."],
+      "verification_plan": [
+        "Run deterministic/negative tests and record replayable proof."
+      ],
       "next_action": "Advance the highest-owner-value unproven capability one evidence level without self-promoting authority."
     },
     {
@@ -176,16 +270,25 @@
       "severity": "medium",
       "owner_value": 4,
       "worker": "sensor",
-      "required_capabilities": ["kevin_source_research"],
+      "required_capabilities": [
+        "kevin_source_research"
+      ],
       "effects": [],
-      "trigger": {"kind": "always"},
-      "recurrence": {"kind": "interval_hours", "hours": 12},
+      "trigger": {
+        "kind": "always"
+      },
+      "recurrence": {
+        "kind": "interval_hours",
+        "hours": 12
+      },
       "acceptance_criteria": [
         "Identify one concrete evidence-backed opportunity to save Matt time, reduce waste, unblock work or advance a legitimate income experiment.",
         "Tie the output to a current owner domain and a clear next action rather than generic AI busywork.",
         "Public posting, sending, purchasing, money movement and live trading remain owner-gated."
       ],
-      "verification_plan": ["Record sources, owner-value hypothesis, expected benefit and a bounded next experiment."],
+      "verification_plan": [
+        "Record sources, owner-value hypothesis, expected benefit and a bounded next experiment."
+      ],
       "next_action": "Produce one source-backed owner-value opportunity brief for the highest-value current domain."
     },
     {
@@ -196,9 +299,13 @@
       "severity": "high",
       "owner_value": 5,
       "worker": "skill-lab",
-      "required_capabilities": ["kevin_skill_lab_execute"],
+      "required_capabilities": [
+        "kevin_skill_lab_execute"
+      ],
       "effects": [],
-      "trigger": {"kind": "skill_manifests_present"},
+      "trigger": {
+        "kind": "skill_manifests_present"
+      },
       "acceptance_criteria": [
         "Current owner-approved GREEN composite skill manifests are executed through Skill Lab.",
         "Current priority order starts with dealer vehicle recon, vehicle diagnostics, creator monetization, appliance-repair launch readiness, crypto research/paper trading and home/garage organization.",
@@ -216,9 +323,14 @@
       "severity": "high",
       "owner_value": 5,
       "worker": "operator",
-      "required_capabilities": ["kevin_desktop_runtime_installed", "kevin_desktop_runtime_probe"],
+      "required_capabilities": [
+        "kevin_desktop_runtime_installed",
+        "kevin_desktop_runtime_probe"
+      ],
       "effects": [],
-      "trigger": {"kind": "always"},
+      "trigger": {
+        "kind": "always"
+      },
       "acceptance_criteria": [
         "fixed:main exposes only the reviewed bounded Kevin Desktop tool set.",
         "Positive tests prove status/folder/app operations through real Windows execution.",
@@ -235,9 +347,14 @@
       "severity": "low",
       "owner_value": 3,
       "worker": "operator",
-      "required_capabilities": ["minecraft_companion_runtime", "game_action_receipt_verifier"],
+      "required_capabilities": [
+        "minecraft_companion_runtime",
+        "game_action_receipt_verifier"
+      ],
       "effects": [],
-      "trigger": {"kind": "always"},
+      "trigger": {
+        "kind": "always"
+      },
       "acceptance_criteria": [
         "Use a private localhost/LAN/private Minecraft Java environment only for the first runtime proof.",
         "Privileged game commands are accepted only from Matt's configured Minecraft identity.",
