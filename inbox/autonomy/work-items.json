@@ -1028,7 +1028,7 @@
       "id": "owner-west-motor-parts-chase-refresh-2026-09-13-v1",
       "program": "capability-reuse",
       "authority_class": "GREEN",
-      "status": "OPEN",
+      "status": "COMPLETE",
       "lane": "production",
       "work_type": "execution",
       "priority": "high",
@@ -1045,7 +1045,7 @@
       "reduces_bess_intervention": true,
       "near_acceptance": true,
       "dependencies_ready": true,
-      "blocked": false,
+      "blocked": true,
       "failure_attempts": 0,
       "material_new_evidence": true,
       "estimated_minutes": 20,
@@ -1069,7 +1069,7 @@
         "Stay GREEN: fictional example data only; no customer PII, credentials, purchases, public posting, or live financial effects.",
         "Actor honesty: do not label this KEVIN_ACTED unless Kevin/Tick invoked it without Grok Bot."
       ],
-      "next_action": "SELECT and invoke west-motor-parts-chase-board-pack@1. Clone PROVE freeze stands. Do not reopen COMPLETE parents.",
+      "next_action": "COMPLETE MIXED 2026-09-14. Receipt C8F0B503\u2026. Actor MIXED, autonomy_credit=false. Do not reselect. Clone PROVE freeze stands. Family loop next.",
       "owner_inputs": {
         "dataset": "fictional-eight-dealership-vehicles",
         "vehicles": [
@@ -1177,10 +1177,16 @@
         "docs/engineering/LESSON-waiting-item-budgets-family-refresh-2026-09-13.md",
         "reports/invocations/done/invoke-owner-west-motor-parts-chase-fresh-8-v1.json"
       ],
-      "downstream_consumer": "WEST_MOTOR_FAMILY_LOOP_REFRESH_AND_T4_SELF_SELECT"
+      "downstream_consumer": "WEST_MOTOR_FAMILY_LOOP_REFRESH_AND_T4_SELF_SELECT",
+      "block_reason": "COMPLETE_DO_NOT_RESELECT",
+      "completed_at": "2026-09-14T18:39:47.039044Z",
+      "last_receipt_sha256": "C8F0B503C0EB3DCAF4250A9BF2E655475BEEC8E87B4AA21CC32BA96FF49A556D",
+      "verify_actor": "MIXED",
+      "autonomy_credit": false,
+      "completion_note": "MIXED: Action Era wrote Kevin-West-Motor-Parts-Chase-Fictional-8 (57).xlsx and Note (55).md on HESS. Bess/Grok published the sanitized public receipt and closed this GitHub board row. Not KEVIN_ACTED."
     }
   ],
-  "updated_at": "2026-09-14T04:40:00Z",
-  "cdn_nudge_at": "2026-09-14T04:40:00Z",
-  "family_loop_note": "Added one REFRESH WI for existing proven key west-motor-parts-chase-board-pack@1. History preserved. No budget wipe. No new skill JSON."
+  "updated_at": "2026-09-14T23:34:35Z",
+  "cdn_nudge_at": "2026-09-14T23:34:35Z",
+  "family_loop_note": "Closed owner-west-motor-parts-chase-refresh-2026-09-13-v1 COMPLETE_DO_NOT_RESELECT (MIXED). History preserved. No budget wipe. No new skill JSON. Clone PROVE freeze stands."
 }
