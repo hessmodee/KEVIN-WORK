@@ -3,6 +3,8 @@
 # and (2) console-hygiene detector. No hand-invoke. No PASS claim. No KEVIN_ACTED paint for GROKBOT.
 # Grant: inbox/grants/OWNER-STANDING-GRANT-GREEN-YELLOW-v1.md (GREEN console hygiene + teach Tick)
 $ErrorActionPreference = 'Continue'
+# Close-loop first so RUNNING/OPEN owner invokes with a PROVEN done receipt close on GitHub main.
+try { & (Join-Path $PSScriptRoot 'Tick-CloseInvocationLoop-v1.ps1') } catch { Write-Host "close-loop FAIL: $_" }
 $utf8 = New-Object System.Text.UTF8Encoding $false
 $ws = Join-Path $env:USERPROFILE '.openclaw\workspace'
 $reports = Join-Path $ws 'reports'
