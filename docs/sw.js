@@ -4,11 +4,11 @@
  * Network remains authoritative; cache is outage fallback, never proof of freshness.
  * Historical proof compatibility marker only: kevin-hq-shell-v4, kevin-hq-shell-v6, kevin-hq-shell-v7, kevin-hq-shell-v8
  * v9 busts the v8 cache so SKILLS/SYSTEM pick up toolsChip after query-strip.
- * v10 + P0 painter b64.01-16 shell entries (skill_lab + painted_hint VERIFYING honesty).
+ * v17 inlines P0 floor painter (no b64 loader). Floor is the one clock.
  */
 'use strict';
 
-const VERSION='kevin-hq-shell-v16';
+const VERSION='kevin-hq-shell-v17';
 const SHELL_CACHE=`${VERSION}-static`;
 const DATA_CACHE=`${VERSION}-public-data`;
 const BASE='/KEVIN-WORK/';
@@ -21,22 +21,6 @@ const SHELL=[
   `${BASE}hq-owner-console-v10.js`,
   `${BASE}hq-p1-ground-truth-v1.js`,
   `${BASE}hq-p0-floor-painter-v1.js`,
-  `${BASE}hq-p0-floor-painter-v1.b64.16.txt`,
-  `${BASE}hq-p0-floor-painter-v1.b64.15.txt`,
-  `${BASE}hq-p0-floor-painter-v1.b64.14.txt`,
-  `${BASE}hq-p0-floor-painter-v1.b64.13.txt`,
-  `${BASE}hq-p0-floor-painter-v1.b64.12.txt`,
-  `${BASE}hq-p0-floor-painter-v1.b64.11.txt`,
-  `${BASE}hq-p0-floor-painter-v1.b64.10.txt`,
-  `${BASE}hq-p0-floor-painter-v1.b64.09.txt`,
-  `${BASE}hq-p0-floor-painter-v1.b64.08.txt`,
-  `${BASE}hq-p0-floor-painter-v1.b64.07.txt`,
-  `${BASE}hq-p0-floor-painter-v1.b64.06.txt`,
-  `${BASE}hq-p0-floor-painter-v1.b64.05.txt`,
-  `${BASE}hq-p0-floor-painter-v1.b64.04.txt`,
-  `${BASE}hq-p0-floor-painter-v1.b64.03.txt`,
-  `${BASE}hq-p0-floor-painter-v1.b64.02.txt`,
-  `${BASE}hq-p0-floor-painter-v1.b64.01.txt`,
   `${BASE}hq-growth-v1.js`,
   `${BASE}ops/index.html`,
   `${BASE}ops/embed.html`,

@@ -76,8 +76,25 @@ if (Test-Path $transportPath) {
 }
 
 $lastStart = if ($cont -and $cont.last_invoke_started_at) { [string]$cont.last_invoke_started_at } elseif ($prev) { [string]$prev.last_invoke_started_at } else { $null }
-$lastDone = if ($transportAt) { $transportAt } elseif ($cont -and $cont.last_invoke_completed_at) { [string]$cont.last_invoke_completed_at } elseif ($prev) { [string]$prev.last_invoke_completed_at } else { $null }
-$lastActor = if ($prev -and $prev.last_actor) { [string]$prev.last_actor } else { 'MIXED' }
+# Newest PROVEN invoke-owner-* in done/ wins last_invoke_completed_at (never freeze on transport).
+$doneDir = Join-Path $ws 'reports\invocations\done'
+$newestDoneAt = $null
+$newestDoneActor = $null
+if (Test-Path -LiteralPath $doneDir) {
+  foreach ($p in Get-ChildItem -LiteralPath $doneDir -File -Filter 'invoke-owner-*.json' -EA SilentlyContinue) {
+    try {
+      $d = Get-Content -LiteralPath $p.FullName -Raw -Encoding UTF8 | ConvertFrom-Json
+      if ([string]$d.status -ne 'PROVEN') { continue }
+      $at = [string]$d.completed_at
+      if ($at -and ((-not $newestDoneAt) -or ($at -gt $newestDoneAt))) {
+        $newestDoneAt = $at
+        $newestDoneActor = if ($d.actor) { [string]$d.actor } elseif ($d.verify_actor) { [string]$d.verify_actor } else { 'MIXED' }
+      }
+    } catch {}
+  }
+}
+$lastDone = if ($newestDoneAt) { $newestDoneAt } elseif ($transportAt) { $transportAt } elseif ($cont -and $cont.last_invoke_completed_at) { [string]$cont.last_invoke_completed_at } elseif ($prev) { [string]$prev.last_invoke_completed_at } else { $null }
+$lastActor = if ($newestDoneActor) { $newestDoneActor } elseif ($prev -and $prev.last_actor) { [string]$prev.last_actor } else { 'MIXED' }
 
 $hint = 'READY'
 if ($waiting) { $hint = 'THROTTLED' }

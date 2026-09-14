@@ -18,6 +18,7 @@ Anything that does not materially help answer one of those questions belongs in 
 
 | Claim | Source | Freshness expectation | HQ behavior when stale |
 |---|---|---:|---|
+| **cycle / last invoke / actor / center hint (ONE CLOCK)** | `reports/hq-live-floor.json` | Tick cadence (~15 min); never older than 20 min as current | paint UNVERIFIED, never fall back to `support.supervisor.cycle` (that field is bleed, often stuck at 449) |
 | current task / services / load | `reports/dashboard-state.json` | 120 s fresh, 360 s delayed | never infer WORKING from stale task text |
 | platform / benchmark / core schedulers | `reports/support-latest.json` | 360 s fresh, 900 s delayed | show UNVERIFIED/STALE rather than HEALTHY |
 | Relay / Skill Lab / UI Bridge | `reports/engineering/latest.json` | 180 s fresh, 360 s delayed | show delayed liveness; do not reuse old heartbeat as current |
@@ -66,6 +67,8 @@ Direct **Talk to Kevin** and **Handover** actions remain persistent outside the 
 
 The production wrapper should keep the overlay stack minimal and non-overlapping:
 
+- Cycle authority is `reports/hq-live-floor.json` only. `support.supervisor.cycle` is bleed and must never label HQ.
+- `hq-p0-floor-painter-v1.js` — ops-floor overlay; inlined source (not b64 chunks).
 - `hq-overrides-v1.js` — integration/hash + Newswire only.
 - `hq-truth-v2.js` — authoritative source collection, contradiction detection, deep truth console.
 - `hq-owner-refinement-v3.js` — owner-facing five-tab information architecture and concise rendering.
