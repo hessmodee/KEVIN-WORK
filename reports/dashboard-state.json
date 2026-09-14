@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-14T10:19:51.7356088-06:00",
+  "generated_at": "2026-09-14T10:20:13-06:00",
   "status": "degraded",
   "health": {
     "overall": "degraded",
@@ -20,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 43,
-    "cpu_pct": 17,
+    "memory_pct": 42,
+    "cpu_pct": 6,
     "gpu": "RTX 3060",
-    "gpu_pct": 39
+    "gpu_pct": 38
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-13T10:20:14-06:00",
-        "estimated": false,
-        "ram": 39,
-        "cpu": 9,
-        "gpu": 35
-      },
       {
         "at": "2026-09-13T10:35:14-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 43,
         "cpu": 17,
         "gpu": 39
+      },
+      {
+        "at": "2026-09-14T10:20:13-06:00",
+        "estimated": false,
+        "ram": 42,
+        "cpu": 6,
+        "gpu": 38
       }
     ],
     "ram": [
-      39,
       40,
       39,
       40,
@@ -798,10 +797,10 @@
       43,
       43,
       42,
-      43
+      43,
+      42
     ],
     "cpu": [
-      9,
       12,
       2,
       11,
@@ -896,10 +895,10 @@
       10,
       22,
       4,
-      17
+      17,
+      6
     ],
     "gpu": [
-      35,
       29,
       25,
       33,
@@ -994,7 +993,8 @@
       40,
       38,
       39,
-      39
+      39,
+      38
     ]
   },
   "weather": {
@@ -1094,7 +1094,7 @@
       "id": "health_24h",
       "label": "System health 24h",
       "done": 0,
-      "total": 96
+      "total": 97
     }
   ],
   "roadmap": {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-14T10:05:14-06:00",
+      "at": "2026-09-14T10:20:13-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "warning"
   },
   "sync": {
-    "last": "2026-09-14T10:19:51.7356088-06:00",
+    "last": "2026-09-14T10:20:13-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
