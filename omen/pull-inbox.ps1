@@ -1,11 +1,13 @@
-# Kevin GitHubBridge puller v1.6
+# Kevin GitHubBridge puller v1.7
 # GREEN-C. Copies inbox + self-updates this script + applies the catalog-contract
 # python repair when live hashes mismatch. Builder pin is v1.0.3 (uniqueness).
 # Always quarantines sticky Supervisor RequestId leftovers. Diagnoses worker
-# hashes. Does not recopy Supervisor v1.8.12. Does not replace the live worker pin.
-# Does not reset history. Not PASS.
+# hashes. Materializes at most one West Motor family-loop refresh WI when
+# WAITING_ITEM_BUDGETS (existing proven skill key only). Does not recopy
+# Supervisor v1.8.12. Does not replace the live worker pin. Does not reset
+# history. Not PASS.
 $ErrorActionPreference = 'Continue'
-$PullerVersion = 'v1.6'
+$PullerVersion = 'v1.7'
 $ws = Join-Path $env:USERPROFILE '.openclaw\workspace'
 New-Item -ItemType Directory -Force -Path $ws, (Join-Path $ws 'inbox'), (Join-Path $ws 'reports'), (Join-Path $ws 'tools') | Out-Null
 
@@ -23,7 +25,8 @@ $files = @(
   'tools/Repair-Kevin-InvocationRegistryContract-v1.ps1',
   'tools/Repair-Kevin-WorkItems-Uniqueness-v1.ps1',
   'tools/Repair-Kevin-StickyInvokeState-v1.ps1',
-  'tools/Diagnose-Kevin-InvocationStage-v1.ps1'
+  'tools/Diagnose-Kevin-InvocationStage-v1.ps1',
+  'tools/Materialize-Kevin-FamilyLoop-v1.ps1'
 )
 
 function Get-GitHubBytes([string]$RepoPath) {
@@ -87,6 +90,13 @@ if (Test-Path -LiteralPath $uniq -PathType Leaf) {
     & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $uniq
     Write-Host ('uniqueness repair exit=' + $LASTEXITCODE)
   } catch { Write-Host "uniqueness skip: $_" }
+}
+$fam = Join-Path $ws 'tools\Materialize-Kevin-FamilyLoop-v1.ps1'
+if (Test-Path -LiteralPath $fam -PathType Leaf) {
+  try {
+    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $fam
+    Write-Host ('family-loop materialize exit=' + $LASTEXITCODE)
+  } catch { Write-Host "family-loop skip: $_" }
 }
 $sticky = Join-Path $ws 'tools\Repair-Kevin-StickyInvokeState-v1.ps1'
 if (Test-Path -LiteralPath $sticky -PathType Leaf) {
