@@ -96,6 +96,22 @@ if (Test-Path -LiteralPath $doneDir) {
 $lastDone = if ($newestDoneAt) { $newestDoneAt } elseif ($transportAt) { $transportAt } elseif ($cont -and $cont.last_invoke_completed_at) { [string]$cont.last_invoke_completed_at } elseif ($prev) { [string]$prev.last_invoke_completed_at } else { $null }
 $lastActor = if ($newestDoneActor) { $newestDoneActor } elseif ($prev -and $prev.last_actor) { [string]$prev.last_actor } else { 'MIXED' }
 
+# Matching done receipt for the currently selected WI wins over Supervisor ROUTED copy.
+if ($selected) {
+  $matchPath = Join-Path $doneDir ('invoke-{0}.json' -f $selected)
+  if (Test-Path -LiteralPath $matchPath) {
+    try {
+      $mr = Get-Content -LiteralPath $matchPath -Raw -Encoding UTF8 | ConvertFrom-Json
+      if ([string]$mr.status -eq 'PROVEN') {
+        $outcome = $true
+        $status = 'OUTCOME_PROVEN'
+        if ($mr.completed_at) { $lastDone = [string]$mr.completed_at }
+        if ($mr.actor) { $lastActor = [string]$mr.actor } elseif ($mr.verify_actor) { $lastActor = [string]$mr.verify_actor }
+      }
+    } catch {}
+  }
+}
+
 $hint = 'READY'
 if ($waiting) { $hint = 'THROTTLED' }
 elseif ($readyCount -ge 1) { $hint = 'WORKING' }

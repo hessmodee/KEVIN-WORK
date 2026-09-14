@@ -1,0 +1,46 @@
+{
+  "schema": 1,
+  "kind": "kevin-proven-skill-invocation-receipt",
+  "version": "1.1.2",
+  "status": "PROVEN",
+  "authority": "GREEN",
+  "actor": "MIXED",
+  "autonomy_credit": false,
+  "safe_for_public_repo": true,
+  "public_payload_policy": "metadata-only; owner outputs live on HESS OneDrive; no customer PII",
+  "completed_at": "2026-09-14T18:39:47.039044Z",
+  "invocation_id": "invoke-owner-west-motor-parts-chase-refresh-2026-09-13-v1",
+  "work_id": "owner-west-motor-parts-chase-refresh-2026-09-13-v1",
+  "skill_key": "west-motor-parts-chase-board-pack@1",
+  "verify_actor": "MIXED",
+  "verify_note": "VERIFY MIXED 2026-09-14. Action Era wrote the files on HESS. Bess/Grok synced the board and published this sanitized receipt. Not KEVIN_ACTED. Clone PROVE freeze stands.",
+  "owner_outputs": {
+    "spreadsheet": "Kevin-West-Motor-Parts-Chase-Fictional-8 (57).xlsx",
+    "note": "Kevin-West-Motor-Parts-Chase-Fictional-8-Note (55).md",
+    "location": "OneDrive/Documents/Kevin Outputs"
+  },
+  "step_results": [
+    {
+      "index": 0,
+      "operation": "create_spreadsheet",
+      "final_state": "DONE",
+      "output_name": "Kevin-West-Motor-Parts-Chase-Fictional-8 (57).xlsx",
+      "completed_at": "2026-09-14T18:39:47.039044Z"
+    },
+    {
+      "index": 1,
+      "operation": "create_text",
+      "final_state": "DONE",
+      "output_name": "Kevin-West-Motor-Parts-Chase-Fictional-8-Note (55).md",
+      "completed_at": "2026-09-14T18:39:47.039044Z"
+    }
+  ],
+  "failure": null,
+  "verification": {
+    "artifact_root_bounded": true,
+    "public_sanitized": true,
+    "artifact_hashes_unpublished": true,
+    "artifact_hashes_rechecked": false
+  },
+  "receipt_sha256": "C8F0B503C0EB3DCAF4250A9BF2E655475BEEC8E87B4AA21CC32BA96FF49A556D"
+}

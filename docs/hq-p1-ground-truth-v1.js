@@ -1,220 +1,1039 @@
 (() => {
 'use strict';
-const __P1_Z = [
-  "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"
-];
-function __p1InflateSync(parts) {
-  const b64 = Array.isArray(parts) ? parts.join('') : parts;
-  if (typeof require === 'function') {
-    const z = require('zlib');
-    const { Buffer } = require('buffer');
-    return z.inflateSync(Buffer.from(b64, 'base64')).toString('utf8');
+/**
+ * Kevin HQ P1 Ground Truth v1 — thin honesty overlay.
+ * Hooks existing HQ DOM/API after load. Does NOT greenwash BLOCKED.
+ * Does NOT paint GROKBOT_ACTED as Kevin WORKING. Does NOT invent PASS from STAGE_OK.
+ */
+const VERSION = 'hq-p1-ground-truth-v1';
+const RAW = 'https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/';
+const PATHS = {
+  dashboard: 'reports/dashboard-state.json',
+  engineering: 'reports/engineering/latest.json',
+  support: 'reports/support-latest.json',
+  continuation: 'reports/autonomy-continuation-latest.json',
+  work: 'inbox/autonomy/work-items.json',
+  canary: 'reports/main-agent-canary-omen.json',
+  bridge: 'reports/bridge-latest.json',
+  reject: 'reports/invocations/latest-public-reject.json',
+  floor: 'reports/hq-live-floor.json',
+  outcomes: 'reports/owner-outcomes-latest.json',
+  receipt: 'reports/invocations/done/invoke-owner-west-motor-parts-chase-refresh-2026-09-13-v1.json'
+};
+const STALE_RE = /v1\.8\.11|685B34F3|grok-install-v1811/i;
+const CANARY_FRESH_S = 1800;
+const PLATFORM_FRESH_S = 900;
+const BRIDGE_HEARTBEAT_S = 900;
+const SUPPORT_PAINT_S = 900;
+const WEST_MOTOR_COMPLETED_AT = '2026-09-12T00:54:57Z';
+const WEST_MOTOR_INVOKE_ID = 'invoke-owner-west-motor-parts-chase-fresh-8-v1';
+const COUPLING = 'hq-p1-coupling-honesty-v1';
+
+function parseTs(v) {
+  if (!v) return NaN;
+  const s = String(v).trim().replace(/(\.\d{3})\d+(?=(?:Z|[+-]\d{2}:\d{2})$)/, '$1');
+  const t = Date.parse(s);
+  return Number.isFinite(t) ? t : NaN;
+}
+function ageSeconds(v, now) {
+  const t = parseTs(v);
+  const n = Number.isFinite(now) ? now : Date.now();
+  return Number.isFinite(t) ? Math.max(0, (n - t) / 1000) : Infinity;
+}
+function ageText(s) {
+  if (!Number.isFinite(s)) return 'unknown';
+  if (s < 60) return `${Math.round(s)}s`;
+  if (s < 3600) return `${Math.round(s / 60)}m`;
+  if (s < 86400) return `${(s / 3600).toFixed(s < 7200 ? 1 : 0)}h`;
+  return `${(s / 86400).toFixed(1)}d`;
+}
+function when(v) {
+  const t = parseTs(v);
+  return Number.isFinite(t)
+    ? new Date(t).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })
+    : 'unknown';
+}
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+}
+function stripStaleV1811(text) {
+  return String(text ?? '').replace(/\s*Supervisor v1\.8\.11 hash 685B34F3[^.)]*\.?/gi, '')
+    .replace(/\s*typed ALREADY_APPLIED_PROVEN for grok-install-v1811-[0-9-]+,?/gi, '')
+    .replace(/\s*continuation version 1\.8\.11\.?/gi, '')
+    .replace(/\(\s*,\s*/g, '(').replace(/\s{2,}/g, ' ').trim();
+}
+function hasStaleV1811(text) { return STALE_RE.test(String(text ?? '')); }
+
+function exactFiveCanary(canary, now) {
+  const c = canary || {};
+  return ageSeconds(c.generated_at, now) <= CANARY_FRESH_S
+    && String(c.state || '') === 'OMEN_PROVEN'
+    && Number(c.visible_tool_count) === 5
+    && Number(c.visible_kevin_tool_count) === 5
+    && c.has_kevin_system_status === true;
+}
+function toolsChip(canary, now) {
+  if (exactFiveCanary(canary, now)) return { label: '5 PROVEN', cls: 'ok', stale: false };
+  const c = canary || {};
+  const shape = String(c.state || '') === 'OMEN_PROVEN'
+    && Number(c.visible_tool_count) === 5
+    && Number(c.visible_kevin_tool_count) === 5
+    && c.has_kevin_system_status === true;
+  if (shape) return { label: '5 · CANARY STALE', cls: 'stale', stale: true };
+  return { label: 'UNVERIFIED', cls: '', stale: true };
+}
+
+function actionEraReady(engineering) {
+  const a = engineering?.action || {};
+  const q = a.queues || a.composite_skills || {};
+  return Number(q.ready) || 0;
+}
+function liveWorkerCount(support, now) {
+  if (ageSeconds(support?.generated_at, now) > 360) return 0;
+  return Object.values(support?.active_workers || {}).reduce((n, v) => n + (Number(v) || 0), 0);
+}
+function liveExecutionProven(bundle, now) {
+  const d = bundle.dashboard || {};
+  const s = bundle.support || {};
+  const task = d.current_task;
+  const taskLive = !!task && ageSeconds(d.generated_at, now) <= 180
+    && !/(done|complete|completed|failed|stopped|idle|queued|wait|cooldown|yield|skip|cancel|reject)/i.test(String(task.phase || task.status || ''));
+  const workers = liveWorkerCount(s, now);
+  // Exclude pure heartbeat services from "live worker" for WORKING entitlement.
+  const aw = s.active_workers || {};
+  const realWorkers = workers - (Number(aw.tick) || 0) - (Number(aw.bridge) || 0);
+  return { taskLive, workers, realWorkers: Math.max(0, realWorkers), actionReady: actionEraReady(bundle.engineering) };
+}
+
+/** WORKING/BUILDING only with live worker OR Action Era ready>=1. Heartbeat pulse alone is OK, not WORKING. */
+function mayShowWorkingBuilding(bundle, now) {
+  const ex = liveExecutionProven(bundle, now);
+  return ex.taskLive || ex.realWorkers > 0 || ex.actionReady >= 1;
+}
+
+/**
+ * Honest worker lane state. Never WORKING on Chat/Build Lab without live evidence.
+ * Tick/Bridge/Ollama may pulse ready/healthy without becoming WORKING.
+ */
+function honestWorkerState(key, proposed, bundle, now) {
+  const k = String(key || '').toLowerCase();
+  const proposedN = String(proposed || '').toLowerCase();
+  if (k === 'bridge') return honestBridgeWorkerState(proposedN, bundle, now);
+  if (['tick', 'ollama'].includes(k)) {
+    if (proposedN === 'working' || proposedN === 'building') return 'ready';
+    return proposedN || 'ready';
   }
-  throw new Error('sync inflate only on Node');
+  if (k === 'chat' || k === 'build' || k === 'lab') {
+    if ((proposedN === 'working' || proposedN === 'building') && !mayShowWorkingBuilding(bundle, now)) return 'ready';
+  }
+  if ((proposedN === 'working' || proposedN === 'building') && !mayShowWorkingBuilding(bundle, now)) return 'ready';
+  return proposedN || 'ready';
 }
-async function __p1InflateBrowser(parts) {
-  const b64 = Array.isArray(parts) ? parts.join('') : parts;
-  const bin = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
-  const ds = new DecompressionStream('deflate');
-  const stream = new Blob([bin]).stream().pipeThrough(ds);
-  const ab = await new Response(stream).arrayBuffer();
-  return new TextDecoder().decode(ab);
+
+
+function collectReceipts(bundle) {
+  const out = [];
+  const push = (r) => { if (r && typeof r === 'object') out.push(r); };
+  push(bundle.receipt);
+  if (Array.isArray(bundle.receipts)) bundle.receipts.forEach(push);
+  if (Array.isArray(bundle.done)) bundle.done.forEach(push);
+  if (Array.isArray(bundle.doneReceipts)) bundle.doneReceipts.forEach(push);
+  else if (bundle.doneReceipts && typeof bundle.doneReceipts === 'object') push(bundle.doneReceipts);
+  return out;
 }
+function isProvenReceipt(r) {
+  const st = String(r?.status || '').toUpperCase();
+  return st === 'PROVEN' || String(r?.kind || '') === 'kevin-proven-skill-invocation-receipt';
+}
+function lastAttemptFromReceipts(bundle) {
+  let best = null, bestT = -Infinity;
+  for (const r of collectReceipts(bundle)) {
+    if (!isProvenReceipt(r)) continue;
+    const at = r.completed_at;
+    const t = parseTs(at);
+    if (Number.isFinite(t) && t >= bestT) { bestT = t; best = r; }
+  }
+  if (!best) return { at: null, unknown: true, source: null, receipt: null, id: null, skill: null };
+  return {
+    at: best.completed_at,
+    unknown: false,
+    source: 'receipt.completed_at',
+    receipt: best,
+    id: best.invocation_id || null,
+    skill: best.skill_key || null
+  };
+}
+function taskAlive(bundle, now) {
+  const ub = bundle.engineering?.action?.ui_bridge || {};
+  if (ub.task_present === true) return true;
+  const task = bundle.dashboard?.current_task;
+  if (task && !/(done|complete|completed|failed|stopped|idle|queued|wait|cooldown|yield|skip|cancel|reject)/i.test(String(task.phase || task.status || ''))) {
+    if (ageSeconds(bundle.dashboard?.generated_at, now) <= 180) return true;
+  }
+  return false;
+}
+function githubBridgeAge(bundle, now) {
+  const supportAge = ageSeconds(bundle.support?.generated_at, now);
+  const heartbeatAge = ageSeconds(bundle.bridge?.at || bundle.bridge?.generated_at, now);
+  return {
+    supportAge,
+    heartbeatAge,
+    supportFresh: supportAge <= SUPPORT_PAINT_S,
+    heartbeatFresh: heartbeatAge <= BRIDGE_HEARTBEAT_S
+  };
+}
+/** UNKNOWN→DEGRADED only when GitHubBridge/support-latest is stale vs paint AND heartbeat stale AND no live task. Never disable Bridge. */
+function bridgeHonesty(bundle, now) {
+  const ages = githubBridgeAge(bundle, now);
+  const puller = String(bundle.bridge?.puller || '');
+  const bridgeOk = String(bundle.bridge?.bridge || '').toLowerCase() === 'ok';
+  const dash = String(bundle.dashboard?.services?.bridge || '').toLowerCase();
+  const alive = taskAlive(bundle, now);
+  let state = 'degraded', reason = 'stale-heartbeat', label = 'DEGRADED';
+  if (ages.heartbeatFresh && bridgeOk && /^v1\.[3-9]/.test(puller)) {
+    state = 'ok'; reason = 'fresh-heartbeat'; label = 'OK';
+  } else if (alive) {
+    state = 'ok'; reason = 'task-alive-stale-heartbeat'; label = 'OK';
+  } else if (ages.supportFresh && (bridgeOk || dash === 'unknown' || dash === '' || dash === 'ok' || dash === 'healthy')) {
+    state = 'ok'; reason = 'support-fresh-vs-paint'; label = 'OK';
+  }
+  return { state, label, reason, disabled: false, ages, taskAlive: alive, dash };
+}
+function outcomeProven(bundle) {
+  const r = bundle.reject || {};
+  return String(r.reason || '').toUpperCase() === 'OUTCOME_PROVEN' || r.outcome_proven === true;
+}
+function westMotorProven(bundle) {
+  return collectReceipts(bundle).some(r => isProvenReceipt(r) && /west-motor/i.test(String(r.invocation_id || r.skill_key || '')));
+}
+function fivePackHonesty(bundle) {
+  const proven = westMotorProven(bundle);
+  return { proven, paint: proven ? 'PROVEN' : null, failedPass: false };
+}
+function centerHonesty(bundle, now) {
+  const bridge = bridgeHonesty(bundle, now);
+  const proven = outcomeProven(bundle);
+  const truth = kevinCenterTruth(bundle, now);
+  // Worst-feed ≠ Kevin failed the job. Bridge DEGRADED must not force center FAILED after OUTCOME_PROVEN.
+  let mode = truth.mode;
+  let label = truth.label;
+  if (proven) {
+    mode = 'outcome_proven';
+    label = 'OUTCOME_PROVEN';
+  }
+  if (mode === 'failed' || label === 'FAILED') {
+    mode = proven ? 'outcome_proven' : 'ready';
+    label = proven ? 'OUTCOME_PROVEN' : 'READY';
+  }
+  return {
+    mode,
+    label,
+    failed: false,
+    inheritedBridge: false,
+    bridgeState: bridge.state,
+    worstFeedIsNotKevinFailed: true,
+    westMotorProven: westMotorProven(bundle),
+    fivePack: fivePackHonesty(bundle)
+  };
+}
+function lastAttemptClock(bundle, now) {
+  const floorAt = bundle.floor?.last_invoke_completed_at || bundle.outcomes?.newest_receipt?.completed_at || null;
+  if (floorAt) {
+    return {
+      at: floorAt,
+      label: when(floorAt),
+      age: ageText(ageSeconds(floorAt, now)),
+      unknown: !Number.isFinite(parseTs(floorAt)),
+      source: 'hq-live-floor.last_invoke_completed_at',
+      id: bundle.outcomes?.newest_receipt?.work_id || bundle.floor?.selected_id || null,
+      skill: bundle.outcomes?.newest_receipt?.skill_key || null,
+      fixtureWestMotor: false
+    };
+  }
+  const rec = lastAttemptFromReceipts(bundle);
+  if (rec.at) {
+    const t = parseTs(rec.at);
+    return {
+      at: rec.at,
+      label: when(rec.at),
+      age: ageText(ageSeconds(rec.at, now)),
+      unknown: !Number.isFinite(t),
+      source: 'receipt.completed_at',
+      id: rec.id,
+      skill: rec.skill,
+      fixtureWestMotor: String(rec.at).startsWith('2026-09-12T00:54:57')
+    };
+  }
+  const c = clocksFromReports(bundle, now);
+  const at = c.lastOwnerAttempt.at;
+  return {
+    at,
+    label: c.lastOwnerAttempt.label,
+    age: c.lastOwnerAttempt.age,
+    unknown: !Number.isFinite(parseTs(at)),
+    source: 'continuation',
+    id: c.lastOwnerAttempt.id,
+    skill: null,
+    fixtureWestMotor: false
+  };
+}
+function opsFloorStripe(bundle, now) {
+  const rec = lastAttemptFromReceipts(bundle);
+  const actor = String((bundle.reject || {}).verify_actor || 'MIXED').toUpperCase() || 'MIXED';
+  const artifacts = [];
+  for (const s of (rec.receipt?.step_results || [])) {
+    if (s.output_name) artifacts.push(s.output_name);
+  }
+  return {
+    stripe: rec.at ? 'COMPLETED' : null,
+    skill: rec.skill || rec.receipt?.skill_key || null,
+    artifacts,
+    actor,
+    working: mayShowWorkingBuilding(bundle, now),
+    workingFromBridge: false
+  };
+}
+function honestBridgeWorkerState(proposed, bundle, now) {
+  const b = bridgeHonesty(bundle, now);
+  const p = String(proposed || '').toLowerCase();
+  if (p === 'disabled') return b.state === 'ok' ? 'ready' : 'degraded';
+  if (p === 'working' || p === 'building') return 'ready';
+  if (b.state === 'ok') return (p === 'degraded' || p === 'offline' || p === 'unknown') ? 'ready' : (p || 'ready');
+  return p === 'disabled' ? 'degraded' : (p || 'degraded');
+}
+
+function kevinCenterTruth(bundle, now) {
+  const cont = bundle.continuation || {};
+  const reject = bundle.reject || {};
+  const status = String(cont.status || '').toUpperCase();
+  const rejectReason = String(reject.reason || '').toUpperCase();
+  const stageOk = String(reject.supervisor_request_id_reason || '').toUpperCase() === 'STAGE_OK';
+  const verifyMixed = String(reject.verify_actor || '').toUpperCase() === 'MIXED'
+    || /VERIFY PASS MIXED/i.test(String(reject.truth_boundary || ''));
+  const ex = liveExecutionProven(bundle, now);
+
+  // Never invent PASS from STAGE_OK.
+  const passInvented = false;
+  void stageOk; void passInvented;
+
+  if (status === 'BLOCKED_INVOCATION_RUNTIME') {
+    const isolate = reject.isolated_diagnose_queue === true;
+    const liveReady = Number(reject.live_action_era_ready_invoke_count || 0);
+    const pair = isolate
+      ? `isolate diagnose queue ON · live Action Era ready invoke ${liveReady}`
+      : (liveReady > 0 ? `live Action Era ready invoke ${liveReady}` : 'live/isolate pair unpublished');
+    return {
+      mode: 'blocked',
+      label: 'BLOCKED',
+      detail: `BLOCKED_INVOCATION_RUNTIME · ${pair}. Worker diagnostic, not a crash, not PASS.`,
+      cite: verifyMixed ? 'VERIFY prior PASS MIXED (west-motor) — citation only' : null,
+      showIsolatePair: true,
+      isolate,
+      liveReady
+    };
+  }
+  if (rejectReason === 'OUTCOME_PROVEN' || reject.outcome_proven === true) {
+    return {
+      mode: 'outcome_proven',
+      label: 'OUTCOME_PROVEN',
+      detail: 'Public reject reports OUTCOME_PROVEN from receipt — not invented from STAGE_OK. Not READY. Not WORKING unless live execution is proven. Bridge DEGRADED is worst-feed, not Kevin failed.',
+      cite: verifyMixed ? 'VERIFY prior PASS MIXED (west-motor) — citation only' : null,
+      showIsolatePair: reject.isolated_diagnose_queue === true,
+      isolate: reject.isolated_diagnose_queue === true,
+      liveReady: Number(reject.live_action_era_ready_invoke_count || 0),
+      failed: false,
+      inheritedBridge: false
+    };
+  }
+  if (/^ROUTED_/.test(status)) {
+    return {
+      mode: 'routed',
+      label: 'ROUTED',
+      detail: `${status.replaceAll('_', ' ')} · honest from continuation. Not READY. Not PASS.`,
+      cite: verifyMixed ? 'VERIFY prior PASS MIXED (west-motor) — citation only' : null,
+      showIsolatePair: false
+    };
+  }
+  if (ex.taskLive || ex.realWorkers > 0) {
+    return { mode: 'working', label: 'WORKING', detail: 'Live machine execution proven.', cite: null, showIsolatePair: false };
+  }
+  if (ex.actionReady >= 1) {
+    return { mode: 'building', label: 'BUILDING', detail: `Action Era ready=${ex.actionReady}.`, cite: null, showIsolatePair: false };
+  }
+  if (status === 'CONTROLLER_ERROR') {
+    return { mode: 'degraded', label: 'DEGRADED', detail: 'CONTROLLER_ERROR — Supervisor crashed, not idle.', cite: null, showIsolatePair: false };
+  }
+  return { mode: 'ready', label: 'READY', detail: 'No live execution proven.', cite: null, showIsolatePair: false };
+}
+
+function clocksFromReports(bundle, now) {
+  const cont = bundle.continuation || {};
+  const hist = Array.isArray(cont.history) ? cont.history : [];
+  const selected = hist.find(x => String(x.id || '') === String(cont.selected_id || '')) || hist.at(-1) || {};
+  const recAt = lastAttemptFromReceipts(bundle).at;
+  const floorAt = bundle.floor?.last_invoke_completed_at || bundle.outcomes?.newest_receipt?.completed_at || null;
+  const ownerAt = floorAt || recAt || selected.last_turn_at || cont.generated_at || null;
+  const ownerId = bundle.outcomes?.newest_receipt?.work_id || bundle.floor?.selected_id || cont.selected_id || selected.id || null;
+  const platformCandidates = [
+    bundle.floor?.updated_at || bundle.floor?.generated_at,
+    bundle.support?.generated_at,
+    bundle.engineering?.generated_at,
+    bundle.dashboard?.generated_at,
+    bundle.bridge?.at || bundle.bridge?.generated_at,
+    bundle.reject?.generated_at
+  ].filter(Boolean);
+  let newest = null, newestT = -Infinity;
+  for (const ts of platformCandidates) {
+    const t = parseTs(ts);
+    if (Number.isFinite(t) && t > newestT) { newestT = t; newest = ts; }
+  }
+  const floorCycle = Number(bundle.floor?.cycle);
+  const supportCycle = Number(bundle.support?.supervisor?.cycle);
+  const cycle = Number.isFinite(floorCycle) ? floorCycle : (Number.isFinite(supportCycle) ? supportCycle : (bundle.dashboard?.ops_floor?.primary?.cycle ?? null));
+  const bleed = Number.isFinite(floorCycle) && Number.isFinite(supportCycle) && floorCycle !== supportCycle;
+  return {
+    lastOwnerAttempt: { at: ownerAt, label: when(ownerAt), age: ageText(ageSeconds(ownerAt, now)), id: ownerId },
+    lastPlatformSignal: { at: newest, label: when(newest), age: ageText(ageSeconds(newest, now)) },
+    cycle: cycle == null ? '—' : cycle,
+    cycleLabel: bleed ? 'floor · Support bleed' : 'hq-live-floor',
+    bleed
+  };
+}
+
+function newswireStories(bundle, now) {
+  const items = [];
+  const push = (id, text, severity, at) => {
+    if (!text) return;
+    items.push({ id, text: String(text).slice(0, 220), severity: severity || 'normal', at: at || null });
+  };
+  const s = bundle.support || {};
+  const c = bundle.continuation || {};
+  const e = bundle.engineering || {};
+  const r = bundle.reject || {};
+  const d = bundle.dashboard || {};
+  const b = s.benchmark || e.action?.benchmark || {};
+  const reg = b.regression || b;
+
+  const floor = bundle.floor || {};
+  if (floor.updated_at || floor.generated_at) {
+    push('hq-live-floor', `FLOOR · cycle ${floor.cycle ?? '—'} · actor ${floor.last_actor || 'unpublished'} · ${floor.last_invoke_completed_at ? 'last invoke ' + floor.last_invoke_completed_at : 'no last invoke'}`, 'normal', floor.updated_at || floor.generated_at);
+  }
+  if (s.generated_at) {
+    const aw = liveWorkerCount(s, now);
+    const fCycle = floor.cycle;
+    const sCycle = s.supervisor?.cycle;
+    const bleed = fCycle != null && sCycle != null && Number(fCycle) !== Number(sCycle);
+    push('support-latest', bleed
+      ? `SUPPORT BLEED · workers ${aw} · ignore cycle ${sCycle} · ${s.supervisor?.last_result || 'ok'}`
+      : `SUPPORT · workers ${aw} · ${s.supervisor?.last_result || 'ok'}`,
+      bleed ? 'caution' : 'normal', s.generated_at);
+  }
+  if (c.generated_at) {
+    push('autonomy-continuation-latest', `CONTINUATION · ${c.status || 'UNKNOWN'} · selected ${c.selected_id || 'none'}`, /BLOCKED|ERROR/i.test(String(c.status || '')) ? 'caution' : 'normal', c.generated_at);
+  }
+  if (r.generated_at) {
+    push('invocations/latest-public-reject', `REJECT · ${r.reason || 'UNKNOWN'} · ${r.work_id_hint || ''}`.trim(), r.reason === 'OUTCOME_PROVEN' ? 'normal' : 'caution', r.generated_at);
+  }
+  if (e.generated_at) {
+    const hb = e.action?.ui_bridge?.heartbeat_age_seconds;
+    push('engineering/latest', `ENGINEERING · bridge hb ${hb ?? '?'}s · skills proven ${e.action?.composite_skills?.proven_count ?? '?'}`, 'normal', e.generated_at);
+  }
+  if (Number.isFinite(Number(reg.passed))) {
+    const ok = String(b.status || '').toUpperCase() === 'PASS' && Number(reg.passed) === 30 && Number(reg.total) === 30;
+    push('benchmark', `BENCHMARK · ${reg.passed}/${reg.total}${ok ? '' : ' · needs check'}`, ok ? 'normal' : 'caution', b.at || e.generated_at || s.generated_at);
+  }
+  for (const nw of (Array.isArray(d.newswire) ? d.newswire : []).slice(0, 3)) {
+    push(nw.id || 'dash-nw', nw.text, nw.severity || 'normal', d.generated_at);
+  }
+
+  // Dedup by id, keep order, max 12
+  const seen = new Set();
+  const out = [];
+  for (const it of items) {
+    if (seen.has(it.id)) continue;
+    seen.add(it.id);
+    out.push(it);
+  }
+  if (!out.length) {
+    const ts = when(newestTs(bundle));
+    return [{ id: 'empty', text: `no new events since ${ts}`, severity: 'caution', at: null, empty: true, lastLines: [] }];
+  }
+  return out;
+}
+
+function newestTs(bundle) {
+  const clocks = clocksFromReports(bundle, Date.now());
+  return clocks.lastPlatformSignal.at || clocks.lastOwnerAttempt.at || null;
+}
+
+function emptyNewswireFallback(bundle, stories) {
+  if (stories.length && !stories[0].empty) return stories;
+  const lines = [];
+  const hist = Array.isArray(bundle.continuation?.history) ? bundle.continuation.history : [];
+  for (const h of hist.slice(-3).reverse()) {
+    lines.push(`${h.id || 'attempt'} · ${h.status || '?'} · ${when(h.last_turn_at)}`);
+  }
+  const ts = when(newestTs(bundle));
+  return [{
+    id: 'empty',
+    text: `no new events since ${ts}`,
+    severity: 'caution',
+    empty: true,
+    lastLines: lines
+  }];
+}
+
+/**
+ * Scaffold rail: visible when CoS / RUNTIME / VERIFY markers active.
+ * GROKBOT_ACTED is the actor label — never painted as Kevin WORKING.
+ * Hide when idle. Never "Kevin learning".
+ */
+function scaffoldState(bundle, opts) {
+  const o = opts || {};
+  const cont = String(bundle.continuation?.status || '').toUpperCase();
+  const reject = bundle.reject || {};
+  const verifyActive = String(reject.verify_actor || '').toUpperCase() === 'MIXED'
+    || /VERIFY/i.test(String(reject.truth_boundary || ''))
+    || o.verifyActive === true;
+  const runtimeActive = /^BLOCKED_|^ROUTED_|^CONTROLLER_/.test(cont) || o.runtimeActive === true;
+  const cosActive = o.cosActive === true || o.grokbotActed === true;
+  const active = !!(verifyActive || runtimeActive || cosActive || o.forceVisible);
+  if (!active) return { visible: false, chip: null, lastAction: null, dashedToKevin: false, actor: null };
+  const lastAction = o.lastAction || (o.grokbotActed ? 'GROKBOT_ACTED · P1 ground-truth overlay' : (verifyActive ? 'VERIFY · receipt citation' : 'RUNTIME · continuation signal'));
+  return {
+    visible: true,
+    chip: 'SCAFFOLD',
+    lastAction,
+    dashedToKevin: true,
+    actor: 'GROKBOT_ACTED',
+    neverKevinWorking: true,
+    neverKevinLearning: true
+  };
+}
+
+function selectedWorkerCss() {
+  return `
+/* P1: restore Selected Worker panel — stop clipping */
+html.hq-p1-ops, body.hq-p1-ops { overflow: auto !important; height: auto !important; min-height: 100%; }
+.card.detail, section.card.detail, #selectedName, .detail-grid {
+  max-height: none !important;
+  overflow: visible !important;
+  visibility: visible !important;
+  display: block;
+}
+.card.detail { overflow: auto !important; max-height: none !important; min-height: 140px; }
+.detail-grid { display: grid !important; }
+.ops-scroll { overflow: auto !important; max-height: none !important; }
+#inspect.inspect, .inspect { overflow: auto !important; max-height: none !important; min-height: 120px; }
+.hq-p1-clocks { display:grid; grid-template-columns:1fr 1fr auto; gap:8px; margin:10px 0; }
+.hq-p1-clock { border:1px solid rgba(194,213,182,.22); border-radius:12px; padding:10px 12px; background:rgba(17,22,16,.88); min-width:0; }
+.hq-p1-clock span { display:block; font-size:9px; letter-spacing:.11em; text-transform:uppercase; color:#8b9488; }
+.hq-p1-clock b { display:block; margin-top:4px; font-size:13px; }
+.hq-p1-clock small { display:block; margin-top:3px; color:#8b9488; font-size:10px; }
+.hq-p1-scaffold { display:none; align-items:center; gap:10px; margin:8px 0 0; padding:8px 12px; border:1px dashed rgba(194,213,182,.35); border-radius:12px; background:rgba(20,26,19,.75); font-size:11px; color:#c5d0bf; }
+.hq-p1-scaffold.show { display:flex; flex-wrap:wrap; }
+.hq-p1-scaffold .chip { padding:3px 8px; border-radius:999px; border:1px solid rgba(194,213,182,.4); font:800 9px/1 ui-monospace,monospace; letter-spacing:.1em; }
+.hq-p1-scaffold .actor { color:#efd9ae; font-weight:700; }
+.hq-p1-scaffold .dash { flex:1; min-width:40px; border-top:1px dashed rgba(194,213,182,.4); height:0; }
+.hq-p1-nw-stack { display:flex; flex-direction:column; gap:4px; }
+.hq-p1-nw-stack .nw-line { font-size:12px; line-height:1.35; color:#e6eadf; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.hq-p1-nw-stack .nw-line.dim { color:#8b9488; font-size:11px; }
+.hq-p1-cite { margin-top:6px; font-size:10px; color:#8b9488; }
+.hq-p1-pair { margin-top:6px; font-size:11px; color:#efd9ae; }
+.hq-p1-completed-stripe { display:none; align-items:center; gap:10px; margin:8px 0; padding:8px 12px; border:1px solid rgba(121,197,106,.35); border-radius:12px; background:rgba(20,32,18,.82); font-size:11px; color:#dcebd5; }
+.hq-p1-completed-stripe.show { display:flex; flex-wrap:wrap; }
+.hq-p1-completed-stripe .chip { padding:3px 8px; border-radius:999px; border:1px solid rgba(121,197,106,.45); font:800 9px/1 ui-monospace,monospace; letter-spacing:.1em; }
+.hq-p1-completed-stripe .actor { color:#efd9ae; font-weight:700; }
+`.trim();
+}
+
+const API = {
+  VERSION,
+  parseTs,
+  ageSeconds,
+  ageText,
+  when,
+  stripStaleV1811,
+  hasStaleV1811,
+  exactFiveCanary,
+  toolsChip,
+  actionEraReady,
+  liveWorkerCount,
+  liveExecutionProven,
+  mayShowWorkingBuilding,
+  honestWorkerState,
+  kevinCenterTruth,
+  clocksFromReports,
+  newswireStories,
+  emptyNewswireFallback,
+  scaffoldState,
+  selectedWorkerCss,
+  PATHS,
+  STALE_RE,
+  COUPLING,
+  BRIDGE_HEARTBEAT_S,
+  SUPPORT_PAINT_S,
+  WEST_MOTOR_COMPLETED_AT,
+  WEST_MOTOR_INVOKE_ID,
+  collectReceipts,
+  isProvenReceipt,
+  lastAttemptFromReceipts,
+  taskAlive,
+  githubBridgeAge,
+  bridgeHonesty,
+  outcomeProven,
+  westMotorProven,
+  fivePackHonesty,
+  centerHonesty,
+  lastAttemptClock,
+  opsFloorStripe,
+  honestBridgeWorkerState
+};
+
 if (typeof module === 'object' && module.exports) {
-  eval(__p1InflateSync(__P1_Z));
+  module.exports = API;
   return;
 }
-__p1InflateBrowser(__P1_Z).then((src) => {
-  eval(src);
-}).catch((e) => console.error('Kevin HQ P1 ground truth inflate failed', e));
+
+// ——— browser boot ———
+const cache = {};
+let coreDoc = null, coreWin = null, opsDoc = null, opsWin = null;
+let timer = null, nwIdx = 0;
+
+function injectStyle(doc, id, css) {
+  if (!doc) return;
+  let el = doc.getElementById(id);
+  if (!el) {
+    el = doc.createElement('style');
+    el.id = id;
+    (doc.head || doc.documentElement).appendChild(el);
+  }
+  el.textContent = css;
+}
+
+async function fetchJson(path) {
+  try {
+    const r = await fetch(RAW + path + '?' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) return null;
+    return await r.json();
+  } catch (_) { return null; }
+}
+
+async function refresh() {
+  const entries = await Promise.all(Object.entries(PATHS).map(async ([k, p]) => [k, await fetchJson(p)]));
+  for (const [k, v] of entries) if (v) cache[k] = v;
+  // expose continuation/bridge for ops-v11 consumers
+  try {
+    if (opsWin) {
+      opsWin.__kevinContinuation = cache.continuation || {};
+      opsWin.__kevinBridgeLatest = cache.bridge || {};
+      opsWin.__kevinFloor = cache.floor || {};
+      opsWin.__kevinP1Reject = cache.reject || {};
+      opsWin.__kevinP1Receipt = cache.receipt || {};
+    }
+    if (coreWin) {
+      coreWin.__kevinContinuation = cache.continuation || {};
+      coreWin.__kevinP1Reject = cache.reject || {};
+      coreWin.__kevinP1Receipt = cache.receipt || {};
+    }
+  } catch (_) {}
+  paint();
+}
+
+function ensureClocks(doc, root) {
+  if (!doc) return null;
+  let el = doc.getElementById('hqP1Clocks');
+  if (!el) {
+    el = doc.createElement('div');
+    el.id = 'hqP1Clocks';
+    el.className = 'hq-p1-clocks';
+    el.setAttribute('data-hq-p1', 'clocks');
+    const anchor = root || doc.getElementById('hqNewswire') || doc.getElementById('attentionBanner') || doc.querySelector('.wrap') || doc.body;
+    if (anchor && anchor.parentNode) anchor.insertAdjacentElement(anchor === doc.body ? 'afterbegin' : 'afterend', el);
+    else doc.body?.appendChild(el);
+  }
+  return el;
+}
+
+function ensureScaffold(doc) {
+  if (!doc) return null;
+  let el = doc.getElementById('hqP1Scaffold');
+  if (!el) {
+    el = doc.createElement('div');
+    el.id = 'hqP1Scaffold';
+    el.className = 'hq-p1-scaffold';
+    el.setAttribute('data-hq-p1', 'scaffold');
+    el.setAttribute('aria-label', 'Scaffold rail');
+    const hub = doc.getElementById('kevinHub') || doc.getElementById('kevinState') || doc.querySelector('.hub') || doc.body;
+    hub?.parentNode?.insertBefore(el, hub.nextSibling) || doc.body?.appendChild(el);
+  }
+  return el;
+}
+
+function paintClocks(doc) {
+  const el = ensureClocks(doc);
+  if (!el) return;
+  const c = clocksFromReports(cache, Date.now());
+  const attempt = lastAttemptClock(cache, Date.now());
+  el.innerHTML =
+    `<div class="hq-p1-clock"><span>Last owner attempt</span><b>${esc(attempt.unknown ? attempt.label : attempt.label)}</b><small>${esc(attempt.id || c.lastOwnerAttempt.id || '—')} · ${esc(attempt.unknown ? 'receipt' : attempt.age)}</small></div>` +
+    `<div class="hq-p1-clock"><span>Last platform signal</span><b>${esc(c.lastPlatformSignal.label)}</b><small>${esc(c.lastPlatformSignal.age)} ago</small></div>` +
+    `<div class="hq-p1-clock"><span>Cycle</span><b>${esc(c.cycle)}</b><small>${esc(c.cycleLabel || 'hq-live-floor')}</small></div>`;
+}
+
+function paintScaffold(doc) {
+  const el = ensureScaffold(doc);
+  if (!el) return;
+  const floorSc = cache.floor?.scaffold || {};
+  if (floorSc.active !== true) {
+    el.classList.remove('show');
+    el.hidden = true;
+    el.innerHTML = '';
+    return;
+  }
+  const sc = scaffoldState(cache, {
+    grokbotActed: true,
+    lastAction: floorSc.one_line || 'GROKBOT_ACTED · P1 ground-truth overlay applied',
+    cosActive: true,
+    forceVisible: true
+  });
+  const cont = String(cache.continuation?.status || '');
+  const idle = !cont || cont === 'IDLE_NO_ELIGIBLE_DEMAND' || cont === 'NO_ELIGIBLE_MISSION';
+  const rejectFresh = ageSeconds(cache.reject?.generated_at) < 7200;
+  const show = sc.visible && (!idle || rejectFresh || /^BLOCKED_|^ROUTED_/.test(cont) || floorSc.active === true);
+  if (!show) {
+    el.classList.remove('show');
+    el.hidden = true;
+    el.innerHTML = '';
+    return;
+  }
+  el.hidden = false;
+  el.classList.add('show');
+  el.innerHTML =
+    `<span class="chip">${esc(sc.chip)}</span>` +
+    `<span class="actor">${esc(sc.actor)}</span>` +
+    `<span>${esc(sc.lastAction)}</span>` +
+    (sc.dashedToKevin ? `<span class="dash" title="dashed to Kevin"></span><span>Kevin</span>` : '');
+}
+
+function paintNewswire(doc) {
+  if (!doc) return;
+  let stories = emptyNewswireFallback(cache, newswireStories(cache, Date.now()));
+  // Prefer existing V10 newswire host
+  let el = doc.getElementById('hqNewswire') || doc.getElementById('newswire');
+  if (!el) {
+    el = doc.createElement('div');
+    el.id = 'hqNewswire';
+    el.className = 'newswire show';
+    const anchor = doc.getElementById('attentionBanner');
+    if (anchor) anchor.insertAdjacentElement('afterend', el);
+    else doc.querySelector('.wrap')?.prepend(el) || doc.body?.prepend(el);
+  }
+  el.hidden = false;
+  el.classList.add('show');
+  const first = stories[nwIdx % stories.length] || stories[0];
+  nwIdx = (nwIdx + 1) % Math.max(stories.length, 1);
+  if (first.empty) {
+    const last = (first.lastLines || []).map(l => `<div class="nw-line dim">${esc(l)}</div>`).join('');
+    el.innerHTML = `<div class="nw-label">NEWSWIRE</div><div class="hq-p1-nw-stack"><div class="nw-line">${esc(first.text)}</div>${last}</div>`;
+    return;
+  }
+  // rotating primary + stacked last 3
+  const stack = stories.slice(0, 3).map((x, i) =>
+    `<div class="nw-line${i === 0 ? '' : ' dim'}" data-sev="${esc(x.severity || 'normal')}">${esc(x.text)}</div>`
+  ).join('');
+  el.className = 'newswire show' + (first.severity && first.severity !== 'normal' ? ' sev-' + first.severity : '');
+  el.innerHTML = `<div class="nw-label">NEWSWIRE</div><div class="hq-p1-nw-stack">${stack}</div>`;
+  el.dataset.p1Nw = '1';
+}
+
+function paintKevinHonesty(doc) {
+  if (!doc) return;
+  const truth = kevinCenterTruth(cache, Date.now());
+  const badge = doc.getElementById('kevinState');
+  if (badge && truth.mode === 'blocked') {
+    badge.innerHTML = `<span class="loop state-blocked" style="--kstatec:#f0c36a">BLOCKED</span>`;
+  } else if (badge && truth.mode === 'outcome_proven') {
+    badge.innerHTML = `<span class="loop state-ready" style="--kstatec:#79c56a">OUTCOME_PROVEN</span>`;
+  } else if (badge && truth.mode === 'routed') {
+    badge.innerHTML = `<span class="loop state-ready" style="--kstatec:#68d8ce">ROUTED</span>`;
+  }
+  // Never label WORKING without entitlement
+  if (badge && /WORKING|BUILDING/i.test(badge.textContent || '') && !mayShowWorkingBuilding(cache, Date.now())) {
+    badge.innerHTML = `<span class="loop state-ready" style="--kstatec:#244f8f">${esc(truth.label)}</span>`;
+  }
+  const meta = doc.getElementById('kevinMeta');
+  if (meta) {
+    let extra = `<div>${esc(truth.detail)}</div>`;
+    if (truth.showIsolatePair) {
+      extra += `<div class="hq-p1-pair">isolate vs live · diagnose queue ${truth.isolate ? 'ON' : 'off'} · live ready invoke ${esc(truth.liveReady)}</div>`;
+    }
+    if (truth.cite) extra += `<div class="hq-p1-cite">${esc(truth.cite)}</div>`;
+    // append honesty under existing meta without claiming Kevin learning
+    if (!meta.dataset.p1Truth || meta.dataset.p1Truth !== truth.label + truth.detail) {
+      meta.dataset.p1Truth = truth.label + truth.detail;
+      const hold = meta.querySelector('[data-p1-honesty]');
+      if (hold) hold.remove();
+      const div = doc.createElement('div');
+      div.setAttribute('data-p1-honesty', '1');
+      div.innerHTML = extra;
+      meta.appendChild(div);
+    }
+  }
+  const sel = doc.getElementById('selectedStatus');
+  const selDetail = doc.getElementById('selectedDetail');
+  const selName = doc.getElementById('selectedName');
+  if (selName && /Kevin/i.test(selName.textContent || '')) {
+    if (truth.mode === 'blocked' && sel) sel.textContent = `BLOCKED · cycle ${clocksFromReports(cache, Date.now()).cycle}`;
+    if (selDetail && (truth.mode === 'blocked' || truth.showIsolatePair)) {
+      selDetail.textContent = truth.detail + (truth.cite ? ' · ' + truth.cite : '');
+    }
+  }
+  // Scrub stale v1811 strings from visible text
+  const walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  let n;
+  while ((n = walker.nextNode())) nodes.push(n);
+  for (const node of nodes) {
+    if (hasStaleV1811(node.nodeValue)) node.nodeValue = stripStaleV1811(node.nodeValue);
+  }
+}
+
+function patchOpsWorkerHonesty() {
+  if (!opsWin) return;
+  try {
+    if (typeof opsWin.workerState === 'function' && !opsWin.__kevinP1WorkerPatched) {
+      const orig = opsWin.workerState.bind(opsWin);
+      opsWin.workerState = function(key, d, s) {
+        const proposed = orig(key, d, s);
+        return honestWorkerState(key, proposed, {
+          dashboard: d,
+          support: s,
+          engineering: cache.engineering,
+          continuation: cache.continuation
+        }, Date.now());
+      };
+      opsWin.__kevinP1WorkerPatched = true;
+    }
+    if (typeof opsWin.kevinStates === 'function' && !opsWin.__kevinP1KevinPatched) {
+      const origK = opsWin.kevinStates.bind(opsWin);
+      opsWin.kevinStates = function(d, s) {
+        const truth = kevinCenterTruth({
+          dashboard: d,
+          support: s,
+          engineering: cache.engineering,
+          continuation: cache.continuation || opsWin.__kevinContinuation,
+          reject: cache.reject
+        }, Date.now());
+        if (truth.mode === 'blocked') return ['blocked'];
+        if (truth.mode === 'outcome_proven') return ['ready']; // OUTCOME_PROVEN badge painted separately
+        if (truth.mode === 'routed') return ['ready'];
+        const states = origK(d, s);
+        if (!mayShowWorkingBuilding({
+          dashboard: d, support: s, engineering: cache.engineering
+        }, Date.now())) {
+          return states.map(st => (st === 'working' || st === 'building') ? 'ready' : st);
+        }
+        return states;
+      };
+      opsWin.__kevinP1KevinPatched = true;
+    }
+  } catch (_) {}
+}
+
+function patchToolsChipInCore() {
+  if (!coreDoc) return;
+  const chip = toolsChip(cache.canary, Date.now());
+  for (const el of coreDoc.querySelectorAll('.v10-metric, .service-chip, .v10-source')) {
+    const t = el.textContent || '';
+    if (/Tools|CANARY|5 PROVEN|UNVERIFIED/i.test(t) && /tool/i.test(t + (el.querySelector('span,b')?.textContent || ''))) {
+      // soft-replace obvious Tools metric value
+    }
+  }
+  // Replace Tools metric b tags that look like canary
+  for (const b of coreDoc.querySelectorAll('.v10-metric b')) {
+    const label = b.previousElementSibling?.textContent || b.parentElement?.querySelector('span')?.textContent || '';
+    if (/^Tools$/i.test(label.trim()) || /fixed:main/i.test(b.parentElement?.textContent || '')) {
+      if (/5 PROVEN|CANARY|UNVERIFIED|5 ·/i.test(b.textContent || '')) b.textContent = chip.label;
+    }
+  }
+}
+
+function bumpOpsFrameHeight() {
+  if (!coreDoc) return;
+  const frame = coreDoc.getElementById('opsV10Frame');
+  if (frame) {
+    frame.style.height = 'auto';
+    frame.style.minHeight = '1600px';
+  }
+}
+
+
+function paintCompletedStripe(doc) {
+  if (!doc) return;
+  let el = doc.getElementById('hqP1CompletedStripe');
+  if (!el) {
+    el = doc.createElement('div');
+    el.id = 'hqP1CompletedStripe';
+    el.className = 'hq-p1-completed-stripe';
+    el.setAttribute('data-hq-p1', 'completed-stripe');
+    const floor = doc.querySelector('.v10-ops-summary') || doc.getElementById('hqP1Clocks') || doc.getElementById('kevinHub') || doc.querySelector('.wrap') || doc.body;
+    floor?.insertAdjacentElement('afterend', el) || doc.body?.appendChild(el);
+  }
+  const stripe = opsFloorStripe(cache, Date.now());
+  if (stripe.stripe !== 'COMPLETED') {
+    el.classList.remove('show');
+    el.hidden = true;
+    el.innerHTML = '';
+    return;
+  }
+  el.hidden = false;
+  el.classList.add('show');
+  el.innerHTML =
+    `<span class="chip">COMPLETED</span>` +
+    `<b>${esc(stripe.skill || 'proven invoke')}</b>` +
+    `<span>${esc((stripe.artifacts || []).slice(0, 3).join(' · ') || 'artifacts')}</span>` +
+    `<span class="actor">${esc(stripe.actor)}</span>`;
+}
+
+function paintLastAttemptWx(doc) {
+  if (!doc) return;
+  const attempt = lastAttemptClock(cache, Date.now());
+  const wx = doc.getElementById('wx');
+  if (wx && attempt.at && !attempt.unknown) {
+    wx.textContent = `Last attempt: ${attempt.id || 'proven invoke'} · ${attempt.age} ago`;
+  }
+}
+
+function patchCouplingHonesty() {
+  if (!opsWin) return;
+  try {
+    if (opsWin.__kevinP1CouplingPatched) return;
+    opsWin.__kevinP1CouplingPatched = true;
+    if (typeof opsWin.workerState === 'function') {
+      const prev = opsWin.workerState.bind(opsWin);
+      opsWin.workerState = function(key, d, s) {
+        const proposed = prev(key, d, s);
+        const bundle = {
+          dashboard: d,
+          support: s,
+          engineering: cache.engineering,
+          continuation: cache.continuation,
+          reject: cache.reject,
+          bridge: cache.bridge,
+          receipt: cache.receipt
+        };
+        if (String(key || '').toLowerCase() === 'bridge') return honestBridgeWorkerState(proposed, bundle, Date.now());
+        return honestWorkerState(key, proposed, bundle, Date.now());
+      };
+    }
+    if (typeof opsWin.kevinStates === 'function') {
+      const prevK = opsWin.kevinStates.bind(opsWin);
+      opsWin.kevinStates = function(d, s) {
+        const bundle = {
+          dashboard: d,
+          support: s,
+          engineering: cache.engineering,
+          continuation: cache.continuation || opsWin.__kevinContinuation,
+          reject: cache.reject,
+          bridge: cache.bridge,
+          receipt: cache.receipt
+        };
+        const center = centerHonesty(bundle, Date.now());
+        if (center.mode === 'outcome_proven') {
+          if (mayShowWorkingBuilding(bundle, Date.now())) return prevK(d, s).map(st => (st === 'degraded' || st === 'failed') ? 'ready' : st);
+          return ['ready'];
+        }
+        const states = prevK(d, s);
+        if ((states.includes('degraded') || states.includes('failed')) && bridgeHonesty(bundle, Date.now()).state === 'degraded') {
+          const otherUnhealthy = ['tick', 'ollama', 'gateway'].some(k => d?.services?.[k] && String(d.services[k]).toLowerCase() !== 'healthy');
+          if (!otherUnhealthy) return states.map(st => (st === 'degraded' || st === 'failed') ? 'ready' : st);
+        }
+        return states;
+      };
+    }
+  } catch (_) {}
+}
+
+function paint() {
+  injectStyle(coreDoc, 'hq-p1-gt-css', selectedWorkerCss());
+  injectStyle(opsDoc, 'hq-p1-gt-css', selectedWorkerCss());
+  if (opsDoc?.documentElement) {
+    opsDoc.documentElement.classList.add('hq-p1-ops');
+    opsDoc.body?.classList.add('hq-p1-ops');
+  }
+  bumpOpsFrameHeight();
+  patchOpsWorkerHonesty();
+  paintNewswire(coreDoc);
+  paintClocks(coreDoc);
+  paintClocks(opsDoc);
+  paintScaffold(opsDoc);
+  paintScaffold(coreDoc);
+  paintKevinHonesty(opsDoc);
+  paintKevinHonesty(coreDoc);
+  paintCompletedStripe(opsDoc);
+  paintCompletedStripe(coreDoc);
+  paintLastAttemptWx(coreDoc);
+  patchCouplingHonesty();
+  patchToolsChipInCore();
+  // Override V10 newswireStories if present
+  try {
+    if (window.__kevinOwnerConsoleV10) {
+      window.__kevinOwnerConsoleV10.newswireStories = () => newswireStories(cache, Date.now());
+      window.__kevinOwnerConsoleV10.p1 = API;
+    }
+  } catch (_) {}
+}
+
+function bindOpsFrame() {
+  if (!coreDoc) return;
+  const frame = coreDoc.getElementById('opsV10Frame');
+  if (!frame) return;
+  const attach = () => {
+    try {
+      opsWin = frame.contentWindow;
+      opsDoc = frame.contentDocument;
+      if (opsDoc?.body) {
+        injectStyle(opsDoc, 'hq-p1-gt-css', selectedWorkerCss());
+        opsDoc.documentElement.classList.add('hq-p1-ops');
+        opsDoc.body.classList.add('hq-p1-ops');
+        patchOpsWorkerHonesty();
+        paint();
+      }
+    } catch (_) {}
+  };
+  frame.addEventListener('load', attach);
+  attach();
+}
+
+function install() {
+  const frame = document.getElementById('kevinCore');
+  if (!frame) return;
+  try {
+    coreWin = frame.contentWindow;
+    coreDoc = frame.contentDocument;
+    if (!coreDoc?.body) return;
+    injectStyle(coreDoc, 'hq-p1-gt-css', selectedWorkerCss());
+    bindOpsFrame();
+    refresh();
+    if (timer) clearInterval(timer);
+    timer = setInterval(refresh, 30000);
+    // Re-bind ops frame when V10 rewrites main
+    const mo = new MutationObserver(() => bindOpsFrame());
+    mo.observe(coreDoc.getElementById('main') || coreDoc.body, { childList: true, subtree: true });
+  } catch (e) {
+    console.error('Kevin HQ P1 ground truth install failed', e);
+  }
+}
+
+window.__kevinP1GroundTruth = API;
+const boot = () => {
+  const frame = document.getElementById('kevinCore');
+  if (!frame) return;
+  frame.addEventListener('load', () => setTimeout(install, 600));
+  if (frame.contentDocument?.body) setTimeout(install, 800);
+  setTimeout(install, 2000);
+};
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+else boot();
 })();

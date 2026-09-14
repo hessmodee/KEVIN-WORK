@@ -186,24 +186,31 @@ function renderKevinCenter(d,s,states){
  badge.className='kevin-states';
  badge.innerHTML=list.map(st=>`<span class="loop state-${st}" style="--kstatec:${stateColor(st)}">${stateLabel(st)}</span>`).join('<span class="state-plus">+</span>');
  const cont=window.__kevinContinuation||{};
+ const floor=window.__kevinFloor||{};
  const mission=cont.selected_id||sup?.last_mission||'No mission selected';
- const cycle=sup?.cycle??'—';
+ const floorCycle=Number(floor.cycle);
+ const supportCycle=sup?.cycle;
+ const cycle=Number.isFinite(floorCycle)?floorCycle:(supportCycle??'—');
+ const bleed=Number.isFinite(floorCycle)&&supportCycle!=null&&Number(supportCycle)!==floorCycle;
  const raw=cont.status||sup?.last_result||'';
  const liveResult=/NO_ELIGIBLE_MISSION/i.test(String(raw))&&cont.status?cont.status:raw;
- document.getElementById('kevinMeta').innerHTML=`<div><b>Autonomy loop enabled</b> · cycle ${esc(cycle)}</div><div>${esc(String(mission).replace(/[-_]+/g,' '))}${liveResult?' · '+esc(liveResult):''}</div>`;
+ const actor=floor.last_actor||'MIXED';
+ document.getElementById('kevinMeta').innerHTML=`<div><b>Autonomy loop enabled</b> · floor cycle ${esc(cycle)}${bleed?` · ignore Support ${esc(supportCycle)}`:''}</div><div>${esc(String(mission).replace(/[-_]+/g,' '))}${liveResult?' · '+esc(liveResult):''} · actor ${esc(actor)}</div>`;
 }
 
 async function load(){
- let d={},s={},c={};
+ let d={},s={},c={},b={},floor={};
  try{
-  [d,s,c,b]=await Promise.all([
+  [d,s,c,b,floor]=await Promise.all([
     fetch(RAW+'dashboard-state.json?'+Date.now()).then(r=>r.json()),
     fetch(RAW+'support-latest.json?'+Date.now()).then(r=>r.json()),
     fetch('https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/autonomy-continuation-latest.json?'+Date.now()).then(r=>r.json()).catch(()=>({})),
-    fetch(RAW+'bridge-latest.json?'+Date.now()).then(r=>r.json()).catch(()=>({}))
+    fetch(RAW+'bridge-latest.json?'+Date.now()).then(r=>r.json()).catch(()=>({})),
+    fetch(RAW+'hq-live-floor.json?'+Date.now()).then(r=>r.json()).catch(()=>({}))
   ]);
   window.__kevinContinuation=c||{};
   window.__kevinBridgeLatest=b||{};
+  window.__kevinFloor=floor||{};
  }catch(e){document.getElementById('newsText').textContent='Telemetry fetch failed: '+e.message;document.getElementById('kevinState').innerHTML='<span class="loop state-offline" style="--kstatec:#e46f61">OFFLINE</span>';return}
  const overall=norm(d?.health?.overall||d?.status||'unknown'),chip=document.getElementById('overallChip');
  chip.textContent=overall==='healthy'?'HEALTHY':overall.toUpperCase();chip.className='chip '+(overall==='healthy'?'ok':'');
@@ -222,14 +229,14 @@ async function load(){
  if(kmode!==lastKmode){ const head=document.getElementById('headerKevinProd'),hub=document.getElementById('hubKevinProd'); if(head)head.innerHTML=kevinProd(kmode,true); if(hub)hub.innerHTML=kevinProd(kmode,false); lastKmode=kmode; }
  renderKevinCenter(d,s,kstates);
  const liveTask=taskActive(d?.current_task)?d.current_task:null;
- document.getElementById('mission').textContent=liveTask?(liveTask.title||liveTask.id||'Active task'):(liveMission&&liveMission!=='—'?`${String(liveMission).replace(/[-_]+/g,' ')} · cycle ${sup.cycle??'—'}`:'No active mission');
+ document.getElementById('mission').textContent=liveTask?(liveTask.title||liveTask.id||'Active task'):(liveMission&&liveMission!=='—'?`${String(liveMission).replace(/[-_]+/g,' ')} · floor cycle ${(window.__kevinFloor||{}).cycle??'—'}`:'No active mission');
  document.getElementById('action').textContent=liveTask?`${liveTask.phase||'active'} · ${kstates.map(stateLabel).join(' + ')}`:(contSt==='BLOCKED_INVOCATION_RUNTIME'?'Invocation fail-closed':(/THROTTLED|SATURATED/i.test(String(liveResult||''))?'Recovery cooldown':(liveResult||'Ready for work')));
  document.getElementById('recent').textContent=rec.last_brief?`Recovery ${rec.round||'—'} · ${rec.last_brief}`:(liveResult||'—');
  document.getElementById('evidence').textContent=bench.status?`Benchmark ${bench.status} ${bench.regression?.passed||0}/${bench.regression?.total||0}`:'HQ state snapshot';
  document.getElementById('activeWorkers').textContent=active.length?`${active.length} active · ${active.map(a=>a.w.name).join(', ')}`:'0 active · available lanes ready';document.getElementById('activeWorkers').title=active.map(a=>`${a.w.name}: ${stateLabel(a.st)}`).join(' · ');document.getElementById('subagents').innerHTML=active.map(a=>owl(a.w.c,a.w.key+'-sub').replace('class="owl"',`class="subowl ${a.st}"`)).join('');
  const at=new Date(d.generated_at||s.generated_at||Date.now()),age=Math.max(0,Math.round((Date.now()-at)/60000));document.getElementById('age').textContent=age+' min';document.getElementById('benchmark').textContent=bench.status?`Benchmark ${bench.status} · ${bench.regression?.passed||0}/${bench.regression?.total||0} · critical ${bench.regression?.critical_failures||0}`:'Benchmark unavailable';
  document.getElementById('load').textContent=`RAM ${d?.system?.memory_pct??'—'}% · CPU ${d?.system?.cpu_pct??'—'}%`;document.getElementById('loadDetail').textContent=`GPU ${d?.system?.gpu||'—'} ${d?.system?.gpu_pct??'—'}% · Brain ${d?.brain?.name||'—'}`;
- document.getElementById('selectedStatus').textContent=`${kstates.map(stateLabel).join(' + ')} · cycle ${sup.cycle??'—'}`;document.getElementById('selectedDetail').textContent=`Kevin aggregate state from live worker lanes. ${detail}`;document.getElementById('updated').textContent=`Kevin HQ · telemetry ${at.toLocaleTimeString()} · schema ${d.schema??'—'}`;
+ document.getElementById('selectedStatus').textContent=`${kstates.map(stateLabel).join(' + ')} · floor cycle ${(window.__kevinFloor||{}).cycle??'—'}`;document.getElementById('selectedDetail').textContent=`Kevin aggregate state from live worker lanes. ${detail}`;document.getElementById('updated').textContent=`Kevin HQ · telemetry ${at.toLocaleTimeString()} · schema ${d.schema??'—'}`;
 }
 function workerEvidenceDetail(key,d,s){
  const jobs=s?.cron?.jobs||[],j=jobs.find(x=>x.declaration_key===(key==='tick'?'kevin-hq-live-pulse-v15':'kevin-support-bridge-v1'));

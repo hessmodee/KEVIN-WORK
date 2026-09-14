@@ -2,7 +2,7 @@
 
 > **THIS IS THE ONE CURRENT HANDOVER FOR KEVIN.** Do not create a competing dated handover. Update the source task/evidence and let the canonical handover refresh replace stale state.
 
-**Semantic checkpoint evidence through:** 2026-09-14T17:37:31.7598864-06:00  
+**Semantic checkpoint evidence through:** 2026-09-14T17:28:29.0957418-06:00  
 **Canonical repository:** `hessmodee/KEVIN-WORK` / `main`  
 **Machine twin:** `reports/handoff-latest.json` (not a second authority)
 
@@ -29,11 +29,11 @@ If an agent cannot access one route, use another. Matt should never need to reco
 
 ## Automatic semantic snapshot
 
-- Engineering evidence at checkpoint: `2026-09-14T17:37:31.2225377-06:00`
-- Support evidence at checkpoint: `2026-09-14T17:35:38.6470927-06:00`
-- Autonomy evidence at checkpoint: `2026-09-14T17:37:31.7598864-06:00`
+- Engineering evidence at checkpoint: `2026-09-14T17:28:29.0957418-06:00`
+- Support evidence at checkpoint: `2026-09-14T17:20:25.7574388-06:00`
+- Autonomy evidence at checkpoint: `2026-09-14T17:25:19.2109073-06:00`
 - Benchmark: **PASS — 30/30, critical 0**
-- UI Bridge health at checkpoint: **FRESH** (age then: 0.7 seconds)
+- UI Bridge health at checkpoint: **FRESH** (age then: 2.7 seconds)
 - Maintenance: **EXPIRED_IDLE** — Expired canonical manifest refused without scheduler failure.
 - Supervisor last result: **NO_ELIGIBLE_MISSION**
 - Proven composite skills: **33**
@@ -53,17 +53,18 @@ The block below is pulled from `inbox/CURRENT_TASK.md`. That file is an executio
 
 > **LAYER / READER / DAILY LOOP:** Do not replace or truncate this file. Write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only. This file is the Extreme Autonomy Flywheel execution contract.
 
-**Updated:** 2026-09-14 07:33 MT  
-**Status:** Core platform is operational and Benchmark is 30/30. HQ LIVE badge already paints **BLOCKED** (correct). Uniqueness is **closed**: live builder `83B3EDA6…`, invocation `471E5051…`, isolated diagnose `STAGE_OK_WAITING_ACTION_ERA` / `python_exit=0` at 06:58 MT. Continuation 33s later is still `BLOCKED_INVOCATION_RUNTIME` / `68845506…`. Diagnose RequestId `diagnose-…` is not the Supervisor RequestId `invoke-…`. **THIS CYCLE:** puller **v1.7** sticky-RequestId quarantine + diagnose v1.3.2 worker hashes + Supervisor RequestId sim. Not PASS.
+**Updated:** 2026-09-14 17:35 MT
+**Status:** Parts-chase refresh is **PROVEN / MIXED** and the GitHub board row is **COMPLETE_DO_NOT_RESELECT**. Floor is the one clock. Support.supervisor.cycle is bleed. Tick close-loop is source-mirrored. Next owner execution is family-loop refresh of an already-PROVEN West Motor key — not another `*-fresh-YYYY-MM-DD` pack. Not KEVIN_ACTED. Not PASS for Kevin-alone.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
 
-**Architecture:** `docs/engineering/KEVIN-AUTONOMY-EXECUTION-PLAN-v3.md`  
-**Current production-skill milestone:** `docs/engineering/KEVIN-PROVEN-SKILL-INVOCATION-v1.md`  
-**BOM lesson:** `docs/engineering/LESSON-builder-work-items-utf8-bom-2026-09-10.md`  
-**Uniqueness lesson:** `docs/engineering/LESSON-builder-work-item-not-unique-2026-09-10.md`  
-**Proof-pin lesson:** `docs/engineering/LESSON-invocation-powershell-proof-pin-2026-09-10.md`  
-**Sticky RequestId lesson:** `docs/engineering/LESSON-sticky-invoke-requestid-2026-09-11.md`  
+**Architecture:** `docs/engineering/KEVIN-AUTONOMY-EXECUTION-PLAN-v3.md`
+**Current production-skill milestone:** `docs/engineering/KEVIN-PROVEN-SKILL-INVOCATION-v1.md`
+**BOM lesson:** `docs/engineering/LESSON-builder-work-items-utf8-bom-2026-09-10.md`
+**Uniqueness lesson:** `docs/engineering/LESSON-builder-work-item-not-unique-2026-09-10.md`
+**Proof-pin lesson:** `docs/engineering/LESSON-invocation-powershell-proof-pin-2026-09-10.md`
+**Sticky RequestId lesson:** `docs/engineering/LESSON-sticky-invoke-requestid-2026-09-11.md`
+**One-clock lesson:** `docs/engineering/LESSON-one-clock-floor-cycle-authority-2026-09-11.md`
 **Live audit:** `docs/engineering/KEVIN-AUDIT-AND-GAMEPLAN-2026-09-10.md`
 
 ## Owner strategic directive - maximum bounded autonomy
@@ -82,45 +83,54 @@ Target maturity is **T4 for routine bounded work**. T4 does not mean unrestricte
 
 ## Current live platform truth
 
+- Floor (`reports/hq-live-floor.json`) is the **one clock**. `cycle_authority: hq-live-floor`. `support_cycle_is_not_authority: true`. HQ widgets must paint floor cycle, not Support 449.
+- `owner-west-motor-parts-chase-refresh-2026-09-13-v1` is **COMPLETE / blocked=true / COMPLETE_DO_NOT_RESELECT** on GitHub main. Receipt `C8F0B503C0EB3DCAF4250A9BF2E655475BEEC8E87B4AA21CC32BA96FF49A556D`. Actor **MIXED**. `autonomy_credit=false`.
+- Owner outputs on HESS (Action Era, already written): `Kevin-West-Motor-Parts-Chase-Fictional-8 (57).xlsx` and `Kevin-West-Motor-Parts-Chase-Fictional-8-Note (55).md`.
+- `owner-west-motor-parts-chase-fresh-8-v1` stays COMPLETE. Do not reopen it. 33 composite skills are proven.
+- Supervisor **v1.8.12** (`F17F4B0A…`) is independently proven. Do **not** recopy it. Hash-pinned selector `52EADBCA…`. GitHub ControlPlane invoke-worker pin stays `16C49542…`.
 - Maintenance v1.3.55 is installed/proven (`3E11C429…`). Do not repeat the runner install.
-- Supervisor **v1.8.12 is independently proven** (`F17F4B0A…`). Do not recopy it.
-- Invocation worker v1.1 is independently applied. GitHub ControlPlane pin stays `16C49542…`. Live HESS-PC worker hash is `7E1129B7…`. Do **not** overwrite the GitHub pin. Do **not** queue another worker install. The 22:00Z slot is expired and already applied.
-- Continuation publishes `version=1.8.12` `status=BLOCKED_INVOCATION_RUNTIME` `selected_id=owner-west-motor-parts-chase-fresh-8-v1` `eligible_count=7` `failure_sha256=68845506…` `outcome_proven=false` `turn` still 1 at 09:31. Public diagnose now proves isolated builder+stage **STAGE_OK**. `68845506` is still `SHA256("INVOCATION_WORKER_FAILED exit=1")` on the Supervisor RequestId path, not a missing skill and not uniqueness.
-- Engineering request `grok-status-20260910-2342` may be `DUPLICATE_IGNORED`. This turn queues `action_status` id `grok-status-20260911-0705`. Do not reuse 0455, 1651, 1850, 1910, 2155, 0726, 1240, 1328, 2258, 2320, or 2342.
-- Fresh Benchmark remains PASS 30/30, critical 0. 27 composite skills PROVEN; latest `west-motor-parts-chase-board-pack@1`.
 - Night Forge scheduled task is **Disabled**. Leave it disabled.
-- WorkInstance `owner-west-motor-parts-chase-fresh-8-v1` is OPEN/GREEN/`blocked=false` with fictional 8-vehicle inputs on GitHub. Keep the 1 burned 09:31 turn. Do not wipe other WorkInstances to make the id unique.
-- Exact-five desktop policy remains intentional. Launch ≠ operate. First PASS is Action Era `create_spreadsheet` + `create_text`, not Notepad.
-- The AI-agent access bridge is this public repo: `inbox/CURRENT_TASK.md`, `inbox/FROM_GROK.md`, `inbox/engineering/request.json`, and `reports/*`. Do not invent a remote shell.
+- Clone PROVE freeze HARD_STOP. Do not mint `*-fresh-YYYY-MM-DD` or new xlsx PROVE aliases.
+- Bridge UNKNOWN on public main means the HESS `bridge-latest.json` was not refreshed — do not invent a healthy bridge.
+- Exact-five desktop policy remains intentional. Do not install PCClaw / ClawHub / Hermes.
+- The AI-agent access bridge is this public repo. Do not invent a remote shell. Do not puppeteer HESS (no Start-ScheduledTask unless floor stale >20 min AND Tick is dead).
 
-## Source-side this turn — not yet an owner outcome
+## THIS CYCLE — Tick is the close+publish clock
 
-- Uniqueness family is closed on HESS-PC (builder v1.0.3 live, isolated STAGE_OK).
-- Diagnose **v1.3.2** quarantines sticky `invoke-<work-id>` leftovers, sims the Supervisor RequestId into `diagnose-worker-sim` (never Action Era), and publishes live worker hashes.
-- Puller **v1.7** always runs sticky quarantine even when python hashes already match.
-- **THIS CYCLE — one paste on HESS-PC** (see FROM_GROK). Then let Supervisor re-select `owner-west-motor-parts-chase-fresh-8-v1`. Keep the 09:31 burned turn. Do not send that job to `fixed:main`.
-- If diagnose returns `STAGE_OK_WAITING_ACTION_ERA` with `supervisor_request_id_reason=STAGE_OK`, wait Supervisor + Action Era. If another reason-code, repair that family next — do not recopy Supervisor.
-- PASS = workbook + note + DONE + hashes + immutable receipt. A merge, CI, paste, diagnose, HQ label, or repair script is not PASS.
+1. Tick pulse: sync GitHub `inbox/autonomy/work-items.json` → local.
+2. Reconcile official RUNNING/OPEN `invoke-owner-*` against `reports/invocations/done` PROVEN receipts.
+3. COMPLETE matching WIs on GitHub main (`COMPLETE_DO_NOT_RESELECT`).
+4. Rebuild `reports/owner-outcomes-latest.json` from done receipts (MIXED, autonomy_credit=false).
+5. `Publish-Kevin-HqLiveFloor-v1.ps1 -PushPublic` — matching done receipt wins over Supervisor ROUTED status.
+6. HQ Pages paint `hq-live-floor.json` only. Label Support as bleed when it disagrees.
+7. Family-loop: materialize at most one OPEN refresh of an already-PROVEN key if none of those keys have an OPEN refresh child.
 
-## Immediate execution gates
+Source-mirror (so a reimage cannot lose the wire):
 
-- Worker v1.1 is independently applied. Do not queue another `install_invocation_worker_v11`.
-- Overwrite GitHubBridge `pull-inbox.ps1` with v1.7 once **this cycle**.
-- GitHub `ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1` stays `16C49542…`. Do not recopy Supervisor v1.8.12.
+- `tools/Tick-CloseInvocationLoop-v1.ps1`
+- `tools/kevin-tick.ps1` (close-loop BEFORE `helper_append_daily_note.py`)
+- `tools/Install-Kevin-Tick-CloseLoopHook-v1.ps1`
+
+Next HESS Tick (not this chat) can sync+close without a chat paste.
 
 ## Highest-priority execution sequence
 
-### 1. Proven Skill Invocation v1 — first fresh 8-vehicle owner outcome — NOW
+### 1. Family-loop next already-PROVEN West Motor key — NOW (Supervisor selects, not chat)
 
-Apply sticky-RequestId quarantine so the same WorkInstance can be invoked as `west-motor-parts-chase-board-pack@1` on the already-bound fictional 8-vehicle dataset. Isolated STAGE_OK is not that invocation.
+After the parts-chase refresh row is COMPLETE on main, next eligible owner execution is a refresh of an existing key only, in this order:
 
-PASS requires a real workbook + companion operating note + correlated DONE records + output hashes + immutable invocation receipt. No customer PII, credentials, purchases, public posting or live financial effects.
+1. `west-motor-lot-walk-checklist-pack@1`
+2. `west-motor-aging-inventory-action-pack@1`
+3. `west-motor-delivery-prep-pack@1`
+4. `vehicle-transport-mission-pack@1`
 
-### 1b. HQ paint honesty — NOW, parallel, not a substitute
+Id must **not** be `*-fresh-YYYY-MM-DD`. Stamp `materialized_by: OWNER_FAMILY_LOOP_REFRESH`, `never_kevin_learned_claim: true`. Do not reopen COMPLETE parents. Do not select/invoke from a Grok Build chat.
 
-Bridge UNKNOWN, ops DEGRADED, NEWSWIRE stale, SKILLS/SYSTEM UNVERIFIED, and last-attempt clock bugs are paint bugs. They are not the owner outcome. Show `STAGE_OK_WAITING_ACTION_ERA` plus continuation `BLOCKED_INVOCATION_RUNTIME` as BLOCKED, not DEGRADED. Isolated diagnose is not PASS.
+PASS requires workbook + note + DONE + hashes + immutable receipt. Cycle++, HQ READY, STAGE_OK, model text, and this prompt are not PASS.
 
-### 2. Capability-aware Supervisor execution — NEXT
+Actor honesty: next pack is **KEVIN_ACTED** only if Tick + Supervisor + Action Era close with no diagnose-* RequestId. Today's parts-chase refresh is **MIXED**.
+
+### 2. Capability-aware Supervisor execution — STANDING
 
 A due WorkInstance with an exact PROVEN skill requirement must be selected and routed automatically through the invocation lane.
 
@@ -132,9 +142,9 @@ Resolution order:
 4. authority-blocked -> smallest scoped owner grant;
 5. true impossibility -> evidence-bearing escalation.
 
-### 3. Repeatable invocation of the existing 27 PROVEN skills — NEXT
+### 3. Repeatable invocation of the existing 33 PROVEN skills
 
-After the first fresh invocation is independently proven, bind other due owner-value WorkInstances to exact existing PROVEN skill keys.
+Bind other due owner-value WorkInstances to exact existing PROVEN skill keys. Do not recreate already-PROVEN skills.
 
 ### 4. Structural renewable work
 
@@ -144,7 +154,7 @@ Never solve `WAITING_ITEM_BUDGETS` by deleting or resetting valid history.
 
 ### 5. Incident/Reflection automatic resume
 
-The interrupted objective here is `owner-west-motor-parts-chase-fresh-8-v1`. After independently proven repair, automatically return that objective to eligible execution.
+If invoke fails, record the family and resume the original WI. Do not wipe budgets.
 
 ### 6. Missing-capability acquisition loop
 
@@ -152,21 +162,17 @@ The interrupted objective here is `owner-west-motor-parts-chase-fresh-8-v1`. Aft
 
 ## Do not
 
-- Repeat Maintenance v1.3.51 / v1.3.52 / v1.3.53 / v1.3.55 runner installation or Supervisor v1.8.11 / v1.8.12 installation.
-- Queue another `install_invocation_worker_v11`.
-- Recopy Supervisor v1.8.12.
-- Overwrite GitHub `ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1` (`16C49542…`).
-- Reset histories or work budgets.
-- Delete other WorkInstances to make the 8-vehicle id unique.
-- Recreate already-PROVEN skills.
-- Retry disproven Forge migration work.
-- Invent new Engineering Relay verbs.
-- Claim HESS-PC installation from a GitHub source change.
-- Treat a queued request, CI pass, HQ label, routing receipt, fail-closed receipt, repair script, or model turn as an owner outcome.
-- Send `owner-west-motor-parts-chase-fresh-8-v1` to tool-less `fixed:main`.
-- Widen desktop tools past the exact-five policy. Do not install PCClaw. Do not install unvetted ClawHub skills.
+- Recopy Supervisor v1.8.12 / F17F4B0A. Do not recopy hash `F17F4B0A`. Selector stays `52EADBCA…`.
+- Queue another `install_invocation_worker_v11`. GitHub `ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1` stays `16C49542…`.
+- Re-enable KevinNightForge. Install Hermes, ClawHub, PCClaw, or unvetted skills.
+- Write work lists into HEARTBEAT.md.
+- Reopen COMPLETE parents (`fresh-8`, `*-fresh-2026-09-11`, the closed parts-chase refresh).
+- Mint another `*-fresh-YYYY-MM-DD` pack or new xlsx PROVE alias.
+- Treat cycle++, HQ READY, STAGE_OK, model text, or this prompt as PASS.
+- Claim KEVIN_ACTED for work Bess/Grok closed. Today's refresh is MIXED.
+- Widen GREEN to pizza/Amazon/voice/Minecraft player.
+- Ask Matt to paste worker/reconcile unless floor is stale >20m AND Tick task is dead.
 - Truncate this file. Layer/reader/daily agents write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only.
-- Re-enable KevinNightForge. It is Disabled on purpose.
 - Blindly self-upgrade OpenClaw.
 
 ## Authority expansion policy
@@ -188,7 +194,7 @@ GREEN already covers this next leap. Do **not** solve the current idle by declar
 
 ## Required autonomy metrics
 
-Track verified owner outcomes, fresh PROVEN-skill invocations, self-repair success, Bess/Grok interventions, and objectives automatically resumed after repair.
+Track verified owner outcomes, fresh PROVEN-skill invocations, self-repair success, Bess/Grok interventions, last_actor, and objectives automatically resumed after repair.
 
 ## Stop / escalation rules
 
@@ -196,7 +202,7 @@ Track verified owner outcomes, fresh PROVEN-skill invocations, self-repair succe
 - Do not claim a queue write or successive model turns as the owner outcome.
 - Do not reset valid history/budgets simply to create eligible work.
 - Do not manufacture Skill Lab/Forge churn to appear active.
-- Do not hard-code a healthy display over stale/bad truth.
+- Do not hard-code a healthy display over stale/bad truth. Floor is the clock; Support 449 is bleed.
 - Do not widen authority merely to pass a benchmark or produce activity.
 - Do not let Kevin silently redefine the benchmark/verifier/authority/audit system that judges Kevin.
 - For uncertain external effects, do not automatically retry without an idempotency/receipt decision.
@@ -204,7 +210,7 @@ Track verified owner outcomes, fresh PROVEN-skill invocations, self-repair succe
 
 ## Continuation contract
 
-After every substantive transition, publish source/evidence so the canonical handover can advance. Keep repository/source truth separate from HESS-PC runtime truth. Local-only changes are unfinished.
+After every substantive transition, publish source/evidence so the canonical handover can advance. Keep repository/source truth separate from HESS-PC runtime truth. Local-only changes are unfinished. 120 minutes of silence for Tick/Supervisor after this merge is the watch. Pass = new public artifacts this chat did not hand-invoke.
 
 ---
 
@@ -242,6 +248,6 @@ Never infer a higher state from a lower one. Never widen authority merely to mak
 
 This handover is generated by `.github/scripts/build-canonical-handover.py` and refreshed by `.github/workflows/canonical-handover.yml`.
 
-Semantic fingerprint: `57F7DD709FDE0D265CC1A1E737AD4437583A49D75C06F6E80956136AD47814F3`
+Semantic fingerprint: `819B1F3B995BE088B1AA8DD7F1BDD00D48EE337ADF36A92072C6563CB81E7A61`
 
 **Fresh runtime evidence first; one handover; publish every durable local change; then continue.**
