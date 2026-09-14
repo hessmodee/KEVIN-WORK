@@ -107,6 +107,18 @@ async function adaptSupport(url,init){
     body.public_truth.desktop_tool_inventory_sha256=canary.visible_tool_names_sha256;
     body.hq_evidence_precedence.desktop_tools='main-agent-canary-omen.json';
   }
+  try{
+    const floor=await rawJson(sibling(url,'reports/hq-live-floor.json'));
+    const fc=Number(floor&&floor.cycle);
+    if(Number.isFinite(fc)){
+      body.hq_live_floor_cycle=fc;
+      body.cycle_authority='hq-live-floor';
+      body.support_cycle_is_not_authority=true;
+      const sc=Number(body.supervisor&&body.supervisor.cycle);
+      body.support_cycle_is_bleed=Number.isFinite(sc)&&sc!==fc;
+      body.hq_evidence_precedence.cycle='reports/hq-live-floor.json';
+    }
+  }catch(_){ }
   return jsonResponse(body,base);
 }
 async function adaptDashboard(url,init){
