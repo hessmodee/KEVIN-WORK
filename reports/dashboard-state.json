@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-14T17:26:00.4219841-06:00",
+  "generated_at": "2026-09-14T17:38:29.2947025-06:00",
   "status": "degraded",
   "health": {
     "overall": "degraded",
@@ -12,7 +12,14 @@
     "context": "8K",
     "tools": false
   },
-  "current_task": null,
+  "current_task": {
+    "id": "supervisor",
+    "title": "Supervisor autonomous cycle",
+    "category": "supervisor",
+    "phase": "Goal-aware Supervisor cycle active.",
+    "started_at": "2026-09-14T17:37:29.3208989-06:00",
+    "source": "hq-live-ops"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "unknown",
@@ -20,22 +27,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 48,
-    "cpu_pct": 9,
-    "gpu": "RTX 3060",
-    "gpu_pct": 23
+    "memory_pct": 47,
+    "cpu_pct": 12,
+    "gpu": "unavailable",
+    "gpu_pct": 0
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-13T17:35:14-06:00",
-        "estimated": false,
-        "ram": 41,
-        "cpu": 17,
-        "gpu": 30
-      },
       {
         "at": "2026-09-13T17:50:14-06:00",
         "estimated": false,
@@ -700,10 +700,16 @@
         "ram": 48,
         "cpu": 9,
         "gpu": 23
+      },
+      {
+        "at": "2026-09-14T17:35:26-06:00",
+        "estimated": false,
+        "ram": 47,
+        "cpu": 12,
+        "gpu": 0
       }
     ],
     "ram": [
-      41,
       40,
       41,
       40,
@@ -798,10 +804,10 @@
       44,
       44,
       46,
-      48
+      48,
+      47
     ],
     "cpu": [
-      17,
       8,
       13,
       3,
@@ -896,10 +902,10 @@
       26,
       5,
       11,
-      9
+      9,
+      12
     ],
     "gpu": [
-      30,
       39,
       31,
       28,
@@ -994,7 +1000,8 @@
       26,
       38,
       8,
-      23
+      23,
+      0
     ]
   },
   "weather": {
@@ -1148,7 +1155,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-14T17:20:15-06:00",
+      "at": "2026-09-14T17:35:26-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1382,7 @@
     "state": "warning"
   },
   "sync": {
-    "last": "2026-09-14T17:26:00.4219841-06:00",
+    "last": "2026-09-14T17:38:29.2947025-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1412,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-14T17:26:00.4219841-06:00",
+    "generated_at": "2026-09-14T17:38:29.2947025-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
