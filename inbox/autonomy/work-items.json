@@ -1285,7 +1285,7 @@
       "id": "owner-green-xlsx-openable-prove-v1",
       "program": "capability-reuse",
       "authority_class": "GREEN",
-      "status": "OPEN",
+      "status": "COMPLETE",
       "lane": "production",
       "work_type": "execution",
       "priority": "high",
@@ -1301,7 +1301,7 @@
       "closes_proof_gap": true,
       "reduces_bess_intervention": true,
       "dependencies_ready": true,
-      "blocked": false,
+      "blocked": true,
       "failure_attempts": 0,
       "material_new_evidence": true,
       "estimated_minutes": 15,
@@ -1315,14 +1315,17 @@
         "xlsx helper must emit sheetViews before cols. Excel must open with header cells visible (not recovery-empty).",
         "PASS = workbook + note + DONE + hashes + receipt. Stay GREEN: fictional example data only."
       ],
-      "next_action": "SELECT and invoke lot-walk pack AFTER kevin-green-xlsx.py OOXML order fix. Matt will open the new xlsx.",
+      "next_action": "COMPLETE_DO_NOT_RESELECT Tick-owned close after PROVEN invoke-owner-green-xlsx-openable-prove-v1",
       "downstream_consumer": "XLSX_EXCEL_OPENABLE_PROVE",
       "evidence_pointers": [
         "docs/engineering/LESSON-xlsx-cols-before-sheetviews-excel-empty-2026-09-15.md",
         "reports/engineering/RECEIPT-xlsx-ooxml-order-fix-20260915.md"
       ],
       "materialized_at": "2026-09-15T19:59:09Z",
-      "materialized_by": "OWNER_GREEN_YELLOW_LAW_2026-09-15"
+      "materialized_by": "OWNER_GREEN_YELLOW_LAW_2026-09-15",
+      "block_reason": "COMPLETE_DO_NOT_RESELECT",
+      "completed_at": "2026-09-15T20:09:52.020229Z",
+      "last_receipt_sha256": "D71419C9ABF960443E0808AB61B273FFE89C8843EF317853742DED87EDE5378B"
     }
   ],
   "updated_at": "2026-09-15T19:59:09Z",
