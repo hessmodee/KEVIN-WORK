@@ -6,10 +6,11 @@
  * v9 busts the v8 cache so SKILLS/SYSTEM pick up toolsChip after query-strip.
  * v17 inlines P0 floor painter (no b64 loader). Floor is the one clock.
  * v18 inlines P1 (drop zlib). Cycle widget = hq-live-floor, Support labeled bleed.
+ * v19: never fall back to Support.supervisor.cycle (449 widgets). Last attempt follows floor last_invoke, not fresh-8.
  */
 'use strict';
 
-const VERSION='kevin-hq-shell-v18';
+const VERSION='kevin-hq-shell-v19';
 const SHELL_CACHE=`${VERSION}-static`;
 const DATA_CACHE=`${VERSION}-public-data`;
 const BASE='/KEVIN-WORK/';
