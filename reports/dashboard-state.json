@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-15T06:20:19-06:00",
+  "generated_at": "2026-09-15T06:35:19-06:00",
   "status": "degraded",
   "health": {
     "overall": "degraded",
@@ -21,21 +21,14 @@
   },
   "system": {
     "memory_pct": 25,
-    "cpu_pct": 4,
+    "cpu_pct": 20,
     "gpu": "RTX 3060",
-    "gpu_pct": 39
+    "gpu_pct": 45
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-14T04:20:14-06:00",
-        "estimated": false,
-        "ram": 43,
-        "cpu": 5,
-        "gpu": 28
-      },
       {
         "at": "2026-09-14T04:35:14-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 25,
         "cpu": 4,
         "gpu": 39
+      },
+      {
+        "at": "2026-09-15T06:35:19-06:00",
+        "estimated": false,
+        "ram": 25,
+        "cpu": 20,
+        "gpu": 45
       }
     ],
     "ram": [
-      43,
       44,
       43,
       44,
@@ -798,10 +797,10 @@
       25,
       25,
       26,
+      25,
       25
     ],
     "cpu": [
-      5,
       16,
       5,
       18,
@@ -896,10 +895,10 @@
       19,
       5,
       23,
-      4
+      4,
+      20
     ],
     "gpu": [
-      28,
       36,
       35,
       30,
@@ -994,11 +993,12 @@
       38,
       39,
       39,
-      39
+      39,
+      45
     ]
   },
   "weather": {
-    "summary": "Overnight 37 | Wind 6 mph | Mostly Clear"
+    "summary": "Today 77 | Wind 2 to 10 mph | Mostly Sunny"
   },
   "capabilities": [
     {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-15T06:20:19-06:00",
+      "at": "2026-09-15T06:35:19-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "warning"
   },
   "sync": {
-    "last": "2026-09-15T06:20:19-06:00",
+    "last": "2026-09-15T06:35:19-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
