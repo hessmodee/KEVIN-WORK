@@ -1223,15 +1223,20 @@
         "Family-loop REFRESH \u2014 not a new clone PROVE pack and not a history reset.",
         "PASS requires workbook + note + DONE + hashes + immutable receipt."
       ],
-      "next_action": "SELECT and invoke west-motor-lot-walk-checklist-pack@1. Clone PROVE freeze stands. Do not reopen COMPLETE parents.",
-      "owner_inputs": {
-        "dataset": "fictional-eight-dealership-vehicles",
-        "vehicles": []
-      },
-      "downstream_consumer": "WEST_MOTOR_FAMILY_LOOP_REFRESH_AND_T4_SELF_SELECT"
+      "next_action": "SELECT and invoke west-motor-lot-walk-checklist-pack@1. Clone PROVE freeze stands. Do not reopen COMPLETE parents. Skill is already PROVEN; this is a family-loop REFRESH.",
+      "downstream_consumer": "WEST_MOTOR_FAMILY_LOOP_REFRESH_AND_T4_SELF_SELECT",
+      "production_effect": "NONE",
+      "near_acceptance": true,
+      "skill_sha256": "DB708B98F6B81094984C9534A469E110403296DD00F017D6E364760267213237",
+      "evidence_pointers": [
+        "reports/action-era/skills/done/west-motor-lot-walk-checklist-pack--1.json",
+        "reports/invocations/done/invoke-owner-west-motor-lot-walk-checklist-fresh-2026-09-11-v1.json",
+        "docs/engineering/KEVIN-WEST-MOTOR-ONE-FAMILY-LOOP-v1.md"
+      ],
+      "block_reason": null
     }
   ],
-  "updated_at": "2026-09-14T23:40:44Z",
+  "updated_at": "2026-09-14T23:54:41Z",
   "cdn_nudge_at": "2026-09-14T23:40:44Z",
-  "family_loop_note": "Appended owner-west-motor-lot-walk-checklist-refresh-v1 after parts-chase refresh COMPLETE. materialized_by OWNER_FAMILY_LOOP_REFRESH. History preserved. No budget wipe. No new skill JSON. Clone PROVE freeze stands."
+  "family_loop_note": "Lot-walk refresh OPEN. Invoke-contract fields copied from PROVEN parent (production_effect NONE, skill_sha256, evidence_pointers). No empty vehicles stub. History preserved."
 }

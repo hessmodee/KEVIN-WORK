@@ -98,7 +98,13 @@ new_id = chosen["id"]
 skill_key = chosen["skill"]
 parent_id = chosen["parent"]
 parent = next((x for x in items if x.get("id")==parent_id), None)
-inputs = copy.deepcopy((parent or {}).get("owner_inputs") or {"dataset":"fictional-eight-dealership-vehicles","vehicles":[]})
+parent_inputs = (parent or {}).get("owner_inputs")
+inputs = None
+if isinstance(parent_inputs, dict) and parent_inputs:
+    vehs = parent_inputs.get("vehicles")
+    empty_stub = isinstance(vehs, list) and len(vehs) == 0 and set(parent_inputs.keys()) <= {"dataset", "vehicles"}
+    if not empty_stub:
+        inputs = copy.deepcopy(parent_inputs)
 now = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z")
 new = {
     "id": new_id,
@@ -137,9 +143,16 @@ new = {
         "PASS requires workbook + note + DONE + hashes + immutable receipt."
     ],
     "next_action": "SELECT and invoke " + skill_key + ". Clone PROVE freeze stands. Do not reopen COMPLETE parents.",
-    "owner_inputs": inputs,
-    "downstream_consumer": "WEST_MOTOR_FAMILY_LOOP_REFRESH_AND_T4_SELF_SELECT"
+    "downstream_consumer": "WEST_MOTOR_FAMILY_LOOP_REFRESH_AND_T4_SELF_SELECT",
+    "production_effect": (parent or {}).get("production_effect") or "NONE",
+    "near_acceptance": True,
 }
+if inputs:
+    new["owner_inputs"] = inputs
+if (parent or {}).get("skill_sha256"):
+    new["skill_sha256"] = parent.get("skill_sha256")
+if (parent or {}).get("evidence_pointers"):
+    new["evidence_pointers"] = list(parent.get("evidence_pointers"))
 wi["items"] = items + [new]
 wi["updated_at"] = now
 wi["family_loop_note"] = "Appended " + new_id + " for " + skill_key + ". History preserved. No budget wipe. No new skill JSON."
