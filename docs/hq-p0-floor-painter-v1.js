@@ -54,7 +54,7 @@ const PATHS = {
   support: 'reports/support-latest.json',
   engineering: 'reports/engineering/latest.json',
   reject: 'reports/invocations/latest-public-reject.json',
-  receipt: 'reports/invocations/done/invoke-owner-west-motor-parts-chase-fresh-8-v1.json',
+  receipt: 'reports/invocations/done/invoke-owner-west-motor-parts-chase-refresh-2026-09-13-v1.json',
   bridge: 'reports/bridge-latest.json',
   canary: 'reports/main-agent-canary-omen.json',
   selection: 'reports/autonomy-selection-current.json',
@@ -240,10 +240,9 @@ function scaffoldPulse(bundle, now) {
   const sc = bundle.scaffold || floor.scaffold || {};
   const updated = sc.updated_at || floor.scaffold_updated_at || sc.at;
   const age = ageSeconds(updated, now);
-  const activeKinds = String(sc.kind || sc.phase || floor.scaffold_phase || '').toUpperCase();
-  const cos = /COS|RUNTIME|VERIFY|SCAFFOLD/.test(activeKinds) || sc.active === true || floor.scaffold_active === true;
+  const active = sc.active === true || floor.scaffold_active === true;
   const fresh = Number.isFinite(parseTs(updated)) && age < SCAFFOLD_FRESH_S;
-  if (fresh || (cos && age < SCAFFOLD_FRESH_S)) {
+  if (active && fresh) {
     return {
       visible: true,
       chip: 'SCAFFOLD',
@@ -254,10 +253,6 @@ function scaffoldPulse(bundle, now) {
       updated_at: updated,
       age: ageText(age)
     };
-  }
-  // Explicit floor/scaffold marker under 10 min
-  if (fresh) {
-    return { visible: true, chip: 'SCAFFOLD', actor: 'GROKBOT_ACTED', neverKevinActed: true, neverKevinWorking: true, dashed: true, updated_at: updated, age: ageText(age) };
   }
   return { visible: false, chip: null, actor: null, neverKevinActed: true, neverKevinWorking: true, dashed: false };
 }

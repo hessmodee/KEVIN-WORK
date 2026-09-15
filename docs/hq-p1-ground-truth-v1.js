@@ -389,13 +389,13 @@ function clocksFromReports(bundle, now) {
   }
   const floorCycle = Number(bundle.floor?.cycle);
   const supportCycle = Number(bundle.support?.supervisor?.cycle);
-  const cycle = Number.isFinite(floorCycle) ? floorCycle : (Number.isFinite(supportCycle) ? supportCycle : (bundle.dashboard?.ops_floor?.primary?.cycle ?? null));
+  const cycle = Number.isFinite(floorCycle) ? floorCycle : null;
   const bleed = Number.isFinite(floorCycle) && Number.isFinite(supportCycle) && floorCycle !== supportCycle;
   return {
     lastOwnerAttempt: { at: ownerAt, label: when(ownerAt), age: ageText(ageSeconds(ownerAt, now)), id: ownerId },
     lastPlatformSignal: { at: newest, label: when(newest), age: ageText(ageSeconds(newest, now)) },
     cycle: cycle == null ? '—' : cycle,
-    cycleLabel: bleed ? 'floor · Support bleed' : 'hq-live-floor',
+    cycleLabel: !Number.isFinite(floorCycle) ? 'hq-live-floor unpublished' : (bleed ? ('floor · Support bleed ' + supportCycle) : 'hq-live-floor'),
     bleed
   };
 }
@@ -630,11 +630,14 @@ async function refresh() {
       opsWin.__kevinFloor = cache.floor || {};
       opsWin.__kevinP1Reject = cache.reject || {};
       opsWin.__kevinP1Receipt = cache.receipt || {};
+      opsWin.__kevinOutcomes = cache.outcomes || {};
     }
     if (coreWin) {
       coreWin.__kevinContinuation = cache.continuation || {};
+      coreWin.__kevinFloor = cache.floor || {};
       coreWin.__kevinP1Reject = cache.reject || {};
       coreWin.__kevinP1Receipt = cache.receipt || {};
+      coreWin.__kevinOutcomes = cache.outcomes || {};
     }
   } catch (_) {}
   paint();
@@ -678,7 +681,7 @@ function paintClocks(doc) {
   el.innerHTML =
     `<div class="hq-p1-clock"><span>Last owner attempt</span><b>${esc(attempt.unknown ? attempt.label : attempt.label)}</b><small>${esc(attempt.id || c.lastOwnerAttempt.id || '—')} · ${esc(attempt.unknown ? 'receipt' : attempt.age)}</small></div>` +
     `<div class="hq-p1-clock"><span>Last platform signal</span><b>${esc(c.lastPlatformSignal.label)}</b><small>${esc(c.lastPlatformSignal.age)} ago</small></div>` +
-    `<div class="hq-p1-clock"><span>Cycle</span><b>${esc(c.cycle)}</b><small>${esc(c.cycleLabel || 'hq-live-floor')}</small></div>`;
+    `<div class="hq-p1-clock" data-cycle-authority="hq-live-floor"><span>Cycle</span><b>${esc(c.cycle)}</b><small>${esc(c.cycleLabel || 'hq-live-floor')}</small></div>`;
 }
 
 function paintScaffold(doc) {
@@ -898,10 +901,24 @@ function paintCompletedStripe(doc) {
 
 function paintLastAttemptWx(doc) {
   if (!doc) return;
-  const attempt = lastAttemptClock(cache, Date.now());
   const wx = doc.getElementById('wx');
-  if (wx && attempt.at && !attempt.unknown) {
-    wx.textContent = `Last attempt: ${attempt.id || 'proven invoke'} · ${attempt.age} ago`;
+  if (!wx) return;
+  const floor = cache.floor || {};
+  const floorCycle = Number(floor.cycle);
+  const attempt = lastAttemptClock(cache, Date.now());
+  const id = attempt.id || cache.outcomes?.newest_receipt?.work_id || floor.selected_id || '';
+  if (String(id).includes('fresh-8')) {
+    /* never resurrect the Sep 11 fixture as last attempt */
+  }
+  if (Number.isFinite(floorCycle)) {
+    const actor = floor.last_actor || cache.outcomes?.newest_receipt?.actor || 'MIXED';
+    const age = attempt.age && !attempt.unknown ? attempt.age + ' ago' : '';
+    const work = (cache.outcomes?.newest_receipt?.work_id || id || '').replace(/^invoke-/, '');
+    wx.textContent = `Floor cycle ${floorCycle} · actor ${actor}` + (work ? ` · ${work}` : '') + (age ? ` · ${age}` : '') + ' · ignore Support cycle as clock';
+    return;
+  }
+  if (attempt.at && !attempt.unknown && id && !String(id).includes('fresh-8')) {
+    wx.textContent = `Last invoke: ${id} · ${attempt.age} ago`;
   }
 }
 
