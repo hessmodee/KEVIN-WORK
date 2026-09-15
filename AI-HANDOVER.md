@@ -53,8 +53,8 @@ The block below is pulled from `inbox/CURRENT_TASK.md`. That file is an executio
 
 > **LAYER / READER / DAILY LOOP:** Do not replace or truncate this file. Write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only. This file is the Extreme Autonomy Flywheel execution contract.
 
-**Updated:** 2026-09-14 17:35 MT
-**Status:** Parts-chase refresh is **PROVEN / MIXED** and the GitHub board row is **COMPLETE_DO_NOT_RESELECT**. Floor is the one clock. Support.supervisor.cycle is bleed. Tick close-loop is source-mirrored. Next owner execution is family-loop refresh of an already-PROVEN West Motor key — not another `*-fresh-YYYY-MM-DD` pack. Not KEVIN_ACTED. Not PASS for Kevin-alone.
+**Updated:** 2026-09-14 17:55 MT
+**Status:** Parts-chase refresh is **PROVEN / MIXED** and **COMPLETE_DO_NOT_RESELECT**. Supervisor selected `owner-west-motor-lot-walk-checklist-refresh-v1` (`west-motor-lot-walk-checklist-pack@1`). Continuation is `BLOCKED_INVOCATION_RUNTIME` — fail-closed, not PASS. HQ leftover 449 widgets are a Pages bind/cache defect (floor is the clock). Tick close-loop is source-mirrored. Not KEVIN_ACTED.
 
 Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
 
@@ -83,8 +83,9 @@ Target maturity is **T4 for routine bounded work**. T4 does not mean unrestricte
 
 ## Current live platform truth
 
-- Floor (`reports/hq-live-floor.json`) is the **one clock**. `cycle_authority: hq-live-floor`. `support_cycle_is_not_authority: true`. HQ widgets must paint floor cycle, not Support 449.
+- Floor (`reports/hq-live-floor.json`) is the **one clock**. `cycle_authority: hq-live-floor`. `support_cycle_is_not_authority: true`. HQ widgets must paint floor cycle. Support.supervisor.cycle (historically stuck at 449) is bleed — never the clock, even when it later syncs up to floor.
 - `owner-west-motor-parts-chase-refresh-2026-09-13-v1` is **COMPLETE / blocked=true / COMPLETE_DO_NOT_RESELECT** on GitHub main. Receipt `C8F0B503C0EB3DCAF4250A9BF2E655475BEEC8E87B4AA21CC32BA96FF49A556D`. Actor **MIXED**. `autonomy_credit=false`.
+- `owner-west-motor-lot-walk-checklist-refresh-v1` is **OPEN**. Supervisor already selected it. Continuation `BLOCKED_INVOCATION_RUNTIME`. Invoke-contract fields now match the PROVEN parent (`production_effect: NONE`, `skill_sha256`, `evidence_pointers`). Do **not** attach empty `vehicles: []` — the lot-walk skill ships its own spreadsheet steps.
 - Owner outputs on HESS (Action Era, already written): `Kevin-West-Motor-Parts-Chase-Fictional-8 (57).xlsx` and `Kevin-West-Motor-Parts-Chase-Fictional-8-Note (55).md`.
 - `owner-west-motor-parts-chase-fresh-8-v1` stays COMPLETE. Do not reopen it. 33 composite skills are proven.
 - Supervisor **v1.8.12** (`F17F4B0A…`) is independently proven. Do **not** recopy it. Hash-pinned selector `52EADBCA…`. GitHub ControlPlane invoke-worker pin stays `16C49542…`.
@@ -95,15 +96,15 @@ Target maturity is **T4 for routine bounded work**. T4 does not mean unrestricte
 - Exact-five desktop policy remains intentional. Do not install PCClaw / ClawHub / Hermes.
 - The AI-agent access bridge is this public repo. Do not invent a remote shell. Do not puppeteer HESS (no Start-ScheduledTask unless floor stale >20 min AND Tick is dead).
 
-## THIS CYCLE — Tick is the close+publish clock
+## THIS CYCLE — Tick is the close+publish clock; HQ paints floor only
 
 1. Tick pulse: sync GitHub `inbox/autonomy/work-items.json` → local.
 2. Reconcile official RUNNING/OPEN `invoke-owner-*` against `reports/invocations/done` PROVEN receipts.
 3. COMPLETE matching WIs on GitHub main (`COMPLETE_DO_NOT_RESELECT`).
 4. Rebuild `reports/owner-outcomes-latest.json` from done receipts (MIXED, autonomy_credit=false).
-5. `Publish-Kevin-HqLiveFloor-v1.ps1 -PushPublic` — matching done receipt wins over Supervisor ROUTED status.
-6. HQ Pages paint `hq-live-floor.json` only. Label Support as bleed when it disagrees.
-7. Family-loop: materialize at most one OPEN refresh of an already-PROVEN key if none of those keys have an OPEN refresh child.
+5. `Publish-Kevin-HqLiveFloor-v1.ps1 -PushPublic` — matching done receipt wins over Supervisor ROUTED status. Floor `selected_id` should follow the live OPEN lot-walk refresh, not the closed parts-chase row.
+6. HQ Pages paint `hq-live-floor.json` only. Cycle widget = floor. Last owner attempt = `floor.last_invoke_completed_at` / outcomes newest (today's MIXED refresh), never the Sep 11 fresh-8 fixture. Support 449 labeled bleed. GROKBOT_ACTED scaffold hidden unless `floor.scaffold.active === true`.
+7. Family-loop: at most one OPEN refresh of an already-PROVEN key. Lot-walk refresh is already OPEN — do not mint another.
 
 Source-mirror (so a reimage cannot lose the wire):
 
@@ -111,24 +112,19 @@ Source-mirror (so a reimage cannot lose the wire):
 - `tools/kevin-tick.ps1` (close-loop BEFORE `helper_append_daily_note.py`)
 - `tools/Install-Kevin-Tick-CloseLoopHook-v1.ps1`
 
-Next HESS Tick (not this chat) can sync+close without a chat paste.
+Next HESS Tick (not this chat) syncs+closes without a chat paste. Do not Start-ScheduledTask.
 
 ## Highest-priority execution sequence
 
-### 1. Family-loop next already-PROVEN West Motor key — NOW (Supervisor selects, not chat)
+### 1. Lot-walk family-loop refresh — NOW (Supervisor + Action Era, not chat)
 
-After the parts-chase refresh row is COMPLETE on main, next eligible owner execution is a refresh of an existing key only, in this order:
+`owner-west-motor-lot-walk-checklist-refresh-v1` is OPEN on main. Continuation currently `BLOCKED_INVOCATION_RUNTIME` (fail-closed). Resume that WI:
 
-1. `west-motor-lot-walk-checklist-pack@1`
-2. `west-motor-aging-inventory-action-pack@1`
-3. `west-motor-delivery-prep-pack@1`
-4. `vehicle-transport-mission-pack@1`
+- Required skill: `west-motor-lot-walk-checklist-pack@1` (already PROVEN, skill_sha256 `DB708B98…`).
+- If invoke fails, record the family and resume the original WI. Do not wipe budgets. Do not reopen COMPLETE parents.
+- PASS requires workbook + note + DONE + hashes + immutable receipt. Cycle++, HQ READY, STAGE_OK, model text, and this prompt are not PASS.
 
-Id must **not** be `*-fresh-YYYY-MM-DD`. Stamp `materialized_by: OWNER_FAMILY_LOOP_REFRESH`, `never_kevin_learned_claim: true`. Do not reopen COMPLETE parents. Do not select/invoke from a Grok Build chat.
-
-PASS requires workbook + note + DONE + hashes + immutable receipt. Cycle++, HQ READY, STAGE_OK, model text, and this prompt are not PASS.
-
-Actor honesty: next pack is **KEVIN_ACTED** only if Tick + Supervisor + Action Era close with no diagnose-* RequestId. Today's parts-chase refresh is **MIXED**.
+Actor honesty: this pack is **KEVIN_ACTED** only if Tick + Supervisor + Action Era close with no diagnose-* RequestId. Today's parts-chase refresh stays **MIXED**.
 
 ### 2. Capability-aware Supervisor execution — STANDING
 
@@ -248,6 +244,6 @@ Never infer a higher state from a lower one. Never widen authority merely to mak
 
 This handover is generated by `.github/scripts/build-canonical-handover.py` and refreshed by `.github/workflows/canonical-handover.yml`.
 
-Semantic fingerprint: `819B1F3B995BE088B1AA8DD7F1BDD00D48EE337ADF36A92072C6563CB81E7A61`
+Semantic fingerprint: `CEA643935BFD21A316BC89FE455BB58EA43F286BA102DEB5FDE9EF2A8E85C062`
 
 **Fresh runtime evidence first; one handover; publish every durable local change; then continue.**
