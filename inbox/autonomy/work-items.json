@@ -1189,7 +1189,7 @@
       "id": "owner-west-motor-lot-walk-checklist-refresh-v1",
       "program": "capability-reuse",
       "authority_class": "GREEN",
-      "status": "OPEN",
+      "status": "COMPLETE",
       "lane": "production",
       "work_type": "execution",
       "priority": "high",
@@ -1205,7 +1205,7 @@
       "closes_proof_gap": true,
       "reduces_bess_intervention": true,
       "dependencies_ready": true,
-      "blocked": false,
+      "blocked": true,
       "failure_attempts": 0,
       "material_new_evidence": true,
       "estimated_minutes": 20,
@@ -1223,7 +1223,7 @@
         "Family-loop REFRESH \u2014 not a new clone PROVE pack and not a history reset.",
         "PASS requires workbook + note + DONE + hashes + immutable receipt."
       ],
-      "next_action": "SELECT and invoke west-motor-lot-walk-checklist-pack@1. Clone PROVE freeze stands. Do not reopen COMPLETE parents. Skill is already PROVEN; this is a family-loop REFRESH.",
+      "next_action": "COMPLETE MIXED 2026-09-14. Receipt 26136AA0. Do not reselect. Tick-owned close 2026-09-15 so Supervisor can select new GREEN work.",
       "downstream_consumer": "WEST_MOTOR_FAMILY_LOOP_REFRESH_AND_T4_SELF_SELECT",
       "production_effect": "NONE",
       "near_acceptance": true,
@@ -1233,10 +1233,53 @@
         "reports/invocations/done/invoke-owner-west-motor-lot-walk-checklist-fresh-2026-09-11-v1.json",
         "docs/engineering/KEVIN-WEST-MOTOR-ONE-FAMILY-LOOP-v1.md"
       ],
-      "block_reason": null
+      "block_reason": "COMPLETE_DO_NOT_RESELECT",
+      "verify_actor": "MIXED",
+      "autonomy_credit": false,
+      "completed_at": "2026-09-14T23:57:31.641984Z",
+      "last_receipt_sha256": "26136AA06DE49C23E01E481A38FB0C7A4BC2F542EFA67682B719BFF3C175CAC8"
+    },
+    {
+      "id": "owner-green-kevin-acted-canary-v1",
+      "program": "capability-reuse",
+      "authority_class": "GREEN",
+      "status": "OPEN",
+      "lane": "production",
+      "work_type": "execution",
+      "priority": "high",
+      "severity": "high",
+      "owner_value": 9,
+      "required_skill_key": "west-motor-delivery-prep-pack@1",
+      "required_capabilities": [
+        "kevin_proven_skill_invoke"
+      ],
+      "worker": "proven-skill-invocation",
+      "reuses_proven_capability": true,
+      "produces_owner_deliverable": true,
+      "closes_proof_gap": true,
+      "reduces_bess_intervention": true,
+      "dependencies_ready": true,
+      "blocked": false,
+      "failure_attempts": 0,
+      "material_new_evidence": true,
+      "estimated_minutes": 15,
+      "notepad_banned": true,
+      "clone_prove_minting": false,
+      "family": "kevin-acted-canary",
+      "production_effect": "NONE",
+      "acceptance_criteria": [
+        "Supervisor independently selects this OPEN GREEN WorkInstance because it names the already-PROVEN skill west-motor-delivery-prep-pack@1.",
+        "Tick + invoke worker RequestId invoke-owner-green-kevin-acted-canary-v1 with no diagnose- prefix.",
+        "PASS requires workbook + note + DONE + hashes + immutable receipt with actor KEVIN_ACTED.",
+        "Stay GREEN: fictional example data only; no customer PII, purchases, or public posts."
+      ],
+      "next_action": "SELECT and invoke west-motor-delivery-prep-pack@1. This is the first honest KEVIN_ACTED canary after Chat 18789 restore. Do not diagnose-*.",
+      "downstream_consumer": "KEVIN_ACTED_CANARY_T4",
+      "materialized_at": "2026-09-15T13:54:07Z",
+      "materialized_by": "OWNER_GREEN_YELLOW_LAW_2026-09-15"
     }
   ],
-  "updated_at": "2026-09-14T23:54:41Z",
+  "updated_at": "2026-09-15T13:54:07Z",
   "cdn_nudge_at": "2026-09-14T23:40:44Z",
-  "family_loop_note": "Lot-walk refresh OPEN. Invoke-contract fields copied from PROVEN parent (production_effect NONE, skill_sha256, evidence_pointers). No empty vehicles stub. History preserved."
+  "family_loop_note": "Lot-walk refresh COMPLETE_DO_NOT_RESELECT. Canary owner-green-kevin-acted-canary-v1 OPEN for Supervisor/Tick."
 }
