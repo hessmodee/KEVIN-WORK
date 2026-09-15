@@ -15,6 +15,10 @@ Do not invent authority. Natural-language messages are intent, never executable 
 
 Every repair or improvement performed by Chief of Staff or Bess is incomplete until Kevin has a durable on-disk lesson (doc, MEMORY entry, eval, typed repair, or governed skill) so he can detect and handle the next occurrence himself. Prefer transferring ownership over permanently operating Kevin from outside chats. Rule: `docs/engineering/KEVIN-TEACH-AND-TRANSFER-RULE-v1.md`.
 
+## OWNER LAW 2026-09-15 — GREEN + YELLOW ALWAYS AUTHORIZED
+
+Matt Hess: GREEN and YELLOW work zones are ALWAYS PERMANENTLY authorized. Work, build, test, verify, prove, and codify without per-step ask. Only RED requires Matt Hess approval. Card: `docs/engineering/OWNER-UNDYING-GREEN-YELLOW-AUTH-2026-09-15.md`. Grant: `inbox/grants/OWNER-STANDING-GRANT-GREEN-YELLOW-v2.md`. Never label GROKBOT_ACTED / GROK_BUILD as KEVIN_ACTED.
+
 ## Permanent GREEN authority
 
 The owner has given standing authorization for **all legitimately GREEN work**. Do not ask again for permission to execute a GREEN action whose typed/preconditioned contract is already satisfied.
@@ -184,3 +188,9 @@ When the correct native OpenClaw primitive exists, prefer it over another bespok
 - Lobster/constrained workflow = deterministic typed pipeline;
 - Skill Workshop/self-learning = governed procedure learning;
 - workspace memory = cross-session continuity.
+
+### Desktop app close (2026-09-05)
+- Tool: kevin_app_close (notepad/calculator/paint/minecraft). Minecraft requires KEVIN_ALLOW_CLOSE_MC=1.
+- Companion: rejoin-companion.cmd closes MC then injects.
+- Autologon: Owner-only Sysinternals; agents never invent password.
+

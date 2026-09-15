@@ -1,5 +1,7 @@
 ﻿# Publish-Kevin-OwnerOutcomes-v1.ps1
-# Rebuild reports/owner-outcomes-latest.json from reports/invocations/done (MIXED, autonomy_credit=false).
+# Rebuild reports/owner-outcomes-latest.json from reports/invocations/done.
+# Actor is read from the receipt. Missing actor stays MIXED (fail-closed).
+# Never invent KEVIN_ACTED. Never dress GROKBOT_ACTED / GROK_BUILD as KEVIN_ACTED.
 # HARD GATE: does not mint packs / F17F. Optional -PushPublic publishes the JSON only.
 param([switch]$PushPublic)
 $ErrorActionPreference = 'Stop'
@@ -33,6 +35,10 @@ for p in sorted(done.glob('invoke-*.json'), key=lambda x: x.stat().st_mtime):
         family = 'platform-design'
     else:
         family = 'other'
+    raw_actor = str(d.get('actor') or d.get('verify_actor') or 'MIXED').strip().upper()
+    if raw_actor not in ('KEVIN_ACTED', 'MIXED', 'GROKBOT_ACTED', 'GROK_BUILD_ACTED'):
+        raw_actor = 'MIXED'
+    credit = bool(d.get('autonomy_credit')) if raw_actor == 'KEVIN_ACTED' else False
     row = {
         'work_id': wid,
         'invocation_id': inv,
@@ -40,11 +46,11 @@ for p in sorted(done.glob('invoke-*.json'), key=lambda x: x.stat().st_mtime):
         'receipt_sha256': receipt,
         'completed_at': completed,
         'status': 'PROVEN',
-        'actor': 'MIXED',
-        'autonomy_credit': False,
+        'actor': raw_actor,
+        'autonomy_credit': credit,
         'family': family,
         'clone_spreadsheet_text': family in {'west-motor-owner-value','dealership-owner-value'},
-        'verify_note': 'VERIFY may PASS/MIXED; RUNTIME does not claim PASS',
+        'verify_note': 'Actor from receipt; missing actor stays MIXED. RUNTIME does not claim PASS.',
     }
     outcomes.append(row)
     if completed and completed >= newest_at:
@@ -78,7 +84,7 @@ if ($PushPublic) {
   $b64 = [Convert]::ToBase64String([IO.File]::ReadAllBytes($local))
   $sha = $null; try { $sha = gh api repos/hessmodee/KEVIN-WORK/contents/reports/owner-outcomes-latest.json --jq .sha } catch {}
   $bp = Join-Path $env:TEMP 'gh-owner-outcomes.json'
-  $body = @{ message = 'GROKBOT_ACTED: owner-outcomes-latest from done receipts (MIXED, autonomy_credit=false)'; content = $b64 }
+  $body = @{ message = 'Tick-owned: owner-outcomes-latest from done receipts (actor from receipt; fail-closed MIXED)'; content = $b64 }
   if ($sha) { $body.sha = $sha }
   [IO.File]::WriteAllText($bp, ($body | ConvertTo-Json -Compress), $utf8)
   gh api --method PUT repos/hessmodee/KEVIN-WORK/contents/reports/owner-outcomes-latest.json --input $bp --jq .commit.sha

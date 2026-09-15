@@ -2,7 +2,8 @@
 
 Status: **PERMANENT OWNER AUTHORIZATION — ACTIVE UNTIL EXPLICITLY REVOKED OR NARROWED BY THE OWNER**
 
-Owner directive date: 2026-08-31
+Owner directive date: 2026-08-31  
+**Reaffirmed 2026-09-15 by Matt Hess:** GREEN and YELLOW are ALWAYS PERMANENTLY authorized to work, build, test, verify, prove, and codify. Only RED requires Matt Hess approval. Card: `docs/engineering/OWNER-UNDYING-GREEN-YELLOW-AUTH-2026-09-15.md`. Grant: `inbox/grants/OWNER-STANDING-GRANT-GREEN-YELLOW-v2.md`. Never dress GROKBOT_ACTED / GROK_BUILD as KEVIN_ACTED. Chat self-heal: `KevinGatewayKeeper` owns `127.0.0.1:18789`. Reader is `127.0.0.1:19001`. Matching the word "gateway" alone is a defect — Chat is port 18789 only.
 
 This document supplements `control-plane/OWNER-AUTHORIZATION-v1.md`. Where both apply, use the interpretation that grants the broadest useful autonomy **inside the existing GREEN boundary** while preserving the non-self-authorization, privacy, safety, rollback, and consequence boundaries in v1.
 
