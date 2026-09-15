@@ -3,15 +3,15 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-15T14:28:33.9088549-06:00",
-  "semantic_fingerprint_sha256": "CEA643935BFD21A316BC89FE455BB58EA43F286BA102DEB5FDE9EF2A8E85C062",
+  "evidence_updated_at": "2026-09-15T15:00:34.1525387-06:00",
+  "semantic_fingerprint_sha256": "A118674EE3B0F3D841F55BDAA79C97F7735D4E8AB9007EF969E79D5664F8CC4C",
   "semantic_checkpoint": {
     "current_task_sha256": "7164A809D57230659150E088CFF99A91636A93CCFA392CDE6CDA7E16C703887D",
     "benchmark": {
-      "status": "PASS",
-      "passed": 30,
+      "status": "FAIL_CRITICAL_REGRESSION",
+      "passed": 29,
       "total": 30,
-      "critical": 0
+      "critical": 1
     },
     "ui_bridge_health": "FRESH",
     "ui_bridge_task_present": true,
@@ -37,9 +37,9 @@
   },
   "source_hashes": {
     "current_task_sha256": "7164A809D57230659150E088CFF99A91636A93CCFA392CDE6CDA7E16C703887D",
-    "engineering_sha256_at_checkpoint": "9F0D3A0CE24779D29EEC8B0C8B729C1B2B6553C20EB72AA7F0905AF3285858BB",
-    "support_sha256_at_checkpoint": "85A77034A6D83649CDCE8A2D779B14A68BE4086851FB496AF6BDCA562789E0CE",
-    "autonomy_sha256_at_checkpoint": "0B1AE5B578AE3ACF226B9391EA7A25606A3AE318078F9239BE906E64D0D5BEC4"
+    "engineering_sha256_at_checkpoint": "C216860D6FCA78EEC0C4E9BE29E151CAB2E6F39B7980821E25FBEC1F5418FCF6",
+    "support_sha256_at_checkpoint": "88E3AD25363EB175C6DE476DD27F4D364F7956FCFCAADD45DBB2AD3BBC41B507",
+    "autonomy_sha256_at_checkpoint": "3680451942C172FBEB8A489C01637E3B75AB9A66315DAE5971A4F30245CE3F71"
   },
   "universal_access": {
     "github": "https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md",
@@ -55,16 +55,16 @@
     "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at_checkpoint": "2026-09-15T14:28:33.9088549-06:00",
-    "support_at_checkpoint": "2026-09-15T14:12:47.4732653-06:00",
-    "autonomy_at_checkpoint": "2026-09-15T14:25:00.9221333-06:00",
+    "engineering_at_checkpoint": "2026-09-15T15:00:34.1525387-06:00",
+    "support_at_checkpoint": "2026-09-15T14:48:47.6958076-06:00",
+    "autonomy_at_checkpoint": "2026-09-15T15:00:03.4624768-06:00",
     "benchmark": {
-      "status": "PASS",
-      "passed": 30,
+      "status": "FAIL_CRITICAL_REGRESSION",
+      "passed": 29,
       "total": 30,
-      "critical": 0
+      "critical": 1
     },
-    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 2.3,
+    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 5.1,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
     "maintenance_status": "EXPIRED_IDLE",
