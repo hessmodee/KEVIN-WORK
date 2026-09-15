@@ -1,5 +1,7 @@
 # Kevin Build — START HERE
 
+**Owner law 2026-09-15 (undying):** GREEN + YELLOW are always authorized to work, build, test, verify, prove, and codify. Only RED requires Matt Hess approval. Card: [`docs/engineering/OWNER-UNDYING-GREEN-YELLOW-AUTH-2026-09-15.md`](./docs/engineering/OWNER-UNDYING-GREEN-YELLOW-AUTH-2026-09-15.md). Grant: [`inbox/grants/OWNER-STANDING-GRANT-GREEN-YELLOW-v2.md`](./inbox/grants/OWNER-STANDING-GRANT-GREEN-YELLOW-v2.md).
+
 There is exactly **one current human handover** for Kevin:
 
 **[`AI-HANDOVER.md`](./AI-HANDOVER.md)**
