@@ -190,12 +190,12 @@ function renderKevinCenter(d,s,states){
  const mission=cont.selected_id||sup?.last_mission||'No mission selected';
  const floorCycle=Number(floor.cycle);
  const supportCycle=sup?.cycle;
- const cycle=Number.isFinite(floorCycle)?floorCycle:(supportCycle??'—');
+ const cycle=Number.isFinite(floorCycle)?floorCycle:'—';
  const bleed=Number.isFinite(floorCycle)&&supportCycle!=null&&Number(supportCycle)!==floorCycle;
  const raw=cont.status||sup?.last_result||'';
  const liveResult=/NO_ELIGIBLE_MISSION/i.test(String(raw))&&cont.status?cont.status:raw;
  const actor=floor.last_actor||'MIXED';
- document.getElementById('kevinMeta').innerHTML=`<div><b>Autonomy loop enabled</b> · floor cycle ${esc(cycle)}${bleed?` · ignore Support ${esc(supportCycle)}`:''}</div><div>${esc(String(mission).replace(/[-_]+/g,' '))}${liveResult?' · '+esc(liveResult):''} · actor ${esc(actor)}</div>`;
+ document.getElementById('kevinMeta').innerHTML=`<div><b>Autonomy loop enabled</b> · floor cycle ${esc(cycle)}${bleed?` · ignore Support ${esc(supportCycle)}`:(Number.isFinite(floorCycle)?'':' · floor unpublished')}</div><div>${esc(String(mission).replace(/[-_]+/g,' '))}${liveResult?' · '+esc(liveResult):''} · actor ${esc(actor)}</div>`;
 }
 
 async function load(){
