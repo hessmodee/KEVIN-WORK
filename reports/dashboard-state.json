@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-15T06:35:19-06:00",
+  "generated_at": "2026-09-15T06:50:18-06:00",
   "status": "degraded",
   "health": {
     "overall": "degraded",
@@ -20,22 +20,15 @@
     "gateway": "unhealthy"
   },
   "system": {
-    "memory_pct": 25,
-    "cpu_pct": 20,
+    "memory_pct": 24,
+    "cpu_pct": 5,
     "gpu": "RTX 3060",
-    "gpu_pct": 45
+    "gpu_pct": 32
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-14T04:35:14-06:00",
-        "estimated": false,
-        "ram": 44,
-        "cpu": 16,
-        "gpu": 36
-      },
       {
         "at": "2026-09-14T04:50:14-06:00",
         "estimated": false,
@@ -700,10 +693,16 @@
         "ram": 25,
         "cpu": 20,
         "gpu": 45
+      },
+      {
+        "at": "2026-09-15T06:50:18-06:00",
+        "estimated": false,
+        "ram": 24,
+        "cpu": 5,
+        "gpu": 32
       }
     ],
     "ram": [
-      44,
       43,
       44,
       43,
@@ -798,10 +797,10 @@
       25,
       26,
       25,
-      25
+      25,
+      24
     ],
     "cpu": [
-      16,
       5,
       18,
       0,
@@ -896,10 +895,10 @@
       5,
       23,
       4,
-      20
+      20,
+      5
     ],
     "gpu": [
-      36,
       35,
       30,
       29,
@@ -994,7 +993,8 @@
       39,
       39,
       39,
-      45
+      45,
+      32
     ]
   },
   "weather": {
@@ -1148,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-15T06:35:19-06:00",
+      "at": "2026-09-15T06:50:18-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1375,7 +1375,7 @@
     "state": "warning"
   },
   "sync": {
-    "last": "2026-09-15T06:35:19-06:00",
+    "last": "2026-09-15T06:50:18-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
