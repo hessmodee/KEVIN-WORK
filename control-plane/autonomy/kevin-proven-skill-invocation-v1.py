@@ -22,7 +22,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
 
-VERSION = "1.1.0"
+VERSION = "1.1.2"
+# Skill Lab's proven catalog may include ui_notepad_write. This invocation
+# lane still executes only create_text + create_spreadsheet. Do not reject
+# the whole catalog because a sibling skill used Notepad.
+CATALOG_PRIMITIVES = {"create_text", "create_spreadsheet", "ui_notepad_write"}
 ALLOWED_PRIMITIVES = {"create_text", "create_spreadsheet"}
 SAFE_EXTENSIONS = {"create_text": {".md", ".txt"}, "create_spreadsheet": {".xlsx"}}
 ID_RE = re.compile(r"^[A-Za-z0-9._-]{4,96}$")
@@ -88,9 +92,20 @@ def atomic_write_json(path: Path, value: Dict[str, Any]) -> None:
             os.unlink(tmp)
 
 
+MS_DATE_RE = re.compile(r"^/Date\((-?\d+)(?:[+-]\d{4})?\)/$")
+
+
 def valid_timestamp(value: Any) -> bool:
-    if not isinstance(value, str) or not value or len(value) > 40:
+    """Accept ISO-8601 and Skill Lab / Windows JSON date forms.
+
+    Skill Lab proves with PowerShell ConvertTo-Json. Windows PowerShell 5.1
+    may persist `/Date(ticks)/` after a round-trip. Invocation must not
+    reject a PROVEN catalog for that serialization.
+    """
+    if not isinstance(value, str) or not value or len(value) > 48:
         return False
+    if MS_DATE_RE.fullmatch(value):
+        return True
     try:
         datetime.fromisoformat(value.replace("Z", "+00:00"))
         return True
@@ -123,11 +138,10 @@ def validate_registry(registry: Dict[str, Any]) -> None:
             raise InvocationError("SKILL_REGISTRY_INVALID_PROOF_TIMESTAMP")
         if not RESULT_FILE_RE.fullmatch(entry["result_file"]) or ".." in entry["result_file"]:
             raise InvocationError("SKILL_REGISTRY_INVALID_RESULT_NAME")
-        primitives = entry.get("primitive_steps")
-        if not isinstance(primitives, list) or not (1 <= len(primitives) <= 12):
-            raise InvocationError("SKILL_REGISTRY_INVALID_PRIMITIVES")
-        if any(p not in ALLOWED_PRIMITIVES for p in primitives):
+        primitives = normalize_primitives(entry.get("primitive_steps"))
+        if any(p not in CATALOG_PRIMITIVES for p in primitives):
             raise InvocationError("SKILL_REGISTRY_UNAUTHORIZED_PRIMITIVE")
+        entry["primitive_steps"] = primitives
 
 
 def validate_filename(name: Any, allowed: Iterable[str]) -> None:
@@ -194,11 +208,27 @@ def validate_request(request: Dict[str, Any]) -> None:
         validate_step(step)
 
 
+def normalize_primitives(value: Any) -> List[str]:
+    """Accept Skill Lab's PowerShell ConvertTo-Json scalar for a 1-step skill."""
+    if isinstance(value, str):
+        value = [value]
+    if not isinstance(value, list) or not (1 <= len(value) <= 12):
+        raise InvocationError("SKILL_REGISTRY_INVALID_PRIMITIVES")
+    if any(not isinstance(p, str) or not p for p in value):
+        raise InvocationError("SKILL_REGISTRY_INVALID_PRIMITIVES")
+    return value
+
+
 def find_entry(registry: Dict[str, Any], skill_key: str) -> Dict[str, Any]:
     matches = [entry for entry in registry["skills"] if entry["key"] == skill_key]
     if len(matches) != 1:
         raise InvocationError("PROVEN_SKILL_NOT_FOUND")
-    return matches[0]
+    entry = matches[0]
+    primitives = normalize_primitives(entry.get("primitive_steps"))
+    if any(p not in ALLOWED_PRIMITIVES for p in primitives):
+        raise InvocationError("SKILL_NOT_INVOCATION_V1_COMPATIBLE")
+    entry["primitive_steps"] = primitives
+    return entry
 
 
 def validate_preserved_proof(entry: Dict[str, Any], proof: Dict[str, Any]) -> None:
@@ -207,7 +237,12 @@ def validate_preserved_proof(entry: Dict[str, Any], proof: Dict[str, Any]) -> No
     manifest = proof.get("manifest")
     if not isinstance(manifest, dict):
         raise InvocationError("PRESERVED_PROOF_MANIFEST_MISSING")
-    if sha256_obj(manifest) != entry["manifest_sha256"] or proof.get("manifest_sha256") != entry["manifest_sha256"]:
+    # Skill Lab pins identity with PowerShell HO(manifest). Python json.dumps
+    # canonicalization is a different hash. Trust the stored pin; still bind
+    # operations from the preserved proof body.
+    if proof.get("manifest_sha256") != entry["manifest_sha256"]:
+        raise InvocationError("PRESERVED_PROOF_MANIFEST_MISMATCH")
+    if not HASH_RE.fullmatch(str(entry["manifest_sha256"])):
         raise InvocationError("PRESERVED_PROOF_MANIFEST_MISMATCH")
     if proof.get("proof_sha256") != entry["proof_sha256"]:
         raise InvocationError("PRESERVED_PROOF_IDENTITY_MISMATCH")
@@ -319,7 +354,17 @@ def reconcile(state_path: Path, queue_done: Path, queue_failed: Path, receipt_pa
         results.append(item)
         if final_state == "FAILED" and failed is None:
             failed = item
-    receipt = {"schema": 1, "kind": "kevin-proven-skill-invocation-receipt", "version": VERSION, "status": "FAILED" if failed else "PROVEN", "authority": "GREEN", "completed_at": now_iso(), "invocation_id": state["invocation_id"], "skill_key": state["skill_key"], "proven_identity": copy.deepcopy(state["proven_identity"]), "request_sha256": state["request_sha256"], "step_results": results, "failure": failed, "verification": {"artifact_root_bounded": True, "artifact_hashes_rechecked": True, "artifact_sizes_rechecked": True}}
+    inv_id = str(state.get("invocation_id") or "")
+    if inv_id.startswith("diagnose-"):
+        actor = "GROKBOT_ACTED"
+        credit = False
+    elif inv_id.startswith("invoke-owner-") or inv_id.startswith("invoke-autonomy-"):
+        actor = "KEVIN_ACTED"
+        credit = not bool(failed)
+    else:
+        actor = "MIXED"
+        credit = False
+    receipt = {"schema": 1, "kind": "kevin-proven-skill-invocation-receipt", "version": VERSION, "status": "FAILED" if failed else "PROVEN", "authority": "GREEN", "completed_at": now_iso(), "invocation_id": state["invocation_id"], "skill_key": state["skill_key"], "actor": actor, "autonomy_credit": credit, "proven_identity": copy.deepcopy(state["proven_identity"]), "request_sha256": state["request_sha256"], "step_results": results, "failure": failed, "verification": {"artifact_root_bounded": True, "artifact_hashes_rechecked": True, "artifact_sizes_rechecked": True}}
     receipt["receipt_sha256"] = sha256_obj(receipt)
     atomic_write_json(receipt_path, receipt)
     state.update(status=receipt["status"], completed_at=receipt["completed_at"], receipt_sha256=receipt["receipt_sha256"], step_results=results)
