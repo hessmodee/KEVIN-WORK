@@ -1326,9 +1326,45 @@
       "block_reason": "COMPLETE_DO_NOT_RESELECT",
       "completed_at": "2026-09-15T20:09:52.020229Z",
       "last_receipt_sha256": "D71419C9ABF960443E0808AB61B273FFE89C8843EF317853742DED87EDE5378B"
+    },
+    {
+      "id": "owner-green-xlsx-openable-aging-v1",
+      "program": "capability-reuse",
+      "authority_class": "GREEN",
+      "status": "OPEN",
+      "lane": "production",
+      "work_type": "execution",
+      "priority": "high",
+      "severity": "high",
+      "owner_value": 10,
+      "required_skill_key": "west-motor-aging-inventory-action-pack@1",
+      "required_capabilities": [
+        "kevin_proven_skill_invoke"
+      ],
+      "worker": "proven-skill-invocation",
+      "reuses_proven_capability": true,
+      "produces_owner_deliverable": true,
+      "closes_proof_gap": true,
+      "reduces_bess_intervention": true,
+      "dependencies_ready": true,
+      "blocked": false,
+      "failure_attempts": 0,
+      "material_new_evidence": true,
+      "estimated_minutes": 15,
+      "notepad_banned": true,
+      "clone_prove_minting": false,
+      "family": "xlsx-openable-prove",
+      "production_effect": "NONE",
+      "acceptance_criteria": [
+        "Supervisor selects aging-inventory pack. Excel-openable xlsx. Fictional data only."
+      ],
+      "next_action": "SELECT and invoke west-motor-aging-inventory-action-pack@1.",
+      "downstream_consumer": "XLSX_EXCEL_OPENABLE_PROVE",
+      "materialized_at": "2026-09-15T20:21:26Z",
+      "materialized_by": "OWNER_GREEN_YELLOW_LAW_2026-09-15"
     }
   ],
-  "updated_at": "2026-09-15T19:59:09Z",
+  "updated_at": "2026-09-15T20:21:26Z",
   "cdn_nudge_at": "2026-09-14T23:40:44Z",
   "family_loop_note": "Lot-walk refresh COMPLETE_DO_NOT_RESELECT. Canary owner-green-kevin-acted-canary-v1 OPEN for Supervisor/Tick."
 }
