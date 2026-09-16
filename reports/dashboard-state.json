@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-16T12:30:41-06:00",
+  "generated_at": "2026-09-16T12:30:54.321637-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -10,15 +10,14 @@
     "name": "Qwen 2.5 14B",
     "mode": "Chat Fast",
     "context": "8K",
-    "tools": false
+    "tools": true
   },
   "current_task": {
-    "id": "supervisor",
-    "title": "Supervisor autonomous cycle",
-    "category": "supervisor",
-    "phase": "Goal-aware Supervisor cycle active.",
-    "started_at": "2026-09-16T12:30:05.6639682-06:00",
-    "source": "hq-live-ops"
+    "title": "Growth: same_cycle PASS | idle_ms=0 kevin_owns=True matt_present=False | inventory=skip gui=2 | day_learn=skip_fresh | ladder=PASS C:\\Users\\hessm\\.openclaw\\workspace\\",
+    "phase": "Growth: same_cycle PASS | idle_ms=0 kevin_owns=True matt_present=False | inventory=skip gui=2 | day_learn=skip_fresh | ladder=PASS C:\\Users\\hessm\\.openclaw\\workspace\\",
+    "source": "now-doing",
+    "started_at": "2026-09-16T12:30:54.321637-06:00",
+    "actor": "KEVIN_TICK"
   },
   "services": {
     "tick": "healthy",
@@ -1378,8 +1377,8 @@
     }
   ],
   "owl": {
-    "level": 1,
-    "state": "idle"
+    "level": 4,
+    "state": "working"
   },
   "sync": {
     "last": "2026-09-16T12:30:41-06:00",
@@ -1387,7 +1386,7 @@
   },
   "self_check": {
     "fails": 0,
-    "summary": "All checks passed"
+    "summary": "plant up: Chat + Ollama + Tick"
   },
   "autonomy": {
     "mode": "hourly_design",
@@ -1472,17 +1471,20 @@
   },
   "execution": {
     "running": true,
-    "state": "coordinating",
-    "phase": "Goal-aware Supervisor cycle active.",
-    "worker": "Supervisor",
-    "engine": "Supervisor v1.4",
-    "action": "Mission coordination"
+    "state": "working",
+    "phase": "Growth: same_cycle PASS | idle_ms=0 kevin_owns=True matt_present=False | inventory=skip gui=2 | day_learn=skip_fresh | ladder=PASS C:\\Users\\hessm\\.openclaw\\workspace\\",
+    "worker": "KevinTick",
+    "engine": "same-cycle growth",
+    "action": "Growth: same_cycle PASS | idle_ms=0 kevin_owns=True matt_present=False | inventory=skip gui=2 | day_learn=skip_fresh | ladder=PASS C:\\Users\\hessm\\.openclaw\\workspace\\"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Supervisor | COORDINATING | Goal-aware Supervisor cycle active.",
-      "severity": "normal"
+      "text": "Growth: same_cycle PASS | idle_ms=0 kevin_owns=True matt_present=False | inventory=skip gui=2 | day_learn=skip_fresh | ladder=PASS C:\\Users\\hessm\\.openclaw\\workspace\\",
+      "severity": "success"
     }
-  ]
+  ],
+  "avatar": {
+    "mode": "working"
+  }
 }
