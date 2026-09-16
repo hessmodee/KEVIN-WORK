@@ -1331,7 +1331,7 @@
       "id": "owner-green-xlsx-openable-aging-v1",
       "program": "capability-reuse",
       "authority_class": "GREEN",
-      "status": "OPEN",
+      "status": "COMPLETE",
       "lane": "production",
       "work_type": "execution",
       "priority": "high",
@@ -1347,7 +1347,7 @@
       "closes_proof_gap": true,
       "reduces_bess_intervention": true,
       "dependencies_ready": true,
-      "blocked": false,
+      "blocked": true,
       "failure_attempts": 0,
       "material_new_evidence": true,
       "estimated_minutes": 15,
@@ -1358,10 +1358,13 @@
       "acceptance_criteria": [
         "Supervisor selects aging-inventory pack. Excel-openable xlsx. Fictional data only."
       ],
-      "next_action": "SELECT and invoke west-motor-aging-inventory-action-pack@1.",
+      "next_action": "COMPLETE_DO_NOT_RESELECT Tick-owned close after PROVEN invoke-owner-green-xlsx-openable-aging-v1",
       "downstream_consumer": "XLSX_EXCEL_OPENABLE_PROVE",
       "materialized_at": "2026-09-15T20:21:26Z",
-      "materialized_by": "OWNER_GREEN_YELLOW_LAW_2026-09-15"
+      "materialized_by": "OWNER_GREEN_YELLOW_LAW_2026-09-15",
+      "block_reason": "COMPLETE_DO_NOT_RESELECT",
+      "completed_at": "2026-09-15T20:29:55.927758Z",
+      "last_receipt_sha256": "D4D797CA25524526D765AF9642964A9DA5EE39357B071CAF86F4AFAA50AB2B02"
     }
   ],
   "updated_at": "2026-09-15T20:21:26Z",
