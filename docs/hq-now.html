@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="color-scheme" content="dark"/>
+<title>Kevin HQ — live plant</title>
+<style>
+:root{--bg:#0b0e0b;--ink:#e6eadf;--ok:#79c56a;--bad:#e46f61;--warn:#ff9a3d;--mute:#9aa392}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,Segoe UI,sans-serif}
+.truth{padding:14px 18px 8px;border-bottom:1px solid #1c241c}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+h1{margin:0;font-size:22px;letter-spacing:.02em}
+.pill{padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.06em}
+.ok{background:#1a3a1a;color:var(--ok)} .bad{background:#3a1a18;color:var(--bad)} .work{background:#1a3320;color:#b6e0a8}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:10px}
+.card{background:#121812;border:1px solid #243024;border-radius:12px;padding:10px 12px}
+.card b{display:block;font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.08em}
+.doing{margin-top:10px;padding:10px 12px;background:#151c15;border-radius:12px;border:1px solid #2a3a2a;white-space:pre-wrap;font-size:13px}
+iframe{display:block;width:100%;height:min(78vh,980px);border:0;background:transparent}
+.note{color:var(--mute);font-size:12px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="truth">
+  <div class="row">
+    <h1>Kevin HQ</h1>
+    <span id="plant" class="pill work">LOADING</span>
+    <span id="actor" class="pill">ACTOR</span>
+  </div>
+  <div class="grid" id="ports"></div>
+  <div class="doing" id="doing">Loading live Tick…</div>
+  <p class="note">Plant = Chat 18789 + Ollama + Tick. Legacy Supervisor “no eligible mission” / cycle budgets / R04 config-frozen are <b>not</b> Kevin-down. Growth is the clock.</p>
+</div>
+<iframe title="Kevin Ops Floor" src="./ops/embed.html?v=20"></iframe>
+<script>
+const RAW='https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/';
+async function j(name){try{const r=await fetch(RAW+name+'?'+Date.now());if(!r.ok)return null;return r.json()}catch(e){return null}}
+function pill(ok,label){return `<div class="card"><b>${label}</b><span class="pill ${ok?'ok':'bad'}">${ok?'UP':'DOWN'}</span></div>`}
+async function load(){
+  const [now,g,hb,d]=await Promise.all([j('now-doing.json'),j('growth-latest.json'),j('tick-heartbeat.json'),j('dashboard-state.json')]);
+  const chat=!!(now&&now.chat_18789)||d?.services?.gateway==='healthy';
+  const ollama=!!(now&&now.ollama_11434)||d?.services?.ollama==='healthy';
+  const tickAge=hb&&hb.at? (Date.now()-Date.parse(hb.at))/1000 : 99999;
+  const tickOk=tickAge<400;
+  const plant=chat&&ollama&&tickOk;
+  document.getElementById('plant').className='pill '+(plant?'ok':'bad');
+  document.getElementById('plant').textContent=plant?'PLANT UP':'PLANT ISSUE';
+  document.getElementById('actor').textContent=(now&&now.actor)||(g&&g.actor)||'UNKNOWN';
+  document.getElementById('ports').innerHTML=
+    pill(chat,'Chat 18789')+pill(ollama,'Ollama')+pill(tickOk,'Tick '+(Number.isFinite(tickAge)?Math.round(tickAge)+'s':'?'))+
+    `<div class="card"><b>Growth</b><span class="pill ${g&&g.status==='PASS'?'ok':(g?'work':'bad')}">${(g&&g.status)||'NONE'}</span></div>`+
+    `<div class="card"><b>Operated</b>${(g&&g.operated_count)||0} controls</div>`;
+  const doing=(now&&now.doing)||(g&&(g.item+' '+g.status+' '+(g.detail||'')))||'No growth file';
+  document.getElementById('doing').textContent=doing;
+}
+load(); setInterval(load,15000);
+</script>
+</body>
+</html>
