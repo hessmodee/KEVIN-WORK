@@ -1,1491 +1,1491 @@
 {
-    "schema":  5,
-    "generated_at":  "2026-09-15T23:13:28.0502850-06:00",
-    "status":  "working",
-    "health":  {
-                   "overall":  "degraded",
-                   "failed_checks":  2
-               },
-    "brain":  {
-                  "name":  "Qwen 2.5 14B",
-                  "mode":  "Chat Fast",
-                  "context":  "8K",
-                  "tools":  true
-              },
-    "current_task":  {
-                         "id":  "supervisor",
-                         "title":  "Growth: operate_new_control PASS | NEW click notepad / Text editor ok=True",
-                         "category":  "supervisor",
-                         "phase":  "Growth: operate_new_control PASS | NEW click notepad / Text editor ok=True",
-                         "started_at":  "2026-09-15T23:13:28.0611684-06:00",
-                         "source":  "now-doing"
-                     },
-    "services":  {
-                     "tick":  "healthy",
-                     "bridge":  "unknown",
-                     "ollama":  "healthy",
-                     "gateway":  "healthy"
-                 },
-    "system":  {
-                   "memory_pct":  28,
-                   "cpu_pct":  20,
-                   "gpu":  "RTX 3060",
-                   "gpu_pct":  38
-               },
-    "pulse":  {
-                  "window":  "24h",
-                  "sample_interval_minutes":  15,
-                  "samples":  [
-                                  {
-                                      "at":  "2026-09-14T05:35:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  44,
-                                      "cpu":  21,
-                                      "gpu":  27
-                                  },
-                                  {
-                                      "at":  "2026-09-14T05:50:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  0,
-                                      "gpu":  30
-                                  },
-                                  {
-                                      "at":  "2026-09-14T06:05:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  44,
-                                      "cpu":  10,
-                                      "gpu":  30
-                                  },
-                                  {
-                                      "at":  "2026-09-14T06:20:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  3,
-                                      "gpu":  29
-                                  },
-                                  {
-                                      "at":  "2026-09-14T06:35:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  44,
-                                      "cpu":  13,
-                                      "gpu":  35
-                                  },
-                                  {
-                                      "at":  "2026-09-14T06:50:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  2,
-                                      "gpu":  29
-                                  },
-                                  {
-                                      "at":  "2026-09-14T07:05:17-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  2,
-                                      "gpu":  66
-                                  },
-                                  {
-                                      "at":  "2026-09-14T07:20:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  1,
-                                      "gpu":  28
-                                  },
-                                  {
-                                      "at":  "2026-09-14T07:35:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  44,
-                                      "cpu":  12,
-                                      "gpu":  30
-                                  },
-                                  {
-                                      "at":  "2026-09-14T07:50:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  1,
-                                      "gpu":  28
-                                  },
-                                  {
-                                      "at":  "2026-09-14T08:05:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  13,
-                                      "gpu":  40
-                                  },
-                                  {
-                                      "at":  "2026-09-14T08:20:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  42,
-                                      "cpu":  6,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-14T08:35:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  34,
-                                      "gpu":  40
-                                  },
-                                  {
-                                      "at":  "2026-09-14T08:50:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  42,
-                                      "cpu":  14,
-                                      "gpu":  38
-                                  },
-                                  {
-                                      "at":  "2026-09-14T09:05:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  16,
-                                      "gpu":  41
-                                  },
-                                  {
-                                      "at":  "2026-09-14T09:20:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  10,
-                                      "gpu":  40
-                                  },
-                                  {
-                                      "at":  "2026-09-14T09:35:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  22,
-                                      "gpu":  38
-                                  },
-                                  {
-                                      "at":  "2026-09-14T09:50:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  42,
-                                      "cpu":  4,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-14T10:05:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  17,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-14T10:20:13-06:00",
-                                      "estimated":  false,
-                                      "ram":  42,
-                                      "cpu":  6,
-                                      "gpu":  38
-                                  },
-                                  {
-                                      "at":  "2026-09-14T10:35:13-06:00",
-                                      "estimated":  false,
-                                      "ram":  44,
-                                      "cpu":  26,
-                                      "gpu":  38
-                                  },
-                                  {
-                                      "at":  "2026-09-14T10:50:13-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  8,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-14T11:05:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  44,
-                                      "cpu":  30,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-14T11:20:13-06:00",
-                                      "estimated":  false,
-                                      "ram":  42,
-                                      "cpu":  12,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-14T11:35:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  25,
-                                      "gpu":  41
-                                  },
-                                  {
-                                      "at":  "2026-09-14T11:50:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  42,
-                                      "cpu":  8,
-                                      "gpu":  38
-                                  },
-                                  {
-                                      "at":  "2026-09-14T12:05:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  44,
-                                      "cpu":  38,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-14T12:20:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  44,
-                                      "cpu":  17,
-                                      "gpu":  36
-                                  },
-                                  {
-                                      "at":  "2026-09-14T12:35:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  45,
-                                      "cpu":  28,
-                                      "gpu":  36
-                                  },
-                                  {
-                                      "at":  "2026-09-14T12:50:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  44,
-                                      "cpu":  10,
-                                      "gpu":  35
-                                  },
-                                  {
-                                      "at":  "2026-09-14T13:05:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  48,
-                                      "cpu":  25,
-                                      "gpu":  37
-                                  },
-                                  {
-                                      "at":  "2026-09-14T13:20:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  46,
-                                      "cpu":  17,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-14T13:35:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  48,
-                                      "cpu":  20,
-                                      "gpu":  37
-                                  },
-                                  {
-                                      "at":  "2026-09-14T13:50:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  47,
-                                      "cpu":  18,
-                                      "gpu":  36
-                                  },
-                                  {
-                                      "at":  "2026-09-14T14:05:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  48,
-                                      "cpu":  16,
-                                      "gpu":  30
-                                  },
-                                  {
-                                      "at":  "2026-09-14T14:20:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  44,
-                                      "cpu":  18,
-                                      "gpu":  38
-                                  },
-                                  {
-                                      "at":  "2026-09-14T14:35:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  48,
-                                      "cpu":  35,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-14T14:50:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  19,
-                                      "gpu":  37
-                                  },
-                                  {
-                                      "at":  "2026-09-14T15:05:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  44,
-                                      "cpu":  15,
-                                      "gpu":  40
-                                  },
-                                  {
-                                      "at":  "2026-09-14T15:20:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  8,
-                                      "gpu":  37
-                                  },
-                                  {
-                                      "at":  "2026-09-14T15:35:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  45,
-                                      "cpu":  19,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-14T15:50:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  44,
-                                      "cpu":  16,
-                                      "gpu":  34
-                                  },
-                                  {
-                                      "at":  "2026-09-14T16:05:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  44,
-                                      "cpu":  13,
-                                      "gpu":  71
-                                  },
-                                  {
-                                      "at":  "2026-09-14T16:20:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  43,
-                                      "cpu":  11,
-                                      "gpu":  37
-                                  },
-                                  {
-                                      "at":  "2026-09-14T16:35:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  44,
-                                      "cpu":  26,
-                                      "gpu":  26
-                                  },
-                                  {
-                                      "at":  "2026-09-14T16:50:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  44,
-                                      "cpu":  5,
-                                      "gpu":  38
-                                  },
-                                  {
-                                      "at":  "2026-09-14T17:05:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  46,
-                                      "cpu":  11,
-                                      "gpu":  8
-                                  },
-                                  {
-                                      "at":  "2026-09-14T17:20:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  48,
-                                      "cpu":  9,
-                                      "gpu":  23
-                                  },
-                                  {
-                                      "at":  "2026-09-14T17:35:26-06:00",
-                                      "estimated":  false,
-                                      "ram":  47,
-                                      "cpu":  12,
-                                      "gpu":  0
-                                  },
-                                  {
-                                      "at":  "2026-09-14T17:50:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  39,
-                                      "cpu":  15,
-                                      "gpu":  33
-                                  },
-                                  {
-                                      "at":  "2026-09-14T18:05:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  42,
-                                      "cpu":  18,
-                                      "gpu":  38
-                                  },
-                                  {
-                                      "at":  "2026-09-14T18:20:14-06:00",
-                                      "estimated":  false,
-                                      "ram":  42,
-                                      "cpu":  19,
-                                      "gpu":  10
-                                  },
-                                  {
-                                      "at":  "2026-09-14T18:35:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  39,
-                                      "cpu":  17,
-                                      "gpu":  17
-                                  },
-                                  {
-                                      "at":  "2026-09-14T18:50:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  38,
-                                      "cpu":  18,
-                                      "gpu":  8
-                                  },
-                                  {
-                                      "at":  "2026-09-14T19:05:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  39,
-                                      "cpu":  25,
-                                      "gpu":  35
-                                  },
-                                  {
-                                      "at":  "2026-09-14T19:20:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  38,
-                                      "cpu":  26,
-                                      "gpu":  38
-                                  },
-                                  {
-                                      "at":  "2026-09-14T19:35:15-06:00",
-                                      "estimated":  false,
-                                      "ram":  39,
-                                      "cpu":  21,
-                                      "gpu":  37
-                                  },
-                                  {
-                                      "at":  "2026-09-14T19:50:16-06:00",
-                                      "estimated":  false,
-                                      "ram":  40,
-                                      "cpu":  17,
-                                      "gpu":  19
-                                  },
-                                  {
-                                      "at":  "2026-09-14T22:20:20-06:00",
-                                      "estimated":  false,
-                                      "ram":  27,
-                                      "cpu":  19,
-                                      "gpu":  35
-                                  },
-                                  {
-                                      "at":  "2026-09-14T22:35:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  27,
-                                      "cpu":  12,
-                                      "gpu":  29
-                                  },
-                                  {
-                                      "at":  "2026-09-14T22:50:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  29,
-                                      "cpu":  5,
-                                      "gpu":  27
-                                  },
-                                  {
-                                      "at":  "2026-09-14T23:05:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  24,
-                                      "cpu":  19,
-                                      "gpu":  33
-                                  },
-                                  {
-                                      "at":  "2026-09-14T23:20:19-06:00",
-                                      "estimated":  false,
-                                      "ram":  23,
-                                      "cpu":  2,
-                                      "gpu":  33
-                                  },
-                                  {
-                                      "at":  "2026-09-14T23:35:19-06:00",
-                                      "estimated":  false,
-                                      "ram":  24,
-                                      "cpu":  13,
-                                      "gpu":  40
-                                  },
-                                  {
-                                      "at":  "2026-09-14T23:50:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  23,
-                                      "cpu":  8,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-15T00:05:19-06:00",
-                                      "estimated":  false,
-                                      "ram":  24,
-                                      "cpu":  16,
-                                      "gpu":  42
-                                  },
-                                  {
-                                      "at":  "2026-09-15T00:20:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  23,
-                                      "cpu":  10,
-                                      "gpu":  38
-                                  },
-                                  {
-                                      "at":  "2026-09-15T00:35:19-06:00",
-                                      "estimated":  false,
-                                      "ram":  25,
-                                      "cpu":  21,
-                                      "gpu":  34
-                                  },
-                                  {
-                                      "at":  "2026-09-15T00:50:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  23,
-                                      "cpu":  2,
-                                      "gpu":  31
-                                  },
-                                  {
-                                      "at":  "2026-09-15T01:05:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  24,
-                                      "cpu":  18,
-                                      "gpu":  33
-                                  },
-                                  {
-                                      "at":  "2026-09-15T01:20:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  23,
-                                      "cpu":  8,
-                                      "gpu":  31
-                                  },
-                                  {
-                                      "at":  "2026-09-15T01:35:19-06:00",
-                                      "estimated":  false,
-                                      "ram":  26,
-                                      "cpu":  22,
-                                      "gpu":  33
-                                  },
-                                  {
-                                      "at":  "2026-09-15T01:50:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  24,
-                                      "cpu":  6,
-                                      "gpu":  41
-                                  },
-                                  {
-                                      "at":  "2026-09-15T02:05:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  26,
-                                      "cpu":  15,
-                                      "gpu":  40
-                                  },
-                                  {
-                                      "at":  "2026-09-15T02:20:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  24,
-                                      "cpu":  1,
-                                      "gpu":  33
-                                  },
-                                  {
-                                      "at":  "2026-09-15T02:35:19-06:00",
-                                      "estimated":  false,
-                                      "ram":  26,
-                                      "cpu":  16,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-15T02:50:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  24,
-                                      "cpu":  0,
-                                      "gpu":  32
-                                  },
-                                  {
-                                      "at":  "2026-09-15T03:05:19-06:00",
-                                      "estimated":  false,
-                                      "ram":  26,
-                                      "cpu":  15,
-                                      "gpu":  32
-                                  },
-                                  {
-                                      "at":  "2026-09-15T03:20:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  24,
-                                      "cpu":  6,
-                                      "gpu":  40
-                                  },
-                                  {
-                                      "at":  "2026-09-15T03:35:19-06:00",
-                                      "estimated":  false,
-                                      "ram":  26,
-                                      "cpu":  12,
-                                      "gpu":  40
-                                  },
-                                  {
-                                      "at":  "2026-09-15T03:50:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  24,
-                                      "cpu":  9,
-                                      "gpu":  33
-                                  },
-                                  {
-                                      "at":  "2026-09-15T04:05:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  26,
-                                      "cpu":  26,
-                                      "gpu":  33
-                                  },
-                                  {
-                                      "at":  "2026-09-15T04:20:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  24,
-                                      "cpu":  9,
-                                      "gpu":  33
-                                  },
-                                  {
-                                      "at":  "2026-09-15T04:35:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  26,
-                                      "cpu":  13,
-                                      "gpu":  33
-                                  },
-                                  {
-                                      "at":  "2026-09-15T04:50:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  24,
-                                      "cpu":  7,
-                                      "gpu":  34
-                                  },
-                                  {
-                                      "at":  "2026-09-15T05:05:19-06:00",
-                                      "estimated":  false,
-                                      "ram":  26,
-                                      "cpu":  11,
-                                      "gpu":  42
-                                  },
-                                  {
-                                      "at":  "2026-09-15T05:20:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  24,
-                                      "cpu":  4,
-                                      "gpu":  36
-                                  },
-                                  {
-                                      "at":  "2026-09-15T05:35:19-06:00",
-                                      "estimated":  false,
-                                      "ram":  25,
-                                      "cpu":  19,
-                                      "gpu":  38
-                                  },
-                                  {
-                                      "at":  "2026-09-15T05:50:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  25,
-                                      "cpu":  5,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-15T06:05:19-06:00",
-                                      "estimated":  false,
-                                      "ram":  26,
-                                      "cpu":  23,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-15T06:20:19-06:00",
-                                      "estimated":  false,
-                                      "ram":  25,
-                                      "cpu":  4,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-15T06:35:19-06:00",
-                                      "estimated":  false,
-                                      "ram":  25,
-                                      "cpu":  20,
-                                      "gpu":  45
-                                  },
-                                  {
-                                      "at":  "2026-09-15T06:50:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  24,
-                                      "cpu":  5,
-                                      "gpu":  32
-                                  },
-                                  {
-                                      "at":  "2026-09-15T07:05:19-06:00",
-                                      "estimated":  false,
-                                      "ram":  26,
-                                      "cpu":  18,
-                                      "gpu":  39
-                                  },
-                                  {
-                                      "at":  "2026-09-15T07:20:18-06:00",
-                                      "estimated":  false,
-                                      "ram":  25,
-                                      "cpu":  4,
-                                      "gpu":  34
-                                  },
-                                  {
-                                      "at":  "2026-09-15T07:35:19-06:00",
-                                      "estimated":  false,
-                                      "ram":  28,
-                                      "cpu":  20,
-                                      "gpu":  38
-                                  }
-                              ],
-                  "ram":  [
-                              44,
-                              43,
-                              44,
-                              43,
-                              44,
-                              43,
-                              43,
-                              43,
-                              44,
-                              43,
-                              43,
-                              42,
-                              43,
-                              42,
-                              43,
-                              43,
-                              43,
-                              42,
-                              43,
-                              42,
-                              44,
-                              43,
-                              44,
-                              42,
-                              43,
-                              42,
-                              44,
-                              44,
-                              45,
-                              44,
-                              48,
-                              46,
-                              48,
-                              47,
-                              48,
-                              44,
-                              48,
-                              43,
-                              44,
-                              43,
-                              45,
-                              44,
-                              44,
-                              43,
-                              44,
-                              44,
-                              46,
-                              48,
-                              47,
-                              39,
-                              42,
-                              42,
-                              39,
-                              38,
-                              39,
-                              38,
-                              39,
-                              40,
-                              27,
-                              27,
-                              29,
-                              24,
-                              23,
-                              24,
-                              23,
-                              24,
-                              23,
-                              25,
-                              23,
-                              24,
-                              23,
-                              26,
-                              24,
-                              26,
-                              24,
-                              26,
-                              24,
-                              26,
-                              24,
-                              26,
-                              24,
-                              26,
-                              24,
-                              26,
-                              24,
-                              26,
-                              24,
-                              25,
-                              25,
-                              26,
-                              25,
-                              25,
-                              24,
-                              26,
-                              25,
-                              28
-                          ],
-                  "cpu":  [
-                              21,
-                              0,
-                              10,
-                              3,
-                              13,
-                              2,
-                              2,
-                              1,
-                              12,
-                              1,
-                              13,
-                              6,
-                              34,
-                              14,
-                              16,
-                              10,
-                              22,
-                              4,
-                              17,
-                              6,
-                              26,
-                              8,
-                              30,
-                              12,
-                              25,
-                              8,
-                              38,
-                              17,
-                              28,
-                              10,
-                              25,
-                              17,
-                              20,
-                              18,
-                              16,
-                              18,
-                              35,
-                              19,
-                              15,
-                              8,
-                              19,
-                              16,
-                              13,
-                              11,
-                              26,
-                              5,
-                              11,
-                              9,
-                              12,
-                              15,
-                              18,
-                              19,
-                              17,
-                              18,
-                              25,
-                              26,
-                              21,
-                              17,
-                              19,
-                              12,
-                              5,
-                              19,
-                              2,
-                              13,
-                              8,
-                              16,
-                              10,
-                              21,
-                              2,
-                              18,
-                              8,
-                              22,
-                              6,
-                              15,
-                              1,
-                              16,
-                              0,
-                              15,
-                              6,
-                              12,
-                              9,
-                              26,
-                              9,
-                              13,
-                              7,
-                              11,
-                              4,
-                              19,
-                              5,
-                              23,
-                              4,
-                              20,
-                              5,
-                              18,
-                              4,
-                              20
-                          ],
-                  "gpu":  [
-                              27,
-                              30,
-                              30,
-                              29,
-                              35,
-                              29,
-                              66,
-                              28,
-                              30,
-                              28,
-                              40,
-                              39,
-                              40,
-                              38,
-                              41,
-                              40,
-                              38,
-                              39,
-                              39,
-                              38,
-                              38,
-                              39,
-                              39,
-                              39,
-                              41,
-                              38,
-                              39,
-                              36,
-                              36,
-                              35,
-                              37,
-                              39,
-                              37,
-                              36,
-                              30,
-                              38,
-                              39,
-                              37,
-                              40,
-                              37,
-                              39,
-                              34,
-                              71,
-                              37,
-                              26,
-                              38,
-                              8,
-                              23,
-                              0,
-                              33,
-                              38,
-                              10,
-                              17,
-                              8,
-                              35,
-                              38,
-                              37,
-                              19,
-                              35,
-                              29,
-                              27,
-                              33,
-                              33,
-                              40,
-                              39,
-                              42,
-                              38,
-                              34,
-                              31,
-                              33,
-                              31,
-                              33,
-                              41,
-                              40,
-                              33,
-                              39,
-                              32,
-                              32,
-                              40,
-                              40,
-                              33,
-                              33,
-                              33,
-                              33,
-                              34,
-                              42,
-                              36,
-                              38,
-                              39,
-                              39,
-                              39,
-                              45,
-                              32,
-                              39,
-                              34,
-                              38
-                          ]
-              },
-    "weather":  {
-                    "summary":  "Today 77 | Wind 2 to 10 mph | Mostly Sunny"
-                },
-    "capabilities":  [
-                         {
-                             "id":  "chat",
-                             "label":  "Local conversation",
-                             "state":  "proven",
-                             "qa_pass":  18,
-                             "qa_total":  18,
-                             "version":  "Chat v2",
-                             "last_verified":  "2026-08-26"
-                         },
-                         {
-                             "id":  "system_reader",
-                             "label":  "System awareness",
-                             "state":  "testing",
-                             "qa_pass":  0,
-                             "qa_total":  20,
-                             "version":  "Reader v0.1 Â· boundary GREEN",
-                             "last_verified":  "2026-08-27T13:44:13.3544609-06:00"
-                         },
-                         {
-                             "id":  "weather_reader",
-                             "label":  "Local weather",
-                             "state":  "planned",
-                             "qa_pass":  0,
-                             "qa_total":  10,
-                             "version":  null,
-                             "last_verified":  null
-                         },
-                         {
-                             "id":  "retrieval",
-                             "label":  "Knowledge and memory",
-                             "state":  "planned",
-                             "qa_pass":  0,
-                             "qa_total":  5,
-                             "version":  null,
-                             "last_verified":  null
-                         },
-                         {
-                             "id":  "file_actions",
-                             "label":  "Controlled actions",
-                             "state":  "locked",
-                             "qa_pass":  0,
-                             "qa_total":  6,
-                             "version":  null,
-                             "last_verified":  null
-                         },
-                         {
-                             "id":  "email",
-                             "label":  "Communications",
-                             "state":  "locked",
-                             "qa_pass":  0,
-                             "qa_total":  4,
-                             "version":  null,
-                             "last_verified":  null
-                         },
-                         {
-                             "id":  "windows_ui",
-                             "label":  "Windows interaction",
-                             "state":  "locked",
-                             "qa_pass":  0,
-                             "qa_total":  4,
-                             "version":  null,
-                             "last_verified":  null
-                         }
-                     ],
-    "progress":  [
-                     {
-                         "id":  "chat_qa",
-                         "label":  "Chat reliability",
-                         "done":  18,
-                         "total":  18
-                     },
-                     {
-                         "id":  "reader",
-                         "label":  "Reader senses",
-                         "done":  0,
-                         "total":  4
-                     },
-                     {
-                         "id":  "knowledge",
-                         "label":  "Knowledge",
-                         "done":  0,
-                         "total":  5
-                     },
-                     {
-                         "id":  "operator",
-                         "label":  "Operator",
-                         "done":  0,
-                         "total":  6
-                     },
-                     {
-                         "id":  "health_24h",
-                         "label":  "System health 24h",
-                         "done":  0,
-                         "total":  87
-                     }
-                 ],
-    "roadmap":  {
-                    "done":  1,
-                    "total":  7,
-                    "label":  "Roadmap completion"
-                },
-    "build":  [
-                  {
-                      "order":  1,
-                      "id":  "reader_e2e",
-                      "label":  "Prove System Reader E2E",
-                      "state":  "next",
-                      "detail":  "Real status question â†’ exactly one typed tool â†’ correct interpretation"
-                  },
-                  {
-                      "order":  2,
-                      "id":  "reader_expand",
-                      "label":  "Expand Reader senses",
-                      "state":  "queued",
-                      "detail":  "Weather â†’ board â†’ self-check, one proven tool at a time"
-                  },
-                  {
-                      "order":  3,
-                      "id":  "knowledge",
-                      "label":  "Knowledge retrieval",
-                      "state":  "queued",
-                      "detail":  "Curated local retrieval with evidence; read-only first"
-                  },
-                  {
-                      "order":  4,
-                      "id":  "operator",
-                      "label":  "Controlled Operator",
-                      "state":  "queued",
-                      "detail":  "Typed allowlisted actions with validation, evidence, and rollback"
-                  },
-                  {
-                      "order":  5,
-                      "id":  "skills",
-                      "label":  "High-value workflows",
-                      "state":  "queued",
-                      "detail":  "Skills built only on proven Reader, Knowledge, and Operator faculties"
-                  },
-                  {
-                      "order":  6,
-                      "id":  "autonomy",
-                      "label":  "Autonomous promotion science",
-                      "state":  "queued",
-                      "detail":  "Candidate vs control benchmarks; self-improving, never self-authorizing"
-                  }
-              ],
-    "activity":  [
-                     {
-                         "at":  "2026-09-15T07:35:19-06:00",
-                         "component":  "tick",
-                         "event":  "cycle",
-                         "detail":  "Health cycle",
-                         "result":  "fail"
-                     },
-                     {
-                         "at":  "2026-09-03T15:38:43-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Night Forge PASS 101484ms",
-                         "result":  "pass",
-                         "task_id":  "night-forge"
-                     },
-                     {
-                         "at":  "2026-09-03T15:38:40-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Design Forge idle: no CURRENT forge demand",
-                         "result":  "pass",
-                         "task_id":  "design-forge",
-                         "duration_ms":  99000
-                     },
-                     {
-                         "at":  "2026-09-03T15:37:01-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_start",
-                         "detail":  "Night Forge cycle",
-                         "result":  "",
-                         "task_id":  "night-forge"
-                     },
-                     {
-                         "at":  "2026-09-03T14:38:42-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Night Forge PASS 100499ms",
-                         "result":  "pass",
-                         "task_id":  "night-forge"
-                     },
-                     {
-                         "at":  "2026-09-03T14:38:39-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Design Forge idle: no CURRENT forge demand",
-                         "result":  "pass",
-                         "task_id":  "design-forge",
-                         "duration_ms":  98000
-                     },
-                     {
-                         "at":  "2026-09-03T14:37:01-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_start",
-                         "detail":  "Night Forge cycle",
-                         "result":  "",
-                         "task_id":  "night-forge"
-                     },
-                     {
-                         "at":  "2026-09-03T13:38:48-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Night Forge PASS 106313ms",
-                         "result":  "pass",
-                         "task_id":  "night-forge"
-                     },
-                     {
-                         "at":  "2026-09-03T13:38:45-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Design Forge idle: no CURRENT forge demand",
-                         "result":  "pass",
-                         "task_id":  "design-forge",
-                         "duration_ms":  104000
-                     },
-                     {
-                         "at":  "2026-09-03T13:37:01-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_start",
-                         "detail":  "Night Forge cycle",
-                         "result":  "",
-                         "task_id":  "night-forge"
-                     },
-                     {
-                         "at":  "2026-09-03T12:38:43-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Night Forge PASS 101536ms",
-                         "result":  "pass",
-                         "task_id":  "night-forge"
-                     },
-                     {
-                         "at":  "2026-09-03T12:38:40-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Design Forge idle: no CURRENT forge demand",
-                         "result":  "pass",
-                         "task_id":  "design-forge",
-                         "duration_ms":  99000
-                     },
-                     {
-                         "at":  "2026-09-03T12:37:01-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_start",
-                         "detail":  "Night Forge cycle",
-                         "result":  "",
-                         "task_id":  "night-forge"
-                     },
-                     {
-                         "at":  "2026-09-03T11:39:32-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Night Forge PASS 151160ms",
-                         "result":  "pass",
-                         "task_id":  "night-forge"
-                     },
-                     {
-                         "at":  "2026-09-03T11:39:30-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Design Forge idle: no CURRENT forge demand",
-                         "result":  "pass",
-                         "task_id":  "design-forge",
-                         "duration_ms":  149000
-                     },
-                     {
-                         "at":  "2026-09-03T11:37:01-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_start",
-                         "detail":  "Night Forge cycle",
-                         "result":  "",
-                         "task_id":  "night-forge"
-                     },
-                     {
-                         "at":  "2026-09-03T10:38:41-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Night Forge PASS 100002ms",
-                         "result":  "pass",
-                         "task_id":  "night-forge"
-                     },
-                     {
-                         "at":  "2026-09-03T10:38:39-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Design Forge idle: no CURRENT forge demand",
-                         "result":  "pass",
-                         "task_id":  "design-forge",
-                         "duration_ms":  98000
-                     },
-                     {
-                         "at":  "2026-09-03T10:37:01-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_start",
-                         "detail":  "Night Forge cycle",
-                         "result":  "",
-                         "task_id":  "night-forge"
-                     },
-                     {
-                         "at":  "2026-09-03T09:38:42-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Night Forge PASS 100564ms",
-                         "result":  "pass",
-                         "task_id":  "night-forge"
-                     },
-                     {
-                         "at":  "2026-09-03T09:38:40-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Design Forge idle: no CURRENT forge demand",
-                         "result":  "pass",
-                         "task_id":  "design-forge",
-                         "duration_ms":  99000
-                     },
-                     {
-                         "at":  "2026-09-03T09:37:01-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_start",
-                         "detail":  "Night Forge cycle",
-                         "result":  "",
-                         "task_id":  "night-forge"
-                     },
-                     {
-                         "at":  "2026-09-03T08:38:41-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Night Forge PASS 100078ms",
-                         "result":  "pass",
-                         "task_id":  "night-forge"
-                     },
-                     {
-                         "at":  "2026-09-03T08:38:39-06:00",
-                         "source":  "forge",
-                         "component":  "forge",
-                         "event":  "task_finish",
-                         "detail":  "Design Forge idle: no CURRENT forge demand",
-                         "result":  "pass",
-                         "task_id":  "design-forge",
-                         "duration_ms":  98000
-                     }
-                 ],
-    "owl":  {
-                "level":  1,
-                "state":  "warning"
-            },
-    "sync":  {
-                 "last":  "2026-09-15T23:12:55.0918732-06:00",
-                 "source":  "Kevin HQ Live Ops v1.4"
-             },
-    "self_check":  {
-                       "fails":  2,
-                       "summary":  "2 check(s) failed"
-                   },
-    "autonomy":  {
-                     "mode":  "hourly_design",
-                     "state":  "idle_no_eligible_demand",
-                     "last_mission":  "",
-                     "iteration":  null,
-                     "updated_at":  "2026-09-03T15:38:40.3091995-06:00",
-                     "promotion":  "blocked"
-                 },
-    "diagnostics":  {
-                        "agent":  "kevin-lab-qwen",
-                        "model":  "qwen2.5:14b",
-                        "context":  "8K",
-                        "tools":  0,
-                        "chat_qa":  "18/18",
-                        "noreply":  0,
-                        "reader_boundary":  "green",
-                        "reader_visible_tools":  1,
-                        "candidate_forge":  {
-                                                "result":  "idle_no_eligible_demand",
-                                                "mode":  "design-forge-v3",
-                                                "last_mission":  "",
-                                                "iteration":  null,
-                                                "updated_at":  "2026-09-03T15:38:40.3091995-06:00",
-                                                "next_index":  null,
-                                                "scheduled":  true,
-                                                "promotion":  "blocked"
-                                            }
-                    },
-    "ops_floor":  {
-                      "schema":  2,
-                      "generated_at":  "2026-09-15T23:12:55.0918732-06:00",
-                      "source":  "Kevin HQ Live Ops v1.5",
-                      "expedition_active":  false,
-                      "forge_active":  false,
-                      "supervisor_active":  false,
-                      "benchmark_active":  false,
-                      "minecraft_active":  false,
-                      "primary":  {
-                                      "id":  "supervisor",
-                                      "name":  "Supervisor",
-                                      "title":  "Kevin autonomous system armed",
-                                      "category":  "supervisor",
-                                      "state":  "ready",
-                                      "detail":  "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
-                                      "what":  "Waiting only for the next scheduled three-minute control cycle.",
-                                      "engine":  "Supervisor v1.4",
-                                      "action":  "Autonomous schedule armed"
-                                  },
-                      "lanes":  [
-                                    {
-                                        "id":  "supervisor",
-                                        "name":  "Supervisor",
-                                        "role":  "Goal-aware control plane",
-                                        "state":  "ready",
-                                        "detail":  "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
-                                        "what":  "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
-                                        "engine":  "Supervisor v1.4",
-                                        "action":  "Awaiting next 3-minute cycle"
-                                    },
-                                    {
-                                        "id":  "benchmark",
-                                        "name":  "Benchmark",
-                                        "role":  "Regression + capability fitness",
-                                        "state":  "ready",
-                                        "detail":  "Cheap regression watchdog armed; heavy model suite remains resource-gated.",
-                                        "what":  "Protects proven behavior and measures challenger quality.",
-                                        "engine":  "Kevin Benchmark v1",
-                                        "action":  "10-minute watchdog armed"
-                                    },
-                                    {
-                                        "id":  "staging",
-                                        "name":  "Staging",
-                                        "role":  "Policy-gated champion archive",
-                                        "state":  "ready",
-                                        "detail":  "Isolated staging evidence exists; executable production promotion remains locked.",
-                                        "what":  "Candidate -\u003e Champion -\u003e isolated staging. No staged code executes here.",
-                                        "engine":  "Promotion policy v1",
-                                        "action":  "Safe auto-staging"
-                                    }
-                                ]
-                  },
-    "execution":  {
-                      "running":  false,
-                      "state":  "ready",
-                      "phase":  "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
-                      "worker":  "Supervisor",
-                      "engine":  "Supervisor v1.4",
-                      "action":  "Autonomous schedule armed"
-                  },
-    "newswire":  [
-                     {
-                         "id":  "live-ops",
-                         "text":  "Supervisor | READY | No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
-                         "severity":  "normal"
-                     }
-                 ],
-    "avatar":  {
-                   "mode":  "working"
-               }
+  "schema": 5,
+  "generated_at": "2026-09-15T23:13:55.1147499-06:00",
+  "status": "degraded",
+  "health": {
+    "overall": "degraded",
+    "failed_checks": 2
+  },
+  "brain": {
+    "name": "Qwen 2.5 14B",
+    "mode": "Chat Fast",
+    "context": "8K",
+    "tools": true
+  },
+  "current_task": {
+    "id": "supervisor",
+    "title": "Growth: operate_new_control PASS | NEW click notepad / Text editor ok=True",
+    "category": "supervisor",
+    "phase": "Growth: operate_new_control PASS | NEW click notepad / Text editor ok=True",
+    "started_at": "2026-09-15T23:13:28.0611684-06:00",
+    "source": "now-doing"
+  },
+  "services": {
+    "tick": "healthy",
+    "bridge": "unknown",
+    "ollama": "healthy",
+    "gateway": "healthy"
+  },
+  "system": {
+    "memory_pct": 28,
+    "cpu_pct": 20,
+    "gpu": "RTX 3060",
+    "gpu_pct": 38
+  },
+  "pulse": {
+    "window": "24h",
+    "sample_interval_minutes": 15,
+    "samples": [
+      {
+        "at": "2026-09-14T05:35:14-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 21,
+        "gpu": 27
+      },
+      {
+        "at": "2026-09-14T05:50:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 0,
+        "gpu": 30
+      },
+      {
+        "at": "2026-09-14T06:05:14-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 10,
+        "gpu": 30
+      },
+      {
+        "at": "2026-09-14T06:20:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 3,
+        "gpu": 29
+      },
+      {
+        "at": "2026-09-14T06:35:14-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 13,
+        "gpu": 35
+      },
+      {
+        "at": "2026-09-14T06:50:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 2,
+        "gpu": 29
+      },
+      {
+        "at": "2026-09-14T07:05:17-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 2,
+        "gpu": 66
+      },
+      {
+        "at": "2026-09-14T07:20:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 1,
+        "gpu": 28
+      },
+      {
+        "at": "2026-09-14T07:35:15-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 12,
+        "gpu": 30
+      },
+      {
+        "at": "2026-09-14T07:50:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 1,
+        "gpu": 28
+      },
+      {
+        "at": "2026-09-14T08:05:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 13,
+        "gpu": 40
+      },
+      {
+        "at": "2026-09-14T08:20:15-06:00",
+        "estimated": false,
+        "ram": 42,
+        "cpu": 6,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-14T08:35:15-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 34,
+        "gpu": 40
+      },
+      {
+        "at": "2026-09-14T08:50:14-06:00",
+        "estimated": false,
+        "ram": 42,
+        "cpu": 14,
+        "gpu": 38
+      },
+      {
+        "at": "2026-09-14T09:05:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 16,
+        "gpu": 41
+      },
+      {
+        "at": "2026-09-14T09:20:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 10,
+        "gpu": 40
+      },
+      {
+        "at": "2026-09-14T09:35:15-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 22,
+        "gpu": 38
+      },
+      {
+        "at": "2026-09-14T09:50:14-06:00",
+        "estimated": false,
+        "ram": 42,
+        "cpu": 4,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-14T10:05:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 17,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-14T10:20:13-06:00",
+        "estimated": false,
+        "ram": 42,
+        "cpu": 6,
+        "gpu": 38
+      },
+      {
+        "at": "2026-09-14T10:35:13-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 26,
+        "gpu": 38
+      },
+      {
+        "at": "2026-09-14T10:50:13-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 8,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-14T11:05:14-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 30,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-14T11:20:13-06:00",
+        "estimated": false,
+        "ram": 42,
+        "cpu": 12,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-14T11:35:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 25,
+        "gpu": 41
+      },
+      {
+        "at": "2026-09-14T11:50:14-06:00",
+        "estimated": false,
+        "ram": 42,
+        "cpu": 8,
+        "gpu": 38
+      },
+      {
+        "at": "2026-09-14T12:05:14-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 38,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-14T12:20:14-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 17,
+        "gpu": 36
+      },
+      {
+        "at": "2026-09-14T12:35:14-06:00",
+        "estimated": false,
+        "ram": 45,
+        "cpu": 28,
+        "gpu": 36
+      },
+      {
+        "at": "2026-09-14T12:50:14-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 10,
+        "gpu": 35
+      },
+      {
+        "at": "2026-09-14T13:05:15-06:00",
+        "estimated": false,
+        "ram": 48,
+        "cpu": 25,
+        "gpu": 37
+      },
+      {
+        "at": "2026-09-14T13:20:14-06:00",
+        "estimated": false,
+        "ram": 46,
+        "cpu": 17,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-14T13:35:14-06:00",
+        "estimated": false,
+        "ram": 48,
+        "cpu": 20,
+        "gpu": 37
+      },
+      {
+        "at": "2026-09-14T13:50:14-06:00",
+        "estimated": false,
+        "ram": 47,
+        "cpu": 18,
+        "gpu": 36
+      },
+      {
+        "at": "2026-09-14T14:05:15-06:00",
+        "estimated": false,
+        "ram": 48,
+        "cpu": 16,
+        "gpu": 30
+      },
+      {
+        "at": "2026-09-14T14:20:14-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 18,
+        "gpu": 38
+      },
+      {
+        "at": "2026-09-14T14:35:14-06:00",
+        "estimated": false,
+        "ram": 48,
+        "cpu": 35,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-14T14:50:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 19,
+        "gpu": 37
+      },
+      {
+        "at": "2026-09-14T15:05:14-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 15,
+        "gpu": 40
+      },
+      {
+        "at": "2026-09-14T15:20:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 8,
+        "gpu": 37
+      },
+      {
+        "at": "2026-09-14T15:35:14-06:00",
+        "estimated": false,
+        "ram": 45,
+        "cpu": 19,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-14T15:50:15-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 16,
+        "gpu": 34
+      },
+      {
+        "at": "2026-09-14T16:05:14-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 13,
+        "gpu": 71
+      },
+      {
+        "at": "2026-09-14T16:20:14-06:00",
+        "estimated": false,
+        "ram": 43,
+        "cpu": 11,
+        "gpu": 37
+      },
+      {
+        "at": "2026-09-14T16:35:15-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 26,
+        "gpu": 26
+      },
+      {
+        "at": "2026-09-14T16:50:14-06:00",
+        "estimated": false,
+        "ram": 44,
+        "cpu": 5,
+        "gpu": 38
+      },
+      {
+        "at": "2026-09-14T17:05:14-06:00",
+        "estimated": false,
+        "ram": 46,
+        "cpu": 11,
+        "gpu": 8
+      },
+      {
+        "at": "2026-09-14T17:20:15-06:00",
+        "estimated": false,
+        "ram": 48,
+        "cpu": 9,
+        "gpu": 23
+      },
+      {
+        "at": "2026-09-14T17:35:26-06:00",
+        "estimated": false,
+        "ram": 47,
+        "cpu": 12,
+        "gpu": 0
+      },
+      {
+        "at": "2026-09-14T17:50:15-06:00",
+        "estimated": false,
+        "ram": 39,
+        "cpu": 15,
+        "gpu": 33
+      },
+      {
+        "at": "2026-09-14T18:05:15-06:00",
+        "estimated": false,
+        "ram": 42,
+        "cpu": 18,
+        "gpu": 38
+      },
+      {
+        "at": "2026-09-14T18:20:14-06:00",
+        "estimated": false,
+        "ram": 42,
+        "cpu": 19,
+        "gpu": 10
+      },
+      {
+        "at": "2026-09-14T18:35:15-06:00",
+        "estimated": false,
+        "ram": 39,
+        "cpu": 17,
+        "gpu": 17
+      },
+      {
+        "at": "2026-09-14T18:50:15-06:00",
+        "estimated": false,
+        "ram": 38,
+        "cpu": 18,
+        "gpu": 8
+      },
+      {
+        "at": "2026-09-14T19:05:15-06:00",
+        "estimated": false,
+        "ram": 39,
+        "cpu": 25,
+        "gpu": 35
+      },
+      {
+        "at": "2026-09-14T19:20:15-06:00",
+        "estimated": false,
+        "ram": 38,
+        "cpu": 26,
+        "gpu": 38
+      },
+      {
+        "at": "2026-09-14T19:35:15-06:00",
+        "estimated": false,
+        "ram": 39,
+        "cpu": 21,
+        "gpu": 37
+      },
+      {
+        "at": "2026-09-14T19:50:16-06:00",
+        "estimated": false,
+        "ram": 40,
+        "cpu": 17,
+        "gpu": 19
+      },
+      {
+        "at": "2026-09-14T22:20:20-06:00",
+        "estimated": false,
+        "ram": 27,
+        "cpu": 19,
+        "gpu": 35
+      },
+      {
+        "at": "2026-09-14T22:35:18-06:00",
+        "estimated": false,
+        "ram": 27,
+        "cpu": 12,
+        "gpu": 29
+      },
+      {
+        "at": "2026-09-14T22:50:18-06:00",
+        "estimated": false,
+        "ram": 29,
+        "cpu": 5,
+        "gpu": 27
+      },
+      {
+        "at": "2026-09-14T23:05:18-06:00",
+        "estimated": false,
+        "ram": 24,
+        "cpu": 19,
+        "gpu": 33
+      },
+      {
+        "at": "2026-09-14T23:20:19-06:00",
+        "estimated": false,
+        "ram": 23,
+        "cpu": 2,
+        "gpu": 33
+      },
+      {
+        "at": "2026-09-14T23:35:19-06:00",
+        "estimated": false,
+        "ram": 24,
+        "cpu": 13,
+        "gpu": 40
+      },
+      {
+        "at": "2026-09-14T23:50:18-06:00",
+        "estimated": false,
+        "ram": 23,
+        "cpu": 8,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-15T00:05:19-06:00",
+        "estimated": false,
+        "ram": 24,
+        "cpu": 16,
+        "gpu": 42
+      },
+      {
+        "at": "2026-09-15T00:20:18-06:00",
+        "estimated": false,
+        "ram": 23,
+        "cpu": 10,
+        "gpu": 38
+      },
+      {
+        "at": "2026-09-15T00:35:19-06:00",
+        "estimated": false,
+        "ram": 25,
+        "cpu": 21,
+        "gpu": 34
+      },
+      {
+        "at": "2026-09-15T00:50:18-06:00",
+        "estimated": false,
+        "ram": 23,
+        "cpu": 2,
+        "gpu": 31
+      },
+      {
+        "at": "2026-09-15T01:05:18-06:00",
+        "estimated": false,
+        "ram": 24,
+        "cpu": 18,
+        "gpu": 33
+      },
+      {
+        "at": "2026-09-15T01:20:18-06:00",
+        "estimated": false,
+        "ram": 23,
+        "cpu": 8,
+        "gpu": 31
+      },
+      {
+        "at": "2026-09-15T01:35:19-06:00",
+        "estimated": false,
+        "ram": 26,
+        "cpu": 22,
+        "gpu": 33
+      },
+      {
+        "at": "2026-09-15T01:50:18-06:00",
+        "estimated": false,
+        "ram": 24,
+        "cpu": 6,
+        "gpu": 41
+      },
+      {
+        "at": "2026-09-15T02:05:18-06:00",
+        "estimated": false,
+        "ram": 26,
+        "cpu": 15,
+        "gpu": 40
+      },
+      {
+        "at": "2026-09-15T02:20:18-06:00",
+        "estimated": false,
+        "ram": 24,
+        "cpu": 1,
+        "gpu": 33
+      },
+      {
+        "at": "2026-09-15T02:35:19-06:00",
+        "estimated": false,
+        "ram": 26,
+        "cpu": 16,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-15T02:50:18-06:00",
+        "estimated": false,
+        "ram": 24,
+        "cpu": 0,
+        "gpu": 32
+      },
+      {
+        "at": "2026-09-15T03:05:19-06:00",
+        "estimated": false,
+        "ram": 26,
+        "cpu": 15,
+        "gpu": 32
+      },
+      {
+        "at": "2026-09-15T03:20:18-06:00",
+        "estimated": false,
+        "ram": 24,
+        "cpu": 6,
+        "gpu": 40
+      },
+      {
+        "at": "2026-09-15T03:35:19-06:00",
+        "estimated": false,
+        "ram": 26,
+        "cpu": 12,
+        "gpu": 40
+      },
+      {
+        "at": "2026-09-15T03:50:18-06:00",
+        "estimated": false,
+        "ram": 24,
+        "cpu": 9,
+        "gpu": 33
+      },
+      {
+        "at": "2026-09-15T04:05:18-06:00",
+        "estimated": false,
+        "ram": 26,
+        "cpu": 26,
+        "gpu": 33
+      },
+      {
+        "at": "2026-09-15T04:20:18-06:00",
+        "estimated": false,
+        "ram": 24,
+        "cpu": 9,
+        "gpu": 33
+      },
+      {
+        "at": "2026-09-15T04:35:18-06:00",
+        "estimated": false,
+        "ram": 26,
+        "cpu": 13,
+        "gpu": 33
+      },
+      {
+        "at": "2026-09-15T04:50:18-06:00",
+        "estimated": false,
+        "ram": 24,
+        "cpu": 7,
+        "gpu": 34
+      },
+      {
+        "at": "2026-09-15T05:05:19-06:00",
+        "estimated": false,
+        "ram": 26,
+        "cpu": 11,
+        "gpu": 42
+      },
+      {
+        "at": "2026-09-15T05:20:18-06:00",
+        "estimated": false,
+        "ram": 24,
+        "cpu": 4,
+        "gpu": 36
+      },
+      {
+        "at": "2026-09-15T05:35:19-06:00",
+        "estimated": false,
+        "ram": 25,
+        "cpu": 19,
+        "gpu": 38
+      },
+      {
+        "at": "2026-09-15T05:50:18-06:00",
+        "estimated": false,
+        "ram": 25,
+        "cpu": 5,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-15T06:05:19-06:00",
+        "estimated": false,
+        "ram": 26,
+        "cpu": 23,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-15T06:20:19-06:00",
+        "estimated": false,
+        "ram": 25,
+        "cpu": 4,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-15T06:35:19-06:00",
+        "estimated": false,
+        "ram": 25,
+        "cpu": 20,
+        "gpu": 45
+      },
+      {
+        "at": "2026-09-15T06:50:18-06:00",
+        "estimated": false,
+        "ram": 24,
+        "cpu": 5,
+        "gpu": 32
+      },
+      {
+        "at": "2026-09-15T07:05:19-06:00",
+        "estimated": false,
+        "ram": 26,
+        "cpu": 18,
+        "gpu": 39
+      },
+      {
+        "at": "2026-09-15T07:20:18-06:00",
+        "estimated": false,
+        "ram": 25,
+        "cpu": 4,
+        "gpu": 34
+      },
+      {
+        "at": "2026-09-15T07:35:19-06:00",
+        "estimated": false,
+        "ram": 28,
+        "cpu": 20,
+        "gpu": 38
+      }
+    ],
+    "ram": [
+      44,
+      43,
+      44,
+      43,
+      44,
+      43,
+      43,
+      43,
+      44,
+      43,
+      43,
+      42,
+      43,
+      42,
+      43,
+      43,
+      43,
+      42,
+      43,
+      42,
+      44,
+      43,
+      44,
+      42,
+      43,
+      42,
+      44,
+      44,
+      45,
+      44,
+      48,
+      46,
+      48,
+      47,
+      48,
+      44,
+      48,
+      43,
+      44,
+      43,
+      45,
+      44,
+      44,
+      43,
+      44,
+      44,
+      46,
+      48,
+      47,
+      39,
+      42,
+      42,
+      39,
+      38,
+      39,
+      38,
+      39,
+      40,
+      27,
+      27,
+      29,
+      24,
+      23,
+      24,
+      23,
+      24,
+      23,
+      25,
+      23,
+      24,
+      23,
+      26,
+      24,
+      26,
+      24,
+      26,
+      24,
+      26,
+      24,
+      26,
+      24,
+      26,
+      24,
+      26,
+      24,
+      26,
+      24,
+      25,
+      25,
+      26,
+      25,
+      25,
+      24,
+      26,
+      25,
+      28
+    ],
+    "cpu": [
+      21,
+      0,
+      10,
+      3,
+      13,
+      2,
+      2,
+      1,
+      12,
+      1,
+      13,
+      6,
+      34,
+      14,
+      16,
+      10,
+      22,
+      4,
+      17,
+      6,
+      26,
+      8,
+      30,
+      12,
+      25,
+      8,
+      38,
+      17,
+      28,
+      10,
+      25,
+      17,
+      20,
+      18,
+      16,
+      18,
+      35,
+      19,
+      15,
+      8,
+      19,
+      16,
+      13,
+      11,
+      26,
+      5,
+      11,
+      9,
+      12,
+      15,
+      18,
+      19,
+      17,
+      18,
+      25,
+      26,
+      21,
+      17,
+      19,
+      12,
+      5,
+      19,
+      2,
+      13,
+      8,
+      16,
+      10,
+      21,
+      2,
+      18,
+      8,
+      22,
+      6,
+      15,
+      1,
+      16,
+      0,
+      15,
+      6,
+      12,
+      9,
+      26,
+      9,
+      13,
+      7,
+      11,
+      4,
+      19,
+      5,
+      23,
+      4,
+      20,
+      5,
+      18,
+      4,
+      20
+    ],
+    "gpu": [
+      27,
+      30,
+      30,
+      29,
+      35,
+      29,
+      66,
+      28,
+      30,
+      28,
+      40,
+      39,
+      40,
+      38,
+      41,
+      40,
+      38,
+      39,
+      39,
+      38,
+      38,
+      39,
+      39,
+      39,
+      41,
+      38,
+      39,
+      36,
+      36,
+      35,
+      37,
+      39,
+      37,
+      36,
+      30,
+      38,
+      39,
+      37,
+      40,
+      37,
+      39,
+      34,
+      71,
+      37,
+      26,
+      38,
+      8,
+      23,
+      0,
+      33,
+      38,
+      10,
+      17,
+      8,
+      35,
+      38,
+      37,
+      19,
+      35,
+      29,
+      27,
+      33,
+      33,
+      40,
+      39,
+      42,
+      38,
+      34,
+      31,
+      33,
+      31,
+      33,
+      41,
+      40,
+      33,
+      39,
+      32,
+      32,
+      40,
+      40,
+      33,
+      33,
+      33,
+      33,
+      34,
+      42,
+      36,
+      38,
+      39,
+      39,
+      39,
+      45,
+      32,
+      39,
+      34,
+      38
+    ]
+  },
+  "weather": {
+    "summary": "Today 77 | Wind 2 to 10 mph | Mostly Sunny"
+  },
+  "capabilities": [
+    {
+      "id": "chat",
+      "label": "Local conversation",
+      "state": "proven",
+      "qa_pass": 18,
+      "qa_total": 18,
+      "version": "Chat v2",
+      "last_verified": "2026-08-26"
+    },
+    {
+      "id": "system_reader",
+      "label": "System awareness",
+      "state": "testing",
+      "qa_pass": 0,
+      "qa_total": 20,
+      "version": "Reader v0.1 \u00c2\u00b7 boundary GREEN",
+      "last_verified": "2026-08-27T13:44:13.3544609-06:00"
+    },
+    {
+      "id": "weather_reader",
+      "label": "Local weather",
+      "state": "planned",
+      "qa_pass": 0,
+      "qa_total": 10,
+      "version": null,
+      "last_verified": null
+    },
+    {
+      "id": "retrieval",
+      "label": "Knowledge and memory",
+      "state": "planned",
+      "qa_pass": 0,
+      "qa_total": 5,
+      "version": null,
+      "last_verified": null
+    },
+    {
+      "id": "file_actions",
+      "label": "Controlled actions",
+      "state": "locked",
+      "qa_pass": 0,
+      "qa_total": 6,
+      "version": null,
+      "last_verified": null
+    },
+    {
+      "id": "email",
+      "label": "Communications",
+      "state": "locked",
+      "qa_pass": 0,
+      "qa_total": 4,
+      "version": null,
+      "last_verified": null
+    },
+    {
+      "id": "windows_ui",
+      "label": "Windows interaction",
+      "state": "locked",
+      "qa_pass": 0,
+      "qa_total": 4,
+      "version": null,
+      "last_verified": null
+    }
+  ],
+  "progress": [
+    {
+      "id": "chat_qa",
+      "label": "Chat reliability",
+      "done": 18,
+      "total": 18
+    },
+    {
+      "id": "reader",
+      "label": "Reader senses",
+      "done": 0,
+      "total": 4
+    },
+    {
+      "id": "knowledge",
+      "label": "Knowledge",
+      "done": 0,
+      "total": 5
+    },
+    {
+      "id": "operator",
+      "label": "Operator",
+      "done": 0,
+      "total": 6
+    },
+    {
+      "id": "health_24h",
+      "label": "System health 24h",
+      "done": 0,
+      "total": 87
+    }
+  ],
+  "roadmap": {
+    "done": 1,
+    "total": 7,
+    "label": "Roadmap completion"
+  },
+  "build": [
+    {
+      "order": 1,
+      "id": "reader_e2e",
+      "label": "Prove System Reader E2E",
+      "state": "next",
+      "detail": "Real status question \u00e2\u2020\u2019 exactly one typed tool \u00e2\u2020\u2019 correct interpretation"
+    },
+    {
+      "order": 2,
+      "id": "reader_expand",
+      "label": "Expand Reader senses",
+      "state": "queued",
+      "detail": "Weather \u00e2\u2020\u2019 board \u00e2\u2020\u2019 self-check, one proven tool at a time"
+    },
+    {
+      "order": 3,
+      "id": "knowledge",
+      "label": "Knowledge retrieval",
+      "state": "queued",
+      "detail": "Curated local retrieval with evidence; read-only first"
+    },
+    {
+      "order": 4,
+      "id": "operator",
+      "label": "Controlled Operator",
+      "state": "queued",
+      "detail": "Typed allowlisted actions with validation, evidence, and rollback"
+    },
+    {
+      "order": 5,
+      "id": "skills",
+      "label": "High-value workflows",
+      "state": "queued",
+      "detail": "Skills built only on proven Reader, Knowledge, and Operator faculties"
+    },
+    {
+      "order": 6,
+      "id": "autonomy",
+      "label": "Autonomous promotion science",
+      "state": "queued",
+      "detail": "Candidate vs control benchmarks; self-improving, never self-authorizing"
+    }
+  ],
+  "activity": [
+    {
+      "at": "2026-09-15T07:35:19-06:00",
+      "component": "tick",
+      "event": "cycle",
+      "detail": "Health cycle",
+      "result": "fail"
+    },
+    {
+      "at": "2026-09-03T15:38:43-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 101484ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-09-03T15:38:40-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge idle: no CURRENT forge demand",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 99000
+    },
+    {
+      "at": "2026-09-03T15:37:01-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-09-03T14:38:42-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 100499ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-09-03T14:38:39-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge idle: no CURRENT forge demand",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 98000
+    },
+    {
+      "at": "2026-09-03T14:37:01-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-09-03T13:38:48-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 106313ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-09-03T13:38:45-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge idle: no CURRENT forge demand",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 104000
+    },
+    {
+      "at": "2026-09-03T13:37:01-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-09-03T12:38:43-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 101536ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-09-03T12:38:40-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge idle: no CURRENT forge demand",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 99000
+    },
+    {
+      "at": "2026-09-03T12:37:01-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-09-03T11:39:32-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 151160ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-09-03T11:39:30-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge idle: no CURRENT forge demand",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 149000
+    },
+    {
+      "at": "2026-09-03T11:37:01-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-09-03T10:38:41-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 100002ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-09-03T10:38:39-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge idle: no CURRENT forge demand",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 98000
+    },
+    {
+      "at": "2026-09-03T10:37:01-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-09-03T09:38:42-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 100564ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-09-03T09:38:40-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge idle: no CURRENT forge demand",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 99000
+    },
+    {
+      "at": "2026-09-03T09:37:01-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_start",
+      "detail": "Night Forge cycle",
+      "result": "",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-09-03T08:38:41-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Night Forge PASS 100078ms",
+      "result": "pass",
+      "task_id": "night-forge"
+    },
+    {
+      "at": "2026-09-03T08:38:39-06:00",
+      "source": "forge",
+      "component": "forge",
+      "event": "task_finish",
+      "detail": "Design Forge idle: no CURRENT forge demand",
+      "result": "pass",
+      "task_id": "design-forge",
+      "duration_ms": 98000
+    }
+  ],
+  "owl": {
+    "level": 1,
+    "state": "warning"
+  },
+  "sync": {
+    "last": "2026-09-15T23:13:55.1147499-06:00",
+    "source": "Kevin HQ Live Ops v1.4"
+  },
+  "self_check": {
+    "fails": 2,
+    "summary": "2 check(s) failed"
+  },
+  "autonomy": {
+    "mode": "hourly_design",
+    "state": "idle_no_eligible_demand",
+    "last_mission": "",
+    "iteration": null,
+    "updated_at": "2026-09-03T15:38:40.3091995-06:00",
+    "promotion": "blocked"
+  },
+  "diagnostics": {
+    "agent": "kevin-lab-qwen",
+    "model": "qwen2.5:14b",
+    "context": "8K",
+    "tools": 0,
+    "chat_qa": "18/18",
+    "noreply": 0,
+    "reader_boundary": "green",
+    "reader_visible_tools": 1,
+    "candidate_forge": {
+      "result": "idle_no_eligible_demand",
+      "mode": "design-forge-v3",
+      "last_mission": "",
+      "iteration": null,
+      "updated_at": "2026-09-03T15:38:40.3091995-06:00",
+      "next_index": null,
+      "scheduled": true,
+      "promotion": "blocked"
+    }
+  },
+  "ops_floor": {
+    "schema": 2,
+    "generated_at": "2026-09-15T23:13:55.1147499-06:00",
+    "source": "Kevin HQ Live Ops v1.5",
+    "expedition_active": false,
+    "forge_active": false,
+    "supervisor_active": false,
+    "benchmark_active": false,
+    "minecraft_active": false,
+    "primary": {
+      "id": "supervisor",
+      "name": "Supervisor",
+      "title": "Kevin autonomous system armed",
+      "category": "supervisor",
+      "state": "ready",
+      "detail": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
+      "what": "Waiting only for the next scheduled three-minute control cycle.",
+      "engine": "Supervisor v1.4",
+      "action": "Autonomous schedule armed"
+    },
+    "lanes": [
+      {
+        "id": "supervisor",
+        "name": "Supervisor",
+        "role": "Goal-aware control plane",
+        "state": "ready",
+        "detail": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
+        "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
+        "engine": "Supervisor v1.4",
+        "action": "Awaiting next 3-minute cycle"
+      },
+      {
+        "id": "benchmark",
+        "name": "Benchmark",
+        "role": "Regression + capability fitness",
+        "state": "ready",
+        "detail": "Cheap regression watchdog armed; heavy model suite remains resource-gated.",
+        "what": "Protects proven behavior and measures challenger quality.",
+        "engine": "Kevin Benchmark v1",
+        "action": "10-minute watchdog armed"
+      },
+      {
+        "id": "staging",
+        "name": "Staging",
+        "role": "Policy-gated champion archive",
+        "state": "ready",
+        "detail": "Isolated staging evidence exists; executable production promotion remains locked.",
+        "what": "Candidate -> Champion -> isolated staging. No staged code executes here.",
+        "engine": "Promotion policy v1",
+        "action": "Safe auto-staging"
+      }
+    ]
+  },
+  "execution": {
+    "running": false,
+    "state": "ready",
+    "phase": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
+    "worker": "Supervisor",
+    "engine": "Supervisor v1.4",
+    "action": "Autonomous schedule armed"
+  },
+  "newswire": [
+    {
+      "id": "live-ops",
+      "text": "Supervisor | READY | No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
+      "severity": "normal"
+    }
+  ],
+  "avatar": {
+    "mode": "working"
+  }
 }
