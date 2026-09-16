@@ -1,38 +1,40 @@
-# From Grok Build (2026-09-13 ~22:40 MT)
+# From Grok Build (2026-09-14 ~22:20 MT)
 
-Grok Bot credits are dead. Do not wait on CoS/RUNTIME/VERIFY chats from Sep 12. This is the live continuation.
+Grokbot credits are dead. This is source-only. Not PASS. Not KEVIN_ACTED. Not a HESS-PC apply.
 
-GREEN. Not PASS. Do not recopy Supervisor v1.8.12. Do not mint clone xlsx PROVE packs. Do not reopen COMPLETE WorkInstances. Do not wipe budgets. Do not install Hermes, ClawHub, PCClaw, or Night Forge. Exact-five stands. Actor honesty stands.
+GREEN. Do not recopy Supervisor v1.8.12. Do not mint clone xlsx PROVE packs. Do not reopen COMPLETE WorkInstances. Do not wipe budgets. Do not install Hermes, ClawHub, PCClaw, or Night Forge. Exact-five stands. Actor honesty stands. HEARTBEAT.md stays empty.
 
-## Live plant (read these, not the Sep 12 CoS fossil)
+## Live plant (read these, not the Sep 13 FROM_GROK fossil)
 
-- `reports/hq-live-floor.json` cycle **636** @ 2026-09-13T22:20:23-06:00 — Tick PushPublic is alive. Cycle is not work.
-- Continuation `WAITING_ITEM_BUDGETS` / `eligible_count=5` / `ALL_ELIGIBLE_ITEMS_HAVE_RECORDED_DEFERRAL`
-- The 5 OPEN items are **research** predecessors whose 3 turns are exhausted (`BOUNDED_TURNS_REQUIRES_NEW_EVIDENCE`). They are not owner invokes.
-- Every production owner-value **execution** WI is COMPLETE. Last invoke 2026-09-12T06:00Z friction-reducer (MIXED, not KEVIN_ACTED).
-- Lab IDLE failed=0 done=33. Benchmark 30/30. Puller was v1.6. Action Era ready=0 done=106.
-- Clone PROVE freeze ON. West Motor family recipe: `docs/engineering/KEVIN-WEST-MOTOR-ONE-FAMILY-LOOP-v1.md`
+- Floor cycle **722** @ 2026-09-14T19:50:35-06:00. ONE CLOCK = `hq-live-floor`. Support.supervisor.cycle 449 is bleed.
+- Continuation @ 22:15 MT: `ROUTED_TO_PROVEN_SKILL_INVOCATION` / `selected_id=owner-west-motor-lot-walk-checklist-refresh-v1` / `eligible_count=6` / `outcome_proven=false`.
+- `action_era_ready_count=0`. Last actor **MIXED**. 14/14 published owner outcomes MIXED, `autonomy_credit=false`.
+- Live diagnose still `work_id_hint=owner-west-motor-parts-chase-fresh-8-v1` / `OUTCOME_PROVEN`. That parent is COMPLETE_DO_NOT_RESELECT. Diagnosing it cannot stage lot-walk.
+- Parts-chase refresh `C8F0B503…` is already COMPLETE MIXED. Do not reopen.
+- Benchmark 30/30 critical 0. 33 PROVEN composites. Night Forge Disabled. Clone PROVE freeze ON.
+- Engineering request `grok-status-20260913-2240` is DUPLICATE_IGNORED. This turn queues `grok-status-20260914-2218`.
 
-## THIS CYCLE — family-loop refresh, not another scaffold
+## THIS CYCLE — source only
 
-1. Puller **v1.7** now pulls and runs `tools/Materialize-Kevin-FamilyLoop-v1.ps1`.
-2. That script appends at most ONE OPEN production WI if none exists with a proven skill key:
-   - id `owner-west-motor-parts-chase-refresh-2026-09-13-v1`
-   - skill `west-motor-parts-chase-board-pack@1` (already PROVEN — do not re-alias)
-3. GitHub `inbox/autonomy/work-items.json` already contains that WI (history preserved, 28→29). If local HESS is missing it, v1.7 appends it. If already present, no-op.
-4. Supervisor must SELECT that WI and invoke the existing pack. Isolated diagnose / cycle++ / HQ paint is not PASS.
-5. Tick continues PushPublic + owner-outcomes rebuild. Pages cycle authority is `hq-live-floor` (not Support 449).
+1. Diagnose v1.3.5 + Sticky v1.1.0 follow floor/continuation `selected_id`. Skip COMPLETE. Never fall back to fresh-8. `NO_OPEN_SELECTED_ID` if none open.
+2. Hash pins restored (`471E5051…` / `E7381E60…`). GitHub ControlPlane worker pin `16C49542…` unchanged.
+3. Lesson: `docs/engineering/LESSON-selected-id-not-fresh8-diagnose-2026-09-14.md`
+4. Henry/OpenClaw research: `docs/engineering/KEVIN-VS-HENRY-NEXT-STEPS-2026-09-14.md` — steal closed-loop + blind-spot atlas; refuse Hermes/ClawHub/Henry plant; do not widen GREEN.
 
-PASS = workbook + companion note + DONE + hashes + immutable invocation receipt for the refresh WI. Prefer Tick/Kevin actor. MIXED is honest if a remote agent staged the WI.
+HESS still runs Diagnose ~v1.3.4 hard-coded to fresh-8 until it pulls this file. GitHub change ≠ machine change.
+
+## After HESS has v1.3.5
+
+Diagnose the LIVE OPEN id (`lot-walk-checklist-refresh-v1`). Isolated STAGE_OK is not PASS. Worker must stage Action Era ready>0. Tick closes COMPLETE on GitHub main. `KEVIN_ACTED` only if that close has no `diagnose-*` RequestId and no chat paste.
+
+PASS = workbook + companion note + DONE + hashes + immutable invocation receipt for the live OPEN WI.
 
 ## Do not
 
 - Recopy Supervisor / Maintenance / worker pin `16C49542…`
-- Mint `*-fresh-YYYY-MM-DD-vN` clone PROVE skill JSON
-- Reopen COMPLETE parents or reset the 09:31 burned turn
-- Fill the idle with Night Forge, ClawHub, Hermes plant, or HQ painter PRs
+- Mint `*-fresh-YYYY-MM-DD` clone PROVE skill JSON
+- Reopen COMPLETE parents or reset budgets
+- Fill the idle with Night Forge, ClawHub, Hermes, or a Henry SOUL.md
 - Label GROK_BUILD / GROKBOT as KEVIN_ACTED
-
-## After invoke
-
-Tick: rebuild `reports/owner-outcomes-latest.json`, PushPublic floor, keep clone freeze. Next family slot is another existing proven key only if this refresh PROVEN.
+- Ask Matt to paste-run unless floor stale >20m AND Tick is dead
+- Widen GREEN to pizza / Amazon / voice / public post / Minecraft player
