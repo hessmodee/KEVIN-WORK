@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-16T11:59:40.0186492-06:00",
+  "generated_at": "2026-09-16T12:00:21-06:00",
   "status": "ready",
   "health": {
     "overall": "healthy",
@@ -10,15 +10,9 @@
     "name": "Qwen 2.5 14B",
     "mode": "Chat Fast",
     "context": "8K",
-    "tools": true
+    "tools": false
   },
-  "current_task": {
-    "title": "Growth: same_cycle PASS | idle_ms=0 kevin_owns=True matt_present=False | inventory=skip gui=2 | day_learn=skip_fresh | career=PASS CAREER PASS item=desktop_know mappe",
-    "phase": "Growth: same_cycle PASS | idle_ms=0 kevin_owns=True matt_present=False | inventory=skip gui=2 | day_learn=skip_fresh | career=PASS CAREER PASS item=desktop_know mappe",
-    "source": "now-doing",
-    "started_at": "2026-09-16T11:55:20.135372-06:00",
-    "actor": "KEVIN_TICK"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "unknown",
@@ -26,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 30,
-    "cpu_pct": 16,
+    "memory_pct": 28,
+    "cpu_pct": 13,
     "gpu": "RTX 3060",
-    "gpu_pct": 36
+    "gpu_pct": 0
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-14T08:20:15-06:00",
-        "estimated": false,
-        "ram": 42,
-        "cpu": 6,
-        "gpu": 39
-      },
       {
         "at": "2026-09-14T08:35:15-06:00",
         "estimated": false,
@@ -706,10 +693,16 @@
         "ram": 30,
         "cpu": 16,
         "gpu": 36
+      },
+      {
+        "at": "2026-09-16T12:00:21-06:00",
+        "estimated": false,
+        "ram": 28,
+        "cpu": 13,
+        "gpu": 0
       }
     ],
     "ram": [
-      42,
       43,
       42,
       43,
@@ -804,10 +797,10 @@
       29,
       30,
       30,
-      30
+      30,
+      28
     ],
     "cpu": [
-      6,
       34,
       14,
       16,
@@ -902,10 +895,10 @@
       6,
       8,
       11,
-      16
+      16,
+      13
     ],
     "gpu": [
-      39,
       40,
       38,
       41,
@@ -1000,11 +993,12 @@
       9,
       46,
       16,
-      36
+      36,
+      0
     ]
   },
   "weather": {
-    "summary": "Today 81 | Wind 3 to 9 mph | Sunny"
+    "summary": "Today 81 | Wind 5 to 9 mph | Sunny"
   },
   "capabilities": [
     {
@@ -1099,8 +1093,8 @@
     {
       "id": "health_24h",
       "label": "System health 24h",
-      "done": 0,
-      "total": 11
+      "done": 1,
+      "total": 12
     }
   ],
   "roadmap": {
@@ -1154,11 +1148,11 @@
   ],
   "activity": [
     {
-      "at": "2026-09-16T11:30:20-06:00",
+      "at": "2026-09-16T12:00:21-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
-      "result": "fail"
+      "result": "pass"
     },
     {
       "at": "2026-09-03T15:38:43-06:00",
@@ -1377,16 +1371,16 @@
     }
   ],
   "owl": {
-    "level": 4,
-    "state": "working"
+    "level": 1,
+    "state": "idle"
   },
   "sync": {
-    "last": "2026-09-16T11:59:40.0186492-06:00",
+    "last": "2026-09-16T12:00:21-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
     "fails": 0,
-    "summary": "plant up: Chat + Ollama + Tick"
+    "summary": "All checks passed"
   },
   "autonomy": {
     "mode": "hourly_design",
@@ -1483,8 +1477,5 @@
       "text": "Supervisor | READY | No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
       "severity": "normal"
     }
-  ],
-  "avatar": {
-    "mode": "working"
-  }
+  ]
 }
