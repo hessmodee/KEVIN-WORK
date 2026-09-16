@@ -205,7 +205,7 @@ function sortedActivity(){return[...(S?.activity||[])].sort((a,b)=>(parseAt(b.at
 function sortedBuild(){return[...(S?.build||[])].sort((a,b)=>Number(a.order||99)-Number(b.order||99))}
 function pulseSamples(){const p=S?.pulse||{};if(Array.isArray(p.samples))return p.samples.map(x=>({...x,_d:parseAt(x.at)})).filter(x=>x._d).sort((a,b)=>a._d-b._d);return[]}
 function avatarLevel(){return Math.max(1,Math.min(5,Number(S?.avatar?.level??S?.owl?.level??1)))}
-function isExecuting(){if(typeof S?.execution?.running==="boolean")return S.execution.running;const t=S?.current_task;if(!t)return false;const phase=String(t.phase||"");if(/yield|cooldown|prepar|wait|skip|queued|idle|armed/i.test(phase))return false;return true}function avatarMode(){if(freshness().disconnected)return"disconnected";if(S?.health?.overall!=="healthy")return"degraded";if(isExecuting())return"working";return"idle"}
+function isExecuting(){if(typeof S?.execution?.running==="boolean")return S.execution.running;const t=S?.current_task;if(!t)return false;const phase=String(t.phase||"");if(/yield|cooldown|prepar|wait|skip|queued|idle|armed/i.test(phase))return false;return true}function avatarMode(){if(freshness().disconnected)return"disconnected";const plant=S?.services?.gateway==="healthy"&&S?.services?.ollama==="healthy";if(!plant&&S?.health?.overall==="degraded")return"degraded";if(isExecuting()||S?.execution?.running)return"working";if(plant)return"working";return"idle"}
 function avatarSvg(level,mode,large=false){
   return `<div class="kevin-avatar ${large?"large":""} mode-${mode}" data-level="${level}" title="Kevin · evolution level ${level}">
   <svg viewBox="0 0 120 120" aria-label="Kevin owl avatar">
