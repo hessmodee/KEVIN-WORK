@@ -174,8 +174,9 @@ function renderKevinCenter(d,s,states){
  const sup=s?.supervisor||{},badge=document.getElementById('kevinState'),list=Array.isArray(states)?states:[states];
  badge.className='kevin-states';
  badge.innerHTML=list.map(st=>`<span class="loop state-${st}" style="--kstatec:${stateColor(st)}">${stateLabel(st)}</span>`).join('<span class="state-plus">+</span>');
- const mission=sup?.last_mission||'No mission selected',cycle=sup?.cycle??'—';
- document.getElementById('kevinMeta').innerHTML=`<div><b>Autonomy loop enabled</b> · cycle ${esc(cycle)}</div><div>${esc(mission)}${sup?.last_result?' · '+esc(sup.last_result):''}</div>`;
+ const mission=(d?.current_task&&d.current_task.title)||(d?.execution&&d.execution.phase)||sup?.last_mission||'Kevin Tick';
+ const cycle=d?.execution?.worker||'KevinTick';
+ document.getElementById('kevinMeta').innerHTML=`<div><b>KevinTick ladder</b> · ${esc(cycle)}</div><div>${esc(mission)}</div>`;
 }
 
 async function load(){
