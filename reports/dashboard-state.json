@@ -1,25 +1,18 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-16T00:55:41.6412050-06:00",
+  "generated_at": "2026-09-16T01:00:28-06:00",
   "status": "degraded",
   "health": {
     "overall": "degraded",
-    "failed_checks": 2
+    "failed_checks": 1
   },
   "brain": {
     "name": "Qwen 2.5 14B",
     "mode": "Chat Fast",
     "context": "8K",
-    "tools": true
+    "tools": false
   },
-  "current_task": {
-    "id": "supervisor",
-    "title": "Growth: same_cycle PASS | inventory=skip gui=5 | catalog=minecraft PASS | burst=paint/Pencil=True; notepad/Headings=True; paint/Fill=True | skill=operated+0 | minecra",
-    "category": "supervisor",
-    "phase": "Growth: same_cycle PASS | inventory=skip gui=5 | catalog=minecraft PASS | burst=paint/Pencil=True; notepad/Headings=True; paint/Fill=True | skill=operated+0 | minecra",
-    "started_at": "2026-09-16T00:55:24.7342208-06:00",
-    "source": "now-doing"
-  },
+  "current_task": null,
   "services": {
     "tick": "healthy",
     "bridge": "unknown",
@@ -27,22 +20,15 @@
     "gateway": "healthy"
   },
   "system": {
-    "memory_pct": 28,
-    "cpu_pct": 20,
+    "memory_pct": 30,
+    "cpu_pct": 11,
     "gpu": "RTX 3060",
-    "gpu_pct": 38
+    "gpu_pct": 37
   },
   "pulse": {
     "window": "24h",
     "sample_interval_minutes": 15,
     "samples": [
-      {
-        "at": "2026-09-14T05:35:14-06:00",
-        "estimated": false,
-        "ram": 44,
-        "cpu": 21,
-        "gpu": 27
-      },
       {
         "at": "2026-09-14T05:50:14-06:00",
         "estimated": false,
@@ -707,10 +693,16 @@
         "ram": 28,
         "cpu": 20,
         "gpu": 38
+      },
+      {
+        "at": "2026-09-16T01:00:28-06:00",
+        "estimated": false,
+        "ram": 30,
+        "cpu": 11,
+        "gpu": 37
       }
     ],
     "ram": [
-      44,
       43,
       44,
       43,
@@ -805,10 +797,10 @@
       24,
       26,
       25,
-      28
+      28,
+      30
     ],
     "cpu": [
-      21,
       0,
       10,
       3,
@@ -903,10 +895,10 @@
       5,
       18,
       4,
-      20
+      20,
+      11
     ],
     "gpu": [
-      27,
       30,
       30,
       29,
@@ -1001,11 +993,12 @@
       32,
       39,
       34,
-      38
+      38,
+      37
     ]
   },
   "weather": {
-    "summary": "Today 77 | Wind 2 to 10 mph | Mostly Sunny"
+    "summary": "Overnight 47 | Wind 5 mph | Partly Cloudy"
   },
   "capabilities": [
     {
@@ -1023,7 +1016,7 @@
       "state": "testing",
       "qa_pass": 0,
       "qa_total": 20,
-      "version": "Reader v0.1 \u00c2\u00b7 boundary GREEN",
+      "version": "Reader v0.1 \u00b7 boundary GREEN",
       "last_verified": "2026-08-27T13:44:13.3544609-06:00"
     },
     {
@@ -1101,7 +1094,7 @@
       "id": "health_24h",
       "label": "System health 24h",
       "done": 0,
-      "total": 87
+      "total": 28
     }
   ],
   "roadmap": {
@@ -1115,14 +1108,14 @@
       "id": "reader_e2e",
       "label": "Prove System Reader E2E",
       "state": "next",
-      "detail": "Real status question \u00e2\u2020\u2019 exactly one typed tool \u00e2\u2020\u2019 correct interpretation"
+      "detail": "Real status question \u2192 exactly one typed tool \u2192 correct interpretation"
     },
     {
       "order": 2,
       "id": "reader_expand",
       "label": "Expand Reader senses",
       "state": "queued",
-      "detail": "Weather \u00e2\u2020\u2019 board \u00e2\u2020\u2019 self-check, one proven tool at a time"
+      "detail": "Weather \u2192 board \u2192 self-check, one proven tool at a time"
     },
     {
       "order": 3,
@@ -1155,7 +1148,7 @@
   ],
   "activity": [
     {
-      "at": "2026-09-15T07:35:19-06:00",
+      "at": "2026-09-16T01:00:28-06:00",
       "component": "tick",
       "event": "cycle",
       "detail": "Health cycle",
@@ -1382,12 +1375,12 @@
     "state": "warning"
   },
   "sync": {
-    "last": "2026-09-16T00:55:41.6412050-06:00",
+    "last": "2026-09-16T01:00:28-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
-    "fails": 2,
-    "summary": "2 check(s) failed"
+    "fails": 1,
+    "summary": "1 check(s) failed"
   },
   "autonomy": {
     "mode": "hourly_design",
@@ -1419,7 +1412,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-16T00:55:41.6412050-06:00",
+    "generated_at": "2026-09-16T00:59:38.3448695-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1484,8 +1477,5 @@
       "text": "Supervisor | READY | No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
       "severity": "normal"
     }
-  ],
-  "avatar": {
-    "mode": "working"
-  }
+  ]
 }
