@@ -1,18 +1,24 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-16T11:36:35.6863192-06:00",
-  "status": "degraded",
+  "generated_at": "2026-09-16T11:37:39.5883851-06:00",
+  "status": "ready",
   "health": {
-    "overall": "degraded",
-    "failed_checks": 1
+    "overall": "healthy",
+    "failed_checks": 0
   },
   "brain": {
     "name": "Qwen 2.5 14B",
     "mode": "Chat Fast",
     "context": "8K",
-    "tools": false
+    "tools": true
   },
-  "current_task": null,
+  "current_task": {
+    "title": "Growth: same_cycle FAIL_WILL_RETRY | idle_ms=0 kevin_owns=True matt_present=False | inventory=skip gui=2 | day_learn=skip_fresh | catalog=IDLE_NO_UNKNOWN | burst=no_new_controls",
+    "phase": "Growth: same_cycle FAIL_WILL_RETRY | idle_ms=0 kevin_owns=True matt_present=False | inventory=skip gui=2 | day_learn=skip_fresh | catalog=IDLE_NO_UNKNOWN | burst=no_new_controls",
+    "source": "now-doing",
+    "started_at": "2026-09-16T11:37:39.932927-06:00",
+    "actor": "KEVIN_TICK"
+  },
   "services": {
     "tick": "healthy",
     "bridge": "unknown",
@@ -1371,16 +1377,16 @@
     }
   ],
   "owl": {
-    "level": 1,
-    "state": "warning"
+    "level": 4,
+    "state": "working"
   },
   "sync": {
-    "last": "2026-09-16T11:36:35.6863192-06:00",
+    "last": "2026-09-16T11:37:39.5883851-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
-    "fails": 1,
-    "summary": "1 check(s) failed"
+    "fails": 0,
+    "summary": "plant up: Chat + Ollama + Tick"
   },
   "autonomy": {
     "mode": "hourly_design",
@@ -1412,7 +1418,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-16T11:36:35.6863192-06:00",
+    "generated_at": "2026-09-16T11:37:39.5883851-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1477,5 +1483,8 @@
       "text": "Supervisor | READY | No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
       "severity": "normal"
     }
-  ]
+  ],
+  "avatar": {
+    "mode": "working"
+  }
 }
