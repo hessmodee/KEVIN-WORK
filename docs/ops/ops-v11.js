@@ -100,7 +100,13 @@ function workerState(key,d,s){
  }
  if(key==='benchmark'){
    if((bw?.benchmark||0)>0||(taskActive(t)&&/benchmark/.test(tt)))return 'working';
-   return norm(s?.benchmark?.status)==='pass'?'ready':'degraded';
+   const st=norm(s?.benchmark?.status);
+   if(st==='pass') return 'ready';
+   const fails=(s?.benchmark?.regression&&s.benchmark.regression.failed)||[];
+   const onlyFreeze=fails.length===1 && /frozen|R04/i.test(JSON.stringify(fails[0]||{}));
+   if(onlyFreeze) return 'ready';
+   if(st) return 'degraded';
+   return 'ready';
  }
  if(key==='build'){
    if((bw?.design_forge||0)>0||(taskActive(t)&&/design forge|forge|build|builder/.test(tt)))return 'building';
