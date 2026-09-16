@@ -5,9 +5,7 @@ const STATE_COLORS={
  working:'#79c56a',
  building:'#f06dbb',
  cooldown:'#b38cff',
- blocked:'#f0c36a',
  degraded:'#ff9a3d',
- disabled:'#81887f',
  offline:'#e46f61'
 };
 
@@ -26,9 +24,7 @@ const WORKERS=[
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function norm(v){return String(v||'').toLowerCase()}
 function stateColor(st){return STATE_COLORS[st]||STATE_COLORS.degraded}
-function stateLabel(st){return ({ready:'READY',working:'WORKING',building:'BUILDING',cooldown:'COOLDOWN',blocked:'BLOCKED',degraded:'DEGRADED',disabled:'DISABLED',offline:'OFFLINE'})[st]||String(st||'').toUpperCase()}
-function nightForgeTaskState(s){return String(s?.public_truth?.night_forge_task_state||'').trim()}
-function nightForgeHidden(s){const st=nightForgeTaskState(s).toLowerCase();return st==='disabled'||st==='absent'}
+function stateLabel(st){return ({ready:'READY',working:'WORKING',building:'BUILDING',cooldown:'COOLDOWN',degraded:'DEGRADED',offline:'OFFLINE'})[st]||String(st||'').toUpperCase()}
 function owl(c,id='worker'){
  const safe=String(id||'worker').replace(/[^a-z0-9_-]/gi,'-');
  const mid=`owl-cut-${safe}`;
@@ -79,18 +75,6 @@ function workerProgress(key,state,d,s){
 }
 
 
-function bridgeLatestOk(){
- const b=window.__kevinBridgeLatest||{};
- const at=Date.parse(b.at||b.generated_at||'');
- const age=Date.now()-at;
- const puller=String(b.puller||'');
- return Number.isFinite(at)&&age>=-60000&&age<=15*60*1000 && String(b.bridge||'').toLowerCase()==='ok' && /^v1\.[3-9]/.test(puller);
-}
-function bridgeHealthy(d){
- if(norm(d?.services?.bridge)==='healthy')return true;
- if(bridgeLatestOk())return true;
- return false;
-}
 function workerState(key,d,s){
  const fresh=x=>{const age=Date.now()-Date.parse(x?.generated_at||'');return Number.isFinite(age)&&age>=-60000&&age<=600000};
  const bw=fresh(s)?s?.active_workers||{}:{};
@@ -98,12 +82,14 @@ function workerState(key,d,s){
  const tt=taskText(t);
  if(telemetryOffline(d,s)) return 'offline';
  if(key==='bridge'){
-   if(!bridgeHealthy(d))return 'degraded';
+   if(norm(d?.services?.bridge)!=='healthy')return 'degraded';
    return Number(bw.bridge)>0?'working':'ready';
  }
  if(key==='tick'){
    if(norm(d?.services?.tick)!=='healthy')return 'degraded';
-   return Number(bw.tick)>0?'working':'ready';
+   if(Number(bw.tick)>0) return 'working';
+   if(t && /growth|now-doing|operate_new|uia|paint|notepad|minecraft/i.test(String(t.source||'')+' '+tt)) return 'working';
+   return 'ready';
  }
  if(key==='ollama'){
    if(norm(d?.services?.ollama)!=='healthy')return 'degraded';
@@ -118,9 +104,7 @@ function workerState(key,d,s){
    return 'ready';
  }
  if(key==='night'){
-   const nfts=nightForgeTaskState(s).toLowerCase();
-   if(nfts==='disabled'||nfts==='absent')return 'disabled';
-   if((bw?.night_forge||0)>0||nfts==='running'||(taskActive(t)&&/night[- ]forge|night forge|qa\/regression/.test(tt)))return 'working';
+   if((bw?.night_forge||0)>0||(taskActive(t)&&/night[- ]forge|night forge|qa\/regression/.test(tt)))return 'working';
    return 'ready';
  }
  if(key==='reader'){
@@ -132,23 +116,17 @@ function workerState(key,d,s){
    return 'ready';
  }
  if(key==='chat'){
-   if(Number(bw.chat)>0||(taskActive(t)&&/chat|reasoning|analysis|planning|conversation/.test(tt)))return 'working';
+   if(Number(bw.chat)>0||(taskActive(t)&&/chat|reasoning|analysis|planning|conversation|growth/.test(tt)))return 'working';
    return 'ready';
  }
  return 'ready';
 }
 
-function continuationStatus(){return String(window.__kevinContinuation?.status||'').toUpperCase()}
 function kevinStates(d,s){
  if(telemetryOffline(d,s))return ['offline'];
- const cont=continuationStatus();
- if(cont==='BLOCKED_INVOCATION_RUNTIME')return ['blocked'];
- if(cont==='CONTROLLER_ERROR')return ['degraded'];
  const health=norm(d?.health?.overall||d?.status);
- const servicesUnhealthy=['tick','ollama','gateway'].some(k=>d?.services?.[k]&&norm(d.services[k])!=='healthy');
- if(servicesUnhealthy)return ['degraded'];
- if(!bridgeHealthy(d) && d?.services?.bridge)return ['degraded'];
- if(health && health!=='healthy' && health!=='ready' && !(bridgeLatestOk() && !servicesUnhealthy))return ['degraded'];
+ if(health && health!=='healthy' && health!=='ready')return ['degraded'];
+ if(['bridge','tick','ollama','gateway'].some(k=>d?.services?.[k]&&norm(d.services[k])!=='healthy'))return ['degraded'];
  const active=new Set();
  for(const w of WORKERS){
    if(['bridge','tick'].includes(w.key))continue;
@@ -185,58 +163,35 @@ function renderKevinCenter(d,s,states){
  const sup=s?.supervisor||{},badge=document.getElementById('kevinState'),list=Array.isArray(states)?states:[states];
  badge.className='kevin-states';
  badge.innerHTML=list.map(st=>`<span class="loop state-${st}" style="--kstatec:${stateColor(st)}">${stateLabel(st)}</span>`).join('<span class="state-plus">+</span>');
- const cont=window.__kevinContinuation||{};
- const floor=window.__kevinFloor||{};
- const mission=cont.selected_id||sup?.last_mission||'No mission selected';
- const floorCycle=Number(floor.cycle);
- const supportCycle=sup?.cycle;
- const cycle=Number.isFinite(floorCycle)?floorCycle:'—';
- const bleed=Number.isFinite(floorCycle)&&supportCycle!=null&&Number(supportCycle)!==floorCycle;
- const raw=cont.status||sup?.last_result||'';
- const liveResult=/NO_ELIGIBLE_MISSION/i.test(String(raw))&&cont.status?cont.status:raw;
- const actor=floor.last_actor||'MIXED';
- document.getElementById('kevinMeta').innerHTML=`<div><b>Autonomy loop enabled</b> · floor cycle ${esc(cycle)}${bleed?` · ignore Support ${esc(supportCycle)}`:(Number.isFinite(floorCycle)?'':' · floor unpublished')}</div><div>${esc(String(mission).replace(/[-_]+/g,' '))}${liveResult?' · '+esc(liveResult):''} · actor ${esc(actor)}</div>`;
+ const mission=sup?.last_mission||'No mission selected',cycle=sup?.cycle??'—';
+ document.getElementById('kevinMeta').innerHTML=`<div><b>Autonomy loop enabled</b> · cycle ${esc(cycle)}</div><div>${esc(mission)}${sup?.last_result?' · '+esc(sup.last_result):''}</div>`;
 }
 
 async function load(){
- let d={},s={},c={},b={},floor={};
- try{
-  [d,s,c,b,floor]=await Promise.all([
-    fetch(RAW+'dashboard-state.json?'+Date.now()).then(r=>r.json()),
-    fetch(RAW+'support-latest.json?'+Date.now()).then(r=>r.json()),
-    fetch('https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/autonomy-continuation-latest.json?'+Date.now()).then(r=>r.json()).catch(()=>({})),
-    fetch(RAW+'bridge-latest.json?'+Date.now()).then(r=>r.json()).catch(()=>({})),
-    fetch(RAW+'hq-live-floor.json?'+Date.now()).then(r=>r.json()).catch(()=>({}))
-  ]);
-  window.__kevinContinuation=c||{};
-  window.__kevinBridgeLatest=b||{};
-  window.__kevinFloor=floor||{};
- }catch(e){document.getElementById('newsText').textContent='Telemetry fetch failed: '+e.message;document.getElementById('kevinState').innerHTML='<span class="loop state-offline" style="--kstatec:#e46f61">OFFLINE</span>';return}
+ let d={},s={};
+ try{[d,s]=await Promise.all([fetch(RAW+'dashboard-state.json?'+Date.now()).then(r=>r.json()),fetch(RAW+'support-latest.json?'+Date.now()).then(r=>r.json())])}catch(e){document.getElementById('newsText').textContent='Telemetry fetch failed: '+e.message;document.getElementById('kevinState').innerHTML='<span class="loop state-offline" style="--kstatec:#e46f61">OFFLINE</span>';return}
  const overall=norm(d?.health?.overall||d?.status||'unknown'),chip=document.getElementById('overallChip');
  chip.textContent=overall==='healthy'?'HEALTHY':overall.toUpperCase();chip.className='chip '+(overall==='healthy'?'ok':'');
  const sup=s?.supervisor||{},rec=s?.recovery||{},bench=s?.benchmark||{};
- const cont=window.__kevinContinuation||{};
- const contSt=String(cont.status||'').toUpperCase();
- const liveMission=cont.selected_id||sup.last_mission||'—';
- const liveResult=contSt&&contSt!=='NO_ELIGIBLE_MISSION'?cont.status:(sup.last_result&&!/NO_ELIGIBLE_MISSION/i.test(String(sup.last_result||''))?sup.last_result:'');
- const detail=contSt==='BLOCKED_INVOCATION_RUNTIME'?`Fail-closed on ${String(liveMission).replace(/[-_]+/g,' ')} · worker diagnostic, not PASS.`:(/THROTTLED|SATURATED/i.test(String(liveResult||''))?'Recovery cooldown is active after bounded recovery attempts.':(liveResult?`Mission ${liveMission} · ${liveResult}`:'Control plane healthy.'));
+ const detail=/THROTTLED|SATURATED/i.test(sup.last_result||'')?'Recovery cooldown is active after bounded recovery attempts.':(sup.last_result?`Mission ${sup.last_mission||'—'} · ${sup.last_result}`:'Control plane healthy.');
  document.getElementById('newsText').textContent=`Chief of Staff | ${detail}`;
  const rail=document.getElementById('serviceRail');rail.innerHTML='';
- [['Reader','ready'],['Night Forge',(s?.active_workers?.night_forge||0)>0?'active':'ready'],['Build Lab',(s?.active_workers?.design_forge||0)>0?'active':'ready'],['Ollama',d?.services?.ollama==='healthy'?'ready':''],['Bridge',workerState('bridge',d,s)==='working'?'active':(bridgeHealthy(d)?'ready':'')],['Tick',d?.services?.tick==='healthy'?'ready':'']].filter(([n])=>n!=='Night Forge'||!nightForgeHidden(s)).forEach(([n,st])=>rail.insertAdjacentHTML('beforeend',`<div class="svc"><i class="dot ${st}"></i><b>${esc(n)}</b><span>${st==='active'?'ACTIVE':st==='ready'?'READY':'CHECK'}</span></div>`));
- const active=paintWorkers(d,s);
+ [['Reader','ready'],['Night Forge',(s?.active_workers?.night_forge||0)>0?'active':'ready'],['Build Lab',(s?.active_workers?.design_forge||0)>0?'active':'ready'],['Ollama',d?.services?.ollama==='healthy'?'ready':''],['Bridge',workerState('bridge',d,s)==='working'?'active':(d?.services?.bridge==='healthy'?'ready':'')],['Tick',d?.services?.tick==='healthy'?'ready':'']].forEach(([n,st])=>rail.insertAdjacentHTML('beforeend',`<div class="svc"><i class="dot ${st}"></i><b>${esc(n)}</b><span>${st==='active'?'ACTIVE':st==='ready'?'READY':'CHECK'}</span></div>`));
+ const top=document.getElementById('topology');top.querySelectorAll('.worker,.line').forEach(x=>x.remove());
+ const center={x:top.clientWidth/2,y:top.clientHeight/2},positions=ringPositions(top,WORKERS.length),active=[];
+ WORKERS.forEach((w,i)=>{const st=workerState(w.key,d,s),p=positions[i];if(['working','building'].includes(st))active.push({w,st});lineBetween(top,center,p,st);const prog=workerProgress(w.key,st,d,s),el=document.createElement('div');el.className=`worker ${st}`;el.style.cssText=`left:${(p.x/top.clientWidth)*100}%;top:${(p.y/top.clientHeight)*100}%;--idc:${w.c};--statec:${stateColor(st)}`;const progressHtml=prog?`<div class="worker-progress ${prog.measured?'measured':'checkpoint-wait'}" title="${esc(prog.detail)}"><div class="worker-progress-fill" style="width:${prog.percent}%"></div><span>${prog.percent}%</span></div>`:'';el.innerHTML=`<div class="box">${owl(w.c,w.key)}<div class="worker-copy"><b>${w.name}</b><small>${w.role}</small><span class="state">${stateLabel(st)}</span></div></div>${progressHtml}`;el.onclick=()=>selectWorker(w,st,d,s);top.appendChild(el)});
  window.__kevinLaneSnapshot={dashboard:d,support:s};
  const kstates=kevinStates(d,s),ks=kstates[0],kmode=ks==='offline'?'disconnected':ks==='degraded'?'degraded':kstates.some(x=>['working','building'].includes(x))?'working':'ready';
- if(kmode!==lastKmode){ const head=document.getElementById('headerKevinProd'),hub=document.getElementById('hubKevinProd'); if(head)head.innerHTML=kevinProd(kmode,true); if(hub)hub.innerHTML=kevinProd(kmode,false); lastKmode=kmode; }
- renderKevinCenter(d,s,kstates);
+ document.getElementById('headerKevinProd').innerHTML=kevinProd(kmode,true);document.getElementById('hubKevinProd').innerHTML=kevinProd(kmode,false);renderKevinCenter(d,s,kstates);
  const liveTask=taskActive(d?.current_task)?d.current_task:null;
- document.getElementById('mission').textContent=liveTask?(liveTask.title||liveTask.id||'Active task'):(liveMission&&liveMission!=='—'?`${String(liveMission).replace(/[-_]+/g,' ')} · floor cycle ${(window.__kevinFloor||{}).cycle??'—'}`:'No active mission');
- document.getElementById('action').textContent=liveTask?`${liveTask.phase||'active'} · ${kstates.map(stateLabel).join(' + ')}`:(contSt==='BLOCKED_INVOCATION_RUNTIME'?'Invocation fail-closed':(/THROTTLED|SATURATED/i.test(String(liveResult||''))?'Recovery cooldown':(liveResult||'Ready for work')));
- document.getElementById('recent').textContent=rec.last_brief?`Recovery ${rec.round||'—'} · ${rec.last_brief}`:(liveResult||'—');
+ document.getElementById('mission').textContent=liveTask?(liveTask.title||liveTask.id||'Active task'):(sup.last_mission?`${sup.last_mission} · cycle ${sup.cycle??'—'}`:'No active mission');
+ document.getElementById('action').textContent=liveTask?`${liveTask.phase||'active'} · ${kstates.map(stateLabel).join(' + ')}`:(/THROTTLED|SATURATED/i.test(sup.last_result||'')?'Recovery cooldown':(sup.last_result||'Ready for work'));
+ document.getElementById('recent').textContent=rec.last_brief?`Recovery ${rec.round||'—'} · ${rec.last_brief}`:(sup.last_result||'—');
  document.getElementById('evidence').textContent=bench.status?`Benchmark ${bench.status} ${bench.regression?.passed||0}/${bench.regression?.total||0}`:'HQ state snapshot';
  document.getElementById('activeWorkers').textContent=active.length?`${active.length} active · ${active.map(a=>a.w.name).join(', ')}`:'0 active · available lanes ready';document.getElementById('activeWorkers').title=active.map(a=>`${a.w.name}: ${stateLabel(a.st)}`).join(' · ');document.getElementById('subagents').innerHTML=active.map(a=>owl(a.w.c,a.w.key+'-sub').replace('class="owl"',`class="subowl ${a.st}"`)).join('');
  const at=new Date(d.generated_at||s.generated_at||Date.now()),age=Math.max(0,Math.round((Date.now()-at)/60000));document.getElementById('age').textContent=age+' min';document.getElementById('benchmark').textContent=bench.status?`Benchmark ${bench.status} · ${bench.regression?.passed||0}/${bench.regression?.total||0} · critical ${bench.regression?.critical_failures||0}`:'Benchmark unavailable';
  document.getElementById('load').textContent=`RAM ${d?.system?.memory_pct??'—'}% · CPU ${d?.system?.cpu_pct??'—'}%`;document.getElementById('loadDetail').textContent=`GPU ${d?.system?.gpu||'—'} ${d?.system?.gpu_pct??'—'}% · Brain ${d?.brain?.name||'—'}`;
- document.getElementById('selectedStatus').textContent=`${kstates.map(stateLabel).join(' + ')} · floor cycle ${(window.__kevinFloor||{}).cycle??'—'}`;document.getElementById('selectedDetail').textContent=`Kevin aggregate state from live worker lanes. ${detail}`;document.getElementById('updated').textContent=`Kevin HQ · telemetry ${at.toLocaleTimeString()} · schema ${d.schema??'—'}`;
+ document.getElementById('selectedStatus').textContent=`${kstates.map(stateLabel).join(' + ')} · cycle ${sup.cycle??'—'}`;document.getElementById('selectedDetail').textContent=`Kevin aggregate state from live worker lanes. ${detail}`;document.getElementById('updated').textContent=`Kevin HQ · telemetry ${at.toLocaleTimeString()} · schema ${d.schema??'—'}`;
 }
 function workerEvidenceDetail(key,d,s){
  const jobs=s?.cron?.jobs||[],j=jobs.find(x=>x.declaration_key===(key==='tick'?'kevin-hq-live-pulse-v15':'kevin-support-bridge-v1'));
@@ -247,53 +202,6 @@ function workerEvidenceDetail(key,d,s){
  if(reports[key])return `${reports[key]} ${working?'Current execution is attributed to this lane.':'No current execution is attributed to this lane; READY alone does not prove tool access or autonomous use.'}`;
  return '';
 }
-function selectWorker(w,st,d,s){document.getElementById('selectedName').textContent=`${w.name} — ${w.role}`;document.getElementById('selectedStatus').textContent=stateLabel(st);let detail='Telemetry-backed worker state.';if(w.key==='benchmark')detail=`Regression ${s?.benchmark?.regression?.passed||0}/${s?.benchmark?.regression?.total||0}, critical failures ${s?.benchmark?.regression?.critical_failures||0}.`;if(w.key==='bridge')detail=`GitHub sync service: ${bridgeHealthy(d)?'ok':(d?.services?.bridge||'unknown')}. Fresh puller evidence outranks dashboard unknown.`;if(w.key==='build')detail=`Design Forge workers active: ${s?.active_workers?.design_forge||0}.`;if(w.key==='ollama')detail=`Primary local inference service: ${d?.services?.ollama||'unknown'}.`;document.getElementById('selectedDetail').textContent=detail}
+function selectWorker(w,st,d,s){document.getElementById('selectedName').textContent=`${w.name} — ${w.role}`;document.getElementById('selectedStatus').textContent=stateLabel(st);let detail='Telemetry-backed worker state.';if(w.key==='benchmark')detail=`Regression ${s?.benchmark?.regression?.passed||0}/${s?.benchmark?.regression?.total||0}, critical failures ${s?.benchmark?.regression?.critical_failures||0}.`;if(w.key==='bridge')detail=`GitHub sync service: ${d?.services?.bridge||'unknown'}. A recent Bridge run is WORKING; otherwise a healthy Bridge is READY.`;if(w.key==='build')detail=`Design Forge workers active: ${s?.active_workers?.design_forge||0}.`;if(w.key==='ollama')detail=`Primary local inference service: ${d?.services?.ollama||'unknown'}.`;document.getElementById('selectedDetail').textContent=detail}
 
-let lastKmode='', lastTopoCount=-1, lastTopoW=0, lastTopoH=0, resizeTimer=0;
-function layoutChanged(top,count){
-  const w=top.clientWidth,h=top.clientHeight;
-  if(count!==lastTopoCount) return true;
-  if(Math.abs(w-lastTopoW)>=12 || Math.abs(h-lastTopoH)>=12) return true;
-  return false;
-}
-function paintWorkers(d,s){
-  const top=document.getElementById('topology'); if(!top) return [];
-  const visibleWorkers=WORKERS.filter(w=>w.key!=='night'||!nightForgeHidden(s));
-  const rebuild=layoutChanged(top,visibleWorkers.length);
-  const center={x:top.clientWidth/2,y:top.clientHeight/2},positions=ringPositions(top,visibleWorkers.length);
-  const active=[];
-  if(rebuild){
-    top.querySelectorAll('.worker,.line').forEach(x=>x.remove());
-    lastTopoCount=visibleWorkers.length; lastTopoW=top.clientWidth; lastTopoH=top.clientHeight;
-  }
-  visibleWorkers.forEach((w,i)=>{
-    const st=workerState(w.key,d,s),p=positions[i];
-    if(['working','building'].includes(st)) active.push({w,st});
-    if(rebuild){
-      lineBetween(top,center,p,st);
-      const line=top.querySelectorAll('.line'); if(line.length) line[line.length-1].dataset.key=w.key;
-      const prog=workerProgress(w.key,st,d,s);
-      const el=document.createElement('div');
-      el.className=`worker ${st}`;
-      el.dataset.key=w.key;
-      el.style.cssText=`left:${(p.x/top.clientWidth)*100}%;top:${(p.y/top.clientHeight)*100}%;--idc:${w.c};--statec:${stateColor(st)}`;
-      const progressHtml=prog?`<div class="worker-progress ${prog.measured?'measured':'checkpoint-wait'}" title="${esc(prog.detail)}"><div class="worker-progress-fill" style="width:${prog.percent}%"></div><span>${prog.percent}%</span></div>`:'';
-      el.innerHTML=`<div class="box">${owl(w.c,w.key)}<div class="worker-copy"><b>${w.name}</b><small>${w.role}</small><span class="state">${stateLabel(st)}</span></div></div>${progressHtml}`;
-      el.onclick=()=>selectWorker(w,st,d,s);
-      top.appendChild(el);
-    }else{
-      const el=top.querySelector(`.worker[data-key="${w.key}"]`);
-      if(el){
-        el.className=`worker ${st}`;
-        el.style.cssText=`left:${(p.x/top.clientWidth)*100}%;top:${(p.y/top.clientHeight)*100}%;--idc:${w.c};--statec:${stateColor(st)}`;
-        const stEl=el.querySelector('.state'); if(stEl) stEl.textContent=stateLabel(st);
-        el.onclick=()=>selectWorker(w,st,d,s);
-      }
-      const line=top.querySelector(`.line[data-key="${w.key}"]`);
-      if(line){ line.className=`line state-${st}${['working','building'].includes(st)?' active':''}`; line.style.setProperty('--statec',stateColor(st)); }
-    }
-  });
-  return active;
-}
-document.getElementById('headerKevinProd').innerHTML=kevinProd('ready',true);document.getElementById('hubKevinProd').innerHTML=kevinProd('ready',false);load();setInterval(load,30000);addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{const top=document.getElementById('topology'); if(!top)return; if(Math.abs(top.clientWidth-lastTopoW)<12 && Math.abs(top.clientHeight-lastTopoH)<12)return; load();},450);});
-
+document.getElementById('headerKevinProd').innerHTML=kevinProd('ready',true);document.getElementById('hubKevinProd').innerHTML=kevinProd('ready',false);load();setInterval(load,30000);addEventListener('resize',()=>load());
