@@ -1,10 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-09-15T23:09:05.9193942-06:00",
-    "request":  null,
-    "status":  "FAILED",
-    "detail":  "GitHub GET failed: Get \"https://api.github.com/repos/hessmodee/KEVIN-WORK/contents/control-plane/orders/CURRENT.json?ref=kevin-control-plane-v1\": unexpected EOF",
+    "generated_at":  "2026-09-15T23:10:13.9041348-06:00",
+    "request":  {
+                    "id":  "bess-run-ui-watchdog-20260903-1102",
+                    "verb":  "run_typed_maintenance",
+                    "target":  "kevin-maintenance-v1"
+                },
+    "status":  "IDLE_TERMINAL",
+    "detail":  "Current work order is already terminal; awaiting replacement",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
