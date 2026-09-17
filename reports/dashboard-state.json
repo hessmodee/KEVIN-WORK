@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-17T07:55:20.192489-06:00",
+  "generated_at": "2026-09-17T07:55:41.0989320-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,11 +13,12 @@
     "tools": true
   },
   "current_task": {
-    "title": "Harness: g_excel_night PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\KEVIN-STATS.md",
-    "phase": "Harness: g_excel_night PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\KEVIN-STATS.md",
-    "source": "now-doing",
-    "started_at": "2026-09-17T07:55:20.192489-06:00",
-    "actor": "KEVIN_TICK"
+    "id": "kevin-tick",
+    "title": "g_excel_night PASS",
+    "category": "tick",
+    "phase": "ok lines=80",
+    "started_at": "2026-09-17T07:55:41.0989320-06:00",
+    "source": "hq-live-ops"
   },
   "services": {
     "tick": "healthy",
@@ -1381,7 +1382,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-09-17T07:54:41.0477419-06:00",
+    "last": "2026-09-17T07:55:41.0989320-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1418,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-17T07:54:41.0477419-06:00",
+    "generated_at": "2026-09-17T07:55:41.0989320-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1428,13 +1429,13 @@
     "primary": {
       "id": "kevin-tick",
       "name": "Kevin Tick",
-      "title": "cur_morning PASS",
+      "title": "g_excel_night PASS",
       "category": "tick",
       "state": "working",
-      "detail": "ok morning C:\\Users\\hessm\\OneDrive\\Desktop\\KEVIN-MORNING.md",
+      "detail": "ok lines=80",
       "what": "Harness jobs + plant keep-alive. Supervisor scheduled task is Disabled.",
       "engine": "KevinTick PT5M + kevin-harness.py",
-      "action": "cur_morning PASS"
+      "action": "g_excel_night PASS"
     },
     "lanes": [
       {
@@ -1472,16 +1473,16 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "Harness: g_excel_night PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\KEVIN-STATS.md",
-    "worker": "KevinTick",
-    "engine": "same-cycle growth",
-    "action": "Harness: g_excel_night PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\KEVIN-STATS.md"
+    "phase": "ok lines=80",
+    "worker": "Kevin Tick",
+    "engine": "KevinTick PT5M + kevin-harness.py",
+    "action": "g_excel_night PASS"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Harness: g_excel_night PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\KEVIN-STATS.md",
-      "severity": "success"
+      "text": "Kevin Tick | WORKING | ok lines=80",
+      "severity": "normal"
     }
   ],
   "avatar": {
