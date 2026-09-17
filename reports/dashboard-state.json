@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-17T10:26:12.7244392-06:00",
+  "generated_at": "2026-09-17T10:30:12.8026131-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -14,10 +14,10 @@
   },
   "current_task": {
     "id": "kevin-tick",
-    "title": "g_process_ports PASS",
+    "title": "g_fs_workspace PASS",
     "category": "tick",
-    "phase": "ok 19001 pid=11720 name=node\n18789 pid=27256 name=node\n11434 pid=4224 name=ollama",
-    "started_at": "2026-09-17T10:26:12.7244392-06:00",
+    "phase": "ok dirs=232",
+    "started_at": "2026-09-17T10:30:12.8026131-06:00",
     "source": "hq-live-ops"
   },
   "services": {
@@ -1382,7 +1382,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-09-17T10:26:12.7244392-06:00",
+    "last": "2026-09-17T10:30:12.8026131-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-17T10:26:12.7244392-06:00",
+    "generated_at": "2026-09-17T10:30:12.8026131-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1429,13 +1429,13 @@
     "primary": {
       "id": "kevin-tick",
       "name": "Kevin Tick",
-      "title": "g_process_ports PASS",
+      "title": "g_fs_workspace PASS",
       "category": "tick",
       "state": "working",
-      "detail": "ok 19001 pid=11720 name=node\n18789 pid=27256 name=node\n11434 pid=4224 name=ollama",
+      "detail": "ok dirs=232",
       "what": "Harness jobs + plant keep-alive. Supervisor scheduled task is Disabled.",
       "engine": "KevinTick PT5M + kevin-harness.py",
-      "action": "g_process_ports PASS"
+      "action": "g_fs_workspace PASS"
     },
     "lanes": [
       {
@@ -1473,15 +1473,15 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "ok 19001 pid=11720 name=node\n18789 pid=27256 name=node\n11434 pid=4224 name=ollama",
+    "phase": "ok dirs=232",
     "worker": "Kevin Tick",
     "engine": "KevinTick PT5M + kevin-harness.py",
-    "action": "g_process_ports PASS"
+    "action": "g_fs_workspace PASS"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Kevin Tick | WORKING | ok 19001 pid=11720 name=node\n18789 pid=27256 name=node\n11434 pid=4224 name=ollama",
+      "text": "Kevin Tick | WORKING | ok dirs=232",
       "severity": "normal"
     }
   ],
