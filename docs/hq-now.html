@@ -39,7 +39,7 @@ const RAW='https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/'
 async function j(name){try{const r=await fetch(RAW+name+'?'+Date.now());if(!r.ok)return null;return r.json()}catch(e){return null}}
 function pill(ok,label){return `<div class="card"><b>${label}</b><span class="pill ${ok?'ok':'bad'}">${ok?'UP':'DOWN'}</span></div>`}
 async function load(){
-  const [now,lad,hb,d]=await Promise.all([j('now-doing.json'),j('ladder-latest.json'),j('tick-heartbeat.json'),j('dashboard-state.json')]);
+  const [now,lad,hb,d,har]=await Promise.all([j('now-doing.json'),j('ladder-latest.json'),j('tick-heartbeat.json'),j('dashboard-state.json'),j('harness-latest.json')]);
   const chat=!!(now&&now.chat_18789)||d?.services?.gateway==='healthy';
   const ollama=!!(now&&now.ollama_11434)||d?.services?.ollama==='healthy';
   const tickAge=hb&&hb.at? (Date.now()-Date.parse(hb.at))/1000 : 99999;
@@ -53,7 +53,7 @@ async function load(){
     pill(chat,'Chat 18789')+pill(ollama,'Ollama / Qwen3')+pill(tickOk,'Tick')+
     `<div class="card"><b>Ladder</b><span class="pill ${st==='PASS'||st==='STUDYING'?'ok':'work'}">${st}</span></div>`+
     `<div class="card"><b>Item</b>${(lad&&lad.item)||'—'}</div>`;
-  const doing=(lad?(lad.item+' '+lad.status+' | '+(lad.title||lad.detail||'')):null)||(now&&now.doing)||'No ladder file';
+  const doing=(har?(har.task+' '+har.status+' score='+har.score+' | '+(har.artifact||har.note||'')):null)||(lad?(lad.item+' '+lad.status+' | '+(lad.title||lad.detail||'')):null)||(now&&now.doing)||'No harness file';
   document.getElementById('doing').textContent=doing;
 }
 load(); setInterval(load,15000);
