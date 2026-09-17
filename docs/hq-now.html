@@ -33,13 +33,12 @@ iframe{display:block;width:100%;height:min(78vh,980px);border:0;background:trans
   <div class="doing" id="doing">Loading live Tick…</div>
   <p class="note">Plant = Chat 18789 + Ollama + Tick. Legacy Supervisor “no eligible mission” / cycle budgets / R04 config-frozen are <b>not</b> Kevin-down. Growth is the clock.</p>
 </div>
-<iframe title="Kevin Ops Floor" src="./ops/embed.html?v=20"></iframe>
 <script>
 const RAW='https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/reports/';
 async function j(name){try{const r=await fetch(RAW+name+'?'+Date.now());if(!r.ok)return null;return r.json()}catch(e){return null}}
 function pill(ok,label){return `<div class="card"><b>${label}</b><span class="pill ${ok?'ok':'bad'}">${ok?'UP':'DOWN'}</span></div>`}
 async function load(){
-  const [now,g,hb,d]=await Promise.all([j('now-doing.json'),j('growth-latest.json'),j('tick-heartbeat.json'),j('dashboard-state.json')]);
+  const [now,lad,hb,d]=await Promise.all([j('now-doing.json'),j('ladder-latest.json'),j('tick-heartbeat.json'),j('dashboard-state.json')]);
   const chat=!!(now&&now.chat_18789)||d?.services?.gateway==='healthy';
   const ollama=!!(now&&now.ollama_11434)||d?.services?.ollama==='healthy';
   const tickAge=hb&&hb.at? (Date.now()-Date.parse(hb.at))/1000 : 99999;
@@ -47,12 +46,13 @@ async function load(){
   const plant=chat&&ollama&&tickOk;
   document.getElementById('plant').className='pill '+(plant?'ok':'bad');
   document.getElementById('plant').textContent=plant?'PLANT UP':'PLANT ISSUE';
-  document.getElementById('actor').textContent=(now&&now.actor)||(g&&g.actor)||'UNKNOWN';
+  document.getElementById('actor').textContent=(lad&&lad.actor)||(now&&now.actor)||'UNKNOWN';
+  const st=(lad&&lad.status)||'NONE';
   document.getElementById('ports').innerHTML=
-    pill(chat,'Chat 18789')+pill(ollama,'Ollama')+pill(tickOk,'Tick '+(Number.isFinite(tickAge)?Math.round(tickAge)+'s':'?'))+
-    `<div class="card"><b>Growth</b><span class="pill ${g&&g.status==='PASS'?'ok':(g?'work':'bad')}">${(g&&g.status)||'NONE'}</span></div>`+
-    `<div class="card"><b>Operated</b>${(g&&g.operated_count)||0} controls</div>`;
-  const doing=(now&&now.doing)||(g&&(g.item+' '+g.status+' '+(g.detail||'')))||'No growth file';
+    pill(chat,'Chat 18789')+pill(ollama,'Ollama / Qwen3')+pill(tickOk,'Tick')+
+    `<div class="card"><b>Ladder</b><span class="pill ${st==='PASS'||st==='STUDYING'?'ok':'work'}">${st}</span></div>`+
+    `<div class="card"><b>Item</b>${(lad&&lad.item)||'—'}</div>`;
+  const doing=(lad?(lad.item+' '+lad.status+' | '+(lad.title||lad.detail||'')):null)||(now&&now.doing)||'No ladder file';
   document.getElementById('doing').textContent=doing;
 }
 load(); setInterval(load,15000);
