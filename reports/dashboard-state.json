@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-17T08:15:20.126924-06:00",
+  "generated_at": "2026-09-17T08:15:48.0569748-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,11 +13,12 @@
     "tools": true
   },
   "current_task": {
-    "title": "Harness: g_hw_disk PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\reports\\hw-disk.txt",
-    "phase": "Harness: g_hw_disk PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\reports\\hw-disk.txt",
-    "source": "now-doing",
-    "started_at": "2026-09-17T08:15:20.126924-06:00",
-    "actor": "KEVIN_TICK"
+    "id": "kevin-tick",
+    "title": "g_hw_disk PASS",
+    "category": "tick",
+    "phase": "ok Name         Used          Free\n----         ----          ----\nC    373661167616  125092954112\nD       138080256 1000063959040",
+    "started_at": "2026-09-17T08:15:48.0569748-06:00",
+    "source": "hq-live-ops"
   },
   "services": {
     "tick": "healthy",
@@ -1381,7 +1382,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-09-17T08:14:48.0716813-06:00",
+    "last": "2026-09-17T08:15:48.0569748-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1418,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-17T08:14:48.0716813-06:00",
+    "generated_at": "2026-09-17T08:15:48.0569748-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1428,13 +1429,13 @@
     "primary": {
       "id": "kevin-tick",
       "name": "Kevin Tick",
-      "title": "g_hw_ram PASS",
+      "title": "g_hw_disk PASS",
       "category": "tick",
       "state": "working",
-      "detail": "ok Manufacturer              : HP\nModel                     : OMEN 25L Desktop GT12-0xxx\nRAM_GB                    : 31.9\nNumberOfLogicalProcessors : 16",
+      "detail": "ok Name         Used          Free\n----         ----          ----\nC    373661167616  125092954112\nD       138080256 1000063959040",
       "what": "Harness jobs + plant keep-alive. Supervisor scheduled task is Disabled.",
       "engine": "KevinTick PT5M + kevin-harness.py",
-      "action": "g_hw_ram PASS"
+      "action": "g_hw_disk PASS"
     },
     "lanes": [
       {
@@ -1472,16 +1473,16 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "Harness: g_hw_disk PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\reports\\hw-disk.txt",
-    "worker": "KevinTick",
-    "engine": "same-cycle growth",
-    "action": "Harness: g_hw_disk PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\reports\\hw-disk.txt"
+    "phase": "ok Name         Used          Free\n----         ----          ----\nC    373661167616  125092954112\nD       138080256 1000063959040",
+    "worker": "Kevin Tick",
+    "engine": "KevinTick PT5M + kevin-harness.py",
+    "action": "g_hw_disk PASS"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Harness: g_hw_disk PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\reports\\hw-disk.txt",
-      "severity": "success"
+      "text": "Kevin Tick | WORKING | ok Name         Used          Free\n----         ----          ----\nC    373661167616  125092954112\nD       138080256 1000063959040",
+      "severity": "normal"
     }
   ],
   "avatar": {
