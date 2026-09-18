@@ -1,10 +1,10 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-17T20:18:12.1533502-06:00",
+  "generated_at": "2026-09-17T20:20:18.116964-06:00",
   "status": "working",
   "health": {
-    "overall": "degraded",
-    "failed_checks": 1
+    "overall": "healthy",
+    "failed_checks": 0
   },
   "brain": {
     "name": "Qwen 2.5 14B",
@@ -13,18 +13,17 @@
     "tools": true
   },
   "current_task": {
-    "id": "kevin-tick",
-    "title": "g_pcclaw_files PASS",
-    "category": "tick",
-    "phase": "ok matt",
-    "started_at": "2026-09-17T20:18:12.1533502-06:00",
-    "source": "hq-live-ops"
+    "title": "Harness: g_pcclaw_files PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\KEVIN-FILES.md",
+    "phase": "Harness: g_pcclaw_files PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\KEVIN-FILES.md",
+    "source": "now-doing",
+    "started_at": "2026-09-17T20:20:18.116964-06:00",
+    "actor": "KEVIN_TICK"
   },
   "services": {
     "tick": "healthy",
     "bridge": "unknown",
     "ollama": "healthy",
-    "gateway": "unhealthy"
+    "gateway": "healthy"
   },
   "system": {
     "memory_pct": 29,
@@ -1379,15 +1378,15 @@
   ],
   "owl": {
     "level": 4,
-    "state": "degraded"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-09-17T20:18:12.1533502-06:00",
+    "last": "2026-09-17T20:19:35.7047559-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
-    "fails": 1,
-    "summary": "plant down"
+    "fails": 0,
+    "summary": "plant up: Chat + Ollama + Tick"
   },
   "autonomy": {
     "mode": "hourly_design",
@@ -1419,7 +1418,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-17T20:18:12.1533502-06:00",
+    "generated_at": "2026-09-17T20:19:35.7047559-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1473,19 +1472,19 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "ok matt",
-    "worker": "Kevin Tick",
-    "engine": "KevinTick PT5M + kevin-harness.py",
-    "action": "g_pcclaw_files PASS"
+    "phase": "Harness: g_pcclaw_files PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\KEVIN-FILES.md",
+    "worker": "KevinTick",
+    "engine": "same-cycle growth",
+    "action": "Harness: g_pcclaw_files PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\KEVIN-FILES.md"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Kevin Tick | WORKING | ok matt",
-      "severity": "normal"
+      "text": "Harness: g_pcclaw_files PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\KEVIN-FILES.md",
+      "severity": "success"
     }
   ],
   "avatar": {
-    "mode": "degraded"
+    "mode": "working"
   }
 }
