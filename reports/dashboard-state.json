@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-18T13:55:25.3805641-06:00",
+  "generated_at": "2026-09-18T14:00:25.4772243-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -14,10 +14,10 @@
   },
   "current_task": {
     "id": "kevin-tick",
-    "title": "g_matt_index PASS",
+    "title": "g_failures_promote PASS",
     "category": "tick",
-    "phase": "ok files=462",
-    "started_at": "2026-09-18T13:55:25.3805641-06:00",
+    "phase": "ok n=5",
+    "started_at": "2026-09-18T14:00:25.4772243-06:00",
     "source": "hq-live-ops"
   },
   "services": {
@@ -1382,7 +1382,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-09-18T13:55:25.3805641-06:00",
+    "last": "2026-09-18T14:00:25.4772243-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-18T13:55:25.3805641-06:00",
+    "generated_at": "2026-09-18T14:00:25.4772243-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1429,13 +1429,13 @@
     "primary": {
       "id": "kevin-tick",
       "name": "Kevin Tick",
-      "title": "g_matt_index PASS",
+      "title": "g_failures_promote PASS",
       "category": "tick",
       "state": "working",
-      "detail": "ok files=462",
+      "detail": "ok n=5",
       "what": "Harness jobs + plant keep-alive. Supervisor scheduled task is Disabled.",
       "engine": "KevinTick PT5M + kevin-harness.py",
-      "action": "g_matt_index PASS"
+      "action": "g_failures_promote PASS"
     },
     "lanes": [
       {
@@ -1473,15 +1473,15 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "ok files=462",
+    "phase": "ok n=5",
     "worker": "Kevin Tick",
     "engine": "KevinTick PT5M + kevin-harness.py",
-    "action": "g_matt_index PASS"
+    "action": "g_failures_promote PASS"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Kevin Tick | WORKING | ok files=462",
+      "text": "Kevin Tick | WORKING | ok n=5",
       "severity": "normal"
     }
   ],
