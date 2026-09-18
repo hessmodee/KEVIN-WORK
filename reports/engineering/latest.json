@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-18T09:42:48.5547700-06:00",
+    "generated_at":  "2026-09-18T09:44:37.1451343-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
-                    "id":  "",
-                    "operation":  "",
-                    "status":  "FETCH_ERROR",
-                    "detail":  "gh.exe : Get \"https://api.github.com/repos/hessmodee/KEVIN-WORK/contents/inbox/engineering/request.json\": unexpected   EOF  At ~\\.openclaw\\workspace\\kevin-engineering-relay.ps1:89 char:15  +         $out=(\u0026 $gh @Arguments 2\u003e\u00261|Out-String).Trim()  +               ~~~~~~~~~~~~~~~~~~~~~      + CategoryInfo          : NotSpecified: (Get \"https://ap... unexpected EOF:String) [], RemoteException      + FullyQualifiedErrorId : NativeCommandError"
+                    "id":  "grok-status-20260913-2240",
+                    "operation":  "action_status",
+                    "status":  "REJECTED",
+                    "detail":  "request created_at too old"
                 },
     "result":  {
 
@@ -27,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  0.9
+                                     "heartbeat_age_seconds":  2.9
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -75,6 +75,13 @@
                                     "consecutive_errors":  0
                                 },
                                 {
+                                    "declaration_key":  "kevin-support-bridge-v1",
+                                    "enabled":  true,
+                                    "every_ms":  180000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
                                     "declaration_key":  "kevin-supervisor-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
@@ -85,13 +92,6 @@
                                     "declaration_key":  "kevin-maintenance-intake-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
-                                    "declaration_key":  "kevin-support-bridge-v1",
-                                    "enabled":  true,
-                                    "every_ms":  180000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
