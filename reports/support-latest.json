@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-17T23:30:29.7769802-06:00",
+    "generated_at":  "2026-09-17T23:37:42.9740864-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -54,14 +54,73 @@
                        "explicit_owner_adoption":  true
                    },
     "cron":  {
-                 "ok":  false,
+                 "ok":  true,
                  "jobs":  [
-
+                              {
+                                  "id":  "88a986b2-9ab8-4fe7-a738-d7e52930b1d5",
+                                  "declaration_key":  "kevin-support-bridge-v1",
+                                  "name":  "Kevin Support Bridge v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  180000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1789709411859,
+                                  "next_run_at_ms":  1789709857424
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1789709288929,
+                                  "next_run_at_ms":  1789709862424
+                              },
+                              {
+                                  "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
+                                  "declaration_key":  "kevin-hq-live-pulse-v15",
+                                  "name":  "Kevin HQ Live Pulse v1.5",
+                                  "enabled":  true,
+                                  "every_ms":  60000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1789709835768,
+                                  "next_run_at_ms":  1789709895768
+                              },
+                              {
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.6 High Gear",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1789709852450,
+                                  "next_run_at_ms":  1789710152450
+                              },
+                              {
+                                  "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
+                                  "declaration_key":  "kevin-benchmark-v1",
+                                  "name":  "Kevin Benchmark v1.1c",
+                                  "enabled":  true,
+                                  "every_ms":  600000,
+                                  "last_status":  "error",
+                                  "last_run_status":  "error",
+                                  "consecutive_errors":  60,
+                                  "last_run_at_ms":  1789708627383,
+                                  "next_run_at_ms":  1789712238959
+                              }
                           ],
-                 "error":  "Config warnings:"
+                 "error":  ""
              },
     "supervisor":  {
-                       "cycle":  845,
+                       "cycle":  449,
                        "last_mission":  "",
                        "last_result":  "NO_ELIGIBLE_MISSION",
                        "next_eligible_at":  "2026-09-01T21:32:49.0537454-06:00",
@@ -133,6 +192,5 @@
                          "drive_interim":  null,
                          "grants_budget_unlock":  null
                      },
-    "semantic_hash":  "0EE7B81E0BCCFD2FC996DADCB238C33656D609339EDF05E5F881568071BC117D",
-    "cycle_authority":  "hq-live-floor"
+    "semantic_hash":  "DB995F8419AA56CF2A3BBD6FCBE031F6A8C8F9E6BD9BF461A11FED878247A040"
 }
