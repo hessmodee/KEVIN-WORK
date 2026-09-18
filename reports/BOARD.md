@@ -1,46 +1,46 @@
-# Kevin board 2026-09-17 21:30
+# Kevin board 2026-09-17 22:01
 
 ## self-check.md
-# Self-check 2026-09-17 21:30
+# Self-check 2026-09-17 22:01
 - PASS: ollama - 11434
-- PASS: gateway - 18789
+- FAIL: gateway - 18789
 - PASS: daily-note - C:\Users\hessm\.openclaw\workspace\memory\2026-09-17.md
 - PASS: write-proof - OK-WRITE
 - PASS: weather-83263.md - C:\Users\hessm\.openclaw\workspace\reports\weather-83263.md
 - PASS: morning-brief-2026-09-17.md - C:\Users\hessm\.openclaw\workspace\reports\morning-brief-2026-09-17.md
 - PASS: BOARD.md - C:\Users\hessm\.openclaw\workspace\reports\BOARD.md
-- PASS: github-bridge - age_min=2.2 pull=None publish=None bridge=ok
-fails: 0
+- PASS: github-bridge - age_min=1.5 pull=None publish=None bridge=ok
+fails: 1
 
 
 ## system-status.md
-# System status 2026-09-17 21:30
+# System status 2026-09-17 22:01
 Host: HESS-PC
 User: hessm
-RAM used: 10.6 GB
+RAM used: 10.1 GB
 RAM total: 31.9 GB
-RAM load: 33%
-CPU load: 4%
+RAM load: 31%
+CPU load: 13%
 GPU: NVIDIA GeForce RTX 3060
-VRAM used: 6373 MB
+VRAM used: 1138 MB
 VRAM total: 12288 MB
-GPU utilization: 0%
-C: free 94.6 GB
+GPU utilization: 4%
+C: free 93.5 GB
 Ollama: running
-Gateway: open
+Gateway: closed
 
 
 ## weather-83263.md
-# Weather 83263 - 2026-09-17 21:30
+# Weather 83263 - 2026-09-17 22:00
 
 Preston, ID
 Tonight 50
-Wind 3 to 7 mph
+Wind 6 mph
 Scattered Showers And Thunderstorms
 
 
 ## context-latest.md
-# Context 2026-09-17 21:30 America/Boise
+# Context 2026-09-17 22:00 America/Boise
 Place: Preston, Idaho 83263
 
 ## Alerts
@@ -53,17 +53,17 @@ None active.
 
 
 ## morning-brief-2026-09-17.md
-# Morning brief 2026-09-17 21:30 America/Boise
+# Morning brief 2026-09-17 22:01 America/Boise
 
 Place: Preston, Idaho 83263
 
 ## Weather
 
-# Weather 83263 - 2026-09-17 21:30
+# Weather 83263 - 2026-09-17 22:00
 
 Preston, ID
 Tonight 50
-Wind 3 to 7 mph
+Wind 6 mph
 Scattered Showers And Thunderstorms
 
 ## Note
