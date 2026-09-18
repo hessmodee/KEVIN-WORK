@@ -1,10 +1,10 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-17T22:24:19.0140328-06:00",
+  "generated_at": "2026-09-17T22:25:31.8480188-06:00",
   "status": "working",
   "health": {
-    "overall": "degraded",
-    "failed_checks": 1
+    "overall": "healthy",
+    "failed_checks": 0
   },
   "brain": {
     "name": "Qwen 2.5 14B",
@@ -14,17 +14,17 @@
   },
   "current_task": {
     "id": "kevin-tick",
-    "title": "g_west_motor_lookup PASS",
+    "title": "g_west_action_one PASS",
     "category": "tick",
-    "phase": "ok s9=30 s10=15",
-    "started_at": "2026-09-17T22:24:19.0140328-06:00",
+    "phase": "ok one",
+    "started_at": "2026-09-17T22:25:31.8480188-06:00",
     "source": "hq-live-ops"
   },
   "services": {
     "tick": "healthy",
     "bridge": "unknown",
     "ollama": "healthy",
-    "gateway": "unhealthy"
+    "gateway": "healthy"
   },
   "system": {
     "memory_pct": 29,
@@ -1379,15 +1379,15 @@
   ],
   "owl": {
     "level": 4,
-    "state": "degraded"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-09-17T22:24:19.0140328-06:00",
+    "last": "2026-09-17T22:25:31.8480188-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
-    "fails": 1,
-    "summary": "plant down"
+    "fails": 0,
+    "summary": "plant up: Chat + Ollama + Tick"
   },
   "autonomy": {
     "mode": "hourly_design",
@@ -1419,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-17T22:24:19.0140328-06:00",
+    "generated_at": "2026-09-17T22:25:31.8480188-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1429,13 +1429,13 @@
     "primary": {
       "id": "kevin-tick",
       "name": "Kevin Tick",
-      "title": "g_west_motor_lookup PASS",
+      "title": "g_west_action_one PASS",
       "category": "tick",
       "state": "working",
-      "detail": "ok s9=30 s10=15",
+      "detail": "ok one",
       "what": "Harness jobs + plant keep-alive. Supervisor scheduled task is Disabled.",
       "engine": "KevinTick PT5M + kevin-harness.py",
-      "action": "g_west_motor_lookup PASS"
+      "action": "g_west_action_one PASS"
     },
     "lanes": [
       {
@@ -1473,19 +1473,19 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "ok s9=30 s10=15",
+    "phase": "ok one",
     "worker": "Kevin Tick",
     "engine": "KevinTick PT5M + kevin-harness.py",
-    "action": "g_west_motor_lookup PASS"
+    "action": "g_west_action_one PASS"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Kevin Tick | WORKING | ok s9=30 s10=15",
+      "text": "Kevin Tick | WORKING | ok one",
       "severity": "normal"
     }
   ],
   "avatar": {
-    "mode": "degraded"
+    "mode": "working"
   }
 }
