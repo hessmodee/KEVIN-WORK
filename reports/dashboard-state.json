@@ -1,10 +1,10 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-17T23:30:35.724869-06:00",
-  "status": "working",
+  "generated_at": "2026-09-17T23:35:25.454391-06:00",
+  "status": "degraded",
   "health": {
-    "overall": "healthy",
-    "failed_checks": 0
+    "overall": "degraded",
+    "failed_checks": 1
   },
   "brain": {
     "name": "Qwen 2.5 14B",
@@ -16,14 +16,14 @@
     "title": "Harness: g_failures_to_skill PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\skills\\kevin-avoid\\SKILL.md",
     "phase": "Harness: g_failures_to_skill PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\skills\\kevin-avoid\\SKILL.md",
     "source": "now-doing",
-    "started_at": "2026-09-17T23:30:35.724869-06:00",
+    "started_at": "2026-09-17T23:35:25.454391-06:00",
     "actor": "KEVIN_TICK"
   },
   "services": {
     "tick": "healthy",
     "bridge": "unknown",
     "ollama": "healthy",
-    "gateway": "healthy"
+    "gateway": "unhealthy"
   },
   "system": {
     "memory_pct": 29,
@@ -1378,15 +1378,15 @@
   ],
   "owl": {
     "level": 4,
-    "state": "working"
+    "state": "degraded"
   },
   "sync": {
-    "last": "2026-09-17T23:30:20.4619975-06:00",
+    "last": "2026-09-17T23:31:20.4366846-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
-    "fails": 0,
-    "summary": "plant up: Chat + Ollama + Tick"
+    "fails": 1,
+    "summary": "plant down"
   },
   "autonomy": {
     "mode": "hourly_design",
@@ -1418,7 +1418,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-17T23:30:20.4619975-06:00",
+    "generated_at": "2026-09-17T23:31:20.4366846-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1471,7 +1471,7 @@
   },
   "execution": {
     "running": true,
-    "state": "working",
+    "state": "degraded",
     "phase": "Harness: g_failures_to_skill PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\skills\\kevin-avoid\\SKILL.md",
     "worker": "KevinTick",
     "engine": "same-cycle growth",
@@ -1485,6 +1485,6 @@
     }
   ],
   "avatar": {
-    "mode": "working"
+    "mode": "degraded"
   }
 }
