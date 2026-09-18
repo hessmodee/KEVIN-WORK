@@ -2,7 +2,7 @@
 
 > **THIS IS THE ONE CURRENT HANDOVER FOR KEVIN.** Do not create a competing dated handover. Update the source task/evidence and let the canonical handover refresh replace stale state.
 
-**Semantic checkpoint evidence through:** 2026-09-04T08:11:22.6164083-06:00  
+**Semantic checkpoint evidence through:** 2026-09-17T23:24:33.6144201-06:00  
 **Canonical repository:** `hessmodee/KEVIN-WORK` / `main`  
 **Machine twin:** `reports/handoff-latest.json` (not a second authority)
 
@@ -15,19 +15,6 @@ Any replacement AI — ChatGPT, ChatGPT Work, Grok, Grok Build, Grokbot, Kevin, 
 - Kevin HQ: https://hessmodee.github.io/KEVIN-WORK/handover.html
 
 If an agent cannot access one route, use another. Matt should never need to reconstruct the build from chat history.
-
-## Live plant (2026-09-16 22:30 America/Boise)
-
-This supersedes stale “exact-five / heartbeat 0m / 30/30 benchmark” *runtime* claims below until those reports are regenerated.
-
-- **Chat:** `127.0.0.1:18789` — OpenClaw 2026.7.1-2, model **qwen3:14b** (fallback qwen2.5:14b). Reader 19001. Ollama 11434.
-- **Clocks:** KevinTick **PT5M** (`kevin-tick.ps1` → ladder jobs-until-artifact). OpenClaw **heartbeat 30m** (Finn-style LLM wake). `HEARTBEAT.md` must contain `You are Kevin` or the wake is skipped. Tick rewrites HEARTBEAT.md every run.
-- **This is Kevin's PC.** Chrome = `kevin-chrome-open.ps1` with `--profile-directory="Profile 9"` (space). Bare chrome.exe opens profile picker or `http://0.0.0.9/`.
-- **Never Tick-launch:** Grok Bot.exe, Cursor, VS Code, Terminal, Outlook (Matt identity).
-- **Do not:** clawhub install, Chat exec, spend money, post as Matt. OpenClaw 9.4 upgrade playbook: `docs/engineering/OPENCLAW-UPGRADE-5PM-2026-09-17.md` (not tonight).
-- **HQ:** https://hessmodee.github.io/KEVIN-WORK/ `hq-core-v7.html?v=21` + ops embed v=21. Supervisor idle is not plant-down.
-- **Self-repair:** only `workspace/tools/kevin-*.ps1`.
-- **Disabled tasks:** NightForge, Supervisor, SkillLab, CurrentTaskWatcher, Self-Reliance Watchdog.
 
 ## Absolute continuity rules
 
@@ -42,15 +29,15 @@ This supersedes stale “exact-five / heartbeat 0m / 30/30 benchmark” *runtime
 
 ## Automatic semantic snapshot
 
-- Engineering evidence at checkpoint: `2026-09-04T08:11:22.6164083-06:00`
-- Support evidence at checkpoint: `2026-09-04T08:08:58.1926179-06:00`
-- Autonomy evidence at checkpoint: `2026-09-04T08:10:08.8770973-06:00`
-- Benchmark: **PASS — 30/30, critical 0**
-- UI Bridge health at checkpoint: **FRESH** (age then: 1.1 seconds)
-- Maintenance: **NO_MANIFEST** — No maintenance proposal is waiting.
+- Engineering evidence at checkpoint: `2026-09-17T23:24:33.6144201-06:00`
+- Support evidence at checkpoint: `2026-09-17T23:18:13.1839502-06:00`
+- Autonomy evidence at checkpoint: `2026-09-17T23:16:54.9479955-06:00`
+- Benchmark: **FAIL_CRITICAL_REGRESSION — 29/30, critical 1**
+- UI Bridge health at checkpoint: **UNKNOWN** (age then: None seconds)
+- Maintenance: **EXPIRED_IDLE** — Expired canonical manifest refused without scheduler failure.
 - Supervisor last result: **NO_ELIGIBLE_MISSION**
-- Proven composite skills: **12**
-- Installed Maintenance identity reported by Support: `DFF72850E1BBBB2E18397AF38EB593E7234EEB634B596A4651F4537A688B77A9`
+- Proven composite skills: **33**
+- Installed Maintenance identity reported by Support: `3E11C429D4540DBD5C4F6F7AD60AA1729D2C0A78D7DA209E76F196654589C261`
 
 The builder runs after `main` changes and on a ten-minute reconciliation schedule, but it writes a new checkpoint only when turnover-relevant semantic state changes. Heartbeat timestamps alone do not move `main`. Incoming agents still read fresh runtime reports directly.
 
@@ -64,150 +51,162 @@ The block below is pulled from `inbox/CURRENT_TASK.md`. That file is an executio
 
 # CURRENT_TASK
 
-**Updated:** 2026-09-04 07:44 MT  
-**Role:** current execution contract only. `AI-HANDOVER.md` remains the one human canonical handover.
+> **LAYER / READER / DAILY LOOP:** Do not replace or truncate this file. Write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only. This file is the Extreme Autonomy Flywheel execution contract.
 
-## Owner objective
+**Updated:** 2026-09-14 17:55 MT
+**Status:** Parts-chase refresh is **PROVEN / MIXED** and **COMPLETE_DO_NOT_RESELECT**. Supervisor selected `owner-west-motor-lot-walk-checklist-refresh-v1` (`west-motor-lot-walk-checklist-pack@1`). Continuation is `BLOCKED_INVOCATION_RUNTIME` — fail-closed, not PASS. HQ leftover 449 widgets are a Pages bind/cache defect (floor is the clock). Tick close-loop is source-mirrored. Not KEVIN_ACTED.
 
-Build Kevin into a truthful, persistent, useful local AI coworker/operator that can self-heal, self-maintain, self-improve, learn and produce owner value whenever its qualified runtime is available, while preserving evidence, rollback and authority boundaries.
+Fresh correlated HESS-PC runtime evidence outranks prose. Canonical handover remains `AI-HANDOVER.md`. Local/free Ollama remains the default unless a task-specific eval proves a different model is needed. Exact-five desktop policy remains intentional. Do not reset continuation history, work items, mission leases, Forge history, qualification history, or failure evidence.
 
-Current owner-value domains include dealership vehicle work/reconditioning, vehicle diagnosis and repair research, Cache Valley Appliance Repair planning, creator/business development, organization, and future bounded computer/game assistance.
+**Architecture:** `docs/engineering/KEVIN-AUTONOMY-EXECUTION-PLAN-v3.md`
+**Current production-skill milestone:** `docs/engineering/KEVIN-PROVEN-SKILL-INVOCATION-v1.md`
+**BOM lesson:** `docs/engineering/LESSON-builder-work-items-utf8-bom-2026-09-10.md`
+**Uniqueness lesson:** `docs/engineering/LESSON-builder-work-item-not-unique-2026-09-10.md`
+**Proof-pin lesson:** `docs/engineering/LESSON-invocation-powershell-proof-pin-2026-09-10.md`
+**Sticky RequestId lesson:** `docs/engineering/LESSON-sticky-invoke-requestid-2026-09-11.md`
+**One-clock lesson:** `docs/engineering/LESSON-one-clock-floor-cycle-authority-2026-09-11.md`
+**Live audit:** `docs/engineering/KEVIN-AUDIT-AND-GAMEPLAN-2026-09-10.md`
 
-## Operating loop
+## Owner strategic directive - maximum bounded autonomy
 
-`OBSERVE -> DIAGNOSE -> PLAN -> EXECUTE -> VERIFY -> RECOVER -> RECORD -> LEARN -> CONTINUE`
+Kevin shall continuously reduce dependence on Bess, Grok Build/GrokBot, or another outside engineer for routine diagnosis, repair, coding, research, skill construction and execution.
 
-When no higher-priority direct owner mission is active, select the highest-value due GREEN work Kevin can actually execute. Treat blocked owner work as work: identify and pursue the smallest safe missing prerequisite rather than pretending to be busy or falsely reporting idle.
+Permanent loop:
 
-## 2026-09-04 Grok engineering shift directive
+`SENSE -> REFLECT -> SELECT -> PLAN -> RESOLVE CAPABILITY -> ACT -> VERIFY -> LEARN -> RESUME`
 
-Grok is authorized by Matt to take the engineering reins for several hours and push Kevin hard within the existing bounded authority model. Work from fresh HESS-PC evidence, not assumptions. Repair first, then build, then prove. Do not create a second handover/status narrative.
+Every outside-engineer intervention should leave behind a Kevin-owned diagnostic, test, failure-family entry, repair recipe, reusable skill, invocation path or automation so the same intervention class trends toward zero.
 
-**Mandatory continuity rule:** every direct HESS-PC change Grok makes must be mapped back into durable Kevin evidence so the next engineer can reconstruct exactly what happened. `AI-HANDOVER.md` remains the one canonical human handover; update its source inputs/evidence rather than creating `GROK-HANDOVER`, `SHIFT-NOTES`, or another competing current-status file.
+Standing growth doctrine: **Self-heal. Self-maintain. Self-improve. Resume the owner objective.** Do not weaken truth, safety, authority, rollback, independent verification, idempotency or evidence requirements to create activity.
 
-For each direct HESS-PC change, record enough evidence to reconstruct and reverse it:
+Target maturity is **T4 for routine bounded work**. T4 does not mean unrestricted authority.
 
-- local timestamp in America/Boise and actor;
-- mission/component and owner value;
-- exact local file path, service, scheduled task, config, plugin or application touched;
-- before state/version/hash where available;
-- exact change/action performed, with secrets/credentials redacted;
-- after state/version/hash where available;
-- test performed and actual observed postcondition;
-- rollback/backout method and backup/checkpoint location;
-- repository parity path/commit/PR when the local change has a source counterpart, or an explicit reason it is intentionally local-only;
-- remaining blocker/risk and next safe step.
+## Current live platform truth
 
-A local production change that is not represented in durable evidence is **UNKNOWN on handback** and must not be treated as trusted merely because an AI says it happened. Repository/CI proof is not live-machine proof.
+- Floor (`reports/hq-live-floor.json`) is the **one clock**. `cycle_authority: hq-live-floor`. `support_cycle_is_not_authority: true`. HQ widgets must paint floor cycle. Support.supervisor.cycle (historically stuck at 449) is bleed — never the clock, even when it later syncs up to floor.
+- `owner-west-motor-parts-chase-refresh-2026-09-13-v1` is **COMPLETE / blocked=true / COMPLETE_DO_NOT_RESELECT** on GitHub main. Receipt `C8F0B503C0EB3DCAF4250A9BF2E655475BEEC8E87B4AA21CC32BA96FF49A556D`. Actor **MIXED**. `autonomy_credit=false`.
+- `owner-west-motor-lot-walk-checklist-refresh-v1` is **OPEN**. Supervisor already selected it. Continuation `BLOCKED_INVOCATION_RUNTIME`. Invoke-contract fields now match the PROVEN parent (`production_effect: NONE`, `skill_sha256`, `evidence_pointers`). Do **not** attach empty `vehicles: []` — the lot-walk skill ships its own spreadsheet steps.
+- Owner outputs on HESS (Action Era, already written): `Kevin-West-Motor-Parts-Chase-Fictional-8 (57).xlsx` and `Kevin-West-Motor-Parts-Chase-Fictional-8-Note (55).md`.
+- `owner-west-motor-parts-chase-fresh-8-v1` stays COMPLETE. Do not reopen it. 33 composite skills are proven.
+- Supervisor **v1.8.12** (`F17F4B0A…`) is independently proven. Do **not** recopy it. Hash-pinned selector `52EADBCA…`. GitHub ControlPlane invoke-worker pin stays `16C49542…`.
+- Maintenance v1.3.55 is installed/proven (`3E11C429…`). Do not repeat the runner install.
+- Night Forge scheduled task is **Disabled**. Leave it disabled.
+- Clone PROVE freeze HARD_STOP. Do not mint `*-fresh-YYYY-MM-DD` or new xlsx PROVE aliases.
+- Bridge UNKNOWN on public main means the HESS `bridge-latest.json` was not refreshed — do not invent a healthy bridge.
+- Exact-five desktop policy remains intentional. Do not install PCClaw / ClawHub / Hermes.
+- The AI-agent access bridge is this public repo. Do not invent a remote shell. Do not puppeteer HESS (no Start-ScheduledTask unless floor stale >20 min AND Tick is dead).
 
-### Required end-of-shift reconciliation before Grok hands back
+## THIS CYCLE — Tick is the close+publish clock; HQ paints floor only
 
-1. Refresh/publish Support and Engineering snapshots and verify their timestamps are current.
-2. Re-run or verify fresh Benchmark **PASS 30/30, critical 0**.
-3. Verify HQ truth/current-state gates and Pages deployment after any HQ change.
-4. Report exact scheduler health, active workers, Supervisor selection, Skill Lab queue/proven count, and any live mission lease/checkpoint state.
-5. Report the exact effective tool inventory visible to `fixed:main`; do not infer it from source files.
-6. Reconcile every HESS-PC change against repository source and durable receipts; identify any drift explicitly.
-7. Update this execution contract only for material priority/state changes and let the canonical handover generator reconcile `AI-HANDOVER.md`.
-8. State the next safe engineering move and any item that still requires Matt/owner approval.
+1. Tick pulse: sync GitHub `inbox/autonomy/work-items.json` → local.
+2. Reconcile official RUNNING/OPEN `invoke-owner-*` against `reports/invocations/done` PROVEN receipts.
+3. COMPLETE matching WIs on GitHub main (`COMPLETE_DO_NOT_RESELECT`).
+4. Rebuild `reports/owner-outcomes-latest.json` from done receipts (MIXED, autonomy_credit=false).
+5. `Publish-Kevin-HqLiveFloor-v1.ps1 -PushPublic` — matching done receipt wins over Supervisor ROUTED status. Floor `selected_id` should follow the live OPEN lot-walk refresh, not the closed parts-chase row.
+6. HQ Pages paint `hq-live-floor.json` only. Cycle widget = floor. Last owner attempt = `floor.last_invoke_completed_at` / outcomes newest (today's MIXED refresh), never the Sep 11 fresh-8 fixture. Support 449 labeled bleed. GROKBOT_ACTED scaffold hidden unless `floor.scaffold.active === true`.
+7. Family-loop: at most one OPEN refresh of an already-PROVEN key. Lot-walk refresh is already OPEN — do not mint another.
 
-Never store secrets, tokens, passwords, seed phrases, API keys or private credentials in the repository or handover.
+Source-mirror (so a reimage cannot lose the wire):
 
-## Resolved / proven in the 2026-09-04 max repair pass
+- `tools/Tick-CloseInvocationLoop-v1.ps1`
+- `tools/kevin-tick.ps1` (close-loop BEFORE `helper_append_daily_note.py`)
+- `tools/Install-Kevin-Tick-CloseLoopHook-v1.ps1`
 
-These are **not open blockers unless fresher machine evidence regresses them**:
+Next HESS Tick (not this chat) syncs+closes without a chat paste. Do not Start-ScheduledTask.
 
-1. **Benchmark baseline:** HESS-PC evidence remains PASS 30/30, critical 0.
-2. **Engineering Relay intake:** root cause was contract mismatch. The live Relay reads only `inbox/engineering/request.json`; this is codified in `inbox/engineering/README.md` and canonical requests are being consumed successfully.
-3. **Dealer Vehicle Recon:** composite skill is PROVEN and replayable through GREEN `create_spreadsheet` + `create_text`.
-4. **Vehicle Diagnostic Research Pack:** composite skill completed successfully and is PROVEN/replayable. Fresh Engineering evidence raised the proven composite count to **11**.
-5. **HQ source architecture:** production wrapper was reduced from six overlays to four; duplicate owner-refinement and decorative polling layers were retired/deleted; duplicate hidden handover UI was removed; service-worker cache generation was advanced; `docs/HQ-TRUTH-CONTRACT.md` defines source ownership, freshness and truthful WORKING/BLOCKED/IDLE semantics.
-6. **HQ regression gate:** CI enforces the four-layer truth-first architecture, five owner views, mobile access, stale-evidence protection and no duplicate handover layer.
-7. **Handover consolidation:** `README.md` and `KEVIN-START-HERE.md` are pointers, not competing status documents. `AI-HANDOVER.md` is the only human current handover; machine receipts remain evidence, not second narrative authorities.
-8. **Production Crossing v2 candidate:** a YELLOW source-only contract and tests exist for exactly two protected future operations: install the four-tool Kevin Desktop v0.1 surface, and retire only the legacy `KevinNightForge` scheduled task. CI proves the candidate validator; it has ZERO production effect and grants no new authority.
-9. **HQ cross-lane truth repair:** owner Command must count Skill Lab running/ready/blocked work in global state, not only Supervisor/dashboard workers. A fail-closed source repair + regression assertion was launched during this shift; Grok must verify the resulting HQ gate/Pages deployment before treating it as complete.
+## Highest-priority execution sequence
 
-## Current P0 blockers — pursue in this order
+### 1. Lot-walk family-loop refresh — NOW (Supervisor + Action Era, not chat)
 
-### P0.1 — fixed:main still has no usable production tools
+`owner-west-motor-lot-walk-checklist-refresh-v1` is OPEN on main. Continuation currently `BLOCKED_INVOCATION_RUNTIME` (fail-closed). Resume that WI:
 
-Fresh dashboard/full-autonomy evidence still shows `fixed:main` with zero effective tools / `tools:false`.
+- Required skill: `west-motor-lot-walk-checklist-pack@1` (already PROVEN, skill_sha256 `DB708B98…`).
+- If invoke fails, record the family and resume the original WI. Do not wipe budgets. Do not reopen COMPLETE parents.
+- PASS requires workbook + note + DONE + hashes + immutable receipt. Cycle++, HQ READY, STAGE_OK, model text, and this prompt are not PASS.
 
-The reviewed Kevin Desktop source is not installed production merely because source and CI exist. Target effective inventory remains exactly:
+Actor honesty: this pack is **KEVIN_ACTED** only if Tick + Supervisor + Action Era close with no diagnose-* RequestId. Today's parts-chase refresh stays **MIXED**.
 
-- `kevin_system_status`
-- `kevin_desktop_find_folder`
-- `kevin_desktop_open_folder`
-- `kevin_app_launch`
+### 2. Capability-aware Supervisor execution — STANDING
 
-Next engineering step: finish/qualify the **live Windows/OpenClaw production crossing** around `candidates/maintenance/production-crossing-v2/` using exact before-state config/schema/plugin identity, code-owned fixed operations, explicit owner approval binding, backup/checkpoint, dry-run, positive + forbidden negative real-turn canaries, exact post-inventory verification, fresh Benchmark 30/30 and tested rollback.
+A due WorkInstance with an exact PROVEN skill requirement must be selected and routed automatically through the invocation lane.
 
-Do not widen authority to solve this. Engineering Relay remains GREEN and does not authorize arbitrary production mutation. Existing Maintenance v1 staging also does not by itself authorize this new protected Desktop crossing; use the separately-reviewed YELLOW crossing and explicit owner approval before production application.
+Resolution order:
 
-### P0.2 — capability-aware work routing and Work Supply -> Supervisor
+1. existing PROVEN skill -> invoke;
+2. reviewed primitive composition;
+3. missing capability -> research/build -> Skill Lab;
+4. authority-blocked -> smallest scoped owner grant;
+5. true impossibility -> evidence-bearing escalation.
 
-Integrate supplied owner demand into live selection without inventing work and without routing every task through an agent that lacks the needed tool. Dispatch to the qualified worker/lane or deterministic executor that owns the typed capability. Preserve completed occurrence history and bounded retry/cooldown.
+### 3. Repeatable invocation of the existing 33 PROVEN skills
 
-### P0.3 — leases, checkpoints and truthful overnight continuation
+Bind other due owner-value WorkInstances to exact existing PROVEN skill keys. Do not recreate already-PROVEN skills.
 
-`WORKING` requires a live lease plus evidence-producing execution. Long jobs need checkpoint/resume and orphan recovery so real work survives restarts and can continue without fake busy status.
+### 4. Structural renewable work
 
-### P0.4 — authoritative evidence freshness
+Recurring responsibilities create distinct due WorkInstances. Historical completions remain proof.
 
-Prevent older telemetry writers from overwriting newer authoritative assessments. Separate controller telemetry from authoritative state where necessary and enforce monotonic/event-aware publication.
+Never solve `WAITING_ITEM_BUDGETS` by deleting or resetting valid history.
 
-### P0.5 — global blocked-vs-idle truth
+### 5. Incident/Reflection automatic resume
 
-HQ and control-plane status must aggregate all relevant execution lanes. Supervisor `NO_ELIGIBLE_MISSION` is only Supervisor truth; it must not erase active/ready/blocked Skill Lab or other owner work. `TRUE IDLE` is valid only when no active execution, eligible owner work, blocked owner backlog, or due maintenance/growth work exists across the governed system.
+If invoke fails, record the family and resume the original WI. Do not wipe budgets.
 
-### P0.6 — continuous-growth live crossing
+### 6. Missing-capability acquisition loop
 
-After tool routing/supply/leases are healthy, install/enable recurring self-heal, self-maintenance, blocked-work recovery, knowledge-integrity, capability-growth and owner-value scans through already-qualified scheduling/control surfaces. Prove multiple scheduled windows with real leases/checkpoints and no false WORKING state.
+`gap -> research -> candidate -> isolated build -> positive/negative/regression tests -> Skill Lab -> proof -> registry -> invocation -> resume original objective`
 
-### P0.7 — exact retirement of legacy KevinNightForge
+## Do not
 
-Do not delete/disable arbitrary scheduled tasks. Use the YELLOW Production Crossing v2 contract to design a live exact-target retirement wrapper for `KevinNightForge`: verify modern replacement schedulers first, disable-first observation, Benchmark 30/30, then remove only the exact legacy task with rollback proof.
+- Recopy Supervisor v1.8.12 / F17F4B0A. Do not recopy hash `F17F4B0A`. Selector stays `52EADBCA…`.
+- Queue another `install_invocation_worker_v11`. GitHub `ControlPlane/kevin-proven-skill-invoke-worker-v1.ps1` stays `16C49542…`.
+- Re-enable KevinNightForge. Install Hermes, ClawHub, PCClaw, or unvetted skills.
+- Write work lists into HEARTBEAT.md.
+- Reopen COMPLETE parents (`fresh-8`, `*-fresh-2026-09-11`, the closed parts-chase refresh).
+- Mint another `*-fresh-YYYY-MM-DD` pack or new xlsx PROVE alias.
+- Treat cycle++, HQ READY, STAGE_OK, model text, or this prompt as PASS.
+- Claim KEVIN_ACTED for work Bess/Grok closed. Today's refresh is MIXED.
+- Widen GREEN to pizza/Amazon/voice/Minecraft player.
+- Ask Matt to paste worker/reconcile unless floor is stale >20m AND Tick task is dead.
+- Truncate this file. Layer/reader/daily agents write `reports/STATUS.md` and `reports/daily-YYYY-MM-DD.md` only.
+- Blindly self-upgrade OpenClaw.
 
-## GREEN development lane
+## Authority expansion policy
 
-Keep growing useful replayable skills from already-PROVEN primitives. Prefer owner-value composites over synthetic activity. A skill becomes PROVEN only after semantic execution/replay evidence is registered.
+GREEN already covers this next leap. Do **not** solve the current idle by declaring Yellow work Green. Pizza orders, Amazon checkout, voice calls, and public posting remain Delegated Yellow.
 
-Dealer Vehicle Recon and Vehicle Diagnostic Research are now proven. Next owner-value wave should prioritize:
+## Owner-value skill portfolio
 
-1. Cache Valley Appliance Repair launch/readiness pack;
-2. creator monetization/research pipeline;
-3. home/garage organization pack;
-4. crypto research/paper-trading pack with **no live trade authority**;
-5. additional bounded dealership workflows that reduce Matt's real work friction.
+1. Dealer Recon - parts chase, reconditioning, lot readiness, transport and vehicle research.
+2. Vehicle Diagnostics - evidence-backed symptom/test/service-information/parts workflows.
+3. Home & Garage - maintenance, inventory, garden and project workflows.
+4. Appliance Repair - diagnostics, parts, market/pricing and owner-business workflows.
+5. Creator/App Factory - research, drafts, software, images and QA loops.
+6. Research Analyst - multi-source research, freshness, contradictions, provenance/confidence.
+7. Computer Operator - browser/Windows routines and GUI composites.
+8. Communications - HQ chat, Telegram/email, then scoped voice.
+9. Gaming - Minecraft as long-horizon perception/planning/recovery/collaboration benchmark.
+10. Errands/Commerce - GREEN research/preparation, Delegated-Yellow consequential execution.
 
-## YELLOW development lane
+## Required autonomy metrics
 
-YELLOW means build, test, simulate, harden and prepare protected production crossings without silently applying them. Every candidate must have exact scope, owner value, acceptance criteria, negative tests, rollback, bounded retries, evidence plan and explicit production authority boundary.
+Track verified owner outcomes, fresh PROVEN-skill invocations, self-repair success, Bess/Grok interventions, last_actor, and objectives automatically resumed after repair.
 
-No candidate/CI/source artifact may be described as installed, available or autonomous production capability without fresh HESS-PC proof.
+## Stop / escalation rules
 
-## Truth / authority invariants
+- Do not claim source CI as HESS-PC runtime proof.
+- Do not claim a queue write or successive model turns as the owner outcome.
+- Do not reset valid history/budgets simply to create eligible work.
+- Do not manufacture Skill Lab/Forge churn to appear active.
+- Do not hard-code a healthy display over stale/bad truth. Floor is the clock; Support 449 is bleed.
+- Do not widen authority merely to pass a benchmark or produce activity.
+- Do not let Kevin silently redefine the benchmark/verifier/authority/audit system that judges Kevin.
+- For uncertain external effects, do not automatically retry without an idempotency/receipt decision.
+- When technology is ready but authority is blocked, prepare everything possible and surface the smallest scoped Delegated-Yellow grant Matt would need to give.
 
-- Fresh correlated HESS-PC evidence outranks checkpoint prose.
-- Never report model turns, schedules, source code or CI alone as owner outcome proof.
-- Never weaken permission, credential, financial, purchase, external-send, kill-switch or safety boundaries in order to move faster.
-- Engineering Relay stays typed GREEN; no arbitrary shell/code.
-- Protected production change requires the appropriate separately-qualified crossing plus owner/reviewer approval.
-- Keep one outside AI writer on shared Kevin state at a time; Kevin's qualified local schedulers may continue normally.
-- No direct HESS-PC change may disappear into chat history; record it with before/after evidence and rollback.
+## Continuation contract
 
-## Definition of progress
-
-Count progress only when one of these occurs:
-
-- a real defect is repaired and the independent postcondition passes;
-- a blocked owner prerequisite is materially reduced;
-- a reusable skill becomes semantically PROVEN;
-- a YELLOW candidate closes a specific production-safety gap with tests/rollback and no unauthorized production effect;
-- a truth/continuity defect is removed so future operators cannot be misled;
-- a local production change is reconciled to durable evidence with tested postcondition and rollback.
-
-Do not generate churn merely to look active.
+After every substantive transition, publish source/evidence so the canonical handover can advance. Keep repository/source truth separate from HESS-PC runtime truth. Local-only changes are unfinished. 120 minutes of silence for Tick/Supervisor after this merge is the watch. Pass = new public artifacts this chat did not hand-invoke.
 
 ---
 
@@ -245,6 +244,6 @@ Never infer a higher state from a lower one. Never widen authority merely to mak
 
 This handover is generated by `.github/scripts/build-canonical-handover.py` and refreshed by `.github/workflows/canonical-handover.yml`.
 
-Semantic fingerprint: `716085A0B876278B2059C8F5DD8F6E90090B73F1C6BBC313ED12ECE327EC1800`
+Semantic fingerprint: `E978F71CD369C0C0EE2369ADDA57BD0B7D5E9FE5A55A0283202192329F84CAA4`
 
 **Fresh runtime evidence first; one handover; publish every durable local change; then continue.**
