@@ -1,10 +1,10 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-19T23:17:05.3855975-06:00",
+  "generated_at": "2026-09-19T23:20:20.495996-06:00",
   "status": "working",
   "health": {
-    "overall": "degraded",
-    "failed_checks": 1
+    "overall": "healthy",
+    "failed_checks": 0
   },
   "brain": {
     "name": "Qwen 2.5 14B",
@@ -13,18 +13,17 @@
     "tools": true
   },
   "current_task": {
-    "id": "kevin-tick",
-    "title": "g_pc_map PASS",
-    "category": "tick",
-    "phase": "ok n=417",
-    "started_at": "2026-09-19T23:17:05.3855975-06:00",
-    "source": "hq-live-ops"
+    "title": "Harness: g_apps_read PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\APPS-NOW.md",
+    "phase": "Harness: g_apps_read PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\APPS-NOW.md",
+    "source": "now-doing",
+    "started_at": "2026-09-19T23:20:20.495996-06:00",
+    "actor": "KEVIN_TICK"
   },
   "services": {
     "tick": "healthy",
     "bridge": "unknown",
     "ollama": "healthy",
-    "gateway": "unhealthy"
+    "gateway": "healthy"
   },
   "system": {
     "memory_pct": 29,
@@ -1379,15 +1378,15 @@
   ],
   "owl": {
     "level": 4,
-    "state": "degraded"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-09-19T23:17:05.3855975-06:00",
+    "last": "2026-09-19T23:19:37.8169930-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
-    "fails": 1,
-    "summary": "plant down"
+    "fails": 0,
+    "summary": "plant up: Chat + Ollama + Tick"
   },
   "autonomy": {
     "mode": "hourly_design",
@@ -1419,7 +1418,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-19T23:17:05.3855975-06:00",
+    "generated_at": "2026-09-19T23:19:37.8169930-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1473,19 +1472,19 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "ok n=417",
-    "worker": "Kevin Tick",
-    "engine": "KevinTick PT5M + kevin-harness.py",
-    "action": "g_pc_map PASS"
+    "phase": "Harness: g_apps_read PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\APPS-NOW.md",
+    "worker": "KevinTick",
+    "engine": "same-cycle growth",
+    "action": "Harness: g_apps_read PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\APPS-NOW.md"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Kevin Tick | WORKING | ok n=417",
-      "severity": "normal"
+      "text": "Harness: g_apps_read PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\APPS-NOW.md",
+      "severity": "success"
     }
   ],
   "avatar": {
-    "mode": "degraded"
+    "mode": "working"
   }
 }
