@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-21T14:10:19.445956-06:00",
+  "generated_at": "2026-09-21T14:10:53.8699430-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,11 +13,12 @@
     "tools": true
   },
   "current_task": {
-    "title": "Harness: g_failures_to_skill PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\skills\\kevin-avoid\\SKILL.md",
-    "phase": "Harness: g_failures_to_skill PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\skills\\kevin-avoid\\SKILL.md",
-    "source": "now-doing",
-    "started_at": "2026-09-21T14:10:19.445956-06:00",
-    "actor": "KEVIN_TICK"
+    "id": "kevin-tick",
+    "title": "g_failures_to_skill PASS",
+    "category": "tick",
+    "phase": "ok n=5",
+    "started_at": "2026-09-21T14:10:53.8699430-06:00",
+    "source": "hq-live-ops"
   },
   "services": {
     "tick": "healthy",
@@ -1381,7 +1382,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-09-21T14:09:53.8818147-06:00",
+    "last": "2026-09-21T14:10:53.8699430-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1418,34 +1419,34 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-21T14:09:53.8818147-06:00",
+    "generated_at": "2026-09-21T14:10:53.8699430-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
-    "supervisor_active": true,
+    "supervisor_active": false,
     "benchmark_active": false,
     "minecraft_active": false,
     "primary": {
-      "id": "supervisor",
-      "name": "Supervisor",
-      "title": "Supervisor autonomous cycle",
-      "category": "supervisor",
-      "state": "coordinating",
-      "detail": "Goal-aware Supervisor cycle active.",
-      "what": "Selecting and advancing the highest-value authorized mission.",
-      "engine": "Supervisor v1.4",
-      "action": "Mission coordination"
+      "id": "kevin-tick",
+      "name": "Kevin Tick",
+      "title": "g_failures_to_skill PASS",
+      "category": "tick",
+      "state": "working",
+      "detail": "ok n=5",
+      "what": "Harness jobs + plant keep-alive. Supervisor scheduled task is Disabled.",
+      "engine": "KevinTick PT5M + kevin-harness.py",
+      "action": "g_failures_to_skill PASS"
     },
     "lanes": [
       {
         "id": "supervisor",
         "name": "Supervisor",
         "role": "Goal-aware control plane",
-        "state": "coordinating",
-        "detail": "Selecting, evaluating, staging, or recording autonomous work.",
+        "state": "ready",
+        "detail": "No eligible legacy mission. Governed work selection and Task Flow own admission; Forge v4 requires typed demand.",
         "what": "Chooses the highest-value Goal OS mission and drives bounded autonomous improvement.",
         "engine": "Supervisor v1.4",
-        "action": "Autonomous coordination"
+        "action": "Awaiting next 3-minute cycle"
       },
       {
         "id": "benchmark",
@@ -1472,16 +1473,16 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "Harness: g_failures_to_skill PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\skills\\kevin-avoid\\SKILL.md",
-    "worker": "KevinTick",
-    "engine": "same-cycle growth",
-    "action": "Harness: g_failures_to_skill PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\skills\\kevin-avoid\\SKILL.md"
+    "phase": "ok n=5",
+    "worker": "Kevin Tick",
+    "engine": "KevinTick PT5M + kevin-harness.py",
+    "action": "g_failures_to_skill PASS"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Harness: g_failures_to_skill PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\skills\\kevin-avoid\\SKILL.md",
-      "severity": "success"
+      "text": "Kevin Tick | WORKING | ok n=5",
+      "severity": "normal"
     }
   ],
   "avatar": {
