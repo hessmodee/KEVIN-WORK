@@ -1,10 +1,10 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-21T21:40:37.7519515-06:00",
+  "generated_at": "2026-09-21T21:45:20.947329-06:00",
   "status": "working",
   "health": {
-    "overall": "degraded",
-    "failed_checks": 1
+    "overall": "healthy",
+    "failed_checks": 0
   },
   "brain": {
     "name": "Qwen 2.5 14B",
@@ -13,18 +13,17 @@
     "tools": true
   },
   "current_task": {
-    "id": "kevin-tick",
-    "title": "g_cache_valley_index PASS",
-    "category": "tick",
-    "phase": "ok files=2",
-    "started_at": "2026-09-21T21:40:37.7519515-06:00",
-    "source": "hq-live-ops"
+    "title": "Harness: g_tracker_status PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\TRACKER-STATUS.md",
+    "phase": "Harness: g_tracker_status PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\TRACKER-STATUS.md",
+    "source": "now-doing",
+    "started_at": "2026-09-21T21:45:20.947329-06:00",
+    "actor": "KEVIN_TICK"
   },
   "services": {
     "tick": "healthy",
     "bridge": "unknown",
     "ollama": "healthy",
-    "gateway": "unhealthy"
+    "gateway": "healthy"
   },
   "system": {
     "memory_pct": 29,
@@ -1379,15 +1378,15 @@
   ],
   "owl": {
     "level": 4,
-    "state": "degraded"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-09-21T21:40:37.7519515-06:00",
+    "last": "2026-09-21T21:44:47.4305375-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
-    "fails": 1,
-    "summary": "plant down"
+    "fails": 0,
+    "summary": "plant up: Chat + Ollama + Tick"
   },
   "autonomy": {
     "mode": "hourly_design",
@@ -1419,7 +1418,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-21T21:40:37.7519515-06:00",
+    "generated_at": "2026-09-21T21:44:47.4305375-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1473,19 +1472,19 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "ok files=2",
-    "worker": "Kevin Tick",
-    "engine": "KevinTick PT5M + kevin-harness.py",
-    "action": "g_cache_valley_index PASS"
+    "phase": "Harness: g_tracker_status PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\TRACKER-STATUS.md",
+    "worker": "KevinTick",
+    "engine": "same-cycle growth",
+    "action": "Harness: g_tracker_status PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\TRACKER-STATUS.md"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Kevin Tick | WORKING | ok files=2",
-      "severity": "normal"
+      "text": "Harness: g_tracker_status PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\TRACKER-STATUS.md",
+      "severity": "success"
     }
   ],
   "avatar": {
-    "mode": "degraded"
+    "mode": "working"
   }
 }
