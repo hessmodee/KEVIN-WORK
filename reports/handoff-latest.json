@@ -3,8 +3,8 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-22T03:38:06.0154724-06:00",
-  "semantic_fingerprint_sha256": "6EC342DBC19249C3A0D139A3D46D1760211E82FCC2F60781207641B02E444A61",
+  "evidence_updated_at": "2026-09-22T03:39:50.6606885-06:00",
+  "semantic_fingerprint_sha256": "47213C582B6D04B18DAC1930265CB842FD4776CA815169AC8DD6EFFCF46859B4",
   "semantic_checkpoint": {
     "current_task_sha256": "7164A809D57230659150E088CFF99A91636A93CCFA392CDE6CDA7E16C703887D",
     "benchmark": {
@@ -19,8 +19,8 @@
     "autonomy_status": "CONTROLLER_ERROR",
     "autonomy_eligible_count": "UNKNOWN",
     "maintenance": {
-      "status": "EXPIRED_IDLE",
-      "detail": "Expired canonical manifest refused without scheduler failure."
+      "status": "ERROR",
+      "detail": "gh fixed request failed: gh.exe : error connecting to api.github.com  At ~\\.openclaw\\workspace\\kevin-maintenance-runner.ps1:90 char:15  +         $out=(& $gh @CommandArguments 2>&1|Out-String).Trim()  +               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~      +"
     },
     "queues": {
       "ready": 0,
@@ -51,15 +51,15 @@
       {
         "key": "kevin-maintenance-intake-v1",
         "enabled": true,
-        "last_status": "ok",
-        "consecutive_errors": 0,
+        "last_status": "error",
+        "consecutive_errors": 1,
         "every_ms": 300000
       },
       {
         "key": "kevin-supervisor-v1",
         "enabled": true,
-        "last_status": "ok",
-        "consecutive_errors": 0,
+        "last_status": "error",
+        "consecutive_errors": 1,
         "every_ms": 300000
       },
       {
@@ -74,7 +74,7 @@
   "source_hashes": {
     "current_task_sha256": "7164A809D57230659150E088CFF99A91636A93CCFA392CDE6CDA7E16C703887D",
     "engineering_sha256_at_checkpoint": "19722618303CDB36D90580FB1D7CE956217BEA531FA09FD6D575E9F72B1E8677",
-    "support_sha256_at_checkpoint": "D1D6185FE2030DE43C2CBE56E3C14923448652DF2B0AB266BF5F497EE9EC413F",
+    "support_sha256_at_checkpoint": "F6E7A7784E5626988A6541AD46304F9449FDF413BF64348F124F4A5EA95F14B5",
     "autonomy_sha256_at_checkpoint": "9F388186BEDA9A1F58A4688EF0F48FA2860E96851C697BBC91CF6CA3271AC2B1"
   },
   "universal_access": {
@@ -92,7 +92,7 @@
   },
   "runtime_snapshot": {
     "engineering_at_checkpoint": "2026-09-22T03:33:59.4731986-06:00",
-    "support_at_checkpoint": "2026-09-22T03:33:48.4747628-06:00",
+    "support_at_checkpoint": "2026-09-22T03:39:50.6606885-06:00",
     "autonomy_at_checkpoint": "2026-09-22T03:38:06.0154724-06:00",
     "benchmark": {
       "status": "FAIL_CRITICAL_REGRESSION",
@@ -103,8 +103,8 @@
     "ui_bridge_heartbeat_age_seconds_at_checkpoint": 3.2,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
-    "maintenance_status": "EXPIRED_IDLE",
-    "maintenance_detail": "Expired canonical manifest refused without scheduler failure.",
+    "maintenance_status": "ERROR",
+    "maintenance_detail": "gh fixed request failed: gh.exe : error connecting to api.github.com  At ~\\.openclaw\\workspace\\kevin-maintenance-runner.ps1:90 char:15  +         $out=(& $gh @CommandArguments 2>&1|Out-String).Trim()  +               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~      +",
     "proven_composite_skills": 33,
     "maintenance_runner_sha256": "3E11C429D4540DBD5C4F6F7AD60AA1729D2C0A78D7DA209E76F196654589C261"
   },
