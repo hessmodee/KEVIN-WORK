@@ -3,8 +3,8 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-22T03:42:53.4351299-06:00",
-  "semantic_fingerprint_sha256": "BF679A59920E7B34DE1E4BFEBA3ED6B7879B8C58A84EF608C708D000244B95C2",
+  "evidence_updated_at": "2026-09-22T03:45:50.8583048-06:00",
+  "semantic_fingerprint_sha256": "C0D9D240CEC3C44139B10B399611B9062FD156685D416BF651359E682AFF1760",
   "semantic_checkpoint": {
     "current_task_sha256": "7164A809D57230659150E088CFF99A91636A93CCFA392CDE6CDA7E16C703887D",
     "benchmark": {
@@ -19,8 +19,8 @@
     "autonomy_status": "WAITING_ITEM_BUDGETS",
     "autonomy_eligible_count": 5,
     "maintenance": {
-      "status": "ERROR",
-      "detail": "gh fixed request failed: gh.exe : error connecting to api.github.com  At ~\\.openclaw\\workspace\\kevin-maintenance-runner.ps1:90 char:15  +         $out=(& $gh @CommandArguments 2>&1|Out-String).Trim()  +               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~      +"
+      "status": "EXPIRED_IDLE",
+      "detail": "Expired canonical manifest refused without scheduler failure."
     },
     "queues": {
       "ready": 0,
@@ -51,15 +51,15 @@
       {
         "key": "kevin-maintenance-intake-v1",
         "enabled": true,
-        "last_status": "error",
-        "consecutive_errors": 1,
+        "last_status": "ok",
+        "consecutive_errors": 0,
         "every_ms": 300000
       },
       {
         "key": "kevin-supervisor-v1",
         "enabled": true,
-        "last_status": "error",
-        "consecutive_errors": 1,
+        "last_status": "ok",
+        "consecutive_errors": 0,
         "every_ms": 300000
       },
       {
@@ -73,9 +73,9 @@
   },
   "source_hashes": {
     "current_task_sha256": "7164A809D57230659150E088CFF99A91636A93CCFA392CDE6CDA7E16C703887D",
-    "engineering_sha256_at_checkpoint": "8A9F9344F23BEDBBFAA0A4C9E15A6F7F2DB7ADFEED7E20B0767C7E6E19C23760",
-    "support_sha256_at_checkpoint": "EB0B59C2DF4512635828F12288AC9029071BEA0E44771B408CEC1330161D63D5",
-    "autonomy_sha256_at_checkpoint": "494FB9305AF219EA6252153E93DE92AE7FF1E4C3C29AD73EF219BD35C123E184"
+    "engineering_sha256_at_checkpoint": "A30A8F2BBA8F8054B2C46816EA897936E01D9C9FEB1388758422B02A970C30E4",
+    "support_sha256_at_checkpoint": "C7C475F0B6818D669065AE99BC02501E2FB7B3BDC05FDFEC3D1AD8551C794D88",
+    "autonomy_sha256_at_checkpoint": "608675ADA8E910F566E190AB16E2331E9812D3853F06EE5C17211D5BF736E396"
   },
   "universal_access": {
     "github": "https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md",
@@ -91,20 +91,20 @@
     "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at_checkpoint": "2026-09-22T03:42:04.5339066-06:00",
-    "support_at_checkpoint": "2026-09-22T03:42:50.6211767-06:00",
-    "autonomy_at_checkpoint": "2026-09-22T03:42:53.4351299-06:00",
+    "engineering_at_checkpoint": "2026-09-22T03:44:05.0213943-06:00",
+    "support_at_checkpoint": "2026-09-22T03:45:50.8583048-06:00",
+    "autonomy_at_checkpoint": "2026-09-22T03:45:03.2797359-06:00",
     "benchmark": {
       "status": "FAIL_CRITICAL_REGRESSION",
       "passed": 29,
       "total": 30,
       "critical": 1
     },
-    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 5.1,
+    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 1.9,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
-    "maintenance_status": "ERROR",
-    "maintenance_detail": "gh fixed request failed: gh.exe : error connecting to api.github.com  At ~\\.openclaw\\workspace\\kevin-maintenance-runner.ps1:90 char:15  +         $out=(& $gh @CommandArguments 2>&1|Out-String).Trim()  +               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~      +",
+    "maintenance_status": "EXPIRED_IDLE",
+    "maintenance_detail": "Expired canonical manifest refused without scheduler failure.",
     "proven_composite_skills": 33,
     "maintenance_runner_sha256": "3E11C429D4540DBD5C4F6F7AD60AA1729D2C0A78D7DA209E76F196654589C261"
   },
