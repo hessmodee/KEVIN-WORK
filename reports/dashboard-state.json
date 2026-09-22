@@ -1,10 +1,10 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-22T11:56:25.6386723-06:00",
+  "generated_at": "2026-09-22T12:00:27.7458595-06:00",
   "status": "working",
   "health": {
-    "overall": "degraded",
-    "failed_checks": 1
+    "overall": "healthy",
+    "failed_checks": 0
   },
   "brain": {
     "name": "Qwen 2.5 14B",
@@ -17,14 +17,14 @@
     "title": "g_owner_inbox PASS",
     "category": "tick",
     "phase": "ok n=10",
-    "started_at": "2026-09-22T11:56:25.6386723-06:00",
+    "started_at": "2026-09-22T12:00:27.7458595-06:00",
     "source": "hq-live-ops"
   },
   "services": {
     "tick": "healthy",
     "bridge": "unknown",
     "ollama": "healthy",
-    "gateway": "unhealthy"
+    "gateway": "healthy"
   },
   "system": {
     "memory_pct": 29,
@@ -1379,15 +1379,15 @@
   ],
   "owl": {
     "level": 4,
-    "state": "degraded"
+    "state": "working"
   },
   "sync": {
-    "last": "2026-09-22T11:56:25.6386723-06:00",
+    "last": "2026-09-22T12:00:27.7458595-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
-    "fails": 1,
-    "summary": "plant down"
+    "fails": 0,
+    "summary": "plant up: Chat + Ollama + Tick"
   },
   "autonomy": {
     "mode": "hourly_design",
@@ -1419,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-22T11:56:25.6386723-06:00",
+    "generated_at": "2026-09-22T12:00:27.7458595-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1486,6 +1486,6 @@
     }
   ],
   "avatar": {
-    "mode": "degraded"
+    "mode": "working"
   }
 }
