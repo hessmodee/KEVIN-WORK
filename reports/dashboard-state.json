@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-22T21:45:18.461785-06:00",
+  "generated_at": "2026-09-22T21:48:53.0066481-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,11 +13,12 @@
     "tools": true
   },
   "current_task": {
-    "title": "Harness: g_pcclaw_files PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\KEVIN-FILES.md",
-    "phase": "Harness: g_pcclaw_files PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\KEVIN-FILES.md",
-    "source": "now-doing",
-    "started_at": "2026-09-22T21:45:18.461785-06:00",
-    "actor": "KEVIN_TICK"
+    "id": "kevin-tick",
+    "title": "g_pcclaw_files PASS",
+    "category": "tick",
+    "phase": "ok matt",
+    "started_at": "2026-09-22T21:45:52.9210900-06:00",
+    "source": "hq-live-ops"
   },
   "services": {
     "tick": "healthy",
@@ -1381,7 +1382,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-09-22T21:44:52.9033987-06:00",
+    "last": "2026-09-22T21:48:53.0066481-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1418,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-22T21:44:52.9033987-06:00",
+    "generated_at": "2026-09-22T21:48:53.0066481-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1472,16 +1473,16 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "Harness: g_pcclaw_files PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\KEVIN-FILES.md",
-    "worker": "KevinTick",
-    "engine": "same-cycle growth",
-    "action": "Harness: g_pcclaw_files PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\KEVIN-FILES.md"
+    "phase": "ok matt",
+    "worker": "Kevin Tick",
+    "engine": "KevinTick PT5M + kevin-harness.py",
+    "action": "g_pcclaw_files PASS"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Harness: g_pcclaw_files PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\KEVIN-FILES.md",
-      "severity": "success"
+      "text": "Kevin Tick | WORKING | ok matt",
+      "severity": "normal"
     }
   ],
   "avatar": {
