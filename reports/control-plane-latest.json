@@ -1,14 +1,10 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-09-24T01:00:00.9121708-06:00",
-    "request":  {
-                    "id":  "bess-run-ui-watchdog-20260903-1102",
-                    "verb":  "run_typed_maintenance",
-                    "target":  "kevin-maintenance-v1"
-                },
+    "generated_at":  "2026-09-24T01:04:01.3492483-06:00",
+    "request":  null,
     "status":  "FAILED",
-    "detail":  "Ack publish failed: Put \"https://api.github.com/repos/hessmodee/KEVIN-WORK/contents/reports/control-plane-latest.json\": unexpected EOF",
+    "detail":  "GitHub GET failed: Get \"https://api.github.com/repos/hessmodee/KEVIN-WORK/contents/control-plane/orders/CURRENT.json?ref=kevin-control-plane-v1\": net/http: TLS handshake timeout",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
