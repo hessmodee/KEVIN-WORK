@@ -3,8 +3,8 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-24T01:00:19.4308371-06:00",
-  "semantic_fingerprint_sha256": "13E0422460E062AAE8BE7115271B8C44E1834250FE0809FD4BB3B25AFF748199",
+  "evidence_updated_at": "2026-09-24T01:06:22.5571833-06:00",
+  "semantic_fingerprint_sha256": "C0D9D240CEC3C44139B10B399611B9062FD156685D416BF651359E682AFF1760",
   "semantic_checkpoint": {
     "current_task_sha256": "7164A809D57230659150E088CFF99A91636A93CCFA392CDE6CDA7E16C703887D",
     "benchmark": {
@@ -19,8 +19,8 @@
     "autonomy_status": "WAITING_ITEM_BUDGETS",
     "autonomy_eligible_count": 5,
     "maintenance": {
-      "status": "ERROR",
-      "detail": "gh fixed request failed: gh.exe : Get \"https://api.github.com/repos/hessmodee/KEVIN-WORK/contents/inbox/maintenance/manifest.json?ref=main\":   net/http: TLS handshake timeout  At ~\\.openclaw\\workspace\\kevin-maintenance-runner.ps1:90 char:15  +         "
+      "status": "EXPIRED_IDLE",
+      "detail": "Expired canonical manifest refused without scheduler failure."
     },
     "queues": {
       "ready": 0,
@@ -51,8 +51,8 @@
       {
         "key": "kevin-maintenance-intake-v1",
         "enabled": true,
-        "last_status": "error",
-        "consecutive_errors": 1,
+        "last_status": "ok",
+        "consecutive_errors": 0,
         "every_ms": 300000
       },
       {
@@ -73,9 +73,9 @@
   },
   "source_hashes": {
     "current_task_sha256": "7164A809D57230659150E088CFF99A91636A93CCFA392CDE6CDA7E16C703887D",
-    "engineering_sha256_at_checkpoint": "523AFC612146E955D3CA3179D6876521C7B4798C93AD0B2DFF2F3A13DC0E8086",
-    "support_sha256_at_checkpoint": "B36DB0EF4DA7FC128B218AD2DB6A6C859A1593B782F3988D343DF04406E47F11",
-    "autonomy_sha256_at_checkpoint": "F7709660CD1D5A172EE0442FE9683585CAD7DAC114265A062F5D1B0C87AAFC02"
+    "engineering_sha256_at_checkpoint": "83B213B4BD86F4CC5F115C5F75B986A2DAD6FBBB06DEB405A7911C982581F8D4",
+    "support_sha256_at_checkpoint": "7674A8BB79CE96DF53315B8F7777425E789F83B36E2D79793C4C54045A240A72",
+    "autonomy_sha256_at_checkpoint": "5CC0643452EA28F216C6C655386761E7C74427AC2721B21D82952A3E1222898E"
   },
   "universal_access": {
     "github": "https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md",
@@ -91,20 +91,20 @@
     "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at_checkpoint": "2026-09-24T00:55:47.2352182-06:00",
-    "support_at_checkpoint": "2026-09-24T01:00:19.4308371-06:00",
-    "autonomy_at_checkpoint": "2026-09-24T00:53:29.2080909-06:00",
+    "engineering_at_checkpoint": "2026-09-24T01:06:05.1379308-06:00",
+    "support_at_checkpoint": "2026-09-24T01:06:22.5571833-06:00",
+    "autonomy_at_checkpoint": "2026-09-24T01:03:26.2064947-06:00",
     "benchmark": {
       "status": "FAIL_CRITICAL_REGRESSION",
       "passed": 29,
       "total": 30,
       "critical": 1
     },
-    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 4.7,
+    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 2.8,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
-    "maintenance_status": "ERROR",
-    "maintenance_detail": "gh fixed request failed: gh.exe : Get \"https://api.github.com/repos/hessmodee/KEVIN-WORK/contents/inbox/maintenance/manifest.json?ref=main\":   net/http: TLS handshake timeout  At ~\\.openclaw\\workspace\\kevin-maintenance-runner.ps1:90 char:15  +         ",
+    "maintenance_status": "EXPIRED_IDLE",
+    "maintenance_detail": "Expired canonical manifest refused without scheduler failure.",
     "proven_composite_skills": 33,
     "maintenance_runner_sha256": "3E11C429D4540DBD5C4F6F7AD60AA1729D2C0A78D7DA209E76F196654589C261"
   },
