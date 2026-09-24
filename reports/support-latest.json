@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-24T15:49:24.6881992-06:00",
+    "generated_at":  "2026-09-24T15:52:24.6952074-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -57,18 +57,6 @@
                  "ok":  true,
                  "jobs":  [
                               {
-                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
-                                  "declaration_key":  "kevin-supervisor-v1",
-                                  "name":  "Kevin Supervisor v1.6 High Gear",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "error",
-                                  "last_run_status":  "error",
-                                  "consecutive_errors":  1,
-                                  "last_run_at_ms":  1790286252728,
-                                  "next_run_at_ms":  1790286552728
-                              },
-                              {
                                   "id":  "88a986b2-9ab8-4fe7-a738-d7e52930b1d5",
                                   "declaration_key":  "kevin-support-bridge-v1",
                                   "name":  "Kevin Support Bridge v1.1d",
@@ -77,8 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1790286381520,
-                                  "next_run_at_ms":  1790286561520
+                                  "last_run_at_ms":  1790286562276,
+                                  "next_run_at_ms":  1790286742276
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,8 +77,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1790286516407,
-                                  "next_run_at_ms":  1790286576407
+                                  "last_run_at_ms":  1790286696743,
+                                  "next_run_at_ms":  1790286756743
+                              },
+                              {
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.6 High Gear",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1790286602051,
+                                  "next_run_at_ms":  1790286902051
                               },
                               {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
@@ -98,11 +98,11 @@
                                   "name":  "Kevin Maintenance Intake v1.1d",
                                   "enabled":  true,
                                   "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1790286329621,
-                                  "next_run_at_ms":  1790286629621
+                                  "last_status":  "error",
+                                  "last_run_status":  "error",
+                                  "consecutive_errors":  1,
+                                  "last_run_at_ms":  1790286630628,
+                                  "next_run_at_ms":  1790286930628
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -166,16 +166,16 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-09-24T15:45:52.0418945-06:00",
-                        "status":  "EXPIRED_IDLE",
-                        "manifest_id":  "grok-install-worker-v11-20260909-1910",
+                        "at":  "2026-09-24T15:50:44.8152330-06:00",
+                        "status":  "ERROR",
+                        "manifest_id":  "",
                         "stage_path":  "",
-                        "detail":  "Expired canonical manifest refused without scheduler failure."
+                        "detail":  "gh fixed request failed: gh.exe : Get \"https://api.github.com/repos/hessmodee/KEVIN-WORK/contents/inbox/maintenance/manifest.json?ref=main\":   net/http: TLS handshake timeout  At ~\\.openclaw\\workspace\\kevin-maintenance-runner.ps1:90 char:15  +         "
                     },
     "active_workers":  {
                            "design_forge":  0,
                            "night_forge":  0,
-                           "supervisor":  1,
+                           "supervisor":  0,
                            "benchmark":  0
                        },
     "public_truth":  {
@@ -192,5 +192,5 @@
                          "drive_interim":  null,
                          "grants_budget_unlock":  null
                      },
-    "semantic_hash":  "C30771D94D90ACFA36FF51D09EF9E8E81B5654A5FD95EDE4A238A5C16C2ADBD3"
+    "semantic_hash":  "4C6054A53293DF1F895F386FE0E406452DB15ACD7CF6F84CAA32D10A7637D76F"
 }
