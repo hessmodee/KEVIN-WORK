@@ -3,8 +3,8 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-24T21:22:56.1043715-06:00",
-  "semantic_fingerprint_sha256": "113C61D311A6183F63EE6F7BD8F9082091E4A25D22D32A06F61ED911D4298F0E",
+  "evidence_updated_at": "2026-09-24T21:25:05.9346703-06:00",
+  "semantic_fingerprint_sha256": "7E1600E13AB3CBD26717CFBF335B8B4F2F9D473621E4D9078B0B4CDD4BB2BCAA",
   "semantic_checkpoint": {
     "current_task_sha256": "7164A809D57230659150E088CFF99A91636A93CCFA392CDE6CDA7E16C703887D",
     "benchmark": {
@@ -16,8 +16,8 @@
     "ui_bridge_health": "FRESH",
     "ui_bridge_task_present": true,
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
-    "autonomy_status": "CONTROLLER_ERROR",
-    "autonomy_eligible_count": "UNKNOWN",
+    "autonomy_status": "WAITING_ITEM_BUDGETS",
+    "autonomy_eligible_count": 5,
     "maintenance": {
       "status": "ERROR",
       "detail": "gh fixed request failed: gh.exe : Get \"https://api.github.com/repos/hessmodee/KEVIN-WORK/contents/inbox/maintenance/manifest.json?ref=main\":   net/http: TLS handshake timeout  At ~\\.openclaw\\workspace\\kevin-maintenance-runner.ps1:90 char:15  +         "
@@ -73,9 +73,9 @@
   },
   "source_hashes": {
     "current_task_sha256": "7164A809D57230659150E088CFF99A91636A93CCFA392CDE6CDA7E16C703887D",
-    "engineering_sha256_at_checkpoint": "4073E209A30584AE33CF6C8CD66B03623EA1C2C110236E63448832E10BEA26AE",
+    "engineering_sha256_at_checkpoint": "0D4A162090B6516125EB00135E539263F005689053F9D658A07607CDAA169A43",
     "support_sha256_at_checkpoint": "FF74B8D871687F51A05D486528245B8B9D59C41E614A4E0A22F59B9DF0BA02D8",
-    "autonomy_sha256_at_checkpoint": "1DA972D22FD58010F3D61C3BC322086074B1FD346C01C22206EAF4B99F238F66"
+    "autonomy_sha256_at_checkpoint": "5AFAEE45A0C1D3A0EF0E1B34E5694C7ABE521E9E6988C96169650469C7CEC0A5"
   },
   "universal_access": {
     "github": "https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md",
@@ -91,16 +91,16 @@
     "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at_checkpoint": "2026-09-24T21:21:44.6551433-06:00",
+    "engineering_at_checkpoint": "2026-09-24T21:23:33.9545600-06:00",
     "support_at_checkpoint": "2026-09-24T21:22:56.1043715-06:00",
-    "autonomy_at_checkpoint": "2026-09-24T21:20:26.7203304-06:00",
+    "autonomy_at_checkpoint": "2026-09-24T21:25:05.9346703-06:00",
     "benchmark": {
       "status": "FAIL_CRITICAL_REGRESSION",
       "passed": 29,
       "total": 30,
       "critical": 1
     },
-    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 2.7,
+    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 4.3,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
     "maintenance_status": "ERROR",
