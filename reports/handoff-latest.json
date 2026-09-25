@@ -3,8 +3,8 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-24T21:13:55.4402641-06:00",
-  "semantic_fingerprint_sha256": "C0D9D240CEC3C44139B10B399611B9062FD156685D416BF651359E682AFF1760",
+  "evidence_updated_at": "2026-09-24T21:20:26.7203304-06:00",
+  "semantic_fingerprint_sha256": "6EC342DBC19249C3A0D139A3D46D1760211E82FCC2F60781207641B02E444A61",
   "semantic_checkpoint": {
     "current_task_sha256": "7164A809D57230659150E088CFF99A91636A93CCFA392CDE6CDA7E16C703887D",
     "benchmark": {
@@ -16,8 +16,8 @@
     "ui_bridge_health": "FRESH",
     "ui_bridge_task_present": true,
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
-    "autonomy_status": "WAITING_ITEM_BUDGETS",
-    "autonomy_eligible_count": 5,
+    "autonomy_status": "CONTROLLER_ERROR",
+    "autonomy_eligible_count": "UNKNOWN",
     "maintenance": {
       "status": "EXPIRED_IDLE",
       "detail": "Expired canonical manifest refused without scheduler failure."
@@ -73,9 +73,9 @@
   },
   "source_hashes": {
     "current_task_sha256": "7164A809D57230659150E088CFF99A91636A93CCFA392CDE6CDA7E16C703887D",
-    "engineering_sha256_at_checkpoint": "39C80866E7AE99DA40D92E631B1800E4EBAF6778A060CF89856994725C0361F9",
-    "support_sha256_at_checkpoint": "36A23700D5799C97D96D67485C29815CEAA259D1EE22C5E34B786D10137226ED",
-    "autonomy_sha256_at_checkpoint": "229BC07C459903A32021B352E80E332A26997D182ED105ABE306819C0E915E28"
+    "engineering_sha256_at_checkpoint": "D14EB040A525CB4D527AB8080354D8309C6C91BD32066F00801F608B1DDF3343",
+    "support_sha256_at_checkpoint": "21D8972F06DCF20223DFB225AE9AE8F97FF27624D357375866D9F4FBBA866808",
+    "autonomy_sha256_at_checkpoint": "1DA972D22FD58010F3D61C3BC322086074B1FD346C01C22206EAF4B99F238F66"
   },
   "universal_access": {
     "github": "https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md",
@@ -91,16 +91,16 @@
     "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at_checkpoint": "2026-09-24T21:13:37.2319034-06:00",
-    "support_at_checkpoint": "2026-09-24T21:13:55.4402641-06:00",
-    "autonomy_at_checkpoint": "2026-09-24T21:10:45.6503367-06:00",
+    "engineering_at_checkpoint": "2026-09-24T21:15:48.4732649-06:00",
+    "support_at_checkpoint": "2026-09-24T21:16:55.4080314-06:00",
+    "autonomy_at_checkpoint": "2026-09-24T21:20:26.7203304-06:00",
     "benchmark": {
       "status": "FAIL_CRITICAL_REGRESSION",
       "passed": 29,
       "total": 30,
       "critical": 1
     },
-    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 2.2,
+    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 0.1,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
     "maintenance_status": "EXPIRED_IDLE",
