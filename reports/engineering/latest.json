@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-engineering-response",
-    "generated_at":  "2026-09-25T07:36:33.1642442-06:00",
+    "generated_at":  "2026-09-25T07:38:57.1392236-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "sanitized metadata/results only; no configs, environment, credentials, raw prompts, or arbitrary command output",
     "request":  {
-                    "id":  "grok-status-20260913-2240",
-                    "operation":  "action_status",
-                    "status":  "REJECTED",
-                    "detail":  "request created_at too old"
+                    "id":  "",
+                    "operation":  "",
+                    "status":  "FETCH_ERROR",
+                    "detail":  "gh.exe : Get \"https://api.github.com/repos/hessmodee/KEVIN-WORK/contents/inbox/engineering/request.json\": net/http:   TLS handshake timeout  At ~\\.openclaw\\workspace\\kevin-engineering-relay.ps1:89 char:15  +         $out=(\u0026 $gh @Arguments 2\u003e\u00261|Out-String).Trim()  +               ~~~~~~~~~~~~~~~~~~~~~      + CategoryInfo          : NotSpecified: (Get \"https://ap...ndshake timeout:String) [], RemoteException      + FullyQualifiedErrorId : NativeCommandError"
                 },
     "result":  {
 
@@ -27,7 +27,7 @@
                                     },
                    "ui_bridge":  {
                                      "task_present":  true,
-                                     "heartbeat_age_seconds":  3.6
+                                     "heartbeat_age_seconds":  4.6
                                  },
                    "queues":  {
                                   "ready":  0,
@@ -68,13 +68,6 @@
                                     "consecutive_errors":  0
                                 },
                                 {
-                                    "declaration_key":  "kevin-skill-lab-v1",
-                                    "enabled":  true,
-                                    "every_ms":  120000,
-                                    "last_status":  "ok",
-                                    "consecutive_errors":  0
-                                },
-                                {
                                     "declaration_key":  "kevin-support-bridge-v1",
                                     "enabled":  true,
                                     "every_ms":  180000,
@@ -85,6 +78,13 @@
                                     "declaration_key":  "kevin-maintenance-intake-v1",
                                     "enabled":  true,
                                     "every_ms":  300000,
+                                    "last_status":  "ok",
+                                    "consecutive_errors":  0
+                                },
+                                {
+                                    "declaration_key":  "kevin-skill-lab-v1",
+                                    "enabled":  true,
+                                    "every_ms":  120000,
                                     "last_status":  "ok",
                                     "consecutive_errors":  0
                                 },
