@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-25T22:56:13.8176790-06:00",
+  "generated_at": "2026-09-25T23:00:14.0024903-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -14,10 +14,10 @@
   },
   "current_task": {
     "id": "kevin-tick",
-    "title": "g_pcclaw_files PASS",
+    "title": "g_west_motor_next PASS",
     "category": "tick",
-    "phase": "ok matt",
-    "started_at": "2026-09-25T22:56:13.8176790-06:00",
+    "phase": "ok s9=30 s10=16",
+    "started_at": "2026-09-25T23:00:14.0024903-06:00",
     "source": "hq-live-ops"
   },
   "services": {
@@ -1382,7 +1382,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-09-25T22:56:13.8176790-06:00",
+    "last": "2026-09-25T23:00:14.0024903-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-25T22:56:13.8176790-06:00",
+    "generated_at": "2026-09-25T23:00:14.0024903-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1429,13 +1429,13 @@
     "primary": {
       "id": "kevin-tick",
       "name": "Kevin Tick",
-      "title": "g_pcclaw_files PASS",
+      "title": "g_west_motor_next PASS",
       "category": "tick",
       "state": "working",
-      "detail": "ok matt",
+      "detail": "ok s9=30 s10=16",
       "what": "Harness jobs + plant keep-alive. Supervisor scheduled task is Disabled.",
       "engine": "KevinTick PT5M + kevin-harness.py",
-      "action": "g_pcclaw_files PASS"
+      "action": "g_west_motor_next PASS"
     },
     "lanes": [
       {
@@ -1473,15 +1473,15 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "ok matt",
+    "phase": "ok s9=30 s10=16",
     "worker": "Kevin Tick",
     "engine": "KevinTick PT5M + kevin-harness.py",
-    "action": "g_pcclaw_files PASS"
+    "action": "g_west_motor_next PASS"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Kevin Tick | WORKING | ok matt",
+      "text": "Kevin Tick | WORKING | ok s9=30 s10=16",
       "severity": "normal"
     }
   ],
