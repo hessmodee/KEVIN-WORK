@@ -1,14 +1,14 @@
 {
     "schema":  1,
     "kind":  "kevin-control-plane-ack",
-    "generated_at":  "2026-09-26T03:04:00.5335178-06:00",
+    "generated_at":  "2026-09-26T03:06:00.3410393-06:00",
     "request":  {
                     "id":  "bess-run-ui-watchdog-20260903-1102",
                     "verb":  "run_typed_maintenance",
                     "target":  "kevin-maintenance-v1"
                 },
-    "status":  "FAILED",
-    "detail":  "GitHub GET failed: {\"message\": \"We couldn\u0027t respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists.\"}  gh: We couldn\u0027t respond to your request in time. Sorry about that. Please try resubmitting your request and contact us if the problem persists. (HTTP 504)",
+    "status":  "IDLE_TERMINAL",
+    "detail":  "Current work order is already terminal; awaiting replacement",
     "safety":  {
                    "green_only":  true,
                    "arbitrary_shell":  false,
