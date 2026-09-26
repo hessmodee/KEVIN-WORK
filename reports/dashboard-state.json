@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-26T11:59:19.0800428-06:00",
+  "generated_at": "2026-09-26T12:00:19.1785537-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -14,10 +14,10 @@
   },
   "current_task": {
     "id": "kevin-tick",
-    "title": "g_pcclaw_files PASS",
+    "title": "g_upgrade_watch PASS",
     "category": "tick",
-    "phase": "ok matt",
-    "started_at": "2026-09-26T11:55:19.0009904-06:00",
+    "phase": "ok OpenClaw 2026.9.4 (3a9d69d)",
+    "started_at": "2026-09-26T12:00:19.1785537-06:00",
     "source": "hq-live-ops"
   },
   "services": {
@@ -1382,7 +1382,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-09-26T11:59:19.0800428-06:00",
+    "last": "2026-09-26T12:00:19.1785537-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1419,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-26T11:59:19.0800428-06:00",
+    "generated_at": "2026-09-26T12:00:19.1785537-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1429,13 +1429,13 @@
     "primary": {
       "id": "kevin-tick",
       "name": "Kevin Tick",
-      "title": "g_pcclaw_files PASS",
+      "title": "g_upgrade_watch PASS",
       "category": "tick",
       "state": "working",
-      "detail": "ok matt",
+      "detail": "ok OpenClaw 2026.9.4 (3a9d69d)",
       "what": "Harness jobs + plant keep-alive. Supervisor scheduled task is Disabled.",
       "engine": "KevinTick PT5M + kevin-harness.py",
-      "action": "g_pcclaw_files PASS"
+      "action": "g_upgrade_watch PASS"
     },
     "lanes": [
       {
@@ -1473,15 +1473,15 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "ok matt",
+    "phase": "ok OpenClaw 2026.9.4 (3a9d69d)",
     "worker": "Kevin Tick",
     "engine": "KevinTick PT5M + kevin-harness.py",
-    "action": "g_pcclaw_files PASS"
+    "action": "g_upgrade_watch PASS"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Kevin Tick | WORKING | ok matt",
+      "text": "Kevin Tick | WORKING | ok OpenClaw 2026.9.4 (3a9d69d)",
       "severity": "normal"
     }
   ],
