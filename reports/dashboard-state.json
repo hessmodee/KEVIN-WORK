@@ -1,6 +1,6 @@
 {
   "schema": 5,
-  "generated_at": "2026-09-25T18:50:26.771334-06:00",
+  "generated_at": "2026-09-25T18:50:42.7308679-06:00",
   "status": "working",
   "health": {
     "overall": "healthy",
@@ -13,11 +13,12 @@
     "tools": true
   },
   "current_task": {
-    "title": "Harness: g_skill_from_work PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\skills\\west-motor-next\\SKILL.md",
-    "phase": "Harness: g_skill_from_work PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\skills\\west-motor-next\\SKILL.md",
-    "source": "now-doing",
-    "started_at": "2026-09-25T18:50:26.771334-06:00",
-    "actor": "KEVIN_TICK"
+    "id": "kevin-tick",
+    "title": "g_skill_from_work PASS",
+    "category": "tick",
+    "phase": "ok wrote",
+    "started_at": "2026-09-25T18:50:42.7308679-06:00",
+    "source": "hq-live-ops"
   },
   "services": {
     "tick": "healthy",
@@ -1381,7 +1382,7 @@
     "state": "working"
   },
   "sync": {
-    "last": "2026-09-25T18:49:39.6525402-06:00",
+    "last": "2026-09-25T18:50:42.7308679-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
@@ -1418,7 +1419,7 @@
   },
   "ops_floor": {
     "schema": 2,
-    "generated_at": "2026-09-25T18:49:39.6525402-06:00",
+    "generated_at": "2026-09-25T18:50:42.7308679-06:00",
     "source": "Kevin HQ Live Ops v1.5",
     "expedition_active": false,
     "forge_active": false,
@@ -1428,13 +1429,13 @@
     "primary": {
       "id": "kevin-tick",
       "name": "Kevin Tick",
-      "title": "g_owner_inbox PASS",
+      "title": "g_skill_from_work PASS",
       "category": "tick",
       "state": "working",
-      "detail": "ok n=10",
+      "detail": "ok wrote",
       "what": "Harness jobs + plant keep-alive. Supervisor scheduled task is Disabled.",
       "engine": "KevinTick PT5M + kevin-harness.py",
-      "action": "g_owner_inbox PASS"
+      "action": "g_skill_from_work PASS"
     },
     "lanes": [
       {
@@ -1472,16 +1473,16 @@
   "execution": {
     "running": true,
     "state": "working",
-    "phase": "Harness: g_skill_from_work PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\skills\\west-motor-next\\SKILL.md",
-    "worker": "KevinTick",
-    "engine": "same-cycle growth",
-    "action": "Harness: g_skill_from_work PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\skills\\west-motor-next\\SKILL.md"
+    "phase": "ok wrote",
+    "worker": "Kevin Tick",
+    "engine": "KevinTick PT5M + kevin-harness.py",
+    "action": "g_skill_from_work PASS"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Harness: g_skill_from_work PASS score=7 | C:\\Users\\hessm\\.openclaw\\workspace\\skills\\west-motor-next\\SKILL.md",
-      "severity": "success"
+      "text": "Kevin Tick | WORKING | ok wrote",
+      "severity": "normal"
     }
   ],
   "avatar": {
