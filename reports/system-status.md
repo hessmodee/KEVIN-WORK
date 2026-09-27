@@ -1,14 +1,14 @@
-# System status 2026-09-27 16:30
+# System status 2026-09-27 17:00
 Host: HESS-PC
 User: hessm
-RAM used: 10.3 GB
+RAM used: 8.7 GB
 RAM total: 31.9 GB
-RAM load: 32%
-CPU load: 22%
+RAM load: 27%
+CPU load: 7%
 GPU: NVIDIA GeForce RTX 3060
-VRAM used: 11265 MB
+VRAM used: 10720 MB
 VRAM total: 12288 MB
-GPU utilization: 100%
-C: free 76.6 GB
+GPU utilization: 98%
+C: free 80.4 GB
 Ollama: running
 Gateway: open
