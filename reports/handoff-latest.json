@@ -3,8 +3,8 @@
   "kind": "kevin-canonical-handover-machine-twin",
   "canonical_human_authority": "AI-HANDOVER.md",
   "authority_rule": "This JSON is a machine twin only. AI-HANDOVER.md is the one canonical human handover; fresher correlated runtime evidence outranks both.",
-  "evidence_updated_at": "2026-09-28T00:06:00.2141415-06:00",
-  "semantic_fingerprint_sha256": "C0D9D240CEC3C44139B10B399611B9062FD156685D416BF651359E682AFF1760",
+  "evidence_updated_at": "2026-09-28T07:30:46.9697743-06:00",
+  "semantic_fingerprint_sha256": "D217FF7DF85D76E7650BE87B71EDFC5A19AE64059289AB6C804845C31E4BD828",
   "semantic_checkpoint": {
     "current_task_sha256": "7164A809D57230659150E088CFF99A91636A93CCFA392CDE6CDA7E16C703887D",
     "benchmark": {
@@ -44,8 +44,8 @@
       {
         "key": "kevin-hq-live-pulse-v15",
         "enabled": true,
-        "last_status": "ok",
-        "consecutive_errors": 0,
+        "last_status": "error",
+        "consecutive_errors": 1,
         "every_ms": 60000
       },
       {
@@ -73,9 +73,9 @@
   },
   "source_hashes": {
     "current_task_sha256": "7164A809D57230659150E088CFF99A91636A93CCFA392CDE6CDA7E16C703887D",
-    "engineering_sha256_at_checkpoint": "D7B35104FF0E2BF5EBF16EAC1AD5901F0F60FE1CF7CF7800B9E20FEC597F80F7",
-    "support_sha256_at_checkpoint": "F1D210F0A21AD06B3A33512179BA424EFEC7FE7180B6FB0C9D782E56050C8665",
-    "autonomy_sha256_at_checkpoint": "D725C0C490A8C999BF1FE18A3FEA6AA68E354304C5B195411FADD39B6898AC58"
+    "engineering_sha256_at_checkpoint": "29F8FD1C8C9DDB2530062BE3541B3856A3C81B837B4DD01AB64CBE47D3D717FF",
+    "support_sha256_at_checkpoint": "7BD5E3F7547C2E0D1FAC1C9BF495CE22864942D01346BF2DFFCD1F6C77740F22",
+    "autonomy_sha256_at_checkpoint": "1DD56F41037C72A02B4759BFAC6D397911E4101AEB11AEED9DF405D4462F1523"
   },
   "universal_access": {
     "github": "https://github.com/hessmodee/KEVIN-WORK/blob/main/AI-HANDOVER.md",
@@ -91,16 +91,16 @@
     "semantic_no_churn": true
   },
   "runtime_snapshot": {
-    "engineering_at_checkpoint": "2026-09-28T00:06:00.2141415-06:00",
-    "support_at_checkpoint": "2026-09-28T00:00:34.9778076-06:00",
-    "autonomy_at_checkpoint": "2026-09-28T00:02:55.8394790-06:00",
+    "engineering_at_checkpoint": "2026-09-28T07:30:27.3079657-06:00",
+    "support_at_checkpoint": "2026-09-28T07:30:46.9697743-06:00",
+    "autonomy_at_checkpoint": "2026-09-28T07:27:57.7390833-06:00",
     "benchmark": {
       "status": "FAIL_CRITICAL_REGRESSION",
       "passed": 29,
       "total": 30,
       "critical": 1
     },
-    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 3.1,
+    "ui_bridge_heartbeat_age_seconds_at_checkpoint": 2.4,
     "ui_bridge_health": "FRESH",
     "supervisor_last_result": "NO_ELIGIBLE_MISSION",
     "maintenance_status": "EXPIRED_IDLE",
