@@ -1,7 +1,7 @@
-# Kevin board 2026-09-27 22:00
+# Kevin board 2026-09-27 22:30
 
 ## self-check.md
-# Self-check 2026-09-27 22:00
+# Self-check 2026-09-27 22:30
 - PASS: ollama - 11434
 - PASS: gateway - 18789
 - PASS: daily-note - C:\Users\hessm\.openclaw\workspace\memory\2026-09-27.md
@@ -9,29 +9,29 @@
 - PASS: weather-83263.md - C:\Users\hessm\.openclaw\workspace\reports\weather-83263.md
 - PASS: morning-brief-2026-09-27.md - C:\Users\hessm\.openclaw\workspace\reports\morning-brief-2026-09-27.md
 - PASS: BOARD.md - C:\Users\hessm\.openclaw\workspace\reports\BOARD.md
-- PASS: github-bridge - age_min=2.5 pull=None publish=None bridge=ok
+- PASS: github-bridge - age_min=2.1 pull=None publish=None bridge=ok
 fails: 0
 
 
 ## system-status.md
-# System status 2026-09-27 22:00
+# System status 2026-09-27 22:30
 Host: HESS-PC
 User: hessm
-RAM used: 15.1 GB
+RAM used: 10.0 GB
 RAM total: 31.9 GB
-RAM load: 47%
-CPU load: 31%
+RAM load: 31%
+CPU load: 7%
 GPU: NVIDIA GeForce RTX 3060
-VRAM used: 11947 MB
+VRAM used: 10711 MB
 VRAM total: 12288 MB
-GPU utilization: 100%
-C: free 77.5 GB
+GPU utilization: 24%
+C: free 77.3 GB
 Ollama: running
 Gateway: open
 
 
 ## weather-83263.md
-# Weather 83263 - 2026-09-27 22:00
+# Weather 83263 - 2026-09-27 22:30
 
 Preston, ID
 Tonight 51
@@ -40,7 +40,7 @@ Slight Chance Showers And Thunderstorms then Chance Showers And Thunderstorms
 
 
 ## context-latest.md
-# Context 2026-09-27 22:00 America/Boise
+# Context 2026-09-27 22:30 America/Boise
 Place: Preston, Idaho 83263
 
 ## Alerts
@@ -53,13 +53,13 @@ None active.
 
 
 ## morning-brief-2026-09-27.md
-# Morning brief 2026-09-27 22:00 America/Boise
+# Morning brief 2026-09-27 22:30 America/Boise
 
 Place: Preston, Idaho 83263
 
 ## Weather
 
-# Weather 83263 - 2026-09-27 22:00
+# Weather 83263 - 2026-09-27 22:30
 
 Preston, ID
 Tonight 51
