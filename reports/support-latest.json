@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-28T13:00:32.4690561-06:00",
+    "generated_at":  "2026-09-28T13:01:05.5119627-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1790621703120,
-                                  "next_run_at_ms":  1790621883120
-                              },
-                              {
-                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
-                                  "declaration_key":  "kevin-supervisor-v1",
-                                  "name":  "Kevin Supervisor v1.6 High Gear",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1790621583865,
-                                  "next_run_at_ms":  1790621883865
+                                  "last_run_at_ms":  1790621883139,
+                                  "next_run_at_ms":  1790622063139
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,8 +77,20 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1790621876290,
-                                  "next_run_at_ms":  1790621936290
+                                  "last_run_at_ms":  1790622056355,
+                                  "next_run_at_ms":  1790622116355
+                              },
+                              {
+                                  "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
+                                  "declaration_key":  "kevin-supervisor-v1",
+                                  "name":  "Kevin Supervisor v1.6 High Gear",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1790621885161,
+                                  "next_run_at_ms":  1790622185161
                               },
                               {
                                   "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
@@ -98,11 +98,11 @@
                                   "name":  "Kevin Maintenance Intake v1.1d",
                                   "enabled":  true,
                                   "every_ms":  300000,
-                                  "last_status":  "ok",
-                                  "last_run_status":  "ok",
-                                  "consecutive_errors":  0,
-                                  "last_run_at_ms":  1790621658277,
-                                  "next_run_at_ms":  1790621958277
+                                  "last_status":  "error",
+                                  "last_run_status":  "error",
+                                  "consecutive_errors":  1,
+                                  "last_run_at_ms":  1790621958304,
+                                  "next_run_at_ms":  1790622258304
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -120,7 +120,7 @@
                  "error":  ""
              },
     "supervisor":  {
-                       "cycle":  1318,
+                       "cycle":  449,
                        "last_mission":  "",
                        "last_result":  "NO_ELIGIBLE_MISSION",
                        "next_eligible_at":  "2026-09-01T21:32:49.0537454-06:00",
@@ -166,16 +166,16 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-09-28T12:54:19.1773765-06:00",
-                        "status":  "EXPIRED_IDLE",
-                        "manifest_id":  "grok-install-worker-v11-20260909-1910",
+                        "at":  "2026-09-28T12:59:23.9324448-06:00",
+                        "status":  "ERROR",
+                        "manifest_id":  "",
                         "stage_path":  "",
-                        "detail":  "Expired canonical manifest refused without scheduler failure."
+                        "detail":  "gh fixed request failed: gh.exe : invalid character \u0027\u003c\u0027 looking for beginning of value  At ~\\.openclaw\\workspace\\kevin-maintenance-runner.ps1:90 char:15  +         $out=(\u0026 $gh @CommandArguments 2\u003e\u00261|Out-String).Trim()  +               ~~~~~~~~~~~~~~~~~"
                     },
     "active_workers":  {
                            "design_forge":  0,
                            "night_forge":  0,
-                           "supervisor":  1,
+                           "supervisor":  0,
                            "benchmark":  0
                        },
     "public_truth":  {
@@ -192,6 +192,5 @@
                          "drive_interim":  null,
                          "grants_budget_unlock":  null
                      },
-    "semantic_hash":  "B4F7FD8EC42CD9BF5CEDEEA445F316EB4D75A437AC9C590040B02B9AFD9B2D52",
-    "cycle_authority":  "hq-live-floor"
+    "semantic_hash":  "DDF0A9FDC3A0B6578C86957AE2A08618DB08D804777C87DBABD268EC950FD271"
 }
