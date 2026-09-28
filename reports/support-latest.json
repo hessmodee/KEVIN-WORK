@@ -1,7 +1,7 @@
 {
     "schema":  1,
     "kind":  "kevin-support-snapshot",
-    "generated_at":  "2026-09-28T13:04:05.5319753-06:00",
+    "generated_at":  "2026-09-28T13:07:05.5569886-06:00",
     "safe_for_public_repo":  true,
     "public_payload_policy":  "metadata-only; no raw evaluator text, prompts, configs, environment, or secrets",
     "hashes":  {
@@ -65,20 +65,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1790622063153,
-                                  "next_run_at_ms":  1790622243153
-                              },
-                              {
-                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
-                                  "declaration_key":  "kevin-maintenance-intake-v1",
-                                  "name":  "Kevin Maintenance Intake v1.1d",
-                                  "enabled":  true,
-                                  "every_ms":  300000,
-                                  "last_status":  "error",
-                                  "last_run_status":  "error",
-                                  "consecutive_errors":  1,
-                                  "last_run_at_ms":  1790621958304,
-                                  "next_run_at_ms":  1790622258304
+                                  "last_run_at_ms":  1790622243172,
+                                  "next_run_at_ms":  1790622423172
                               },
                               {
                                   "id":  "58d044dc-4a2d-43d3-8247-dd2b108f90f0",
@@ -89,8 +77,8 @@
                                   "last_status":  "ok",
                                   "last_run_status":  "ok",
                                   "consecutive_errors":  0,
-                                  "last_run_at_ms":  1790622236430,
-                                  "next_run_at_ms":  1790622296430
+                                  "last_run_at_ms":  1790622416490,
+                                  "next_run_at_ms":  1790622476490
                               },
                               {
                                   "id":  "af9ced44-a046-4557-a485-edc9114f0c19",
@@ -103,6 +91,18 @@
                                   "consecutive_errors":  0,
                                   "last_run_at_ms":  1790622185180,
                                   "next_run_at_ms":  1790622485180
+                              },
+                              {
+                                  "id":  "a8c55827-8b02-4b07-b264-901b365d239a",
+                                  "declaration_key":  "kevin-maintenance-intake-v1",
+                                  "name":  "Kevin Maintenance Intake v1.1d",
+                                  "enabled":  true,
+                                  "every_ms":  300000,
+                                  "last_status":  "ok",
+                                  "last_run_status":  "ok",
+                                  "consecutive_errors":  0,
+                                  "last_run_at_ms":  1790622258318,
+                                  "next_run_at_ms":  1790622553447
                               },
                               {
                                   "id":  "356865d6-b975-4a83-a6d7-8269c50b3955",
@@ -166,11 +166,11 @@
                               "has_next_experiment":  true
                           },
     "maintenance":  {
-                        "at":  "2026-09-28T12:59:23.9324448-06:00",
-                        "status":  "ERROR",
-                        "manifest_id":  "",
+                        "at":  "2026-09-28T13:04:19.2438163-06:00",
+                        "status":  "EXPIRED_IDLE",
+                        "manifest_id":  "grok-install-worker-v11-20260909-1910",
                         "stage_path":  "",
-                        "detail":  "gh fixed request failed: gh.exe : invalid character \u0027\u003c\u0027 looking for beginning of value  At ~\\.openclaw\\workspace\\kevin-maintenance-runner.ps1:90 char:15  +         $out=(\u0026 $gh @CommandArguments 2\u003e\u00261|Out-String).Trim()  +               ~~~~~~~~~~~~~~~~~"
+                        "detail":  "Expired canonical manifest refused without scheduler failure."
                     },
     "active_workers":  {
                            "design_forge":  0,
@@ -192,5 +192,5 @@
                          "drive_interim":  null,
                          "grants_budget_unlock":  null
                      },
-    "semantic_hash":  "5D51BBF4AB14CD0CDB76417A386A33126C8FAB53884A39ADA702A5DA82C85B24"
+    "semantic_hash":  "721C2361D1718E6C2B2F6E42C4E6BDEE2D678F01A158E543C6928CA31488B21C"
 }
