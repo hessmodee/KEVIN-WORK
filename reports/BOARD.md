@@ -1,7 +1,7 @@
-# Kevin board 2026-10-07 06:00
+# Kevin board 2026-10-07 06:30
 
 ## self-check.md
-# Self-check 2026-10-07 06:00
+# Self-check 2026-10-07 06:30
 - PASS: ollama - 11434
 - PASS: gateway - 18789
 - PASS: daily-note - C:\Users\hessm\.openclaw\workspace\memory\2026-10-07.md
@@ -14,33 +14,33 @@ fails: 0
 
 
 ## system-status.md
-# System status 2026-10-07 06:00
+# System status 2026-10-07 06:30
 Host: HESS-PC
 User: hessm
-RAM used: 9.9 GB
+RAM used: 9.4 GB
 RAM total: 31.9 GB
-RAM load: 30%
-CPU load: 18%
+RAM load: 29%
+CPU load: 20%
 GPU: NVIDIA GeForce RTX 3060
-VRAM used: 1005 MB
+VRAM used: 790 MB
 VRAM total: 12288 MB
-GPU utilization: 31%
-C: free 35.2 GB
+GPU utilization: 0%
+C: free 38.2 GB
 Ollama: running
 Gateway: open
 
 
 ## weather-83263.md
-# Weather 83263 - 2026-10-07 06:00
+# Weather 83263 - 2026-10-07 06:30
 
 Preston, ID
-Overnight 48
-Wind 5 mph
-Clear
+Today 82
+Wind 1 to 5 mph
+Sunny
 
 
 ## context-latest.md
-# Context 2026-10-07 06:00 America/Boise
+# Context 2026-10-07 06:30 America/Boise
 Place: Preston, Idaho 83263
 
 ## Alerts
@@ -53,18 +53,18 @@ None active.
 
 
 ## morning-brief-2026-10-07.md
-# Morning brief 2026-10-07 06:00 America/Boise
+# Morning brief 2026-10-07 06:30 America/Boise
 
 Place: Preston, Idaho 83263
 
 ## Weather
 
-# Weather 83263 - 2026-10-07 06:00
+# Weather 83263 - 2026-10-07 06:30
 
 Preston, ID
-Overnight 48
-Wind 5 mph
-Clear
+Today 82
+Wind 1 to 5 mph
+Sunny
 
 ## Note
 KevinTick is the 15-minute loop. One new skill after this file exists.
