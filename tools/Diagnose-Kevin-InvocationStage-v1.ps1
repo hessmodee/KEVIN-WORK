@@ -1,4 +1,7 @@
-param([switch]$SelfTest)
+param(
+    [switch]$SelfTest,
+    [string]$WorkId = ''
+)
 # Diagnose-Kevin-InvocationStage-v1.ps1
 # GREEN-A/C. Runs builder+stage against live HESS-PC files and publishes ONLY
 # a reason-code (+ hashes). No raw logs, configs, environment, or secrets.
@@ -10,6 +13,10 @@ param([switch]$SelfTest)
 # stages the Supervisor RequestId (invoke-<work-id>) into diagnose-worker-sim
 # (never Action Era). Publishes live worker hashes. Does not recopy Supervisor.
 # Does not replace the live worker pin. Not PASS.
+#
+# v1.3.5: WorkId follows floor/continuation selected_id. Never defaults to a
+# COMPLETE parent (fresh-8). Hash pins restored (Inv 471E5051 / Bld E7381E60).
+# GitHub ControlPlane invoke-worker pin 16C49542 stands.
 
 Set-StrictMode -Version 2.0
 $ErrorActionPreference = 'Continue'
@@ -28,13 +35,11 @@ $SimReady = Join-Path $Workspace 'reports\invocations\diagnose-worker-sim'
 $OutDir = Join-Path $Workspace 'reports\invocations'
 $LiveReady = Join-Path $Workspace 'reports\action-era\queue\ready'
 $Archive = Join-Path $Workspace 'inbox\autonomy\archive'
-$WorkId = 'owner-west-motor-parts-chase-fresh-8-v1'
-$RequestId = 'diagnose-' + $WorkId
-$SupervisorRequestId = 'invoke-' + $WorkId
-$InvExpected$BldExpected$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
-$BldExpected$BldExpected$BldExpected$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
-$WorkerExpectedV1$BldExpected$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
-$WorkerExpectedV11$BldExpected$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
+$InvExpected = '471E505151E211C254FAB9DD090AEA76E7D304B01333FEA03B115D2ECE39B7E8'
+$BldExpected = 'E7381E6051B988A0E36386265A0E09263D88CF83EB2EB2BAC808DF04EB5BB1B3'
+$WorkerExpectedV1 = '16C49542847BBB22EACC09F254C030D2FF03DE0ADFB1B9DA08C9B617C73B0332'
+$WorkerExpectedV11 = 'DC28901FA3326974DF3EE695AFCF5186D506E9DA6F19CE20E3291C93B95DA01A'
+$OperatorExpectedLive = '20CB3740E22E39A59EDDCA2B31D08D6B981D89F3D944A34355C3329EED1CDFE6'
 $WorkerLivePath = Join-Path $Workspace 'ControlPlane\kevin-proven-skill-invoke-worker-v1.ps1'
 $WorkerV11Path = Join-Path $Workspace 'control-plane\autonomy\kevin-proven-skill-invoke-worker-v1.1.ps1'
 
@@ -45,6 +50,37 @@ function Get-Sha256Upper([string]$Path) {
 function Write-Utf8NoBom([string]$Path, [string]$Text) {
     New-Item -ItemType Directory -Force -Path (Split-Path -Parent $Path) | Out-Null
     [IO.File]::WriteAllText($Path, $Text, $Utf8)
+}
+function Get-JsonField([string]$Path, [string]$Name) {
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return '' }
+    try {
+        $o = Get-Content -LiteralPath $Path -Raw -Encoding UTF8 | ConvertFrom-Json
+        $v = $o.$Name
+        if ($null -ne $v) { return [string]$v }
+    } catch {}
+    return ''
+}
+function Get-WorkItemStatus([string]$Id) {
+    if (-not $Id) { return '' }
+    if (-not (Test-Path -LiteralPath $Items -PathType Leaf)) { return '' }
+    try {
+        $wi = Get-Content -LiteralPath $Items -Raw -Encoding UTF8 | ConvertFrom-Json
+        foreach ($it in @($wi.items)) {
+            if ([string]$it.id -eq $Id) { return [string]$it.status }
+        }
+    } catch {}
+    return ''
+}
+function Get-SelectedWorkId {
+    $floor = Join-Path $Workspace 'reports\hq-live-floor.json'
+    $cont = Join-Path $Workspace 'reports\autonomy-continuation-latest.json'
+    foreach ($c in @((Get-JsonField $floor 'selected_id'), (Get-JsonField $cont 'selected_id'))) {
+        if ([string]::IsNullOrWhiteSpace($c)) { continue }
+        $st = (Get-WorkItemStatus $c).ToUpperInvariant()
+        if ($st -in @('COMPLETE', 'COMPLETED', 'DONE', 'CLOSED', 'PROVEN')) { continue }
+        return $c
+    }
+    return ''
 }
 function Reason-FromJson([string]$Text) {
     if ([string]::IsNullOrWhiteSpace($Text)) { return '' }
@@ -90,13 +126,26 @@ function Field-FromJson([string]$Text, [string]$Name) {
     }
     return $null
 }
+function Publish-Reject([hashtable]$reject) {
+    $outPath = Join-Path $OutDir 'latest-public-reject.json'
+    Write-Utf8NoBom $outPath (($reject | ConvertTo-Json -Depth 6) + "`n")
+    Write-Output ($reject | ConvertTo-Json -Depth 6)
+    try {
+        $b64 = [Convert]::ToBase64String($Utf8.GetBytes((Get-Content -Raw $outPath)))
+        $api = 'repos/hessmodee/KEVIN-WORK/contents/reports/invocations/latest-public-reject.json'
+        $sha = $null
+        try { $sha = gh api $api --jq .sha 2>$null } catch {}
+        if ($sha) { gh api --method PUT $api -f message='invocation diagnose' -f content=$b64 -f sha=$sha | Out-Null }
+        else { gh api --method PUT $api -f message='invocation diagnose' -f content=$b64 | Out-Null }
+    } catch { Write-Host "upload skip: $_" }
+}
 
 if ($SelfTest) {
     if ($InvExpected.Length -ne 64) { throw 'inv hash pin' }
     if ($BldExpected.Length -ne 64) { throw 'bld hash pin' }
     if ($WorkerExpectedV1.Length -ne 64) { throw 'worker v1 pin' }
     if ($WorkerExpectedV11.Length -ne 64) { throw 'worker v11 pin' }
-    if ($SupervisorRequestId -ne 'invoke-owner-west-motor-parts-chase-fresh-8-v1') { throw 'supervisor request id' }
+    if ($WorkerExpectedV1 -ne '16C49542847BBB22EACC09F254C030D2FF03DE0ADFB1B9DA08C9B617C73B0332') { throw 'github worker pin drifted' }
     $tb = "Traceback (most recent call last):`n  File `"x.py`", line 1`njson.decoder.JSONDecodeError: Unexpected UTF-8 BOM"
     if ((Reason-FromJson $tb) -ne 'WORK_ITEMS_UTF8_BOM') { throw 'bom reason map' }
     $jsonLine = '{"status": "REJECTED", "reason": "VEHICLE_COUNT_MUST_BE_8"}'
@@ -110,15 +159,41 @@ if ($SelfTest) {
     if ([int](Field-FromJson $nu 'match_count') -ne 2) { throw 'match count 2' }
     $reuse = '{"status": "REJECTED", "reason": "INVOCATION_ID_REUSED_WITH_DIFFERENT_REQUEST"}'
     if ((Reason-FromJson $reuse) -ne 'INVOCATION_ID_REUSED_WITH_DIFFERENT_REQUEST') { throw 'reuse reason' }
-    Write-Host 'KEVIN INVOCATION STAGE DIAGNOSE v1 SELFTEST PASS'
+    if ((Get-Command Get-SelectedWorkId).Name -ne 'Get-SelectedWorkId') { throw 'resolver missing' }
+    Write-Host 'KEVIN INVOCATION STAGE DIAGNOSE v1.3.5 SELFTEST PASS'
     exit 0
 }
 
 New-Item -ItemType Directory -Force -Path $RunRoot, $Ready, $SimReady, $OutDir, $Archive | Out-Null
+
+if (-not $WorkId) { $WorkId = Get-SelectedWorkId }
+if (-not $WorkId) {
+    $rejectEmpty = [ordered]@{
+        schema = 1
+        kind = 'kevin-invocation-public-reject'
+        version = '1.3.5'
+        authority = 'GREEN'
+        generated_at = [datetime]::Now.ToString('o')
+        safe_for_public_repo = $true
+        public_payload_policy = 'reason-code and hashes only; no raw logs, configs, environment, or secrets'
+        work_id_hint = ''
+        reason = 'NO_OPEN_SELECTED_ID'
+        reason_class = 'NO_OPEN_SELECTED_ID'
+        python_exit = 0
+        outcome_proven = $false
+        truth_boundary = 'Floor/continuation selected_id is missing or COMPLETE. Diagnose refuses to default to a COMPLETE parent. Isolated diagnose is not Action Era. Not PASS.'
+    }
+    Publish-Reject $rejectEmpty
+    exit 0
+}
+
+$RequestId = 'diagnose-' + $WorkId
+$SupervisorRequestId = 'invoke-' + $WorkId
 $invHash = Get-Sha256Upper $Invoker
 $bldHash = Get-Sha256Upper $Builder
 $workerLiveHash = Get-Sha256Upper $WorkerLivePath
 $workerV11Hash = Get-Sha256Upper $WorkerV11Path
+$operatorLiveHash = ''
 $workerHasHidden = $false
 if (Test-Path -LiteralPath $WorkerLivePath -PathType Leaf) {
     $workerHasHidden = ([IO.File]::ReadAllText($WorkerLivePath) -match 'Invoke-HiddenPython')
@@ -221,7 +296,7 @@ if ($missing.Count -gt 0) {
                     $sticky = Join-Path $Workspace 'tools\Repair-Kevin-StickyInvokeState-v1.ps1'
                     if (Test-Path -LiteralPath $sticky -PathType Leaf) {
                         try {
-                            $stickyOut = & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $sticky
+                            $stickyOut = & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $sticky -WorkId $WorkId
                             $stickyStatus = Reason-FromJson ([string]$stickyOut)
                             $sc = Field-FromJson ([string]$stickyOut) 'quarantined_count'
                             if ($null -ne $sc) { $stickyCount = [int]$sc }
@@ -265,7 +340,7 @@ if (Test-Path -LiteralPath $LiveReady) {
 $reject = [ordered]@{
     schema = 1
     kind = 'kevin-invocation-public-reject'
-    version = '1.3.2'
+    version = '1.3.5'
     authority = 'GREEN'
     generated_at = [datetime]::Now.ToString('o')
     safe_for_public_repo = $true
@@ -286,6 +361,8 @@ $reject = [ordered]@{
     worker_has_hidden_python = $workerHasHidden
     expected_worker_v1_sha256 = $WorkerExpectedV1
     expected_worker_v11_sha256 = $WorkerExpectedV11
+    expected_live_worker_sha256 = $WorkerExpectedV11
+    expected_live_operator_sha256 = $OperatorExpectedLive
     invocation_py_sha256 = $invHash
     builder_py_sha256 = $bldHash
     expected_invocation_py_sha256 = $InvExpected
@@ -294,9 +371,9 @@ $reject = [ordered]@{
     live_action_era_ready_invoke_count = $liveReadyCount
     isolated_diagnose_queue = $true
     outcome_proven = $false
-    truth_boundary = 'Diagnostic reason-code only. Isolated diagnose queue is not Action Era. Supervisor RequestId sim is not PASS. PASS still requires workbook + note + DONE + hashes + receipt.'
+    truth_boundary = 'Diagnostic reason-code only. Isolated diagnose queue is not Action Era. Supervisor RequestId sim is not PASS. PASS still requires workbook + note + DONE + hashes + receipt. selected_id follows floor, never a COMPLETE parent.'
 }
-# DURABLE_OUTCOME_PROVEN: do not let diagnose lag wipe VERIFY PASS MIXED / live expect pins
+# DURABLE_OUTCOME_PROVEN: only for THIS selected WorkInstance's Supervisor RequestId
 $doneReceiptPath = Join-Path $OutDir ('done\' + $SupervisorRequestId + '.json')
 if (Test-Path -LiteralPath $doneReceiptPath -PathType Leaf) {
     try {
@@ -308,27 +385,14 @@ if (Test-Path -LiteralPath $doneReceiptPath -PathType Leaf) {
             $reject['receipt_status'] = 'PROVEN'
             $reject['receipt_sha256'] = (Get-Sha256Upper $doneReceiptPath)
             $reject['verify_actor'] = 'MIXED'
-            $reject['expected_live_worker_sha256'] = $WorkerExpectedV11
-            $reject['expected_live_operator_sha256'] = $OperatorExpectedLive
-            if (Get-Variable operatorLiveHash -ErrorAction SilentlyContinue) {
+            if ($operatorLiveHash) {
                 $reject['operator_live_sha256'] = $operatorLiveHash
                 $reject['hashes_match_pin'] = (($workerLiveHash -eq $WorkerExpectedV11) -and ($operatorLiveHash -eq $OperatorExpectedLive))
             }
-            $reject.truth_boundary = 'DONE receipt PROVEN. VERIFY PASS MIXED actor. Diagnose must not regress outcome_proven. Install pin expected_worker_v1 remains separate.'
+            $reject.truth_boundary = 'DONE receipt PROVEN for the LIVE selected WorkInstance. VERIFY actor MIXED unless Tick+Supervisor+Action Era closed with no diagnose-* RequestId. Diagnose must not report a COMPLETE parent as the live job.'
         }
     } catch {}
 }
 
-$outPath = Join-Path $OutDir 'latest-public-reject.json'
-Write-Utf8NoBom $outPath (($reject | ConvertTo-Json -Depth 6) + "`n")
-Write-Output ($reject | ConvertTo-Json -Depth 6)
-
-try {
-    $b64 = [Convert]::ToBase64String($Utf8.GetBytes((Get-Content -Raw $outPath)))
-    $api = 'repos/hessmodee/KEVIN-WORK/contents/reports/invocations/latest-public-reject.json'
-    $sha = $null
-    try { $sha = gh api $api --jq .sha 2>$null } catch {}
-    if ($sha) { gh api --method PUT $api -f message='invocation diagnose' -f content=$b64 -f sha=$sha | Out-Null }
-    else { gh api --method PUT $api -f message='invocation diagnose' -f content=$b64 | Out-Null }
-} catch { Write-Host "upload skip: $_" }
+Publish-Reject $reject
 exit 0

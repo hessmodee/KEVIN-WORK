@@ -1,0 +1,21 @@
+name: diagnose-selected-id-v135-proof
+on:
+  pull_request:
+    paths:
+      - "tools/Diagnose-Kevin-InvocationStage-v1.ps1"
+      - "tools/Repair-Kevin-StickyInvokeState-v1.ps1"
+      - "tools/test_diagnose_selected_id_source.py"
+      - ".github/workflows/diagnose-selected-id-v135-proof.yml"
+  push:
+    paths:
+      - "tools/Diagnose-Kevin-InvocationStage-v1.ps1"
+      - "tools/Repair-Kevin-StickyInvokeState-v1.ps1"
+      - "tools/test_diagnose_selected_id_source.py"
+      - ".github/workflows/diagnose-selected-id-v135-proof.yml"
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: selected-id source proof
+        run: python tools/test_diagnose_selected_id_source.py
