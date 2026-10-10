@@ -1,6 +1,6 @@
-﻿# RUNBOOK — Minecraft Realms companion troubleshooting v1
+# RUNBOOK — Minecraft Realms companion troubleshooting v1
 
-**Updated:** 2026-09-05 ~10:20 MT  
+**Updated:** 2026-09-05 ~17:20 MT  
 **Identity:** kevinsk8erkid on HESSMODEE's Realm  
 **Never:** kill Chat 18789 / Reader 19001; mutate JOIN_OK package-lock; bot-login hessmodee.
 
@@ -13,6 +13,9 @@
 | Auth / whoami wrong | IdentityNotAllowed | Use kevinsk8erkid cache only; never hessmodee |
 | Soft close warning | packet_violation | Often residual on disconnect; cool; rejoin; don't thrash |
 | Bot spins / no progress | pathfinder stuck | Cancel goal; re-goal; if body not live, admit coach-only |
+| Frozen at beds / SizeOf reading 'x' | Wrong `player_auth_input` shape or move_player-only chase | See locomotion section below; restart Kevin stay |
+| physicsEnabled crash createPacketBuffer | bedrockflayer physics on Realms inject | Keep physicsEnabled:false; use raw-auth-chase.js |
+
 | Matt damaged by Kevin | friendly fire | Immediate stop; whitelist deny; apologize; diagnose |
 
 ## BLOCKED_MC_UI
@@ -77,3 +80,13 @@
 
 - Elite playbook: `docs/engineering/KEVIN-PLAYBOOK-elite-minecraft-coplayer-v1.md`
 - Research: `docs/engineering/RESEARCH-minecraft-ai-companions-sota-2026-09-05.md`
+
+## auth_input / frozen avatar (2026-09-05)
+
+1. Confirm stay is Kevin-local: `scratch\kevin-minecraft-stack-spike-v0\kevin-stay-chase.cmd` (not CoS puppeteering).
+2. Kill **only** `node rejoin-companion.js` / realms-join companion PIDs — never Chat/Reader/Operator.
+3. Ensure `physicsEnabled:false` in `rejoin-companion.js`.
+4. Ensure `bridge/raw-auth-chase.js` uses #724 / 1.26.45 shape: yaw degrees, move vectors `{x,z}`, full fields, 50ms loop.
+5. Expect logs: `KEVIN_REALMS_JOIN_OK`, `[auth-chase] authInput.chase` with real self coords, no SizeOf crash.
+6. Visible walk still needs Matt eyes — do not claim FOLLOW_OK from logs alone.
+7. LESSON: `docs/engineering/LESSON-BEDROCK-REALMS-LOCOMOTION-2026-09-05.md`
