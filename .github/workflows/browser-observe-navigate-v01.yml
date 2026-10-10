@@ -1,0 +1,44 @@
+name: Browser Observe Navigate v0.1 Gate
+
+on:
+  push:
+    branches: [kevin-browser-observe-navigate-v0.1]
+    paths:
+      - control-plane/browser/**
+      - .github/workflows/browser-observe-navigate-v01.yml
+  pull_request:
+    paths:
+      - control-plane/browser/**
+      - .github/workflows/browser-observe-navigate-v01.yml
+
+permissions:
+  contents: read
+
+jobs:
+  contract-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile
+        run: python -m py_compile control-plane/browser/validate_browser_contract_v0_1.py control-plane/browser/test_validate_browser_contract_v0_1.py
+      - name: Contract tests
+        working-directory: control-plane/browser
+        run: python test_validate_browser_contract_v0_1.py
+      - name: Static no-executor boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('control-plane/browser/validate_browser_contract_v0_1.py').read_text()
+          forbidden=[
+              'import subprocess','from subprocess','os.system','shell=True',
+              'import requests','from requests','urllib.request','import socket','from socket',
+              'import playwright','from playwright','import selenium','from selenium',
+              'powershell','cmd.exe','eval(','exec('
+          ]
+          bad=[x for x in forbidden if x in s]
+          assert not bad,bad
+          assert 'DANGEROUS_SCHEMES' in s
+          assert 'PUBLIC_ONLY' in s
+          assert 'REVALIDATE_EACH_HOP' in s
+          print('PASS pure contract / no browser or network executor surface')
+          PY
