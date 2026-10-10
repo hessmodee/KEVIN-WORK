@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "kind": "kevin-yellow-grant-catalog",
+  "version": "1.0.0",
+  "updated_at": "2026-09-09T16:40:00Z",
+  "authority": "DELEGATED_YELLOW",
+  "rule": "Kevin may PREPARE autonomously. Execution requires a current narrowly scoped owner grant.",
+  "capabilities": [
+    {"id": "Y1", "name": "Pizza order", "action_class": "purchase", "target": "approved merchant", "limit": "one order per grant", "expiry_required": true, "idempotency_required": true, "receipt_required": true, "status": "PREPARE_ONLY"},
+    {"id": "Y2", "name": "Amazon checkout", "action_class": "purchase", "target": "approved product", "limit": "scoped amount", "expiry_required": true, "idempotency_required": true, "receipt_required": true, "status": "PREPARE_ONLY"},
+    {"id": "Y3", "name": "Voice call", "action_class": "communication", "target": "approved contact", "limit": "one call per grant", "expiry_required": true, "idempotency_required": false, "receipt_required": true, "status": "PREPARE_ONLY"},
+    {"id": "Y4", "name": "Public post", "action_class": "post", "target": "approved channel", "limit": "one post per grant", "expiry_required": true, "idempotency_required": true, "receipt_required": true, "status": "PREPARE_ONLY"},
+    {"id": "Y5", "name": "Email send", "action_class": "send", "target": "approved recipient", "limit": "scoped", "expiry_required": true, "idempotency_required": true, "receipt_required": true, "status": "PREPARE_ONLY"},
+    {"id": "Y6", "name": "Account change", "action_class": "account", "target": "approved service", "limit": "scoped", "expiry_required": true, "idempotency_required": true, "receipt_required": true, "status": "PREPARE_ONLY"},
+    {"id": "Y7", "name": "Elevated install", "action_class": "install", "target": "approved package", "limit": "one per grant", "expiry_required": true, "idempotency_required": true, "receipt_required": true, "status": "PREPARE_ONLY"},
+    {"id": "Y8", "name": "Booking", "action_class": "booking", "target": "approved service", "limit": "scoped", "expiry_required": true, "idempotency_required": true, "receipt_required": true, "status": "PREPARE_ONLY"}
+  ],
+  "grant_template": {
+    "schema": 1,
+    "kind": "kevin-yellow-grant",
+    "id": "",
+    "action_class": "",
+    "target": "",
+    "amount_or_scope": "",
+    "count_or_frequency": "",
+    "expires_at": "",
+    "idempotency_key": "",
+    "receipt_required": true,
+    "issued_by": "Matt",
+    "status": "DRAFT"
+  }
+}
