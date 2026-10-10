@@ -1,0 +1,46 @@
+name: Self-Heal GREEN Lane v0.1 Gate
+
+on:
+  push:
+    branches: [self-heal-green-lane-v0.1]
+    paths:
+      - config/desired-state.v1.json
+      - tools/reconcile_dryrun.py
+      - tools/test_reconcile_dryrun.py
+      - .github/workflows/self-heal-green-lane-v01.yml
+  pull_request:
+    paths:
+      - config/desired-state.v1.json
+      - tools/reconcile_dryrun.py
+      - tools/test_reconcile_dryrun.py
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic-safety-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile reconciler
+        run: python -m py_compile tools/reconcile_dryrun.py tools/test_reconcile_dryrun.py
+      - name: Run safety matrix
+        run: python tools/test_reconcile_dryrun.py
+      - name: Validate Desired State invariants
+        run: |
+          python - <<'PY'
+          import json
+          d=json.load(open('config/desired-state.v1.json',encoding='utf-8'))
+          assert d['schema']==1 and d['kind']=='kevin-desired-state'
+          assert d['owner_controlled'] is True
+          assert d['authority']['green_only'] is True
+          assert d['authority']['allow_arbitrary_shell'] is False
+          assert d['authority']['allow_authority_expansion'] is False
+          assert d['authority']['allow_novel_production_promotion'] is False
+          assert d['resources']['heavy_model_slots']==1
+          assert d['failure_policy']['max_same_family_attempts']==3
+          verbs={x['verb'] for x in d['green_registry']}
+          assert verbs=={'run_benchmark','run_support_bridge','ensure_job_enabled','select_alternate_mission'}
+          assert 'automatic_production_promotion' in d['forbidden_authority']
+          print('PASS: Desired State invariants')
+          PY
