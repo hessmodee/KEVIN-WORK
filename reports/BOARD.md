@@ -1,7 +1,7 @@
-# Kevin board 2026-10-11 09:00
+# Kevin board 2026-10-11 09:30
 
 ## self-check.md
-# Self-check 2026-10-11 09:00
+# Self-check 2026-10-11 09:30
 - PASS: ollama - 11434
 - PASS: gateway - 18789
 - PASS: daily-note - C:\Users\hessm\.openclaw\workspace\memory\2026-10-11.md
@@ -14,33 +14,33 @@ fails: 0
 
 
 ## system-status.md
-# System status 2026-10-11 09:00
+# System status 2026-10-11 09:30
 Host: HESS-PC
 User: hessm
-RAM used: 14.1 GB
+RAM used: 13.2 GB
 RAM total: 31.9 GB
-RAM load: 44%
-CPU load: 6%
+RAM load: 41%
+CPU load: 8%
 GPU: NVIDIA GeForce RTX 3060
-VRAM used: 9360 MB
+VRAM used: 820 MB
 VRAM total: 12288 MB
-GPU utilization: 17%
-C: free 18.2 GB
+GPU utilization: 0%
+C: free 18.0 GB
 Ollama: running
 Gateway: open
 
 
 ## weather-83263.md
-# Weather 83263 - 2026-10-11 09:00
+# Weather 83263 - 2026-10-11 09:30
 
 Preston, ID
 Today 59
-Wind 2 to 9 mph
+Wind 2 to 12 mph
 Showers And Thunderstorms
 
 
 ## context-latest.md
-# Context 2026-10-11 09:00 America/Boise
+# Context 2026-10-11 09:30 America/Boise
 Place: Preston, Idaho 83263
 
 ## Alerts
@@ -53,17 +53,17 @@ Place: Preston, Idaho 83263
 
 
 ## morning-brief-2026-10-11.md
-# Morning brief 2026-10-11 09:00 America/Boise
+# Morning brief 2026-10-11 09:30 America/Boise
 
 Place: Preston, Idaho 83263
 
 ## Weather
 
-# Weather 83263 - 2026-10-11 09:00
+# Weather 83263 - 2026-10-11 09:30
 
 Preston, ID
 Today 59
-Wind 2 to 9 mph
+Wind 2 to 12 mph
 Showers And Thunderstorms
 
 ## Note
