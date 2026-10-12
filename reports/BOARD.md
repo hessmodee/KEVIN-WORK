@@ -1,7 +1,7 @@
-# Kevin board 2026-10-11 19:00
+# Kevin board 2026-10-11 19:30
 
 ## self-check.md
-# Self-check 2026-10-11 19:00
+# Self-check 2026-10-11 19:30
 - FAIL: ollama - 11434
 - PASS: gateway - 18789
 - PASS: daily-note - C:\Users\hessm\.openclaw\workspace\memory\2026-10-11.md
@@ -14,24 +14,24 @@ fails: 1
 
 
 ## system-status.md
-# System status 2026-10-11 19:00
+# System status 2026-10-11 19:30
 Host: HESS-PC
 User: hessm
-RAM used: 19.3 GB
+RAM used: 17.5 GB
 RAM total: 31.9 GB
-RAM load: 60%
-CPU load: 25%
+RAM load: 54%
+CPU load: 16%
 GPU: NVIDIA GeForce RTX 3060
-VRAM used: 2719 MB
+VRAM used: 2710 MB
 VRAM total: 12288 MB
-GPU utilization: 46%
-C: free 21.0 GB
+GPU utilization: 42%
+C: free 20.8 GB
 Ollama: down
 Gateway: open
 
 
 ## weather-83263.md
-# Weather 83263 - 2026-10-11 19:00
+# Weather 83263 - 2026-10-11 19:30
 
 Preston, ID
 Tonight 38
@@ -40,11 +40,11 @@ Showers And Thunderstorms then Rain
 
 
 ## context-latest.md
-# Context 2026-10-11 19:00 America/Boise
+# Context 2026-10-11 19:30 America/Boise
 Place: Preston, Idaho 83263
 
 ## Alerts
-- Flood Watch: Flood Watch issued October 11 at 5:35AM MDT until October 12 at 6:00PM MDT by NWS Pocatello ID
+- Flood Watch: Flood Watch issued October 11 at 7:26PM MDT until October 12 at 6:00PM MDT by NWS Pocatello ID
 
 ## On this day
 - 2002: A bomb exploded in the Myyrmanni shopping center in Helsinki, Finland (aftermath pictured), resulting in seven deaths and 159 injuries.
@@ -53,13 +53,13 @@ Place: Preston, Idaho 83263
 
 
 ## morning-brief-2026-10-11.md
-# Morning brief 2026-10-11 19:00 America/Boise
+# Morning brief 2026-10-11 19:30 America/Boise
 
 Place: Preston, Idaho 83263
 
 ## Weather
 
-# Weather 83263 - 2026-10-11 19:00
+# Weather 83263 - 2026-10-11 19:30
 
 Preston, ID
 Tonight 38
