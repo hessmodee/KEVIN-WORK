@@ -1,10 +1,10 @@
 {
   "schema": 5,
-  "generated_at": "2026-10-14T16:40:18.315705-06:00",
-  "status": "working",
+  "generated_at": "2026-10-14T21:10:31.964895-06:00",
+  "status": "degraded",
   "health": {
-    "overall": "healthy",
-    "failed_checks": 0
+    "overall": "degraded",
+    "failed_checks": 1
   },
   "brain": {
     "name": "Qwen 2.5 14B",
@@ -13,17 +13,17 @@
     "tools": true
   },
   "current_task": {
-    "title": "Harness: g_apps_read PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\APPS-NOW.md",
-    "phase": "Harness: g_apps_read PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\APPS-NOW.md",
+    "title": "Harness: g_west_motor_next PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\WEST-MOTOR-NEXT.md",
+    "phase": "Harness: g_west_motor_next PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\WEST-MOTOR-NEXT.md",
     "source": "now-doing",
-    "started_at": "2026-10-14T16:40:18.315705-06:00",
+    "started_at": "2026-10-14T21:10:31.964895-06:00",
     "actor": "KEVIN_TICK"
   },
   "services": {
     "tick": "healthy",
     "bridge": "unknown",
     "ollama": "healthy",
-    "gateway": "healthy"
+    "gateway": "unhealthy"
   },
   "system": {
     "memory_pct": 29,
@@ -1378,15 +1378,15 @@
   ],
   "owl": {
     "level": 4,
-    "state": "working"
+    "state": "degraded"
   },
   "sync": {
     "last": "2026-10-11T13:30:04.1571020-06:00",
     "source": "Kevin HQ Live Ops v1.4"
   },
   "self_check": {
-    "fails": 0,
-    "summary": "plant up: Chat + Ollama + Tick"
+    "fails": 1,
+    "summary": "plant down"
   },
   "autonomy": {
     "mode": "hourly_design",
@@ -1471,20 +1471,20 @@
   },
   "execution": {
     "running": true,
-    "state": "working",
-    "phase": "Harness: g_apps_read PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\APPS-NOW.md",
+    "state": "degraded",
+    "phase": "Harness: g_west_motor_next PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\WEST-MOTOR-NEXT.md",
     "worker": "KevinTick",
     "engine": "same-cycle growth",
-    "action": "Harness: g_apps_read PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\APPS-NOW.md"
+    "action": "Harness: g_west_motor_next PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\WEST-MOTOR-NEXT.md"
   },
   "newswire": [
     {
       "id": "live-ops",
-      "text": "Harness: g_apps_read PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\APPS-NOW.md",
+      "text": "Harness: g_west_motor_next PASS score=7 | C:\\Users\\hessm\\OneDrive\\Desktop\\Kevin Work\\WEST-MOTOR-NEXT.md",
       "severity": "success"
     }
   ],
   "avatar": {
-    "mode": "working"
+    "mode": "degraded"
   }
 }
