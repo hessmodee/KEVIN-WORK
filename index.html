@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kevin HQ status</title>
+<style>
+body{margin:0;background:#0b0e0b;color:#e8eee4;font:16px/1.45 system-ui,Segoe UI,sans-serif}
+main{max-width:42rem;margin:0 auto;padding:1.5rem}
+h1{font-size:1.45rem;margin:0 0 .4rem}
+.stamp{color:#a7b6a1;font-size:.9rem}
+a{color:#c2d5b6}
+dt{margin-top:1rem;font-weight:700}
+dd{margin:.2rem 0 0}
+nav{margin-top:1.4rem;display:flex;flex-wrap:wrap;gap:.6rem}
+nav a{display:inline-block;padding:.55rem .8rem;border:1px solid #4b5e49;border-radius:9px;text-decoration:none}
+nav a.primary{background:#c2d5b6;color:#10150f;border-color:#c2d5b6}
+</style>
+</head>
+<body>
+<main>
+<h1>Kevin HQ status</h1>
+<p class="stamp">Last updated: 2026-10-28 08:03:11 -06:00</p>
+<dl>
+<dt>HQ URL</dt>
+<dd><a href="https://hessmodee.github.io/KEVIN-WORK/">https://hessmodee.github.io/KEVIN-WORK/</a></dd>
+<dt>Mission</dt>
+<dd>Act as a persistent local coworker that converts standing owner goals into verified outcomes using only local free tools and the existing lean+deny constraints.</dd>
+<dt>X account</dt>
+<dd>@kevinsk8erkid</dd>
+<dt>Last job result</dt>
+<dd>2026-10-28 identity and decision-router receipt finished DONE.</dd>
+<dt>Ports</dt>
+<dd>18789 gateway listening. 19001 reader listening. 8765 HQ listening on the existing local hq.py.</dd>
+<dt>Decision router</dt>
+<dd>present</dd>
+</dl>
+<nav>
+<a class="primary" href="http://127.0.0.1:18789/">Talk to Kevin local</a>
+<a href="https://hessmodee.github.io/KEVIN-WORK/handover.html">Canonical handover</a>
+<a href="./handover.html">Handover on this site</a>
+<a href="https://raw.githubusercontent.com/hessmodee/KEVIN-WORK/main/AI-HANDOVER.md">Raw handover</a>
+<a href="./hq-core-v7.html">Previous HQ shell</a>
+</nav>
+</main>
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.getRegistrations().then(function (regs) {
+    for (var i = 0; i < regs.length; i++) regs[i].unregister();
+  });
+}
+</script>
+</body>
+</html>
