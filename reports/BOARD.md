@@ -1,7 +1,7 @@
-# Kevin board 2026-11-07 19:00
+# Kevin board 2026-11-07 19:30
 
 ## self-check.md
-# Self-check 2026-11-07 19:00
+# Self-check 2026-11-07 19:30
 - PASS: ollama - 11434
 - PASS: gateway - 18789
 - PASS: daily-note - C:\Users\hessm\.openclaw\workspace\memory\2026-11-07.md
@@ -14,24 +14,24 @@ fails: 0
 
 
 ## system-status.md
-# System status 2026-11-07 19:00
+# System status 2026-11-07 19:30
 Host: HESS-PC
 User: hessm
-RAM used: 15.4 GB
+RAM used: 13.6 GB
 RAM total: 31.9 GB
-RAM load: 48%
-CPU load: 2%
+RAM load: 42%
+CPU load: 6%
 GPU: NVIDIA GeForce RTX 3060
-VRAM used: 11141 MB
+VRAM used: 1168 MB
 VRAM total: 12288 MB
-GPU utilization: 24%
+GPU utilization: 2%
 C: free 44.4 GB
 Ollama: running
 Gateway: open
 
 
 ## weather-83263.md
-# Weather 83263 - 2026-11-07 19:00
+# Weather 83263 - 2026-11-07 19:30
 
 Preston, ID
 Tonight 33
@@ -40,7 +40,7 @@ Mostly Clear
 
 
 ## context-latest.md
-# Context 2026-11-07 19:00 America/Boise
+# Context 2026-11-07 19:30 America/Boise
 Place: Preston, Idaho 83263
 
 ## Alerts
@@ -53,13 +53,13 @@ None active.
 
 
 ## morning-brief-2026-11-07.md
-# Morning brief 2026-11-07 19:00 America/Boise
+# Morning brief 2026-11-07 19:30 America/Boise
 
 Place: Preston, Idaho 83263
 
 ## Weather
 
-# Weather 83263 - 2026-11-07 19:00
+# Weather 83263 - 2026-11-07 19:30
 
 Preston, ID
 Tonight 33
